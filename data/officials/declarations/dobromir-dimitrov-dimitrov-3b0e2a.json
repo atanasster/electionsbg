@@ -214,7 +214,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobromir-dimitrov-dimitrov-3b0e2a",
@@ -467,6 +468,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 3008",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -484,6 +499,68 @@
     "sourceUrl": "https://register.cacbg.bg/2024/C7C6E6EC-0F89-4723-8930-06007970B7AD193001.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Българско общество по симулационна медицина\"",
+        "detail": null,
+        "location": "член на Управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Българска асоциация по минимално инвазивна и роботизирана хирургия\"",
+        "detail": null,
+        "location": "член на Управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение на медицинските университети в Република България",
+        "detail": null,
+        "location": "Председател",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Българско хирургично дружество\"",
+        "detail": null,
+        "location": "член на Управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение на съвета на ректорите на висшите училища в Република България",
+        "detail": null,
+        "location": "член на Управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

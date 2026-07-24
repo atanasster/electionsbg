@@ -349,6 +349,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Соколово",
+        "municipality": "Балчик",
+        "areaSqm": 1,
+        "builtAreaSqm": 1000,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

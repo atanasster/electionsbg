@@ -159,7 +159,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-dimitrov-manolev-7268ce",
@@ -285,7 +286,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-dimitrov-manolev-7268ce",
@@ -363,6 +365,32 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел, ведно с жилищна сграда и постройка",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 613,
+        "builtAreaSqm": 314,
+        "currency": "BGN",
+        "valueEur": 490000.15338756435,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот - лозе",
+        "detail": null,
+        "location": "с. Кулата",
+        "municipality": "Петрич",
+        "areaSqm": 9716,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 971.4545742728151,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -461,6 +489,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

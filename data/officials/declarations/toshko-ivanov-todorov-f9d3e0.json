@@ -352,7 +352,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-ivanov-todorov-f9d3e0",
@@ -923,7 +924,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-ivanov-todorov-f9d3e0",
@@ -1379,6 +1381,32 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "БМВ Х 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "БМВ Х 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1909,7 +1937,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-ivanov-todorov-f9d3e0",
@@ -2300,7 +2329,8 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-ivanov-todorov-f9d3e0",
@@ -2336,7 +2366,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-ivanov-todorov-f9d3e0",
@@ -2667,7 +2698,8 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-ivanov-todorov-f9d3e0",
@@ -2853,6 +2885,44 @@
         "isSpouse": false,
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Волво ХС 70",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Волво ХС 70",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

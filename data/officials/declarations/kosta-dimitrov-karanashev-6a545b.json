@@ -502,7 +502,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kosta-dimitrov-karanashev-6a545b",
@@ -785,7 +786,8 @@
         "legalBasis": "Договор за продажба от 19.07.2009г.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kosta-dimitrov-karanashev-6a545b",
@@ -1230,6 +1232,20 @@
         "legalBasis": "Договор за продажба от 19.07.2009г.",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Боренци",
+        "municipality": "Котел",
+        "areaSqm": 1000,
+        "builtAreaSqm": 149,
+        "currency": "BGN",
+        "valueEur": 1403.4962138836197,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1356,7 +1372,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kosta-dimitrov-karanashev-6a545b",
@@ -1561,6 +1578,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

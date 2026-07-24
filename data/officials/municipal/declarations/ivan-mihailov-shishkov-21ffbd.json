@@ -26,7 +26,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-mihailov-shishkov-21ffbd",
@@ -42,6 +43,20 @@
     "sourceUrl": "https://register.cacbg.bg/2025/22F51D08-FFD2-4CAA-B064-3F224FDFD4A1209350.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"МИРГ общини Брезово, Калояново и Хисаря\"",
+        "detail": null,
+        "location": "Председател на УС",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

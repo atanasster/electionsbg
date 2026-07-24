@@ -51,6 +51,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мазерати",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

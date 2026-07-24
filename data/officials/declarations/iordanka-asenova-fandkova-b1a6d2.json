@@ -664,6 +664,80 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка  - 3 календарни дни. Нощувки и трансфер. 150 евро/ден",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 299.61704238098406,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка  - 5 календарни дни. Нощувка и трансфер. 90 евро/ден",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 359.9494843621378,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка - 3 календарни дни. Пътни - ОАЕ: гр. Абу Даби и гр. Дубай",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка - 3 календарни дни. Хотелско настаняване. 250 евро/ден",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 499.53216792870546,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка  - 2 календарни дни. Хотелско настаняване. 230 евро/ден",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 229.5700546571021,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка  - 3 календарни дни. Хотелско настаняване. 220 евро/ден",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 439.7110178287479,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1313,7 +1387,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-asenova-fandkova-b1a6d2",
@@ -1980,6 +2055,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел - 1/2 ид.ч.",
+        "detail": null,
+        "location": "с. Бистрица",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 560,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 667.2359049610651,
+        "legalBasis": "замяна с 1/2 ид.ч. от гараж"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "транспорт - самолетни билети",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 287.857329113471,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "нощувки",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 155.43273188365043,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -2634,6 +2747,56 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "самост. обект в сграда - учредяване право на ползване",
+        "detail": null,
+        "location": "гр. Самоков",
+        "municipality": "Самоков",
+        "areaSqm": 32,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до гр. Тел Авив и гр. Йерусалим (Израел)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до гр. Варшава (Полша)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 836.9848095182097,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до гр. Загреб (Хърватска) и гр. Киев (Украйна)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": null
       }
     ]
   },
@@ -3301,6 +3464,44 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "нощувка в гр. Будапеща, Унгария",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "транспорт (включително самолет) и нощувки в гр. Рим, Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "транспорт (включително самолет) и нощувки в гр. Брюксел, Белгия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
       }
     ]
   }

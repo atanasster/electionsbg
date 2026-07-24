@@ -364,6 +364,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек авомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 48572.728713640754,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -508,6 +522,80 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 135,
+        "builtAreaSqm": 170,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 135,
+        "builtAreaSqm": 170,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ателие",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 42,
+        "builtAreaSqm": 49,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ателие",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 42,
+        "builtAreaSqm": 49,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

@@ -46,6 +46,20 @@
         "legalBasis": null,
         "fundsOrigin": "изплатени дивиденти"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "гр.Баня",
+        "municipality": "Карлово",
+        "areaSqm": 491,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7571.210176753603,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -76,6 +90,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

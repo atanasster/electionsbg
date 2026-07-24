@@ -64,6 +64,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Долно изворово",
+        "municipality": "Казанлък",
+        "areaSqm": 560,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -131,6 +145,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

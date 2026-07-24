@@ -400,6 +400,68 @@
         "legalBasis": null,
         "fundsOrigin": "трудово възнаграждение"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр.Черноморец",
+        "municipality": "Созопол",
+        "areaSqm": 86,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "нот.акт за покупко-прод.недвижим имот"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр.Черноморец",
+        "municipality": "Созопол",
+        "areaSqm": 86,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "нот.акт за покупко-прод.недвижим имот"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фиат 500",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10737.129505120589,
+        "legalBasis": "дог.покупко-продажба МПС"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "четериколесно ПС",
+        "detail": "Бомбандиер CANAM",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "дог.покупко-продажба МПС"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ремарке за лек автомобил",
+        "detail": "Ивотрайлерс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "дог.покупко-продажба МПС"
+      }
     ]
   },
   {
@@ -839,7 +901,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудово възнаграждение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zhaklen-iosif-koen-229564",
@@ -1013,6 +1076,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "договири за управление, пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда CR-V",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Договор за дарение по пряка линия,нот.заверен- безвъзмездно"
       }
     ]
   },
@@ -1201,7 +1278,8 @@
         "legalBasis": null,
         "fundsOrigin": "договори за управление"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zhaklen-iosif-koen-229564",
@@ -1370,7 +1448,8 @@
         "legalBasis": null,
         "fundsOrigin": "по договор за управление"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zhaklen-iosif-koen-229564",
@@ -1521,7 +1600,8 @@
         "legalBasis": null,
         "fundsOrigin": "по договор за управление"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zhaklen-iosif-koen-229564",
@@ -1538,7 +1618,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0D202D82-02EA-4D0D-8AF4-EF72FDB54DC192587.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zhaklen-iosif-koen-229564",
@@ -1682,6 +1763,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -232,7 +232,8 @@
         "legalBasis": "пенсия",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-velikova-dicheva-7496f2",
@@ -460,6 +461,20 @@
         "isSpouse": false,
         "legalBasis": "пенсия",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 142,
+        "builtAreaSqm": 127,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "Дарение"
       }
     ]
   }

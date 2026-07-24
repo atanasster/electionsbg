@@ -154,6 +154,20 @@
         "legalBasis": null,
         "fundsOrigin": "хонорари"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВКА",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 647.8068134756088,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -328,6 +342,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Словакия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 245.42010297418489,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Народна Република Китай",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 301.6622099057689,
+        "legalBasis": null
       }
     ]
   }

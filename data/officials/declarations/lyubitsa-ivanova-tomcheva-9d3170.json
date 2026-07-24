@@ -70,6 +70,56 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "currency": "BGN",
+        "valueEur": 32499.75713635643,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Радювене",
+        "municipality": "Ловеч",
+        "areaSqm": 5,
+        "builtAreaSqm": 5,
+        "currency": "BGN",
+        "valueEur": 375.7995326792206,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "с.Радювене",
+        "municipality": "Ловеч",
+        "areaSqm": 13,
+        "builtAreaSqm": 13,
+        "currency": "BGN",
+        "valueEur": 977.0787849659736,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Радювене",
+        "municipality": "Ловеч",
+        "areaSqm": 16,
+        "builtAreaSqm": 16,
+        "currency": "BGN",
+        "valueEur": 1203.5810883358984,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -305,7 +355,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubitsa-ivanova-tomcheva-9d3170",
@@ -360,7 +411,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubitsa-ivanova-tomcheva-9d3170",
@@ -445,7 +497,8 @@
         "legalBasis": "кредит за покупка на имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubitsa-ivanova-tomcheva-9d3170",
@@ -494,7 +547,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubitsa-ivanova-tomcheva-9d3170",
@@ -530,7 +584,8 @@
         "amountEurSpouse": 4160.893329174826
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyubitsa-ivanova-tomcheva-9d3170",
@@ -764,7 +819,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubitsa-ivanova-tomcheva-9d3170",
@@ -781,6 +837,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E3469C2B-72AD-4F40-9007-0728E07D4D1A90181.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

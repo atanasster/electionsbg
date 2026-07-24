@@ -160,7 +160,8 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yanko-vasilev-iordanov-2ca4cc",
@@ -298,6 +299,20 @@
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ШКОДА РУМСТЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
       }
     ]
   }

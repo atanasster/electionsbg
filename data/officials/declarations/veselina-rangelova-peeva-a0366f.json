@@ -21,7 +21,21 @@
         "amountEurSpouse": 16482.516374122497
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "моторно сухопътно ПС",
+        "detail": "Хюндай ix35",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "veselina-rangelova-peeva-a0366f",
@@ -100,6 +114,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

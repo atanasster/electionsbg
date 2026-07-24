@@ -190,7 +190,8 @@
         "legalBasis": "замяна",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-dimitrov-dimitrov-37a39f",
@@ -838,6 +839,56 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Варна",
+        "municipality": "Варна",
+        "areaSqm": 4,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 125010.86495247541,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Варна",
+        "municipality": "Варна",
+        "areaSqm": 4,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 125010.86495247541,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Сеат Алтеа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1503.1981307168824,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Сеат Алтеа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1503.1981307168824,
+        "legalBasis": "възмездно"
       }
     ]
   }

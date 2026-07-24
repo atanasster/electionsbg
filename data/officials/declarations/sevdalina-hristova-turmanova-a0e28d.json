@@ -190,7 +190,8 @@
         "legalBasis": "Договор № 3028945А_auto/16.08.2018",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sevdalina-hristova-turmanova-a0e28d",
@@ -364,6 +365,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, заплати, наеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучителен семинар за членовете на Областната координационна група на област Бургас за учене през целия живот на 13.-14.06.2017 г. в гр. Поморие",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 82.82928475378739,
+        "legalBasis": null
       }
     ]
   }

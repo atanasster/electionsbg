@@ -302,6 +302,20 @@
         "legalBasis": "лизинг за автомобил",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Skoda Superb",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12833.426218025084,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

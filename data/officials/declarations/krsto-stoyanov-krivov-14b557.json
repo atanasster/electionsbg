@@ -88,7 +88,8 @@
         "legalBasis": "Договор за кредит 5.9%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krsto-stoyanov-krivov-14b557",
@@ -177,6 +178,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "БЪЛГАРСКИ МОРСКИ КВАЛИФИКАЦИОНЕН ЦЕНТЪР ЕАД",
+        "detail": null,
+        "location": "Считано от 6.01.2025 не съм представител на държавата и Председател на борда на директорите в дружеството",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -419,6 +434,7 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

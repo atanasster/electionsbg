@@ -400,7 +400,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-zdravkov-ivanov-b9102c",
@@ -514,6 +515,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обзавеждане",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2300.8134653829834,
+        "legalBasis": null
       }
     ]
   },
@@ -708,7 +723,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-zdravkov-ivanov-b9102c",
@@ -883,6 +899,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

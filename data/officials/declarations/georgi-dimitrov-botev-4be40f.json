@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimitrov-botev-4be40f",
@@ -119,7 +120,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimitrov-botev-4be40f",
@@ -198,6 +200,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 639.1148514952731,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -252,7 +268,8 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimitrov-botev-4be40f",
@@ -306,7 +323,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimitrov-botev-4be40f",
@@ -323,7 +341,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/C167B81A-0E9D-4435-AA76-1B5B028603F097165.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-dimitrov-botev-4be40f",
@@ -340,7 +359,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C167B81A-0E9D-4435-AA76-1B5B028603F093017.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-dimitrov-botev-4be40f",
@@ -357,6 +377,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C167B81A-0E9D-4435-AA76-1B5B028603F093018.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

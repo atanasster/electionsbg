@@ -64,7 +64,8 @@
         "legalBasis": "договор за потребителски кредит-5,42 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-ivanov-markov-804c7c",
@@ -117,6 +118,20 @@
         "isSpouse": true,
         "legalBasis": "заплата",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Футболен клуб Спартак- Сандански-юридическо лице с нестоп. цел",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -203,6 +218,7 @@
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

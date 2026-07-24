@@ -279,6 +279,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "двор",
+        "detail": null,
+        "location": "с.Добрина",
+        "municipality": "Провадия",
+        "areaSqm": 570,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "двор",
+        "detail": null,
+        "location": "Добрина",
+        "municipality": "Провадия",
+        "areaSqm": 570,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

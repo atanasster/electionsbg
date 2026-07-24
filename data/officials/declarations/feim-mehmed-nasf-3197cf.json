@@ -40,7 +40,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "feim-mehmed-nasf-3197cf",
@@ -64,7 +65,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракувана"
+      }
+    ]
   },
   {
     "slug": "feim-mehmed-nasf-3197cf",
@@ -88,7 +103,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "feim-mehmed-nasf-3197cf",
@@ -112,7 +128,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "feim-mehmed-nasf-3197cf",
@@ -220,6 +237,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

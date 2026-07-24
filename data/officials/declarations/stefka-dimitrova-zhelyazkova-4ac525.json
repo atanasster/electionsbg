@@ -21,7 +21,8 @@
         "amountEurSpouse": 28919.180092339313
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefka-dimitrova-zhelyazkova-4ac525",
@@ -45,6 +46,20 @@
         "amountEurSpouse": 19405.06076704008
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фиат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      }
+    ]
   }
 ]

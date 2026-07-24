@@ -100,7 +100,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-hristov-vachev-56a4d5",
@@ -130,7 +131,8 @@
         "amountEurSpouse": 3579.0431683735296
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyubomir-hristov-vachev-56a4d5",
@@ -160,7 +162,8 @@
         "amountEurSpouse": 2116.7483881523444
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyubomir-hristov-vachev-56a4d5",
@@ -190,7 +193,8 @@
         "amountEurSpouse": 1079.8484530864134
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyubomir-hristov-vachev-56a4d5",
@@ -220,7 +224,21 @@
         "amountEurSpouse": 1079.8484530864134
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "lyubomir-hristov-vachev-56a4d5",
@@ -237,7 +255,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B7C0F8BF-8B76-4B7A-BCDE-4AB30D0DD93A92128.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyubomir-hristov-vachev-56a4d5",
@@ -327,6 +346,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -33,6 +33,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Български червен кръст",
+        "detail": null,
+        "location": "Член на национален съвет от 30.05.25",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -50,7 +64,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/4D93D8B8-281F-466A-8CEF-8BEF5BF3F807218884.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-kirilov-izov-b8642e",
@@ -446,6 +461,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

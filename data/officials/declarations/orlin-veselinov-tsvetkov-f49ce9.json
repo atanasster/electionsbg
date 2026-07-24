@@ -184,6 +184,20 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5368.564752560294,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -317,6 +331,7 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -344,7 +344,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-georgiev-georgiev-721ae9",
@@ -740,6 +741,44 @@
         "isSpouse": true,
         "legalBasis": "МАСОВА ПРИВАТИЗАЦИЯ",
         "fundsOrigin": "НЯМА"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. ЛИПНИЦА",
+        "municipality": "Ботевград",
+        "areaSqm": 20,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1073.7129505120588,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. ЛИПНИЦА",
+        "municipality": "Ботевград",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "с. ЛИПНИЦА",
+        "municipality": "Ботевград",
+        "areaSqm": 27,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
       }
     ]
   }

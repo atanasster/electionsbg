@@ -556,6 +556,20 @@
         "legalBasis": null,
         "fundsOrigin": "доход ЗП, дивиденти и ренти"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "с.Майор Ценович",
+        "municipality": "Силистра",
+        "areaSqm": 502,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 85.38574415976849,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -767,7 +781,8 @@
         "legalBasis": null,
         "fundsOrigin": "доходи ЗП, дивиденти, ренти и парични средства декларирани в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyuben-zhekov-sivev-199c5d",
@@ -1085,6 +1100,92 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "доходи ЗП, дивиденти и ренти"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Краново",
+        "municipality": "Кайнарджа",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 492.37408159195843,
+        "legalBasis": "възмездно (делба)"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Краново",
+        "municipality": "Кайнарджа",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 310.3541718861046,
+        "legalBasis": "възмездно (делба)"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Краново",
+        "municipality": "Кайнарджа",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 492.37408159195843,
+        "legalBasis": "възмездно (делба)"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Краново",
+        "municipality": "Кайнарджа",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 310.3541718861046,
+        "legalBasis": "възмездно (делба)"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.краново",
+        "municipality": "Кайнарджа",
+        "areaSqm": 28,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно (отказ от вещни права)"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Краново",
+        "municipality": "Кайнарджа",
+        "areaSqm": 11,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно (отказ от вещни права)"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "Мицубиши Л200",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1615,6 +1716,7 @@
         "legalBasis": null,
         "fundsOrigin": "доходи ЗП, дивиденти и ренти"
       }
-    ]
+    ],
+    "events": []
   }
 ]

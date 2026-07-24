@@ -351,7 +351,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ginka-nikolaeva-mashova-stancheva-46cbc5",
@@ -442,6 +443,20 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "село Белчин",
+        "municipality": "Самоков",
+        "areaSqm": 1700,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -815,7 +830,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ginka-nikolaeva-mashova-stancheva-46cbc5",
@@ -832,6 +848,7 @@
     "sourceUrl": "https://register.cacbg.bg/2023/5B425A50-E382-443F-847C-277D24B5174E155978.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

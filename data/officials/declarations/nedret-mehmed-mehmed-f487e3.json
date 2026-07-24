@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedret-mehmed-mehmed-f487e3",
@@ -130,6 +131,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолсваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 250.53302178614706,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-mitkov-nachev-54156b",
@@ -100,6 +101,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -324,7 +339,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-mitkov-nachev-54156b",
@@ -431,6 +447,20 @@
         "isSpouse": true,
         "legalBasis": "заплата",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен, ул. Г. Кочев 16",
+        "municipality": "Плевен",
+        "areaSqm": 97,
+        "builtAreaSqm": 97,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

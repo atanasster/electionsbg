@@ -405,7 +405,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zhenya-nedelcheva-karailieva-georgieva-1d0b1f",
@@ -784,6 +785,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "конгрес по ендокринология",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 181.50861782465756,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1157,6 +1184,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "конгрес Пловдив",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "конгрес EASD Берлин",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 659.5665267431218,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1174,7 +1227,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5B0C7830-2E40-4DFA-AD4A-CF5EF6C9EB6289642.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zhenya-nedelcheva-karailieva-georgieva-1d0b1f",
@@ -1570,6 +1624,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

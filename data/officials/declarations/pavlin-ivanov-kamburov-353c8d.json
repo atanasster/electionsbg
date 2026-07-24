@@ -130,7 +130,8 @@
         "legalBasis": "договор за КК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-ivanov-kamburov-353c8d",
@@ -281,6 +282,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "хонда црв",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1380.48807922979,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -396,7 +411,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-ivanov-kamburov-353c8d",
@@ -547,7 +563,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-ivanov-kamburov-353c8d",
@@ -830,7 +847,8 @@
         "legalBasis": "кредит-овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-ivanov-kamburov-353c8d",
@@ -1082,7 +1100,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-ivanov-kamburov-353c8d",
@@ -1099,7 +1118,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1391D1C3-D4CD-42B1-AABF-1B8F7F945BEA88947.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pavlin-ivanov-kamburov-353c8d",
@@ -1315,6 +1335,7 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

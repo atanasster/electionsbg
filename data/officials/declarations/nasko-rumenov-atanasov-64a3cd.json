@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "от заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nasko-rumenov-atanasov-64a3cd",
@@ -155,7 +156,8 @@
         "legalBasis": "остатък",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nasko-rumenov-atanasov-64a3cd",
@@ -216,7 +218,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nasko-rumenov-atanasov-64a3cd",
@@ -337,7 +340,8 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nasko-rumenov-atanasov-64a3cd",
@@ -416,6 +420,20 @@
         "legalBasis": "остатък по кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Страсбург Франция Командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 741.3732277345168,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -476,6 +494,32 @@
         "isSpouse": true,
         "legalBasis": "Стоки на кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение в сащ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 3496.213883619742,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Белфаст - Съвет на  командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 523.5628863449277,
+        "legalBasis": null
       }
     ]
   },
@@ -549,7 +593,8 @@
         "legalBasis": "договор за стоков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nasko-rumenov-atanasov-64a3cd",
@@ -566,6 +611,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/AD764498-DD0D-4DE5-82DA-E7FF865FCC0F91259.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

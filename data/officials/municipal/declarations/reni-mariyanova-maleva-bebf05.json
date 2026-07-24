@@ -51,6 +51,32 @@
         "legalBasis": "замяна",
         "fundsOrigin": "няма"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Мъглиж,ул.8-ми март 10",
+        "municipality": "Мъглиж",
+        "areaSqm": 52,
+        "builtAreaSqm": 181,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сузуки Гранд Витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "замяна"
+      }
     ]
   }
 ]

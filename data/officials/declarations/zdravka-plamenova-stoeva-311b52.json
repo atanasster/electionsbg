@@ -76,6 +76,56 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 110,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 68500.32978326337,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 110,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 68500.32978326337,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -310,7 +360,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zdravka-plamenova-stoeva-311b52",
@@ -327,6 +378,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/F07EC57B-B851-4C90-9F1A-C250E613E4D7180744.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

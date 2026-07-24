@@ -105,7 +105,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-hristov-stoyanov-042661",
@@ -202,7 +203,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-hristov-stoyanov-042661",
@@ -263,7 +265,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-hristov-stoyanov-042661",
@@ -324,7 +327,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-hristov-stoyanov-042661",
@@ -570,7 +574,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-hristov-stoyanov-042661",
@@ -816,7 +821,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-hristov-stoyanov-042661",
@@ -1061,6 +1067,32 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Фолксваген- Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Фолксваген- Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
       }
     ]
   }

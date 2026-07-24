@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/209A4BFC-984C-4740-BFA1-44E4A014DEEF146941.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lilyana-velikova-rats-ed22ce",
@@ -44,7 +45,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lilyana-velikova-rats-ed22ce",
@@ -111,6 +113,32 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 40,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 17332.794772551806,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -128,7 +156,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/209A4BFC-984C-4740-BFA1-44E4A014DEEF114764.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lilyana-velikova-rats-ed22ce",
@@ -200,7 +229,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lilyana-velikova-rats-ed22ce",
@@ -224,6 +254,7 @@
         "amountEurSpouse": 0
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

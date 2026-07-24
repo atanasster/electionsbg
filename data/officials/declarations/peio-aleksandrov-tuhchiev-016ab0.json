@@ -106,6 +106,56 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Екскурзия из Европа",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Почивка в Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Екскурзия в Румъния",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до Швейцария",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -154,6 +204,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Малдиви",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7158.086336747059,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
       }
     ]
   },
@@ -215,6 +291,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Малдиви",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
       }
     ]
   }

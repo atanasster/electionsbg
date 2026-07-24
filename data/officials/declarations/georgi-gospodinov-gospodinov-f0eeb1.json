@@ -58,6 +58,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен Ц5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4448.2393664071005,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -119,6 +133,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2096.296712904496,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -136,7 +164,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/61087066-28A3-4F75-B00C-FB0BBCB22509180460.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-gospodinov-gospodinov-f0eeb1",
@@ -280,7 +309,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-gospodinov-gospodinov-f0eeb1",
@@ -424,6 +454,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

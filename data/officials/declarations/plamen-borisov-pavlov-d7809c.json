@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-borisov-pavlov-d7809c",
@@ -202,7 +203,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-borisov-pavlov-d7809c",
@@ -316,6 +318,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 101,
+        "builtAreaSqm": 101,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -449,6 +465,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Мелцедес бенц",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
       }
     ]
   }

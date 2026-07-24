@@ -178,7 +178,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagoi-gavrilov-golubarev-0aa066",
@@ -359,6 +360,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд Мондео от 2003 г.",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -486,6 +501,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9458.899802130041,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -503,7 +532,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/A4A42881-7C7E-4F57-B649-74D7C660944A131552.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "blagoi-gavrilov-golubarev-0aa066",
@@ -791,6 +821,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

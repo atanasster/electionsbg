@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sava-nikolov-bozukov-edecfd",
@@ -83,7 +84,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sava-nikolov-bozukov-edecfd",
@@ -126,7 +128,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sava-nikolov-bozukov-edecfd",
@@ -187,6 +190,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Сафран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -230,7 +247,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sava-nikolov-bozukov-edecfd",
@@ -273,7 +291,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sava-nikolov-bozukov-edecfd",
@@ -381,7 +400,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sava-nikolov-bozukov-edecfd",
@@ -398,6 +418,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/AC5D5D82-AE65-4815-90D6-0DF278C0AB4588585.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -178,6 +178,20 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 63,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 195000.07669378218,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -479,7 +493,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-traikov-todorov-e99eb5",
@@ -515,7 +530,8 @@
         "legalBasis": "продажба на недвижимия имот - обезпечение на кредита",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-traikov-todorov-e99eb5",
@@ -828,6 +844,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 76,
+        "builtAreaSqm": 97,
+        "currency": "BGN",
+        "valueEur": 204999.92330621782,
+        "legalBasis": "продажба на недвижим имот"
+      }
     ]
   },
   {
@@ -1057,7 +1087,8 @@
         "legalBasis": "съдлъжник банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-traikov-todorov-e99eb5",
@@ -1273,6 +1304,32 @@
         "isSpouse": true,
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 78,
+        "builtAreaSqm": 96,
+        "currency": "BGN",
+        "valueEur": 151999.918193299,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 43,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 69024.4039614895,
+        "legalBasis": "възмездно"
       }
     ]
   }

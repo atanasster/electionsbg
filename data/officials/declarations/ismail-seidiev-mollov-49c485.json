@@ -268,7 +268,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ismail-seidiev-mollov-49c485",
@@ -497,6 +498,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВКА Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1025.140221798418,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -714,6 +729,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВКА ЗАЛЦБУРГ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 645.761645950824,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -731,7 +760,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/90F681C4-41DD-425D-AEAC-ED64394D18F390572.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ismail-seidiev-mollov-49c485",
@@ -929,6 +959,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

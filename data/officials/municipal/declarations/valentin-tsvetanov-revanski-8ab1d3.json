@@ -249,6 +249,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "гр.Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 87,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 2530.8948119212814,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "гр.Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 87,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 2530.8948119212814,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

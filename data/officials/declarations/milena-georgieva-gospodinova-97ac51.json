@@ -21,7 +21,8 @@
         "amountEurSpouse": 0
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milena-georgieva-gospodinova-97ac51",
@@ -135,6 +136,44 @@
         "isSpouse": true,
         "legalBasis": "ипотека",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Комуникационен семинар",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 240.30718416222268,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "квалификационен семинар",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 125.26651089307353,
+        "legalBasis": null
       }
     ]
   }

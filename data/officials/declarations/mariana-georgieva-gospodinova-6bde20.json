@@ -292,6 +292,32 @@
         "legalBasis": "Банков заем, ЛП 2,10%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартатмент",
+        "detail": null,
+        "location": "Пловдив, бул. Източен 34",
+        "municipality": "Пловдив",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотопед",
+        "detail": "МБК",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -563,6 +589,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

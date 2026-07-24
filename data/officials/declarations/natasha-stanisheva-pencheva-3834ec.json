@@ -159,7 +159,8 @@
         "legalBasis": "Договор за покупка на имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "natasha-stanisheva-pencheva-3834ec",
@@ -302,6 +303,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Патрол",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": "възмездно"
       }
     ]
   }

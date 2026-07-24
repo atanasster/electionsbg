@@ -99,6 +99,32 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "СИТРОЕН БЕРЛИНГО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2760.97615845958,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "СИТРОЕН БЕРЛИНГО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3420.5426852027017,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

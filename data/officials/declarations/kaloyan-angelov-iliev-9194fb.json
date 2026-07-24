@@ -76,7 +76,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kaloyan-angelov-iliev-9194fb",
@@ -137,7 +138,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kaloyan-angelov-iliev-9194fb",
@@ -215,6 +217,32 @@
         "isSpouse": false,
         "legalBasis": "Оувърдрафт",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "етаж от къща",
+        "detail": null,
+        "location": "с.Черньово",
+        "municipality": "Ихтиман",
+        "areaSqm": 130,
+        "builtAreaSqm": 130,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Черньово",
+        "municipality": "Ихтиман",
+        "areaSqm": 220,
+        "builtAreaSqm": 220,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -385,6 +413,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

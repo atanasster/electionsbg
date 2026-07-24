@@ -100,6 +100,20 @@
         "legalBasis": "договор за строеж",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 500,
+        "builtAreaSqm": 500,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -221,6 +235,7 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

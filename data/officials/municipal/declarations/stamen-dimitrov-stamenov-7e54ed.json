@@ -81,7 +81,8 @@
         "legalBasis": "договор за лизинг, 1,5%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stamen-dimitrov-stamenov-7e54ed",
@@ -115,6 +116,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПК\"Възкресение\"",
+        "detail": null,
+        "location": "Председател на ПК \"Възкресение\"",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

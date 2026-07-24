@@ -250,6 +250,20 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес Бенц",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -460,6 +474,56 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредитна крата",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "гр. Раковски",
+        "municipality": "Раковски",
+        "areaSqm": 140,
+        "builtAreaSqm": 349,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Раковски",
+        "municipality": "Раковски",
+        "areaSqm": 999,
+        "builtAreaSqm": 69,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр. Раковски",
+        "municipality": "Раковски",
+        "areaSqm": 12,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Посещение на европейския парламент по покана на евродепутат Асим Адемов",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 499.53216792870546,
+        "legalBasis": null
       }
     ]
   },
@@ -708,7 +772,8 @@
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iosif-serafimov-yachev-0a71a0",
@@ -924,7 +989,8 @@
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iosif-serafimov-yachev-0a71a0",
@@ -941,6 +1007,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/4A412B31-5954-4476-9D73-82C740410D6889324.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

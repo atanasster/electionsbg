@@ -214,6 +214,20 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Jeep Grand cherokee",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13804.8807922979,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -329,7 +343,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ilian-kirilov-georgiev-33e9db",
@@ -504,7 +519,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ilian-kirilov-georgiev-33e9db",
@@ -534,7 +550,8 @@
         "amountEurSpouse": 202.47158495370252
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ilian-kirilov-georgiev-33e9db",
@@ -564,7 +581,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ilian-kirilov-georgiev-33e9db",
@@ -708,7 +726,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ilian-kirilov-georgiev-33e9db",
@@ -725,6 +744,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/BE6A8A96-CD1E-4FA0-8F08-0B7030F27BED89481.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

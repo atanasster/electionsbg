@@ -129,6 +129,32 @@
         "legalBasis": "Договор за ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "Севлиево",
+        "municipality": "Севлиево",
+        "areaSqm": 363,
+        "builtAreaSqm": 363,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "Севлиево",
+        "municipality": "Севлиево",
+        "areaSqm": 125,
+        "builtAreaSqm": 125,
+        "currency": "BGN",
+        "valueEur": 112484.21386316807,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Индивидуална подкрепа",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 295.0154154502181,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -184,6 +198,68 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Индивидуална подкрепа",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 567.5339881278026,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 399.83025109544286,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Самолетни билети, транспорт",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 691.2666233772874,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Нощувка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 112.99550574436428,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Застраховка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10.22583762392437,
+        "legalBasis": null
       }
     ]
   }

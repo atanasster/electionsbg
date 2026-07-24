@@ -231,7 +231,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gavril-metodiev-mitov-91192f",
@@ -267,7 +268,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gavril-metodiev-mitov-91192f",
@@ -310,7 +312,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gavril-metodiev-mitov-91192f",
@@ -352,6 +355,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и продажба на земеделска земя"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Земеделска земя",
+        "detail": null,
+        "location": "с.Чемиш",
+        "municipality": "Георги Дамяново",
+        "areaSqm": 7,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5215.177188201428,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -396,7 +413,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gavril-metodiev-mitov-91192f",
@@ -583,6 +601,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

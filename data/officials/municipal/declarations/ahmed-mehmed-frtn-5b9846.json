@@ -26,6 +26,32 @@
         "amountEurSpouse": 3958.4217442211234
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС Е350ЦДИ4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2275.2488713231724,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС Е350ЦДИ4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2275.2488713231724,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

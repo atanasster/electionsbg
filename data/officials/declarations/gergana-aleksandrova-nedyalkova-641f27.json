@@ -33,7 +33,21 @@
         "amountEurSpouse": 142.13914297254874
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Деу матиз",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 194.29091485456303,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "gergana-aleksandrova-nedyalkova-641f27",
@@ -63,6 +77,7 @@
         "amountEurSpouse": 597.7002091183795
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

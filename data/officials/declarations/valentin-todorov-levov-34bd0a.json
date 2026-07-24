@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-todorov-levov-34bd0a",
@@ -160,7 +161,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-todorov-levov-34bd0a",
@@ -251,7 +253,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-todorov-levov-34bd0a",
@@ -342,7 +345,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-todorov-levov-34bd0a",
@@ -642,6 +646,32 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Одринци",
+        "municipality": "Добричка",
+        "areaSqm": 1045,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Одринци",
+        "municipality": "Добричка",
+        "areaSqm": 1045,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -998,7 +1028,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-todorov-levov-34bd0a",
@@ -1015,7 +1046,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DDD4151E-9650-4B84-A449-CF2C2BB2D1C192854.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentin-todorov-levov-34bd0a",
@@ -1303,6 +1335,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

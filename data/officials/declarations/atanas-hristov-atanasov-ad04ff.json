@@ -100,6 +100,20 @@
         "legalBasis": "дог. За кредит-5,5%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Джулюница",
+        "municipality": "Лясковец",
+        "areaSqm": 1554,
+        "builtAreaSqm": 140,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -117,7 +131,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/52573DE4-555A-4D80-9B6C-7A60A201E100185559.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "atanas-hristov-atanasov-ad04ff",
@@ -279,6 +294,7 @@
         "legalBasis": "дог. За кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

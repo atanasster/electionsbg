@@ -184,6 +184,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -316,6 +354,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": null
       }
     ]
   },
@@ -468,6 +544,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4000.85897036041,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -583,7 +673,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-petrov-petrov-e04f91",
@@ -698,6 +789,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 2006.3093418139613,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 912.1447160540538,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Транспорт, пребиваване, дневни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1824.2894321081076,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -715,7 +844,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E10FDFCF-AF6D-4B93-8797-C175DE8A37B189132.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimir-petrov-petrov-e04f91",
@@ -907,6 +1037,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

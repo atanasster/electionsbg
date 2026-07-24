@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "семинари и супервизия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1175.9713267513025,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -118,6 +132,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучения",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1038.945102590716,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "супервизии",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 270.9846970339958,
+        "legalBasis": null
       }
     ]
   }

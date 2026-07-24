@@ -196,6 +196,32 @@
         "legalBasis": "учредяване",
         "fundsOrigin": "заплата, апортна вноска на нематериални активи"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Mercedes Maybach",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 158500.48317082773,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Mercedes Brabus",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 260000.10225837625,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -382,6 +408,32 @@
         "isSpouse": false,
         "legalBasis": "учредяване",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил-джип",
+        "detail": "Land Rover",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 81806.70099139496,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Mercedes",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76693.78217943278,
+        "legalBasis": "продажба"
       }
     ]
   }

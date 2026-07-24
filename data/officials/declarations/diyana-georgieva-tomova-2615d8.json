@@ -46,7 +46,8 @@
         "legalBasis": "банков кредит с лихвен % 2,89%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diyana-georgieva-tomova-2615d8",
@@ -159,6 +160,20 @@
         "legalBasis": "Банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Саранци",
+        "municipality": "Горна Малина",
+        "areaSqm": 970,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -194,6 +209,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Инвестиции и мениджмънт България ЕООД",
+        "detail": null,
+        "location": "не съм управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

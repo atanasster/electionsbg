@@ -112,6 +112,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил/бракуван ПТП/",
+        "detail": "мерцедес е 320",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2876.016831728729,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -227,6 +241,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Аурис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -324,7 +352,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-sergeev-karaivanov-fbb85f",
@@ -403,6 +432,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

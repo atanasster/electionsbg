@@ -184,6 +184,32 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 69,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 94008.17044426152,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 66,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50004.34598099017,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

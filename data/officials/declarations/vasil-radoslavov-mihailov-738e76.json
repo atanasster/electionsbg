@@ -76,6 +76,20 @@
         "legalBasis": "договор, 6%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "самостоятелен обект в сграда",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 46,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -119,7 +133,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-radoslavov-mihailov-738e76",
@@ -180,7 +195,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-radoslavov-mihailov-738e76",
@@ -197,7 +213,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/93026BFF-CE8D-43FE-93B0-22F940ED16D9135230.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "vasil-radoslavov-mihailov-738e76",
@@ -341,6 +358,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -195,7 +195,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-petrov-ivanov-ec7191",
@@ -340,7 +341,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-petrov-ivanov-ec7191",
@@ -467,7 +469,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-petrov-ivanov-ec7191",
@@ -647,6 +650,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Митцубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1380.48807922979,
+        "legalBasis": "възмездно"
       }
     ]
   }

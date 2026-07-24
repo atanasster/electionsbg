@@ -297,6 +297,20 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

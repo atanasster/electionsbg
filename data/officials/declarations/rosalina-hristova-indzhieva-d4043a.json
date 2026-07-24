@@ -21,7 +21,8 @@
         "amountEurSpouse": 23508.178113639733
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rosalina-hristova-indzhieva-d4043a",
@@ -45,7 +46,8 @@
         "amountEurSpouse": 1371.7961172494543
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rosalina-hristova-indzhieva-d4043a",
@@ -69,7 +71,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rosalina-hristova-indzhieva-d4043a",
@@ -111,6 +114,20 @@
         "isSpouse": true,
         "legalBasis": "договпр за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Габрово",
+        "municipality": "Габрово",
+        "areaSqm": 522,
+        "builtAreaSqm": 42,
+        "currency": "BGN",
+        "valueEur": 956.1158178369286,
+        "legalBasis": "1870"
       }
     ]
   }

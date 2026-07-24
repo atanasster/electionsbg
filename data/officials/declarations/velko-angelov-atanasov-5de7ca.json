@@ -58,6 +58,32 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "в.з. \"Гладно поле\", с. Крушовица",
+        "municipality": "Елин Пелин",
+        "areaSqm": 980,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "в.з. \"Гладно поле\", с. Крушовица",
+        "municipality": "Елин Пелин",
+        "areaSqm": 980,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

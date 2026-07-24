@@ -82,6 +82,20 @@
         "legalBasis": "кредит-5,15%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 188.1554122802084,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -161,6 +175,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

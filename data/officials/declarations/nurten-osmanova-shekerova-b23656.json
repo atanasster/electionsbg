@@ -82,7 +82,8 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nurten-osmanova-shekerova-b23656",
@@ -149,7 +150,8 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nurten-osmanova-shekerova-b23656",
@@ -288,7 +290,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nurten-osmanova-shekerova-b23656",
@@ -463,7 +466,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nurten-osmanova-shekerova-b23656",
@@ -661,6 +665,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ауди А 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -873,6 +891,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "нисан микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -908,6 +940,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "САГБАЛ ЕВА ЕООД ЕИК 119616231 Управител на дружеството от 22.07.2008г.",
+        "detail": null,
+        "location": "0",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "МЦ Св.Анна ЕООД ЕИК 119610246 Управител на дружеството от 21.03.2008г.",
+        "detail": null,
+        "location": "0",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "МБАЛ Св.Йоан Рилски ООД ЕИК 128619970 Управител на дружеството от 18.05.2018",
+        "detail": null,
+        "location": "0",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -1107,7 +1177,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nurten-osmanova-shekerova-b23656",
@@ -1124,6 +1195,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EF9A2178-23BB-4F0D-9FBA-DEB7558455DB90165.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

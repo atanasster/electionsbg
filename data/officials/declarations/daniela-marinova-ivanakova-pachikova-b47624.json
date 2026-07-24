@@ -172,7 +172,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наем"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-marinova-ivanakova-pachikova-b47624",
@@ -317,7 +318,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наеми, хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-marinova-ivanakova-pachikova-b47624",
@@ -474,7 +476,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, хонорари, наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-marinova-ivanakova-pachikova-b47624",
@@ -613,7 +616,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-marinova-ivanakova-pachikova-b47624",
@@ -734,7 +738,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,инвалидна пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-marinova-ivanakova-pachikova-b47624",
@@ -855,6 +860,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, инвалидна пинсия, рента"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лекотоварен автомобил",
+        "detail": "\"Нисан\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "\"Тойота\"Авенсис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -872,7 +903,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5A79391A-02C6-4D19-8546-796E67E733AE89812.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "daniela-marinova-ivanakova-pachikova-b47624",
@@ -1322,6 +1354,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

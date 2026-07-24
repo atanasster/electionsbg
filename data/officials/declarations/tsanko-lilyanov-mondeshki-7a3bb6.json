@@ -148,6 +148,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Научен симпозиум",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -262,6 +276,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Научен симпозиум",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 578.2711176329232,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Научен симпозиум",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 578.2711176329232,
+        "legalBasis": null
       }
     ]
   }

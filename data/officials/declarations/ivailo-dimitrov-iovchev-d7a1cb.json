@@ -231,7 +231,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-dimitrov-iovchev-d7a1cb",
@@ -322,7 +323,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-dimitrov-iovchev-d7a1cb",
@@ -413,7 +415,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-dimitrov-iovchev-d7a1cb",
@@ -539,6 +542,32 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ниссан х трайл",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "покупка на автомобил",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9714.54574272815,
+        "legalBasis": null
       }
     ]
   }

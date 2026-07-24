@@ -21,7 +21,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди 80",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 230.08134653829833,
+        "legalBasis": "възмездно - предадено за разкомплектуване"
+      }
+    ]
   },
   {
     "slug": "stoicho-vasilev-uzunov-1c1db6",
@@ -75,7 +89,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoicho-vasilev-uzunov-1c1db6",
@@ -147,7 +162,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoicho-vasilev-uzunov-1c1db6",
@@ -226,7 +242,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoicho-vasilev-uzunov-1c1db6",
@@ -269,7 +286,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoicho-vasilev-uzunov-1c1db6",
@@ -293,7 +311,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stoicho-vasilev-uzunov-1c1db6",
@@ -310,7 +329,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/AA695445-EE42-4DFD-9AAF-C9CE66599DC293198.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stoicho-vasilev-uzunov-1c1db6",
@@ -327,6 +347,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/AA695445-EE42-4DFD-9AAF-C9CE66599DC293196.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

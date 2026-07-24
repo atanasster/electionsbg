@@ -292,6 +292,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходна година"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "пасище",
+        "detail": null,
+        "location": "с.Старо село",
+        "municipality": "Мездра",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1279.7635786341348,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "пасище",
+        "detail": null,
+        "location": "с.Старо село",
+        "municipality": "Мездра",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1279.7635786341348,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "Форд\"Транзит\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "Форд\"Транзит\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -449,6 +499,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходна година"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -339,7 +339,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stamen-stamenov-yanev-3af13b",
@@ -628,6 +629,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Курс в Оксфорд",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "GBP",
+        "valueEur": 10082.675897189429,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -881,7 +896,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stamen-stamenov-yanev-3af13b",
@@ -1110,6 +1126,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

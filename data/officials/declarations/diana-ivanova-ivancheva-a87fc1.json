@@ -328,6 +328,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "Доктор Йосифово",
+        "municipality": "Монтана",
+        "areaSqm": 5872,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2402.0492578598346,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 524.074178226124,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -575,7 +601,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diana-ivanova-ivancheva-a87fc1",
@@ -827,7 +854,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diana-ivanova-ivancheva-a87fc1",
@@ -1128,6 +1156,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на земеделска земя"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "земеделска земя",
+        "detail": null,
+        "location": "с.Доктор Йосифово",
+        "municipality": "Монтана",
+        "areaSqm": 38000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16514.727762637856,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -1284,6 +1326,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарение"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ 520 И",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -1465,7 +1521,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diana-ivanova-ivancheva-a87fc1",
@@ -1482,6 +1539,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B4BE8436-7D53-4F32-AF8C-31410F60A34A92136.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

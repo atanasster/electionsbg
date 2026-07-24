@@ -135,6 +135,20 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30779.771248012352,
+        "legalBasis": "замяна"
+      }
     ]
   }
 ]

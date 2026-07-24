@@ -40,7 +40,8 @@
         "legalBasis": "ипотечен кредит -2.8%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-lazarov-dzhuparov-1e31a1",
@@ -107,6 +108,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай Санта фе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -131,7 +146,8 @@
         "amountEurSpouse": 0
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-lazarov-dzhuparov-1e31a1",
@@ -246,6 +262,7 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

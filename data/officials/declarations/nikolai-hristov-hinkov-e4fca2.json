@@ -52,6 +52,32 @@
         "legalBasis": null,
         "fundsOrigin": "ОТ ПРОДАЖБИ И СПЕСТЯВАНИЯ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА С ДВОР",
+        "detail": null,
+        "location": "С.ВЕЛЧЕВО",
+        "municipality": "АПРИЛЦИ",
+        "areaSqm": 43,
+        "builtAreaSqm": 43,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "ПОКУПКО-ПРОДАЖБА"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 49,
+        "builtAreaSqm": 49,
+        "currency": "BGN",
+        "valueEur": 110439.0463383832,
+        "legalBasis": "ПОКУПКО-ПРОДАЖБА"
+      }
     ]
   },
   {
@@ -209,6 +235,7 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ"
       }
-    ]
+    ],
+    "events": []
   }
 ]

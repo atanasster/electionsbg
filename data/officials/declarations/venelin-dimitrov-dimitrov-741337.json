@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "рента"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-dimitrov-dimitrov-741337",
@@ -82,6 +83,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ЗЕМЕДЕЛСКА КООПЕРАЦИЯ НИВА-93 С. ПРОФЕСОР ИШИРКОВО",
+        "detail": null,
+        "location": "ЧЛЕН НА УПРАВИТНЕЛНИЯ СЪВЕТ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -99,7 +114,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/6A016237-7BF5-4AD2-B4DA-D9C908CE2F84132347.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "venelin-dimitrov-dimitrov-741337",
@@ -315,6 +331,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

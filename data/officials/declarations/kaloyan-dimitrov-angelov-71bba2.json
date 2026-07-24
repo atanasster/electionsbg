@@ -148,7 +148,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kaloyan-dimitrov-angelov-71bba2",
@@ -305,7 +306,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kaloyan-dimitrov-angelov-71bba2",
@@ -462,6 +464,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свищов",
+        "municipality": "Свищов",
+        "areaSqm": 89,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5879.856633756513,
+        "legalBasis": "възмездно (Обща цена с №2)"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Свищов",
+        "municipality": "Свищов",
+        "areaSqm": 22,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -601,7 +629,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kaloyan-dimitrov-angelov-71bba2",
@@ -865,6 +894,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Алеково",
+        "municipality": "Свищов",
+        "areaSqm": 45,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Алеково",
+        "municipality": "Свищов",
+        "areaSqm": 45,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1208,7 +1263,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kaloyan-dimitrov-angelov-71bba2",
@@ -1225,6 +1281,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/5C488435-FAEB-4816-BE40-01EAEFAB375194269.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

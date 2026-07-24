@@ -272,6 +272,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 779.7201188242332,
+        "legalBasis": null
+      }
     ]
   }
 ]

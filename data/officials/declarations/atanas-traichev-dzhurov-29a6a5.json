@@ -142,6 +142,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 104,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 179974.7421810689,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -281,6 +295,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -330,6 +358,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

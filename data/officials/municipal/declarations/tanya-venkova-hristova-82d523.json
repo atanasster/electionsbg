@@ -369,6 +369,32 @@
         "legalBasis": null,
         "fundsOrigin": "универален пенсионен фонд \"доверие\""
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "бмв",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7158.086336747059,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировки във връзка с участие в инициативи в рамките на Европейския комитет на регионите",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 29579.76920284483,
+        "legalBasis": null
+      }
     ]
   }
 ]

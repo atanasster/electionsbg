@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-dimitrov-dimitrov-5c820c",
@@ -214,6 +215,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ВОЛВО С30",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -359,7 +374,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-dimitrov-dimitrov-5c820c",
@@ -376,7 +392,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/E78D519E-EC34-4FA5-BF76-99025A0033C5145324.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-dimitrov-dimitrov-5c820c",
@@ -467,7 +484,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-dimitrov-dimitrov-5c820c",
@@ -516,6 +534,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

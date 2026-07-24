@@ -57,7 +57,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petko-ivailov-petkov-f78b99",
@@ -91,6 +92,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПВСОЛ ООД ЕИК 208115526",
+        "detail": null,
+        "location": "50%- 50лв.-регистрирана 07.01.2025 г. - управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

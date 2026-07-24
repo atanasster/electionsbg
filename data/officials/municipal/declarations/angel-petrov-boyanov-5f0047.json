@@ -93,6 +93,32 @@
         "legalBasis": "замяна",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
+      }
     ]
   }
 ]

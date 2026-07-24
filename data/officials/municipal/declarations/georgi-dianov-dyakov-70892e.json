@@ -81,6 +81,44 @@
         "legalBasis": "Банков Кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Хюндай Соната",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Лятна Почивка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1482.7464554690337,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Лаптоп MSI",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 930.5512237771177,
+        "legalBasis": null
+      }
     ]
   }
 ]

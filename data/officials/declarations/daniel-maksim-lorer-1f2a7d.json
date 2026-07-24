@@ -245,7 +245,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniel-maksim-lorer-1f2a7d",
@@ -262,6 +263,20 @@
     "sourceUrl": "https://register.cacbg.bg/2022/9B792DEB-2F3D-4749-9B0E-3C961439CE14135359.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Организация на евреите в България - Шалом",
+        "detail": null,
+        "location": "член на управителен орган-заличен считано от 18.04.2022 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

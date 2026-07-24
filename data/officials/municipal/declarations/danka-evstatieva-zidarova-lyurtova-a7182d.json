@@ -123,6 +123,32 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "С.ВЕДРАРЕ, ОБЩ.КАРЛОВО",
+        "municipality": "КАРЛОВО",
+        "areaSqm": 15198,
+        "builtAreaSqm": 15198,
+        "currency": "BGN",
+        "valueEur": 13600.364039819411,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "С.ВЕДРАРЕ, ОБЩ.КАРЛОВО",
+        "municipality": "КАРЛОВО",
+        "areaSqm": 2000,
+        "builtAreaSqm": 2000,
+        "currency": "BGN",
+        "valueEur": 1738.392396067143,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

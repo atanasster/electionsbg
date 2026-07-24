@@ -94,6 +94,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота RAV4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1636.1340198278992,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -155,6 +169,7 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -272,6 +272,44 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Деца",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "ваучер за храна",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "безкасови плащания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 105.326127526421,
+        "legalBasis": null
+      }
     ]
   }
 ]

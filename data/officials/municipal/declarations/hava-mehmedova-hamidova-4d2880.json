@@ -26,6 +26,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСФАГЕН ПОЛО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -27,7 +27,21 @@
         "amountEurSpouse": 11976.501025140222
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "подарък на дъщеря",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "ivanka-miteva-raikova-180762",
@@ -75,6 +89,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "подарък на дъщеря",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1840.6507723063867,
+        "legalBasis": null
       }
     ]
   }

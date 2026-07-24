@@ -148,6 +148,20 @@
         "legalBasis": "предварителен договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен С3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1227.1005148709244,
+        "legalBasis": "договор за покупко-продажба"
+      }
     ]
   },
   {
@@ -184,7 +198,8 @@
         "legalBasis": "изплатена застраховка",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-milanov-pushev-a5d51d",
@@ -317,6 +332,20 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено 207",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "договор за продажба"
+      }
     ]
   },
   {
@@ -432,7 +461,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-milanov-pushev-a5d51d",
@@ -547,7 +577,8 @@
         "legalBasis": "потредителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-milanov-pushev-a5d51d",
@@ -626,7 +657,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-milanov-pushev-a5d51d",
@@ -643,7 +675,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D2F21C07-61E1-4E24-85A5-483C83BD941389607.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivo-milanov-pushev-a5d51d",
@@ -733,6 +766,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

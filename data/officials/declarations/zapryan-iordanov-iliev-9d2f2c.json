@@ -244,7 +244,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zapryan-iordanov-iliev-9d2f2c",
@@ -604,7 +605,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zapryan-iordanov-iliev-9d2f2c",
@@ -851,7 +853,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zapryan-iordanov-iliev-9d2f2c",
@@ -1116,7 +1119,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване,спестявания,конвентиране"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zapryan-iordanov-iliev-9d2f2c",
@@ -1363,6 +1367,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследство,конвертиране"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 22,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 18943.364198319894,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1592,7 +1610,8 @@
         "legalBasis": "конвентиране",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zapryan-iordanov-iliev-9d2f2c",
@@ -2114,7 +2133,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zapryan-iordanov-iliev-9d2f2c",
@@ -2131,6 +2151,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/6D7ACFFF-6454-41D4-A391-B08D484B80BE98104.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

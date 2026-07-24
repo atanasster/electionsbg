@@ -196,7 +196,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсии"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-georgiev-tomov-a6e022",
@@ -430,7 +431,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-georgiev-tomov-a6e022",
@@ -635,6 +637,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Лом",
+        "municipality": "Лом",
+        "areaSqm": 45,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 14827.464554690336,
+        "legalBasis": "продажба наследствена нива"
+      }
     ]
   },
   {
@@ -822,7 +838,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-georgiev-tomov-a6e022",
@@ -1063,7 +1080,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-georgiev-tomov-a6e022",
@@ -1080,7 +1098,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/B86B8968-0F7A-4B8B-8F57-875F44B112B4111480.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lchezar-georgiev-tomov-a6e022",
@@ -1260,6 +1279,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -81,6 +81,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Ауди а8",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

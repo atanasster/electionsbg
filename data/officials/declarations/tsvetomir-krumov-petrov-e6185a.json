@@ -76,6 +76,20 @@
         "legalBasis": "4,20%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8794.220356574959,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -137,6 +151,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 207",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3323.39722777542,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -180,7 +208,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-krumov-petrov-e6185a",
@@ -223,7 +252,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-krumov-petrov-e6185a",
@@ -266,7 +296,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-krumov-petrov-e6185a",
@@ -321,7 +352,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-krumov-petrov-e6185a",
@@ -406,6 +438,7 @@
         "legalBasis": "жилищен",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

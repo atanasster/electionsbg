@@ -136,6 +136,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ПЕНСИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13496.060496055383,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "ДРУГИ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1129.9550574436428,
+        "legalBasis": null
+      }
     ]
   }
 ]

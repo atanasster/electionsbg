@@ -87,6 +87,20 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "нисан кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1687.263207947521,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -194,6 +208,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1380.48807922979,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -21,7 +21,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "galina-zhorova-georgieva-c38147",
@@ -82,6 +83,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3118.8804752969327,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -106,7 +121,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "galina-zhorova-georgieva-c38147",
@@ -149,7 +165,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galina-zhorova-georgieva-c38147",
@@ -173,6 +190,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -88,7 +88,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-genchev-dimitrov-909569",
@@ -178,6 +179,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Рудозем",
+        "municipality": "Рудозем",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   }

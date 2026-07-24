@@ -155,6 +155,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Бургас - местност Мадика",
+        "municipality": "Бургас",
+        "areaSqm": 9000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 160014.92972293094,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -319,7 +345,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pravoslava-tsoncheva-yanchuleva-4f2152",
@@ -483,7 +510,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pravoslava-tsoncheva-yanchuleva-4f2152",
@@ -647,7 +675,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pravoslava-tsoncheva-yanchuleva-4f2152",
@@ -829,6 +858,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

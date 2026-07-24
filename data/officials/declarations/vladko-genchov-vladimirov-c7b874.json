@@ -303,7 +303,8 @@
         "legalBasis": "Договор за кредит и Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladko-genchov-vladimirov-c7b874",
@@ -645,7 +646,8 @@
         "legalBasis": "Договор за кредит и Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladko-genchov-vladimirov-c7b874",
@@ -994,7 +996,8 @@
         "legalBasis": "Договор за кредит и Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladko-genchov-vladimirov-c7b874",
@@ -1270,6 +1273,20 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит и Ипотека",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 54,
+        "builtAreaSqm": 54,
+        "currency": "BGN",
+        "valueEur": 65000.02556459406,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1566,7 +1583,8 @@
         "legalBasis": "Договор за кредит и Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladko-genchov-vladimirov-c7b874",
@@ -1825,6 +1843,7 @@
         "legalBasis": "Договор за кредит и Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

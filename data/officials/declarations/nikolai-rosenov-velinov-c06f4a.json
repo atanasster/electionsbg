@@ -94,6 +94,44 @@
         "legalBasis": "по договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "покупка на моторна косачка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "покупка и монтаж на термопомпа",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "почивка на море",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -142,6 +180,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "почивка на море",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 664.679445555084,
+        "legalBasis": null
       }
     ]
   },
@@ -215,6 +267,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "1/2 и.ч. от Газ 66",
+        "detail": "газ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -306,6 +372,44 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено Меган Сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 110.43904633838319,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "изграждане на гараж",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "почивка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": null
       }
     ]
   },
@@ -457,6 +561,80 @@
         "isSpouse": false,
         "legalBasis": "по договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ремонт на кухня",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2422.500933107683,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "изграждане цокъл жилищна сграда",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3222.161435298569,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "полагане на павета на двор на жил.сграда",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1634.0888523031142,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Облицовка с камък на подпорни стени ,стълба и вход на имот жил.сграда",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3060.081908959368,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Изграждане на гараж - основи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1176.4826186324988,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Провеждане на сватбени тържества - 2 бр.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7413.732277345168,
+        "legalBasis": null
       }
     ]
   },
@@ -662,6 +840,44 @@
         "isSpouse": false,
         "legalBasis": "по договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "част от парцел",
+        "detail": null,
+        "location": "гр.Доспат ,УПИ ХІV,имот №23025.502.954",
+        "municipality": "Доспат",
+        "areaSqm": 43,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 395.7399160458731,
+        "legalBasis": "замяна по чл.40,алб.2,т.3 от ЗОС"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "почивка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "покупка на теракот",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": null
       }
     ]
   },
@@ -981,7 +1197,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-rosenov-velinov-c06f4a",
@@ -998,6 +1215,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E74860D7-0326-4A66-ABB6-355DAF98513D91476.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -58,6 +58,68 @@
         "legalBasis": "договор, 4.79% лихва",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Вишовград",
+        "municipality": "Павликени",
+        "areaSqm": 975,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25053.302178614707,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Вишовград",
+        "municipality": "Павликени",
+        "areaSqm": 975,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25053.302178614707,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "форд \"мондео\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "форд \"мондео\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Албания- програма Еразъм",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -94,7 +156,8 @@
         "legalBasis": "продажба на имот и спестявания",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-minkov-hadzhiiski-9e4ee2",
@@ -245,7 +308,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-minkov-hadzhiiski-9e4ee2",
@@ -432,6 +496,7 @@
         "legalBasis": "потр. Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

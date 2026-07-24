@@ -519,7 +519,8 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-dobrev-a37edd",
@@ -1084,6 +1085,80 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 231,
+        "builtAreaSqm": 134,
+        "currency": "BGN",
+        "valueEur": 43797.77383514927,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 231,
+        "builtAreaSqm": 134,
+        "currency": "BGN",
+        "valueEur": 43797.77383514927,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Горски извор",
+        "municipality": "димитровград",
+        "areaSqm": 1164,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Горски извор",
+        "municipality": "димитровград",
+        "areaSqm": 1164,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -1606,6 +1681,7 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -69,6 +69,32 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА, ПЕНСИЯ И СПЕСТЯВАНИЯ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ЛЕКСУС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА РАВ4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16361.340198278991,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

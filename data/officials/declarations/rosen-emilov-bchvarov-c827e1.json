@@ -177,7 +177,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-emilov-bchvarov-c827e1",
@@ -400,7 +401,8 @@
         "legalBasis": "масова приватиизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-emilov-bchvarov-c827e1",
@@ -587,7 +589,8 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-emilov-bchvarov-c827e1",
@@ -833,6 +836,44 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "лексус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотоциклет",
+        "detail": "хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1303.794297050357,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотоциклет",
+        "detail": "априля",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

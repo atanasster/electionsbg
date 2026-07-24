@@ -112,6 +112,20 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "шкода фабия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2147.4259010241176,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -129,7 +143,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/DD70F9A4-1CD8-4565-93AB-83F66137C6D4188032.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "metodi-valeriev-metodiev-e6a417",
@@ -237,6 +252,7 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/DA963896-625A-4362-8BCE-808598B5938D218694.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "slavi-peev-peev-763732",
@@ -170,7 +171,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "slavi-peev-peev-763732",
@@ -315,6 +317,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фиат Уно",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -448,6 +464,7 @@
         "legalBasis": null,
         "fundsOrigin": "от заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

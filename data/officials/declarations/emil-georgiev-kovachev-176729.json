@@ -304,7 +304,8 @@
         "legalBasis": "Договор за финансов лизинг-3,7 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-georgiev-kovachev-176729",
@@ -478,6 +479,32 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ФИНАНСОВ ЛИЗИНГ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мицубиши Паджеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мицубиши Паджеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   }

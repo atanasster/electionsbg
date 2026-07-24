@@ -321,7 +321,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-petrov-raev-ae9cd0",
@@ -454,7 +455,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба, възнаграждение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-petrov-raev-ae9cd0",
@@ -605,7 +607,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажби, възнаграждение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-petrov-raev-ae9cd0",
@@ -762,7 +765,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба възнаграждение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-petrov-raev-ae9cd0",
@@ -942,6 +946,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба, възнаграждение"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1154,7 +1184,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажби, възнаграждения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-petrov-raev-ae9cd0",
@@ -1424,7 +1455,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-petrov-raev-ae9cd0",
@@ -1843,7 +1875,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-petrov-raev-ae9cd0",
@@ -1860,6 +1893,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/532C2914-7099-486F-A0FB-DFB21B2FA0E591428.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

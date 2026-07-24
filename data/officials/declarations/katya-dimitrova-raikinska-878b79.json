@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "katya-dimitrova-raikinska-878b79",
@@ -191,7 +192,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "katya-dimitrova-raikinska-878b79",
@@ -306,7 +308,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "katya-dimitrova-raikinska-878b79",
@@ -421,7 +424,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "katya-dimitrova-raikinska-878b79",
@@ -500,7 +504,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "katya-dimitrova-raikinska-878b79",
@@ -579,6 +584,20 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -596,7 +615,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/132ED833-2F2A-4CE4-A76D-7F5F936C061D91300.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "katya-dimitrova-raikinska-878b79",
@@ -704,6 +724,7 @@
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

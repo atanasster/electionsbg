@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-alekov-dinev-403296",
@@ -143,7 +144,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-alekov-dinev-403296",
@@ -192,7 +194,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-alekov-dinev-403296",
@@ -216,7 +219,8 @@
         "amountEurSpouse": 11656.943599392585
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetan-alekov-dinev-403296",
@@ -258,6 +262,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -331,7 +349,8 @@
         "legalBasis": "догор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-alekov-dinev-403296",
@@ -367,7 +386,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-alekov-dinev-403296",
@@ -384,6 +404,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/78E66015-B0F4-4C2F-A541-18EB9791F60D93459.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

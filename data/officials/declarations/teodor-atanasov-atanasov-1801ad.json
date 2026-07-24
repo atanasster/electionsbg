@@ -123,7 +123,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodor-atanasov-atanasov-1801ad",
@@ -165,6 +166,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Е 290",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -221,6 +236,32 @@
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе",
+        "municipality": "Русе",
+        "areaSqm": 78,
+        "builtAreaSqm": 78,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр. Две могили",
+        "municipality": "Две могили",
+        "areaSqm": 22,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13257.798479417945,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -257,6 +298,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -46,6 +46,20 @@
         "legalBasis": "покупка",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Земя в стр.граници",
+        "detail": null,
+        "location": "гр.Хасково",
+        "municipality": "Хасково",
+        "areaSqm": 1350,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -70,6 +84,7 @@
         "amountEurSpouse": 5777.598257517269
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

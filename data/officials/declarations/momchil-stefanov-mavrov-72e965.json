@@ -394,7 +394,8 @@
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "momchil-stefanov-mavrov-72e965",
@@ -736,6 +737,44 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "друг вид нива",
+        "detail": null,
+        "location": "Куклен",
+        "municipality": "Куклен",
+        "areaSqm": 8.513,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "овощна градина",
+        "detail": null,
+        "location": "Куклен",
+        "municipality": "Куклен",
+        "areaSqm": 2.001,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозе",
+        "detail": null,
+        "location": "Куклен",
+        "municipality": "Куклен",
+        "areaSqm": 3.498,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 894.7607920933824,
+        "legalBasis": "възмездно"
       }
     ]
   }

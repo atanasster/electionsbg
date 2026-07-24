@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "velin-dobrev-stoyanov-c801ea",
@@ -148,6 +149,20 @@
         "legalBasis": "заем за лек автомобил",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено Сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1407.5865489331895,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -165,7 +180,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7319F82C-0D2B-4B28-89E7-7B50CF40BFFD93329.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "velin-dobrev-stoyanov-c801ea",
@@ -327,6 +343,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

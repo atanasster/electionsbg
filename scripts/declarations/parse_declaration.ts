@@ -19,6 +19,7 @@ import type {
   MpAsset,
   MpAssetCategory,
   MpDeclaration,
+  MpDeclarationEvent,
   MpIncomeRecord,
   MpOwnershipStake,
 } from "../../src/data/dataTypes";
@@ -872,6 +873,104 @@ export const resolveDeclarationYear = ({
   return { declarationYear: derived, fiscalYear: believedFiscalYear };
 };
 
+/** Tables the form records but that are NOT part of the estate at filing time:
+ *  prior-year disposals (2, 3.5) and things other people paid for (13, 14).
+ *
+ *  Skipping 2 and 3.5 in the TOTALS is right — the declarant no longer owns
+ *  them — but skipping them entirely threw away the disposal event itself,
+ *  which is the part with any signal in it. 13 and 14 were never read at all,
+ *  and between them they are the closest thing this form has to a gifts
+ *  register. */
+const parseEventTables = ($: CheerioAPI): MpDeclarationEvent[] => {
+  const out: MpDeclarationEvent[] = [];
+
+  const rowsOf = (num: string) => {
+    const t = $(`Table[Num="${num}"]`).first();
+    if (t.attr("Declared") !== "True") return [];
+    return t
+      .find("Row")
+      .toArray()
+      .map((el) => $(el))
+      .filter((row) => !isEmptyRow($, row));
+  };
+
+  // Table 2 — real estate transferred during the previous year.
+  for (const row of rowsOf("2")) {
+    out.push({
+      kind: "disposal_property",
+      description: cellByNum(row, 2),
+      detail: null,
+      location: cellByNum(row, 3),
+      municipality: cellByNum(row, 4),
+      areaSqm: toLooseNumber(cellByNum(row, 5)),
+      builtAreaSqm: toLooseNumber(cellByNum(row, 6)),
+      currency: "BGN",
+      valueEur: toEur(toNumber(cellByNum(row, 10)), "BGN"),
+      legalBasis: cellByNum(row, 11),
+    });
+  }
+
+  // Table 3.5 — vehicles transferred during the previous year.
+  for (const row of rowsOf("3.5")) {
+    out.push({
+      kind: "disposal_vehicle",
+      description: cellByNum(row, 2),
+      detail: cellByNum(row, 3),
+      location: null,
+      municipality: null,
+      areaSqm: null,
+      builtAreaSqm: null,
+      currency: "BGN",
+      valueEur: toEur(toNumber(cellByNum(row, 4)), "BGN"),
+      legalBasis: cellByNum(row, 8),
+    });
+  }
+
+  // Table 13 — securities given / expenses made in the declarant's favour that
+  // they did not pay for. Amount is in leva; the form carries no currency cell.
+  for (const row of rowsOf("13")) {
+    out.push({
+      kind: "guarantee",
+      description: cellByNum(row, 2),
+      detail: null,
+      location: null,
+      municipality: null,
+      areaSqm: null,
+      builtAreaSqm: null,
+      currency: "BGN",
+      valueEur: toEur(toNumber(cellByNum(row, 3)), "BGN"),
+      legalBasis: null,
+    });
+  }
+
+  // Table 14 — expenses for the declarant, spouse or minor children paid by a
+  // third party. This one DOES carry a currency and a leva equivalent, so it
+  // gets the same treatment as a money asset row.
+  for (const row of rowsOf("14")) {
+    const amount = toNumber(cellByNum(row, 3));
+    const currency = cellByNum(row, 4);
+    out.push({
+      kind: "third_party_expense",
+      description: cellByNum(row, 2),
+      detail: null,
+      location: null,
+      municipality: null,
+      areaSqm: null,
+      builtAreaSqm: null,
+      currency,
+      valueEur: pickEurValue(
+        amount,
+        currency,
+        toNumber(cellByNum(row, 5)),
+        true,
+      ),
+      legalBasis: null,
+    });
+  }
+
+  return out;
+};
+
 export type ParseInput = {
   xml: string;
   mpId: number;
@@ -949,6 +1048,7 @@ export const parseDeclarationXml = ({
   }
 
   const assets = parseAssetTables($, declarantName, sourceUrl);
+  const events = parseEventTables($);
 
   const income: MpIncomeRecord[] = [];
   const t12 = $('Table[Num="12"]').first();
@@ -978,5 +1078,6 @@ export const parseDeclarationXml = ({
     ownershipStakes,
     income,
     assets,
+    events,
   };
 };

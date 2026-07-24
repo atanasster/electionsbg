@@ -40,6 +40,80 @@
         "legalBasis": "наследство",
         "fundsOrigin": "безвъзмездно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Осоица",
+        "municipality": "Горна Малина",
+        "areaSqm": 57,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Осоица",
+        "municipality": "Горна Малина",
+        "areaSqm": 57,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "с. Осоица",
+        "municipality": "Горна Малина",
+        "areaSqm": 20,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "с. Осоица",
+        "municipality": "Горна Малина",
+        "areaSqm": 20,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "бистро",
+        "detail": null,
+        "location": "с. Осоица",
+        "municipality": "Горна Малина",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "бистро",
+        "detail": null,
+        "location": "с. Осоица",
+        "municipality": "Горна Малина",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -76,7 +150,8 @@
         "legalBasis": "Заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-georgieva-chukova-483035",
@@ -119,6 +194,7 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

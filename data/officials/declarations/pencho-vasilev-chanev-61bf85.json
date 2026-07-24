@@ -364,6 +364,44 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Златарица",
+        "municipality": "Златарица",
+        "areaSqm": 860,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 118.10842455632647,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Златарица",
+        "municipality": "Златарица",
+        "areaSqm": 1804,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 155.94402376484663,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1282,6 +1320,152 @@
         "isSpouse": false,
         "legalBasis": "рефинансиране на кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 1156,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 57.77598257517269,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 10427,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 721.9441362490605,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозе",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 901,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 112.48421386316807,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Родина",
+        "municipality": "златарица",
+        "areaSqm": 929,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 122.71005148709244,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 3987,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 199.4038336665252,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 3765,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 188.66670416140462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 2997,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 79.76153346661009,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 3759,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 132.93588911101682,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 5518,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 559.8646099098593,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 1027,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 88.4534954469458,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златарица",
+        "municipality": "златарица",
+        "areaSqm": 3000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1227.1005148709244,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "Сузуки 410/413",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
       }
     ]
   }

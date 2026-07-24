@@ -393,7 +393,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-stoichkov-yanakiev-81d48f",
@@ -520,7 +521,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-stoichkov-yanakiev-81d48f",
@@ -628,6 +630,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Сеат Арона",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17383.92396067143,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -774,6 +790,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Тръстеник",
+        "municipality": "Иваново",
+        "areaSqm": 7,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 272.5185726775845,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Нисан Х Трейл",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16463.598574518237,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Нисан Х Трейл",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16463.598574518237,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -907,6 +961,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4294.851802048235,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4294.851802048235,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -992,7 +1072,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-stoichkov-yanakiev-81d48f",
@@ -1059,7 +1140,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-stoichkov-yanakiev-81d48f",
@@ -1221,7 +1303,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-stoichkov-yanakiev-81d48f",
@@ -1238,6 +1321,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/44819A88-9EA6-4381-8528-B30AC95B728090373.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

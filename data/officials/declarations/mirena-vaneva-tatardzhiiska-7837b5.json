@@ -58,7 +58,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mirena-vaneva-tatardzhiiska-7837b5",
@@ -129,6 +130,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Падало",
+        "municipality": "Крумовград",
+        "areaSqm": 3183,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -215,7 +230,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mirena-vaneva-tatardzhiiska-7837b5",
@@ -269,7 +285,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mirena-vaneva-tatardzhiiska-7837b5",
@@ -305,7 +322,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mirena-vaneva-tatardzhiiska-7837b5",
@@ -322,7 +340,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C80308A6-E67F-43B6-A30C-516827E786E491353.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mirena-vaneva-tatardzhiiska-7837b5",
@@ -610,6 +629,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

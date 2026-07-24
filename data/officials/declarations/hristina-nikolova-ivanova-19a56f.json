@@ -112,7 +112,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristina-nikolova-ivanova-19a56f",
@@ -196,6 +197,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 239.28460039983025,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 239.28460039983025,
+        "legalBasis": "възмездно"
       }
     ]
   }

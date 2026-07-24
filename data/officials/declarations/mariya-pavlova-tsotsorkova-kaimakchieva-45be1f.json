@@ -196,6 +196,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 103,
+        "builtAreaSqm": 103,
+        "currency": "BGN",
+        "valueEur": 200000,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -371,7 +385,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати командировъчни"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-pavlova-tsotsorkova-kaimakchieva-45be1f",
@@ -546,7 +561,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-pavlova-tsotsorkova-kaimakchieva-45be1f",
@@ -721,7 +737,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-pavlova-tsotsorkova-kaimakchieva-45be1f",
@@ -878,7 +895,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-pavlova-tsotsorkova-kaimakchieva-45be1f",
@@ -1053,7 +1071,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-pavlova-tsotsorkova-kaimakchieva-45be1f",
@@ -1246,6 +1265,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -76,7 +76,8 @@
         "legalBasis": "покупка",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nina-stefanova-filipova-8fc1dd",
@@ -161,7 +162,8 @@
         "legalBasis": "покупка",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nina-stefanova-filipova-8fc1dd",
@@ -239,6 +241,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мицубиши Аутлендър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4570.949417894193,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мицубиши Аутлендър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4570.949417894193,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -337,7 +365,8 @@
         "legalBasis": "покупка",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nina-stefanova-filipova-8fc1dd",
@@ -404,7 +433,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nina-stefanova-filipova-8fc1dd",
@@ -447,7 +477,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nina-stefanova-filipova-8fc1dd",
@@ -490,6 +521,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

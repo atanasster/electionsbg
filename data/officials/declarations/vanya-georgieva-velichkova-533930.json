@@ -208,7 +208,8 @@
         "legalBasis": "ипотечен кредит - 2,42",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vanya-georgieva-velichkova-533930",
@@ -383,6 +384,20 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 46,
+        "builtAreaSqm": 46,
+        "currency": "BGN",
+        "valueEur": 95699.52398725861,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -419,6 +434,7 @@
         "legalBasis": "продажба на имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -190,6 +190,32 @@
         "legalBasis": "КРЕДИТ С 7,33%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Пенсии и помощи за инвалид",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6564.987754559445,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Обезщетение за майчинство на съпругата",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8164.820050822413,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -269,6 +295,7 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

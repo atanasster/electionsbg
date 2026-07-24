@@ -202,7 +202,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-naidenov-naidenov-ecdf3a",
@@ -497,6 +498,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 86,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 86,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -702,7 +729,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-naidenov-naidenov-ecdf3a",
@@ -1021,6 +1049,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

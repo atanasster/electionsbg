@@ -178,7 +178,8 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ilko-todorov-ilchev-8d09b3",
@@ -285,6 +286,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   }

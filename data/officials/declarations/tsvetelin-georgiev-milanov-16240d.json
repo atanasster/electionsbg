@@ -82,7 +82,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelin-georgiev-milanov-16240d",
@@ -148,6 +149,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПИ 10135.2526.1419",
+        "detail": null,
+        "location": "гр. Варна кв.Св.Никола",
+        "municipality": "Варна",
+        "areaSqm": 706,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4662.981956509512,
+        "legalBasis": "НА 156 т.2 рег.3835 дело 299/2019"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ПИ 10135.2526.1421",
+        "detail": null,
+        "location": "гр. Варна кв.Св.Никола",
+        "municipality": "Варна",
+        "areaSqm": 1033,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "НА 156 т.2 рег.3835 дело 299/2019"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "10135.2526.1421.4 жилищна сграда еднофамилна",
+        "detail": null,
+        "location": "гр. Варна кв.Св.Никола",
+        "municipality": "Варна",
+        "areaSqm": 226,
+        "builtAreaSqm": 452,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "НА 156 т.2 рег.3835 дело 299/2019"
       }
     ]
   },
@@ -228,6 +267,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "Тойта РАВ 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 19684.737426054413,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -245,7 +298,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DAC8A7DB-3C24-493C-BB6E-7981CB04251993016.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetelin-georgiev-milanov-16240d",
@@ -479,6 +533,7 @@
         "legalBasis": "договор за кредит/16.04.2018",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

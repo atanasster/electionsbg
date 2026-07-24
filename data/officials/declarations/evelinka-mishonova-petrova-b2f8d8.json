@@ -82,7 +82,8 @@
         "legalBasis": null,
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evelinka-mishonova-petrova-b2f8d8",
@@ -172,6 +173,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "Рено Каптюр",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
       }
     ]
   }

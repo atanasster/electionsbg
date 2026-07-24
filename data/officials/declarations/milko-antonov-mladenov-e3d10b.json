@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 136,
+        "builtAreaSqm": 136,
+        "currency": "BGN",
+        "valueEur": 144999.82104784157,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -203,6 +217,20 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София;ж.к.Надежда 2",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 48,
+        "builtAreaSqm": 48,
+        "currency": "BGN",
+        "valueEur": 43459.80990167857,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -287,6 +315,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хонда ЦРВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -481,6 +523,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

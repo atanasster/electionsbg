@@ -51,7 +51,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-petrov-knchev-a3b1dc",
@@ -118,7 +119,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-petrov-knchev-a3b1dc",
@@ -191,6 +193,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ж.к. Дружба 1",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 81,
+        "builtAreaSqm": 81,
+        "currency": "BGN",
+        "valueEur": 34499.93097559604,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -252,6 +268,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

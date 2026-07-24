@@ -166,6 +166,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Белене",
+        "municipality": "Белене",
+        "areaSqm": 676,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -317,6 +331,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

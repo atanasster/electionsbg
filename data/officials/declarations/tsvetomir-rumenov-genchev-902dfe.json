@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-rumenov-genchev-902dfe",
@@ -148,6 +149,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Опел Вектра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -329,7 +344,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-rumenov-genchev-902dfe",
@@ -346,6 +362,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2AF5A906-6D5C-4D34-B5E6-ADEAD64F974E89428.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

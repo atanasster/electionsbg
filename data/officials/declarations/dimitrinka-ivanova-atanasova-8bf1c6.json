@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "вдовишка пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "С. Макариополско",
+        "municipality": "Търговище",
+        "areaSqm": 1,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -185,6 +199,7 @@
         "legalBasis": "покупка",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

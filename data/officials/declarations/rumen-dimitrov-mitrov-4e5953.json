@@ -207,7 +207,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-dimitrov-mitrov-4e5953",
@@ -424,7 +425,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-dimitrov-mitrov-4e5953",
@@ -706,6 +708,20 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "апартамент с два гаража",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 53685.647525602944,
+        "legalBasis": null
       }
     ]
   }

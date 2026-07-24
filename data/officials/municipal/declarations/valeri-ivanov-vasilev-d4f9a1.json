@@ -111,6 +111,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Видин",
+        "municipality": "Видин",
+        "areaSqm": 450,
+        "builtAreaSqm": 118,
+        "currency": "BGN",
+        "valueEur": 46016.26930765966,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -298,7 +298,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-georgiev-baltov-0bd8a7",
@@ -598,6 +599,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент с 1/2 ид.ч. от поземлен имот",
+        "detail": null,
+        "location": "м. Арапя",
+        "municipality": "Царево",
+        "areaSqm": 597,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 16207.952633920126,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -923,7 +938,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-georgiev-baltov-0bd8a7",
@@ -940,6 +956,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/AA3617E6-1D12-4C57-A5E6-252C975889E989246.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

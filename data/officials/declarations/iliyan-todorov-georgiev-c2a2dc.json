@@ -40,7 +40,8 @@
         "legalBasis": "Жилищен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-todorov-georgiev-c2a2dc",
@@ -82,6 +83,44 @@
         "isSpouse": false,
         "legalBasis": "Жилищен",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 283.7669940639013,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 79.76153346661009,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 168.21502891355587,
+        "legalBasis": null
       }
     ]
   }

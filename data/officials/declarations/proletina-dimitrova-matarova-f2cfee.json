@@ -27,7 +27,33 @@
         "amountEurSpouse": 13498.105663580169
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": 33745.26415895042,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": 33745.26415895042,
+        "legalBasis": "продажба"
+      }
+    ]
   },
   {
     "slug": "proletina-dimitrova-matarova-f2cfee",
@@ -44,7 +70,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/8060E1F7-2EDA-4C51-85CA-22BBBDB9DC5F201645.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "proletina-dimitrova-matarova-f2cfee",
@@ -422,6 +449,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

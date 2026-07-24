@@ -58,7 +58,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tihomir-ivanov-ivanov-949464",
@@ -136,6 +137,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 3008",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1073.7129505120588,
+        "legalBasis": "възмездно"
       }
     ]
   }

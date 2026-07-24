@@ -238,6 +238,32 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетения при пенсиониране"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2569.7529948921942,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2569.7529948921942,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -407,7 +433,8 @@
         "legalBasis": null,
         "fundsOrigin": "влог от предишни години"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-borisov-slavov-eac74c",
@@ -558,7 +585,8 @@
         "legalBasis": null,
         "fundsOrigin": "влог от предишни години"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-borisov-slavov-eac74c",
@@ -709,7 +737,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-borisov-slavov-eac74c",
@@ -739,7 +768,8 @@
         "amountEurSpouse": 127.82297029905462
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-borisov-slavov-eac74c",
@@ -1129,7 +1159,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-borisov-slavov-eac74c",
@@ -1146,6 +1177,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/68813DED-8223-4186-9124-0AD40D31EA6889310.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irina-filipova-yakimova-df1749",
@@ -190,6 +191,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Посещение на Дидакта в Германия - командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 884.0236625882618,
+        "legalBasis": null
       }
     ]
   }

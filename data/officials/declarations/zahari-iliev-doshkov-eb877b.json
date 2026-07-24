@@ -94,6 +94,56 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 245.9313948553811,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 245.9313948553811,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мазда СХ5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2505.3302178614704,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мазда СХ5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2505.3302178614704,
+        "legalBasis": "покупко-продажба"
+      }
     ]
   },
   {
@@ -209,7 +259,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zahari-iliev-doshkov-eb877b",
@@ -328,7 +379,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zahari-iliev-doshkov-eb877b",
@@ -538,7 +590,8 @@
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от друго физическо лице"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zahari-iliev-doshkov-eb877b",
@@ -647,7 +700,8 @@
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от физическо лици"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zahari-iliev-doshkov-eb877b",
@@ -864,6 +918,80 @@
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от физическо лице"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Яворец",
+        "municipality": "Габрово",
+        "areaSqm": 920,
+        "builtAreaSqm": 152,
+        "currency": "BGN",
+        "valueEur": 690.244039614895,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Яворец",
+        "municipality": "Габрово",
+        "areaSqm": 920,
+        "builtAreaSqm": 152,
+        "currency": "BGN",
+        "valueEur": 690.244039614895,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола Версо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола Версо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мазда 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мазда 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1055,6 +1183,7 @@
         "legalBasis": null,
         "fundsOrigin": "предоставени за съхранение от физическо лице"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -334,6 +334,32 @@
         "legalBasis": "записване на акции, джиро",
         "fundsOrigin": "трудово възнаграждение"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж върху парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1160,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "учредяване на право на строеж на строително дружество срещу задължение за построяване на многофамилна жилищна сграда (суперфиция)"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж на апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 102,
+        "builtAreaSqm": 102,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение на право на строеж на апартамент"
+      }
     ]
   },
   {
@@ -629,7 +655,8 @@
         "legalBasis": "записване на акции, джиро",
         "fundsOrigin": "трудово възнаграждение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-stoyanova-aleksandrova-7e28f7",
@@ -840,6 +867,7 @@
         "legalBasis": "договор за системно инвестиране с \"ОББ АСЕТ МЕНИДЖМЪНТ\"АД",
         "fundsOrigin": "трудово възнаграждение"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -32,6 +32,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "НИКИЕМ 25 ЕООД",
+        "detail": null,
+        "location": "Управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -156,6 +170,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит 6.31%",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 327.22680396557985,
+        "legalBasis": "възмездно"
       }
     ]
   }

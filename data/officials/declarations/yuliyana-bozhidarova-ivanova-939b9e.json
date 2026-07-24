@@ -58,6 +58,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 250.02172990495083,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 250.02172990495083,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -118,6 +144,32 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 117.59713267513025,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 138.048807922979,
+        "legalBasis": null
       }
     ]
   }

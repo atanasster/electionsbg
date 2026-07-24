@@ -58,6 +58,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Англия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -101,6 +127,7 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

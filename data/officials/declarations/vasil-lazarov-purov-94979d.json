@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 25,
+        "builtAreaSqm": 25,
+        "currency": "BGN",
+        "valueEur": 67490.52831790084,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -185,6 +199,7 @@
         "legalBasis": "заем за покупка на автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -94,6 +94,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба недв. Имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 506.1789623842563,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

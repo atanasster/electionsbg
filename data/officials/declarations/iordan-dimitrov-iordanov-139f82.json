@@ -118,6 +118,32 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "сеат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "сеат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -215,6 +241,20 @@
         "legalBasis": "ВСК",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Нови пазар",
+        "municipality": "Нови пазар",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -300,7 +340,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-dimitrov-iordanov-139f82",
@@ -379,7 +420,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-dimitrov-iordanov-139f82",
@@ -409,7 +451,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordan-dimitrov-iordanov-139f82",
@@ -476,7 +519,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-dimitrov-iordanov-139f82",
@@ -638,7 +682,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-dimitrov-iordanov-139f82",
@@ -655,6 +700,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/911911C6-2F17-4F9F-A029-C856F3F65A2288910.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -268,6 +268,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от нотариална дейност"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "такса за училище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9382.206019950609,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "такса за учпилище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8911.817489250088,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -563,6 +589,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от нотариална дейност"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Такса за училище и транспорт",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8523.235659540962,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Такса за детска градина",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7700.05573081505,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -791,6 +843,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от нотариална дейност"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "такса за училище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8523.235659540962,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "такса за детска градина",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6899.883936742968,
+        "legalBasis": null
       }
     ]
   },
@@ -1147,6 +1225,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от нотариална дейност"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "такса за училище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6000.010225837624,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "такса за детска градина",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6000.010225837624,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1357,6 +1461,68 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от нотариална дейност"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 2749,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "дворно място с 2 жил.сгради и 3 паянтови сгради",
+        "detail": null,
+        "location": "с. Българене",
+        "municipality": "Левски",
+        "areaSqm": 1420,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1097.743668928281,
+        "legalBasis": "делба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "дворно място с гараж",
+        "detail": null,
+        "location": "с. Гривица",
+        "municipality": "Плевен",
+        "areaSqm": 906,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 65000.02556459406,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "такса за ЧОУ \"Света София\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5828.7274456368905,
+        "legalBasis": null
       }
     ]
   },
@@ -1641,6 +1807,7 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

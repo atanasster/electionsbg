@@ -21,7 +21,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "naiden-petrov-cholakov-c472ae",
@@ -51,7 +52,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "naiden-petrov-cholakov-c472ae",
@@ -81,7 +83,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Вид на превозното",
+        "detail": "Вранглер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "naiden-petrov-cholakov-c472ae",
@@ -130,6 +146,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Вид на превозното",
+        "detail": "Вранглер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -154,7 +184,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "naiden-petrov-cholakov-c472ae",
@@ -203,7 +234,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "naiden-petrov-cholakov-c472ae",
@@ -365,7 +397,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "naiden-petrov-cholakov-c472ae",
@@ -382,6 +415,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/16C0FA5C-2110-4279-8BBD-245C7491B42D89483.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

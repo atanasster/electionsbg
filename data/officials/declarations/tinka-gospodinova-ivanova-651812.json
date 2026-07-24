@@ -58,6 +58,32 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на апартамент"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Ямбол, жк \"Златен рог\" бл.9, ап.49",
+        "municipality": "Ямбол",
+        "areaSqm": 64,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 16591.42154481729,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Ямбол, жк. \"Златен рог\", бл.9, ап.49",
+        "municipality": "Ямбол",
+        "areaSqm": 64,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 16591.42154481729,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -161,6 +187,7 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия и превод на капаро за продажба на апартамент"
       }
-    ]
+    ],
+    "events": []
   }
 ]

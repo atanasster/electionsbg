@@ -412,7 +412,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-vladimirov-velchev-4587af",
@@ -719,6 +720,44 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от предходни години"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Хотел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 869.7074899147676,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Хотел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 959.6948610053021,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Хотел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1050.704815858229,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -989,6 +1028,20 @@
         "isSpouse": false,
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "бонове"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "хотел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 959.6948610053021,
+        "legalBasis": null
       }
     ]
   }

@@ -69,6 +69,44 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Фондация Дума",
+        "detail": null,
+        "location": "председател на УС - заличен, считано от 21.01.2025 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Български антифашистки съюз",
+        "detail": null,
+        "location": "член на УС - заличен, считано от 21.01.2025 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Българска федерация по ръгби",
+        "detail": null,
+        "location": "председтел на УС - заличен, считано от 28.01.2025 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -244,6 +282,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

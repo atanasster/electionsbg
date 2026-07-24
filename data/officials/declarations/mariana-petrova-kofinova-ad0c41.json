@@ -376,6 +376,32 @@
         "legalBasis": "договор за кредит, лихва 6,04%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 18406.507723063867,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 245.42010297418489,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -610,7 +636,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-petrova-kofinova-ad0c41",
@@ -627,6 +654,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/CC46E6D6-192E-4B72-B2CD-F9F4C4E4032F196144.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

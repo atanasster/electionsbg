@@ -46,6 +46,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Балчик",
+        "municipality": "Добрич",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -63,7 +77,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/2EA0E4F1-2C01-4FC0-84A7-0A19EF540EA6184733.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "plamen-iordanov-ivanov-4a0011",
@@ -243,6 +258,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

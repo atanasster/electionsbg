@@ -76,7 +76,8 @@
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kristina-georgieva-andonova-hitrova-d909ea",
@@ -173,7 +174,8 @@
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kristina-georgieva-andonova-hitrova-d909ea",
@@ -252,7 +254,8 @@
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kristina-georgieva-andonova-hitrova-d909ea",
@@ -294,6 +297,20 @@
         "isSpouse": false,
         "legalBasis": "Договор № 7474",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Каварна",
+        "municipality": "Каварна",
+        "areaSqm": 33,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16003.43588144164,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -355,6 +372,20 @@
         "isSpouse": false,
         "legalBasis": "Договор № 7474",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в обменна програма, САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 3331.5778978745598,
+        "legalBasis": null
       }
     ]
   }

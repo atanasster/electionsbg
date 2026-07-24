@@ -223,6 +223,44 @@
         "legalBasis": "ДОГОВОР ЗА ЗАЕМ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Петърница",
+        "municipality": "Долни Дъбник",
+        "areaSqm": 13,
+        "builtAreaSqm": 13,
+        "currency": "BGN",
+        "valueEur": 2300.8134653829834,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Градина",
+        "municipality": "Долни Дъбник",
+        "areaSqm": 11,
+        "builtAreaSqm": 11,
+        "currency": "BGN",
+        "valueEur": 2709.846970339958,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

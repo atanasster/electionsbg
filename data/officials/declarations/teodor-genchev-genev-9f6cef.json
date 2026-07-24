@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodor-genchev-genev-9f6cef",
@@ -190,6 +191,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "село Гергини",
+        "municipality": "Габрово",
+        "areaSqm": 900,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13293.58891110168,
+        "legalBasis": "възмездно"
       }
     ]
   }

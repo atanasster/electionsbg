@@ -64,6 +64,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "град Гоце Делчев, ул.\"Генерал Ковачев\" №21",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 324,
+        "builtAreaSqm": 324,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      }
     ]
   },
   {
@@ -81,7 +95,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/D5A23DC2-D168-4E2D-B872-BCCFCD144ABD172450.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "blagomir-ivanov-tomov-c4642a",
@@ -225,6 +240,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

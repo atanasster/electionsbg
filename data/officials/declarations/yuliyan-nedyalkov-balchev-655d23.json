@@ -178,6 +178,32 @@
         "legalBasis": "Овърдрафт 10,00",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Меган",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено 19",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 281.21053465792016,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -479,6 +505,7 @@
         "legalBasis": "Ипотечен заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

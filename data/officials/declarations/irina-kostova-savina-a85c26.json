@@ -82,6 +82,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "гр. Любляна, Словения - 2 нощувки",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 399.83025109544286,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -167,7 +181,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irina-kostova-savina-a85c26",
@@ -234,7 +249,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irina-kostova-savina-a85c26",
@@ -301,7 +317,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irina-kostova-savina-a85c26",
@@ -403,6 +420,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в международна специализирана програма в САЩ-23 дни, транспорт, нощувки и др.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 6180.496259899889,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Виена, Австрия-2 дни, транспрот и нощувка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 448.4029798090836,
+        "legalBasis": null
       }
     ]
   }

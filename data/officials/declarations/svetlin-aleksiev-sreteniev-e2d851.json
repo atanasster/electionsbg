@@ -2242,7 +2242,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetlin-aleksiev-sreteniev-e2d851",
@@ -3136,6 +3137,128 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "земеделска продукция"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 16,
+        "builtAreaSqm": 16300,
+        "currency": "BGN",
+        "valueEur": 12501.086495247542,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 24,
+        "builtAreaSqm": 23852,
+        "currency": "BGN",
+        "valueEur": 18293.000925438304,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 1,
+        "builtAreaSqm": 1050,
+        "currency": "BGN",
+        "valueEur": 536.8564752560294,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 4,
+        "builtAreaSqm": 4031,
+        "currency": "BGN",
+        "valueEur": 2473.1188293461087,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 2,
+        "builtAreaSqm": 2098,
+        "currency": "BGN",
+        "valueEur": 1072.6903667496663,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 8,
+        "builtAreaSqm": 8001,
+        "currency": "BGN",
+        "valueEur": 5726.980361278844,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 14,
+        "builtAreaSqm": 14497,
+        "currency": "BGN",
+        "valueEur": 8894.433565289417,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 6,
+        "builtAreaSqm": 5951,
+        "currency": "BGN",
+        "valueEur": 3651.135323622196,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 5,
+        "builtAreaSqm": 5001,
+        "currency": "BGN",
+        "valueEur": 2045.6788166660701,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владимирово",
+        "municipality": "Бойчиновци",
+        "areaSqm": 5,
+        "builtAreaSqm": 4841,
+        "currency": "BGN",
+        "valueEur": 2970.0945378688334,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -9467,6 +9590,20 @@
         "isSpouse": true,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ДЕУ Матиз",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -24691,6 +24828,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

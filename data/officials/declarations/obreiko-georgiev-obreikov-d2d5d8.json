@@ -303,6 +303,44 @@
         "legalBasis": "ЛИЗИНГ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "ФОЛКСВАГЕН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11248.421386316806,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "ПЕЖО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "ОПЕЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -562,6 +600,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -802,6 +854,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2709.846970339958,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ilka-tincheva-stoimenova-401c86",
@@ -154,6 +155,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Изкустен интелект и използване в образованието",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 84.87445227857226,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проблеми в управленската дейност на директора",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 224.45713584513993,
+        "legalBasis": null
       }
     ]
   }

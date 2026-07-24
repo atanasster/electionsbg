@@ -190,7 +190,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todorka-draganova-taneva-b27f11",
@@ -214,7 +215,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "кв. Бряг",
+        "municipality": "Търговище",
+        "areaSqm": 901,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "продажба"
+      }
+    ]
   },
   {
     "slug": "todorka-draganova-taneva-b27f11",
@@ -238,7 +253,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "todorka-draganova-taneva-b27f11",
@@ -262,7 +278,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "todorka-draganova-taneva-b27f11",
@@ -286,7 +303,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "todorka-draganova-taneva-b27f11",
@@ -329,6 +347,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

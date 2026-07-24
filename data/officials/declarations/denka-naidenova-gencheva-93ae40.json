@@ -76,6 +76,20 @@
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Audi A3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 235.70555723145674,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -148,6 +162,7 @@
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

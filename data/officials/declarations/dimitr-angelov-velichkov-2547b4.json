@@ -154,7 +154,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-angelov-velichkov-2547b4",
@@ -310,6 +311,20 @@
         "isSpouse": false,
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Пазарджик",
+        "municipality": "Пазарджик",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 53685.647525602944,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -468,6 +483,20 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент и търговски обект",
+        "detail": null,
+        "location": "гр.Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 73,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": 38858.1829709126,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -624,6 +653,20 @@
         "isSpouse": false,
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Киа Спортидж",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 29143.637228184452,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -782,6 +825,32 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Ателие",
+        "detail": null,
+        "location": "к.к.Слънчев бряг",
+        "municipality": "Несебър",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен Ц 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -885,7 +954,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-angelov-velichkov-2547b4",
@@ -909,6 +979,7 @@
         "amountEurSpouse": 24267.446557216117
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

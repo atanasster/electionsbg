@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-angelov-katrachev-e29ecd",
@@ -208,6 +209,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и командировъчни средства"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9714.54574272815,
+        "legalBasis": "Продажба"
       }
     ]
   }

@@ -226,6 +226,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и дивиденти"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -442,6 +456,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и дивиденти"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": null
       }
     ]
   },
@@ -660,6 +688,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Репблика Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 930.5512237771177,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -877,7 +919,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimcho-anastasov-dimchev-f3d60c",
@@ -1118,7 +1161,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimcho-anastasov-dimchev-f3d60c",
@@ -1353,7 +1397,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimcho-anastasov-dimchev-f3d60c",
@@ -1588,6 +1633,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

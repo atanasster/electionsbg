@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/7C591AB8-E2DB-4AA0-9820-A6AEBB313DD0141871.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-todorov-popov-16bd5f",
@@ -87,6 +88,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Nisan",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -104,7 +119,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/7C591AB8-E2DB-4AA0-9820-A6AEBB313DD094110.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-todorov-popov-16bd5f",
@@ -410,6 +426,7 @@
         "legalBasis": "Закупуване на апартамент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

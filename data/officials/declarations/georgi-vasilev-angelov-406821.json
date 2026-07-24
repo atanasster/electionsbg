@@ -190,6 +190,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ 316 (1998)",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -365,7 +379,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-vasilev-angelov-406821",
@@ -401,6 +416,32 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"КЛЪСТЕР МИКРОЕЛЕКТРОНИКА И ИНДУСТРИАЛНИ ЕЛЕКТРОННИ СИСТЕМИ\"",
+        "detail": null,
+        "location": "Считано от 25.07.2023 г., не съм  председател и член на управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"Гига Джордж\" ЕООД",
+        "detail": null,
+        "location": "Считано от 04.07.2023 г., не съм управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -418,7 +459,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/4CA8460A-1FF1-46E0-BBDE-D4677B956647155982.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-vasilev-angelov-406821",
@@ -634,6 +676,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

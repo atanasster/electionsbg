@@ -124,7 +124,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-petrov-gendov-84c8f6",
@@ -209,7 +210,8 @@
         "legalBasis": null,
         "fundsOrigin": "от трудови възнаграждения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-petrov-gendov-84c8f6",
@@ -293,6 +295,32 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Ремарке за лек автомобил",
+        "detail": "Суифт Чаленджър 490 Л",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Ремарке за лек автомобил",
+        "detail": "Суифт Чаленджър 490 Л",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -594,6 +622,32 @@
         "isSpouse": false,
         "legalBasis": "договор за паричен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4908.4020594836975,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4908.4020594836975,
+        "legalBasis": "възмездно"
       }
     ]
   }

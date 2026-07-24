@@ -75,6 +75,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Костенец",
+        "municipality": "Костенец",
+        "areaSqm": 449,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -45,6 +45,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АУДИ А8",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38346.89108971639,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

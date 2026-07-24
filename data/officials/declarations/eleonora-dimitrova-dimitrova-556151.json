@@ -160,6 +160,32 @@
         "legalBasis": "договор и нотариален акт",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ж.к. Гео Милев 246 ет.10 ап.40",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 75,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 144999.82104784157,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -317,6 +343,20 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 76,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 144999.82104784157,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -378,7 +418,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "eleonora-dimitrova-dimitrova-556151",
@@ -395,7 +436,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/3E5EFA22-D7C5-433F-B2B5-103FC7BF2F2A94192.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "eleonora-dimitrova-dimitrova-556151",
@@ -521,6 +563,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

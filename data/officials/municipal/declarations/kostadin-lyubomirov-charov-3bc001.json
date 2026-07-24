@@ -75,6 +75,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "м-ст Карачали",
+        "municipality": "Петрич",
+        "areaSqm": 4,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "м-ст Карачали",
+        "municipality": "Петрич",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "м-ст Карачали",
+        "municipality": "Петрич",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

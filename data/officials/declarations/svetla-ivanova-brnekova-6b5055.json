@@ -94,7 +94,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-ivanova-brnekova-6b5055",
@@ -238,6 +239,56 @@
         "isSpouse": false,
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

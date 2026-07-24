@@ -112,6 +112,20 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -263,6 +277,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

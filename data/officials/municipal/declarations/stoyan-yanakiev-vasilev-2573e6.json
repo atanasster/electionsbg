@@ -165,6 +165,32 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Приморско",
+        "municipality": "Приморско",
+        "areaSqm": 86,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 39999.89774162376,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "Приморско",
+        "municipality": "Приморско",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2500.2172990495083,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -112,6 +112,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 406",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 199.4038336665252,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -209,7 +223,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплат"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "manol-kostadinov-kozelov-8a6d38",
@@ -226,7 +241,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/80C3935C-F9C0-4A17-A5DB-F6EF04A9F52189874.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "manol-kostadinov-kozelov-8a6d38",
@@ -406,6 +422,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

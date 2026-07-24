@@ -118,7 +118,8 @@
         "legalBasis": "договор",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-tsvetanov-tomov-fbaff3",
@@ -346,6 +347,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": null
       }
     ]
   }

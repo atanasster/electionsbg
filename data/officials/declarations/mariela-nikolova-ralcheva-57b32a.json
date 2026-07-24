@@ -100,6 +100,20 @@
         "legalBasis": "потребителски кредит 4,1%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Нова Загора ул.Поборническа 31",
+        "municipality": "Нова Загора",
+        "areaSqm": 263,
+        "builtAreaSqm": 129,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -214,6 +228,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
       }
     ]
   }

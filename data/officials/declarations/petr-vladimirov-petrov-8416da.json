@@ -258,7 +258,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-vladimirov-petrov-8416da",
@@ -526,6 +527,44 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 560,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Екскурзия в ЕС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировки ЕС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -605,7 +644,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-vladimirov-petrov-8416da",
@@ -666,7 +706,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-vladimirov-petrov-8416da",
@@ -846,6 +887,7 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

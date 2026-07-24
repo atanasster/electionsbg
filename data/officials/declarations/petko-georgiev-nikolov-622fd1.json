@@ -249,7 +249,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petko-georgiev-nikolov-622fd1",
@@ -316,7 +317,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petko-georgiev-nikolov-622fd1",
@@ -407,7 +409,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petko-georgiev-nikolov-622fd1",
@@ -522,6 +525,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 107,
+        "builtAreaSqm": 107,
+        "currency": "BGN",
+        "valueEur": 84726.17763302536,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -539,6 +556,20 @@
     "sourceUrl": "https://register.cacbg.bg/2017/0DA10D0F-FC14-45F3-9D28-3980CB55050985485.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Инджекьойско блато / Блато",
+        "municipality": "Несебър",
+        "areaSqm": 14993,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

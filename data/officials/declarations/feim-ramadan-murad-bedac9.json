@@ -118,7 +118,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "feim-ramadan-murad-bedac9",
@@ -238,6 +239,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Топола",
+        "municipality": "Каварна",
+        "areaSqm": 1050,
+        "builtAreaSqm": 1050,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "продажба"
       }
     ]
   }

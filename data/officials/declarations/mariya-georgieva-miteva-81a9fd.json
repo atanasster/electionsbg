@@ -21,7 +21,8 @@
         "amountEurSpouse": 19223.04085733423
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariya-georgieva-miteva-81a9fd",
@@ -135,6 +136,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ателие",
+        "detail": null,
+        "location": "Асеновград",
+        "municipality": "Асеновград",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

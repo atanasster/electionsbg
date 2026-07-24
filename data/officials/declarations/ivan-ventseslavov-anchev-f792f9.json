@@ -172,6 +172,68 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на семеен имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 81,
+        "builtAreaSqm": 81,
+        "currency": "BGN",
+        "valueEur": 134999.97443540595,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "продажба заедно с апартамента"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 95,
+        "builtAreaSqm": 95,
+        "currency": "BGN",
+        "valueEur": 139999.89774162378,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 23,
+        "builtAreaSqm": 23,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "продажба заедно с апартамента"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 70999.52449855048,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -311,7 +373,8 @@
         "legalBasis": "Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-ventseslavov-anchev-f792f9",
@@ -372,6 +435,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

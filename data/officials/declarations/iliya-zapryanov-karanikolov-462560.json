@@ -232,6 +232,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "кола",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12271.005148709244,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -358,7 +372,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-zapryanov-karanikolov-462560",
@@ -533,6 +548,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "кола",
+        "detail": "СЕАТ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1942.9091485456302,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -550,7 +579,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/F89B2F00-1CB1-401C-951C-DA5BD3F87F76145440.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iliya-zapryanov-karanikolov-462560",
@@ -868,6 +898,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

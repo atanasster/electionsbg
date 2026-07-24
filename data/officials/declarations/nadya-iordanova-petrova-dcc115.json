@@ -46,6 +46,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "дарение по сметка: IBAN BG20SOMB91301000025474 за финансиране на предизборна кампания на коалиция ДПС-Ново начало",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "дарение по сметка: IBAN BG20SOMB91301000025474 за финансиране на предизборна кампания на коалиция ДПС-Ново начало",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -70,6 +96,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

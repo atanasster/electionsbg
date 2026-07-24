@@ -94,6 +94,20 @@
         "legalBasis": "Договор, 4,4 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Септември",
+        "municipality": "Септември",
+        "areaSqm": 640,
+        "builtAreaSqm": 180,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -111,7 +125,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/016CF4D3-92AC-453E-8E1D-59E3C7B75627177475.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyudmil-marinov-nedelkov-aa0074",
@@ -273,6 +288,7 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

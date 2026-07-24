@@ -262,6 +262,20 @@
         "legalBasis": "лизиниг, 5,45%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -455,7 +469,8 @@
         "legalBasis": "личен заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nencho-petrov-smilov-583a14",
@@ -870,6 +885,44 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Макоцево",
+        "municipality": "Горна Малина",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "с. Макоцево",
+        "municipality": "Горна Малина",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Макоцево",
+        "municipality": "Горна Малина",
+        "areaSqm": 4,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -887,7 +940,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/1FAD2880-F2F9-4810-BCA9-D0C6E2B1D40B95755.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nencho-petrov-smilov-583a14",
@@ -1169,6 +1223,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -136,6 +136,20 @@
         "legalBasis": "2%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ивайловград",
+        "municipality": "Ивайловград",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "currency": "BGN",
+        "valueEur": 18917.799604260083,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -269,6 +283,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

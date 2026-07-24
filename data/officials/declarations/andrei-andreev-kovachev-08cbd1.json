@@ -172,7 +172,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-andreev-kovachev-08cbd1",
@@ -328,6 +329,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Делегация в Тайван",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 3600.0061355025746,
+        "legalBasis": null
       }
     ]
   },
@@ -504,7 +519,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-andreev-kovachev-08cbd1",
@@ -733,7 +749,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-andreev-kovachev-08cbd1",
@@ -962,7 +979,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-andreev-kovachev-08cbd1",
@@ -1173,7 +1191,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-andreev-kovachev-08cbd1",
@@ -1383,6 +1402,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Делегация в Тайпе по покана на правителството на Тайван",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4060.680120460367,
+        "legalBasis": null
       }
     ]
   }

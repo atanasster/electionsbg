@@ -130,7 +130,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nako-minkov-nakov-0589ee",
@@ -280,6 +281,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Квалификация",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 135.4923485169979,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Квалификация",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 186.11024475542354,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Работни срещи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 144.18431049733363,
+        "legalBasis": null
       }
     ]
   }

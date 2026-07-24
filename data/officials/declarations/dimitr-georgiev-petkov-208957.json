@@ -178,6 +178,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 54,
+        "builtAreaSqm": 54,
+        "currency": "BGN",
+        "valueEur": 24839.582172274688,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 16,
+        "builtAreaSqm": 16,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -323,7 +349,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-georgiev-petkov-208957",
@@ -809,6 +836,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

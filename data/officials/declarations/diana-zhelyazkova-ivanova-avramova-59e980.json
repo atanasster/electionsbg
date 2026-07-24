@@ -58,6 +58,20 @@
         "legalBasis": "наследство",
         "fundsOrigin": "безвъзмездно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "Ямбол, Видин 23",
+        "municipality": "Ямбол",
+        "areaSqm": 40,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -88,7 +102,8 @@
         "amountEurSpouse": 1227.1005148709244
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "diana-zhelyazkova-ivanova-avramova-59e980",
@@ -112,7 +127,8 @@
         "amountEurSpouse": 9072.3631399457
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "diana-zhelyazkova-ivanova-avramova-59e980",
@@ -197,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diana-zhelyazkova-ivanova-avramova-59e980",
@@ -300,6 +317,20 @@
         "legalBasis": "замяна",
         "fundsOrigin": "безвъзмездно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "село Межда",
+        "municipality": "Тунджа",
+        "areaSqm": 12,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -324,6 +355,7 @@
         "amountEurSpouse": 6391.148514952731
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

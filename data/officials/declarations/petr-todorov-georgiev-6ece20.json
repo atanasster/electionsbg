@@ -154,7 +154,8 @@
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-todorov-georgiev-6ece20",
@@ -280,7 +281,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-todorov-georgiev-6ece20",
@@ -437,7 +439,8 @@
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-todorov-georgiev-6ece20",
@@ -1104,6 +1107,32 @@
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Младост",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 92,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 92999.90285454257,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Младост",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 92,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 92999.90285454257,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1728,6 +1757,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "рента, дивидент"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Сребърна",
+        "municipality": "Силистра",
+        "areaSqm": 1200,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Сребърна",
+        "municipality": "Силистра",
+        "areaSqm": 1200,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "продажба"
       }
     ]
   }

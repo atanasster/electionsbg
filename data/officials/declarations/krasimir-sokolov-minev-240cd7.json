@@ -178,7 +178,8 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-sokolov-minev-240cd7",
@@ -346,6 +347,20 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ПЕЖО 207",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1365.1493227939034,
+        "legalBasis": "ДОГОВОР ПОКУПКОПРОДАЖБА"
       }
     ]
   }

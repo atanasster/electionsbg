@@ -2033,7 +2033,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "momchil-stefanov-mavrov-29065c",
@@ -2303,6 +2304,20 @@
         "isSpouse": false,
         "legalBasis": "жилищен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "друг вид нива",
+        "detail": null,
+        "location": "Куклен",
+        "municipality": "Куклен",
+        "areaSqm": 8.513,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   }

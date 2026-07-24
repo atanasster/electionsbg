@@ -279,6 +279,56 @@
         "legalBasis": "д-р кредит, 0% дог. Лихвен %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "БЛАГОЕВГРАД",
+        "municipality": "Благоевград",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "currency": "BGN",
+        "valueEur": 3170.0096634165548,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "БЛАГОЕВГРАД",
+        "municipality": "Благоевград",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "currency": "BGN",
+        "valueEur": 3170.0096634165548,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес А150",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 752.1103572396374,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес А150",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 752.1103572396374,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

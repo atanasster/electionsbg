@@ -63,7 +63,33 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1499.1077956673125,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Финландия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2498.6834234059197,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "borislava-stanilova-hadzhiiska-09403c",
@@ -129,6 +155,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2454.2010297418487,
+        "legalBasis": null
+      }
+    ]
   }
 ]

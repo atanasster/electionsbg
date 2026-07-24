@@ -249,7 +249,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rusi-parashkevov-rusev-9a306e",
@@ -508,7 +509,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rusi-parashkevov-rusev-9a306e",
@@ -821,6 +823,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Траката",
+        "municipality": "Варна",
+        "areaSqm": 2200,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10287.192649667915,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1127,7 +1143,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rusi-parashkevov-rusev-9a306e",
@@ -1162,6 +1179,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "МБАЛ ВАРНА ЕООД",
+        "detail": null,
+        "location": "24245.00",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -1469,7 +1500,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rusi-parashkevov-rusev-9a306e",
@@ -1793,6 +1825,7 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

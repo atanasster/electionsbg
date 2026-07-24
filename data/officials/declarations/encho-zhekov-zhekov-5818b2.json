@@ -172,7 +172,8 @@
         "legalBasis": "покупка жилище",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "encho-zhekov-zhekov-5818b2",
@@ -353,7 +354,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "encho-zhekov-zhekov-5818b2",
@@ -564,7 +566,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "encho-zhekov-zhekov-5818b2",
@@ -738,6 +741,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -943,6 +960,56 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Стоилово",
+        "municipality": "Малко Търново",
+        "areaSqm": 200,
+        "builtAreaSqm": 130,
+        "currency": "BGN",
+        "valueEur": 23008.13465382983,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 41,
+        "builtAreaSqm": 41,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 64,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 44993.685545267224,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 41,
+        "builtAreaSqm": 41,
+        "currency": "BGN",
+        "valueEur": 38500.27865407525,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -1358,7 +1425,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "encho-zhekov-zhekov-5818b2",
@@ -1375,6 +1443,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/BAD1BD37-ED09-4566-830B-ED3CF5E6B52B89489.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

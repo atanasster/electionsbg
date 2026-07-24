@@ -87,7 +87,8 @@
         "legalBasis": "Договор за кредит за текущо потребление - договорен лихвен процент 6.71 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-metodiev-kanazirski-4be65f",
@@ -586,7 +587,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-metodiev-kanazirski-4be65f",
@@ -622,7 +624,8 @@
         "legalBasis": "Кредит текущо потребление от \"БНП Париба\"- договорен лихвен процент 5.94 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-metodiev-kanazirski-4be65f",
@@ -658,7 +661,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-metodiev-kanazirski-4be65f",
@@ -1139,7 +1143,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-metodiev-kanazirski-4be65f",
@@ -1590,6 +1595,20 @@
         "legalBasis": "Договор за кредит за текущо потребление",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Лексус \"ES 330\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1662,7 +1681,8 @@
         "legalBasis": "Кредит текущо потребление от \"БНП Париба\"",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-metodiev-kanazirski-4be65f",
@@ -1921,7 +1941,8 @@
         "legalBasis": "Договор за кредит за текущо потребление",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-metodiev-kanazirski-4be65f",
@@ -1938,7 +1959,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/D6547E68-26F8-400E-8D0C-2C4947FDBBE2112936.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-metodiev-kanazirski-4be65f",
@@ -2190,6 +2212,7 @@
         "legalBasis": "Договор за кредит за текущо потребление",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

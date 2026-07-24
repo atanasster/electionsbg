@@ -105,7 +105,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bogdan-dimitrov-dimitrov-f51cff",
@@ -250,6 +251,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Бургас,ул.Цар Самуил 7",
+        "municipality": "Бургас",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 55500.22241196832,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Леки автомобили",
+        "detail": "Шкода Фабия,Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -347,7 +374,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bogdan-dimitrov-dimitrov-f51cff",
@@ -575,7 +603,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bogdan-dimitrov-dimitrov-f51cff",
@@ -592,6 +621,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0172B6BF-DFE2-4377-9B71-2AD20751403992143.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

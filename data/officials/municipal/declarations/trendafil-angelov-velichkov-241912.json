@@ -39,6 +39,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "продажба на лек автомобил"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес С350",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

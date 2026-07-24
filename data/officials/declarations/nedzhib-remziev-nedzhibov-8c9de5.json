@@ -111,6 +111,20 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -316,6 +330,7 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

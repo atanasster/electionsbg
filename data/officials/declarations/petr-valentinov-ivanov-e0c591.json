@@ -112,7 +112,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-valentinov-ivanov-e0c591",
@@ -208,6 +209,20 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Исузу Трупър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -14,7 +14,21 @@
     "sourceUrl": "https://register.cacbg.bg/2025/99BA4F99-D63A-4C19-92AE-2D28AA103ECE219110.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Фондация \"Деца на българската армия\", ЕИК 131408691",
+        "detail": null,
+        "location": "Контролен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "nikolai-rusev-rusev-b25a4d",
@@ -111,6 +125,32 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7950.5887526011975,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7950.5887526011975,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -178,6 +218,7 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

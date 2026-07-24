@@ -189,7 +189,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-dinov-petrov-c4f9f9",
@@ -399,6 +400,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, наем"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент и гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 147,
+        "builtAreaSqm": 147,
+        "currency": "BGN",
+        "valueEur": 374999.8721770297,
+        "legalBasis": "възмездно/продажба 09.2024"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент и гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 147,
+        "builtAreaSqm": 147,
+        "currency": "BGN",
+        "valueEur": 374999.8721770297,
+        "legalBasis": "възмездно/продажба 09.2024"
       }
     ]
   }

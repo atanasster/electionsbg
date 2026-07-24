@@ -69,7 +69,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-atanasov-petrov-66c8b4",
@@ -148,7 +149,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-atanasov-petrov-66c8b4",
@@ -238,7 +240,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-atanasov-petrov-66c8b4",
@@ -335,6 +338,32 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "самолетни билети до САЩ и обратно",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 1840.6507723063867,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пребиваване в САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 7362.603089225547,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -396,7 +425,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-atanasov-petrov-66c8b4",
@@ -504,7 +534,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-atanasov-petrov-66c8b4",
@@ -521,6 +552,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/BD9E8731-D114-4008-BA7A-CFCF29000D5F92483.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

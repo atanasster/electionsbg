@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galya-ilieva-vasileva-084e9b",
@@ -257,6 +258,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -408,7 +423,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galya-ilieva-vasileva-084e9b",
@@ -541,6 +557,7 @@
         "legalBasis": "делба",
         "fundsOrigin": "прихващане срещу дивидент"
       }
-    ]
+    ],
+    "events": []
   }
 ]

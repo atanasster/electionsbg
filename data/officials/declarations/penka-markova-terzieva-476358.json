@@ -21,7 +21,8 @@
         "amountEurSpouse": 12333.894050096378
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "penka-markova-terzieva-476358",
@@ -87,6 +88,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
       }
     ]
   }

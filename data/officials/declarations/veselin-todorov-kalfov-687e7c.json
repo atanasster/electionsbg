@@ -130,7 +130,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-todorov-kalfov-687e7c",
@@ -388,6 +389,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Декларирани в предишен период"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с.Брястово",
+        "municipality": "Минерални бани",
+        "areaSqm": 1370,
+        "builtAreaSqm": 197,
+        "currency": "BGN",
+        "valueEur": 122999.9539837307,
+        "legalBasis": "възмездно в режим на СИО"
       }
     ]
   },
@@ -702,7 +717,8 @@
         "legalBasis": null,
         "fundsOrigin": "прехвърлени от инв. Фонд  на съпруг"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-todorov-kalfov-687e7c",
@@ -750,7 +766,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselin-todorov-kalfov-687e7c",
@@ -1097,6 +1114,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Многогодишен депозит-чл.29 от ЗДДФЛ от източници в чужбина/Прил.3 от ГДД"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Хасково",
+        "municipality": "Хасково",
+        "areaSqm": 0,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Хасково",
+        "municipality": "Хасково",
+        "areaSqm": 0,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Паджеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1661,7 +1716,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-todorov-kalfov-687e7c",
@@ -1678,6 +1734,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3E331E9E-DDC6-4585-A05F-B5305ACA72B690133.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

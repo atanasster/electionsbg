@@ -262,7 +262,8 @@
         "legalBasis": "оперативен лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-andreev-karadimov-d35c52",
@@ -472,6 +473,32 @@
         "isSpouse": true,
         "legalBasis": "Договор за покупко продажба на дялове",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила",
+        "detail": null,
+        "location": "Блексирама голф комплекс",
+        "municipality": "Балчик",
+        "areaSqm": 188,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 300000,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гора",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": "възмездно"
       }
     ]
   }

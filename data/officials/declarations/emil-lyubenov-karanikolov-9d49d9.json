@@ -21,7 +21,8 @@
         "amountEurSpouse": 4415.516686010543
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "emil-lyubenov-karanikolov-9d49d9",
@@ -112,7 +113,8 @@
         "legalBasis": null,
         "fundsOrigin": "3аплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-lyubenov-karanikolov-9d49d9",
@@ -208,6 +210,20 @@
         "isSpouse": true,
         "legalBasis": "покупна",
         "fundsOrigin": "лични"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ремарке",
+        "detail": "150",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7106.957148627437,
+        "legalBasis": "продажба"
       }
     ]
   }

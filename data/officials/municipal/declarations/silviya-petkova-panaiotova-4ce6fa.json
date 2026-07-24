@@ -159,6 +159,44 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "КАРАНВЪРБОВКА",
+        "municipality": "Две могили",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7993.537270621679,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "БИСТРЕНЦИ",
+        "municipality": "Бяла (Русе)",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9630.182582330775,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "КАРАНВЪРБОВКА",
+        "municipality": "Две могили",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5372.655087609864,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

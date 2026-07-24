@@ -58,6 +58,20 @@
         "legalBasis": "покупка",
         "fundsOrigin": "заем"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Нисан микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "покупка"
+      }
     ]
   },
   {
@@ -75,6 +89,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/9BB67E36-5937-426D-B820-07F6142356E6187298.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -358,7 +358,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-asenov-hadzhiev-90926a",
@@ -683,7 +684,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-asenov-hadzhiev-90926a",
@@ -984,7 +986,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-asenov-hadzhiev-90926a",
@@ -1285,7 +1288,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-asenov-hadzhiev-90926a",
@@ -1514,7 +1518,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-asenov-hadzhiev-90926a",
@@ -1743,6 +1748,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -1760,7 +1779,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/00228C40-B908-40E3-BE48-8C8AA0E397C689934.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-asenov-hadzhiev-90926a",
@@ -2066,6 +2086,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

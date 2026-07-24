@@ -82,6 +82,20 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Константиново",
+        "municipality": "Варна",
+        "areaSqm": 5,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -131,7 +145,8 @@
         "legalBasis": "ЗАЕМ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "momchil-raichev-iondrov-cb3684",
@@ -148,7 +163,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/AF2C7A5D-3E99-44A2-9964-A9916CA92E1F89678.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "momchil-raichev-iondrov-cb3684",
@@ -256,6 +272,7 @@
         "legalBasis": "ЗАЕМ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

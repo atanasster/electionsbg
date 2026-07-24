@@ -231,6 +231,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Гара Лакатиник",
+        "municipality": "Своге",
+        "areaSqm": 125,
+        "builtAreaSqm": 125,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Екскурзия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
+      }
     ]
   }
 ]

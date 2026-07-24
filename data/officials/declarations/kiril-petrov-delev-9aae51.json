@@ -27,7 +27,8 @@
         "amountEurSpouse": 7238.870453976061
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kiril-petrov-delev-9aae51",
@@ -99,6 +100,20 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен",
+        "detail": "Рено канго",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -172,6 +187,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

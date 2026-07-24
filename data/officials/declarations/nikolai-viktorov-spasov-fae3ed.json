@@ -105,7 +105,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-viktorov-spasov-fae3ed",
@@ -141,7 +142,8 @@
         "legalBasis": "Рефинансиране от жилищен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-viktorov-spasov-fae3ed",
@@ -382,6 +384,44 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с. Вакарел",
+        "municipality": "Ихтиман",
+        "areaSqm": 400,
+        "builtAreaSqm": 150,
+        "currency": "BGN",
+        "valueEur": 24542.01029741849,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "л.а.",
+        "detail": "Ситроен Саксо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1380.48807922979,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "л.а.",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -479,7 +519,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-viktorov-spasov-fae3ed",
@@ -569,7 +610,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-viktorov-spasov-fae3ed",
@@ -586,6 +628,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/68D7B61B-6F72-4928-A6F3-B6ADA566352292802.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

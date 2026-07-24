@@ -189,6 +189,20 @@
         "legalBasis": "кредитна карта лихва 18%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолцваген Шаран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

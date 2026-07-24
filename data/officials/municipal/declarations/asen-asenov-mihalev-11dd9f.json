@@ -81,6 +81,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Равда",
+        "municipality": "Несебър",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 22931.4408716504,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А8",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   }
 ]

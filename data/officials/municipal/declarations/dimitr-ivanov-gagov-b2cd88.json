@@ -99,6 +99,32 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имоти и заплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Рандолин дол",
+        "municipality": "Велинград",
+        "areaSqm": 14,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Банкя",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 760,
+        "builtAreaSqm": 106,
+        "currency": "BGN",
+        "valueEur": 25053.302178614707,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -231,7 +231,8 @@
         "legalBasis": "лизингов кредит - 3,71%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-petkov-rusev-bdcd20",
@@ -478,6 +479,32 @@
         "legalBasis": "лизингов кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "данъчно облекчение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 664.679445555084,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "данъчно облекчение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -700,6 +727,56 @@
         "isSpouse": false,
         "legalBasis": "лизингов кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 2008",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10737.129505120589,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 2008",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10737.129505120589,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "данъчно облекчение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "данъчно облекчение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": null
       }
     ]
   }

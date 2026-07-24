@@ -112,6 +112,32 @@
         "legalBasis": "Договор, 4.59 % лихва",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "с. Трояново",
+        "municipality": "Камено",
+        "areaSqm": 23,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 11759.713267513025,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Волво В 40",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -263,6 +289,7 @@
         "legalBasis": "Договор FL 1247503",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -52,6 +52,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -107,7 +121,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-filchev-doinov-d01fdf",
@@ -180,7 +195,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-filchev-doinov-d01fdf",
@@ -264,6 +280,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес Е290TD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

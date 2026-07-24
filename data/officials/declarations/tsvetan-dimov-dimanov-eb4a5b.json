@@ -268,7 +268,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-dimov-dimanov-eb4a5b",
@@ -491,7 +492,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-dimov-dimanov-eb4a5b",
@@ -708,7 +710,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-dimov-dimanov-eb4a5b",
@@ -919,7 +922,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-dimov-dimanov-eb4a5b",
@@ -954,6 +958,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "МБАЛ ПОЛИМЕД ООД",
+        "detail": null,
+        "location": "УПРАВИТЕЛ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "МЦ ПОЛИМЕД АД",
+        "detail": null,
+        "location": "ЧЛЕН НА СЪВЕТ НА ДИРЕКТОРИТЕ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "МЦ ПОЛИМЕД АД",
+        "detail": null,
+        "location": "ИЗПЪЛНИТЕЛЕН ДИРЕКТОР",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -1172,7 +1214,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-dimov-dimanov-eb4a5b",
@@ -1413,6 +1456,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

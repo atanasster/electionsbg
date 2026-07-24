@@ -51,7 +51,45 @@
         "amountEurSpouse": 0
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение - м.02.2024г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40.90335049569748,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение-м 03.2024г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76.69378217943277,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение-м.07.2024г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 179.46345029987268,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "stamena-ivanova-dyakova-5a791c",
@@ -135,6 +173,44 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 66.46794455550841,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 158.50048317082772,
+        "legalBasis": null
       }
     ]
   }

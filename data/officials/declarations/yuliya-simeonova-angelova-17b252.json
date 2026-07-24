@@ -40,6 +40,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Квалификация",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.13464871691303,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Квалификация",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 244.90881109298866,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Квалификация",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -155,6 +193,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

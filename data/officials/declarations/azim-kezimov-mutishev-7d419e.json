@@ -106,7 +106,8 @@
         "legalBasis": "договор, 5,5%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "azim-kezimov-mutishev-7d419e",
@@ -214,6 +215,32 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с.Горно Дряново",
+        "municipality": "Гърмен",
+        "areaSqm": 62,
+        "builtAreaSqm": 124,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "с.Горно Дряново",
+        "municipality": "Гърмен",
+        "areaSqm": 25,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -172,7 +172,8 @@
         "legalBasis": "договор - 18,90%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-iordanov-kyurkchiev-bb0645",
@@ -299,7 +300,8 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-iordanov-kyurkchiev-bb0645",
@@ -352,6 +354,20 @@
         "isSpouse": true,
         "legalBasis": "рефинансиране",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "НЧ Братство-1860",
+        "detail": null,
+        "location": "председател",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -534,7 +550,8 @@
         "legalBasis": "овърдрафг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-iordanov-kyurkchiev-bb0645",
@@ -684,6 +701,32 @@
         "isSpouse": false,
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "варна",
+        "municipality": "Варна",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 13405.050541202456,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "варна",
+        "municipality": "Варна",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 13405.050541202456,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -932,7 +975,8 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-iordanov-kyurkchiev-bb0645",
@@ -1119,7 +1163,8 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-iordanov-kyurkchiev-bb0645",
@@ -1300,6 +1345,7 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

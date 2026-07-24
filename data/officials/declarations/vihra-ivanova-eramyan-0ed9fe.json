@@ -70,6 +70,20 @@
         "legalBasis": "заем 6,09%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ателие",
+        "detail": null,
+        "location": "ул. \"Райко Даскалов\" 82, ет. 9, ат. 2",
+        "municipality": "Пловдив",
+        "areaSqm": 92,
+        "builtAreaSqm": 92,
+        "currency": "BGN",
+        "valueEur": 94999.56540190098,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -155,6 +169,7 @@
         "legalBasis": "потребителски кредит с договорен лихвен процент 4, 150",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

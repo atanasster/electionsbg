@@ -196,6 +196,20 @@
         "legalBasis": null,
         "fundsOrigin": "трудови, извънтрудови, дивиденти и др."
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Талони за храна",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3681.3015446127733,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -377,6 +391,7 @@
         "legalBasis": null,
         "fundsOrigin": "трудови и извънтрудови възнаграждения, дивиденти, продажба на недвижими имоти, наеми и др."
       }
-    ]
+    ],
+    "events": []
   }
 ]

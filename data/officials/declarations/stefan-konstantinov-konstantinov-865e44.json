@@ -280,6 +280,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека върху имот",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 81806.70099139496,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -527,6 +541,20 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "София - Хамбург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 339.49780911428905,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -544,7 +572,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1A6C8EB3-14B5-4999-8439-17CCD686E0AE89413.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-konstantinov-konstantinov-865e44",
@@ -760,6 +789,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -214,7 +214,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-grigorov-grncharov-550859",
@@ -317,7 +318,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-grigorov-grncharov-550859",
@@ -708,6 +710,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8947.607920933824,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -847,7 +863,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-grigorov-grncharov-550859",
@@ -986,7 +1003,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-grigorov-grncharov-550859",
@@ -1172,6 +1190,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2403.071841622227,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1605,7 +1637,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-grigorov-grncharov-550859",
@@ -1622,6 +1655,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/17168559-E11F-4C49-8EF4-FBB067767B5B90852.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

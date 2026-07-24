@@ -100,7 +100,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-nikolova-dobreva-7af8da",
@@ -203,7 +204,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-nikolova-dobreva-7af8da",
@@ -306,6 +308,20 @@
         "legalBasis": "договор за карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Меричлери",
+        "municipality": "Стара Загора",
+        "areaSqm": 14,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 561.3984855534479,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -391,7 +407,8 @@
         "legalBasis": "договор за карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-nikolova-dobreva-7af8da",
@@ -494,6 +511,7 @@
         "legalBasis": "договор за карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -303,7 +303,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "albena-ivanova-mihailova-424156",
@@ -490,7 +491,8 @@
         "legalBasis": null,
         "fundsOrigin": "хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "albena-ivanova-mihailova-424156",
@@ -641,6 +643,32 @@
         "legalBasis": null,
         "fundsOrigin": "хонорари"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -768,7 +796,8 @@
         "legalBasis": null,
         "fundsOrigin": "хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "albena-ivanova-mihailova-424156",
@@ -943,7 +972,8 @@
         "legalBasis": null,
         "fundsOrigin": "хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "albena-ivanova-mihailova-424156",
@@ -1064,7 +1094,8 @@
         "legalBasis": null,
         "fundsOrigin": "хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "albena-ivanova-mihailova-424156",
@@ -1593,6 +1624,7 @@
         "legalBasis": null,
         "fundsOrigin": "хонорари"
       }
-    ]
+    ],
+    "events": []
   }
 ]

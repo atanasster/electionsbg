@@ -262,7 +262,8 @@
         "legalBasis": "договор, 16%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-angelov-naidenov-81c27b",
@@ -497,7 +498,8 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-angelov-naidenov-81c27b",
@@ -780,7 +782,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно + заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-angelov-naidenov-81c27b",
@@ -1111,6 +1114,32 @@
         "legalBasis": "други - разделяне на Daimler",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Широки дол",
+        "municipality": "Самоков",
+        "areaSqm": 1,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Широки дол",
+        "municipality": "Самоков",
+        "areaSqm": 1,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1232,6 +1261,7 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

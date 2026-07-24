@@ -100,7 +100,8 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dancho-ivanov-penchev-a704e9",
@@ -311,6 +312,20 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПИ с 2 селскостопански сгради и жил. сграда",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 331,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -491,7 +506,8 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dancho-ivanov-penchev-a704e9",
@@ -508,6 +524,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/601CC3A7-6F66-4B0E-9FA3-D67BAFF879A692848.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

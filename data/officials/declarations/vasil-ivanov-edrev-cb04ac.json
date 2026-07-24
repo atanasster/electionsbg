@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-ivanov-edrev-cb04ac",
@@ -125,7 +126,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-ivanov-edrev-cb04ac",
@@ -173,6 +175,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамен",
+        "detail": null,
+        "location": "Айтос",
+        "municipality": "Айтос",
+        "areaSqm": 69,
+        "builtAreaSqm": 69,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -223,6 +239,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и спестявания"
       }
-    ]
+    ],
+    "events": []
   }
 ]

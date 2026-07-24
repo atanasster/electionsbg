@@ -261,7 +261,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-markova-trendafilova-58e44a",
@@ -369,6 +370,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -479,7 +506,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-markova-trendafilova-58e44a",
@@ -588,7 +616,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-markova-trendafilova-58e44a",
@@ -715,6 +744,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен Ксара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -824,6 +867,20 @@
         "legalBasis": null,
         "fundsOrigin": "тр.възнаграждение"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Зафира",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -921,7 +978,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-markova-trendafilova-58e44a",
@@ -1185,7 +1243,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-markova-trendafilova-58e44a",
@@ -1202,6 +1261,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/9621EA6E-EA9C-49D2-97E4-DB78D665F4EB88907.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

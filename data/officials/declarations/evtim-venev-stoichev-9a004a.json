@@ -166,6 +166,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сузуки Суифт",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2300.8134653829834,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сузуки Суифт",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2300.8134653829834,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -221,7 +247,8 @@
         "legalBasis": "Договор за ПК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evtim-venev-stoichev-9a004a",
@@ -257,6 +284,7 @@
         "legalBasis": "Нов потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

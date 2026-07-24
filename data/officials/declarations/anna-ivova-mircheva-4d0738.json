@@ -82,6 +82,32 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно (т.II)"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "Бистрица",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1273,
+        "builtAreaSqm": 1310,
+        "currency": "BGN",
+        "valueEur": 485727.28713640757,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Мерцедес GLC 200",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -137,6 +163,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

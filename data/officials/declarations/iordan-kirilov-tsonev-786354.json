@@ -208,6 +208,20 @@
         "legalBasis": "договор, 17.9%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение за предизборна кампания на коалиция ДПС-Ново начало",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -418,6 +432,20 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение във връзка с пострадалите от земетрението в Р Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": null
       }
     ]
   },
@@ -636,6 +664,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 42999.64720860198,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -853,6 +895,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

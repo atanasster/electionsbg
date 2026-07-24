@@ -27,7 +27,8 @@
         "amountEurSpouse": 2469.028494296539
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "vladimir-ivanov-vlchev-308997",
@@ -57,7 +58,8 @@
         "amountEurSpouse": 1878.997663396103
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "vladimir-ivanov-vlchev-308997",
@@ -106,7 +108,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-ivanov-vlchev-308997",
@@ -155,7 +158,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "няма"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-ivanov-vlchev-308997",
@@ -203,6 +207,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ГР.ВИДИН",
+        "municipality": "Видин",
+        "areaSqm": 238,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно-продажба"
       }
     ]
   },
@@ -379,6 +397,44 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на земеделска земя"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "С.ТОШЕВЦИ",
+        "municipality": "Грамада",
+        "areaSqm": 42,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно - продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "С.ИНОВО",
+        "municipality": "Видин",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно - продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "С.РУПЦИ",
+        "municipality": "Видин",
+        "areaSqm": 7,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно - продажба"
+      }
     ]
   },
   {
@@ -409,6 +465,7 @@
         "amountEurSpouse": 509.2467136714336
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

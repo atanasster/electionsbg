@@ -118,6 +118,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Дебелец,  индентификатор 20242.304.1",
+        "municipality": "Велико Търново",
+        "areaSqm": 1001,
+        "builtAreaSqm": 71,
+        "currency": "BGN",
+        "valueEur": 158.50048317082772,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -239,6 +253,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

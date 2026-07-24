@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Г. Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 100,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 35151.31683224002,
+        "legalBasis": "възмездно, договор за продажба"
+      }
     ]
   },
   {
@@ -117,7 +131,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/5B094745-E692-46ED-8BB4-E1184649429E190332.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariyana-zhivkova-hristova-d3a6cf",
@@ -351,6 +366,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

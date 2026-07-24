@@ -112,6 +112,20 @@
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплата - УПФ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил - отчужден през 2017г., а сумата е получена през 2018 г.",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

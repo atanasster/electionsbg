@@ -148,7 +148,8 @@
         "legalBasis": "договор MG1910901568",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-slavov-marinov-b86177",
@@ -220,6 +221,20 @@
         "isSpouse": false,
         "legalBasis": "договор MG1910901568",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Такси обучение Международно училище Неапол",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4904.823016315324,
+        "legalBasis": null
       }
     ]
   },
@@ -317,6 +332,20 @@
         "isSpouse": false,
         "legalBasis": "договор MG1910901568",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Такси обучение Международно училище Лаго Патрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 3814.2374337237898,
+        "legalBasis": null
       }
     ]
   }

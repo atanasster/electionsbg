@@ -226,7 +226,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предхосни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-grishev-novakov-7e48d6",
@@ -401,7 +402,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата текуща и спестявания от трудови доходи, декларирани и в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-grishev-novakov-7e48d6",
@@ -570,7 +572,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-grishev-novakov-7e48d6",
@@ -685,7 +688,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-grishev-novakov-7e48d6",
@@ -836,7 +840,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-grishev-novakov-7e48d6",
@@ -969,7 +974,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-grishev-novakov-7e48d6",
@@ -1125,6 +1131,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата текуща и спестявания, декларирани и в предходни декларации"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
       }
     ]
   }

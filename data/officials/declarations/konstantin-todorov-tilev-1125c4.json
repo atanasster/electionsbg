@@ -65,6 +65,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "НИСАН КАШКАЙ 2+",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -138,7 +152,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-todorov-tilev-1125c4",
@@ -241,6 +256,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

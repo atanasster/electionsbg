@@ -615,7 +615,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-sbev-radev-912845",
@@ -1214,7 +1215,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-sbev-radev-912845",
@@ -1231,7 +1233,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/5CB18CB7-D000-4BD6-9DF1-1DDDEA38EF5B155962.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rumen-sbev-radev-912845",
@@ -1248,7 +1251,33 @@
     "sourceUrl": "https://register.cacbg.bg/2023/5CB18CB7-D000-4BD6-9DF1-1DDDEA38EF5B156446.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Вадарадна долина Стара Загора\"",
+        "detail": null,
+        "location": "член на Управителен съвет - заличен, считано от 12.07.2023 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"Наталия\" АД",
+        "detail": null,
+        "location": "член на Съвета на директорите - заличен, считано от 31.07.2023 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "rumen-sbev-radev-912845",
@@ -1386,6 +1415,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

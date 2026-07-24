@@ -21,7 +21,8 @@
         "amountEurSpouse": 19735.866614174032
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iliya-dimitrov-hrisimov-d19dbb",
@@ -45,7 +46,8 @@
         "amountEurSpouse": 15814.257885399038
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iliya-dimitrov-hrisimov-d19dbb",
@@ -87,6 +89,20 @@
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обменна учебна визита в Кралство Норвегия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1316.0653021990663,
+        "legalBasis": null
       }
     ]
   },
@@ -185,7 +201,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-dimitrov-hrisimov-d19dbb",
@@ -282,7 +299,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-dimitrov-hrisimov-d19dbb",
@@ -325,7 +343,8 @@
         "legalBasis": "Сключен договор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-dimitrov-hrisimov-d19dbb",
@@ -415,7 +434,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-dimitrov-hrisimov-d19dbb",
@@ -432,6 +452,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/944ED13C-B779-4292-871E-FFF4A182985090839.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

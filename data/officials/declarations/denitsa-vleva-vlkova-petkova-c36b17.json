@@ -106,7 +106,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "denitsa-vleva-vlkova-petkova-c36b17",
@@ -262,6 +263,32 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека върху недвижим имот за обезпечение на банков кредит от ДСК-Банк",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 120818.27152666643,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "издръжка за син-студент в Лондон, Великобритания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": null
       }
     ]
   }

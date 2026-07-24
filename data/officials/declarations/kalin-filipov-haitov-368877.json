@@ -82,6 +82,20 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ТОВАРЕН АВТОМОБИЛ",
+        "detail": "ЩКОДА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3168.9870796541622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -203,6 +217,32 @@
         "isSpouse": true,
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Лиляче",
+        "municipality": "Враца",
+        "areaSqm": 1080,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА АУРИС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   }

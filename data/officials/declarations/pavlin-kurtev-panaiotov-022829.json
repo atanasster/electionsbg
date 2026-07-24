@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на апартамент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-kurtev-panaiotov-022829",
@@ -89,6 +90,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на апартамент"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "currency": "BGN",
+        "valueEur": 146499.4401353901,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -125,7 +140,8 @@
         "legalBasis": "ПРОДАЖБА НА АПАРТАМЕНТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-kurtev-panaiotov-022829",
@@ -167,6 +183,20 @@
         "isSpouse": false,
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -229,7 +259,8 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-kurtev-panaiotov-022829",
@@ -272,7 +303,8 @@
         "legalBasis": "Паричен заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-kurtev-panaiotov-022829",
@@ -339,6 +371,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -356,7 +402,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DB45ACE0-EE91-4824-8F62-F1AB31C7350289766.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pavlin-kurtev-panaiotov-022829",
@@ -608,6 +655,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

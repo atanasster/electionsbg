@@ -370,6 +370,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 533,
+        "builtAreaSqm": 1920,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -856,7 +870,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boicho-vasilev-landzhov-cc50cd",
@@ -873,6 +888,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/B842FCE1-0974-46BD-8C83-C3DDD1F7F1C5176833.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

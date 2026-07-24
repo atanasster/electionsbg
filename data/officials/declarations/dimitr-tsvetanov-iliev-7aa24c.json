@@ -106,7 +106,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-tsvetanov-iliev-7aa24c",
@@ -178,6 +179,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, продажба на недвижими имот и автомобил"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "гр. Хасково",
+        "municipality": "Хасково",
+        "areaSqm": 44,
+        "builtAreaSqm": 44,
+        "currency": "BGN",
+        "valueEur": 29654.92910938067,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -341,7 +368,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-tsvetanov-iliev-7aa24c",
@@ -358,6 +386,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/BE2CD998-64E3-4DCE-A516-C1BA6A17AB1388537.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

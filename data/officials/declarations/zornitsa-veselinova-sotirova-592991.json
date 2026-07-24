@@ -130,6 +130,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Мерцедес С",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 19684.737426054413,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -227,6 +241,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "BMW 530D",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4959.53124760332,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -318,7 +346,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-veselinova-sotirova-592991",
@@ -457,7 +486,8 @@
         "legalBasis": "чл.134 от ТЗ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-veselinova-sotirova-592991",
@@ -560,7 +590,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-veselinova-sotirova-592991",
@@ -621,7 +652,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-veselinova-sotirova-592991",
@@ -638,7 +670,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B917460E-AB11-453E-9799-FBEE88FC975389663.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zornitsa-veselinova-sotirova-592991",
@@ -710,6 +743,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

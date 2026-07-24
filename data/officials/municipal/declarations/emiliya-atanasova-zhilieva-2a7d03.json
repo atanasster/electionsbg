@@ -219,6 +219,32 @@
         "legalBasis": "2.59",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ЛЯСКОВЕЦ",
+        "municipality": "ЛЯСКОВЕЦ",
+        "areaSqm": 98,
+        "builtAreaSqm": 98,
+        "currency": "BGN",
+        "valueEur": 74999.8721770297,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "ПИСАРЕВО",
+        "municipality": "ГОРНА ОРЯХОВИЦА",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -235,6 +261,20 @@
     "sourceUrl": "https://register.cacbg.bg/2025/D64210AC-CC14-4D96-85C3-5B980260D92A207648.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "НАРОДНО ЧИТАЛИЩЕ \"НАПРЕДЪК-1870\" ГРАД ЛЯСКОВЕЦ",
+        "detail": null,
+        "location": "ЧЛЕН НА ЧИТАЛИЩНОТО НАСТОЯТЕЛСТВО",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -130,6 +130,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "currency": "BGN",
+        "valueEur": 3630.1723564931513,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -256,7 +270,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-georgiev-kostadinov-f6b103",
@@ -273,6 +288,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/40C74E73-F20B-43DE-8CB4-06C4EAC71F1E183599.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

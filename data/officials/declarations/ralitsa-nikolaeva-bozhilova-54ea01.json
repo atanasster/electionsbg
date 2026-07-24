@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ralitsa-nikolaeva-bozhilova-54ea01",
@@ -118,6 +119,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Доплна баня",
+        "municipality": "Долна баня",
+        "areaSqm": 2000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

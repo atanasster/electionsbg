@@ -249,6 +249,20 @@
         "legalBasis": "договор лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12015.359208111135,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

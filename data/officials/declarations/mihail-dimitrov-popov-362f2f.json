@@ -94,6 +94,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "currency": "BGN",
+        "valueEur": 22499.91052392079,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -209,7 +223,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mihail-dimitrov-popov-362f2f",
@@ -270,7 +285,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mihail-dimitrov-popov-362f2f",
@@ -287,7 +303,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/08C8DB35-1665-4A98-AF68-49B23DE31FD588425.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mihail-dimitrov-popov-362f2f",
@@ -413,6 +430,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

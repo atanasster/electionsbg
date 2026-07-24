@@ -58,7 +58,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yanka-dimitrova-dencheva-88f5b7",
@@ -82,6 +83,20 @@
         "amountEurSpouse": 12944.376556244664
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес Е220 ЦДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 680.0182019909706,
+        "legalBasis": "Покупко - продажба"
+      }
+    ]
   }
 ]

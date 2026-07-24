@@ -46,6 +46,20 @@
         "legalBasis": "договор, 4,19%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мицубиши лансер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1073.7129505120588,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -167,6 +181,7 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-zlatkov-kamenov-47c0c7",
@@ -119,6 +120,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Авенсис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Авенсис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -162,7 +189,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-zlatkov-kamenov-47c0c7",
@@ -205,6 +233,80 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр.Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "Продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр.Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "Продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 30,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "Продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 30,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "Продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "гр.Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 75,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "Продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "гр.Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 75,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "Продажба"
+      }
     ]
   },
   {
@@ -229,7 +331,8 @@
         "amountEurSpouse": 8703.721693603227
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimir-zlatkov-kamenov-47c0c7",
@@ -373,7 +476,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-zlatkov-kamenov-47c0c7",
@@ -390,6 +494,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/BF13B763-A3D2-4A08-A853-D43B9050930898492.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

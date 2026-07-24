@@ -130,7 +130,8 @@
         "legalBasis": "договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimitrov-georgiev-9ad3ae",
@@ -262,6 +263,20 @@
         "isSpouse": false,
         "legalBasis": "договорна ипотека",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

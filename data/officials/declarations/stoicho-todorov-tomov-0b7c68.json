@@ -70,6 +70,20 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АУДИ Q 5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -184,6 +198,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

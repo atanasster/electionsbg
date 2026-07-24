@@ -45,6 +45,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Луковит",
+        "municipality": "Луковит",
+        "areaSqm": 840,
+        "builtAreaSqm": 160,
+        "currency": "BGN",
+        "valueEur": 9407.77061401042,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

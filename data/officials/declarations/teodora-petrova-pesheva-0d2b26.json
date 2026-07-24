@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2454.2010297418487,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -136,7 +150,8 @@
         "legalBasis": "трудово възнаграждение",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-petrova-pesheva-0d2b26",
@@ -153,7 +168,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/387A5123-D00D-4E36-AF96-F0A8C99C2145177116.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "teodora-petrova-pesheva-0d2b26",
@@ -261,6 +277,7 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

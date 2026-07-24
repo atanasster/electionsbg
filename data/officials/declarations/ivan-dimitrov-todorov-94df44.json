@@ -82,7 +82,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-todorov-94df44",
@@ -203,7 +204,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-todorov-94df44",
@@ -288,7 +290,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-todorov-94df44",
@@ -408,6 +411,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел с каравана с навес",
+        "detail": null,
+        "location": "м. Расника",
+        "municipality": "Монтана",
+        "areaSqm": 574,
+        "builtAreaSqm": 1,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -656,7 +673,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-todorov-94df44",
@@ -939,7 +957,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-todorov-94df44",
@@ -1150,6 +1169,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

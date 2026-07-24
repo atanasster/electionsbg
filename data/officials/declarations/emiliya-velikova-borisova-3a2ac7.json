@@ -27,7 +27,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "emiliya-velikova-borisova-3a2ac7",
@@ -75,6 +76,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания от заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

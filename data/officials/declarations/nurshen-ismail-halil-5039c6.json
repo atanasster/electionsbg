@@ -118,7 +118,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nurshen-ismail-halil-5039c6",
@@ -430,6 +431,20 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Цар Самуил",
+        "municipality": "Тутракан",
+        "areaSqm": 4706,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

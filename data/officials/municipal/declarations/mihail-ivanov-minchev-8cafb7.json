@@ -63,6 +63,68 @@
         "legalBasis": "ИПОТЕЧЕН",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ГР.НЕСЕБЪР",
+        "municipality": "Несебър",
+        "areaSqm": 110,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "ГР.НЕСЕБЪР",
+        "municipality": "Несебър",
+        "areaSqm": 18,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "ГР.НЕСЕБЪР",
+        "municipality": "Несебър",
+        "areaSqm": 296,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12271.005148709244,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "С.РАВДА",
+        "municipality": "Несебър",
+        "areaSqm": 113,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МОТОПЕД",
+        "detail": "ЯМАХА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1073.7129505120588,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

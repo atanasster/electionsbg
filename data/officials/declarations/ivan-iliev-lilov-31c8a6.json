@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1064,
+        "builtAreaSqm": 424,
+        "currency": "BGN",
+        "valueEur": 217499.98721770296,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -149,7 +163,8 @@
         "legalBasis": "Предварителен договор за Покупко продажба",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-iliev-lilov-31c8a6",
@@ -173,7 +188,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-iliev-lilov-31c8a6",
@@ -270,7 +286,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-iliev-lilov-31c8a6",
@@ -385,6 +402,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

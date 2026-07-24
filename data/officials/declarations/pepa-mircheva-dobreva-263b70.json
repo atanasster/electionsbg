@@ -76,6 +76,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 865.1058629840016,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -100,7 +114,8 @@
         "amountEurSpouse": 4896.131054334988
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pepa-mircheva-dobreva-263b70",
@@ -124,7 +139,8 @@
         "amountEurSpouse": 5113.941395724577
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pepa-mircheva-dobreva-263b70",
@@ -148,7 +164,8 @@
         "amountEurSpouse": 3067.751287177311
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pepa-mircheva-dobreva-263b70",
@@ -165,7 +182,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/013CB5B8-239F-4912-8BA6-B2FE226289FF93065.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pepa-mircheva-dobreva-263b70",
@@ -182,6 +200,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/013CB5B8-239F-4912-8BA6-B2FE226289FF93066.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

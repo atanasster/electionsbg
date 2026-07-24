@@ -147,6 +147,32 @@
         "legalBasis": "договор,4,09%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Палат",
+        "municipality": "Струмяни",
+        "areaSqm": 3007,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "УПИ",
+        "detail": null,
+        "location": "с. Струмяни",
+        "municipality": "Струмяни",
+        "areaSqm": 864,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1585.0048317082774,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

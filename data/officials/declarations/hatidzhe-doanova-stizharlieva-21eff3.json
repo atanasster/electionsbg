@@ -154,6 +154,20 @@
         "legalBasis": "ДОГОВОР ЗА ПАРИЧЕН ЗАЕМ 5,08",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕКА КОЛА",
+        "detail": "TOYOTA AURIS HYBID",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -221,6 +235,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

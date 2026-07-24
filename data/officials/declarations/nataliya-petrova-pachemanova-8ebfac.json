@@ -208,6 +208,32 @@
         "legalBasis": "Номер 583569",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент и гараж",
+        "detail": null,
+        "location": "гр. София,ул. \"Георги Златарски\"5",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 116,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": 154999.66766027722,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент и гараж",
+        "detail": null,
+        "location": "гр. София,ул. \"Георги Златарски\"5",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 116,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": 154999.66766027722,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -550,7 +576,8 @@
         "legalBasis": "Номер 583569",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nataliya-petrova-pachemanova-8ebfac",
@@ -672,6 +699,20 @@
         "legalBasis": "ЗАЛИЧАВАНЕ НА КРЕДИТ №322-0148/25.07.2008",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ ВЕКТРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1000.0869196198033,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -761,6 +802,20 @@
         "isSpouse": true,
         "legalBasis": "АВАНСОВО ПЛАЩАНЕ ОТ ПРОДАЖБА НА ИМОТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АНТАЛИ КОНСУЛТИНГ ЕООД",
+        "detail": null,
+        "location": "100",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

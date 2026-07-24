@@ -112,7 +112,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-avramov-avramov-709b07",
@@ -298,6 +299,20 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Нова Загора",
+        "municipality": "Нова Загора",
+        "areaSqm": 64,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 4785.692007996605,
+        "legalBasis": "дарение"
       }
     ]
   },
@@ -504,6 +519,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с.Омарчево",
+        "municipality": "Нова Загора",
+        "areaSqm": 4666,
+        "builtAreaSqm": 4666,
+        "currency": "BGN",
+        "valueEur": 1585.0048317082774,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -588,6 +617,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "сл Стоил войвода",
+        "municipality": "Нова Загора",
+        "areaSqm": 950,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Ц 220",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1415.767219032329,
+        "legalBasis": "тотална щета -бракуване"
       }
     ]
   },
@@ -686,7 +741,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-avramov-avramov-709b07",
@@ -783,7 +839,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-avramov-avramov-709b07",
@@ -825,6 +882,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 76,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 33233.972277754205,
+        "legalBasis": "възмездно"
       }
     ]
   }

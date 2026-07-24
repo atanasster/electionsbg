@@ -357,7 +357,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-radkova-shekerletova-a9e27a",
@@ -544,7 +545,8 @@
         "legalBasis": null,
         "fundsOrigin": "адвокатска сметка"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-radkova-shekerletova-a9e27a",
@@ -785,6 +787,20 @@
         "legalBasis": null,
         "fundsOrigin": "адвокатска сметка"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Лада 2107",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76.69378217943277,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -954,7 +970,8 @@
         "legalBasis": null,
         "fundsOrigin": "адвокатска сметка"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-radkova-shekerletova-a9e27a",
@@ -1033,6 +1050,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

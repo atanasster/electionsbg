@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Джук",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2392.8460039983024,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -203,6 +217,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ланчия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2965.4929109380673,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -270,7 +298,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-stanchev-stanchev-6ed17b",
@@ -361,7 +390,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-stanchev-stanchev-6ed17b",
@@ -391,6 +421,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

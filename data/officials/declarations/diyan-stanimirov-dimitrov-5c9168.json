@@ -172,7 +172,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diyan-stanimirov-dimitrov-5c9168",
@@ -202,7 +203,21 @@
         "amountEurSpouse": 4894.085886810203
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Записна заповед лева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3911.3828911510714,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "diyan-stanimirov-dimitrov-5c9168",
@@ -305,6 +320,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Записна заповед лева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3911.3828911510714,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -322,7 +351,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/4686E2F1-CDBD-4B05-A8AE-034251DC893192589.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "diyan-stanimirov-dimitrov-5c9168",
@@ -610,6 +640,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

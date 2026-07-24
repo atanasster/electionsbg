@@ -88,6 +88,20 @@
         "legalBasis": null,
         "fundsOrigin": "отдръжка от заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 79,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 136999.63698276435,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -137,6 +151,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

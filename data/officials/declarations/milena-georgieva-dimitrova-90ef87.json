@@ -27,7 +27,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milena-georgieva-dimitrova-90ef87",
@@ -57,6 +58,20 @@
         "amountEurSpouse": 2871.415204797963
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до Дъблин и Корк",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2338.137772710307,
+        "legalBasis": null
+      }
+    ]
   }
 ]

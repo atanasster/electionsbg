@@ -58,7 +58,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-damyanova-atanasova-bc9ba5",
@@ -137,6 +138,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мини",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4294.851802048235,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -180,7 +195,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-damyanova-atanasova-bc9ba5",
@@ -197,7 +213,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/D15A3BE8-1A96-4D02-9427-15589C39C80196059.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nadezhda-damyanova-atanasova-bc9ba5",
@@ -269,6 +286,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

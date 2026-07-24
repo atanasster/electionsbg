@@ -40,6 +40,32 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Костинброд-Рековац (Р. Сърбия)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 94.0777061401042,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Костинброд-Белград (Р. Сърбия)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 292.45895604423697,
+        "legalBasis": null
+      }
     ]
   }
 ]

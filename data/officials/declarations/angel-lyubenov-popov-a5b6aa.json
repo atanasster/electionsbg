@@ -179,6 +179,20 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ШЕВРОЛЕТ ТАХОЕ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -336,7 +350,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-lyubenov-popov-a5b6aa",
@@ -500,6 +515,20 @@
         "legalBasis": "ипотечен заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204465.62329036777,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -615,7 +644,8 @@
         "legalBasis": "Банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-lyubenov-popov-a5b6aa",
@@ -694,6 +724,32 @@
         "legalBasis": "Банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 33,
+        "builtAreaSqm": 47,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 17,
+        "builtAreaSqm": 17,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -711,7 +767,21 @@
     "sourceUrl": "https://register.cacbg.bg/2020/8ADE222B-BBB0-46EE-AE6C-8D7B9F578A49112744.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Фондация ЗДРАВЕ И БЪДЕЩЕ ЗА ВСЕКИ, ЕИК 205041775",
+        "detail": null,
+        "location": "учредител и представляващ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "angel-lyubenov-popov-a5b6aa",
@@ -772,7 +842,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудова дейност"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-lyubenov-popov-a5b6aa",
@@ -936,7 +1007,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-lyubenov-popov-a5b6aa",
@@ -953,6 +1025,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8ADE222B-BBB0-46EE-AE6C-8D7B9F578A4989207.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -57,6 +57,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Хотелско настняване",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 279.6766590143315,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Хотелско настняване",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 709.6731311003513,
+        "legalBasis": null
+      }
     ]
   }
 ]

@@ -87,7 +87,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-petrova-stoyanova-be06c7",
@@ -111,7 +112,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Работна среща по проект в гр. Галац, Румъния",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 342.05426852027017,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "milena-petrova-stoyanova-be06c7",
@@ -177,6 +192,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Работна среща по проект в гр. Сакария, Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 508.7354217902374,
+        "legalBasis": null
       }
     ]
   }

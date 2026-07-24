@@ -100,6 +100,68 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с.МОМЧИЛОВЦИ",
+        "municipality": "Смолян",
+        "areaSqm": 175,
+        "builtAreaSqm": 175,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "за деца по чл.22 от ЗДДФЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.2638368365349,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка в Република Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 447.8916879278874,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка в Република Австрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 279.6766590143315,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка в Република Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 155.94402376484663,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -166,6 +228,44 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "за деца по чл.22 от ЗДДФЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.2638368365349,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка в Република Австрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 519.9838431765542,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка в Република Австрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 289.9024966382559,
+        "legalBasis": null
       }
     ]
   }

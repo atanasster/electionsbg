@@ -39,7 +39,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "matei-asenov-mateev-197692",
@@ -118,6 +119,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Воксфаген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -160,6 +175,7 @@
         "amountEurSpouse": 552.195231691916
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

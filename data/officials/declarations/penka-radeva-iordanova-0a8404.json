@@ -400,7 +400,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-radeva-iordanova-0a8404",
@@ -773,7 +774,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-radeva-iordanova-0a8404",
@@ -1056,7 +1058,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-radeva-iordanova-0a8404",
@@ -1411,7 +1414,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-radeva-iordanova-0a8404",
@@ -1603,6 +1607,20 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Авенсис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -1815,7 +1833,8 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-radeva-iordanova-0a8404",
@@ -2008,6 +2027,7 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   }
 ]

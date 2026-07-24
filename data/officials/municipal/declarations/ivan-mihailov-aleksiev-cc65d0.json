@@ -219,6 +219,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, дивидент"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "BMW 320",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "покупко-продажба"
+      }
     ]
   }
 ]

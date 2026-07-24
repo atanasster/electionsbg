@@ -220,7 +220,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boyan-ivanov-boev-a09ac1",
@@ -460,6 +461,44 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Парична сума",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3988.076673330504,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Ипотека на недвижим имот",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 236843.6929589995,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Ипотека на недвижим имот",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 135393.66918392704,
+        "legalBasis": null
       }
     ]
   },
@@ -816,6 +855,56 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Малка Верея",
+        "municipality": "Стара Загора",
+        "areaSqm": 796,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Малка Верея",
+        "municipality": "Стара Загора",
+        "areaSqm": 796,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Парична сума",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3988.076673330504,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Ипотека на недвижим имот",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255841.2540967262,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1170,6 +1259,32 @@
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Запис на заповед",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3988.076673330504,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Ипотека на недвижим имот",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 265871.77822203364,
+        "legalBasis": null
       }
     ]
   }

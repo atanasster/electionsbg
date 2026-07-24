@@ -58,6 +58,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ЛЕКСУС ЛС 220",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -197,6 +211,32 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "KIA SORENTO",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "KIA SORENTO",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -258,7 +298,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-svetoslavov-milkov-1c8b4f",
@@ -355,6 +396,32 @@
         "legalBasis": "договор за потребителски заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо 307 sw",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо 307 sw",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -372,7 +439,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/CD391050-B8A1-4B2D-90C7-83E334A6E073113971.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-svetoslavov-milkov-1c8b4f",
@@ -498,6 +566,7 @@
         "legalBasis": "договор за овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

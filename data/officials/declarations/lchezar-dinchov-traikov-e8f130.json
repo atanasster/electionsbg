@@ -321,7 +321,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-dinchov-traikov-e8f130",
@@ -598,7 +599,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-dinchov-traikov-e8f130",
@@ -615,7 +617,21 @@
     "sourceUrl": "https://register.cacbg.bg/2022/CA702F36-583E-4F48-AF04-AA84D6E9F2D1141641.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ 130307629",
+        "detail": null,
+        "location": "ПРЕДСТАВЛЯВАЩ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "lchezar-dinchov-traikov-e8f130",
@@ -892,6 +908,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

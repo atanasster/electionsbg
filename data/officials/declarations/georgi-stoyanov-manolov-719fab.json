@@ -304,6 +304,20 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент ведно с  избено помещение- наследедени м. март 2018",
+        "detail": null,
+        "location": "гр. Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -407,6 +421,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

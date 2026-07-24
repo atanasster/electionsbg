@@ -208,7 +208,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-petkov-vlchev-c1eb15",
@@ -467,7 +468,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-petkov-vlchev-c1eb15",
@@ -672,7 +674,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-petkov-vlchev-c1eb15",
@@ -806,7 +809,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-petkov-vlchev-c1eb15",
@@ -931,6 +935,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Гърция",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 28,
+        "builtAreaSqm": 28,
+        "currency": "BGN",
+        "valueEur": 32901.63255497666,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1063,6 +1081,20 @@
         "isSpouse": true,
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент, дворно място и гараж 19 кв.м.",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1225,
+        "builtAreaSqm": 103,
+        "currency": "BGN",
+        "valueEur": 120000.20451675248,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1214,6 +1246,20 @@
         "isSpouse": true,
         "legalBasis": "по договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Дръмша",
+        "municipality": "Костинброд",
+        "areaSqm": 1320,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
       }
     ]
   }

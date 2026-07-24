@@ -238,6 +238,56 @@
         "legalBasis": "Договор за ИК - 2,5%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Mazda 6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11759.713267513025,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Mazda 6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11759.713267513025,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент и парко място",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -479,6 +529,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

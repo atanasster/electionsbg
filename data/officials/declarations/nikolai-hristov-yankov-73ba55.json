@@ -148,7 +148,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестовен влог"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-hristov-yankov-73ba55",
@@ -317,7 +318,8 @@
         "legalBasis": "кредитни карти",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-hristov-yankov-73ba55",
@@ -468,7 +470,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировка в чужбина"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-hristov-yankov-73ba55",
@@ -600,6 +603,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "currency": "BGN",
+        "valueEur": 27098.46970339958,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -782,7 +799,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-hristov-yankov-73ba55",
@@ -799,7 +817,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1ACD2438-3AC9-4ACE-BE83-11820E9A882688579.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-hristov-yankov-73ba55",
@@ -1069,6 +1088,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

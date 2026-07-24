@@ -177,7 +177,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-bonev-shikov-5aab38",
@@ -244,7 +245,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-bonev-shikov-5aab38",
@@ -261,7 +263,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/DDB39FC4-A371-41F5-89C8-590C22243E45156222.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-bonev-shikov-5aab38",
@@ -441,7 +444,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-bonev-shikov-5aab38",
@@ -603,6 +607,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Патрол",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
       }
     ]
   }

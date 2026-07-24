@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-bakshov-c544eb",
@@ -83,6 +84,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "моторни сухопътни",
+        "detail": "Лада Нива",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -107,7 +122,8 @@
         "amountEurSpouse": 14536.028182408492
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-bakshov-c544eb",
@@ -124,7 +140,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/894012EA-0777-4A4C-A981-9CA8DA7C779F131930.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-bakshov-c544eb",
@@ -376,6 +393,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

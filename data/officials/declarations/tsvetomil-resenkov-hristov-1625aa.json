@@ -21,7 +21,8 @@
         "amountEurSpouse": 8471.595179540143
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetomil-resenkov-hristov-1625aa",
@@ -118,7 +119,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomil-resenkov-hristov-1625aa",
@@ -153,6 +155,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение на собствениците \"Достоен живот 2015-2020\" с ЕИК 176828721",
+        "detail": null,
+        "location": "управляващ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

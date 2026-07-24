@@ -21,7 +21,21 @@
         "amountEurSpouse": 28537.756348966934
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Данъчно облекчение за деца",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "lyubka-ilieva-spanevikova-a27a3b",
@@ -45,6 +59,7 @@
         "amountEurSpouse": 22799.527566301775
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

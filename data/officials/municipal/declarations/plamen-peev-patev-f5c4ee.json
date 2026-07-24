@@ -326,6 +326,20 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Несебър",
+        "municipality": "Несебър",
+        "areaSqm": 76,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   }
 ]

@@ -267,7 +267,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-georgiev-korukov-ebf19b",
@@ -610,6 +611,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Чехия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 500,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 300,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -916,7 +943,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-georgiev-korukov-ebf19b",
@@ -933,6 +961,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3CB97DD4-EB1A-449F-B86A-B1B19394AF2A89266.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

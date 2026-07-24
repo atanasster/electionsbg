@@ -26,6 +26,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Несебър",
+        "municipality": "Несебър",
+        "areaSqm": 56,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 26550.364806757232,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

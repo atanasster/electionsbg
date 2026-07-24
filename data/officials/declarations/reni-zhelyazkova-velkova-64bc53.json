@@ -76,6 +76,20 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Пежо3008",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -155,6 +169,7 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-kirilov-duchev-6ba763",
@@ -83,7 +84,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-kirilov-duchev-6ba763",
@@ -221,6 +223,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 639.1148514952731,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -361,7 +377,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-kirilov-duchev-6ba763",
@@ -518,7 +535,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-kirilov-duchev-6ba763",
@@ -535,7 +553,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F54B1D37-EECF-4943-8B79-B17C315CC7E692892.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyubomir-kirilov-duchev-6ba763",
@@ -661,6 +680,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

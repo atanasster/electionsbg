@@ -178,7 +178,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-ivanov-tanev-ff915b",
@@ -365,6 +366,32 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Бургас, обекти с ид. № 07079.611.109, дворно място на ул. Славянска № 65.",
+        "municipality": "Бургас",
+        "areaSqm": 320,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 195995.05069459003,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "гр. Бургас, ид. №07079.611.109.1. ет. 2 на ул. Славянска, № 65.",
+        "municipality": "Бургас",
+        "areaSqm": 220,
+        "builtAreaSqm": 330,
+        "currency": "BGN",
+        "valueEur": 391990.10138918005,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -528,7 +555,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-ivanov-tanev-ff915b",
@@ -639,7 +667,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselin-ivanov-tanev-ff915b",
@@ -971,7 +1000,8 @@
         "legalBasis": "1/7 част от жилищен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-ivanov-tanev-ff915b",
@@ -988,6 +1018,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8CEE0D85-DA2A-46CC-9CCE-D22E560CEEDC93422.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

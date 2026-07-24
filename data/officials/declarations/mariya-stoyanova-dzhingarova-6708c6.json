@@ -64,6 +64,20 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение по ЗБУТ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76.69378217943277,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -124,6 +138,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Даначно облекчение за деца до 18г",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "\"Емоционална интелигентност\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25.564594059810926,
+        "legalBasis": null
       }
     ]
   }

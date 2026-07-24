@@ -40,6 +40,20 @@
         "legalBasis": null,
         "fundsOrigin": "ПРОДАЖБА МПС И ЗАПЛАТА"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ШКОДА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -83,6 +97,7 @@
         "legalBasis": "ДОГОВОР ЗА НАЕМ",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

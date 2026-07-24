@@ -76,6 +76,44 @@
         "legalBasis": "4,4%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 48,
+        "builtAreaSqm": 48,
+        "currency": "BGN",
+        "valueEur": 28121.053465792018,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Равда",
+        "municipality": "Несебър",
+        "areaSqm": 1627,
+        "builtAreaSqm": 1627,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Равда",
+        "municipality": "Несебър",
+        "areaSqm": 450,
+        "builtAreaSqm": 450,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -125,6 +163,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

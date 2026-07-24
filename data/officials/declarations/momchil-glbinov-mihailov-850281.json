@@ -21,7 +21,21 @@
         "amountEurSpouse": 0
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "гр. Видин",
+        "municipality": "Видин",
+        "areaSqm": 115,
+        "builtAreaSqm": 192,
+        "currency": "BGN",
+        "valueEur": 2485.389834494818,
+        "legalBasis": "наследство"
+      }
+    ]
   },
   {
     "slug": "momchil-glbinov-mihailov-850281",
@@ -45,6 +59,7 @@
         "amountEurSpouse": 0
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

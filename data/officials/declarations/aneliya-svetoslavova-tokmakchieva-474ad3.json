@@ -40,7 +40,8 @@
         "legalBasis": "4,6",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aneliya-svetoslavova-tokmakchieva-474ad3",
@@ -82,6 +83,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение гр.Хисар",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 230.08134653829833,
+        "legalBasis": null
       }
     ]
   }

@@ -82,6 +82,20 @@
         "legalBasis": "Финансов лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Поръчител по потребителски кредит",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -167,7 +181,8 @@
         "legalBasis": "финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-mincheva-mincheva-57d8ea",
@@ -252,6 +267,20 @@
         "legalBasis": "финансов лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мицубиши Колт",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -319,6 +348,7 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

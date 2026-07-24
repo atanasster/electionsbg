@@ -969,7 +969,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-dimitrova-micheva-1472ba",
@@ -1066,7 +1067,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-dimitrova-micheva-1472ba",
@@ -1186,6 +1188,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "ГР. СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 52,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 22496.842772633612,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "ГР. СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 52,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 22496.842772633612,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1637,7 +1665,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-dimitrova-micheva-1472ba",
@@ -1654,6 +1683,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7B5EDD13-E894-4CA1-AFFC-4600BD1CE53190333.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

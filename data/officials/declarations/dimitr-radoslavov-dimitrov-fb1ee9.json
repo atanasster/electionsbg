@@ -172,7 +172,8 @@
         "legalBasis": null,
         "fundsOrigin": "спястявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-radoslavov-dimitrov-fb1ee9",
@@ -329,7 +330,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-radoslavov-dimitrov-fb1ee9",
@@ -498,6 +500,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Рибарица",
+        "municipality": "Етрополе",
+        "areaSqm": 35,
+        "builtAreaSqm": 35,
+        "currency": "BGN",
+        "valueEur": 1175.9713267513025,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -642,6 +682,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наследяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

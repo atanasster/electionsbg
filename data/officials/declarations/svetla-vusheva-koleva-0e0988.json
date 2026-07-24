@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-vusheva-koleva-0e0988",
@@ -107,7 +108,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-vusheva-koleva-0e0988",
@@ -155,6 +157,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "УЧЕБНО ПОСЕЩЕНИЕ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1258.2893196238938,
+        "legalBasis": null
       }
     ]
   },
@@ -217,7 +233,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-vusheva-koleva-0e0988",
@@ -241,7 +258,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Работно посещение до Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 485.21599525521134,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "svetla-vusheva-koleva-0e0988",
@@ -284,6 +315,20 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ИРЛАНДИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -308,6 +353,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

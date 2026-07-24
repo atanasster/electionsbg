@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ilya-ivanov-genov-546a66",
@@ -118,6 +119,20 @@
         "isSpouse": false,
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Авенсис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11248.421386316806,
+        "legalBasis": "продажба"
       }
     ]
   }

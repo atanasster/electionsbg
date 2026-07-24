@@ -21,7 +21,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "джип",
+        "detail": "ауди кю7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "natasha-mihailova-mladenova-e503a0",
@@ -64,7 +78,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "natasha-mihailova-mladenova-e503a0",
@@ -161,6 +176,20 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ленд Роувър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -240,6 +269,7 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

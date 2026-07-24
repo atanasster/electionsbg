@@ -154,7 +154,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mario-georgiev-metodiev-3b1109",
@@ -383,6 +384,44 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 51,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 70985.208325877,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2300.8134653829834,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Дарение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -503,6 +542,20 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 66999.68811195248,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -774,7 +827,8 @@
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mario-georgiev-metodiev-3b1109",
@@ -900,6 +954,20 @@
         "isSpouse": true,
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   }

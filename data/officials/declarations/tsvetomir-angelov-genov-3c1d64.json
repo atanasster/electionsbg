@@ -196,7 +196,8 @@
         "legalBasis": "договор 7,2%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-angelov-genov-3c1d64",
@@ -310,6 +311,20 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 102,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 116574.54891273781,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -480,6 +495,20 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Враца",
+        "municipality": "Враца",
+        "areaSqm": 63,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20400.546059729117,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -571,7 +600,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-angelov-genov-3c1d64",
@@ -728,7 +758,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-angelov-genov-3c1d64",
@@ -795,7 +826,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-angelov-genov-3c1d64",
@@ -812,7 +844,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1BF696BE-5F04-47CF-ACD1-5716EDB4A0D989546.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetomir-angelov-genov-3c1d64",
@@ -1334,6 +1367,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

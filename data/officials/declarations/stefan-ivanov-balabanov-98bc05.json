@@ -105,7 +105,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-ivanov-balabanov-98bc05",
@@ -166,7 +167,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-ivanov-balabanov-98bc05",
@@ -245,6 +247,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ДЖИП",
+        "detail": "ХОНДА 1998 Г.",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -269,6 +285,7 @@
         "amountEurSpouse": 2978.2752079679726
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

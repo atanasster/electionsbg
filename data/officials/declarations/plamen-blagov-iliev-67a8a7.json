@@ -652,7 +652,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-blagov-iliev-67a8a7",
@@ -1181,7 +1182,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-blagov-iliev-67a8a7",
@@ -1849,6 +1851,116 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 41,
+        "builtAreaSqm": 41,
+        "currency": "BGN",
+        "valueEur": 18000.03067751287,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 47,
+        "builtAreaSqm": 47,
+        "currency": "BGN",
+        "valueEur": 11504.067326914916,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 664.679445555084,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 48,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 13,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "currency": "BGN",
+        "valueEur": 11095.03382195794,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 9,
+        "builtAreaSqm": 9,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Провадия",
+        "municipality": "Провадия",
+        "areaSqm": 460,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8947.607920933824,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "ипотека (лева)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460162.69307659665,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1866,7 +1978,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/72AB5ED2-A977-4D03-86BC-41FCF1D6E47189304.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "plamen-blagov-iliev-67a8a7",
@@ -2333,6 +2446,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

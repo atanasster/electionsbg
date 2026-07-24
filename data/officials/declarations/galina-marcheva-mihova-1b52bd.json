@@ -70,7 +70,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наем, рента"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galina-marcheva-mihova-1b52bd",
@@ -196,6 +197,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "село Долина",
+        "municipality": "Добрич",
+        "areaSqm": 1000,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "Продажба"
       }
     ]
   }

@@ -261,7 +261,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-dimitrov-zapryanov-3b556c",
@@ -412,6 +413,20 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Меган",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -509,7 +524,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-dimitrov-zapryanov-3b556c",
@@ -761,6 +777,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

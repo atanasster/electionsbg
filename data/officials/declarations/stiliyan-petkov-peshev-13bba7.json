@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stiliyan-petkov-peshev-13bba7",
@@ -112,6 +113,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "пенсия и заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Митсубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Митсубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "продажба"
       }
     ]
   }

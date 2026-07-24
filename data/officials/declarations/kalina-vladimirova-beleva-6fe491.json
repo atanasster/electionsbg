@@ -58,6 +58,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 76,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -82,6 +96,7 @@
         "amountEurSpouse": 14369.347029138524
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -267,7 +267,8 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ioana-vladimirova-hristova-1cfb68",
@@ -370,7 +371,8 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ioana-vladimirova-hristova-1cfb68",
@@ -486,6 +488,56 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "софия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 47699.953472438814,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "софия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 47699.953472438814,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -522,6 +574,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

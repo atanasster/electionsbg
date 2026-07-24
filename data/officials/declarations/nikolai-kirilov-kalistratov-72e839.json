@@ -1460,7 +1460,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-kirilov-kalistratov-72e839",
@@ -1557,7 +1558,8 @@
         "legalBasis": "застраховка-живот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-kirilov-kalistratov-72e839",
@@ -1792,7 +1794,8 @@
         "legalBasis": null,
         "fundsOrigin": "служебно удържани от заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-kirilov-kalistratov-72e839",
@@ -2548,6 +2551,56 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Служебно удържани от заплатата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "\"Овиначе\"",
+        "municipality": "Банско",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "\"Овиначе\"",
+        "municipality": "Банско",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -328,7 +328,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудово-правни взаимоотношения и продажба на акции"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gencho-krstev-nachev-2516d4",
@@ -740,6 +741,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудово-правни взаимоотношения и продажба на акции"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Казанлък",
+        "municipality": "Казанлък",
+        "areaSqm": 210,
+        "builtAreaSqm": 420,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "Срещу гледане"
       }
     ]
   },
@@ -1168,6 +1183,32 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудово-правни взаимоотношения и продажба на акции"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "кв. Бояна, м. Казанджия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 2017,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 150000.2556459406,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "кв. Бояна, м. Казанджия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 2017,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 150000.2556459406,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -1949,7 +1990,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gencho-krstev-nachev-2516d4",
@@ -1966,6 +2008,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8F36F2AD-493A-4906-916A-3E0B393EC99A89235.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

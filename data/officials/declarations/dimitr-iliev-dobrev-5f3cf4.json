@@ -352,6 +352,56 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Царацово",
+        "municipality": "Марица",
+        "areaSqm": 3,
+        "builtAreaSqm": 3200,
+        "currency": "BGN",
+        "valueEur": 163613.40198278992,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Царацово",
+        "municipality": "Марица",
+        "areaSqm": 3,
+        "builtAreaSqm": 3200,
+        "currency": "BGN",
+        "valueEur": 163613.40198278992,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ Х1",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4755.014495124832,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ Х1",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4755.014495124832,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

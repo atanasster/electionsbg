@@ -172,7 +172,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuri-valentinov-nikolov-5e891e",
@@ -189,7 +190,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/96429D73-D612-4A1B-AB89-AE268578BE5D183821.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "yuri-valentinov-nikolov-5e891e",
@@ -351,7 +353,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuri-valentinov-nikolov-5e891e",
@@ -436,7 +439,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuri-valentinov-nikolov-5e891e",
@@ -556,6 +560,32 @@
         "isSpouse": false,
         "legalBasis": "кредитен лимит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 16,
+        "builtAreaSqm": 16,
+        "currency": "BGN",
+        "valueEur": 3988.076673330504,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил - наследствен",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

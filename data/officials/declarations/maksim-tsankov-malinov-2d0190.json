@@ -301,7 +301,8 @@
         "legalBasis": null,
         "fundsOrigin": "ПРОДАЖБА КЪЩА"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maksim-tsankov-malinov-2d0190",
@@ -623,6 +624,44 @@
         "legalBasis": null,
         "fundsOrigin": "ПРОДАЖБА НА ИМОТ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "София, район Витоша, ул. Беловодски път 85",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 266,
+        "builtAreaSqm": 629,
+        "currency": "BGN",
+        "valueEur": 460162.69307659665,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "София, район Витоша, ул. Беловодски път 85",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 266,
+        "builtAreaSqm": 629,
+        "currency": "BGN",
+        "valueEur": 460162.69307659665,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "АТВ",
+        "detail": "АТВ-\"ЦФМОТО\" 500 2 А",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -640,7 +679,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/0771013B-8117-4C48-868F-97802DD347EB112771.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "maksim-tsankov-malinov-2d0190",
@@ -955,7 +995,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maksim-tsankov-malinov-2d0190",
@@ -1248,7 +1289,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maksim-tsankov-malinov-2d0190",
@@ -1265,6 +1307,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0771013B-8117-4C48-868F-97802DD347EB89179.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -32,6 +32,32 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Ботевград",
+        "municipality": "Ботевград",
+        "areaSqm": 505,
+        "builtAreaSqm": 140,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Ботевград",
+        "municipality": "Ботевград",
+        "areaSqm": 505,
+        "builtAreaSqm": 140,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "продажба"
+      }
+    ]
   }
 ]

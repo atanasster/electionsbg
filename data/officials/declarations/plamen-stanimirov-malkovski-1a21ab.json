@@ -21,7 +21,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка- дневни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1503.1981307168824,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "plamen-stanimirov-malkovski-1a21ab",
@@ -64,7 +78,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-stanimirov-malkovski-1a21ab",
@@ -131,6 +146,20 @@
         "legalBasis": "Банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Сузуки Гранд Витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -148,7 +177,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/DFABB495-5BDB-406F-BE90-EE1CCEC725B9131496.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "plamen-stanimirov-malkovski-1a21ab",
@@ -220,6 +250,7 @@
         "legalBasis": "Банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

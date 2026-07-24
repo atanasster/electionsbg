@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-mihaleva-dobreva-c115cb",
@@ -227,7 +228,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-mihaleva-dobreva-c115cb",
@@ -269,6 +271,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОРД КУГА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1043.0354376402856,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -486,7 +502,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-mihaleva-dobreva-c115cb",
@@ -503,6 +520,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B82AB21B-F1C9-4EAF-A2C4-5808883812DF89720.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

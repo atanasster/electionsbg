@@ -177,7 +177,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-vladimirov-penchev-51aa5e",
@@ -334,7 +335,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-vladimirov-penchev-51aa5e",
@@ -490,6 +492,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобилим",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

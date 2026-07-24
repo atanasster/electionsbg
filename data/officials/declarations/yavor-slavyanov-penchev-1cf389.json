@@ -185,6 +185,32 @@
         "legalBasis": "нот. акт, 0%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Кладница",
+        "municipality": "Перник",
+        "areaSqm": 780,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38999.81082200396,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Кладница",
+        "municipality": "Перник",
+        "areaSqm": 678,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 33900.18559895288,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -202,7 +228,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/CF1ECFB4-B1C2-40C0-99FB-DB2297FA7193201865.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "yavor-slavyanov-penchev-1cf389",
@@ -952,6 +979,7 @@
         "legalBasis": "нот. акт, 0%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

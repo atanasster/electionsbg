@@ -82,7 +82,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galina-ivanova-kuncheva-487804",
@@ -233,6 +234,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -281,6 +296,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Заплата и пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Мерцедес Е 250 ТД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "Продажба"
       }
     ]
   }

@@ -39,7 +39,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nebi-redzhep-bozov-6dcd6e",
@@ -55,6 +56,20 @@
     "sourceUrl": "https://register.cacbg.bg/2025/25DFF525-883E-444C-8080-D7AE02534FC5219656.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение с нестопанска цел \"ТОЛЕРАНТНОСТ\"",
+        "detail": null,
+        "location": "Член на управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

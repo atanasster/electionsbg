@@ -40,6 +40,20 @@
         "legalBasis": "4,5",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Харманли",
+        "municipality": "Харманли",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -101,6 +115,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

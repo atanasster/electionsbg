@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания, дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Дворно място с постройки",
+        "detail": null,
+        "location": "с.Борущица, м.Бънзарето",
+        "municipality": "Мъглиж",
+        "areaSqm": 600,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно, чрез договор за покупко-продажба"
+      }
     ]
   },
   {
@@ -179,6 +193,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания, дарения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -88,6 +88,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "с. Буката",
+        "municipality": "Смолян",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 774.0959081310748,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -185,6 +199,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

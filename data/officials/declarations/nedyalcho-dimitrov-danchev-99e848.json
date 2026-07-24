@@ -232,6 +232,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 57,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 139071.39168537143,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -467,6 +481,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 57,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 138048.807922979,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -484,7 +512,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/E3ED819A-D79D-4EA7-A087-C28DC38CB400146063.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nedyalcho-dimitrov-danchev-99e848",
@@ -658,7 +687,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedyalcho-dimitrov-danchev-99e848",
@@ -832,7 +862,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedyalcho-dimitrov-danchev-99e848",
@@ -988,7 +1019,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedyalcho-dimitrov-danchev-99e848",
@@ -1169,6 +1201,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София, Люлин 3, бл.326, вх.А, ап.10",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 84,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно - продажба"
+      }
     ]
   },
   {
@@ -1332,6 +1378,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

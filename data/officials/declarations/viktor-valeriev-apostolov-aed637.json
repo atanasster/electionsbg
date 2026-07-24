@@ -227,6 +227,20 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 313899.9810822004,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -330,7 +344,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-valeriev-apostolov-aed637",
@@ -409,7 +424,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-valeriev-apostolov-aed637",
@@ -482,7 +498,8 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-valeriev-apostolov-aed637",
@@ -581,7 +598,8 @@
         "legalBasis": "Договор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-valeriev-apostolov-aed637",
@@ -598,6 +616,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/22317724-948E-4421-BFA2-A43B9327979E89926.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

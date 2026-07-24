@@ -21,7 +21,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "yuliya-spasova-zheleva-81785c",
@@ -45,7 +46,21 @@
         "amountEurSpouse": 18341.573654151947
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "yuliya-spasova-zheleva-81785c",
@@ -62,7 +77,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/7483FBDE-5653-4545-A6AD-72FBBBE75E38147641.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "yuliya-spasova-zheleva-81785c",
@@ -79,6 +95,7 @@
     "sourceUrl": "https://register.cacbg.bg/2022/7483FBDE-5653-4545-A6AD-72FBBBE75E38137049.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

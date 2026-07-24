@@ -82,6 +82,20 @@
         "legalBasis": "Договор за заем -4,51",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Трактор",
+        "detail": "DOUTZ FANR FGL913",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -190,7 +204,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-georgiev-popstoyanov-09fe2a",
@@ -207,6 +222,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/ED4CB4E0-3357-4B90-836E-2D094A3C83F989222.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

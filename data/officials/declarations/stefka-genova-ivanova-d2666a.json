@@ -70,7 +70,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefka-genova-ivanova-d2666a",
@@ -233,6 +234,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -300,7 +315,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefka-genova-ivanova-d2666a",
@@ -385,7 +401,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи от др.дейност"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefka-genova-ivanova-d2666a",
@@ -433,6 +450,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотоциклет",
+        "detail": "Ямаха",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25.564594059810926,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -483,7 +514,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefka-genova-ivanova-d2666a",
@@ -532,6 +564,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

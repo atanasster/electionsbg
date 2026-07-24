@@ -698,6 +698,20 @@
         "legalBasis": "Жилищен",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фиат Добло",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

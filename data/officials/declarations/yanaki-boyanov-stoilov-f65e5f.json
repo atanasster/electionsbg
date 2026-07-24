@@ -196,7 +196,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата от предходни години"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yanaki-boyanov-stoilov-f65e5f",
@@ -407,6 +408,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в международна конференция в Пекин",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1374.8638685366316,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -611,6 +626,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент, гараж, част от парцел",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 296,
+        "builtAreaSqm": 166,
+        "currency": "BGN",
+        "valueEur": 82829.28475378739,
+        "legalBasis": "Продажба"
       }
     ]
   },
@@ -817,6 +846,7 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

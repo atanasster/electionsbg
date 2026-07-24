@@ -249,7 +249,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-nikolov-trifonov-dfc7d6",
@@ -381,6 +382,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Киа Соренто",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Киа Соренто",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -598,7 +625,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-nikolov-trifonov-dfc7d6",
@@ -814,7 +842,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-nikolov-trifonov-dfc7d6",
@@ -911,7 +940,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-nikolov-trifonov-dfc7d6",
@@ -1127,7 +1157,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-nikolov-trifonov-dfc7d6",
@@ -1144,6 +1175,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E95E72A8-6169-442F-B6BA-484205433D3490860.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyudmil-ivanov-stoyanov-85703d",
@@ -177,6 +178,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "екскурзия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -267,7 +282,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyudmil-ivanov-stoyanov-85703d",
@@ -284,7 +300,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E17FB722-21C4-495F-B1ED-7026A407EF7890478.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyudmil-ivanov-stoyanov-85703d",
@@ -374,6 +391,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

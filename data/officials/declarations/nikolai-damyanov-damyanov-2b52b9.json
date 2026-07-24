@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Пирин Голф Разлог",
+        "municipality": "Разлог",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 63400.193268331095,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -167,6 +181,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

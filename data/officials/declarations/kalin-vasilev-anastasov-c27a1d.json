@@ -214,6 +214,68 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 94077.7061401042,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 73,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": 93055.12237771177,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Инфинити",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "върнат лизингов автомобил"
+      },
+      {
+        "kind": "guarantee",
+        "description": "два апартамента",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 117597.13267513025,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "два апартамента",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 130497.02683771084,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -430,6 +492,44 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "два апартамента",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 117597.13267513025,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "три апартамента",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 130497.02683771084,
+        "legalBasis": null
       }
     ]
   },
@@ -677,6 +777,32 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 84976.71065481151,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "два апартамента",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 117597.13267513025,
+        "legalBasis": null
       }
     ]
   }

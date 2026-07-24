@@ -63,6 +63,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Камено",
+        "municipality": "Камено",
+        "areaSqm": 114,
+        "builtAreaSqm": 114,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "г.Камено",
+        "municipality": "Камено",
+        "areaSqm": 114,
+        "builtAreaSqm": 114,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   }
 ]

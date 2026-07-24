@@ -208,7 +208,8 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "snezhana-velikova-nyagolova-3a098c",
@@ -424,6 +425,32 @@
         "isSpouse": false,
         "legalBasis": "банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Бургас ж/к Славейков бл.80 вх.3",
+        "municipality": "Бургас",
+        "areaSqm": 91,
+        "builtAreaSqm": 91,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Бургас ж/к Славейков бл.80 вх.3",
+        "municipality": "Бургас",
+        "areaSqm": 91,
+        "builtAreaSqm": 91,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -64,6 +64,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ШКОДА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6851.311208029328,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -81,7 +95,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/274DEFE5-B90D-414F-9D60-F1DFD8FCE675181298.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "diyana-radeva-stoyanova-744626",
@@ -261,6 +276,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

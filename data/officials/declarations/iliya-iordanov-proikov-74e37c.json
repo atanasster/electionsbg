@@ -136,6 +136,20 @@
         "legalBasis": "договор за кредит за недвижим имот",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 27533.067802416364,
+        "legalBasis": "възмездно, покупко-продажба"
+      }
     ]
   },
   {
@@ -244,6 +258,32 @@
         "isSpouse": false,
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотечен кредит",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30447.43152523481,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Симпозиум в Швейцария",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1305.839464575142,
+        "legalBasis": null
       }
     ]
   }

@@ -82,7 +82,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-mihailov-tutekov-f39477",
@@ -167,7 +168,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-mihailov-tutekov-f39477",
@@ -246,7 +248,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-mihailov-tutekov-f39477",
@@ -457,7 +460,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни средства"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-mihailov-tutekov-f39477",
@@ -643,6 +647,32 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -945,7 +975,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-mihailov-tutekov-f39477",
@@ -1323,7 +1354,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-mihailov-tutekov-f39477",
@@ -1340,6 +1372,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/066AB5E0-F4EA-4F18-B992-40968EF0C0AD90252.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

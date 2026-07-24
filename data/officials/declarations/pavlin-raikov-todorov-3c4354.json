@@ -340,7 +340,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-raikov-todorov-3c4354",
@@ -640,6 +641,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 76,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 117597.13267513025,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -130,6 +130,20 @@
         "legalBasis": "заем-потребителски",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Долни Воден",
+        "municipality": "Асеновград",
+        "areaSqm": 0.5,
+        "builtAreaSqm": 500,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -263,6 +277,7 @@
         "legalBasis": "заем-потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -130,6 +130,20 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндай I 20",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13804.8807922979,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -263,6 +277,80 @@
         "legalBasis": null,
         "fundsOrigin": "Задължително осигуряване"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Семейна почивка в Португалия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Семейна почивка в Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка в Украйна",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 664.679445555084,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка в Украйна",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 664.679445555084,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка в Грузия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Плащане почивка на Море в България за 6 Семейства на 2 пъти общо, за които разпределените суми съм получил в брой от тях",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -371,7 +459,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-vecheslavov-dimitrov-af7f1e",
@@ -388,6 +477,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F591F4D0-6E73-47A2-BBD5-35F7C2BB328C89012.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

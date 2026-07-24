@@ -231,6 +231,20 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Щкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 894.7607920933824,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

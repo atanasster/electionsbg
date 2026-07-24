@@ -106,7 +106,8 @@
         "legalBasis": null,
         "fundsOrigin": "дивидент заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-georgiev-iotkov-f47f63",
@@ -232,6 +233,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дивидент"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -366,6 +381,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 97,
+        "builtAreaSqm": 97,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "замяна"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -414,6 +455,7 @@
         "amountEurSpouse": 63717.194234672745
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

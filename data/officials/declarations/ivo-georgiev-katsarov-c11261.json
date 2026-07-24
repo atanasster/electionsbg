@@ -148,7 +148,8 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-georgiev-katsarov-c11261",
@@ -454,7 +455,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-georgiev-katsarov-c11261",
@@ -628,6 +630,56 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ДЗПО"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 15,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 24286.364356820377,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 15,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 24286.364356820377,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 18999.60630525148,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 18999.60630525148,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -822,6 +874,32 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -997,7 +1075,8 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-georgiev-katsarov-c11261",
@@ -1014,7 +1093,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/DD56A552-B0EE-4C3D-99FB-8D586C510BB496143.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivo-georgiev-katsarov-c11261",
@@ -1446,6 +1526,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

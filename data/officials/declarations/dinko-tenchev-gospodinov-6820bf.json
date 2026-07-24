@@ -58,7 +58,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dinko-tenchev-gospodinov-6820bf",
@@ -136,6 +137,20 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Гривица",
+        "municipality": "Плевен",
+        "areaSqm": 14709,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 935.6641425890798,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -515,7 +530,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dinko-tenchev-gospodinov-6820bf",
@@ -532,6 +548,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/961904CB-BC29-4A9B-8E00-ACF4EE94CD2F89407.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

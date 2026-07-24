@@ -100,7 +100,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-aleksandrov-vlchev-9905f4",
@@ -221,7 +222,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-aleksandrov-vlchev-9905f4",
@@ -238,6 +240,20 @@
     "sourceUrl": "https://register.cacbg.bg/2024/A286B08F-BCB6-484E-A883-C47B8C2D0BE0196230.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение на съвета на ректорите на висшите училища в Република България",
+        "detail": null,
+        "location": "член на Управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

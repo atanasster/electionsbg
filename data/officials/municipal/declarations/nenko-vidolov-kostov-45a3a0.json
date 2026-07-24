@@ -171,6 +171,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и парични средства декларирани от предходни години"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

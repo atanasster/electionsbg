@@ -70,6 +70,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "софия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 54,
+        "builtAreaSqm": 54,
+        "currency": "BGN",
+        "valueEur": 34256.556040146635,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "софия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 26,
+        "builtAreaSqm": 26,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -87,7 +113,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/19144E6E-E024-4839-8A88-1E95461AFEBF177163.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "hristo-danchev-mihailov-3ff4dd",
@@ -411,6 +438,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

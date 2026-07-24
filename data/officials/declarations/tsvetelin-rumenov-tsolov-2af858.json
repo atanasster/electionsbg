@@ -274,7 +274,8 @@
         "legalBasis": null,
         "fundsOrigin": "декларирани в предходните декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelin-rumenov-tsolov-2af858",
@@ -485,7 +486,8 @@
         "legalBasis": null,
         "fundsOrigin": "декларирани в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelin-rumenov-tsolov-2af858",
@@ -696,7 +698,8 @@
         "legalBasis": null,
         "fundsOrigin": "помощи и обезщетения и декларирани в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelin-rumenov-tsolov-2af858",
@@ -925,6 +928,20 @@
         "legalBasis": null,
         "fundsOrigin": "декларирани в предходни декларации и обезщетения и помощи"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарения по възходяща линия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 17990.82742365134,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1136,6 +1153,32 @@
         "legalBasis": null,
         "fundsOrigin": "декларирани в предходни декларации и обезщетения и помощи"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Бенц",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 27988.117576681,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение по възходяща линия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 9671.085932826472,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1346,6 +1389,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "средства декларирани в предходни декларации"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение по възходяща линия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 6186.631762474244,
+        "legalBasis": null
       }
     ]
   }

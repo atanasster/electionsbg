@@ -136,7 +136,8 @@
         "legalBasis": "Договор 869LBBA200510008/2020г.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalin-evgeniev-gaidarov-524b8a",
@@ -153,7 +154,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/2C9CFB7A-A004-44A4-A060-66EC96DF9CF6155710.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kalin-evgeniev-gaidarov-524b8a",
@@ -333,7 +335,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalin-evgeniev-gaidarov-524b8a",
@@ -477,6 +480,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и ФС за командировка в чужбина"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛМПС- автомобил",
+        "detail": "Форд Ескорт 1995",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "договор за покупко- продажба"
+      }
     ]
   },
   {
@@ -494,7 +511,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2C9CFB7A-A004-44A4-A060-66EC96DF9CF693225.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kalin-evgeniev-gaidarov-524b8a",
@@ -620,6 +638,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

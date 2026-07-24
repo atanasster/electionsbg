@@ -118,6 +118,68 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "кермен",
+        "municipality": "сливен",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "скобелево",
+        "municipality": "сливен",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 194.29091485456303,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "кермен",
+        "municipality": "сливен",
+        "areaSqm": 13,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "кермен",
+        "municipality": "сливен",
+        "areaSqm": 4,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "кермен",
+        "municipality": "сливен",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

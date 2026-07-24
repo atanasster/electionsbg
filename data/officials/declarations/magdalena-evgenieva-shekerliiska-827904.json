@@ -100,7 +100,8 @@
         "legalBasis": "Ипотечен кредит 2, 69%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "magdalena-evgenieva-shekerliiska-827904",
@@ -136,7 +137,8 @@
         "legalBasis": "Дарение от лице, с което се намирам във фактическо съжителство на съпружески начала",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "magdalena-evgenieva-shekerliiska-827904",
@@ -238,6 +240,20 @@
         "isSpouse": false,
         "legalBasis": "кредитополучател",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Сеат леон",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1578.8693291339227,
+        "legalBasis": "възмездно"
       }
     ]
   }

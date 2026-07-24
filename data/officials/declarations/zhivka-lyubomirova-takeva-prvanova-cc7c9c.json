@@ -142,6 +142,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Радомир",
+        "municipality": "Радомир",
+        "areaSqm": 1013,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 66467.94455550841,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ Х 5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ 318 И",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -622,7 +660,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zhivka-lyubomirova-takeva-prvanova-cc7c9c",
@@ -639,6 +678,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/79335359-5317-429A-A8C9-7AB13E56A07A167326.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

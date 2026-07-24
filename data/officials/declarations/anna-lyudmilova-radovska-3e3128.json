@@ -519,7 +519,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anna-lyudmilova-radovska-3e3128",
@@ -1102,6 +1103,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Костинброд",
+        "municipality": "Костинброд",
+        "areaSqm": 555,
+        "builtAreaSqm": 102,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Заличаване ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10737.129505120589,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1138,6 +1165,7 @@
         "legalBasis": "Продажба 1/2 наследствен имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

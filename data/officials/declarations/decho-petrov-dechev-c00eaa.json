@@ -261,7 +261,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "decho-petrov-dechev-c00eaa",
@@ -424,7 +425,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, декларирани в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "decho-petrov-dechev-c00eaa",
@@ -544,6 +546,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания, декларирани в предходни декларации"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "земеделска земя",
+        "detail": null,
+        "location": "с. Копринка",
+        "municipality": "Казанлък",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Гърция",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 180,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 211021.4077910657,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -863,7 +891,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "decho-petrov-dechev-c00eaa",
@@ -1181,7 +1210,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "decho-petrov-dechev-c00eaa",
@@ -1198,6 +1228,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/60BFBB83-6541-4DAA-8D10-E2189074B88F89238.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

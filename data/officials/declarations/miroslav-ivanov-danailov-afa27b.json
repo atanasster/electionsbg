@@ -21,7 +21,8 @@
         "amountEurSpouse": 16116.942679067199
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-ivanov-danailov-afa27b",
@@ -81,6 +82,32 @@
         "isSpouse": true,
         "legalBasis": "потребителски заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 43,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 43,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "дарение"
       }
     ]
   }

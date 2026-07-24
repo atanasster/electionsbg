@@ -40,6 +40,20 @@
         "legalBasis": "договор с лихвен процент4.5",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "квалификационен курс",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 148.27464554690337,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -82,6 +96,20 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "квалификационен курс",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 219.85550891437396,
+        "legalBasis": null
       }
     ]
   }

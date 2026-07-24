@@ -112,6 +112,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1254.198984574324,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -191,7 +229,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kno-stoyanov-stoyanov-cb5a49",
@@ -270,7 +309,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kno-stoyanov-stoyanov-cb5a49",
@@ -331,7 +371,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kno-stoyanov-stoyanov-cb5a49",
@@ -547,7 +588,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kno-stoyanov-stoyanov-cb5a49",
@@ -564,6 +606,7 @@
     "sourceUrl": "https://register.cacbg.bg/2022/00BED795-A788-4902-A5B1-79CC0C1255A8132295.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

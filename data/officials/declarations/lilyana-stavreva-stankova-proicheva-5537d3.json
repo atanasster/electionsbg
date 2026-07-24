@@ -64,6 +64,20 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Полковник Серафимово",
+        "municipality": "Смолян",
+        "areaSqm": 2266,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4999.923306217821,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -352,7 +366,8 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lilyana-stavreva-stankova-proicheva-5537d3",
@@ -622,7 +637,8 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lilyana-stavreva-stankova-proicheva-5537d3",
@@ -725,7 +741,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lilyana-stavreva-stankova-proicheva-5537d3",
@@ -828,7 +845,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lilyana-stavreva-stankova-proicheva-5537d3",
@@ -936,6 +954,32 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Идеална част от наследствени земи",
+        "detail": null,
+        "location": "Кърджали",
+        "municipality": "Кърджали",
+        "areaSqm": 2500,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4755.014495124832,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Субару Форестер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно - дарение"
       }
     ]
   }

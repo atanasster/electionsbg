@@ -112,7 +112,8 @@
         "legalBasis": "КРЕДИТНА КАРТА - 19%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyana-dimitrova-ilieva-ed3f37",
@@ -209,7 +210,8 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyana-dimitrova-ilieva-ed3f37",
@@ -306,7 +308,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyana-dimitrova-ilieva-ed3f37",
@@ -438,6 +441,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 88,
+        "currency": "BGN",
+        "valueEur": 119999.69322487128,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
+        "legalBasis": "възмездно"
       }
     ]
   }

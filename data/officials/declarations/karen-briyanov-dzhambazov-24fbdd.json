@@ -286,6 +286,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 131,
+        "builtAreaSqm": 131,
+        "currency": "BGN",
+        "valueEur": 85948.16522908433,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -665,6 +679,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "офис и парцел",
+        "detail": null,
+        "location": "Хасково",
+        "municipality": "Хасково",
+        "areaSqm": 47,
+        "builtAreaSqm": 47,
+        "currency": "BGN",
+        "valueEur": 10481.48356452248,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -900,7 +928,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "karen-briyanov-dzhambazov-24fbdd",
@@ -1279,7 +1308,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "karen-briyanov-dzhambazov-24fbdd",
@@ -1742,6 +1772,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 136.51493227939034,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 42.43722613928613,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Берлин,Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 325.18163644079493,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Берлин,Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 245.42010297418489,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1899,7 +1979,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "karen-briyanov-dzhambazov-24fbdd",
@@ -1916,7 +1997,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/9C31DF9F-E83B-4CB3-9844-E87DACC538D189497.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "karen-briyanov-dzhambazov-24fbdd",
@@ -2114,6 +2196,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

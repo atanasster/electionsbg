@@ -249,7 +249,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-krasimirov-stoyanov-8a3944",
@@ -501,6 +502,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарения и спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   }

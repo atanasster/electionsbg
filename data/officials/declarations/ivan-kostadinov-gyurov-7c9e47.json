@@ -112,6 +112,20 @@
         "legalBasis": "дотовор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "квл Борово",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 127945.68035054172,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -203,7 +217,8 @@
         "legalBasis": "договор заз заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-kostadinov-gyurov-7c9e47",
@@ -330,6 +345,20 @@
         "isSpouse": false,
         "legalBasis": "договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": null
       }
     ]
   },
@@ -488,6 +517,44 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "кв.Горна баня",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 253,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 139999.89774162378,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамевт",
+        "detail": null,
+        "location": "кв.Горна баня",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 253,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 139999.89774162378,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Малта",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -548,6 +615,32 @@
         "isSpouse": true,
         "legalBasis": "договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Баня",
+        "municipality": "Разлог",
+        "areaSqm": 4768,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
       }
     ]
   }

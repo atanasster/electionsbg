@@ -370,6 +370,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Габрово",
+        "municipality": "Габрово",
+        "areaSqm": 500,
+        "builtAreaSqm": 500,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировки във връзка с участие в заседания и комиисии на Европейския комитет на регионите, Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15408.803423610436,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -761,6 +787,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировки - участие в сесии на Европейския комитет на регионите",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12287.366488907523,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1068,6 +1108,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировки - участие в сесии на Европейски комитет на регионите",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20691.982432010962,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1374,6 +1428,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировки - участия в сесии на Комитета на регионите",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 27584.196990535987,
+        "legalBasis": null
       }
     ]
   }

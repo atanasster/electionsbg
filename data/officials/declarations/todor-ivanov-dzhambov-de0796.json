@@ -220,6 +220,20 @@
         "legalBasis": null,
         "fundsOrigin": "покупко-продажба"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Сузуки \"Балено\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "Покупко-продажба"
+      }
     ]
   },
   {
@@ -466,6 +480,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Опел \"Зафира\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
       }
     ]
   }

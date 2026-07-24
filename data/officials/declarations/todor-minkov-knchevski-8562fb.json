@@ -124,7 +124,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-minkov-knchevski-8562fb",
@@ -287,7 +288,8 @@
         "legalBasis": "Аванс по предварителен договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-minkov-knchevski-8562fb",
@@ -389,6 +391,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
       }
     ]
   }

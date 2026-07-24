@@ -244,6 +244,32 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -437,7 +463,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-kostadinov-yanev-12d4e2",
@@ -654,7 +681,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-kostadinov-yanev-12d4e2",
@@ -949,6 +977,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1136,6 +1178,20 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "поръчителство",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5726.469069397647,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1317,6 +1373,44 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 299,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2300.8134653829834,
+        "legalBasis": "прехвърляне срещу изграждане на преместваем обект"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "currency": "BGN",
+        "valueEur": 68999.86195119208,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "дворно място",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 281,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 999.5756277386072,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -1334,7 +1428,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/33630885-9AB9-48C9-AA2E-88292546C3AF89472.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-kostadinov-yanev-12d4e2",
@@ -1676,6 +1771,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

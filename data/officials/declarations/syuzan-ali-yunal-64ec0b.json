@@ -21,7 +21,33 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Веселец",
+        "municipality": "Завет",
+        "areaSqm": 960,
+        "builtAreaSqm": 99,
+        "currency": "BGN",
+        "valueEur": 13804.8807922979,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ПЕЖО 1007",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "syuzan-ali-yunal-64ec0b",
@@ -100,6 +126,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

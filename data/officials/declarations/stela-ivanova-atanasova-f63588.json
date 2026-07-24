@@ -51,6 +51,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолсваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -471,6 +485,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "ул.Димитър Благоев 37",
+        "municipality": "Попово",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "ул.Димитър Благоев 37",
+        "municipality": "Попово",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -922,7 +962,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stela-ivanova-atanasova-f63588",
@@ -1354,7 +1395,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stela-ivanova-atanasova-f63588",
@@ -1757,7 +1799,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stela-ivanova-atanasova-f63588",
@@ -2124,7 +2167,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stela-ivanova-atanasova-f63588",
@@ -2484,7 +2528,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stela-ivanova-atanasova-f63588",
@@ -2501,7 +2546,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F6056D0C-F122-41D1-807C-495E748776B389473.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stela-ivanova-atanasova-f63588",
@@ -2645,6 +2691,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

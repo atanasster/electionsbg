@@ -40,7 +40,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-vasileva-krkovska-783a62",
@@ -101,6 +102,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София ж.к Дианабат, бл.2, ап.35",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 93,
+        "builtAreaSqm": 93,
+        "currency": "BGN",
+        "valueEur": 89731.72514993635,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -149,6 +164,7 @@
         "legalBasis": null,
         "fundsOrigin": "покупко- продажба"
       }
-    ]
+    ],
+    "events": []
   }
 ]

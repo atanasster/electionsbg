@@ -76,6 +76,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес Е 200",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "покупко - продажба"
+      }
     ]
   },
   {
@@ -155,7 +169,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-kostadinova-kainakchieva-a26808",
@@ -270,6 +285,44 @@
         "legalBasis": "доковор за ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр. Гулянци",
+        "municipality": "Гулянци",
+        "areaSqm": 7174,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр. Гулянци",
+        "municipality": "Гулянци",
+        "areaSqm": 16374,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозе",
+        "detail": null,
+        "location": "гр. Гулянци",
+        "municipality": "Гулянци",
+        "areaSqm": 626,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -287,7 +340,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/446C9928-1D4A-4F36-91A5-631208509BD1131459.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nadezhda-kostadinova-kainakchieva-a26808",
@@ -431,6 +485,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

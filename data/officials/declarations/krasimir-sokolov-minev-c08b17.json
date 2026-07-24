@@ -141,6 +141,20 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "рено сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1099.2775445718698,
+        "legalBasis": "договор за покупко продажба"
+      }
     ]
   },
   {
@@ -158,7 +172,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/F1017A62-2B3A-4C4F-A336-2B0AC0258A83134342.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimir-sokolov-minev-c08b17",
@@ -284,6 +299,7 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

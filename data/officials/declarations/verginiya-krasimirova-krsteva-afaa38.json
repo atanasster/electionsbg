@@ -195,7 +195,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "verginiya-krasimirova-krsteva-afaa38",
@@ -364,6 +365,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -515,7 +530,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "verginiya-krasimirova-krsteva-afaa38",
@@ -665,6 +681,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 86,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 34256.556040146635,
+        "legalBasis": "възмездно"
       }
     ]
   }

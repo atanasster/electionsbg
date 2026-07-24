@@ -292,7 +292,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-lyubenov-penchev-f18093",
@@ -587,7 +588,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-lyubenov-penchev-f18093",
@@ -972,7 +974,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати в последните 20 години"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-lyubenov-penchev-f18093",
@@ -1249,7 +1252,8 @@
         "legalBasis": "договор",
         "fundsOrigin": "спестявания от заплати последните 20 години"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-lyubenov-penchev-f18093",
@@ -1561,6 +1565,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1051.2161077394253,
+        "legalBasis": null
       }
     ]
   },
@@ -1892,6 +1910,32 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Разходи за настаняване - Молдова, Кишинев",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 386.5366621843412,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Разходи за настаняване - Русия, Санкт Петербург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 899.8737109053445,
+        "legalBasis": null
       }
     ]
   }

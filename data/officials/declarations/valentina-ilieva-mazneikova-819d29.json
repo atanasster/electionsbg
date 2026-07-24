@@ -195,7 +195,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-ilieva-mazneikova-819d29",
@@ -806,7 +807,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-ilieva-mazneikova-819d29",
@@ -1424,6 +1426,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка - Япония",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1360.0364039819412,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Конгрес - Шотландия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1733.7907691363769,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1441,7 +1469,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/13327C96-21BD-4317-8D01-87FB882CD9DC89213.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentina-ilieva-mazneikova-819d29",
@@ -1932,6 +1961,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

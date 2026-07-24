@@ -123,7 +123,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "doichin-genov-angelov-c18fe2",
@@ -262,6 +263,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВЪЧНИ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2971.1171216312255,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -316,6 +331,7 @@
         "legalBasis": "ОТ ДР.СТОПАНСКА ДЕЙНОСТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

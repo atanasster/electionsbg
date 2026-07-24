@@ -249,7 +249,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-angelova-bagdatova-mizova-9b42a7",
@@ -532,6 +533,20 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 4837,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 671639.6619338081,
+        "legalBasis": "заповед за отчуждаване и съдебни решения"
+      }
     ]
   },
   {
@@ -797,6 +812,7 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

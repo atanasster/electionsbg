@@ -118,6 +118,32 @@
         "legalBasis": "банков кредит 3,12",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 998,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 998,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -161,6 +187,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

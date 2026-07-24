@@ -159,7 +159,8 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "branimir-ivanov-mangrov-d61aa4",
@@ -339,7 +340,8 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "branimir-ivanov-mangrov-d61aa4",
@@ -381,6 +383,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "HONDA VFR 750 F",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -431,7 +447,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "branimir-ivanov-mangrov-d61aa4",
@@ -455,7 +472,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "branimir-ivanov-mangrov-d61aa4",
@@ -563,7 +581,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "branimir-ivanov-mangrov-d61aa4",
@@ -580,6 +599,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1799DF94-FBB6-4975-B132-A32E2847A5C588905.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

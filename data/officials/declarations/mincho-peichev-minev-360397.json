@@ -33,7 +33,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mincho-peichev-minev-360397",
@@ -50,7 +51,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/FCE292C9-C82A-4E4A-BCD6-407EFD0641D6134101.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mincho-peichev-minev-360397",
@@ -86,7 +88,8 @@
         "legalBasis": "банков превод и кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mincho-peichev-minev-360397",
@@ -140,7 +143,8 @@
         "legalBasis": "делба",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mincho-peichev-minev-360397",
@@ -194,6 +198,32 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "Хонда Шедоу 750",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хонда Сивик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -211,7 +241,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/FCE292C9-C82A-4E4A-BCD6-407EFD0641D691282.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mincho-peichev-minev-360397",
@@ -301,6 +332,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

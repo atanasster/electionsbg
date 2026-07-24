@@ -45,6 +45,20 @@
         "legalBasis": "покупка",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Бобов дол, ап. 1 блок 5",
+        "municipality": "бобов дол",
+        "areaSqm": 57,
+        "builtAreaSqm": 57,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "продажба"
+      }
     ]
   }
 ]

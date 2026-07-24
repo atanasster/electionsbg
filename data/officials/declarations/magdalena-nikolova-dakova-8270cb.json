@@ -244,6 +244,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 119,
+        "builtAreaSqm": 119,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -261,7 +275,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/051D887B-B0D7-4443-B6E9-1D182B127C23156057.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "magdalena-nikolova-dakova-8270cb",
@@ -531,6 +546,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

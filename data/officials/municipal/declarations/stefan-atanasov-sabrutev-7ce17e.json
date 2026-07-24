@@ -87,6 +87,32 @@
         "legalBasis": "договор за кредит, лихва 2.8 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Смолян, ул. Елица 7",
+        "municipality": "Смолян",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 27499.83383013861,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Смолян, ул. Елица 7",
+        "municipality": "Смолян",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 27499.83383013861,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

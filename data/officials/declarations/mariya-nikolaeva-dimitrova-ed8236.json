@@ -166,7 +166,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-nikolaeva-dimitrova-ed8236",
@@ -329,7 +330,8 @@
         "legalBasis": null,
         "fundsOrigin": "доброволео пенсионно осигуряване  ПДК Доверие"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-nikolaeva-dimitrova-ed8236",
@@ -498,7 +500,8 @@
         "legalBasis": null,
         "fundsOrigin": "доброволно пенсионно осигуряване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-nikolaeva-dimitrova-ed8236",
@@ -698,7 +701,8 @@
         "legalBasis": null,
         "fundsOrigin": "допълнително пенсионно осигуряване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-nikolaeva-dimitrova-ed8236",
@@ -861,7 +865,8 @@
         "legalBasis": "апорт",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-nikolaeva-dimitrova-ed8236",
@@ -1084,7 +1089,8 @@
         "legalBasis": "апорт",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-nikolaeva-dimitrova-ed8236",
@@ -1354,6 +1360,20 @@
         "isSpouse": true,
         "legalBasis": "апорт",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна, ул. Дебър№24",
+        "municipality": "Варна",
+        "areaSqm": 79,
+        "builtAreaSqm": 79,
+        "currency": "BGN",
+        "valueEur": 91009.9548529269,
+        "legalBasis": "покупко-продажба"
       }
     ]
   }

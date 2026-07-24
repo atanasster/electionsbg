@@ -63,6 +63,32 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Венец",
+        "municipality": "Венец",
+        "areaSqm": 500,
+        "builtAreaSqm": 147,
+        "currency": "BGN",
+        "valueEur": 9561.158178369285,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "дворно място",
+        "detail": null,
+        "location": "с.Венец",
+        "municipality": "Венец",
+        "areaSqm": 530,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

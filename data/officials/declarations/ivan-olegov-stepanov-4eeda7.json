@@ -112,6 +112,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Поземлен имот",
+        "detail": null,
+        "location": "с. Угорелец",
+        "municipality": "Севлиево",
+        "areaSqm": 900,
+        "builtAreaSqm": 33,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -191,7 +205,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-olegov-stepanov-4eeda7",
@@ -342,7 +357,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-olegov-stepanov-4eeda7",
@@ -359,7 +375,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2C3863D5-5270-4AD8-BC41-DE5B8783F61E91763.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-olegov-stepanov-4eeda7",
@@ -467,6 +484,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

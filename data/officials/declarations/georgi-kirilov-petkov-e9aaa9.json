@@ -159,7 +159,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-kirilov-petkov-e9aaa9",
@@ -286,6 +287,44 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 30,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "развод"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "покупко-продажба"
+      }
     ]
   },
   {
@@ -329,6 +368,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "BMW 325i",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "покупко-продажба"
+      }
     ]
   },
   {
@@ -359,7 +412,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-kirilov-petkov-e9aaa9",
@@ -593,7 +647,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-kirilov-petkov-e9aaa9",
@@ -610,6 +665,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/464B45AB-B972-47AC-816C-BA003F4CDC0090468.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

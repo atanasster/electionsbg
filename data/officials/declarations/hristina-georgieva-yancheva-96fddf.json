@@ -105,7 +105,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristina-georgieva-yancheva-96fddf",
@@ -214,7 +215,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristina-georgieva-yancheva-96fddf",
@@ -347,7 +349,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristina-georgieva-yancheva-96fddf",
@@ -498,7 +501,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristina-georgieva-yancheva-96fddf",
@@ -515,7 +519,33 @@
     "sourceUrl": "https://register.cacbg.bg/2020/CE11DD2B-E3A6-442B-9E12-7484C6C00BC4114851.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "СНЦ \"СДРУЖЕНИЕ НАЦИОНАЛЕН АГРАРНО-ТЕХНОЛОГИЧЕН ПАРК\"",
+        "detail": null,
+        "location": "Член на управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ",
+        "detail": null,
+        "location": "Член на управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "hristina-georgieva-yancheva-96fddf",
@@ -672,7 +702,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristina-georgieva-yancheva-96fddf",
@@ -805,6 +836,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 53,
+        "builtAreaSqm": 38,
+        "currency": "BGN",
+        "valueEur": 25999.703450708905,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -822,7 +867,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/CE11DD2B-E3A6-442B-9E12-7484C6C00BC489171.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "hristina-georgieva-yancheva-96fddf",
@@ -1002,6 +1048,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

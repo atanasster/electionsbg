@@ -202,7 +202,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и рента от собствени земи"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-vasilev-sariliev-408240",
@@ -425,7 +426,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-vasilev-sariliev-408240",
@@ -569,7 +571,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-vasilev-sariliev-408240",
@@ -702,7 +705,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-vasilev-sariliev-408240",
@@ -737,6 +741,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Ловнорибарско дружество \"Филип Тотю\" гр. Русе - ЮЛ с нестопанска цел",
+        "detail": null,
+        "location": "член на управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -853,7 +871,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-vasilev-sariliev-408240",
@@ -961,7 +980,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-vasilev-sariliev-408240",
@@ -978,6 +998,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F88D0EF9-8AE4-419C-BB9F-5192162155D390221.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

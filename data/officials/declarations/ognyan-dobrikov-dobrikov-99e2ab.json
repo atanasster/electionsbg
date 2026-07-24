@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-dobrikov-dobrikov-99e2ab",
@@ -137,6 +138,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "АУДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -198,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-dobrikov-dobrikov-99e2ab",
@@ -222,7 +238,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ognyan-dobrikov-dobrikov-99e2ab",
@@ -246,7 +263,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ognyan-dobrikov-dobrikov-99e2ab",
@@ -336,7 +354,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-dobrikov-dobrikov-99e2ab",
@@ -353,6 +372,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/54B28AE4-DCA6-4A35-8E94-B5B4062D393A89669.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

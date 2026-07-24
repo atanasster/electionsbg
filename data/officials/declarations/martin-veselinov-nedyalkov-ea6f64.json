@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3476.784792134286,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -137,7 +151,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "martin-veselinov-nedyalkov-ea6f64",
@@ -234,7 +249,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "martin-veselinov-nedyalkov-ea6f64",
@@ -331,7 +347,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "martin-veselinov-nedyalkov-ea6f64",
@@ -410,7 +427,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "martin-veselinov-nedyalkov-ea6f64",
@@ -471,7 +489,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "martin-veselinov-nedyalkov-ea6f64",
@@ -622,6 +641,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

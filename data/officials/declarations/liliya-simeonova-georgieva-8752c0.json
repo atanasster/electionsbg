@@ -40,6 +40,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Годишна такса дисертация",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1329.358891110168,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -129,6 +143,20 @@
         "isSpouse": true,
         "legalBasis": "заплата и заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Институт за правосъдие, равноправие, информираност и медиация",
+        "detail": null,
+        "location": "председател",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

@@ -202,6 +202,32 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен C4 1,6 HDI 16 V",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1891.7799604260083,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение за лечение от \"Българската Коледа\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1321.6895128922247,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -219,7 +245,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/379C537B-96F0-44D2-803B-8A920E54CCC697287.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetomir-milkov-papurkov-830a03",
@@ -381,6 +408,7 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

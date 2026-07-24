@@ -208,6 +208,32 @@
         "legalBasis": "Договорен лихвен процент 17.9%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент с ПМ 16,54 кв.м., ПМ 12,77 кв.м. и мазе 3,78 кв.м.",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 107,
+        "builtAreaSqm": 107,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "Нотариален акт за дарение"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Мерцедес АМГ ГЛЕ 43",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 43459.80990167857,
+        "legalBasis": "Договор за покупко-продажба на МПС"
+      }
     ]
   },
   {
@@ -437,6 +463,7 @@
         "legalBasis": "Договор с лихвен процент 16.90%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

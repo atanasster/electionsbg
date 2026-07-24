@@ -136,7 +136,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-vasilev-aleksiev-3949cc",
@@ -347,7 +348,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-vasilev-aleksiev-3949cc",
@@ -486,7 +488,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-vasilev-aleksiev-3949cc",
@@ -606,6 +609,44 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с. Методиево",
+        "municipality": "Добричка",
+        "areaSqm": 850,
+        "builtAreaSqm": 15,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "в.з. Момчил, гр. Балчик",
+        "municipality": "Балчик",
+        "areaSqm": 300,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ВАЗ 2109",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -752,7 +793,8 @@
         "legalBasis": null,
         "fundsOrigin": "Продажба на апартамент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-vasilev-aleksiev-3949cc",
@@ -843,6 +885,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 23008.13465382983,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -879,7 +935,8 @@
         "legalBasis": "продажба на апартамент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-vasilev-aleksiev-3949cc",
@@ -934,7 +991,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-vasilev-aleksiev-3949cc",
@@ -951,7 +1009,105 @@
     "sourceUrl": "https://register.cacbg.bg/2017/C799D036-22F4-4939-8BCF-77A7E5A8AC6184775.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1717.940720819294,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Рента за земеделски земи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "ivailo-vasilev-aleksiev-3949cc",
@@ -1180,7 +1336,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-vasilev-aleksiev-3949cc",
@@ -1337,6 +1494,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

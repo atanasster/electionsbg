@@ -58,7 +58,8 @@
         "legalBasis": "Договор за жилищен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelina-ivanova-ilieva-iordanova-31976f",
@@ -136,6 +137,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за жилищен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лещ автомобил",
+        "detail": "Шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
       }
     ]
   }

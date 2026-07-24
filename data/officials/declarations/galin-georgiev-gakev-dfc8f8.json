@@ -142,7 +142,8 @@
         "legalBasis": "Договор за ипотечен банков кредит, 2.5% лихвен процент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galin-georgiev-gakev-dfc8f8",
@@ -269,6 +270,32 @@
         "legalBasis": null,
         "fundsOrigin": "Заплати и спестявания, декларирани в предходни декларации"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "Велинград",
+        "municipality": "Велинград",
+        "areaSqm": 30,
+        "builtAreaSqm": 21,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Деу Матиз",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -360,7 +387,8 @@
         "legalBasis": null,
         "fundsOrigin": "Заплати и спестявания, декларирани в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galin-georgiev-gakev-dfc8f8",
@@ -433,7 +461,8 @@
         "legalBasis": null,
         "fundsOrigin": "Заплати и спестявания, декларирани в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galin-georgiev-gakev-dfc8f8",
@@ -524,6 +553,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, заплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Мерцедес E300D",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1099.2775445718698,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -591,6 +634,7 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, заплати"
       }
-    ]
+    ],
+    "events": []
   }
 ]

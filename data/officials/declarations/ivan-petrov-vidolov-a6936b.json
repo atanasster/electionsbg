@@ -88,7 +88,8 @@
         "legalBasis": "Договор за импотечен кредит от 2020; лихвен процент - 2,60.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-petrov-vidolov-a6936b",
@@ -251,7 +252,8 @@
         "legalBasis": "Ипотемен заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-petrov-vidolov-a6936b",
@@ -414,6 +416,32 @@
         "legalBasis": "договор за заем от 2020",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Франция, Лион - Среща на управителния съвет на СЕПОЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1636.1340198278992,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Чехия, Прага - Среща на управителния съвет на СЕПОЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1319.1330534862436,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -431,7 +459,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/4C8D13B3-6482-492B-A61B-9FFC1A6B4189132669.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-petrov-vidolov-a6936b",
@@ -575,6 +604,7 @@
         "legalBasis": "договор за заем от 2020",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

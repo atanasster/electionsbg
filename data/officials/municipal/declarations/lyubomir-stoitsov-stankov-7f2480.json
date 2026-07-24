@@ -45,6 +45,44 @@
         "legalBasis": "Лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Парцел и жилищна сграда",
+        "detail": null,
+        "location": "село Тросково",
+        "municipality": "Симитли",
+        "areaSqm": 338,
+        "builtAreaSqm": 38,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Парцел и жилищна сграда",
+        "detail": null,
+        "location": "село Тросково",
+        "municipality": "Симитли",
+        "areaSqm": 338,
+        "builtAreaSqm": 38,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Нива",
+        "detail": null,
+        "location": "град Симитли",
+        "municipality": "Симитли",
+        "areaSqm": 9100,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

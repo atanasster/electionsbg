@@ -64,6 +64,56 @@
         "legalBasis": "банкови кредити",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Габрово",
+        "municipality": "Габрово",
+        "areaSqm": 64,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "град Габрово",
+        "municipality": "Габрово",
+        "areaSqm": 876,
+        "builtAreaSqm": 248,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "град Габрово",
+        "municipality": "Габрово",
+        "areaSqm": 28,
+        "builtAreaSqm": 28,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Чавеи",
+        "municipality": "Габрово",
+        "areaSqm": 1350,
+        "builtAreaSqm": 112,
+        "currency": "BGN",
+        "valueEur": 1073.7129505120588,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

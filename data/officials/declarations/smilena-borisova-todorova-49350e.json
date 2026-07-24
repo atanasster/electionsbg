@@ -46,6 +46,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мицубиши Колт",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 792.5024158541387,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -70,6 +84,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -214,6 +214,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, наеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "парична гаранция по ППЗПП",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16105.694257680883,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -419,6 +433,20 @@
         "legalBasis": null,
         "fundsOrigin": "спеснявния от пр.години, заплати, наеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "парична гаранция по ППЗПП",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16105.694257680883,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -588,6 +616,56 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "банков депозит",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16105.694257680883,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "обучение по мат., БЕЛ и АЕ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1313.5088427930853,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "обучение по английски език",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 650.8745647627861,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "обучение по английски език",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 755.1781085268148,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -679,6 +757,104 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, наеми, гр. договор и спестявания от предх. години"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучение по англ. Език",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "подготовка за кандидатстване",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 276.097615845958,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "обучение SAT",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 295.5267073314143,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "участие в пролетна школа Фулбраит",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 178.95215841867648,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "курсове БЕЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 291.4363722818445,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "курсове БЕЛ и математика",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 494.9305409979395,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "обучение по англ. Език",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 128.84555406144705,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "такса обучение английски език",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 720.921552486668,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -752,6 +928,92 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, обезщетения наем, спестявания от пред.година"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "пътни разходи /отиване и връщане/ Китай",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "квартирни разходи Китай",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 429.4851802048235,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни разходи /отиване и връщане/ Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 257.6911081228941,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "квартирни разходи Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 350.23493861940966,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни разходи/отиване и връщане/ Словения 24.06-30.06.19 г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 183.55378534944245,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни разходи/отиване и връщане/ Словения 08.09.- 10.09.19.г",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 183.55378534944245,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "чуждоезиково обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 634.5132245645071,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -788,7 +1050,8 @@
         "legalBasis": "заплати",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angelin-nikolaev-tsachev-a0d37e",
@@ -915,7 +1178,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angelin-nikolaev-tsachev-a0d37e",
@@ -1185,7 +1449,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angelin-nikolaev-tsachev-a0d37e",
@@ -1202,6 +1467,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5983A1CE-1C10-41B9-9E34-0699C5D1BE8291147.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

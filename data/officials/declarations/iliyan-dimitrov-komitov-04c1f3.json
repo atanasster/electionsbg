@@ -64,7 +64,8 @@
         "legalBasis": "Лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-dimitrov-komitov-04c1f3",
@@ -131,7 +132,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-dimitrov-komitov-04c1f3",
@@ -234,6 +236,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "мерцидес глк",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11248.421386316806,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -319,7 +335,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-dimitrov-komitov-04c1f3",
@@ -368,7 +385,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-dimitrov-komitov-04c1f3",
@@ -429,7 +447,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-dimitrov-komitov-04c1f3",
@@ -537,7 +556,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-dimitrov-komitov-04c1f3",
@@ -554,6 +574,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/222665B8-2A4E-412A-9659-1A886DE9DD4F90195.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -412,6 +412,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Ремарке",
+        "detail": "Туристическо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -520,7 +534,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-simeonov-markov-aee6e0",
@@ -537,7 +552,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/6A1C8762-069C-4AF5-884A-F5F8906215DE141364.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-simeonov-markov-aee6e0",
@@ -609,6 +625,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -195,7 +195,8 @@
         "legalBasis": "Договор ЛП 2,6",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-stoyanov-ivanov-9cfbe9",
@@ -333,6 +334,20 @@
         "isSpouse": true,
         "legalBasis": "Договор ЛП 2,6",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 39,
+        "builtAreaSqm": 39,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -509,6 +524,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

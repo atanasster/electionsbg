@@ -21,7 +21,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ул. \"Хан Кардам\" № 11",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 91,
+        "builtAreaSqm": 91,
+        "currency": "BGN",
+        "valueEur": 84874.45227857227,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "adriana-vasileva-petrova-924ea1",
@@ -64,7 +78,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "adriana-vasileva-petrova-924ea1",
@@ -94,6 +109,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

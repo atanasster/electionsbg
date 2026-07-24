@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emiliya-stancheva-metodieva-907cfc",
@@ -95,6 +96,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 37,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -138,7 +153,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emiliya-stancheva-metodieva-907cfc",
@@ -199,7 +215,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emiliya-stancheva-metodieva-907cfc",
@@ -469,7 +486,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emiliya-stancheva-metodieva-907cfc",
@@ -486,6 +504,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/38439DE5-A3A9-4127-85AF-894F788EC50089680.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

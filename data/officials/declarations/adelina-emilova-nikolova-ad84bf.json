@@ -202,6 +202,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и заем"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 690,
+        "builtAreaSqm": 155,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -706,7 +720,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "adelina-emilova-nikolova-ad84bf",
@@ -814,7 +829,8 @@
         "legalBasis": "закрита, без усвояване на лимит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "adelina-emilova-nikolova-ad84bf",
@@ -831,6 +847,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/A82ABF65-6E5E-49F5-8FBB-F951AA2DE0B9182989.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

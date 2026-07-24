@@ -411,7 +411,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslava-krasimirova-hristova-39b850",
@@ -825,7 +826,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslava-krasimirova-hristova-39b850",
@@ -897,6 +899,20 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76693.78217943278,
+        "legalBasis": null
       }
     ]
   },
@@ -995,7 +1011,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslava-krasimirova-hristova-39b850",
@@ -1116,7 +1133,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslava-krasimirova-hristova-39b850",
@@ -1133,7 +1151,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/19DA8B73-1803-4F98-897D-CE20A6AAA74B91177.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslava-krasimirova-hristova-39b850",
@@ -1547,6 +1566,7 @@
         "legalBasis": "здоговор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tatyana-tsvetanova-bozhinova-d6a622",
@@ -189,6 +190,128 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "Стража",
+        "municipality": "Плевен",
+        "areaSqm": 584,
+        "builtAreaSqm": 584,
+        "currency": "BGN",
+        "valueEur": 1431.6172673494118,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Осман Паша",
+        "municipality": "Плевен",
+        "areaSqm": 7451,
+        "builtAreaSqm": 7451,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Стража",
+        "municipality": "Плевен",
+        "areaSqm": 315,
+        "builtAreaSqm": 315,
+        "currency": "BGN",
+        "valueEur": 1431.6172673494118,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 139736.07113092652,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 71938.76768430794,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент с парко място",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 85692.51928848622,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 81193.1507339595,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 80784.11722900253,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент с гараж",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50720.154614664876,
+        "legalBasis": null
       }
     ]
   },
@@ -490,6 +613,80 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 139736.07113092652,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 71938.76768430794,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент с парко място",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 85692.51928848622,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 81193.1507339595,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 80784.11722900253,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент с гараж",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50720.154614664876,
+        "legalBasis": null
       }
     ]
   },
@@ -1086,6 +1283,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

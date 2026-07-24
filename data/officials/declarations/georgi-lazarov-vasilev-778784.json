@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-lazarov-vasilev-778784",
@@ -140,6 +141,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "захранване на сметка - подарък"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
       }
     ]
   }

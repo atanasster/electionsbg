@@ -177,7 +177,8 @@
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetlana-angelova-naidenova-ac8171",
@@ -297,6 +298,20 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   }

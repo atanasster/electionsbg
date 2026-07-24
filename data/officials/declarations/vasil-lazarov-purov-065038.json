@@ -33,7 +33,81 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Соволяно местност Егълница",
+        "municipality": "Кюстендил",
+        "areaSqm": 1045,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Соволяно местност Егълница",
+        "municipality": "Кюстендил",
+        "areaSqm": 500,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с„Трекляно местност Каменно поле",
+        "municipality": "Трекляно",
+        "areaSqm": 1507,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1275.6732435845652,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "С.Трекляно местност Каменно поле",
+        "municipality": "Трекляно",
+        "areaSqm": 2500,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2115.725804389952,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с„Трекляно",
+        "municipality": "Трекляно",
+        "areaSqm": 17414,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 14737.988475480997,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с„Трекляно",
+        "municipality": "Трекляно",
+        "areaSqm": 15746,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13326.311591498239,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "vasil-lazarov-purov-065038",
@@ -118,6 +192,32 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Савойски",
+        "municipality": "Кюстендил",
+        "areaSqm": 2401,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38679.23081249393,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Договор за заем по чл.50 от ЗДДФЛ с ЧАН АД",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -161,6 +261,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

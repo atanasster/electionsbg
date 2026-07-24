@@ -280,6 +280,56 @@
         "legalBasis": "договор - 3,95",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Жребичко",
+        "municipality": "Брацигово",
+        "areaSqm": 1531,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 9499.80315262574,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1942.9091485456302,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0.5112918811962185,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Ремонт на апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": null
+      }
     ]
   }
 ]

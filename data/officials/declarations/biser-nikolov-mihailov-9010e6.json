@@ -447,7 +447,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "biser-nikolov-mihailov-9010e6",
@@ -579,6 +580,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Развален договор за учредяване право на строеж в/у апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 70,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Съдебно решение"
       }
     ]
   },
@@ -731,7 +746,8 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "biser-nikolov-mihailov-9010e6",
@@ -888,7 +904,8 @@
         "legalBasis": null,
         "fundsOrigin": "самоосигуряване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "biser-nikolov-mihailov-9010e6",
@@ -1229,6 +1246,92 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -1572,6 +1675,92 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1626,6 +1815,104 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Единствен годишен доход от адвокатска свободна практика-граждански договори и хонорари",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1662,6 +1949,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -136,6 +136,20 @@
         "legalBasis": "ПОКУПКА",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "ДРЕН",
+        "municipality": "РАДОМИР",
+        "areaSqm": 60,
+        "builtAreaSqm": 180,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   }
 ]

@@ -142,7 +142,8 @@
         "legalBasis": null,
         "fundsOrigin": "Командировъчни задграничен мандат"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikola-vladimirov-draganov-4a7a54",
@@ -233,7 +234,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни средства от задграничен мандат"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikola-vladimirov-draganov-4a7a54",
@@ -299,6 +301,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Волво XC70, 2008",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -420,6 +436,32 @@
         "isSpouse": false,
         "legalBasis": "договор по кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Рав4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ван",
+        "detail": "Пежо Партнер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4959.53124760332,
+        "legalBasis": "покупко-продажба"
       }
     ]
   }

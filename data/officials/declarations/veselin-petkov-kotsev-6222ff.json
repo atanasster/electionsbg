@@ -100,6 +100,20 @@
         "legalBasis": "Договор за заем - 2023г.",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Дворно място с жилищна сграда",
+        "detail": null,
+        "location": "4407, с. Ивайло",
+        "municipality": "Пазарджик",
+        "areaSqm": 772,
+        "builtAreaSqm": 174,
+        "currency": "BGN",
+        "valueEur": 4908.4020594836975,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -136,7 +150,8 @@
         "legalBasis": "от заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-petkov-kotsev-6222ff",
@@ -221,7 +236,8 @@
         "legalBasis": "Кредит от 2016г.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-petkov-kotsev-6222ff",
@@ -336,6 +352,32 @@
         "legalBasis": "Кредит от 2019г.",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Трактор",
+        "detail": "Т-25 ВЛАДИМИРЕЦ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Трактор",
+        "detail": "Т-25 ВЛАДИМИРЕЦ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -372,7 +414,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselin-petkov-kotsev-6222ff",
@@ -396,7 +439,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselin-petkov-kotsev-6222ff",
@@ -666,7 +710,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-petkov-kotsev-6222ff",
@@ -683,6 +728,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/05AB6BA1-7D4B-452E-8DE9-968C9326701488917.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

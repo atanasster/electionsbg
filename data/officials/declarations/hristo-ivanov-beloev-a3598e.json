@@ -202,6 +202,80 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота корола версо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университети в Алания, Турция, 19.05-25.05.2019, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1115.1275928889524,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университетr в Солун, Гърция, 16.04-21.04.2019, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 640.1374352576655,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университети в Батуми, Грузия, 28.04-04.05.2019, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1534.8982273510478,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университети в Хо Ши Мин, Виетнам, 29.07-12.08.2019, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4020.288061845866,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университет Мендел, Бърно, Чехия, 25.09-26.09.2019",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 334.3848903023269,
+        "legalBasis": null
+      }
     ]
   }
 ]

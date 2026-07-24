@@ -76,7 +76,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vanya-vladimirova-sbcheva-f19da2",
@@ -154,6 +155,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "с.Рибарица",
+        "municipality": "Тетевен",
+        "areaSqm": 1000,
+        "builtAreaSqm": 96,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -276,7 +291,8 @@
         "legalBasis": "Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vanya-vladimirova-sbcheva-f19da2",
@@ -397,7 +413,8 @@
         "legalBasis": "Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vanya-vladimirova-sbcheva-f19da2",
@@ -457,6 +474,20 @@
         "isSpouse": false,
         "legalBasis": "Ипотека",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Посещение в Брюксел /ЕК/",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 800.171794072082,
+        "legalBasis": null
       }
     ]
   },
@@ -519,7 +550,8 @@
         "legalBasis": "Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vanya-vladimirova-sbcheva-f19da2",
@@ -591,6 +623,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

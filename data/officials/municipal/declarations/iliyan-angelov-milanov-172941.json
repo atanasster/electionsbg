@@ -26,6 +26,32 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Парцел",
+        "detail": null,
+        "location": "село Бистрица",
+        "municipality": "Дупница",
+        "areaSqm": 250,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Парцел",
+        "detail": null,
+        "location": "село Бистрица",
+        "municipality": "Дупница",
+        "areaSqm": 250,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

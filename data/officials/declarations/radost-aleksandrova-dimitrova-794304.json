@@ -106,6 +106,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Дивотино",
+        "municipality": "Перник",
+        "areaSqm": 325,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": 120000.20451675248,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Дивотино",
+        "municipality": "Перник",
+        "areaSqm": 325,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": 120000.20451675248,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

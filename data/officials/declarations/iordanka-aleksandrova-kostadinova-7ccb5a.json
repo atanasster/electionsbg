@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на апартамент през 2023г."
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-aleksandrova-kostadinova-7ccb5a",
@@ -136,6 +137,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот /апартамент/"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 87,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 79999.79548324752,
+        "legalBasis": "възмездно - капарото в размер на 33465 лв. е платено и декларирано през 2022г."
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сузуки Вагон",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 399.83025109544286,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -216,7 +243,8 @@
         "legalBasis": null,
         "fundsOrigin": "капаро за продажба на недвижим имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-aleksandrova-kostadinova-7ccb5a",
@@ -240,7 +268,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordanka-aleksandrova-kostadinova-7ccb5a",
@@ -289,7 +318,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-aleksandrova-kostadinova-7ccb5a",
@@ -356,6 +386,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

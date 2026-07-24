@@ -166,6 +166,32 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата, дарения родители, спестявания от предходни години"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Долна Бешовица",
+        "municipality": "Роман",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 79.25024158541386,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Долна Бешовица",
+        "municipality": "Роман",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 79.25024158541386,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -245,6 +271,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

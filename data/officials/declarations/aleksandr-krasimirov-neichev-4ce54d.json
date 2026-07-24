@@ -172,6 +172,32 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "производствени помещения",
+        "detail": null,
+        "location": "Бенковски",
+        "municipality": "Кирково",
+        "areaSqm": 640,
+        "builtAreaSqm": 280,
+        "currency": "BGN",
+        "valueEur": 122710.05148709244,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип",
+        "detail": "Митсубиши паджеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

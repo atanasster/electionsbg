@@ -129,6 +129,20 @@
         "legalBasis": "договор за лизинг; лихвен процент-4.2%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3864.8553299622154,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

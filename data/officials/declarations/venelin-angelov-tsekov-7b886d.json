@@ -178,7 +178,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-angelov-tsekov-7b886d",
@@ -377,7 +378,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-angelov-tsekov-7b886d",
@@ -546,7 +548,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-angelov-tsekov-7b886d",
@@ -726,6 +729,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "currency": "BGN",
+        "valueEur": 26000.214742590102,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -997,7 +1014,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-angelov-tsekov-7b886d",
@@ -1014,6 +1032,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/00923079-C891-48CA-A526-F686A17A37D990630.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

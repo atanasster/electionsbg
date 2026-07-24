@@ -231,7 +231,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yaroslava-igorevna-bubnova-d6a586",
@@ -478,7 +479,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на наследен имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yaroslava-igorevna-bubnova-d6a586",
@@ -790,6 +792,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба+наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 936,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102830.00056242108,
+        "legalBasis": "възмездно+делба"
       }
     ]
   }

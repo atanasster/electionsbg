@@ -130,7 +130,8 @@
         "legalBasis": "лизинг автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivelina-asenova-panova-lambova-6830c9",
@@ -274,6 +275,20 @@
         "isSpouse": false,
         "legalBasis": "лизинг автомобил",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Магазин",
+        "detail": null,
+        "location": "Казанлък, ул. Ген. Радецки \"16",
+        "municipality": "Казанлък",
+        "areaSqm": 25,
+        "builtAreaSqm": 25,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "продажба"
       }
     ]
   }

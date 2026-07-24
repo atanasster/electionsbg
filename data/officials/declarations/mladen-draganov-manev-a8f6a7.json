@@ -118,6 +118,104 @@
         "legalBasis": "договори",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Помощица",
+        "municipality": "Попово",
+        "areaSqm": 3519,
+        "builtAreaSqm": 93,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Помощица",
+        "municipality": "Попово",
+        "areaSqm": 1605,
+        "builtAreaSqm": 105,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Помощица",
+        "municipality": "Попово",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Желю войвода",
+        "municipality": "Сливен",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Скобелево",
+        "municipality": "Сливен",
+        "areaSqm": 7,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Скобелево",
+        "municipality": "Сливен",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Скобелево",
+        "municipality": "Сливен",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Трабант",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -275,7 +373,8 @@
         "legalBasis": "договори",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-draganov-manev-a8f6a7",
@@ -390,7 +489,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-draganov-manev-a8f6a7",
@@ -407,7 +507,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/668C8F53-CBE4-4C24-9E2F-673C97F6377690776.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mladen-draganov-manev-a8f6a7",
@@ -587,6 +688,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

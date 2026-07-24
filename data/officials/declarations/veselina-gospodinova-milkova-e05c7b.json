@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "ТРУДОВО ВЪЗНАГРАЖДЕНИЕ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselina-gospodinova-milkova-e05c7b",
@@ -64,7 +65,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselina-gospodinova-milkova-e05c7b",
@@ -106,6 +108,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. .Лесичово",
+        "municipality": "Лесичово",
+        "areaSqm": 828,
+        "builtAreaSqm": 218,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -156,7 +172,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselina-gospodinova-milkova-e05c7b",
@@ -192,7 +209,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselina-gospodinova-milkova-e05c7b",
@@ -222,7 +240,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselina-gospodinova-milkova-e05c7b",
@@ -239,6 +258,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/19693AA5-FE7A-4F8D-85DB-11D526BA4B8992353.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

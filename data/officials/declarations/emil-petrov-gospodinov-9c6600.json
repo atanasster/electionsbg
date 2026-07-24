@@ -130,7 +130,8 @@
         "legalBasis": "банков кредит, 2.82%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-petrov-gospodinov-9c6600",
@@ -262,6 +263,20 @@
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -130,6 +130,20 @@
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Звезда",
+        "municipality": "Попово",
+        "areaSqm": 1020,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -359,7 +373,8 @@
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marian-mitkov-marinov-b65ae2",
@@ -444,7 +459,8 @@
         "legalBasis": "ЛИЗИНГ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marian-mitkov-marinov-b65ae2",
@@ -511,7 +527,8 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marian-mitkov-marinov-b65ae2",
@@ -560,7 +577,8 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marian-mitkov-marinov-b65ae2",
@@ -608,6 +626,32 @@
         "isSpouse": false,
         "legalBasis": "банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Австрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Беларуз",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
       }
     ]
   },
@@ -699,7 +743,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marian-mitkov-marinov-b65ae2",
@@ -716,6 +761,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EAA8E100-5461-4A7F-8907-F32C0B8D170290706.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

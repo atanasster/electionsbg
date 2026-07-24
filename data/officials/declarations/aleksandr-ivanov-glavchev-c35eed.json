@@ -70,7 +70,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-ivanov-glavchev-c35eed",
@@ -208,6 +209,20 @@
         "isSpouse": false,
         "legalBasis": "потребителски",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Фиат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   }

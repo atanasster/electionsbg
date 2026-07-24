@@ -112,7 +112,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "olya-velichkova-boneva-622325",
@@ -227,7 +228,8 @@
         "legalBasis": null,
         "fundsOrigin": "вноски от заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "olya-velichkova-boneva-622325",
@@ -342,7 +344,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "olya-velichkova-boneva-622325",
@@ -421,7 +424,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "olya-velichkova-boneva-622325",
@@ -643,6 +647,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата - доп.пенс.осигуряване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -885,7 +903,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "olya-velichkova-boneva-622325",
@@ -1029,7 +1048,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "olya-velichkova-boneva-622325",
@@ -1046,6 +1066,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/FC4FAA33-FD7E-461C-8086-9DA0986AF24289600.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

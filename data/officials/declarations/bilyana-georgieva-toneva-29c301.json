@@ -136,6 +136,20 @@
         "legalBasis": "чл.430 от ТЗ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сеат Алхамбра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -317,6 +331,7 @@
         "legalBasis": "чл.430 от ТЗ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

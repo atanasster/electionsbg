@@ -496,6 +496,32 @@
         "legalBasis": "договор за заем ВСК",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "покупко-продажба"
+      }
     ]
   },
   {
@@ -550,7 +576,8 @@
         "legalBasis": "заплати,продажба на автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-lchezarova-konova-0a2ff9",
@@ -995,7 +1022,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-lchezarova-konova-0a2ff9",
@@ -1476,7 +1504,8 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-lchezarova-konova-0a2ff9",
@@ -1512,7 +1541,8 @@
         "legalBasis": "остатък от кредит и лични средства",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-lchezarova-konova-0a2ff9",
@@ -1885,6 +1915,32 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола Версо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола Версо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -2168,7 +2224,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-lchezarova-konova-0a2ff9",
@@ -2222,7 +2279,8 @@
         "legalBasis": "лични средства",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-lchezarova-konova-0a2ff9",
@@ -2631,7 +2689,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-lchezarova-konova-0a2ff9",
@@ -3117,7 +3176,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-lchezarova-konova-0a2ff9",
@@ -3134,6 +3194,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/788CB6CE-E4BA-43B7-A39C-1606EF93017089276.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

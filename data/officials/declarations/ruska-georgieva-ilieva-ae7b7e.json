@@ -496,7 +496,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ruska-georgieva-ilieva-ae7b7e",
@@ -959,7 +960,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ruska-georgieva-ilieva-ae7b7e",
@@ -1404,7 +1406,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ruska-georgieva-ilieva-ae7b7e",
@@ -1813,6 +1816,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Аксаково",
+        "municipality": "Аксаково",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 14203.68845963095,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -2168,7 +2185,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ruska-georgieva-ilieva-ae7b7e",
@@ -2529,7 +2547,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ruska-georgieva-ilieva-ae7b7e",
@@ -2890,6 +2909,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

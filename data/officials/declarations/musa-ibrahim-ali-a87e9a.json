@@ -46,6 +46,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "Велинград",
+        "municipality": "Велинград",
+        "areaSqm": 2,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -124,6 +138,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "производствени помещения",
+        "detail": null,
+        "location": "Велинград",
+        "municipality": "Велинград",
+        "areaSqm": 420,
+        "builtAreaSqm": 840,
+        "currency": "BGN",
+        "valueEur": 38346.89108971639,
+        "legalBasis": "възмездно"
       }
     ]
   }

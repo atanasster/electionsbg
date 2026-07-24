@@ -58,7 +58,8 @@
         "legalBasis": "Дог. За потр.кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-dimitrova-aleksandrova-9103c1",
@@ -166,7 +167,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-dimitrova-aleksandrova-9103c1",
@@ -209,7 +211,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-dimitrova-aleksandrova-9103c1",
@@ -270,7 +273,8 @@
         "legalBasis": "договор за потреб.кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-dimitrova-aleksandrova-9103c1",
@@ -348,6 +352,32 @@
         "isSpouse": false,
         "legalBasis": "Договор за потреб.кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Студено буче",
+        "municipality": "Монтана",
+        "areaSqm": 1078,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Студено буче",
+        "municipality": "Монтана",
+        "areaSqm": 19,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -475,7 +505,8 @@
         "legalBasis": "говор за потр.кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-dimitrova-aleksandrova-9103c1",
@@ -492,6 +523,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/6535B952-1CBB-40D0-8DB1-0CAA76AEA72489535.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

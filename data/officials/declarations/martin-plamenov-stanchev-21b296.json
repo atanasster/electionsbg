@@ -112,6 +112,20 @@
         "legalBasis": "2.6% на година",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Форд Ц Макс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -297,6 +311,7 @@
         "legalBasis": "2.6% ЛП на година",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -166,7 +166,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diana-mileva-karashmalkova-5284a7",
@@ -370,6 +371,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Изнесено обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 107.37129505120588,
+        "legalBasis": null
       }
     ]
   }

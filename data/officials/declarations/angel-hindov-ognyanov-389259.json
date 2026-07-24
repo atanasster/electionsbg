@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Ремарке",
+        "detail": "Туристическо ремарке",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -99,6 +113,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/EE50BA62-38B2-4A75-B6AD-60502F940068190574.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -82,7 +82,8 @@
         "legalBasis": "договор за кредтна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dilyana-miroslavova-iordanova-c66f9d",
@@ -172,6 +173,20 @@
         "isSpouse": false,
         "legalBasis": "Банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен Ксара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
       }
     ]
   }

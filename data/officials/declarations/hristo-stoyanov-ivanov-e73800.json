@@ -100,7 +100,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-stoyanov-ivanov-e73800",
@@ -167,6 +168,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Парична сума",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6534.310241687673,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -184,7 +199,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/B4432DCE-4557-4C52-8B79-5AE34871EB43145206.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "hristo-stoyanov-ivanov-e73800",
@@ -526,6 +542,7 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

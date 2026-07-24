@@ -118,6 +118,20 @@
         "legalBasis": "кредитен лимит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен Ц 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -233,6 +247,7 @@
         "legalBasis": "кредитен лимит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

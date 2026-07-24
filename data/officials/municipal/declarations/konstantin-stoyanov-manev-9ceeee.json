@@ -199,6 +199,44 @@
         "legalBasis": "договор-кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Руец",
+        "municipality": "Търговище",
+        "areaSqm": 1160,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Руец",
+        "municipality": "Търговище",
+        "areaSqm": 1100,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Бистра",
+        "municipality": "Търговище",
+        "areaSqm": 21443,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 23677.41572631568,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

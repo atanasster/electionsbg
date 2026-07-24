@@ -82,7 +82,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "chavdar-petrov-groshev-6831e4",
@@ -106,7 +107,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "chavdar-petrov-groshev-6831e4",
@@ -123,7 +125,21 @@
     "sourceUrl": "https://register.cacbg.bg/2019/ABADAFED-EDB5-4438-971F-9A93AECA1A1894674.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Асоциация напрокурорите",
+        "detail": null,
+        "location": "на ОС проведено на 13.04.2019 г. освободен и отново избран за член на Управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "chavdar-petrov-groshev-6831e4",
@@ -213,7 +229,8 @@
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "chavdar-petrov-groshev-6831e4",
@@ -230,6 +247,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/ABADAFED-EDB5-4438-971F-9A93AECA1A1889847.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

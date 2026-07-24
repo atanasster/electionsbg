@@ -94,7 +94,8 @@
         "legalBasis": "договор 10.07%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "momchil-emilov-stanishev-d5703e",
@@ -202,6 +203,20 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "земя",
+        "detail": null,
+        "location": "гр.Мизия",
+        "municipality": "Оряхово",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
       }
     ]
   }

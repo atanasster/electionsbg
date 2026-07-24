@@ -261,6 +261,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Смолско",
+        "municipality": "Мирково",
+        "areaSqm": 714,
+        "builtAreaSqm": 192,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "София, кв. Редута",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 159,
+        "builtAreaSqm": 108,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Бобов Дол",
+        "municipality": "Кюстендил",
+        "areaSqm": 130,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 596.1663334747908,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Издръжка за деца ненавършили пълнолетие",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5215.177188201428,
+        "legalBasis": null
+      }
     ]
   }
 ]

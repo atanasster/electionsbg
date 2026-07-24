@@ -208,7 +208,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gencho-donev-kolev-4fdb70",
@@ -351,6 +352,20 @@
         "isSpouse": false,
         "legalBasis": "безлихвен заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Бял извор",
+        "municipality": "Опан",
+        "areaSqm": 8,
+        "builtAreaSqm": 8,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -496,6 +511,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -598,6 +627,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Е 300",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   }

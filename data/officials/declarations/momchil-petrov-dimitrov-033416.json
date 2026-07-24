@@ -184,6 +184,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - застраховка живот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола Версо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2863.2345346988236,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -389,6 +403,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - застраховка живот"
       }
-    ]
+    ],
+    "events": []
   }
 ]

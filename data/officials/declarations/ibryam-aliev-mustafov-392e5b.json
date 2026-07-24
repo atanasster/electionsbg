@@ -124,6 +124,44 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Сливен, ж.к.Даме Груев",
+        "municipality": "Сливен",
+        "areaSqm": 109,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Могилец",
+        "municipality": "Омуртаг",
+        "areaSqm": 770,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с.Могилец",
+        "municipality": "Омуртаг",
+        "areaSqm": 90,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -292,6 +330,32 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Хюндай Атос",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Хюндай Атос",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1596,6 +1660,116 @@
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сграда",
+        "detail": null,
+        "location": "гр.Сливен,ул.Хаджи Димитър №36",
+        "municipality": "Сливен",
+        "areaSqm": 8,
+        "builtAreaSqm": 8,
+        "currency": "BGN",
+        "valueEur": 498.509584166313,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сграда",
+        "detail": null,
+        "location": "гр.Сливен,ул.Хаджи Димитър №36",
+        "municipality": "Сливен",
+        "areaSqm": 14,
+        "builtAreaSqm": 14,
+        "currency": "BGN",
+        "valueEur": 603.835711692734,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сграда",
+        "detail": null,
+        "location": "гр.Сливен,ул.Хаджи Димитър №36",
+        "municipality": "Сливен",
+        "areaSqm": 93,
+        "builtAreaSqm": 93,
+        "currency": "BGN",
+        "valueEur": 3857.185951744272,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гора",
+        "detail": null,
+        "location": "с.Стеврек,ч-ст Пасищно било",
+        "municipality": "Антоново",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1140.1808950675672,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гора",
+        "detail": null,
+        "location": "с.Стеврек, м-ст Желязната чешча",
+        "municipality": "Антоново",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 757.7345679327958,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гора",
+        "detail": null,
+        "location": "с.Крайхоле,м-ст Бунара",
+        "municipality": "Антоново",
+        "areaSqm": 44,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5556.720164840503,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гора",
+        "detail": null,
+        "location": "с.Малка Черковна м-ст Рамадан",
+        "municipality": "Антоново",
+        "areaSqm": 92,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11618.596708302868,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гора",
+        "detail": null,
+        "location": "с. Присойна",
+        "municipality": "Антоново",
+        "areaSqm": 56,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7072.189300706094,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гора",
+        "detail": null,
+        "location": "с.Разделци м-ст Заблатеното",
+        "municipality": "Антоново",
+        "areaSqm": 15,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1975.6318289421883,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -2461,6 +2635,7 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

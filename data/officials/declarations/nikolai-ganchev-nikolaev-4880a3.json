@@ -88,6 +88,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Бургас, ж.к.Меден Рудник ПИ07079.671.313",
+        "municipality": "Бургас",
+        "areaSqm": 1155,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0.5112918811962185,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -155,6 +169,7 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

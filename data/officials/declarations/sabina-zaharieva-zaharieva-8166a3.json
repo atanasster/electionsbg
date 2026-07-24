@@ -141,7 +141,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabina-zaharieva-zaharieva-8166a3",
@@ -285,6 +286,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "гаранция за управление",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13293.58891110168,
+        "legalBasis": null
       }
     ]
   },
@@ -443,7 +458,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabina-zaharieva-zaharieva-8166a3",
@@ -588,7 +604,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabina-zaharieva-zaharieva-8166a3",
@@ -751,7 +768,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabina-zaharieva-zaharieva-8166a3",
@@ -914,7 +932,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabina-zaharieva-zaharieva-8166a3",
@@ -1076,7 +1095,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabina-zaharieva-zaharieva-8166a3",
@@ -1093,6 +1113,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/AE4C1AD3-2782-4CC5-9159-348A1D9E15F889244.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -142,7 +142,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-venelinov-nachev-cbd57a",
@@ -299,7 +300,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-venelinov-nachev-cbd57a",
@@ -450,7 +452,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-venelinov-nachev-cbd57a",
@@ -613,7 +616,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-venelinov-nachev-cbd57a",
@@ -770,7 +774,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-venelinov-nachev-cbd57a",
@@ -950,6 +955,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Хасково",
+        "municipality": "Хасково",
+        "areaSqm": 87,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 33233.972277754205,
+        "legalBasis": "възмездно"
       }
     ]
   }

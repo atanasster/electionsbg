@@ -592,6 +592,104 @@
         "legalBasis": "договор за кредит -9.4390%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Памукчии",
+        "municipality": "Нови пазар",
+        "areaSqm": 1100,
+        "builtAreaSqm": 74,
+        "currency": "BGN",
+        "valueEur": 2666.898452319476,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Варна",
+        "municipality": "Варна",
+        "areaSqm": 119,
+        "builtAreaSqm": 119,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Варна",
+        "municipality": "Варна",
+        "areaSqm": 119,
+        "builtAreaSqm": 119,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парко място",
+        "detail": null,
+        "location": "гр.Варна",
+        "municipality": "Варна",
+        "areaSqm": 13,
+        "builtAreaSqm": 13,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парко място",
+        "detail": null,
+        "location": "гр.Варна",
+        "municipality": "Варна",
+        "areaSqm": 13,
+        "builtAreaSqm": 13,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Памукчии",
+        "municipality": "Нови пазар",
+        "areaSqm": 15,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 215.7651738648042,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Памукчии",
+        "municipality": "Нови пазар",
+        "areaSqm": 19,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 316.48967446045924,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с.Памукчии",
+        "municipality": "Нови пазар",
+        "areaSqm": 4,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 106.86000317000966,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -893,6 +991,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

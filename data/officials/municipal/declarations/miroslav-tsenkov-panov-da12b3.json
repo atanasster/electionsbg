@@ -333,6 +333,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи от стопанска дейност"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 483.1708277304265,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракувана и снета от отчет"
+      }
     ]
   },
   {
@@ -404,6 +430,7 @@
         "legalBasis": "заплата и доходи от стопанска дейност",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

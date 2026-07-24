@@ -237,6 +237,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Делегат в ОС на СЮЗО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10.22583762392437,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Национален зелен форум на АБГР - в гр. Казанлък",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30.67751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Среща на местната власт в Албена - към НСОРБ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 465.27561188855884,
+        "legalBasis": null
+      }
     ]
   }
 ]

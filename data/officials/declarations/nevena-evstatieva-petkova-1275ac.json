@@ -130,6 +130,68 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Поземлен имот",
+        "detail": null,
+        "location": "с. Шумата",
+        "municipality": "Севлиево",
+        "areaSqm": 23,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "Покупко-продажба"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1073.7129505120588,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 800.171794072082,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 500.04345980990166,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 664.679445555084,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -370,6 +432,68 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 800.171794072082,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 800.171794072082,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 480.10307644324917,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 721.4328443678643,
+        "legalBasis": null
       }
     ]
   },
@@ -636,7 +760,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nevena-evstatieva-petkova-1275ac",
@@ -1229,6 +1354,92 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

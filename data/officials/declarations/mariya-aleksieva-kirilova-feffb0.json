@@ -76,6 +76,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1175.9713267513025,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -137,7 +151,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-aleksieva-kirilova-feffb0",
@@ -180,6 +195,20 @@
         "legalBasis": null,
         "fundsOrigin": "ПРОДАЖБА"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "НЕСЕБЪР",
+        "municipality": "НЕСЕБЪР",
+        "areaSqm": 94,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "ПРОДАЖБА"
+      }
     ]
   },
   {
@@ -204,7 +233,8 @@
         "amountEurSpouse": 4101.0721790748685
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariya-aleksieva-kirilova-feffb0",
@@ -228,7 +258,8 @@
         "amountEurSpouse": 3246.7034455959874
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariya-aleksieva-kirilova-feffb0",
@@ -289,7 +320,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-aleksieva-kirilova-feffb0",
@@ -313,6 +345,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

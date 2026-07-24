@@ -51,6 +51,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "Кавазаки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3323.39722777542,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -266,6 +266,56 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 92,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 157999.92841913665,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 92,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 157999.92841913665,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ВМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -512,6 +562,56 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Кокаляне",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 675,
+        "builtAreaSqm": 140,
+        "currency": "BGN",
+        "valueEur": 134998.95185164353,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировъчни пари - пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "GBP",
+        "valueEur": 690.244039614895,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировъчни пари - пътни, дневни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1028.2079730855953,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировъчни пари - пътни, дневни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 949.980315262574,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -739,7 +839,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-zdravkova-georgieva-626503",
@@ -953,6 +1054,44 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "договорна ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "договорна ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Комондировъчни пари и такса за обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 398.8076673330504,
+        "legalBasis": null
       }
     ]
   }

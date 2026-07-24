@@ -112,6 +112,68 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировка Виена",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 493.39666535435083,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка Будапеща",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 407.49962931338615,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка Берлин",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 577.2485338705307,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка Париж",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 577.2485338705307,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка Берлин",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 649.8519810003937,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -190,6 +252,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировка Берлин",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 684.1085370405403,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка Виена",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 617.1293006038358,
+        "legalBasis": null
       }
     ]
   }

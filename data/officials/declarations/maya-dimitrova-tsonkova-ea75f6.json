@@ -46,6 +46,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "АЛБАНИЯ - ПОЧИВКА",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "СИЦИЛИЯ - ПОЧИВКА",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -70,6 +96,20 @@
         "amountEurSpouse": 6123.742861087108
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "РЕНО МАСТЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3476.784792134286,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

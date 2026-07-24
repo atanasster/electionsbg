@@ -94,7 +94,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-emilova-vlchinova-611712",
@@ -154,6 +155,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Паталеница",
+        "municipality": "Пазарджик",
+        "areaSqm": 278,
+        "builtAreaSqm": 111,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
       }
     ]
   }

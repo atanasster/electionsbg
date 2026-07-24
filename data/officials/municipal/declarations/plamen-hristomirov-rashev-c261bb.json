@@ -195,6 +195,80 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот и спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе, ул. Цар Асен",
+        "municipality": "Русе",
+        "areaSqm": 87,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 14551.366938844378,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе, ул. Цар Асен",
+        "municipality": "Русе",
+        "areaSqm": 82,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 65036.327288158995,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ателие",
+        "detail": null,
+        "location": "гр. Русе, ул. Цар Асен",
+        "municipality": "Русе",
+        "areaSqm": 43,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25666.85243605017,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе, ул. Цар Асен",
+        "municipality": "Русе",
+        "areaSqm": 123,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 39369.474852108826,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе, ул. Цар Асен",
+        "municipality": "Русе",
+        "areaSqm": 47,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -190,6 +190,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 63,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -395,7 +409,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimov-kostov-c3617f",
@@ -612,6 +627,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

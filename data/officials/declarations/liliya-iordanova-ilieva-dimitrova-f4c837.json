@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "liliya-iordanova-ilieva-dimitrova-f4c837",
@@ -137,7 +138,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "liliya-iordanova-ilieva-dimitrova-f4c837",
@@ -161,7 +163,8 @@
         "amountEurSpouse": 17402.84176027569
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "liliya-iordanova-ilieva-dimitrova-f4c837",
@@ -204,7 +207,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "liliya-iordanova-ilieva-dimitrova-f4c837",
@@ -271,6 +275,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Суворово, ул. \"Острата чешма\"",
+        "municipality": "Суворово",
+        "areaSqm": 8100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 1636.1340198278992,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -295,7 +313,8 @@
         "amountEurSpouse": 13177.52565407014
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "liliya-iordanova-ilieva-dimitrova-f4c837",
@@ -403,7 +422,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "liliya-iordanova-ilieva-dimitrova-f4c837",
@@ -420,6 +440,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0979224A-BC49-45EC-8397-EEDFEF29716591229.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -21,7 +21,33 @@
         "amountEurSpouse": 4884.882632948671
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 10,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 3,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "stanislava-rumenova-vitanova-d2c048",
@@ -45,6 +71,7 @@
         "amountEurSpouse": 3115.301432128559
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

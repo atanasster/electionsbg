@@ -64,6 +64,20 @@
         "legalBasis": "4%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София,ж.к.Мл.1,бл.6,ап.117",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": 132999.80059616634,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -100,6 +114,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "ауди 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6442.277703072353,
+        "legalBasis": "БАРТЕР"
+      }
+    ]
   }
 ]

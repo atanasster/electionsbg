@@ -70,7 +70,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-spasov-iliev-b361b3",
@@ -137,7 +138,8 @@
         "legalBasis": null,
         "fundsOrigin": "работна заплата, наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-spasov-iliev-b361b3",
@@ -204,7 +206,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-spasov-iliev-b361b3",
@@ -271,7 +274,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-spasov-iliev-b361b3",
@@ -338,7 +342,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наем"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-spasov-iliev-b361b3",
@@ -373,6 +378,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ДСБПЛРББ-Царица Йоанна ЕООД гр. Трявна",
+        "detail": null,
+        "location": "Управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -531,7 +550,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-spasov-iliev-b361b3",
@@ -548,7 +568,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5B867B5B-3830-4F0E-9857-4CC314C0EFE390042.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-spasov-iliev-b361b3",
@@ -692,6 +713,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

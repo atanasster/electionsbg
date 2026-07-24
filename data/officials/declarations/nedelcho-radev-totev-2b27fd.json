@@ -310,7 +310,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedelcho-radev-totev-2b27fd",
@@ -568,6 +569,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "Продажба"
       }
     ]
   },
@@ -870,7 +885,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedelcho-radev-totev-2b27fd",
@@ -1159,7 +1175,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedelcho-radev-totev-2b27fd",
@@ -1394,7 +1411,8 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedelcho-radev-totev-2b27fd",
@@ -1665,7 +1683,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedelcho-radev-totev-2b27fd",
@@ -1682,7 +1701,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/10CF35BD-6B3B-446F-BCC6-4E8CB020FA9B90123.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nedelcho-radev-totev-2b27fd",
@@ -2168,6 +2188,7 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

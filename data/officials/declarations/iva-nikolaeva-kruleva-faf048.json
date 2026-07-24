@@ -148,6 +148,20 @@
         "legalBasis": "необлагаеми доходи от трудови правоотношения с МВнР",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -263,6 +277,7 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания/командировъчни"
       }
-    ]
+    ],
+    "events": []
   }
 ]

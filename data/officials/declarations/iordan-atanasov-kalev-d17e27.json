@@ -148,6 +148,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "издръжка непълнолетни деца",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 705.5827960507816,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "издръжка непълнолетни деца",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 705.5827960507816,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -165,7 +191,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B825DD44-AE3A-4A99-8C09-E3F293E1B63093073.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordan-atanasov-kalev-d17e27",
@@ -309,6 +336,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

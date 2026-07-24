@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "simeon-aleksandrov-efremov-6a21f3",
@@ -118,6 +119,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 0,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 39880.76673330504,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -317,7 +332,8 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "simeon-aleksandrov-efremov-6a21f3",
@@ -522,7 +538,8 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "simeon-aleksandrov-efremov-6a21f3",
@@ -546,7 +563,8 @@
         "amountEurSpouse": 11043.90463383832
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "simeon-aleksandrov-efremov-6a21f3",
@@ -654,7 +672,8 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "simeon-aleksandrov-efremov-6a21f3",
@@ -671,6 +690,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F7EF4622-77E2-4256-BDB4-5C72CBC6DE1293372.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -58,7 +58,8 @@
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-simeonov-georgiev-78728d",
@@ -119,7 +120,8 @@
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-simeonov-georgiev-78728d",
@@ -143,7 +145,8 @@
         "amountEurSpouse": 8803.42361043649
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-simeonov-georgiev-78728d",
@@ -167,7 +170,8 @@
         "amountEurSpouse": 8434.27087221282
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-simeonov-georgiev-78728d",
@@ -210,7 +214,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-simeonov-georgiev-78728d",
@@ -289,6 +294,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -306,7 +325,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EA9CE475-6352-40FF-964B-AD0544CA9EC093455.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-simeonov-georgiev-78728d",
@@ -396,6 +416,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

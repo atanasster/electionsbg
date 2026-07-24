@@ -129,6 +129,56 @@
         "legalBasis": "Договори за паричен заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Зарник",
+        "municipality": "Кайнарджа",
+        "areaSqm": 590,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Зарник",
+        "municipality": "Кайнарджа",
+        "areaSqm": 515,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Ценович",
+        "municipality": "Силистра",
+        "areaSqm": 384,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1192.8439588307776,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ситроен берлинго",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

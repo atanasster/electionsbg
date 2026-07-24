@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/162015F1-CC52-47C2-89D0-CC0807012753146086.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimir-ivanov-gerchev-e0d43d",
@@ -80,6 +81,32 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
       }
     ]
   },
@@ -148,6 +175,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 5966,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "Разлог",
+        "municipality": "Разлог",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "Разлог",
+        "municipality": "Разлог",
+        "areaSqm": 125,
+        "builtAreaSqm": 125,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -208,6 +285,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дарение и заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
       }
     ]
   }

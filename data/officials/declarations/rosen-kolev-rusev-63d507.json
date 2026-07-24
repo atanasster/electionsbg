@@ -177,7 +177,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-kolev-rusev-63d507",
@@ -219,6 +220,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Голица",
+        "municipality": "Долни чифлик",
+        "areaSqm": 650,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 962.7626122924794,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -263,7 +278,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-kolev-rusev-63d507",
@@ -287,7 +303,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rosen-kolev-rusev-63d507",
@@ -304,7 +321,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/3746B7F1-3266-4245-A5F6-0A51AAE4F75A132000.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rosen-kolev-rusev-63d507",
@@ -412,6 +430,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

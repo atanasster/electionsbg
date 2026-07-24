@@ -63,6 +63,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, рента и дивидент"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Екскурзия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1775.7167033944668,
+        "legalBasis": null
+      }
     ]
   }
 ]

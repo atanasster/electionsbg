@@ -106,6 +106,44 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Онлайн семинар",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 92.03253861531933,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция 02.05.-04.05.2024",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 320.06871762883276,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция 11.07.-12.07.2024",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 528.1645132756937,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -221,6 +259,56 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция 07.05.-09.05.2023",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 620.1970518910131,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция 07.07.-09.07.2023",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 283.7669940639013,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция 27.10.-29.10.2023",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 670.8149481294387,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Договор за брокерски услуги, сключване на сделки с финансови услуги",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -324,6 +412,68 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция /17.06.-19.06.2022 г./",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 577.7598257517269,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция /24.06.-26.06.2022 г./",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 547.0823128799537,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция /07.07.-08.07.2022 г./",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 444.8239366407101,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Белгия  /07.09.-09.09.2022 г./",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция /28.10.-30.10.2022 г./",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 552.195231691916,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -341,7 +491,21 @@
     "sourceUrl": "https://register.cacbg.bg/2022/1C881536-1B18-48BD-BEC6-6F504620A7DE141590.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПАРК ЕНЕРГО ПРО ООД",
+        "detail": null,
+        "location": "прокурист",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "miglena-georgieva-goranova-53bf36",
@@ -358,7 +522,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/1C881536-1B18-48BD-BEC6-6F504620A7DE141589.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miglena-georgieva-goranova-53bf36",
@@ -532,6 +697,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -172,7 +172,8 @@
         "legalBasis": "заем 0% лихва",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-slavova-pavlova-d68f3d",
@@ -353,6 +354,56 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "currency": "BGN",
+        "valueEur": 46980.054503714535,
+        "legalBasis": "продажба възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "софия-град (Столична)",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "currency": "BGN",
+        "valueEur": 46980.054503714535,
+        "legalBasis": "продажба възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "софия-град (Столична)",
+        "areaSqm": 14,
+        "builtAreaSqm": 14,
+        "currency": "BGN",
+        "valueEur": 9999.846612435642,
+        "legalBasis": "продажба възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 14,
+        "builtAreaSqm": 14,
+        "currency": "BGN",
+        "valueEur": 9999.846612435642,
+        "legalBasis": "продажба възмездно"
+      }
     ]
   },
   {
@@ -510,6 +561,7 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

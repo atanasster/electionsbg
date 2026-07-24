@@ -27,7 +27,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivanka-dimitrova-todorova-c4a49d",
@@ -51,7 +52,8 @@
         "amountEurSpouse": 8436.316039737605
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivanka-dimitrova-todorova-c4a49d",
@@ -105,7 +107,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-dimitrova-todorova-c4a49d",
@@ -213,7 +216,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-dimitrova-todorova-c4a49d",
@@ -280,6 +284,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "джип",
+        "detail": "Гранд Чероки 2.5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -329,6 +347,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ярис 1.4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4192.593425808992,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -353,6 +385,7 @@
         "amountEurSpouse": 2976.741332324384
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

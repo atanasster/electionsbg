@@ -208,7 +208,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yancho-angelov-iliev-83e6ba",
@@ -347,7 +348,8 @@
         "legalBasis": null,
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yancho-angelov-iliev-83e6ba",
@@ -522,7 +524,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yancho-angelov-iliev-83e6ba",
@@ -655,7 +658,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yancho-angelov-iliev-83e6ba",
@@ -716,7 +720,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yancho-angelov-iliev-83e6ba",
@@ -759,7 +764,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yancho-angelov-iliev-83e6ba",
@@ -776,6 +782,32 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0114AD5E-8A84-4021-9B05-0F80ACEE7C1C92455.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Нощувки",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 253.08948119212815,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Самолетен билет",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 731.6586819917886,
+        "legalBasis": null
+      }
+    ]
   }
 ]

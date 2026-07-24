@@ -226,6 +226,20 @@
         "legalBasis": "4,99%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотор",
+        "detail": "HONDA CBF",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -377,6 +391,7 @@
         "legalBasis": "ЛИЧНИ НУЖДИ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

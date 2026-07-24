@@ -331,7 +331,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-ognyanov-beninski-74bf9c",
@@ -665,6 +666,20 @@
         "legalBasis": "предоставен заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "АУДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16872.63207947521,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -682,7 +697,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3824A62D-A71B-49F8-836F-7FA79CB28FC690576.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "deyan-ognyanov-beninski-74bf9c",
@@ -1069,6 +1085,7 @@
         "legalBasis": "предоставен заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

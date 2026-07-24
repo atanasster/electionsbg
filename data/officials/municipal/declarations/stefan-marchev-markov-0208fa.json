@@ -279,7 +279,8 @@
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-marchev-markov-0208fa",
@@ -403,6 +404,20 @@
         "isSpouse": true,
         "legalBasis": "Друг кредит/рефинансиране",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ЕКО УОШ СОФИЯ ЕООД",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

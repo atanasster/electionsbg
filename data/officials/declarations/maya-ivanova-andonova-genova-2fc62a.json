@@ -231,7 +231,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-ivanova-andonova-genova-2fc62a",
@@ -280,7 +281,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-ivanova-andonova-genova-2fc62a",
@@ -507,6 +509,44 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на поземлен имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "кв. Враждебна",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 583,
+        "builtAreaSqm": 583,
+        "currency": "BGN",
+        "valueEur": 10992.775445718698,
+        "legalBasis": "договор за покупко продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "хюндай Санта Фе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "договор за покупко пполажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Е-190",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "договор за покупко пполажба"
+      }
     ]
   },
   {
@@ -566,7 +606,8 @@
         "amountEurSpouse": 12271.005148709244
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "maya-ivanova-andonova-genova-2fc62a",
@@ -583,7 +624,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/23251D7E-98C0-4933-A7F7-818278E2374F90004.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "maya-ivanova-andonova-genova-2fc62a",
@@ -979,6 +1021,7 @@
         "legalBasis": "съдебно решение",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

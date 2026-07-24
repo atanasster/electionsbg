@@ -1336,7 +1336,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - заплати, дивиденти, наеми, спестявания, продажба на имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-georgiev-taskov-b40042",
@@ -2825,6 +2826,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - заплати, дивиденти, наеми, спестявания, продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Търговище",
+        "municipality": "Търговище",
+        "areaSqm": 8500,
+        "builtAreaSqm": 590,
+        "currency": "BGN",
+        "valueEur": 450000.2556459406,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -4116,7 +4131,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - Заплати, дивиденти, наеми, спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-georgiev-taskov-b40042",
@@ -4447,6 +4463,7 @@
         "legalBasis": "неусвоен кредитен лимит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

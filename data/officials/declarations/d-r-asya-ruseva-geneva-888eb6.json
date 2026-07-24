@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "d-r-asya-ruseva-geneva-888eb6",
@@ -149,7 +150,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "d-r-asya-ruseva-geneva-888eb6",
@@ -342,7 +344,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "d-r-asya-ruseva-geneva-888eb6",
@@ -409,6 +412,20 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "джип",
+        "detail": "WWтуарег",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -426,7 +443,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B3BEC34B-A9BF-421E-9C70-F1577F45FE7089009.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "d-r-asya-ruseva-geneva-888eb6",
@@ -678,6 +696,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -316,6 +316,68 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автобил",
+        "detail": "Mitsubishi",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Австрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 431.5303477296084,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1312.486259030693,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Швейцария",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1523.649805964731,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 819.089593676342,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -514,6 +576,92 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Mitsubishi",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Кавала, Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 155.94402376484663,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Берлин, Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 140.09397544776385,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Варшава, Полша",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 615.0841330790508,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Париж,Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 287.857329113471,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Загреб, Хърварска",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 810.9089235772025,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел, Белгия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 521.0064269389467,
+        "legalBasis": null
       }
     ]
   }

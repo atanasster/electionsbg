@@ -148,7 +148,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nevyana-ilieva-ivancheva-9f8b0b",
@@ -275,7 +276,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nevyana-ilieva-ivancheva-9f8b0b",
@@ -402,7 +404,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nevyana-ilieva-ivancheva-9f8b0b",
@@ -529,6 +532,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено 19",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -620,6 +637,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

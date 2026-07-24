@@ -70,7 +70,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dinko-mladenov-gospodinov-de8ca4",
@@ -161,7 +162,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dinko-mladenov-gospodinov-de8ca4",
@@ -270,7 +272,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dinko-mladenov-gospodinov-de8ca4",
@@ -354,6 +357,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Л.Маринчешки  № 1",
+        "municipality": "Пловдив",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -440,7 +457,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dinko-mladenov-gospodinov-de8ca4",
@@ -530,6 +548,44 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": 11852.25709800954,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": 11603.769243748178,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 84,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 17461.129034732057,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -639,7 +695,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dinko-mladenov-gospodinov-de8ca4",
@@ -656,6 +713,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F38AB137-F80E-4263-984A-76B331814C2E89653.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

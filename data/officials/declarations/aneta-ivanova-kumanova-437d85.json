@@ -166,6 +166,20 @@
         "legalBasis": "10,65%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1410.6543002203668,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -202,7 +216,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aneta-ivanova-kumanova-437d85",
@@ -551,6 +566,7 @@
         "legalBasis": "заем 4 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

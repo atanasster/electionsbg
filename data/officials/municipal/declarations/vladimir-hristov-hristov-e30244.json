@@ -213,6 +213,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "овощна градина",
+        "detail": null,
+        "location": "Згориград",
+        "municipality": "Враца",
+        "areaSqm": 1893,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1704.1358400269962,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ 320",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Куга",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3323.39722777542,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

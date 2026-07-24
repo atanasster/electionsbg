@@ -274,6 +274,32 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "БАНСКО",
+        "municipality": "Разлог",
+        "areaSqm": 63,
+        "builtAreaSqm": 63,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "БАНСКО",
+        "municipality": "Разлог",
+        "areaSqm": 63,
+        "builtAreaSqm": 63,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -532,6 +558,56 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Банско",
+        "municipality": "Благоевград",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 20500.24797656238,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Банско",
+        "municipality": "Благоевград",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 20500.24797656238,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -771,7 +771,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milen-nenchev-nenchev-725879",
@@ -964,7 +965,8 @@
         "legalBasis": null,
         "fundsOrigin": "налични от преди 2018 и заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milen-nenchev-nenchev-725879",
@@ -1229,6 +1231,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и налични от преди 2018"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "застраховка № 11.043.369",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 520.4951350577504,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Застраховка № 11.014.308",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 515.3822162457882,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Застраховка № 11.014.308",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 515.3822162457882,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1246,7 +1286,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D6F8BB06-386B-42F2-9E71-E89E862FDDE390868.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milen-nenchev-nenchev-725879",
@@ -2026,6 +2067,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

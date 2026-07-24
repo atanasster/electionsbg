@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -130,6 +144,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

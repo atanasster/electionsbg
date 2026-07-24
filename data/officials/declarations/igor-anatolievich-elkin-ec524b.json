@@ -136,7 +136,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "igor-anatolievich-elkin-ec524b",
@@ -275,7 +276,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "igor-anatolievich-elkin-ec524b",
@@ -432,7 +434,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "igor-anatolievich-elkin-ec524b",
@@ -607,7 +610,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "igor-anatolievich-elkin-ec524b",
@@ -745,6 +749,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан екстрейл",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3323.39722777542,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -890,7 +908,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "igor-anatolievich-elkin-ec524b",
@@ -907,6 +926,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/4EF4C0D5-3919-4CBF-B807-166BC665AD6D91169.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

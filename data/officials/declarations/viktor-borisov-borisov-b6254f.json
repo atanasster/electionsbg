@@ -106,6 +106,20 @@
         "legalBasis": "Потребителски заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -172,6 +186,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Кнежа",
+        "municipality": "Кнежа",
+        "areaSqm": 14,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "л.а.",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2658.717782220336,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -240,7 +280,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-borisov-borisov-b6254f",
@@ -337,6 +378,20 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Лексус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -386,7 +441,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-borisov-borisov-b6254f",
@@ -447,7 +503,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-borisov-borisov-b6254f",
@@ -514,6 +571,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

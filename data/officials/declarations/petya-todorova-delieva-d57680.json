@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-todorova-delieva-d57680",
@@ -88,6 +89,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата и прехвърляне недв.имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "сутерен от къща с двор",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "възмездно"
       }
     ]
   }

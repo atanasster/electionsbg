@@ -225,7 +225,8 @@
         "legalBasis": "договор за банков кредит/4,59",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-petrov-kolev-7e6f93",
@@ -477,6 +478,20 @@
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "сузуки Gr Vitara",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2147.4259010241176,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -580,6 +595,44 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 106,
+        "builtAreaSqm": 106,
+        "currency": "BGN",
+        "valueEur": 95969.48610053021,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "гр. Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 2,
+        "builtAreaSqm": 2,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Казанка",
+        "municipality": "Стара Загора",
+        "areaSqm": 730,
+        "builtAreaSqm": 730,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -634,7 +687,8 @@
         "legalBasis": "потребителски кредит/договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-petrov-kolev-7e6f93",
@@ -778,6 +832,32 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка Р Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 585.9404958508663,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка Р Австрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 425.3948451552538,
+        "legalBasis": null
       }
     ]
   },
@@ -924,6 +1004,32 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "volkswagen",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка Р Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 748.0200221900676,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -941,7 +1047,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/40E734A7-930B-4EE4-BF29-5440D9110DA990460.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kiril-petrov-kolev-7e6f93",
@@ -1067,6 +1174,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -45,6 +45,20 @@
         "legalBasis": "потреб. Кредит / лихва 4,45",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Фолксваген голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

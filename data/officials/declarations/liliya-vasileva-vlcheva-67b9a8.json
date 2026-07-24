@@ -142,7 +142,8 @@
         "legalBasis": "договор, 8,25% лихвен процент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "liliya-vasileva-vlcheva-67b9a8",
@@ -406,6 +407,32 @@
         "isSpouse": true,
         "legalBasis": "догоеор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София, р-н Студентски",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 65,
+        "builtAreaSqm": 71,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "замяна"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "София, р-н Студентски",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 19,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "замяна"
       }
     ]
   }

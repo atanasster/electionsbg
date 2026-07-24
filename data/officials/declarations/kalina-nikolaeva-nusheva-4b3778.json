@@ -58,6 +58,20 @@
         "legalBasis": "Покупка на имот",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 235.1942653502605,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -119,6 +133,7 @@
         "legalBasis": "Покупка на имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

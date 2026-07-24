@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Трактор",
+        "detail": "ЮМЗ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1994.038336665252,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -112,7 +126,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "0"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-stoyanov-raichev-dc1f56",
@@ -209,7 +224,8 @@
         "legalBasis": "ЛИЗИНГ - МПС",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-stoyanov-raichev-dc1f56",
@@ -300,7 +316,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-stoyanov-raichev-dc1f56",
@@ -317,7 +334,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2B2F27C6-8497-4630-9C55-48CE769CC92591235.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ventsislav-stoyanov-raichev-dc1f56",
@@ -713,6 +731,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

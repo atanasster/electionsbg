@@ -105,7 +105,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-kotseva-tosheva-d705e7",
@@ -274,6 +275,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 76,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 119999.69322487128,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ 530",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1585.0048317082774,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -352,6 +379,20 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1227.1005148709244,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -486,7 +527,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-kotseva-tosheva-d705e7",
@@ -503,7 +545,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/628C8600-F23D-4A10-BEA8-9C1AD5F0E26C133336.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariana-kotseva-tosheva-d705e7",
@@ -647,6 +690,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

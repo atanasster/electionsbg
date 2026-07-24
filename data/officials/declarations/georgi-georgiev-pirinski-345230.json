@@ -285,7 +285,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-pirinski-345230",
@@ -472,6 +473,20 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Парцел - земеделска земя",
+        "detail": null,
+        "location": "с. Черногорово",
+        "municipality": "Пазарджик",
+        "areaSqm": 31,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2113.169344983971,
+        "legalBasis": "Продажба"
+      }
     ]
   },
   {
@@ -623,6 +638,7 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

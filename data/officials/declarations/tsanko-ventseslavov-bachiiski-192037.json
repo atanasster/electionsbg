@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "Обезщетение при пенсиониране"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsanko-ventseslavov-bachiiski-192037",
@@ -161,7 +162,8 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсониране"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsanko-ventseslavov-bachiiski-192037",
@@ -258,6 +260,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София ж.к. Младост",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 111,
+        "builtAreaSqm": 111,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -319,6 +335,7 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания пенсия"
       }
-    ]
+    ],
+    "events": []
   }
 ]

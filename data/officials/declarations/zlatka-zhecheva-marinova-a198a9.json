@@ -40,7 +40,8 @@
         "legalBasis": "кредит 2,7%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatka-zhecheva-marinova-a198a9",
@@ -89,7 +90,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatka-zhecheva-marinova-a198a9",
@@ -168,6 +170,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Ауди А3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 690.244039614895,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -192,7 +208,8 @@
         "amountEurSpouse": 2739.5018994493385
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zlatka-zhecheva-marinova-a198a9",
@@ -241,6 +258,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "Кричим ул. Света Марина 40",
+        "municipality": "Кричим",
+        "areaSqm": 72,
+        "builtAreaSqm": 72,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -265,7 +296,8 @@
         "amountEurSpouse": 3129.1063129208574
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zlatka-zhecheva-marinova-a198a9",
@@ -289,6 +321,7 @@
         "amountEurSpouse": 2822.331184203126
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -555,7 +555,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-ganchev-ganchev-bb2cc8",
@@ -1143,6 +1144,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "Дюлево",
+        "municipality": "Стрелча",
+        "areaSqm": 20,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "Дюлево",
+        "municipality": "Стрелча",
+        "areaSqm": 20,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -334,7 +334,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-vladimirova-konteva-6d5d09",
@@ -369,6 +370,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АСК  МЦ БУРГАС ООД",
+        "detail": null,
+        "location": "УПРАВИТЕЛ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -676,7 +691,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-vladimirova-konteva-6d5d09",
@@ -693,6 +709,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/008B5E7E-6EB5-4847-836C-0780FC69BD7192804.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

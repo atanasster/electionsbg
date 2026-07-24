@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubka-veselinova-aleksandrova-7d1fdb",
@@ -113,7 +114,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubka-veselinova-aleksandrova-7d1fdb",
@@ -234,7 +236,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и ренти"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubka-veselinova-aleksandrova-7d1fdb",
@@ -288,7 +291,8 @@
         "legalBasis": "заплати и ренти",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubka-veselinova-aleksandrova-7d1fdb",
@@ -353,6 +357,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "опел астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "продажба"
       }
     ]
   }

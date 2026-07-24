@@ -51,6 +51,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Сузуки Гранд Витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1436.2188942801777,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

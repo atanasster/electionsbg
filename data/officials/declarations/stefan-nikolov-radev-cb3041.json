@@ -190,7 +190,8 @@
         "legalBasis": "Българска фондова борса",
         "fundsOrigin": "трудови доходи, дивиденти"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-nikolov-radev-cb3041",
@@ -376,6 +377,20 @@
         "isSpouse": false,
         "legalBasis": "Българска фондова борса",
         "fundsOrigin": "трудови доходи, дивиденти"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътувания за заседания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 6751.0979993148685,
+        "legalBasis": null
       }
     ]
   },
@@ -600,6 +615,20 @@
         "legalBasis": "Българска фондова борса",
         "fundsOrigin": "трудови доходи, дивиденти"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътувания за заседания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 6969.93092446685,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -822,6 +851,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудови доходи, дивиденти"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътувания за заседания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 7962.859757749907,
+        "legalBasis": null
       }
     ]
   }

@@ -46,6 +46,44 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Кривня",
+        "municipality": "Ветово",
+        "areaSqm": 1300,
+        "builtAreaSqm": 137,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Поло",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Поло",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -310,6 +348,32 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "С. Мечка",
+        "municipality": "Иваново",
+        "areaSqm": 800,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1006.222422194158,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "С. Мечка",
+        "municipality": "Иваново",
+        "areaSqm": 800,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1006.222422194158,
+        "legalBasis": "възмездно"
       }
     ]
   }

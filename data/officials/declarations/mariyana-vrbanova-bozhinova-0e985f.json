@@ -321,7 +321,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariyana-vrbanova-bozhinova-0e985f",
@@ -442,7 +443,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariyana-vrbanova-bozhinova-0e985f",
@@ -581,7 +583,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariyana-vrbanova-bozhinova-0e985f",
@@ -720,6 +723,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свищов",
+        "municipality": "Самоков",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -737,7 +754,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/0D5A98B0-A11D-4BB7-9A33-64CD796FB05D113486.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariyana-vrbanova-bozhinova-0e985f",
@@ -790,6 +808,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Дунавски индустриален технологичен парк ЕАД",
+        "detail": null,
+        "location": "Изп. Директор",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Център за практико-приложни изследвания Бъров ЕООД",
+        "detail": null,
+        "location": "Управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -1115,6 +1159,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -69,7 +69,8 @@
         "legalBasis": "рефинансиране от Банка ДСК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-dimitrov-stoitsov-f85985",
@@ -238,7 +239,8 @@
         "legalBasis": "стоков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-dimitrov-stoitsov-f85985",
@@ -299,7 +301,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-dimitrov-stoitsov-f85985",
@@ -378,7 +381,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-dimitrov-stoitsov-f85985",
@@ -457,7 +461,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-dimitrov-stoitsov-f85985",
@@ -571,6 +576,32 @@
         "isSpouse": true,
         "legalBasis": "договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Деу Ланос",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Деу Ланос",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -788,7 +819,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-dimitrov-stoitsov-f85985",
@@ -805,6 +837,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E914462B-14C9-44F9-ACCA-B1201CE286CB89664.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

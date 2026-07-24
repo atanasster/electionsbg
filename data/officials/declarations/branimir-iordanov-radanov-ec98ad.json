@@ -94,7 +94,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "branimir-iordanov-radanov-ec98ad",
@@ -209,7 +210,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "branimir-iordanov-radanov-ec98ad",
@@ -329,6 +331,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено-\"Меган\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13549.23485169979,
+        "legalBasis": "възмездно"
       }
     ]
   }

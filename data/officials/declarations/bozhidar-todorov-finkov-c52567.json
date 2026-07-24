@@ -490,6 +490,20 @@
         "legalBasis": null,
         "fundsOrigin": "с натрупване и движение на средства повече от 50 години от заплати, прехвърлени спестявания от съпруга, хонорари ведно с трансфер на средства от съпругата в полза на декларатора  както е посочено на страница 7/1 от настоящата декларация"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "трансфер на парична сума от съпруга на декларатора от декларирани собствени средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 139582.68356656763,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -664,6 +678,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "на средства от собствени банкови сметки на лицето с посочения по - горе произход на ред 5"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "трансфер на парична сума",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 100468.85465505693,
+        "legalBasis": null
       }
     ]
   }

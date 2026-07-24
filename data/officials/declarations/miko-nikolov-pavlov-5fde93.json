@@ -27,7 +27,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miko-nikolov-pavlov-5fde93",
@@ -105,6 +106,20 @@
         "isSpouse": true,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Почивка в Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 587.9856633756513,
+        "legalBasis": null
       }
     ]
   },
@@ -214,7 +229,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miko-nikolov-pavlov-5fde93",
@@ -231,6 +247,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/09D1D37D-1CCC-4ECB-AE10-5DE8743276F592839.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

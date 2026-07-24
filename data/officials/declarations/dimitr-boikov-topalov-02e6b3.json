@@ -69,6 +69,32 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Костандово",
+        "municipality": "Ракитово",
+        "areaSqm": 0,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 5164.048000081807,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен С4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 639.1148514952731,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

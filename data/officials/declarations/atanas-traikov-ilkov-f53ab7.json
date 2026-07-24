@@ -82,7 +82,8 @@
         "legalBasis": null,
         "fundsOrigin": "задължително пенсионно осигуряване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-traikov-ilkov-f53ab7",
@@ -239,6 +240,20 @@
         "legalBasis": null,
         "fundsOrigin": "задължително пенсионно осигуряване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес С220",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -335,6 +350,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "задължително пенсионно осигуряване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ Х5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10737.129505120589,
+        "legalBasis": "възмездно"
       }
     ]
   }

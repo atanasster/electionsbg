@@ -57,6 +57,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "доходи"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Лесидрен",
+        "municipality": "Угърчин",
+        "areaSqm": 5205,
+        "builtAreaSqm": 45,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

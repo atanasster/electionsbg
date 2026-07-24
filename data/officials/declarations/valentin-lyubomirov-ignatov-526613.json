@@ -160,6 +160,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировка във Великобритания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1242.439271306811,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -177,7 +191,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3CF70E7D-F1DE-49CC-903B-3D605AADE03089134.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentin-lyubomirov-ignatov-526613",
@@ -555,6 +570,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

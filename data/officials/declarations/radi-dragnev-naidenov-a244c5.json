@@ -166,6 +166,44 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ремонт на МПС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "строеж на къща",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 66467.94455550841,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "довършителни дейности - жилище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 28121.053465792018,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -275,7 +313,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radi-dragnev-naidenov-a244c5",
@@ -389,6 +428,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София, кв. Драгалевци",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1160,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7730.733243686824,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София, кв. Драгалевци",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 563,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2239.969731520633,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -715,6 +780,32 @@
         "isSpouse": true,
         "legalBasis": "продажба",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Елешница",
+        "municipality": "Елин Пелин",
+        "areaSqm": 1660,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 23739.79333582162,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 49,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 29487.22537234831,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1304,7 +1395,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radi-dragnev-naidenov-a244c5",
@@ -1321,6 +1413,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/34A698DA-8843-4AFC-8B28-04BB37EEEDEC95071.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

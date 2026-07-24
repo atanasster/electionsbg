@@ -46,6 +46,32 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 915,
+        "builtAreaSqm": 106,
+        "currency": "BGN",
+        "valueEur": 677.4617425849895,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 915,
+        "builtAreaSqm": 106,
+        "currency": "BGN",
+        "valueEur": 677.4617425849895,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -214,6 +240,56 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 3,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 3,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
       }
     ]
   }

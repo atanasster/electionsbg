@@ -81,6 +81,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ОВОЩНА ГРАДИНА",
+        "detail": null,
+        "location": "ГР.КРИЧИМ МЕСТНОСТ РУСКОВИЦА",
+        "municipality": "КРИЧИМ",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 322.6251770348139,
+        "legalBasis": "НАСЛЕДСТВО ОТ БАЩА"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ОВОЩНА ГРАДИНА",
+        "detail": null,
+        "location": "ГР.КРИЧИМ МЕСТНОСТ ЧЕРВЕНАКА",
+        "municipality": "КРИЧИМ",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 250.02172990495083,
+        "legalBasis": "НАСЛЕДСТВО ОТ БАЩА"
+      }
     ]
   }
 ]

@@ -76,6 +76,20 @@
         "legalBasis": "Потреб. кредит, 6.25%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Смядово",
+        "municipality": "Смядово",
+        "areaSqm": 945,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 8691.961980335715,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -125,6 +139,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

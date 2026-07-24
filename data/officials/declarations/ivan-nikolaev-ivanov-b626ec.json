@@ -267,7 +267,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-ivanov-b626ec",
@@ -418,7 +419,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-ivanov-b626ec",
@@ -551,7 +553,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-ivanov-b626ec",
@@ -702,7 +705,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-ivanov-b626ec",
@@ -828,7 +832,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-ivanov-b626ec",
@@ -961,7 +966,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-ivanov-b626ec",
@@ -1094,7 +1100,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-ivanov-b626ec",
@@ -1244,6 +1251,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 81,
+        "builtAreaSqm": 81,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -1486,6 +1507,7 @@
         "legalBasis": "предварителен договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

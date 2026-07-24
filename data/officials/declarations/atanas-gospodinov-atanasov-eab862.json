@@ -364,6 +364,56 @@
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено меган",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено меган",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Ипотека на жилище към Пощенска банка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50617.89623842563,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Ипотека на жилище към Пощенска банка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50617.89623842563,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -749,6 +799,56 @@
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "Заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 34,
+        "builtAreaSqm": 34,
+        "currency": "BGN",
+        "valueEur": 73000.20962967128,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 34,
+        "builtAreaSqm": 34,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Ипотека на жилище към Пощенска банка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50617.89623842563,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Ипотека на жилище към Пощенска банка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50617.89623842563,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -785,7 +885,8 @@
         "legalBasis": "Заплата, наеми, пенсии",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-gospodinov-atanasov-eab862",
@@ -1037,6 +1138,32 @@
         "isSpouse": false,
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека към KBC Банк България",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17084.81821017164,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "ипотека към KBC Банк България",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17084.81821017164,
+        "legalBasis": null
       }
     ]
   },
@@ -1332,6 +1459,32 @@
         "isSpouse": true,
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека към Райфайзенбанк",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17084.81821017164,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "ипотека към Райфайзенбанк",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17084.81821017164,
+        "legalBasis": null
       }
     ]
   }

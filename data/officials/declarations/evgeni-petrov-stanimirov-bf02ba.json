@@ -364,6 +364,164 @@
         "legalBasis": null,
         "fundsOrigin": "осигурителни вноски от заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 84,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 203979.38471135017,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 84,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 135986.25647423344,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": 203979.38471135017,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": 135986.25647423344,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 27,
+        "builtAreaSqm": 27,
+        "currency": "BGN",
+        "valueEur": 29997.49466978214,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 27,
+        "builtAreaSqm": 27,
+        "currency": "BGN",
+        "valueEur": 24997.06007168312,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": 29997.49466978214,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": 24997.06007168312,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 573.1581988209609,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 168.21502891355587,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 573.1581988209609,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Лисабон",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1191.8213750683854,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Бозджаада (Турция)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 627.3551382277601,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -628,6 +786,44 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "осигурителни вноски от заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Страсбург (самолетни билети + хотел)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 740.3506439721243,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Страсбург (трансфер + дневни)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 204.00546059729118,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Страсбург (самолетни билети + трансфер)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 740.3506439721243,
+        "legalBasis": null
       }
     ]
   },
@@ -894,6 +1090,80 @@
         "legalBasis": null,
         "fundsOrigin": "осигурителни вноски от заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Мюнхен (дневни разходи + застраховка)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 147.25206178451091,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Мюнхен (пътни + квартирни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 505.6676705030601,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел (дневни разходи + трансфер)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 191.2231635673857,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел (пътни + квартирни разходи)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 783.810453873803,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Душанбе (дневни разходи + застраховка)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 169.74890455714453,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Душанбе (пътни и квартирни разходи))",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 835.450933874621,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -911,7 +1181,21 @@
     "sourceUrl": "https://register.cacbg.bg/2022/ED3E72ED-4C52-4DAD-B72B-A96EFBE25226141668.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение на съвета на ректорите на висшите училища в РБ / 130307629",
+        "detail": null,
+        "location": "член на управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "evgeni-petrov-stanimirov-bf02ba",
@@ -1320,7 +1604,8 @@
         "legalBasis": null,
         "fundsOrigin": "осигуровки / работна заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgeni-petrov-stanimirov-bf02ba",
@@ -1603,7 +1888,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgeni-petrov-stanimirov-bf02ba",
@@ -1855,7 +2141,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgeni-petrov-stanimirov-bf02ba",
@@ -1872,6 +2159,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/ED3E72ED-4C52-4DAD-B72B-A96EFBE2522698485.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

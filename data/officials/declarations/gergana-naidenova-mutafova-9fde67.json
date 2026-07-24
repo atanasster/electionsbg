@@ -334,7 +334,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-naidenova-mutafova-9fde67",
@@ -689,7 +690,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-naidenova-mutafova-9fde67",
@@ -1116,6 +1118,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент и избено помещение",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 133,
+        "builtAreaSqm": 133,
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "възмездно - НА № 1/05.01.2022"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с. Скандалото",
+        "municipality": "Априлци",
+        "areaSqm": 2004,
+        "builtAreaSqm": 2004,
+        "currency": "BGN",
+        "valueEur": 4345.980990167857,
+        "legalBasis": "възмездно - НА № 69/11.02.2022"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолкваген КАДИ 1.9 ТДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 383.4689108971639,
+        "legalBasis": "възмездно - договор за покупко-продажба на МПС от 25.11.2022"
+      }
     ]
   },
   {
@@ -1411,6 +1451,56 @@
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Скутаре",
+        "municipality": "Марица",
+        "areaSqm": 1633,
+        "builtAreaSqm": 1633,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно - дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 124,
+        "builtAreaSqm": 124,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно - дарение"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота РАВ 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение на парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 61954.77112018938,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1622,6 +1712,32 @@
         "legalBasis": "договор за потребителски кредит-овърдраф",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Средства за командировка до Рим по проект =Разработване на модел за оптимизация на съдебната карта на българските съдилища и прокуратури\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1518.536887152769,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Средства за командировка до Лисабон по проект =Разработване на модел за оптимизация на съдебната карта на българските съдилища и прокуратури\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1932.683310921706,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1815,7 +1931,8 @@
         "legalBasis": "договор за потребителски кредит-овърдрафто №064304/12.11.2018",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-naidenova-mutafova-9fde67",
@@ -1960,6 +2077,7 @@
         "legalBasis": null,
         "fundsOrigin": "Натрупване по партида за доброволно пенсионно осигуряване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

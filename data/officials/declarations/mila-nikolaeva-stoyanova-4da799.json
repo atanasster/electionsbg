@@ -58,6 +58,32 @@
         "legalBasis": "ДОГОВОР, ЛП4,84%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА КОРОЛА ВЕРСО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ АСТРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -101,6 +127,7 @@
         "legalBasis": "ДОГОВОР ЗА ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

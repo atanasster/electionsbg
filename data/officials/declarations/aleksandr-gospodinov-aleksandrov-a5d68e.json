@@ -213,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-gospodinov-aleksandrov-a5d68e",
@@ -255,6 +256,20 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пералня със сушилня",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": null
       }
     ]
   },
@@ -418,6 +433,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -13,7 +13,21 @@
     "sourceUrl": "https://register.cacbg.bg/2025/A70ED2C4-FCA7-4C50-9826-678FBF97981C210599.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Национална асоциация на председателите на общински съвети",
+        "detail": null,
+        "location": "Член на управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "antoaneta-kirilova-bogdanova-9bf933",
@@ -108,6 +122,32 @@
         "isSpouse": true,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 80,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17383.92396067143,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 80,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17383.92396067143,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -64,6 +64,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Директорът-генератор на идеи, мотивирощ обединител, добър управленец, мотиватор - РУО София-град",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 368.1301544612773,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -185,6 +199,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

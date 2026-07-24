@@ -76,6 +76,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата-ДЗПО"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Среща на местните власти",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 465.27561188855884,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Повишаване на осведoмеността за енергийния преход",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 952.536774668555,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -154,6 +180,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата - ДЗПО"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 122.71005148709244,
+        "legalBasis": null
       }
     ]
   }

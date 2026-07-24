@@ -339,6 +339,20 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "АСЕНОВГРАД",
+        "municipality": "Асеновград",
+        "areaSqm": 0,
+        "builtAreaSqm": 129,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -356,7 +370,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/1DD011CA-F23A-46B4-8F62-7AC481A10168180372.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "vesela-svetlozarova-angelova-a03e69",
@@ -734,6 +749,7 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

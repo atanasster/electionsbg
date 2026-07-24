@@ -231,7 +231,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-hristov-inkovski-696840",
@@ -525,6 +526,20 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Троян",
+        "municipality": "Троян",
+        "areaSqm": null,
+        "builtAreaSqm": 63,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
       }
     ]
   }

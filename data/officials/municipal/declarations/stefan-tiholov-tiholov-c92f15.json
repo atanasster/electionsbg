@@ -105,7 +105,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-tiholov-tiholov-c92f15",
@@ -121,6 +122,20 @@
     "sourceUrl": "https://register.cacbg.bg/2025/33AAD532-132E-4B02-A907-1107E064D1A6206541.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "НСОРБ",
+        "detail": null,
+        "location": "Член на Контролния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -76,7 +76,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobromir-velikov-dobrev-817d92",
@@ -112,7 +113,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobromir-velikov-dobrev-817d92",
@@ -238,7 +240,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobromir-velikov-dobrev-817d92",
@@ -255,6 +258,20 @@
     "sourceUrl": "https://register.cacbg.bg/2020/AFA6D7CF-D8C1-43C9-B46F-EA24014C1481112978.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "КИЯ СПОРТИДЖ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

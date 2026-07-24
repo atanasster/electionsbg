@@ -118,7 +118,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-metodieva-ivanova-998c68",
@@ -215,7 +216,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-metodieva-ivanova-998c68",
@@ -324,7 +326,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-metodieva-ivanova-998c68",
@@ -439,7 +442,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-metodieva-ivanova-998c68",
@@ -542,7 +546,8 @@
         "legalBasis": null,
         "fundsOrigin": "наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-metodieva-ivanova-998c68",
@@ -759,7 +764,8 @@
         "legalBasis": "договор за кредит - остатък 10249",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-metodieva-ivanova-998c68",
@@ -873,6 +879,20 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "езиково обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1299.7039620007874,
+        "legalBasis": null
       }
     ]
   }

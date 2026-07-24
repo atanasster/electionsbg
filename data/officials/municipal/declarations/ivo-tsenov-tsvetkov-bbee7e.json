@@ -753,6 +753,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор и стопанска сграда",
+        "detail": null,
+        "location": "с. Драшан",
+        "municipality": "Бяла Слатина",
+        "areaSqm": 1627,
+        "builtAreaSqm": 222,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор и гараж",
+        "detail": null,
+        "location": "с. Драшан",
+        "municipality": "Бяла Слатина",
+        "areaSqm": 985,
+        "builtAreaSqm": 209,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор и стопанска сграда",
+        "detail": null,
+        "location": "с. Драшан",
+        "municipality": "Бяла Слатина",
+        "areaSqm": 674,
+        "builtAreaSqm": 137,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "продажба"
+      }
     ]
   }
 ]

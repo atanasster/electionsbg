@@ -208,7 +208,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-tsaneva-ilieva-576f9b",
@@ -454,6 +455,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване и продажба на недвижим имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 41,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 41925.93425808992,
+        "legalBasis": "възмездно"
       }
     ]
   }

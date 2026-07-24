@@ -70,6 +70,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Мерцедес МЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1537.9659786382251,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -131,7 +145,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatyu-hristov-klichev-12ed08",
@@ -155,7 +170,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zlatyu-hristov-klichev-12ed08",
@@ -179,7 +195,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zlatyu-hristov-klichev-12ed08",
@@ -196,7 +213,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/74151736-3B15-4F0B-BAE9-AF014F02377D100632.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zlatyu-hristov-klichev-12ed08",
@@ -213,7 +231,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/74151736-3B15-4F0B-BAE9-AF014F02377D97714.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zlatyu-hristov-klichev-12ed08",
@@ -230,7 +249,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/74151736-3B15-4F0B-BAE9-AF014F02377D93403.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zlatyu-hristov-klichev-12ed08",
@@ -392,6 +412,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

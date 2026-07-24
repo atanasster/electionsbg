@@ -118,7 +118,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sonya-biserova-angelova-6f8a18",
@@ -257,7 +258,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sonya-biserova-angelova-6f8a18",
@@ -528,6 +530,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Домище",
+        "municipality": "Кирково",
+        "areaSqm": 743,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -763,6 +779,32 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Кърджали",
+        "municipality": "Кърджали",
+        "areaSqm": 67,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апаркамент",
+        "detail": null,
+        "location": "Кърджали",
+        "municipality": "Кърджали",
+        "areaSqm": 67,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -973,6 +1015,20 @@
         "isSpouse": true,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Фолксваген  пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -1185,7 +1241,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sonya-biserova-angelova-6f8a18",
@@ -1354,6 +1411,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

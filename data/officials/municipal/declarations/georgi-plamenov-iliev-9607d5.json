@@ -346,6 +346,20 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Ситроен С3 Пикасо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1687.263207947521,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -759,7 +773,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-plamenov-iliev-9607d5",
@@ -1172,7 +1187,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-plamenov-iliev-9607d5",
@@ -1188,6 +1204,7 @@
     "sourceUrl": "https://register.cacbg.bg/2025/8965341F-E82B-437C-A715-9B1B6C8FEB9F219345.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

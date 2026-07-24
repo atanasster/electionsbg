@@ -81,6 +81,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 35,
+        "builtAreaSqm": 35,
+        "currency": "BGN",
+        "valueEur": 46016.26930765966,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "дачия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4320.416396108047,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

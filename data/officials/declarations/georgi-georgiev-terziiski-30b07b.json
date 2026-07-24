@@ -465,7 +465,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-terziiski-30b07b",
@@ -676,7 +677,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-terziiski-30b07b",
@@ -736,6 +738,32 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Посещение в Брюксел /ЕК/",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 800.171794072082,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "в Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 800.171794072082,
+        "legalBasis": null
       }
     ]
   }

@@ -94,6 +94,20 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия и наем наследствен апартамент"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 134,
+        "builtAreaSqm": 134,
+        "currency": "BGN",
+        "valueEur": 76763.31787527546,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -202,6 +216,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр. София ж. к. Младост4",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 87,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 15594.402376484664,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр. София ж. к. Младост4",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 87,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 15594.402376484664,
+        "legalBasis": "възмездно"
       }
     ]
   }

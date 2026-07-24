@@ -100,7 +100,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tiyana-lazarova-dimitrieva-nikolova-b2f2b4",
@@ -245,6 +246,20 @@
         "legalBasis": "други",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. София, кв. Симеоново, Район „Витоша“, бул. „Симеоновско шосе“ № 194",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1200,
+        "builtAreaSqm": 280,
+        "currency": "BGN",
+        "valueEur": 849804.4308554424,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -281,7 +296,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tiyana-lazarova-dimitrieva-nikolova-b2f2b4",
@@ -378,7 +394,8 @@
         "legalBasis": null,
         "fundsOrigin": "разпределен дивидент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tiyana-lazarova-dimitrieva-nikolova-b2f2b4",
@@ -1013,7 +1030,8 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tiyana-lazarova-dimitrieva-nikolova-b2f2b4",
@@ -1030,6 +1048,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/010D3262-B073-4A13-B177-A06CE9B1AED689177.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

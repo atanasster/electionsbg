@@ -196,7 +196,8 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuliyan-naidenov-naidenov-bef2c0",
@@ -269,7 +270,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuliyan-naidenov-naidenov-bef2c0",
@@ -396,7 +398,8 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuliyan-naidenov-naidenov-bef2c0",
@@ -546,6 +549,32 @@
         "isSpouse": false,
         "legalBasis": "БАНКОВ ЗАЕМ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Дулово, ул.Васил Левски № 34",
+        "municipality": "Дулово",
+        "areaSqm": 0,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Дулово, ул.Васил Левски № 34",
+        "municipality": "Дулово",
+        "areaSqm": 0,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
       }
     ]
   }

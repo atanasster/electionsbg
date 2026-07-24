@@ -40,6 +40,32 @@
         "legalBasis": "покупка",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул. Стадионска 11",
+        "municipality": "Кърджали",
+        "areaSqm": 52,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 23570.555723145673,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Къртджали",
+        "municipality": "Кърджали",
+        "areaSqm": 604,
+        "builtAreaSqm": 604,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -136,6 +162,20 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Кърджали",
+        "municipality": "Кърджали",
+        "areaSqm": 356,
+        "builtAreaSqm": 356,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": "възмездно"
       }
     ]
   }

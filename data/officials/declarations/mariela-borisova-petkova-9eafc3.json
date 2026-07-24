@@ -208,7 +208,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата/допълнително пенсионно осигуряване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariela-borisova-petkova-9eafc3",
@@ -365,7 +366,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата/допълнително пенсионно осигуряване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariela-borisova-petkova-9eafc3",
@@ -444,7 +446,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariela-borisova-petkova-9eafc3",
@@ -618,6 +621,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Монтана",
+        "municipality": "Монтана",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 18662.153663661975,
+        "legalBasis": "възмездно"
       }
     ]
   }

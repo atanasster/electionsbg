@@ -82,7 +82,8 @@
         "legalBasis": "Договор за Лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-iordanov-iliev-4f06dc",
@@ -161,6 +162,20 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 39,
+        "builtAreaSqm": 39,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -185,7 +200,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-iordanov-iliev-4f06dc",
@@ -209,7 +225,8 @@
         "amountEurSpouse": 11503.044743152524
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-iordanov-iliev-4f06dc",
@@ -233,7 +250,8 @@
         "amountEurSpouse": 11537.812591073867
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-iordanov-iliev-4f06dc",
@@ -250,7 +268,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/4AF16B72-5EB3-4BFD-8F7D-638C5D4ED72A93215.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-iordanov-iliev-4f06dc",
@@ -358,6 +377,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -46,6 +46,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Шкода-лекотоварен",
+        "detail": "Супърб",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13804.8807922979,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -76,6 +90,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Осмар",
+        "municipality": "Велики Преслав",
+        "areaSqm": 1350,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

@@ -64,7 +64,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "antoniya-nikolaeva-tsokova-9fb87c",
@@ -148,6 +149,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Пежо 207СС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "възмездно"
       }
     ]
   }

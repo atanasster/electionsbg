@@ -88,6 +88,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр. Берковица",
+        "municipality": "Берковица",
+        "areaSqm": 23,
+        "builtAreaSqm": 69,
+        "currency": "BGN",
+        "valueEur": 3681.3015446127733,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -124,6 +138,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

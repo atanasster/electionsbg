@@ -411,7 +411,8 @@
         "legalBasis": "Договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-ervantov-aramov-dbf898",
@@ -453,6 +454,44 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "2 бр. паркоместа",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 60,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 22496.842772633612,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "1 бр. паркомясто",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 30,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Субару Аутбек 2005г.",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракуване-безвъзмездно"
       }
     ]
   },
@@ -507,6 +546,44 @@
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Сдружение СПОРТЕН КЛУБ ТРИУМФ\"",
+        "detail": null,
+        "location": "Председател на Управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Фондация \"ЕВРОПА АРТ\"",
+        "detail": null,
+        "location": "Член на колективен орган на управление",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Читалище \"Народно читалище \"Просвета - 1927\"\"",
+        "detail": null,
+        "location": "Член на настоятелството",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -615,6 +692,44 @@
         "isSpouse": true,
         "legalBasis": "нов ипотечен кредит от Юробанк България ЕАД",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Сдружение СПОРТЕН КЛУБ ТРИУМФ\"",
+        "detail": null,
+        "location": "Председател на Управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Фондация \"ЕВРОПА АРТ\"",
+        "detail": null,
+        "location": "Член на колективен орган на управление",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Читалище \"Народно читалище \"Просвета - 1927\"\"",
+        "detail": null,
+        "location": "Член на настоятелството",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

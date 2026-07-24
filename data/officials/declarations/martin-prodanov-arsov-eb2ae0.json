@@ -297,6 +297,20 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Audi A6 - 2010",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -314,7 +328,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/392C7FCF-00A6-414D-B9B9-AED1C9147A4F196089.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "martin-prodanov-arsov-eb2ae0",
@@ -679,6 +694,7 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

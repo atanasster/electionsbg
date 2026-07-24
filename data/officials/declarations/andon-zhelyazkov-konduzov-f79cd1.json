@@ -118,6 +118,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВКА В ФР Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1025.140221798418,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -135,7 +149,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/46F5DA05-F0B3-45DA-BECF-FCD3F2942F15141726.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "andon-zhelyazkov-konduzov-f79cd1",
@@ -585,6 +600,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

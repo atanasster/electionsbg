@@ -130,6 +130,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Алдомировци",
+        "municipality": "Сливница",
+        "areaSqm": 712,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 8691.961980335715,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -227,7 +241,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-slavev-nikolov-ced833",
@@ -324,7 +339,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-slavev-nikolov-ced833",
@@ -439,6 +455,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

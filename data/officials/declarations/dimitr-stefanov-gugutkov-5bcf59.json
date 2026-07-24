@@ -208,6 +208,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МОТОЦИКЛЕТ",
+        "detail": "ПИАДЖИО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -341,7 +355,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-stefanov-gugutkov-5bcf59",
@@ -642,6 +657,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Пролеша",
+        "municipality": "Божурище",
+        "areaSqm": 2439,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 53249.51555094257,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Пролеша",
+        "municipality": "Божурище",
+        "areaSqm": 2439,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 53249.51555094257,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -835,6 +876,20 @@
         "legalBasis": "Договор за покупко-продажба от 19.03.2021",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотоциклет",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1585.0048317082774,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -932,6 +987,68 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Гурмазово",
+        "municipality": "Божурище",
+        "areaSqm": 3057,
+        "builtAreaSqm": 3057,
+        "currency": "BGN",
+        "valueEur": 5040.826656713518,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 84,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 29274.01665788949,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 16,
+        "builtAreaSqm": 16,
+        "currency": "BGN",
+        "valueEur": 9714.54574272815,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 391,
+        "builtAreaSqm": 391,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "КИА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5082.241299090412,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1005,6 +1122,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

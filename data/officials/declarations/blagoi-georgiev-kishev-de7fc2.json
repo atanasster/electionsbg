@@ -46,6 +46,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "\"ТОЙОТА АВЕНСИС 1,8 И\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1227.1005148709244,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -101,7 +115,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наследство"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagoi-georgiev-kishev-de7fc2",
@@ -156,7 +171,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наследство"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagoi-georgiev-kishev-de7fc2",
@@ -211,7 +227,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagoi-georgiev-kishev-de7fc2",
@@ -392,6 +409,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойта Рав 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 230.08134653829833,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -518,7 +549,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagoi-georgiev-kishev-de7fc2",
@@ -535,6 +567,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EA60F8BA-95B6-49F5-8104-F647B93E235589670.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

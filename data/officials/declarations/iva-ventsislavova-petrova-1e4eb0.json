@@ -130,7 +130,8 @@
         "legalBasis": "лимит кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-ventsislavova-petrova-1e4eb0",
@@ -269,7 +270,8 @@
         "legalBasis": "договор кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-ventsislavova-petrova-1e4eb0",
@@ -395,7 +397,8 @@
         "legalBasis": "договор кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-ventsislavova-petrova-1e4eb0",
@@ -521,7 +524,8 @@
         "legalBasis": "договор кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-ventsislavova-petrova-1e4eb0",
@@ -660,6 +664,20 @@
         "legalBasis": "договор кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "currency": "BGN",
+        "valueEur": 48572.728713640754,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -677,7 +695,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/6B4F2444-5CC7-4FF8-8FD9-5AD21DED6F0D155815.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iva-ventsislavova-petrova-1e4eb0",
@@ -846,7 +865,8 @@
         "legalBasis": "договор кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-ventsislavova-petrova-1e4eb0",
@@ -863,6 +883,20 @@
     "sourceUrl": "https://register.cacbg.bg/2022/6B4F2444-5CC7-4FF8-8FD9-5AD21DED6F0D131038.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"БЧА\"",
+        "detail": null,
+        "location": "заличена като член на УС на Сдружение \"БЧА\", считано от 24.01.2022 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

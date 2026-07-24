@@ -52,7 +52,8 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-ivanov-stamenkov-3015de",
@@ -322,6 +323,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип",
+        "detail": "Дайхацо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -594,7 +609,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-ivanov-stamenkov-3015de",
@@ -883,6 +899,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

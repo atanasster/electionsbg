@@ -46,6 +46,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -113,6 +127,7 @@
         "legalBasis": "Основен ремонт на жилище",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

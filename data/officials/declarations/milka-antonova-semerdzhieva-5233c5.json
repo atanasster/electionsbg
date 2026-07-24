@@ -58,6 +58,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "КЪРДЖАЛИ",
+        "municipality": "КЪРДЖАЛИ",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -75,7 +89,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/C2111E56-6082-4ADD-B562-1CDC724B9DA7202688.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milka-antonova-semerdzhieva-5233c5",
@@ -154,6 +169,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

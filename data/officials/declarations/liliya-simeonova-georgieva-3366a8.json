@@ -172,6 +172,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Докторантура",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -268,6 +282,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "лични средства"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Доктурантура",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1595.2306693322016,
+        "legalBasis": null
       }
     ]
   }

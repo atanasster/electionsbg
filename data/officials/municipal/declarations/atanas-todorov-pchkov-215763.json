@@ -255,6 +255,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Банско",
+        "municipality": "Банско",
+        "areaSqm": 31,
+        "builtAreaSqm": 31,
+        "currency": "BGN",
+        "valueEur": 29249.985939473267,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Банско",
+        "municipality": "Банско",
+        "areaSqm": 31,
+        "builtAreaSqm": 31,
+        "currency": "BGN",
+        "valueEur": 29249.985939473267,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пампорово",
+        "municipality": "Смолян",
+        "areaSqm": 38,
+        "builtAreaSqm": 38,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пампорово",
+        "municipality": "Смолян",
+        "areaSqm": 38,
+        "builtAreaSqm": 38,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   }
 ]

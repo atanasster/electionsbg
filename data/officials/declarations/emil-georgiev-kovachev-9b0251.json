@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наеми, възнагр.по гр.договори"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-georgiev-kovachev-9b0251",
@@ -119,7 +120,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наем недв.имущество и рента на земед.земя"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-georgiev-kovachev-9b0251",
@@ -282,7 +284,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-georgiev-kovachev-9b0251",
@@ -923,6 +926,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Гараж",
+        "detail": null,
+        "location": "гр. Варна, район Одесос",
+        "municipality": "Варна",
+        "areaSqm": 72,
+        "builtAreaSqm": 72,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -940,7 +969,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/62935EF1-D452-4D38-A920-09CFD772D12D89130.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "emil-georgiev-kovachev-9b0251",
@@ -1496,6 +1526,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

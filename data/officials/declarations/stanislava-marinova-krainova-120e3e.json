@@ -231,7 +231,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislava-marinova-krainova-120e3e",
@@ -339,6 +340,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата и заем"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лека автомобил с нормална проходимост",
+        "detail": "Форд Фиеста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -356,7 +371,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/7A26CD81-76C0-4A35-AB5E-CA79E73FAE1E146170.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stanislava-marinova-krainova-120e3e",
@@ -482,7 +498,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislava-marinova-krainova-120e3e",
@@ -567,7 +584,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislava-marinova-krainova-120e3e",
@@ -664,7 +682,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislava-marinova-krainova-120e3e",
@@ -700,7 +719,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislava-marinova-krainova-120e3e",
@@ -717,7 +737,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7A26CD81-76C0-4A35-AB5E-CA79E73FAE1E93163.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stanislava-marinova-krainova-120e3e",
@@ -771,6 +792,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

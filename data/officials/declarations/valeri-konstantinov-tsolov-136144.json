@@ -148,6 +148,44 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Негушево",
+        "municipality": "Горна Малина",
+        "areaSqm": 712,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение на син"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Негушево",
+        "municipality": "Горна Малина",
+        "areaSqm": 712,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение на син"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "с. Негушево",
+        "municipality": "Горна Малина",
+        "areaSqm": 77,
+        "builtAreaSqm": 160,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение на син"
+      }
     ]
   },
   {
@@ -227,6 +265,20 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Renaut Megane",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 173.83923960671427,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -270,7 +322,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valeri-konstantinov-tsolov-136144",
@@ -287,7 +340,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DAFE34EE-D22E-4692-AB80-D7E63FCB350288427.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valeri-konstantinov-tsolov-136144",
@@ -449,6 +503,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -40,6 +40,32 @@
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИЯ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ГР. БУРГАС",
+        "municipality": "БУРГАС",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ГР. БУРГАС",
+        "municipality": "БУРГАС",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -83,6 +109,7 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   }
 ]

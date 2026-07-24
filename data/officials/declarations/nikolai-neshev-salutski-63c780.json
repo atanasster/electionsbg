@@ -100,7 +100,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-neshev-salutski-63c780",
@@ -244,6 +245,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ПЛОВДИВ,ул.Емил Зола 5",
+        "municipality": "Пловдив",
+        "areaSqm": 295,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 40085.283485783526,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1942.9091485456302,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -390,7 +417,8 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-neshev-salutski-63c780",
@@ -499,6 +527,7 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

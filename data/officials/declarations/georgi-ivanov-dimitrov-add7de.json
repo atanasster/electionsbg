@@ -202,7 +202,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-dimitrov-add7de",
@@ -376,6 +377,20 @@
         "isSpouse": true,
         "legalBasis": "потребителски",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Каравел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 869.1961980335715,
+        "legalBasis": "възмездно"
       }
     ]
   }

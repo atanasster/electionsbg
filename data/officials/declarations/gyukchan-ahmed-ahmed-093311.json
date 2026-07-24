@@ -112,6 +112,20 @@
         "legalBasis": "договор - 4.5%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -257,7 +271,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gyukchan-ahmed-ahmed-093311",
@@ -312,7 +327,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gyukchan-ahmed-ahmed-093311",
@@ -397,7 +413,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gyukchan-ahmed-ahmed-093311",
@@ -488,7 +505,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gyukchan-ahmed-ahmed-093311",
@@ -537,7 +555,8 @@
         "legalBasis": "договор за аренда",
         "fundsOrigin": "доход от продукция"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gyukchan-ahmed-ahmed-093311",
@@ -561,6 +580,7 @@
         "amountEurSpouse": 4683.433631757362
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -21,7 +21,21 @@
         "amountEurSpouse": 6135.502574354622
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучителен курс",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 126.28909465546597,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "tsetska-atanasova-georgieva-514f30",
@@ -64,6 +78,7 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

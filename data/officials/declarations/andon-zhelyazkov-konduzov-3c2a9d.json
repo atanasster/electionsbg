@@ -88,6 +88,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ТУРЦИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 364.0398194117076,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "АВСТРИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1640.2243548774688,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -190,6 +216,56 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВКА АВСТРИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 627.8664301089563,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВКА АВСТРИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 919.3028023908008,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВКА ТУРЦИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 577.7598257517269,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВКА АВСТРИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 866.6397386275903,
+        "legalBasis": null
       }
     ]
   }

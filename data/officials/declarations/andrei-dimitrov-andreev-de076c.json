@@ -226,6 +226,56 @@
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплата, пенсии"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София,ул.Шейново 10",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 30,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София, жк.Стрелбище, бл.100",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 105,
+        "builtAreaSqm": 105,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София, жк.Стрелбище, бл.100",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 26,
+        "builtAreaSqm": 26,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София,бул.\"Цар Освободител\" 33,вх.Б,ет.2",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -503,6 +553,20 @@
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплата, пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Владая, ул.\"Войнишко въстание\" 71",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 700,
+        "builtAreaSqm": 1000,
+        "currency": "BGN",
+        "valueEur": 253600.77307332438,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -774,7 +838,8 @@
         "legalBasis": null,
         "fundsOrigin": "дивиденти, заплата, пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-dimitrov-andreev-de076c",
@@ -967,7 +1032,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-dimitrov-andreev-de076c",
@@ -1452,6 +1518,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,дивиденти"
       }
-    ]
+    ],
+    "events": []
   }
 ]

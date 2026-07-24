@@ -226,7 +226,8 @@
         "legalBasis": "ДОГОВОР ЛИЗИНГ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "martin-ivanov-georgiev-a3419c",
@@ -922,7 +923,8 @@
         "legalBasis": "ДОГОВОР ЛИЗИНГ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "martin-ivanov-georgiev-a3419c",
@@ -957,6 +959,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"МГ пропърти\" ЕООД",
+        "detail": null,
+        "location": "Управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -1247,7 +1263,8 @@
         "legalBasis": "ПРЕДВАРИТЕЛЕН ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "martin-ivanov-georgiev-a3419c",
@@ -1410,6 +1427,20 @@
         "legalBasis": "ПРЕДВАРИТЕЛЕН ДОГОВОР",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ШКОДА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "ВЪЗМЕЗДНО"
+      }
     ]
   },
   {
@@ -1427,6 +1458,20 @@
     "sourceUrl": "https://register.cacbg.bg/2023/5B16CDC1-2445-4682-AF75-CA8FEFF654E5145530.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "КонтурГлобал Марица Изток 3 АД",
+        "detail": null,
+        "location": "ЧЛЕН НА СЪВЕТ НА ДИРЕКТОРИТЕ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

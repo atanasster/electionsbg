@@ -118,6 +118,32 @@
         "legalBasis": "не",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Китайска Народна Република",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3221.1388515361764,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Кипър",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 864.0832792216092,
+        "legalBasis": null
+      }
     ]
   }
 ]

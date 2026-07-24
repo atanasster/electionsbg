@@ -112,6 +112,20 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "почивка в Пампорово",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -208,6 +222,32 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 418.2367588185067,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "почивка в Пампорово",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 869.1961980335715,
+        "legalBasis": null
       }
     ]
   }

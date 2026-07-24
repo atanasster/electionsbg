@@ -46,6 +46,44 @@
         "legalBasis": "замяна",
         "fundsOrigin": "безвъзмездно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "Куклен",
+        "municipality": "Куклен",
+        "areaSqm": 1001,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "замяна"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "Куклен",
+        "municipality": "Куклен",
+        "areaSqm": 1001,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "замяна"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "Куклен",
+        "municipality": "Куклен",
+        "areaSqm": 1399,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "замяна"
+      }
     ]
   },
   {
@@ -76,7 +114,8 @@
         "amountEurSpouse": 306.7751287177311
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariya-georgieva-belcheva-78505d",
@@ -197,7 +236,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-georgieva-belcheva-78505d",
@@ -246,6 +286,7 @@
         "legalBasis": "доброволна делба",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

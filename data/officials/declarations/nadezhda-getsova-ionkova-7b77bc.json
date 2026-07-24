@@ -123,7 +123,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-getsova-ionkova-7b77bc",
@@ -286,7 +287,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-getsova-ionkova-7b77bc",
@@ -467,7 +469,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-getsova-ionkova-7b77bc",
@@ -600,6 +603,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Ценово",
+        "municipality": "Ценово",
+        "areaSqm": 1675,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1709.7600507201546,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -727,7 +744,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-getsova-ionkova-7b77bc",
@@ -836,7 +854,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-getsova-ionkova-7b77bc",
@@ -872,7 +891,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучително посещение в САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 3507.4623050060586,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "nadezhda-getsova-ionkova-7b77bc",
@@ -1196,7 +1229,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-getsova-ionkova-7b77bc",
@@ -1213,6 +1247,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2B2E7871-7F39-444E-8189-A40D7205E7BB88858.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

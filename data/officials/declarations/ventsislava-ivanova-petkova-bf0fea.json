@@ -100,6 +100,32 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Такса обучение А. Гарибова",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Плащане по договор за покупко-продажба",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4499.368554526723,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -185,7 +211,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislava-ivanova-petkova-bf0fea",
@@ -347,7 +374,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislava-ivanova-petkova-bf0fea",
@@ -364,7 +392,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/575E22EC-2E07-4F40-A136-BA737AAB82C4156196.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ventsislava-ivanova-petkova-bf0fea",
@@ -526,7 +555,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislava-ivanova-petkova-bf0fea",
@@ -629,7 +659,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislava-ivanova-petkova-bf0fea",
@@ -732,7 +763,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislava-ivanova-petkova-bf0fea",
@@ -817,7 +849,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislava-ivanova-petkova-bf0fea",
@@ -938,7 +971,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislava-ivanova-petkova-bf0fea",
@@ -1143,6 +1177,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

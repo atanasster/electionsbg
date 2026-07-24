@@ -304,7 +304,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-kirilov-todorov-d50f5e",
@@ -339,6 +340,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Прекратено участие в настоятелството на  НЧ \"Виделина -1865\"",
+        "detail": null,
+        "location": "заличено  участие на 15.04.2025г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -696,7 +711,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-kirilov-todorov-d50f5e",
@@ -835,7 +851,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-kirilov-todorov-d50f5e",
@@ -896,7 +913,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-kirilov-todorov-d50f5e",
@@ -957,7 +975,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-kirilov-todorov-d50f5e",
@@ -1018,7 +1037,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и върнат заем"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-kirilov-todorov-d50f5e",
@@ -1035,7 +1055,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/CDFB5562-8332-4E72-9C53-16A956DEFCDD89514.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "petr-kirilov-todorov-d50f5e",
@@ -1179,6 +1200,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

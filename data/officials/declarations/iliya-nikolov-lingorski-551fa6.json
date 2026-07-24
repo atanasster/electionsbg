@@ -232,7 +232,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата вкл от минали години"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-nikolov-lingorski-551fa6",
@@ -467,6 +468,68 @@
         "legalBasis": null,
         "fundsOrigin": "заплата вкл от минали години"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Училищни такси",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 6292.9804737630575,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Самолетен билет - сл. командировка в Торун, Полша по покана на Националната банка на Полша за участие в Световния Коперников Конгрес, 18-22.02.2023 г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 568.556571890195,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Хотел 5 нощувки - сл. командировка в Торун, Полша по покана на Националната банка на Полша за участие в Световния Коперников Конгрес, 18-22.02.2023 г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 449.93685545267226,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Самолетен билет - сл. командировка в Букурещ, Румъния по покана на Академията за икономически науки Букурещ за участие в XIV Международна конференция \"The Future of Europe\", 25-27.10.2023 г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 207.58450376566472,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Хотел 2 нощувки - сл. командировка в Букурещ, Румъния по покана на Академията за икономически науки Букурещ за участие в XIV Международна конференция \"The Future of Europe\", 25-27.10.2023 г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 217.81034138958907,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -684,6 +747,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата от минали години"
       }
-    ]
+    ],
+    "events": []
   }
 ]

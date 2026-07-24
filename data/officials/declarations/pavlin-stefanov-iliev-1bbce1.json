@@ -177,7 +177,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-stefanov-iliev-1bbce1",
@@ -292,6 +293,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен Ц 5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2709.846970339958,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -335,7 +350,8 @@
         "legalBasis": "Рефинансиране",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlin-stefanov-iliev-1bbce1",
@@ -468,6 +484,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 84,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 55730.81505038781,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -485,7 +515,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/9AB56551-94D2-4C31-93FC-83C51163AA4B92486.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pavlin-stefanov-iliev-1bbce1",
@@ -593,6 +624,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

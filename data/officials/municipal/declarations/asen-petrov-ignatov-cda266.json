@@ -45,6 +45,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дивиденти"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "\"БМВ\" модел \"525Д\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

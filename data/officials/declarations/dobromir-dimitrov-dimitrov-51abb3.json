@@ -214,6 +214,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 124,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 117597.13267513025,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "къща с двор",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 212840.07301248063,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -353,6 +379,7 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

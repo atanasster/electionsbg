@@ -46,6 +46,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Ффолксваген транспортер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 689.7327477336987,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -70,6 +84,7 @@
         "amountEurSpouse": 17318.47859987831
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

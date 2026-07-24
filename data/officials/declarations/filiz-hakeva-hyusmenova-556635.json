@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "filiz-hakeva-hyusmenova-556635",
@@ -202,6 +203,56 @@
         "legalBasis": null,
         "fundsOrigin": "продажба гараж, заплата съпруга"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 29,
+        "builtAreaSqm": 29,
+        "currency": "BGN",
+        "valueEur": 7158.086336747059,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 29,
+        "builtAreaSqm": 29,
+        "currency": "BGN",
+        "valueEur": 7158.086336747059,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 184,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 185.5989528742273,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 184,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 185.5989528742273,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -268,6 +319,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 670,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4800.008180670099,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 670,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4800.008180670099,
+        "legalBasis": "възмездно"
       }
     ]
   }

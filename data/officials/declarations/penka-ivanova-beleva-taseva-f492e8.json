@@ -501,7 +501,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-ivanova-beleva-taseva-f492e8",
@@ -747,6 +748,32 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 0,
+        "builtAreaSqm": 83,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 0,
+        "builtAreaSqm": 83,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
       }
     ]
   }

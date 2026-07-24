@@ -208,7 +208,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-todorov-stanoev-3ff5bc",
@@ -346,7 +347,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-todorov-stanoev-3ff5bc",
@@ -382,7 +384,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-todorov-stanoev-3ff5bc",
@@ -525,6 +528,56 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "производствени помещения",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 298,
+        "builtAreaSqm": 676,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 223,
+        "builtAreaSqm": 446,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 72,
+        "builtAreaSqm": 144,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 674,
+        "builtAreaSqm": 674,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -886,7 +939,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lchezar-todorov-stanoev-3ff5bc",
@@ -903,6 +957,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/30FB8F4E-BF1C-4E71-9335-FC2EF2827F6E88279.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

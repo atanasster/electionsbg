@@ -195,7 +195,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "donka-delcheva-chamova-eba3e0",
@@ -250,7 +251,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наследствена пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "donka-delcheva-chamova-eba3e0",
@@ -353,6 +355,20 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -408,7 +424,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "donka-delcheva-chamova-eba3e0",
@@ -511,7 +528,8 @@
         "legalBasis": "други",
         "fundsOrigin": "от \"Асарел-Медет\" АД"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "donka-delcheva-chamova-eba3e0",
@@ -528,7 +546,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/83B70B56-B4F5-4EF6-B0F8-49D85224ABC893173.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "donka-delcheva-chamova-eba3e0",
@@ -690,6 +709,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

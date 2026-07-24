@@ -70,7 +70,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-dimitrova-todorovska-f3517b",
@@ -137,7 +138,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-dimitrova-todorovska-f3517b",
@@ -240,6 +242,32 @@
         "legalBasis": "лизингов договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Каланица",
+        "municipality": "Ботевград",
+        "areaSqm": 2645,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Белата кал",
+        "municipality": "Ботевград",
+        "areaSqm": 2100,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -325,7 +353,8 @@
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-dimitrova-todorovska-f3517b",
@@ -433,6 +462,32 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизин",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 43,
+        "builtAreaSqm": 43,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо 407",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -633,7 +688,8 @@
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-dimitrova-todorovska-f3517b",
@@ -777,7 +833,8 @@
         "legalBasis": "за МПС Лексус",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-dimitrova-todorovska-f3517b",
@@ -794,6 +851,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/95AF41A4-FF21-4788-ABE1-805D52B32CE388953.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

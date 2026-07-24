@@ -531,7 +531,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anzhelina-vasileva-prvanova-vasileva-b88dde",
@@ -670,7 +671,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anzhelina-vasileva-prvanova-vasileva-b88dde",
@@ -755,6 +757,20 @@
         "legalBasis": "крадитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр.Враца ул.Оборище № 2-5",
+        "municipality": "Враца",
+        "areaSqm": 108,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 29654.92910938067,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -772,7 +788,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DA496094-18A2-4D04-B32B-E8EB9B01F5A589340.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "anzhelina-vasileva-prvanova-vasileva-b88dde",
@@ -1018,6 +1035,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

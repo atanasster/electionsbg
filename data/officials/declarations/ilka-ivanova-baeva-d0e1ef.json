@@ -136,6 +136,20 @@
         "legalBasis": null,
         "fundsOrigin": "рента, спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес160",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -197,6 +211,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания"
       }
-    ]
+    ],
+    "events": []
   }
 ]

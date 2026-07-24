@@ -208,6 +208,92 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "BMW X1",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ПУ Паисий Хилендарски\" - магистър Позитивна психология",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 580.316285157708,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Канада",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 800.171794072082,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 240.30718416222268,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Хърватия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 149.80852119049203,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 199.91512554772143,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Австралия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 599.7453766431643,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -424,7 +510,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-dimitrova-dimitrova-bc9838",
@@ -441,6 +528,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/C4C5D65E-5178-4A60-BF4D-C5FFA99D77F6188249.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

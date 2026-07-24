@@ -76,7 +76,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-dimitrov-stanishev-84ba03",
@@ -136,6 +137,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "форд транзит",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": "възмездно"
       }
     ]
   }

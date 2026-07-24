@@ -118,7 +118,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-georgiev-3ec267",
@@ -154,7 +155,8 @@
         "legalBasis": "заплата, командировъчни средства и спестявания",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-georgiev-3ec267",
@@ -431,6 +433,20 @@
         "legalBasis": "сключен договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -448,7 +464,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/12D58609-7CB7-4BDB-9BFF-72A85660DF70146065.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-georgiev-3ec267",
@@ -736,6 +753,7 @@
         "legalBasis": "сключен договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

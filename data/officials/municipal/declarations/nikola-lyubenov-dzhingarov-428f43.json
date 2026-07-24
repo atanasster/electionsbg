@@ -153,6 +153,32 @@
         "legalBasis": "протокол",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Мосомище",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5777.598257517269,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

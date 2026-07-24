@@ -213,6 +213,68 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.крепост",
+        "municipality": "Димитровград",
+        "areaSqm": 700,
+        "builtAreaSqm": 128,
+        "currency": "BGN",
+        "valueEur": 45504.97742646345,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.крепост",
+        "municipality": "Димитровград",
+        "areaSqm": 700,
+        "builtAreaSqm": 128,
+        "currency": "BGN",
+        "valueEur": 45504.97742646345,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.крепост",
+        "municipality": "Димитровград",
+        "areaSqm": 800,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11759.713267513025,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

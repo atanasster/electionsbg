@@ -262,7 +262,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-mirchev-nikolov-1e8e12",
@@ -401,6 +402,20 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛМПС",
+        "detail": "Киа Спортидж",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9714.54574272815,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -450,7 +465,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-mirchev-nikolov-1e8e12",
@@ -522,7 +538,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-mirchev-nikolov-1e8e12",
@@ -539,6 +556,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/58C0574E-29CB-419A-B33B-0C269C796C4793219.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

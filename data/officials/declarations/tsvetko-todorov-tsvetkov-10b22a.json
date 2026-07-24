@@ -202,7 +202,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetko-todorov-tsvetkov-10b22a",
@@ -219,7 +220,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/6A96BF99-9097-4C2B-9E4D-7FD628E973E7133675.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetko-todorov-tsvetkov-10b22a",
@@ -435,7 +437,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetko-todorov-tsvetkov-10b22a",
@@ -639,6 +642,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "АУДИ А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1329.358891110168,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -863,7 +880,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetko-todorov-tsvetkov-10b22a",
@@ -1061,7 +1079,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetko-todorov-tsvetkov-10b22a",
@@ -1078,6 +1097,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/6A96BF99-9097-4C2B-9E4D-7FD628E973E789864.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

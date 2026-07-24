@@ -75,6 +75,44 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "овощна градина",
+        "detail": null,
+        "location": "КРИЧИМ МЕСТНОСТ РУСКОВИЦА",
+        "municipality": "КРИЧИМ",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 322.6251770348139,
+        "legalBasis": "ОТ НАСЛЕДСТВО ОТ БАЩА"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "овощна градина",
+        "detail": null,
+        "location": "КРИЧИМ МЕСТНОСТ ЧЕРВЕНАКА",
+        "municipality": "КРИЧИМ",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 250.02172990495083,
+        "legalBasis": "ОТ НАСЛЕДСТВО ОТ БАЩА"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ПЕЖО 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 596.1663334747908,
+        "legalBasis": "ПРОДАЖБА"
+      }
     ]
   }
 ]

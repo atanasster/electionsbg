@@ -369,7 +369,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-georgiev-simeonov-f1618a",
@@ -430,7 +431,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-georgiev-simeonov-f1618a",
@@ -527,6 +529,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ХЮНДАЙ/САНТА ФЕ СМ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2300.8134653829834,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -600,7 +616,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-georgiev-simeonov-f1618a",
@@ -684,6 +701,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Модел РАВ4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -771,7 +802,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-georgiev-simeonov-f1618a",
@@ -844,6 +876,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Рогозен",
+        "municipality": "Хайредин",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1994.038336665252,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -861,7 +907,45 @@
     "sourceUrl": "https://register.cacbg.bg/2019/DB10814E-D1BD-434F-96DC-938DDF03E1C998497.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ЗАД \"Асет Иншурънс\" АД",
+        "detail": null,
+        "location": "освободен като член на Съвета на директорите на дружеството",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Министерство на финансите",
+        "detail": null,
+        "location": "освободен като член на одитния комитет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Български енергиен холдинг",
+        "detail": null,
+        "location": "освободен като член на одитния комитет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "ognyan-georgiev-simeonov-f1618a",
@@ -1287,7 +1371,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ognyan-georgiev-simeonov-f1618a",
@@ -1304,6 +1389,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DB10814E-D1BD-434F-96DC-938DDF03E1C992994.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

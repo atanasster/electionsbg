@@ -46,6 +46,32 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "Опел корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1349.8105663580168,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "guarantee",
+        "description": "ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 24925.47920831565,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -117,6 +143,20 @@
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 24925.47920831565,
+        "legalBasis": null
       }
     ]
   },
@@ -334,6 +374,44 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 24925.47920831565,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 295.5267073314143,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Албания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 320.580009510029,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -531,6 +609,32 @@
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 24925.47920831565,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Париж, Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 587.9856633756513,
+        "legalBasis": null
       }
     ]
   }

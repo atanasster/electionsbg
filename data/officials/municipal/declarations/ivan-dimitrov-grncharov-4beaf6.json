@@ -285,7 +285,8 @@
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-grncharov-4beaf6",
@@ -355,6 +356,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"Асоциация на млекопреработвателите в България\" Сдружени, ЕИК121806782",
+        "detail": null,
+        "location": "член на Управителния съвет на Сдружението",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

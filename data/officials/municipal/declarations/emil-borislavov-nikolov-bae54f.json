@@ -69,6 +69,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Свищов, ул. Алеко Константинов, 1, вх. В, ет. 8, ап. 19",
+        "municipality": "Свищов",
+        "areaSqm": 47,
+        "builtAreaSqm": 47,
+        "currency": "BGN",
+        "valueEur": 23008.13465382983,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Примера",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

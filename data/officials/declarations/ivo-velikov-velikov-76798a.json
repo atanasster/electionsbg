@@ -249,7 +249,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-velikov-velikov-76798a",
@@ -406,7 +407,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-velikov-velikov-76798a",
@@ -527,7 +529,8 @@
         "legalBasis": "дог.183986/09.12.2021",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-velikov-velikov-76798a",
@@ -636,6 +639,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Версо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -703,7 +720,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-velikov-velikov-76798a",
@@ -776,7 +794,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия/спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-velikov-velikov-76798a",
@@ -837,6 +856,7 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение от МВР"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -340,7 +340,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-leonidov-kobakov-8cbf64",
@@ -671,7 +672,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-leonidov-kobakov-8cbf64",
@@ -972,7 +974,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-leonidov-kobakov-8cbf64",
@@ -1200,6 +1203,20 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "ХЮНДАЙ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10737.129505120589,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1789,7 +1806,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-leonidov-kobakov-8cbf64",
@@ -1806,6 +1824,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/02EFF869-4317-4890-848E-60373D91D0A289127.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

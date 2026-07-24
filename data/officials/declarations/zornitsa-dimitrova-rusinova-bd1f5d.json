@@ -226,7 +226,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-dimitrova-rusinova-bd1f5d",
@@ -455,6 +456,32 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "пътни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 290.9250804006483,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 290.9250804006483,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -611,6 +638,68 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировка/пътни разходи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 601.7905441679492,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка/пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1958.759196862713,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка/пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 829.3154313002664,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка/пътни, квартирни и застраховка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 442.267477234729,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка/пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1268.0038653666218,
+        "legalBasis": null
       }
     ]
   }

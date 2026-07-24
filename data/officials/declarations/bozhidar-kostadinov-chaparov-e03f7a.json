@@ -283,7 +283,8 @@
         "legalBasis": "чл. 134 от ТЗ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bozhidar-kostadinov-chaparov-e03f7a",
@@ -398,7 +399,8 @@
         "legalBasis": "чл. 134 от ТЗ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bozhidar-kostadinov-chaparov-e03f7a",
@@ -513,7 +515,8 @@
         "legalBasis": "чл. 134 от ТЗ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bozhidar-kostadinov-chaparov-e03f7a",
@@ -656,6 +659,44 @@
         "legalBasis": "чл. 134 от ТЗ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Дворно място",
+        "detail": null,
+        "location": "гр. Бургас, кв. Сарафово, ул. \"Момчил воевода\" No 2",
+        "municipality": "Бургас",
+        "areaSqm": 312,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 100000,
+        "legalBasis": "Продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр. Варна, ул. \"Генерал Цимерман\" 23",
+        "municipality": "Варна",
+        "areaSqm": 87,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 36847.78329404908,
+        "legalBasis": "Продажбе"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Идеални части отдвоно място",
+        "detail": null,
+        "location": "гр. Варна, ул. \"Генерал Цимерман\" 23",
+        "municipality": "Варна",
+        "areaSqm": 20,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 170.26019643834076,
+        "legalBasis": "Продажба"
+      }
     ]
   },
   {
@@ -787,6 +828,20 @@
         "isSpouse": false,
         "legalBasis": "чл. 134 от ТЗ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ул. \"Петър Парчевич\" 34, ет. 4, ап. 9",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 130,
+        "builtAreaSqm": 130,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
       }
     ]
   }

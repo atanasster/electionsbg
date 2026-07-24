@@ -40,6 +40,32 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дигитална компетентност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 222.41196832035504,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1522.1159303211425,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -119,6 +145,7 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

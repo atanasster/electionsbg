@@ -141,6 +141,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Петрич, ул.Тодор Александров 23",
+        "municipality": "Петрич",
+        "areaSqm": 87,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 73999.2739655287,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

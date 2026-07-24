@@ -220,6 +220,20 @@
         "legalBasis": "Договор за финансов лизинг - 3,36%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 208",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4345.980990167857,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -461,6 +475,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

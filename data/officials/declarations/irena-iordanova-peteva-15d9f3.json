@@ -220,7 +220,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати,хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irena-iordanova-peteva-15d9f3",
@@ -419,6 +420,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, хонорари"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Болярово",
+        "municipality": "Болярово",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4985.09584166313,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -564,7 +579,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irena-iordanova-peteva-15d9f3",
@@ -727,7 +743,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irena-iordanova-peteva-15d9f3",
@@ -890,6 +907,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 43,
+        "builtAreaSqm": 43,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -907,6 +938,20 @@
     "sourceUrl": "https://register.cacbg.bg/2020/CAF10527-093A-4B93-B8BE-B6BBCFDE95A5113470.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "“Сдружение на Съвета на ректорите на висшите училища в Република България”",
+        "detail": null,
+        "location": "член на контролният съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

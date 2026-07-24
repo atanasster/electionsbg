@@ -58,6 +58,32 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "земеделска земя",
+        "detail": null,
+        "location": "с.Цонево, обл.Варна",
+        "municipality": "Дългопол",
+        "areaSqm": 3568,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "земеделски земи",
+        "detail": null,
+        "location": "с.Цонево, обл.Варна",
+        "municipality": "Дългопол",
+        "areaSqm": 6599,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -75,7 +101,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/5F67FFA2-7A7C-49A9-A738-00BA96AE2DA994138.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "sofiya-andonova-radoslavova-f5d18f",
@@ -345,6 +372,7 @@
         "legalBasis": "договор за овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

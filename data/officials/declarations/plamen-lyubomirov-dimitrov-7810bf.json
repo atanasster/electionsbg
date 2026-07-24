@@ -472,7 +472,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-lyubomirov-dimitrov-7810bf",
@@ -911,7 +912,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-lyubomirov-dimitrov-7810bf",
@@ -1320,7 +1322,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-lyubomirov-dimitrov-7810bf",
@@ -1692,6 +1695,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "работодател"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -2084,6 +2101,20 @@
         "legalBasis": null,
         "fundsOrigin": "работодател/работник"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Перник",
+        "municipality": "Перник",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 16718.733223235147,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -2397,7 +2428,8 @@
         "legalBasis": null,
         "fundsOrigin": "работодател/работник"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-lyubomirov-dimitrov-7810bf",
@@ -2811,7 +2843,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-lyubomirov-dimitrov-7810bf",
@@ -2828,6 +2861,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/81D02507-DF0F-4BF8-8110-0F97BF74A72090093.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

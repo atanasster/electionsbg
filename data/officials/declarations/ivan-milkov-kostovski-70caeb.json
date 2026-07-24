@@ -123,7 +123,8 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-milkov-kostovski-70caeb",
@@ -189,6 +190,20 @@
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1188.753623781208,
+        "legalBasis": "възмездно"
       }
     ]
   }

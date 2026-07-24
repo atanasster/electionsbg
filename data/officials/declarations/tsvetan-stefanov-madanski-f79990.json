@@ -406,6 +406,32 @@
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 59,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38500.27865407525,
+        "legalBasis": "Нотариален Акт №23/2017 г."
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 59,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38500.27865407525,
+        "legalBasis": "Нотариален Акт №23/2017 г."
+      }
     ]
   }
 ]

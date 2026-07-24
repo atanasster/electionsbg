@@ -268,7 +268,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rozaliya-ilieva-dzhineva-c90386",
@@ -479,6 +480,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Първенец",
+        "municipality": "Родопи",
+        "areaSqm": 470,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6000.010225837624,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Прослав",
+        "municipality": "Пловдив",
+        "areaSqm": 3000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -636,7 +663,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rozaliya-ilieva-dzhineva-c90386",
@@ -1248,7 +1276,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rozaliya-ilieva-dzhineva-c90386",
@@ -1265,6 +1294,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7EF8C6FE-A660-4F81-B67E-FE33B632F0A789687.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

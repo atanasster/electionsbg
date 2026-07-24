@@ -64,6 +64,20 @@
         "legalBasis": null,
         "fundsOrigin": "възнаграждение и възстановени разходи от Европейския комитет на регионите, ЕС"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Европейски комитет на регионите, ЕС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 9569.850140349621,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -106,6 +120,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел, Белгия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 16145.063732532992,
+        "legalBasis": null
       }
     ]
   },
@@ -156,6 +184,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент (гарсионера)",
+        "detail": null,
+        "location": "гр. Пловдив, ул. Кичево №24",
+        "municipality": "Пловдив",
+        "areaSqm": 40,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 21474.259010241178,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел, Белгия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 25342.693383371767,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -198,6 +252,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел, Белгия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 26664.894188145186,
+        "legalBasis": null
       }
     ]
   }

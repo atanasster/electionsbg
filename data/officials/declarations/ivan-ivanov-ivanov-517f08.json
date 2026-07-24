@@ -106,7 +106,8 @@
         "legalBasis": "Договор ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-ivanov-ivanov-517f08",
@@ -141,6 +142,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ЧЕРВЕН ДЪБ ООД",
+        "detail": null,
+        "location": "УПРАВИТЕЛ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

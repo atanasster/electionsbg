@@ -58,6 +58,20 @@
         "legalBasis": "ипотечен кредит, 3.09%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -101,7 +115,8 @@
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kristian-plamenov-petkov-256b8a",
@@ -240,7 +255,8 @@
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kristian-plamenov-petkov-256b8a",
@@ -325,7 +341,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kristian-plamenov-petkov-256b8a",
@@ -361,7 +378,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kristian-plamenov-petkov-256b8a",
@@ -378,6 +396,7 @@
     "sourceUrl": "https://register.cacbg.bg/2020/2108655E-F043-47ED-84A5-53980217ACA1114441.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -261,7 +261,8 @@
         "legalBasis": "договор 10 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-spasov-dimitrov-6b6308",
@@ -295,6 +296,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ДЕАРИ ФУУД БЪЛГАРИЯ АД с  ЕИК 204294057",
+        "detail": null,
+        "location": "член на СД",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

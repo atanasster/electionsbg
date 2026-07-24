@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/D17743A9-F5B6-473E-A479-A0DD11C91C7E219602.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariya-ilieva-chocheva-7b8f4e",
@@ -230,7 +231,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-ilieva-chocheva-7b8f4e",
@@ -446,7 +448,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-ilieva-chocheva-7b8f4e",
@@ -675,7 +678,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и продажба на имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-ilieva-chocheva-7b8f4e",
@@ -903,6 +907,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания и продажба на имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна, Младост, бл.107, вх.8,ап.50",
+        "municipality": "Варна",
+        "areaSqm": 49,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51999.91819329901,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -1181,7 +1199,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-ilieva-chocheva-7b8f4e",
@@ -1452,7 +1471,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-ilieva-chocheva-7b8f4e",
@@ -1705,7 +1725,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-ilieva-chocheva-7b8f4e",
@@ -1958,6 +1979,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Варна, ул. Тодор Влайков № 39",
+        "municipality": "Варна",
+        "areaSqm": 41,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9616.888993419674,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -2120,7 +2155,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-ilieva-chocheva-7b8f4e",
@@ -2137,6 +2173,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D17743A9-F5B6-473E-A479-A0DD11C91C7E89464.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

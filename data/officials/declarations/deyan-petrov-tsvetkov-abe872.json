@@ -69,7 +69,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-petrov-tsvetkov-abe872",
@@ -189,6 +190,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "вноски от работодателя"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "екскурзия Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
       }
     ]
   },
@@ -352,7 +367,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-petrov-tsvetkov-abe872",
@@ -369,6 +385,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7C83C177-7EE3-4BF3-AEFB-C141A13169FA91538.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

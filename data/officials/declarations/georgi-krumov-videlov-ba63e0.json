@@ -124,6 +124,20 @@
         "legalBasis": null,
         "fundsOrigin": "ХОНОРАРИ"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "САЩ, ТУРЦИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -233,7 +247,8 @@
         "legalBasis": null,
         "fundsOrigin": "хонорар"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-krumov-videlov-ba63e0",
@@ -324,7 +339,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-krumov-videlov-ba63e0",
@@ -354,7 +370,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-krumov-videlov-ba63e0",
@@ -475,7 +492,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-krumov-videlov-ba63e0",
@@ -492,7 +510,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5E83A3C2-4B77-4C83-B860-4258D619066789316.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-krumov-videlov-ba63e0",
@@ -708,6 +727,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -250,6 +250,32 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Щъркелово гнездо",
+        "municipality": "Самоков",
+        "areaSqm": 894,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8250.205794982181,
+        "legalBasis": "продажба на наследство"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76693.78217943278,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -460,6 +486,20 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76693.78217943278,
+        "legalBasis": null
       }
     ]
   }

@@ -45,6 +45,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "лаптоп",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1328.8475992289718,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "телефон",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 868.6849061523752,
+        "legalBasis": null
+      }
     ]
   }
 ]

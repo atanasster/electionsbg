@@ -106,6 +106,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Ателие",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 22,
+        "builtAreaSqm": 22,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -123,7 +137,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/EB480B98-9C68-435F-A44F-C52B75EBD047171879.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milcho-ivanov-vanchikov-0bae56",
@@ -243,6 +258,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

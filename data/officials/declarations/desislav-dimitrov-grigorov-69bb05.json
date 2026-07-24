@@ -172,7 +172,8 @@
         "legalBasis": "16% и 19%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "desislav-dimitrov-grigorov-69bb05",
@@ -226,7 +227,8 @@
         "legalBasis": "рефинансиране с нов ипотечен кредит от БАКБ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "desislav-dimitrov-grigorov-69bb05",
@@ -419,7 +421,8 @@
         "legalBasis": "покупко продажба на апартамент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "desislav-dimitrov-grigorov-69bb05",
@@ -696,6 +699,20 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1840.6507723063867,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -713,7 +730,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/D92F8935-BF9F-495F-A20E-2C2142BF29E1130936.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "desislav-dimitrov-grigorov-69bb05",
@@ -893,6 +911,7 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

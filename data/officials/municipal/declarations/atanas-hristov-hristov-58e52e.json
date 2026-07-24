@@ -20,6 +20,56 @@
         "amountEurSpouse": 6546.581246836382
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ЯМБОЛ",
+        "municipality": "ЯМБОЛ",
+        "areaSqm": 79,
+        "builtAreaSqm": 79,
+        "currency": "BGN",
+        "valueEur": 56242.106931584036,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ЯМБОЛ",
+        "municipality": "ЯМБОЛ",
+        "areaSqm": 79,
+        "builtAreaSqm": 79,
+        "currency": "BGN",
+        "valueEur": 56242.106931584036,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ГАРАЖ",
+        "detail": null,
+        "location": "ЯМБОЛ",
+        "municipality": "ЯМБОЛ",
+        "areaSqm": 13,
+        "builtAreaSqm": 13,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ГАРАЖ",
+        "detail": null,
+        "location": "ЯМБОЛ",
+        "municipality": "ЯМБОЛ",
+        "areaSqm": 13,
+        "builtAreaSqm": 13,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

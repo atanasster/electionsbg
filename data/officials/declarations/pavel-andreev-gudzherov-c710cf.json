@@ -69,6 +69,20 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -112,6 +126,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Раковски, ул. Сергей Румянцев 22",
+        "municipality": "Раковски",
+        "areaSqm": 77,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 76.69378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Раковски, ул. Сергей Румянцев 22",
+        "municipality": "Раковски",
+        "areaSqm": 77,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 38.34689108971639,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Раковски, ул. Сергей Румянцев 22",
+        "municipality": "Раковски",
+        "areaSqm": 77,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 38.34689108971639,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -148,7 +212,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-andreev-gudzherov-c710cf",
@@ -220,6 +285,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

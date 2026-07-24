@@ -208,6 +208,20 @@
         "legalBasis": "потребителски кредит, 4.99%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -383,6 +397,7 @@
         "legalBasis": "Договор по ипотечен кредит Банка ДСК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

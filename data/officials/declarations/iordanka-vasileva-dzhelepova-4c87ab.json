@@ -82,7 +82,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-vasileva-dzhelepova-4c87ab",
@@ -99,7 +100,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/249FEA8A-7735-498B-9F48-5D913A863DFB172438.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordanka-vasileva-dzhelepova-4c87ab",
@@ -171,7 +173,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-vasileva-dzhelepova-4c87ab",
@@ -243,7 +246,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-vasileva-dzhelepova-4c87ab",
@@ -333,6 +337,20 @@
         "isSpouse": false,
         "legalBasis": "договор за замяна",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр.Хасково",
+        "municipality": "Хасково",
+        "areaSqm": 3000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "дог.покупко-продажба"
       }
     ]
   }

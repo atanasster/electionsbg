@@ -112,7 +112,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elka-tsvetanova-staneva-angelova-23bbdc",
@@ -328,6 +329,20 @@
         "isSpouse": false,
         "legalBasis": "договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Селановци",
+        "municipality": "Оряхово",
+        "areaSqm": 2205,
+        "builtAreaSqm": 144,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
       }
     ]
   }

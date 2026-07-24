@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, обезщетения от НОИ за врем. нетрудоспос."
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-kolev-pomakov-1d58c6",
@@ -538,7 +539,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-kolev-pomakov-1d58c6",
@@ -629,7 +631,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-kolev-pomakov-1d58c6",
@@ -682,6 +685,20 @@
         "isSpouse": true,
         "legalBasis": "заплата и пенсия",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"Дипоникс\" ЕООД",
+        "detail": null,
+        "location": "100%",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -1230,6 +1247,32 @@
         "legalBasis": "договор за кредит от 2008 г.",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "землището на гр. Търговище",
+        "municipality": "Търговище",
+        "areaSqm": 0,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "землището на гр. Търговище",
+        "municipality": "Търговище",
+        "areaSqm": 0,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1710,7 +1753,8 @@
         "legalBasis": "членство във ВСК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-kolev-pomakov-1d58c6",
@@ -1727,6 +1771,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C220AED1-97C6-4EEA-B8E9-1EEF05840C1789730.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

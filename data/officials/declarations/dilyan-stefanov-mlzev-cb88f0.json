@@ -94,7 +94,8 @@
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dilyan-stefanov-mlzev-cb88f0",
@@ -179,7 +180,8 @@
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dilyan-stefanov-mlzev-cb88f0",
@@ -263,6 +265,32 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Наследствен дял от недвижим имот - къща с двор и стопански сгради",
+        "detail": null,
+        "location": "с. Миндя",
+        "municipality": "Велико Търново",
+        "areaSqm": 830,
+        "builtAreaSqm": 154,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно (2017 г.)"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр. Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 0,
+        "builtAreaSqm": 119,
+        "currency": "BGN",
+        "valueEur": 57997.88325161185,
+        "legalBasis": "възмездно (2017 г.)"
       }
     ]
   },
@@ -355,6 +383,7 @@
         "legalBasis": "Покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

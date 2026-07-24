@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/1DACD858-AF63-4A13-A97C-046E922E3586136490.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "deyan-ivanov-ivanov-c2cbbb",
@@ -129,6 +130,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Петърч",
+        "municipality": "Костинброд",
+        "areaSqm": 890,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12986.81378238395,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -190,7 +205,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-ivanov-ivanov-c2cbbb",
@@ -207,7 +223,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1DACD858-AF63-4A13-A97C-046E922E358693275.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "deyan-ivanov-ivanov-c2cbbb",
@@ -297,6 +314,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

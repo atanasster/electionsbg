@@ -226,7 +226,8 @@
         "legalBasis": null,
         "fundsOrigin": "бонус карта препейт към Мастъркарт"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetozar-vasilev-vasilev-6a5894",
@@ -460,6 +461,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "склад",
+        "detail": null,
+        "location": "София,район Сердика",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 5,
+        "builtAreaSqm": 5,
+        "currency": "BGN",
+        "valueEur": 4999.923306217821,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -816,6 +831,44 @@
         "legalBasis": "Предварителен договор за покупко-продажда",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София, район Витоша",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 76,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "подземен гараж",
+        "detail": null,
+        "location": "София, район Красно село",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 8999.759692815838,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "подземен гараж",
+        "detail": null,
+        "location": "София, район Красно село",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 8999.759692815838,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1135,6 +1188,44 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, район Красно село",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 115,
+        "builtAreaSqm": 115,
+        "currency": "BGN",
+        "valueEur": 81499.92586267722,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, район Красно село",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 115,
+        "builtAreaSqm": 115,
+        "currency": "BGN",
+        "valueEur": 81499.92586267722,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Направен разход",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2351.942653502605,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1370,6 +1461,7 @@
         "legalBasis": null,
         "fundsOrigin": "бонусна карта към Мастъркарт на Пощенска банка"
       }
-    ]
+    ],
+    "events": []
   }
 ]

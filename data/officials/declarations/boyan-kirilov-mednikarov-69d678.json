@@ -706,6 +706,20 @@
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в меропрития на НАТО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 906.5205053608954,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1361,6 +1375,20 @@
         "legalBasis": "Масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в меропрития на НАТО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 412.6125481253483,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1997,6 +2025,20 @@
         "isSpouse": true,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в меропрития на НАТО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 812.9540911019874,
+        "legalBasis": null
       }
     ]
   },
@@ -2641,6 +2683,20 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в меропрития на НАТО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1477.6335366570715,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -3224,6 +3280,20 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в меропрития на НАТО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1100.3001283342621,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -3584,7 +3654,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boyan-kirilov-mednikarov-69d678",
@@ -3601,6 +3672,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/79AE5CD5-8C81-437F-9470-2A848DE3ECA789056.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

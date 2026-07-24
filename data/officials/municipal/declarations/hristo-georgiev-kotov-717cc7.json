@@ -177,6 +177,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "с.Желю Войвода",
+        "municipality": "Сливен",
+        "areaSqm": 2400,
+        "builtAreaSqm": 246,
+        "currency": "BGN",
+        "valueEur": 2428.6364356820377,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с.Прохорово",
+        "municipality": "Нова Загора",
+        "areaSqm": 1,
+        "builtAreaSqm": 1,
+        "currency": "BGN",
+        "valueEur": 332.339722777542,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Драма",
+        "municipality": "Тунджа",
+        "areaSqm": 3,
+        "builtAreaSqm": 3006,
+        "currency": "BGN",
+        "valueEur": 1230.1682661581017,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

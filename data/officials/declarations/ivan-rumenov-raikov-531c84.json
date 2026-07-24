@@ -226,6 +226,20 @@
         "legalBasis": "договор с БДСК",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "дворно място с постройки",
+        "detail": null,
+        "location": "с. Русаля",
+        "municipality": "Велико Търново",
+        "areaSqm": 1960,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "покупко-продажба"
+      }
     ]
   },
   {
@@ -491,7 +505,8 @@
         "legalBasis": "договор с БДСК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-rumenov-raikov-531c84",
@@ -527,7 +542,8 @@
         "legalBasis": "Командировъчни средства и заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-rumenov-raikov-531c84",
@@ -544,7 +560,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/055C1EB0-4078-4224-9C52-8D50BFB005A393297.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-rumenov-raikov-531c84",
@@ -742,6 +759,7 @@
         "legalBasis": "договор с БДСК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

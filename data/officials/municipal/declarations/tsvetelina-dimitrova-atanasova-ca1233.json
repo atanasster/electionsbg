@@ -104,6 +104,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 90,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

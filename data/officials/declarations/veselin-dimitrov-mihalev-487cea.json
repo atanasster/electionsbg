@@ -195,7 +195,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-dimitrov-mihalev-487cea",
@@ -262,6 +263,32 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение по ЕП \" Еразъм+\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 629.9115976337412,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение по ЕП \" Еразъм+\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 629.9115976337412,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -311,6 +338,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -58,6 +58,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "кв. Суходол",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 200,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10819.958789874376,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "кв. Суходол",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 200,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10819.958789874376,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

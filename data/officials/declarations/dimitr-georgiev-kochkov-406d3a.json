@@ -94,6 +94,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "студио",
+        "detail": null,
+        "location": "с.Нови хан",
+        "municipality": "Елин Пелин",
+        "areaSqm": 27,
+        "builtAreaSqm": 27,
+        "currency": "BGN",
+        "valueEur": 38500.27865407525,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -191,6 +205,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Алфа ромео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1636.1340198278992,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -270,7 +298,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-georgiev-kochkov-406d3a",
@@ -367,6 +396,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Ралево",
+        "municipality": "Плевен",
+        "areaSqm": 630,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 5368.564752560294,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -445,6 +488,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "лечение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2914.3637228184452,
+        "legalBasis": null
       }
     ]
   },
@@ -542,6 +599,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ателие",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 61,
+        "builtAreaSqm": 61,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Алфа Ромео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "лечение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
       }
     ]
   },
@@ -748,6 +843,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -202,6 +202,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "RER9157, Виена",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1050.1935239770328,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -406,6 +420,44 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "RER9155, Братислава",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 998.0417520950185,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "RER 9158, Прага",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1886.6670416140462,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "RER 9157, Ташкент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 969.9206986292264,
+        "legalBasis": null
       }
     ]
   },
@@ -617,6 +669,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "RER9157,Анкара",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 743.9296871404979,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "RER9153, Атина",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1618.2388039860316,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "RER9159Любляна",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1112.0598416017751,
+        "legalBasis": null
       }
     ]
   },
@@ -841,7 +931,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zhana-nikolaeva-dzhunova-velikova-0f2413",
@@ -1100,6 +1191,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 971.9658661540113,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 782.7878701114105,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Никозия, Кипър",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1053.7725671454064,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Ташкент, Узбекистан",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 944.8673964506117,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1346,6 +1487,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 939.7544776386496,
+        "legalBasis": null
       }
     ]
   }

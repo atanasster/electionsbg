@@ -190,6 +190,68 @@
         "legalBasis": "договор 2021 г",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "с. Иваняне",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 289,
+        "builtAreaSqm": 341,
+        "currency": "BGN",
+        "valueEur": 39768.28251944188,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с. Иваняне",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "currency": "BGN",
+        "valueEur": 8758.429924891223,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с. Иваняне",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 150,
+        "builtAreaSqm": 150,
+        "currency": "BGN",
+        "valueEur": 11392.60569681414,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с. Иваняне",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 9614.843825894888,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с. Иваняне",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 151,
+        "builtAreaSqm": 151,
+        "currency": "BGN",
+        "valueEur": 12493.4171170296,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -340,6 +402,20 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Иваняне",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 763,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 32749.778866261382,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -636,7 +712,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasko-dimitrov-stoilkov-5925e5",
@@ -805,6 +882,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

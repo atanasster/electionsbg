@@ -58,6 +58,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС ГЛС 350 Д 4МАТИК",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС ГЛС 350 Д 4МАТИК",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -100,7 +126,57 @@
         "amountEurSpouse": 33891.49363697254
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 340,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 2849,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 981.6804118967395,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 313,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1043.0354376402856,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 510,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1840.6507723063867,
+        "legalBasis": "покупко-продажба"
+      }
+    ]
   },
   {
     "slug": "myumyun-ali-iskender-7c250e",
@@ -214,6 +290,68 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 930,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "Сираково",
+        "municipality": "Минерални бани",
+        "areaSqm": 3,
+        "builtAreaSqm": 700,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "Сираково",
+        "municipality": "Минерални бани",
+        "areaSqm": 3,
+        "builtAreaSqm": 700,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "Сираково",
+        "municipality": "Минерални бани",
+        "areaSqm": 3,
+        "builtAreaSqm": 700,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "Сираково",
+        "municipality": "Минерални бани",
+        "areaSqm": 3,
+        "builtAreaSqm": 700,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -546,6 +684,176 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "с.Сиреково",
+        "municipality": "Минерални бани",
+        "areaSqm": 3596,
+        "builtAreaSqm": 572,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "с.Сиреково",
+        "municipality": "Минерални бани",
+        "areaSqm": 3020,
+        "builtAreaSqm": 551,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Сиреково",
+        "municipality": "Минерални бани",
+        "areaSqm": 2655,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 2390,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 348,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 1016,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 913,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 750,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 750,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 2891,
+        "builtAreaSqm": 364,
+        "currency": "BGN",
+        "valueEur": 3577.5092927299406,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 1641,
+        "builtAreaSqm": 523,
+        "currency": "BGN",
+        "valueEur": 2148.959776667706,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Минерални бани",
+        "municipality": "Минерални бани",
+        "areaSqm": 700,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1942.9091485456302,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "с.Сиреково",
+        "municipality": "Минерални бани",
+        "areaSqm": 1000,
+        "builtAreaSqm": 335,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "с.Сиреково",
+        "municipality": "Минерални бани",
+        "areaSqm": 2100,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 899.8737109053445,
+        "legalBasis": "възмездно"
       }
     ]
   }

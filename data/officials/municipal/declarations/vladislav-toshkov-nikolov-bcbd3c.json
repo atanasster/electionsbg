@@ -416,6 +416,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Нива",
+        "detail": null,
+        "location": "м. Странджа",
+        "municipality": "Плевен",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 25265.48830931114,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Нива",
+        "detail": null,
+        "location": "м. Странджа",
+        "municipality": "Плевен",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 25265.48830931114,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ATV",
+        "detail": "Can-Am",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

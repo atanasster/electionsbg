@@ -220,6 +220,56 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Поземлен имот",
+        "detail": null,
+        "location": "София - Драгалевци",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 657,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5527.065235731122,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Поземлен имот",
+        "detail": null,
+        "location": "София - Драгалевци",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 996,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 18870.249459308834,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Поземлен имот",
+        "detail": null,
+        "location": "София - ж.к. \"Малинова долина\"",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 743,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 31111.088387027503,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Лексус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -396,7 +446,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-stefanov-kalchev-96a36c",
@@ -535,7 +586,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-stefanov-kalchev-96a36c",
@@ -571,7 +623,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-stefanov-kalchev-96a36c",
@@ -763,6 +816,20 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.София кв.Драгалевци ул.Градина 11",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 993,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "замяна на идеалната част за лек автомобил"
       }
     ]
   }

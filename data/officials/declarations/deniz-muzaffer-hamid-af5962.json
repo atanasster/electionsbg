@@ -130,7 +130,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на земя"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deniz-muzaffer-hamid-af5962",
@@ -262,6 +263,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Тодорово",
+        "municipality": "Исперих",
+        "areaSqm": 50,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 74137.32277345168,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -254,7 +254,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniel-tochev-delchev-72636f",
@@ -536,6 +537,32 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Магистърска програма \"Киберсигурност\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1165.234197246182,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Магистърска програма \"Мениджмънт на националната сигурност и антитероризъм\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1165.234197246182,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -795,6 +822,32 @@
         "isSpouse": false,
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Магистърска програма \"Киберсигурност\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 566.51140436541,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Магистърска програма \"Мениджмънт на националната сигурност и антитероризъм\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 566.51140436541,
+        "legalBasis": null
       }
     ]
   }

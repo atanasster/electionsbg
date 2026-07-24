@@ -447,7 +447,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-savov-yalnzov-3dbc8e",
@@ -670,7 +671,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни от МВнР"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-savov-yalnzov-3dbc8e",
@@ -880,6 +882,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Дъбен",
+        "municipality": "Луковит",
+        "areaSqm": 900,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "Договор за покупко-продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Дъбен",
+        "municipality": "Луковит",
+        "areaSqm": 900,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "Договор за покупко-продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с.Панчарево - зона Беликата",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 596,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 39999.38644974257,
+        "legalBasis": "Договор за покупко-продажба"
       }
     ]
   },
@@ -1104,6 +1144,7 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
-    ]
+    ],
+    "events": []
   }
 ]

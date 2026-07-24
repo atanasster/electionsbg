@@ -237,6 +237,68 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 6713,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1396214.394911623,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 6713,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1396214.394911623,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "второстепенна улица",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 499,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 103785.6050883768,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "второстепенна улица",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 499,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 103785.6050883768,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Порше Кайен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20093.770931011386,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/64D6C6F4-54A2-442F-A3AB-D02600150113219423.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "petr-borisov-spasov-b35867",
@@ -158,7 +159,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-borisov-spasov-b35867",
@@ -188,7 +190,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "petr-borisov-spasov-b35867",
@@ -368,6 +384,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

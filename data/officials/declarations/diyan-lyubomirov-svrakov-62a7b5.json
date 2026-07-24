@@ -160,6 +160,20 @@
         "legalBasis": "8.3860",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "КОЛА",
+        "detail": "ОПЕЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -177,7 +191,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/EE3EF8CD-7C5A-49D9-A255-A4EDC99C8C23195541.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "diyan-lyubomirov-svrakov-62a7b5",
@@ -285,6 +300,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

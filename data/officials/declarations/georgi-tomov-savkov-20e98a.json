@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-tomov-savkov-20e98a",
@@ -209,7 +210,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-tomov-savkov-20e98a",
@@ -282,7 +284,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия и заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-tomov-savkov-20e98a",
@@ -379,6 +382,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Долни Дъбник",
+        "municipality": "Долни Дъбник",
+        "areaSqm": 1000,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -464,7 +481,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-tomov-savkov-20e98a",
@@ -500,7 +518,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-tomov-savkov-20e98a",
@@ -585,7 +604,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-tomov-savkov-20e98a",
@@ -801,7 +821,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-tomov-savkov-20e98a",
@@ -818,6 +839,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B4E79429-D71C-40B5-A886-BA22BF35AA7E92180.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -160,6 +160,32 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": 127999.87728994852,
+        "legalBasis": "възмездно(продажба)"
+      },
+      {
+        "kind": "guarantee",
+        "description": "пълно предсрочно погасяване на ипотечен кредит при продажба на апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 33704.36080845472,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -281,7 +307,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mihail-krstev-mihailov-127e50",
@@ -425,7 +452,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mihail-krstev-mihailov-127e50",
@@ -442,7 +470,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/DD28DA11-8405-45C3-9AD9-49BBB2ECB3A9110321.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mihail-krstev-mihailov-127e50",
@@ -550,6 +579,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

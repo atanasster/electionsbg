@@ -154,7 +154,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rusko-georgiev-tsanev-3945e0",
@@ -299,7 +300,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rusko-georgiev-tsanev-3945e0",
@@ -396,7 +398,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rusko-georgiev-tsanev-3945e0",
@@ -558,6 +561,20 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел с бунгало",
+        "detail": null,
+        "location": "вилна зона Куба ||",
+        "municipality": "Хасково",
+        "areaSqm": 1300,
+        "builtAreaSqm": 1347,
+        "currency": "BGN",
+        "valueEur": 9049.866297173066,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -734,7 +751,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rusko-georgiev-tsanev-3945e0",
@@ -932,7 +950,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rusko-georgiev-tsanev-3945e0",
@@ -949,6 +968,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C62D3E50-7D4E-4642-A292-858CE048792D93437.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

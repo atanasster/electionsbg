@@ -136,7 +136,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-dimitrova-yancheva-d14903",
@@ -269,7 +270,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване и заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-dimitrova-yancheva-d14903",
@@ -456,6 +458,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -602,7 +618,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-dimitrova-yancheva-d14903",
@@ -748,7 +765,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-dimitrova-yancheva-d14903",
@@ -765,7 +783,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/88F04273-79EB-4D27-BAE1-D30579076D3F90641.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "svetla-dimitrova-yancheva-d14903",
@@ -1137,6 +1156,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

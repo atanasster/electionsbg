@@ -58,6 +58,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Мазда CX 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13804.8807922979,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -75,7 +89,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/DD06F221-6C81-415F-AFEF-EE80D3AECF3A202362.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stoika-grozdeva-iondova-96e0c9",
@@ -99,6 +114,7 @@
         "amountEurSpouse": 6135.502574354622
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -190,7 +190,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-kircheva-staneva-2c2248",
@@ -652,6 +653,44 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Добрич, ул.\"Васил Априлов\" 1вх.Б ап.18",
+        "municipality": "Добрич",
+        "areaSqm": 137,
+        "builtAreaSqm": 137,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "В.З. Балчик",
+        "municipality": "Балчик",
+        "areaSqm": 482,
+        "builtAreaSqm": 482,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "В.З. Балчик",
+        "municipality": "Балчик",
+        "areaSqm": 482,
+        "builtAreaSqm": 482,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1121,7 +1160,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-kircheva-staneva-2c2248",
@@ -1638,7 +1678,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-kircheva-staneva-2c2248",
@@ -2137,7 +2178,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-kircheva-staneva-2c2248",
@@ -2606,7 +2648,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-kircheva-staneva-2c2248",
@@ -3141,7 +3184,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-kircheva-staneva-2c2248",
@@ -3158,7 +3202,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D0E5DE03-FD32-480C-9BD6-6DA6F1EE289389096.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kameliya-kircheva-staneva-2c2248",
@@ -3680,6 +3725,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

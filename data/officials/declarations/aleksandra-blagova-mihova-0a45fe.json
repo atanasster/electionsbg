@@ -82,6 +82,32 @@
         "legalBasis": "заем с 2 договорен лихвен процент",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "село Звъничево",
+        "municipality": "Пазарджик",
+        "areaSqm": 6000,
+        "builtAreaSqm": 6000,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "село Звъничево",
+        "municipality": "Пазарджик",
+        "areaSqm": 6000,
+        "builtAreaSqm": 6000,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -112,6 +138,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -52,7 +52,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagoi-georgiev-kishev-c557be",
@@ -233,6 +234,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойта Рав 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 230.08134653829833,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -359,7 +374,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagoi-georgiev-kishev-c557be",
@@ -376,6 +392,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EA60F8BA-95B6-49F5-8104-F647B93E235589670.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

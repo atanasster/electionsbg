@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 247,
+        "builtAreaSqm": 258,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -208,6 +222,7 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

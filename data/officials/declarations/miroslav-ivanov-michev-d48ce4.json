@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/BAA63D97-0595-4FFD-B068-926D4EAF60C3111522.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-ivanov-michev-d48ce4",
@@ -31,6 +32,20 @@
     "sourceUrl": "https://register.cacbg.bg/2019/BAA63D97-0595-4FFD-B068-926D4EAF60C398348.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

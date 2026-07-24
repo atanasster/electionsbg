@@ -112,6 +112,56 @@
         "legalBasis": "кредит, 5,04%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ж.к Люлин 3  бл. 380. вх. Б ет.7 ат.30",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 31955.742574763655,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Голямо Бучино",
+        "municipality": "Перник",
+        "areaSqm": 450,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ж.к Люлин 3  бл. 380. вх. Б ет.7 ат.30",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 31955.742574763655,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ж.к Люлин 3  бл. 380. вх. Б ет.7 ат.30",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 63911.48514952731,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -215,6 +265,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

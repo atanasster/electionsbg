@@ -58,6 +58,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "УЛ. РАЙКО ЖИНЗИФОВ 37",
+        "municipality": "Кърджали",
+        "areaSqm": 93,
+        "builtAreaSqm": 107,
+        "currency": "BGN",
+        "valueEur": 15594.402376484664,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МИНИ КУПЪР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 639.1148514952731,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

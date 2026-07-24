@@ -21,7 +21,8 @@
         "amountEurSpouse": 6139.081617522996
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "silviya-boyanova-vergilova-b1e864",
@@ -105,6 +106,20 @@
         "isSpouse": true,
         "legalBasis": "0",
         "fundsOrigin": "0"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "0"
       }
     ]
   }

@@ -112,7 +112,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-iliev-dafov-026271",
@@ -148,7 +149,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-iliev-dafov-026271",
@@ -335,6 +337,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОР КУГА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17872.207707213816,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -438,7 +454,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-iliev-dafov-026271",
@@ -474,7 +491,8 @@
         "amountEurSpouse": 255.64594059810923
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetan-iliev-dafov-026271",
@@ -523,6 +541,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

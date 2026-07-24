@@ -21,7 +21,33 @@
         "amountEurSpouse": 13041.522013671945
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 178.95215841867648,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "sevda-georgieva-tyufekchieva-a16cee",
@@ -45,6 +71,20 @@
         "amountEurSpouse": 12691.287075052536
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "квалификация",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 250.53302178614706,
+        "legalBasis": null
+      }
+    ]
   }
 ]

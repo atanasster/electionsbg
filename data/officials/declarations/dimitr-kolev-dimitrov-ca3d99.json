@@ -304,6 +304,68 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Ветрино",
+        "municipality": "Ветрино",
+        "areaSqm": 4,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Ветрино",
+        "municipality": "Ветрино",
+        "areaSqm": 6,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Ветрино",
+        "municipality": "Ветрино",
+        "areaSqm": 4,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Ветрино",
+        "municipality": "Ветрино",
+        "areaSqm": 4,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Ветрино",
+        "municipality": "Ветрино",
+        "areaSqm": 7,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 7158.086336747059,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -599,6 +661,56 @@
         "legalBasis": "договор за текущо потребление",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Бяла Слатина",
+        "municipality": "Бяла Слатина",
+        "areaSqm": 15,
+        "builtAreaSqm": 15,
+        "currency": "BGN",
+        "valueEur": 9356.641425890799,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Бяла Слатина",
+        "municipality": "Бяла Слатина",
+        "areaSqm": 530,
+        "builtAreaSqm": 330,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ТОВАРЕН АВТОМОБИЛ",
+        "detail": "НИСАН \"НАВАРА\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ТОВАРЕН АВТОМОБИЛ",
+        "detail": "НИСАН \"НАВАРА\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -798,7 +910,8 @@
         "legalBasis": "ДОГОВОР ЗА ИПОТЕЧЕН КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-kolev-dimitrov-ca3d99",
@@ -1032,6 +1145,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ОБУЧЕНИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1017.4708435804748,
+        "legalBasis": null
       }
     ]
   }

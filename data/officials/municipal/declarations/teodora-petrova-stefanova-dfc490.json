@@ -63,6 +63,32 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Селци",
+        "municipality": "Садово",
+        "areaSqm": 1045,
+        "builtAreaSqm": 238,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Фолксваген Транспортер Т4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2096.296712904496,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   }
 ]

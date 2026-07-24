@@ -112,6 +112,32 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент и земя",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 2270,
+        "builtAreaSqm": 42,
+        "currency": "BGN",
+        "valueEur": 76500.00255645941,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент и земя",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 938,
+        "builtAreaSqm": 112,
+        "currency": "BGN",
+        "valueEur": 159999.59096649504,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

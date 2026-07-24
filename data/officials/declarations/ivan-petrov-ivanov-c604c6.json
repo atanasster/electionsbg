@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/FDAE6895-ED60-43AE-92A5-D8D7CCFC7AAB204459.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-petrov-ivanov-c604c6",
@@ -338,7 +339,8 @@
         "legalBasis": "кредит при 4.69%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-petrov-ivanov-c604c6",
@@ -675,7 +677,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-petrov-ivanov-c604c6",
@@ -999,7 +1002,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-petrov-ivanov-c604c6",
@@ -1305,7 +1309,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-petrov-ivanov-c604c6",
@@ -1485,7 +1490,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-petrov-ivanov-c604c6",
@@ -1563,6 +1569,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 104,
+        "builtAreaSqm": 104,
+        "currency": "BGN",
+        "valueEur": 92999.90285454257,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "средно училище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3681.3015446127733,
+        "legalBasis": null
       }
     ]
   },
@@ -1714,6 +1746,68 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с.Осеново",
+        "municipality": "Аксаково",
+        "areaSqm": 700,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Яребична",
+        "municipality": "Аксаково",
+        "areaSqm": 140,
+        "builtAreaSqm": 262,
+        "currency": "BGN",
+        "valueEur": 940.777061401042,
+        "legalBasis": "Дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Яребична",
+        "municipality": "Аксаково",
+        "areaSqm": 2013,
+        "builtAreaSqm": 71,
+        "currency": "BGN",
+        "valueEur": 784.8330376361954,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "начално училище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1840.6507723063867,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1002.1320871445882,
+        "legalBasis": null
       }
     ]
   },
@@ -1884,6 +1978,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1901,7 +2009,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/FDAE6895-ED60-43AE-92A5-D8D7CCFC7AAB93392.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-petrov-ivanov-c604c6",
@@ -1973,6 +2082,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

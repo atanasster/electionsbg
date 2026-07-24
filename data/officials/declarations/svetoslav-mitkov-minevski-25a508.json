@@ -178,6 +178,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1088.5404150667491,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Япония и Южна Корея",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7515.990653584412,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Тайланд",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Египет",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 971.4545742728151,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -459,6 +509,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Бразилия, Аржентина Уругвай",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5521.95231691916,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Малайзия Индонезия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": null
       }
     ]
   }

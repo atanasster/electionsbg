@@ -136,7 +136,8 @@
         "legalBasis": "Текущо усвояване по Рсм.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-stanimirov-dimitrov-6b2677",
@@ -293,7 +294,8 @@
         "legalBasis": "Текущи по р.см.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-stanimirov-dimitrov-6b2677",
@@ -450,7 +452,8 @@
         "legalBasis": "Текущи по кр.карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-stanimirov-dimitrov-6b2677",
@@ -589,6 +592,44 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип",
+        "detail": "Сузуки Джимни",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7158.086336747059,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Аурис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип",
+        "detail": "Тойота Ланд Круизер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12271.005148709244,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -606,7 +647,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/3C1C4F36-7EF5-4D29-ACE8-9621816C423A113950.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitr-stanimirov-dimitrov-6b2677",
@@ -804,6 +846,7 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -21,7 +21,21 @@
         "amountEurSpouse": 12021.494710685489
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Карнобат",
+        "municipality": "Карнобат",
+        "areaSqm": 76,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13324.266423973453,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   },
   {
     "slug": "svetlana-stoyanova-petkova-b1d334",
@@ -45,6 +59,7 @@
         "amountEurSpouse": 11741.818051671158
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -82,7 +82,8 @@
         "legalBasis": "Договор за издаване на кредитна карта, 15% ЛП",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-vlaskov-shishkov-2e4bca",
@@ -167,7 +168,8 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-vlaskov-shishkov-2e4bca",
@@ -215,6 +217,32 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9356.641425890799,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -337,7 +365,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-vlaskov-shishkov-2e4bca",
@@ -354,7 +383,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/F7884096-DB15-4CA5-8024-236475120C80112394.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitr-vlaskov-shishkov-2e4bca",
@@ -480,6 +510,7 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

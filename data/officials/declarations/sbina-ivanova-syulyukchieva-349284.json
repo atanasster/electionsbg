@@ -106,7 +106,8 @@
         "legalBasis": "Потребителски кредит - 6,05% ЛП",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sbina-ivanova-syulyukchieva-349284",
@@ -251,7 +252,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sbina-ivanova-syulyukchieva-349284",
@@ -402,6 +404,20 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "ОПЕЛ ВЕКТРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -535,7 +551,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sbina-ivanova-syulyukchieva-349284",
@@ -608,7 +625,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sbina-ivanova-syulyukchieva-349284",
@@ -722,6 +740,20 @@
         "isSpouse": true,
         "legalBasis": "потребителски",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Петлино",
+        "municipality": "Кърджали",
+        "areaSqm": 2,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -868,6 +900,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

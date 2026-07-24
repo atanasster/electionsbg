@@ -46,7 +46,8 @@
         "legalBasis": "договор - лизинг",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-yankov-1ce516",
@@ -95,7 +96,8 @@
         "legalBasis": "договор - лизинг",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-yankov-1ce516",
@@ -204,7 +206,8 @@
         "legalBasis": null,
         "fundsOrigin": "от продажба"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-yankov-1ce516",
@@ -259,6 +262,32 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 140,
+        "builtAreaSqm": 140,
+        "currency": "BGN",
+        "valueEur": 175999.95909664952,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндай Сантафе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -276,7 +305,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/D1627DF9-9849-4775-B81B-A1DF6C89F263110526.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-yankov-1ce516",
@@ -474,6 +504,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

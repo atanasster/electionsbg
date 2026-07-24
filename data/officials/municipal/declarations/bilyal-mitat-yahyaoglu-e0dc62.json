@@ -93,6 +93,32 @@
         "legalBasis": "купуване на кола",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Слънчев бряг",
+        "municipality": "Несебър",
+        "areaSqm": 30,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 15287.627247766934,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лека кола",
+        "detail": "Ауди Кю 7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3732.430732732395,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

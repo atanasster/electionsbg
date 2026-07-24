@@ -100,7 +100,8 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-evgeniev-kutkudeiski-65f255",
@@ -215,7 +216,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-evgeniev-kutkudeiski-65f255",
@@ -251,7 +253,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-evgeniev-kutkudeiski-65f255",
@@ -287,7 +290,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-evgeniev-kutkudeiski-65f255",
@@ -402,7 +406,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-evgeniev-kutkudeiski-65f255",
@@ -545,6 +550,20 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "МЕДКОВЕЦ",
+        "municipality": "Медковец",
+        "areaSqm": 96,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "ПРОДАЖБА"
       }
     ]
   }

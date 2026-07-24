@@ -160,6 +160,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "ФИАТ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 429.4851802048235,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -214,7 +228,8 @@
         "legalBasis": "Жилищен/Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-valentinov-zhelyazkov-94d575",
@@ -231,7 +246,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/0399CC25-0807-4E49-B0D0-7E6D3D6B2056141965.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselin-valentinov-zhelyazkov-94d575",
@@ -303,6 +319,7 @@
         "legalBasis": "Жилищен/Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

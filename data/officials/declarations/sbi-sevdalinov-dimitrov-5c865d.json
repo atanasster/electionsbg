@@ -279,7 +279,8 @@
         "legalBasis": "потребителки кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sbi-sevdalinov-dimitrov-5c865d",
@@ -370,7 +371,8 @@
         "legalBasis": "потребителки кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sbi-sevdalinov-dimitrov-5c865d",
@@ -515,7 +517,8 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sbi-sevdalinov-dimitrov-5c865d",
@@ -641,6 +644,20 @@
         "isSpouse": true,
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "САМОСТОЯТЕЛЕН ОБЕКТ В СГРАДА- ЖИЛИЩЕ, АПАРТАМЕНТ- ПЪРВИ ЕТАЖ В ГРУБ СТРОЕЖ",
+        "detail": null,
+        "location": "ЗЛАТОГРАД",
+        "municipality": "Златоград",
+        "areaSqm": 189,
+        "builtAreaSqm": 88,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -847,7 +864,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sbi-sevdalinov-dimitrov-5c865d",
@@ -1045,7 +1063,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sbi-sevdalinov-dimitrov-5c865d",
@@ -1062,6 +1081,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/15E0EE2A-8F99-4296-892A-9A676F21C8A089814.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

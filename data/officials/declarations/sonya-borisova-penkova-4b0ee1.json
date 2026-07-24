@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, награда, хонорар"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sonya-borisova-penkova-4b0ee1",
@@ -136,6 +137,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
       }
     ]
   }

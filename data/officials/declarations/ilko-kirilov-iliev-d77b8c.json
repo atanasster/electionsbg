@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи от свободна професия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Ремарке за лек автомобил",
+        "detail": "Каравелер А 3302",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 322.1138851536177,
+        "legalBasis": "покупко - продажба"
+      }
     ]
   },
   {
@@ -167,6 +181,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и доходи от свободна професия"
       }
-    ]
+    ],
+    "events": []
   }
 ]

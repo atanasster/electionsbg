@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "fani-georgieva-petrova-ab850c",
@@ -173,7 +174,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "fani-georgieva-petrova-ab850c",
@@ -288,6 +290,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Кия Спортич",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Кия Спортич",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -355,6 +383,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

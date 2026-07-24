@@ -27,7 +27,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ailin-orhanova-alieva-c36cec",
@@ -75,6 +76,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Търговище",
+        "municipality": "Търговище",
+        "areaSqm": 51,
+        "builtAreaSqm": 51,
+        "currency": "BGN",
+        "valueEur": 4959.53124760332,
+        "legalBasis": "възмездно"
       }
     ]
   }

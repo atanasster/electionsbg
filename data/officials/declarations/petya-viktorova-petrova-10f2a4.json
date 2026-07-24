@@ -123,7 +123,8 @@
         "legalBasis": "кредит с лихва 4.5538",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-viktorova-petrova-10f2a4",
@@ -184,6 +185,20 @@
         "legalBasis": "кредит с 4.5538",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Сигмен",
+        "municipality": "Карнобат",
+        "areaSqm": 1030,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -227,6 +242,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -148,7 +148,8 @@
         "legalBasis": "заем ф.л.- безлихвен",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-ivanov-petrov-0c6a85",
@@ -263,6 +264,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "КИА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -299,7 +314,8 @@
         "legalBasis": "заем от физ. лице",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-ivanov-petrov-0c6a85",
@@ -432,7 +448,8 @@
         "legalBasis": "договор кр. Карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-ivanov-petrov-0c6a85",
@@ -493,7 +510,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-ivanov-petrov-0c6a85",
@@ -572,7 +590,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-ivanov-petrov-0c6a85",
@@ -741,7 +760,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-ivanov-petrov-0c6a85",
@@ -777,7 +797,8 @@
         "legalBasis": "продажба на апартамент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "venelin-ivanov-petrov-0c6a85",
@@ -981,6 +1002,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 44,
+        "builtAreaSqm": 44,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

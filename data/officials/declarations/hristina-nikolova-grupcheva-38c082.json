@@ -232,6 +232,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Грант на  COST - работна среша",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1309.4185077435156,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ALAHLI Hospital - конференция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1200.513337048721,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -413,6 +439,68 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "COST ACTION - meeting",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1658.1195707193365,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Europa GROUP - EUDEC congress",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 333.8735984211307,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "COST ACTION -meeting",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 980.1465362531509,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "COST ACTION - meeting",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1179.550369919676,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "TFOS - international workshop",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1212.273050316234,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -574,6 +662,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Българско Дружество по Офталмология",
+        "detail": null,
+        "location": "Председател",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -960,6 +1062,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

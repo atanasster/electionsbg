@@ -220,6 +220,32 @@
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплата - УПФ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 108,
+        "builtAreaSqm": 108,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 108,
+        "builtAreaSqm": 108,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -443,7 +469,8 @@
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплата - УПФ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-vasilev-andreev-752c6b",
@@ -624,7 +651,8 @@
         "legalBasis": null,
         "fundsOrigin": "отчисления от заплата - УПФ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-vasilev-andreev-752c6b",
@@ -1389,7 +1417,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-vasilev-andreev-752c6b",
@@ -1406,6 +1435,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/56659D85-5B2A-483B-B3AA-E1E9B80781E189696.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

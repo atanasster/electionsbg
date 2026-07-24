@@ -38,6 +38,32 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "гр. Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 261,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1380.48807922979,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "гр. Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 1214,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4218.1580198688025,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

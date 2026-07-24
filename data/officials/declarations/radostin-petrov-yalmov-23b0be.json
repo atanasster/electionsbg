@@ -46,7 +46,8 @@
         "legalBasis": "договор за кредит, лихва 2,4%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radostin-petrov-yalmov-23b0be",
@@ -101,7 +102,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radostin-petrov-yalmov-23b0be",
@@ -173,7 +175,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radostin-petrov-yalmov-23b0be",
@@ -190,7 +193,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/E3C03876-94D5-4D3A-B32D-B724345FAD97137174.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "radostin-petrov-yalmov-23b0be",
@@ -251,6 +255,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Хюндай",
+        "detail": "Санта Фе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -275,7 +293,8 @@
         "amountEurSpouse": 2027.7836008242025
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "radostin-petrov-yalmov-23b0be",
@@ -354,6 +373,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-milanov-ananiev-336321",
@@ -172,6 +173,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Нови Искър",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 245,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 37000.148274645544,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -270,6 +285,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

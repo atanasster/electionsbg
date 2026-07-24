@@ -160,6 +160,32 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Царевци",
+        "municipality": "Варна",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13804.8807922979,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -317,6 +343,20 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мини купър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6372.230715348471,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -449,6 +489,32 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Близнаци",
+        "municipality": "Аврен",
+        "areaSqm": 750,
+        "builtAreaSqm": 162,
+        "currency": "BGN",
+        "valueEur": 108999.75969281585,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13293.58891110168,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -624,6 +690,32 @@
         "isSpouse": true,
         "legalBasis": "Предварителен договор право на строеж",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Близнаци",
+        "municipality": "Аврен",
+        "areaSqm": 654,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мицубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
       }
     ]
   }

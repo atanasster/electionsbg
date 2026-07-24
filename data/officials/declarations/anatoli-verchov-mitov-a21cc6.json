@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anatoli-verchov-mitov-a21cc6",
@@ -209,7 +210,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anatoli-verchov-mitov-a21cc6",
@@ -305,6 +307,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила",
+        "detail": null,
+        "location": "с. Рударци",
+        "municipality": "Перник",
+        "areaSqm": 40,
+        "builtAreaSqm": 104,
+        "currency": "BGN",
+        "valueEur": 23263.780594427943,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -409,7 +425,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anatoli-verchov-mitov-a21cc6",
@@ -500,7 +517,8 @@
         "legalBasis": "Договор за лизинг на автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anatoli-verchov-mitov-a21cc6",
@@ -517,7 +535,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B1DC935E-6485-4225-BC90-35D8D322954790315.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "anatoli-verchov-mitov-a21cc6",
@@ -625,6 +644,7 @@
         "legalBasis": "Погасяване на лизинхова схема",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

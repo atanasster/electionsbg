@@ -328,7 +328,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания - компенсационно възнаграждение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasilii-hristov-takev-9a0f97",
@@ -647,6 +648,32 @@
         "legalBasis": null,
         "fundsOrigin": "разпращателен влог - заплата в лв."
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди 6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди 6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -833,6 +860,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "разплащателен влог"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 80,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "продажба на наследствен имот"
       }
     ]
   }

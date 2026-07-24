@@ -496,6 +496,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания дарения по права линия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "София, р-н Лозенец",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 855,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "замяна"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот-за улица",
+        "detail": null,
+        "location": "Хераково",
+        "municipality": "Божурище",
+        "areaSqm": 266,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмедно"
+      }
     ]
   },
   {
@@ -1214,6 +1240,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

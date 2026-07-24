@@ -21,7 +21,8 @@
         "amountEurSpouse": 1304.3055889315533
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "todor-georgiev-predov-428bca",
@@ -106,7 +107,8 @@
         "legalBasis": null,
         "fundsOrigin": "наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-georgiev-predov-428bca",
@@ -173,7 +175,8 @@
         "legalBasis": null,
         "fundsOrigin": "наем"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-georgiev-predov-428bca",
@@ -239,6 +242,20 @@
         "isSpouse": true,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Рогозен",
+        "municipality": "Хайредин",
+        "areaSqm": 3,
+        "builtAreaSqm": 180,
+        "currency": "BGN",
+        "valueEur": 3502.3493861940965,
+        "legalBasis": "възмездно"
       }
     ]
   }

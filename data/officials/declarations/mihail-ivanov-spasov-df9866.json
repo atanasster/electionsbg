@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1482.7464554690337,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -173,6 +187,7 @@
         "legalBasis": "Договор на кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

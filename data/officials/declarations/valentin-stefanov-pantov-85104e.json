@@ -268,7 +268,8 @@
         "legalBasis": "масова преватизация",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-stefanov-pantov-85104e",
@@ -485,7 +486,8 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-stefanov-pantov-85104e",
@@ -696,6 +698,20 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с.Дюлево,",
+        "municipality": "Средец",
+        "areaSqm": 1060,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -883,7 +899,8 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-stefanov-pantov-85104e",
@@ -1088,7 +1105,8 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-stefanov-pantov-85104e",
@@ -1347,6 +1365,20 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 487.77245466119246,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1364,7 +1396,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D3444A3A-FE63-4BAE-8539-BAB44DEF9D5589106.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentin-stefanov-pantov-85104e",
@@ -1904,6 +1937,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

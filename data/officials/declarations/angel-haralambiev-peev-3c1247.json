@@ -124,7 +124,8 @@
         "legalBasis": "2,6%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-haralambiev-peev-3c1247",
@@ -208,6 +209,20 @@
         "isSpouse": false,
         "legalBasis": "Ипотечен заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Инсигния",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -366,7 +381,8 @@
         "legalBasis": "Ипотечен заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-haralambiev-peev-3c1247",
@@ -523,6 +539,7 @@
         "legalBasis": "Ипотечен заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

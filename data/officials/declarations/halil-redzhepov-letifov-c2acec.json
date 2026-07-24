@@ -166,6 +166,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение по сметка: IBAN BG20SOMB91301000025474 за финансиране на предизборна кампания накоалиция ДПС-Ново начало",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -310,6 +324,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение във връзка с пострадалите от земетресението в Р Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": null
       }
     ]
   },
@@ -474,7 +502,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "halil-redzhepov-letifov-c2acec",
@@ -667,6 +696,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

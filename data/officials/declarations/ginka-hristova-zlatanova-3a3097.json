@@ -112,6 +112,20 @@
         "legalBasis": "банков кредит -3,4 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "екскурзия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1431.6172673494118,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -202,6 +216,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, обезщетения неползван отпуск"
       }
-    ]
+    ],
+    "events": []
   }
 ]

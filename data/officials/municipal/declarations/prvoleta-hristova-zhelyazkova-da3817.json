@@ -51,6 +51,44 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Сухиндол",
+        "municipality": "Сухиндол",
+        "areaSqm": 60,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "гр. Сухиндол",
+        "municipality": "Сухиндол",
+        "areaSqm": 0,
+        "builtAreaSqm": 470,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "гр. Сухиндол",
+        "municipality": "Сухиндол",
+        "areaSqm": 0,
+        "builtAreaSqm": 477,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

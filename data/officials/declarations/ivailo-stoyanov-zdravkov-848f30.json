@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, обезщетиния и трансфери от закрити сметки"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-stoyanov-zdravkov-848f30",
@@ -280,7 +281,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-stoyanov-zdravkov-848f30",
@@ -413,7 +415,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-stoyanov-zdravkov-848f30",
@@ -564,7 +567,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-stoyanov-zdravkov-848f30",
@@ -702,6 +706,20 @@
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ауди А 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -854,6 +872,7 @@
         "legalBasis": "дарение",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

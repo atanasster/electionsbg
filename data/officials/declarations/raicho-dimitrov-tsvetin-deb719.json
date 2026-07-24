@@ -27,7 +27,8 @@
         "amountEurSpouse": 16.36134019827899
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "raicho-dimitrov-tsvetin-deb719",
@@ -57,7 +58,21 @@
         "amountEurSpouse": 29.65492910938067
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "гр.Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 75.15990653584412,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "raicho-dimitrov-tsvetin-deb719",
@@ -142,6 +157,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

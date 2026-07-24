@@ -124,7 +124,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-borislavov-zdravkov-1b4650",
@@ -251,7 +252,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-borislavov-zdravkov-1b4650",
@@ -402,7 +404,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-borislavov-zdravkov-1b4650",
@@ -510,6 +513,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3221.1388515361764,
+        "legalBasis": "възмездно"
       }
     ]
   }

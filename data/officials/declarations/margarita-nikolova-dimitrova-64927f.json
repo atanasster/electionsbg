@@ -148,6 +148,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение - Поморие - май",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.00546059729118,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Квал. Семинар - Сърбия - дек.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 196.84737426054411,
+        "legalBasis": null
+      }
     ]
   }
 ]

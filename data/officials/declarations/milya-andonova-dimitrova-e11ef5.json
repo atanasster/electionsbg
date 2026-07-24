@@ -94,6 +94,20 @@
         "legalBasis": "Договор за финансов лизинг № 0072368/B1/07.2024 г. с лихвен процент 4.20",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Апарат за сънна апнея",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1380.48807922979,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -130,6 +144,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

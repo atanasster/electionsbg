@@ -136,7 +136,8 @@
         "legalBasis": "потр.кредит-12.49% лихва",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-ivanov-marinov-7b9957",
@@ -189,6 +190,20 @@
         "isSpouse": true,
         "legalBasis": "спестявания",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АИПСИМПХ-д-р Красимир Маринов ЕООД",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -383,6 +398,7 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

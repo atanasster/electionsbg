@@ -27,7 +27,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitr-panaiotov-dimitrov-103aa2",
@@ -130,7 +131,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-panaiotov-dimitrov-103aa2",
@@ -147,7 +149,21 @@
     "sourceUrl": "https://register.cacbg.bg/2024/6768042B-277C-4534-9EC7-42613B275E24196211.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение Съвет на ректорите на висшите училища в Република България",
+        "detail": null,
+        "location": "Нямам участие",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "dimitr-panaiotov-dimitrov-103aa2",
@@ -164,7 +180,33 @@
     "sourceUrl": "https://register.cacbg.bg/2023/6768042B-277C-4534-9EC7-42613B275E24156418.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Социални технологии със системи за големи данни за между и вътрешно корпоративно взаимодействие",
+        "detail": null,
+        "location": "Управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Подготовка и обработка на данни с висока сигурност в Системите за големи данни",
+        "detail": null,
+        "location": "Управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "dimitr-panaiotov-dimitrov-103aa2",
@@ -219,6 +261,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

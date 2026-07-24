@@ -106,6 +106,20 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачиа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9999.846612435642,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -197,7 +211,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantinos-karagyanakos-8344b5",
@@ -288,6 +303,7 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

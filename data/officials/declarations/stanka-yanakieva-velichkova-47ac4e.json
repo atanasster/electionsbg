@@ -244,7 +244,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanka-yanakieva-velichkova-47ac4e",
@@ -527,7 +528,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanka-yanakieva-velichkova-47ac4e",
@@ -768,7 +770,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanka-yanakieva-velichkova-47ac4e",
@@ -822,6 +825,20 @@
         "legalBasis": "няма",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент-прехвърляне на недв. имот в изпълнение на дълг с н.а.",
+        "detail": null,
+        "location": "Созопол",
+        "municipality": "Созопол",
+        "areaSqm": 25,
+        "builtAreaSqm": 25,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -839,6 +856,7 @@
     "sourceUrl": "https://register.cacbg.bg/2016/96D55DB3-5768-47F8-BD3A-E0A2D5BC37CA75495.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

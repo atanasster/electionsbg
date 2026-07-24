@@ -82,7 +82,8 @@
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-slavov-krstev-b50dcc",
@@ -353,7 +354,8 @@
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-slavov-krstev-b50dcc",
@@ -444,7 +446,8 @@
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-slavov-krstev-b50dcc",
@@ -546,6 +549,20 @@
         "isSpouse": false,
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "екскурзия Коста Рика",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
       }
     ]
   }

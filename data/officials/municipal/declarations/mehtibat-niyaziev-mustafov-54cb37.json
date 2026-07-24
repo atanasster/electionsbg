@@ -92,6 +92,20 @@
         "legalBasis": "Кредити",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1030.2531406103803,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

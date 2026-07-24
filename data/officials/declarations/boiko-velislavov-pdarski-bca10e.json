@@ -231,7 +231,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-velislavov-pdarski-bca10e",
@@ -471,6 +472,20 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "москвич",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -749,7 +764,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-velislavov-pdarski-bca10e",
@@ -1001,6 +1017,7 @@
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

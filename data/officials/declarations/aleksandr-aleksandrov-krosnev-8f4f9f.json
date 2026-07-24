@@ -94,6 +94,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Продажба на автомобил"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "Джип Гранд Чероки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -178,6 +192,32 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "Сууки Гранд витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "Субару Аутбек",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -300,7 +340,8 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-aleksandrov-krosnev-8f4f9f",
@@ -317,7 +358,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/A608C3FE-7FF5-4760-96E4-B2416BD9D26689986.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-aleksandrov-krosnev-8f4f9f",
@@ -407,6 +449,7 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

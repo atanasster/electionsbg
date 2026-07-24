@@ -14,7 +14,21 @@
     "sourceUrl": "https://register.cacbg.bg/2025/E9D6A1A0-9E92-49C3-9130-0A4A081FFFA2204175.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "СТЕМ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 122.71005148709244,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "aksiniya-aldinova-geratlieva-e08b0a",
@@ -68,6 +82,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -100,7 +100,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radka-georgieva-kundeva-58222f",
@@ -203,6 +204,20 @@
         "legalBasis": null,
         "fundsOrigin": "РЗ и ХОНОРАРИ"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "МАКЕДОНИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1255.2215683367165,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -294,7 +309,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radka-georgieva-kundeva-58222f",
@@ -403,7 +419,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radka-georgieva-kundeva-58222f",
@@ -583,7 +600,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radka-georgieva-kundeva-58222f",
@@ -600,6 +618,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E942EAFD-6F97-4FD3-934A-948D99998B6390876.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

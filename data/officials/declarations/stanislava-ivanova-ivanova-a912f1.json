@@ -112,7 +112,8 @@
         "legalBasis": "Договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislava-ivanova-ivanova-a912f1",
@@ -508,7 +509,8 @@
         "legalBasis": "Договор, лихва 19,90 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislava-ivanova-ivanova-a912f1",
@@ -605,7 +607,8 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislava-ivanova-ivanova-a912f1",
@@ -648,6 +651,20 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Аурис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2999.749466978214,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -665,7 +682,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/D646F08C-BE74-48A0-9FB0-35586717E489141663.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stanislava-ivanova-ivanova-a912f1",
@@ -1061,6 +1079,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

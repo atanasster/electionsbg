@@ -196,7 +196,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-stefanova-ivanova-dimova-3addbb",
@@ -400,6 +401,20 @@
         "isSpouse": true,
         "legalBasis": "Договори за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "с. Паскалево",
+        "municipality": "Добричка",
+        "areaSqm": 1740,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 5099.625223051084,
+        "legalBasis": "възмездно"
       }
     ]
   }

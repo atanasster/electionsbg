@@ -394,6 +394,44 @@
         "legalBasis": "записване на акции (джиро)",
         "fundsOrigin": "трудово възнаграждение"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с гараж и двор",
+        "detail": null,
+        "location": "с. Жедна",
+        "municipality": "Радомир",
+        "areaSqm": 1306,
+        "builtAreaSqm": 200,
+        "currency": "BGN",
+        "valueEur": 34999.974435405944,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж в груб строеж заедно с 1,08 % идеални части от парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 907,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 14999.769918653461,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент и гараж в груб строеж заедно с 7,17 % идеални част от парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 907,
+        "builtAreaSqm": 121,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      }
     ]
   },
   {
@@ -809,7 +847,8 @@
         "legalBasis": "записване на акции, джиро",
         "fundsOrigin": "трудово възнаграждение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-stoyanova-aleksandrova-8afb8a",
@@ -1152,6 +1191,80 @@
         "legalBasis": "записване на акции (джиро)",
         "fundsOrigin": "трудово възнаграждение"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "к. к. Слънчев бряг",
+        "municipality": "Несебър",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение на наследствен дял"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент в груб строеж заедно с 15,03 % идеални части от парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 907,
+        "builtAreaSqm": 98,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж в груб строеж заедно с 1,08 % идеални части от парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 907,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "специални сервитути върху парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 2517,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "учредяване на специални сервитути в полза на електро-разпределително дружество"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "специални сервитути върху парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1160,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "учредяване на специални сервитути в полза на електро-разпределително дружество"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Езикова ваканция в Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1738.903687948339,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1489,6 +1602,32 @@
         "legalBasis": "записване на акции, джиро",
         "fundsOrigin": "трудово възнаграждение"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж върху парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1160,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "учредяване на право на строеж на строително дружество срещу задължение за построяване на многофамилна жилищна сграда (суперфиция)"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж на апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 102,
+        "builtAreaSqm": 102,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение на право на строеж на апартамент"
+      }
     ]
   },
   {
@@ -1784,7 +1923,8 @@
         "legalBasis": "записване на акции, джиро",
         "fundsOrigin": "трудово възнаграждение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-stoyanova-aleksandrova-8afb8a",
@@ -1995,6 +2135,7 @@
         "legalBasis": "договор за системно инвестиране с \"ОББ АСЕТ МЕНИДЖМЪНТ\"АД",
         "fundsOrigin": "трудово възнаграждение"
       }
-    ]
+    ],
+    "events": []
   }
 ]

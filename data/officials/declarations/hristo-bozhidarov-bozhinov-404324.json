@@ -136,7 +136,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-bozhidarov-bozhinov-404324",
@@ -185,7 +186,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-bozhidarov-bozhinov-404324",
@@ -414,7 +416,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-bozhidarov-bozhinov-404324",
@@ -457,7 +460,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-bozhidarov-bozhinov-404324",
@@ -499,6 +503,20 @@
         "isSpouse": true,
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес ЦЛК 240",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -561,6 +579,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

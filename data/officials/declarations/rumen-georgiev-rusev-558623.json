@@ -136,7 +136,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-georgiev-rusev-558623",
@@ -275,7 +276,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-georgiev-rusev-558623",
@@ -408,7 +410,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-georgiev-rusev-558623",
@@ -553,7 +556,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-georgiev-rusev-558623",
@@ -625,7 +629,8 @@
         "legalBasis": "рефинансиране",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-georgiev-rusev-558623",
@@ -698,6 +703,20 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Рено Меган Сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -733,6 +752,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение с нестопанска цел Ред и сигурност",
+        "detail": null,
+        "location": "Председател",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -789,7 +822,8 @@
         "legalBasis": null,
         "fundsOrigin": "печалба спортен тотализатор"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-georgiev-rusev-558623",
@@ -824,6 +858,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "сдружение \"Ред и сигурност\"",
+        "detail": null,
+        "location": "Председател",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -987,6 +1035,20 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозе с вила",
+        "detail": null,
+        "location": "град Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 600,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
       }
     ]
   }

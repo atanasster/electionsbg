@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": "ПРОДАЖБА НА МАГАЗИН"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marin-kurtev-damyanov-4661b3",
@@ -140,6 +141,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на магазин"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр.Сливен, ул.Хаджи Димитър № 38",
+        "municipality": "Сливен",
+        "areaSqm": 30,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": 23008.13465382983,
+        "legalBasis": "възмездно"
       }
     ]
   }

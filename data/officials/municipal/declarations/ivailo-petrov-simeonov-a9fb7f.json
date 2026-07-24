@@ -141,6 +141,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Елешница",
+        "municipality": "Елин Пелин",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Елешница",
+        "municipality": "Елин Пелин",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Равно поле",
+        "municipality": "Елин Пелин",
+        "areaSqm": 8,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

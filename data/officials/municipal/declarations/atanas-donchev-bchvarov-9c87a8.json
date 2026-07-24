@@ -20,6 +20,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "складови помещение",
+        "detail": null,
+        "location": "гр. Стражица",
+        "municipality": "Стражица",
+        "areaSqm": 509,
+        "builtAreaSqm": 509,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

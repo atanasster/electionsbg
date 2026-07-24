@@ -76,6 +76,32 @@
         "legalBasis": "делба",
         "fundsOrigin": "безвъзмездно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща 2 етаж",
+        "detail": null,
+        "location": "Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 107,
+        "builtAreaSqm": 107,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща 3 етаж",
+        "detail": null,
+        "location": "Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 74,
+        "builtAreaSqm": 74,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -100,7 +126,8 @@
         "amountEurSpouse": 3834.6891089716387
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-stefanov-georgiev-11c2de",
@@ -161,7 +188,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и обезщетение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-stefanov-georgiev-11c2de",
@@ -204,7 +232,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-stefanov-georgiev-11c2de",
@@ -282,6 +311,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Монтана",
+        "municipality": "Монтана",
+        "areaSqm": 103,
+        "builtAreaSqm": 103,
+        "currency": "BGN",
+        "valueEur": 29654.92910938067,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. Монтана",
+        "municipality": "Монтана",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   }

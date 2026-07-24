@@ -58,6 +58,32 @@
         "legalBasis": "Д-р №014LD-R021767/06.2.2024",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "гр. Варна, България –Букурещ, Румъния – Галаци, Гърция и обратно /14.04.2024 г. до 18.04.2024 г./",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 419.25934258089916,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "15.05.2024 г. до 19.05.2024 г. до гр. Неапол, Италия и обратно, със следния маршрут: гр. Белослав Варна, България –Букурещ, Румъния – Неапол, Италия и обратно.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 419.25934258089916,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -88,7 +114,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "denitsa-todorova-todorova-bf107c",
@@ -118,7 +145,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Учебно посещение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1258.2893196238938,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "denitsa-todorova-todorova-bf107c",
@@ -148,7 +189,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "mini cooper",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "denitsa-todorova-todorova-bf107c",
@@ -172,7 +227,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Работно посещение в Република Хърватска",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "denitsa-todorova-todorova-bf107c",
@@ -196,7 +265,33 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Малага, Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Касълбар - Ирландия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "denitsa-todorova-todorova-bf107c",
@@ -220,6 +315,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

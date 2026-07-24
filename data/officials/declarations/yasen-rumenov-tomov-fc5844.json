@@ -124,7 +124,8 @@
         "legalBasis": "договор от 2023г.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yasen-rumenov-tomov-fc5844",
@@ -172,6 +173,20 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС - автомобил",
+        "detail": "Volvo XC 90",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
       }
     ]
   }

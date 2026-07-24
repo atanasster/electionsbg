@@ -76,6 +76,32 @@
         "legalBasis": "4,9%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Момчилград",
+        "municipality": "Момчилград",
+        "areaSqm": 1680,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Момчилград",
+        "municipality": "Момчилград",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -93,6 +119,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/1E7FDCF6-CED1-481E-ACBD-E5DAED7AE181182403.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

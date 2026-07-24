@@ -267,7 +267,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-georgiev-atanasov-025bb3",
@@ -375,6 +376,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и лични средства"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Видин",
+        "municipality": "Видин",
+        "areaSqm": 116,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": 31486.376627825528,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр.Видин",
+        "municipality": "Видин",
+        "areaSqm": 25,
+        "builtAreaSqm": 25,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Видин",
+        "municipality": "Видин",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -321,7 +321,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgenii-borisov-stoyanov-0e90d9",
@@ -520,7 +521,8 @@
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgenii-borisov-stoyanov-0e90d9",
@@ -718,6 +720,20 @@
         "isSpouse": false,
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучение Право на ЕС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
       }
     ]
   },
@@ -918,6 +934,20 @@
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучение по Право на ЕС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 848.7445227857227,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -954,6 +984,7 @@
         "legalBasis": "парично обезщетение по чл. 225, ал. 1 ЗСВ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

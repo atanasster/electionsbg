@@ -249,7 +249,8 @@
         "legalBasis": "покупка на апартамент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-ilieva-petrova-ec9787",
@@ -508,6 +509,20 @@
         "legalBasis": "покупка на апартамент",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 13,
+        "builtAreaSqm": 13,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -737,6 +752,7 @@
         "legalBasis": "покупка на апартамент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсии"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "donka-georgieva-iordanova-080ae3",
@@ -155,7 +156,8 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение за пенсиониране от предходен период и пенсии"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "donka-georgieva-iordanova-080ae3",
@@ -228,7 +230,8 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране в едно със заплати за минал период"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "donka-georgieva-iordanova-080ae3",
@@ -313,6 +316,20 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране в едно със заплати за минал период"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомбил",
+        "detail": "Фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 268.9395295092109,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -374,7 +391,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "donka-georgieva-iordanova-080ae3",
@@ -435,7 +453,8 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "donka-georgieva-iordanova-080ae3",
@@ -514,6 +533,7 @@
         "legalBasis": "ВСК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

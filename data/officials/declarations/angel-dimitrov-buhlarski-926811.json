@@ -33,7 +33,8 @@
         "legalBasis": "спестявания от заплати",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-dimitrov-buhlarski-926811",
@@ -129,6 +130,20 @@
         "isSpouse": false,
         "legalBasis": "договор за ипотечен кредит - 3.1%",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Роувър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "предаден за скрап"
       }
     ]
   },
@@ -227,6 +242,7 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

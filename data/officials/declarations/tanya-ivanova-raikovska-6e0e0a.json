@@ -238,7 +238,8 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-ivanova-raikovska-6e0e0a",
@@ -479,7 +480,8 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-ivanova-raikovska-6e0e0a",
@@ -720,7 +722,8 @@
         "legalBasis": "договор кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-ivanova-raikovska-6e0e0a",
@@ -973,6 +976,20 @@
         "legalBasis": "договор кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "хотелски нощувки и храна, участие в конф. На конст. съдии Северна Македония",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1208,6 +1225,20 @@
         "legalBasis": "договор кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "хотелски нощувки по участие в межд. Конф. на конституционни съдии",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 940,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1400,6 +1431,56 @@
         "isSpouse": false,
         "legalBasis": "договор кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "отказ от вещто право на ползване в/у ап.",
+        "detail": null,
+        "location": "ж.к.Дружба 2, бл. 258, вх. Б, ап. 37",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмезден отказ"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "отказ от вещно право на ползване в/у ап.",
+        "detail": null,
+        "location": "ж.к.Дружба 2, бл. 258, вх. Б, ап. 37",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмезден отказ"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек авт.  SUV",
+        "detail": "Сузуки Гранд Витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение на низходящ"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "хотелски нощувки по участие в международна конференция на конституционни съдии",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 775,
+        "legalBasis": null
       }
     ]
   }

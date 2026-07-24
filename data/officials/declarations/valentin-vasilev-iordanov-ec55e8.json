@@ -100,6 +100,32 @@
         "legalBasis": "Дог. за финансов лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Учредяване на право на преминаване",
+        "detail": null,
+        "location": "ул. Калиакра №3",
+        "municipality": "Кнежа",
+        "areaSqm": 14,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Договор - безвъзмезден"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Учредяване на право на преминаване",
+        "detail": null,
+        "location": "ул. Калиакра №3",
+        "municipality": "Кнежа",
+        "areaSqm": 14,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Договор - безвъзмезден"
+      }
     ]
   },
   {
@@ -215,7 +241,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, дивидент, пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-vasilev-iordanov-ec55e8",
@@ -330,7 +357,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-vasilev-iordanov-ec55e8",
@@ -403,6 +431,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

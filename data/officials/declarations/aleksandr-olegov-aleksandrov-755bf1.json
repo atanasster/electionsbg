@@ -33,7 +33,33 @@
         "amountEurSpouse": 1533.8756435886555
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "гр. Враца, Врачански лозя, м. Дружба",
+        "municipality": "Враца",
+        "areaSqm": 961,
+        "builtAreaSqm": 33,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лека кола",
+        "detail": "Сеат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "aleksandr-olegov-aleksandrov-755bf1",
@@ -57,7 +83,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-olegov-aleksandrov-755bf1",
@@ -124,7 +151,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-olegov-aleksandrov-755bf1",
@@ -160,6 +188,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

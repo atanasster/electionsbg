@@ -88,6 +88,32 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Велинград",
+        "municipality": "Велинград",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2530.8948119212814,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Велинград",
+        "municipality": "Велинград",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2530.8948119212814,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

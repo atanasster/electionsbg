@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-ivanova-sbeva-ad931d",
@@ -148,6 +149,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "ул. Васил Левски 38",
+        "municipality": "Дряново",
+        "areaSqm": 228,
+        "builtAreaSqm": 228,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
       }
     ]
   }

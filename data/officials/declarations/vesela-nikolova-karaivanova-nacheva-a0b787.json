@@ -184,6 +184,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение на парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 112641.6917625765,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -389,7 +403,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vesela-nikolova-karaivanova-nacheva-a0b787",
@@ -406,7 +421,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/943A7E38-6F67-42AE-8DDE-2AE3813D90AC114774.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "vesela-nikolova-karaivanova-nacheva-a0b787",
@@ -856,7 +872,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vesela-nikolova-karaivanova-nacheva-a0b787",
@@ -1061,7 +1078,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vesela-nikolova-karaivanova-nacheva-a0b787",
@@ -1212,6 +1230,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

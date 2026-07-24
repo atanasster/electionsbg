@@ -154,6 +154,32 @@
         "legalBasis": "Договор за потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "WV Passat",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "WV Passat",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -275,7 +301,8 @@
         "legalBasis": "Договор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valeriya-svetoslavova-kalcheva-bochukova-a80b25",
@@ -491,7 +518,8 @@
         "legalBasis": "Договор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valeriya-svetoslavova-kalcheva-bochukova-a80b25",
@@ -508,6 +536,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/622AC7C6-DDD6-4D5A-A164-BC5C13B82D6290543.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

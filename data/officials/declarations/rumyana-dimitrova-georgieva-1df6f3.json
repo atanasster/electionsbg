@@ -184,6 +184,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Червен бряг",
+        "municipality": "Червен бряг",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      }
     ]
   },
   {
@@ -201,7 +215,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/6F47E9CF-7C51-4713-8BBA-88FB31E0F977134257.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rumyana-dimitrova-georgieva-1df6f3",
@@ -399,6 +414,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

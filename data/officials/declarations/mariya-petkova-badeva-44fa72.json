@@ -118,6 +118,32 @@
         "legalBasis": "други(масова приватизация)",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Поло",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 178.95215841867648,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Поло",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 178.95215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -305,6 +331,56 @@
         "legalBasis": "други(масова приватизация)",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "етаж 3 от къща-груб строеж",
+        "detail": null,
+        "location": "гр. Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 152,
+        "builtAreaSqm": 145,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "етаж 3 от къща-груб строеж",
+        "detail": null,
+        "location": "гр. Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 152,
+        "builtAreaSqm": 145,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "етаж 4 от къща-груб строеж",
+        "detail": null,
+        "location": "гр. Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 152,
+        "builtAreaSqm": 94,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "етаж 4 от къща-груб строеж",
+        "detail": null,
+        "location": "гр. Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 152,
+        "builtAreaSqm": 94,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -402,7 +478,8 @@
         "legalBasis": "други(масова приватизация)",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-petkova-badeva-44fa72",
@@ -505,7 +582,8 @@
         "legalBasis": "други(масова приватизация)",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-petkova-badeva-44fa72",
@@ -626,6 +704,32 @@
         "legalBasis": "други (масова приватизация)",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 105,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 910,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -723,7 +827,8 @@
         "legalBasis": "други(масова приватизация)",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-petkova-badeva-44fa72",
@@ -1275,7 +1380,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-petkova-badeva-44fa72",
@@ -1292,6 +1398,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8607277E-8B72-4F8A-A296-6ACC889054AD92516.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

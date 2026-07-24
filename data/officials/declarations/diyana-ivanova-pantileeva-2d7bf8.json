@@ -105,7 +105,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diyana-ivanova-pantileeva-2d7bf8",
@@ -201,6 +202,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Свищов, ул. \"Св. Патриарх Евтимий\" №18, вх.А, ет.5, ап.15",
+        "municipality": "Свищов",
+        "areaSqm": 78,
+        "builtAreaSqm": 78,
+        "currency": "BGN",
+        "valueEur": 28121.053465792018,
+        "legalBasis": "възмездно"
       }
     ]
   }

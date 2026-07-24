@@ -118,6 +118,20 @@
         "legalBasis": "2.9%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "хюндай кона",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16689.078294125768,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -191,6 +205,7 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

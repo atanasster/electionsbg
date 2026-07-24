@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес C320 CDI \nМерцедес C320 CDI",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2607.588594100714,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -148,6 +162,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата; прехвърляне на имоти"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 64,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 27,
+        "builtAreaSqm": 27,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -142,6 +142,20 @@
         "legalBasis": "договор, ГЛП 3,13 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1799.747421810689,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -269,6 +283,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "мобилност по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1712.827802007332,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -378,6 +406,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "мобилност по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 899.8737109053445,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -451,6 +493,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "мобилност по програма Еразъм",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1288.4555406144707,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -481,6 +537,7 @@
         "amountEurSpouse": 5669.7156705848665
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

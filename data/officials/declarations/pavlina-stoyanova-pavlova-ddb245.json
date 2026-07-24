@@ -70,7 +70,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-stoyanova-pavlova-ddb245",
@@ -136,6 +137,56 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Омуртаг",
+        "municipality": "Омуртаг",
+        "areaSqm": 107,
+        "builtAreaSqm": 107,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Орач",
+        "municipality": "Антоново",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Орач",
+        "municipality": "Антоново",
+        "areaSqm": 9,
+        "builtAreaSqm": 9,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Орач",
+        "municipality": "Антоново",
+        "areaSqm": 20,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
       }
     ]
   }

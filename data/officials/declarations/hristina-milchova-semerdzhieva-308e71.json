@@ -154,6 +154,32 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3700.7306360982293,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3700.7306360982293,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -238,6 +264,20 @@
         "isSpouse": true,
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Р. МАКЕДОНИЯ КУРС \"ОБУЧЕНИЕ НА ПОЛИТИЧЕСКИ ЛИДЕРИ\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1687.263207947521,
+        "legalBasis": null
       }
     ]
   }

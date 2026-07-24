@@ -100,7 +100,8 @@
         "legalBasis": "лизингов договор 2.99",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuli-stanchev-gornishki-fd888e",
@@ -232,6 +233,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за фин.лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ Х3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6131.9235311862485,
+        "legalBasis": "възмездно"
       }
     ]
   }

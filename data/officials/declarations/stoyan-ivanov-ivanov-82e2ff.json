@@ -21,7 +21,21 @@
         "amountEurSpouse": 15853.11606836995
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировъчни разходи за служебно пътуване - обмяна на опит",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 894.7607920933824,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "stoyan-ivanov-ivanov-82e2ff",
@@ -75,6 +89,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

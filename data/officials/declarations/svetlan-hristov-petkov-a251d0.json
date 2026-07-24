@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetlan-hristov-petkov-a251d0",
@@ -131,7 +132,8 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetlan-hristov-petkov-a251d0",
@@ -264,7 +266,8 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetlan-hristov-petkov-a251d0",
@@ -396,6 +399,20 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Търговище, кв. Бряг",
+        "municipality": "Търговище",
+        "areaSqm": 1100,
+        "builtAreaSqm": 92,
+        "currency": "BGN",
+        "valueEur": 11248.421386316806,
+        "legalBasis": "възмездно"
       }
     ]
   }

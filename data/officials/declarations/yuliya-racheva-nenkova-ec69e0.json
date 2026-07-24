@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuliya-racheva-nenkova-ec69e0",
@@ -155,7 +156,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuliya-racheva-nenkova-ec69e0",
@@ -270,6 +272,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -330,6 +346,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и от продажба на имот от предходни години"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Холандия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
       }
     ]
   }

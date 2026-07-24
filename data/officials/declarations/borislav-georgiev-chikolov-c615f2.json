@@ -51,6 +51,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Инсигния",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 19429.0914854563,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -68,7 +82,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/1189CA7D-F0E9-42AA-9E3C-B37E9A76CBE9154731.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "borislav-georgiev-chikolov-c615f2",
@@ -176,6 +191,7 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

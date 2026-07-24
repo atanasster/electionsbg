@@ -1269,6 +1269,20 @@
         "legalBasis": "договор",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -213,6 +213,32 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Синя вода",
+        "municipality": "Лозница",
+        "areaSqm": 80,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3428.212063420645,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Синя вода",
+        "municipality": "Лозница",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2116.7483881523444,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

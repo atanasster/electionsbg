@@ -1010,6 +1010,80 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Троян",
+        "municipality": "Троян",
+        "areaSqm": 80,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Троян",
+        "municipality": "Троян",
+        "areaSqm": 80,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Велчево",
+        "municipality": "Априлци",
+        "areaSqm": 3797,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76.69378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Велчево",
+        "municipality": "Априлци",
+        "areaSqm": 1448,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Велчево",
+        "municipality": "Априлци",
+        "areaSqm": 4011,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76.69378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на надстрояване",
+        "detail": null,
+        "location": "Троян",
+        "municipality": "Троян",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

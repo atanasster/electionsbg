@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-todorov-iliev-65fdb6",
@@ -161,7 +162,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-todorov-iliev-65fdb6",
@@ -337,7 +339,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-todorov-iliev-65fdb6",
@@ -511,6 +514,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Братушнково",
+        "municipality": "Сливница",
+        "areaSqm": 924,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 17383.92396067143,
+        "legalBasis": "възмездно"
       }
     ]
   }

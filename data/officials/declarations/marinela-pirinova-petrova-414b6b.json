@@ -159,7 +159,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marinela-pirinova-petrova-414b6b",
@@ -250,7 +251,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marinela-pirinova-petrova-414b6b",
@@ -298,6 +300,20 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Note",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -372,6 +388,7 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   }
 ]

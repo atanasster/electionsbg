@@ -64,6 +64,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ниви",
+        "detail": null,
+        "location": "с.Владимирово",
+        "municipality": "Добричка",
+        "areaSqm": 13,
+        "builtAreaSqm": 13251,
+        "currency": "BGN",
+        "valueEur": 2709.846970339958,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -113,6 +127,7 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

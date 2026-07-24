@@ -334,7 +334,8 @@
         "legalBasis": "Банков кредит,лихвен процент 4,49%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "biser-rozenov-minchev-9ac964",
@@ -622,7 +623,8 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "biser-rozenov-minchev-9ac964",
@@ -935,6 +937,20 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "ix35",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -952,7 +968,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/94E1474E-3436-41AF-985D-A28112E5D4FB155758.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "biser-rozenov-minchev-9ac964",
@@ -1186,6 +1203,7 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

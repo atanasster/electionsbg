@@ -112,7 +112,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tonya-dimitrova-todorova-0587a1",
@@ -227,7 +228,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tonya-dimitrova-todorova-0587a1",
@@ -288,6 +290,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 870.2187817959639,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 822.1573449635193,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -305,7 +333,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/B94D1894-7DC3-46A9-B0CE-6C80AC0B080696057.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tonya-dimitrova-todorova-0587a1",
@@ -395,6 +424,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -472,6 +472,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания на родителите"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "WV Tiguan",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "договор за покупко-продажба"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Гаранция по ДУК в лева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -917,6 +943,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания на родителите"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "VW Touran",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1254,6 +1294,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания на родителите"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Гаранция по ДУК в лв.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1441,7 +1495,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-radonov-0c3b4c",
@@ -1772,7 +1827,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-radonov-0c3b4c",
@@ -1959,7 +2015,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-radonov-0c3b4c",
@@ -2396,7 +2453,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-radonov-0c3b4c",
@@ -2413,6 +2471,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/ED5BFE7B-5F59-4982-89E2-79C7F210307C91163.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

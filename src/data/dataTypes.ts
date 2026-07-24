@@ -559,6 +559,9 @@ export type OfficialDeclaration = {
   ownershipStakes: MpOwnershipStake[];
   income: MpIncomeRecord[];
   assets?: MpAsset[];
+  /** Prior-year disposals and third-party-paid expenses — see
+   *  MpDeclarationEvent. Deliberately NOT part of any net-worth total. */
+  events?: MpDeclarationEvent[];
 };
 
 export type OfficialIndexEntry = {
@@ -856,6 +859,9 @@ export type MpDeclaration = {
    * investments, securities). Older declarations parsed before the assets
    * extension may not have this field — treat as []. */
   assets?: MpAsset[];
+  /** Prior-year disposals and third-party-paid expenses — see
+   *  MpDeclarationEvent. Deliberately NOT part of any net-worth total. */
+  events?: MpDeclarationEvent[];
 };
 
 /** Categories covered by the wealth aggregator. `debt` is a liability and is
@@ -875,6 +881,43 @@ export type MpAssetCategory =
  * are simply null. `valueEur` is the euro value stored on the row; the parser
  * converts the declarant's leva figure (or BGN-equivalent column) at the
  * locked 1.95583 peg. See src/lib/currency.ts. */
+/** Things a declaration RECORDS but that are not part of the declarant's estate
+ *  at filing time. Kept apart from `assets` on purpose: including them in a net
+ *  worth would double-count a property the declarant no longer owns, or credit
+ *  them with a trip somebody else paid for.
+ *
+ *  - `disposal_property` / `disposal_vehicle` (tables 2 and 3.5) — sold or
+ *    otherwise transferred during the previous year. The estate no longer holds
+ *    them, which is exactly why they are interesting: this is where "sold the
+ *    Porsche the year before leaving office" is recorded.
+ *  - `guarantee` (table 13) — securities given, or expenses made in the
+ *    declarant's favour, that they did not pay for themselves.
+ *  - `third_party_expense` (table 14) — expenses for the declarant, spouse or
+ *    minor children paid by someone else. Together with table 13 this is the
+ *    closest thing the form has to a gifts register, and neither was parsed. */
+export type DeclarationEventKind =
+  | "disposal_property"
+  | "disposal_vehicle"
+  | "guarantee"
+  | "third_party_expense";
+
+export type MpDeclarationEvent = {
+  kind: DeclarationEventKind;
+  /** "Нива", "ЛЕК АВТОМОБИЛ", "Издръжка за 3 деца", "Китай - Япония". */
+  description: string | null;
+  /** Vehicle make, where the form separates it from the type. */
+  detail: string | null;
+  location: string | null;
+  municipality: string | null;
+  areaSqm: number | null;
+  builtAreaSqm: number | null;
+  currency: string | null;
+  /** Sale price / guarantee size / expense, in euros at the locked peg. */
+  valueEur: number | null;
+  /** "възмездно", "дарение", … — how the transfer happened. */
+  legalBasis: string | null;
+};
+
 export type MpAsset = {
   category: MpAssetCategory;
   /** "Вид на имота/средството" — human description of the asset kind. */

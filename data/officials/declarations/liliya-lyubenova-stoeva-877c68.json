@@ -58,6 +58,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 407",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1346.2315231896432,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -155,6 +169,7 @@
         "legalBasis": "потребителски заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

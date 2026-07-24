@@ -177,7 +177,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milen-grozev-grozev-a82b29",
@@ -262,7 +263,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба-имот, заплата, пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milen-grozev-grozev-a82b29",
@@ -437,6 +439,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба-имот,заплата,пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "м.Пчелина",
+        "municipality": "Разград",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -594,7 +610,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milen-grozev-grozev-a82b29",
@@ -775,7 +792,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milen-grozev-grozev-a82b29",
@@ -950,6 +968,32 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "Разград",
+        "municipality": "Разград",
+        "areaSqm": 117,
+        "builtAreaSqm": 117,
+        "currency": "BGN",
+        "valueEur": 46016.26930765966,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Разград",
+        "municipality": "Разград",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -967,7 +1011,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/FC3F75CC-DB8F-4B7A-B5FE-093CD17A292192740.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milen-grozev-grozev-a82b29",
@@ -1111,6 +1156,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

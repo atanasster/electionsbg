@@ -177,7 +177,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-atanasov-pirovski-dfb3fc",
@@ -363,6 +364,20 @@
         "isSpouse": false,
         "legalBasis": "потребителски",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомабил",
+        "detail": "тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2711.892137864743,
+        "legalBasis": "възмездно"
       }
     ]
   }

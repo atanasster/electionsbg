@@ -106,7 +106,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-aleksandrov-iliev-4561e2",
@@ -142,7 +143,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-aleksandrov-iliev-4561e2",
@@ -269,7 +271,8 @@
         "legalBasis": null,
         "fundsOrigin": "продаден гараж"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-aleksandrov-iliev-4561e2",
@@ -342,6 +345,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 73,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -359,7 +376,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B4DFA62C-504F-45FE-84E3-0B0C321F476789039.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-aleksandrov-iliev-4561e2",
@@ -569,6 +587,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

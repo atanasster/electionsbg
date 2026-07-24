@@ -94,6 +94,44 @@
         "legalBasis": null,
         "fundsOrigin": "НАЕМИ, ДАРЕНИЕ ОТ РОДИТЕЛИ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 22,
+        "builtAreaSqm": 22,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 22,
+        "builtAreaSqm": 22,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -263,7 +301,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-asenova-krumova-mihailova-5c1559",
@@ -360,6 +399,20 @@
         "legalBasis": null,
         "fundsOrigin": "НАЕМИ, ДАРЕНИЕ ОТ РОДИТЕЛИ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ АСТРА 1.6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 449.93685545267226,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -421,7 +474,8 @@
         "legalBasis": null,
         "fundsOrigin": "наеми, дарения от родители"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-asenova-krumova-mihailova-5c1559",
@@ -763,7 +817,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-asenova-krumova-mihailova-5c1559",
@@ -1051,6 +1106,7 @@
         "legalBasis": null,
         "fundsOrigin": "наеми,дарения от родители"
       }
-    ]
+    ],
+    "events": []
   }
 ]

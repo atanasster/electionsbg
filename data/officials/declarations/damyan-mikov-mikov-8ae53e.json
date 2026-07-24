@@ -94,7 +94,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "damyan-mikov-mikov-8ae53e",
@@ -191,7 +192,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "damyan-mikov-mikov-8ae53e",
@@ -306,6 +308,56 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ботевград",
+        "municipality": "Ботевград",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 35004.06477045551,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор ,селскостопански постройки и гараж",
+        "detail": null,
+        "location": "Луковит",
+        "municipality": "Луковит",
+        "areaSqm": 637,
+        "builtAreaSqm": 161,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотоциклет",
+        "detail": "Харлей Дейвидсън",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотоциклет",
+        "detail": "MZ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1136.0905600179974,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -342,6 +394,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания и  приходи"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -359,7 +425,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/BA0EAD62-AABC-4F75-BD3E-FF2507BC356A88667.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "damyan-mikov-mikov-8ae53e",
@@ -557,6 +624,7 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -118,7 +118,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-stoyanov-tonev-6d55d8",
@@ -214,6 +215,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "обезпечение по договор за управбление",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": null
       }
     ]
   },
@@ -354,7 +369,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-stoyanov-tonev-6d55d8",
@@ -475,7 +491,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-stoyanov-tonev-6d55d8",
@@ -1208,7 +1225,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-stoyanov-tonev-6d55d8",
@@ -1383,6 +1401,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "гр. Сандански",
+        "municipality": "Сандански",
+        "areaSqm": 144,
+        "builtAreaSqm": 144,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -1400,7 +1432,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/99CEAFB3-1735-4819-977C-B5D9D4764CBC90187.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iliya-stoyanov-tonev-6d55d8",
@@ -2084,6 +2117,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

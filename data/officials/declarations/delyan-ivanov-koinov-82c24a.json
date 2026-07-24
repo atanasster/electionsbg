@@ -166,6 +166,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ЗА ЗАСТРАХОВКА НА ЛИЧЕН АВТОМОБИЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 605.8808792175189,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ЗАКУПУВАНЕ НА 4 БРОЯ МОБИЛНИ ТЕЛЕФОНА",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3185.348419852441,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -340,6 +366,32 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ЗА ЗАСТРАХОВКА НА ЛИЧЕН АВТОМОБИЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 670.8149481294387,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ЗАКУПУВАНЕ НА КЛИМАТИК",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 843.1203120925643,
+        "legalBasis": null
       }
     ]
   }

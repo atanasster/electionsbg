@@ -334,7 +334,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalin-spasov-kalinov-f2c341",
@@ -707,6 +708,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "гр. Варна, местност \"Кочмар\", комплекс \"Арт вилидж\", къща 5",
+        "municipality": "Варна",
+        "areaSqm": 122,
+        "builtAreaSqm": 122,
+        "currency": "BGN",
+        "valueEur": 54899.96574344396,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1008,7 +1023,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalin-spasov-kalinov-f2c341",
@@ -1308,6 +1324,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "включване в строеж",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 43919.97259475517,
+        "legalBasis": null
       }
     ]
   },
@@ -1610,6 +1640,68 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "образование и издръжка на студент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 3067.751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Литва",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Македония",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Австрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1627,7 +1719,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/4D62273D-3B61-48FA-85A5-59E756AB5EA490824.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kalin-spasov-kalinov-f2c341",
@@ -1915,6 +2008,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

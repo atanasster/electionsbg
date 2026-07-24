@@ -124,7 +124,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanimira-angelova-tananova-kirova-e0366f",
@@ -250,6 +251,68 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Любимец",
+        "municipality": "Любимец",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Любимец",
+        "municipality": "Любимец",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Любимец",
+        "municipality": "Любимец",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Любимец",
+        "municipality": "Любимец",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -408,6 +471,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -425,7 +502,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/514AF7E9-ACD3-4634-AA93-6EE7A40B718C139079.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stanimira-angelova-tananova-kirova-e0366f",
@@ -821,6 +899,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

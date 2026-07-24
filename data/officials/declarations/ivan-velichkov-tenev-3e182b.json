@@ -76,7 +76,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-velichkov-tenev-3e182b",
@@ -129,6 +130,20 @@
         "isSpouse": false,
         "legalBasis": "Обзавецдане",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Магазин",
+        "detail": null,
+        "location": "гр. Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 64,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "Покупко продажба"
       }
     ]
   }

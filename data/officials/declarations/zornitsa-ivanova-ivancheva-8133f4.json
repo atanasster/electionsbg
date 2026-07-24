@@ -154,7 +154,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-ivanova-ivancheva-8133f4",
@@ -449,6 +450,20 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Поморие",
+        "municipality": "Поморие",
+        "areaSqm": 810,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 7200.012271005149,
+        "legalBasis": "замяна на имоти по т.2-8 по табл.1 с доплащане по кол.10"
+      }
     ]
   },
   {
@@ -510,7 +525,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-ivanova-ivancheva-8133f4",
@@ -571,7 +587,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-ivanova-ivancheva-8133f4",
@@ -632,7 +649,8 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-ivanova-ivancheva-8133f4",
@@ -758,7 +776,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zornitsa-ivanova-ivancheva-8133f4",
@@ -775,6 +794,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/B81EB155-6968-4430-84D8-31CA72B5BFB898481.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

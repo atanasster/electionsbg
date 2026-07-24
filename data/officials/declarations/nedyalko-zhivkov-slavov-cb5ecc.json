@@ -202,7 +202,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedyalko-zhivkov-slavov-cb5ecc",
@@ -406,6 +407,32 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Фронтера",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Посещение в ЕК и ЕП-Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
       }
     ]
   },
@@ -732,7 +759,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестяванияи дивиденти"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedyalko-zhivkov-slavov-cb5ecc",
@@ -786,6 +814,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

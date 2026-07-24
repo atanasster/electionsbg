@@ -124,7 +124,8 @@
         "legalBasis": "ЗАЕМ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-petkov-marinov-a97fe3",
@@ -244,6 +245,20 @@
         "isSpouse": false,
         "legalBasis": "Решение на СРС",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода Фабия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -569,6 +584,20 @@
         "isSpouse": false,
         "legalBasis": "Решение на СРС",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Владиня",
+        "municipality": "Ловеч",
+        "areaSqm": 2,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 281.21053465792016,
+        "legalBasis": "възмездно"
       }
     ]
   }

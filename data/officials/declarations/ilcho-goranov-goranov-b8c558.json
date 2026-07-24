@@ -82,6 +82,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "С.БЕНКОВСКИ",
+        "municipality": "Аврен",
+        "areaSqm": 1000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1431.6172673494118,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МОТОЦИКЛЕТ",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

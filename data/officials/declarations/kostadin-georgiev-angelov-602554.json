@@ -142,6 +142,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "апартамент, гараж, паркомясто и ид.ч. от ПИ-22,12%",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 269962.11327160336,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -299,7 +313,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-georgiev-angelov-602554",
@@ -335,7 +350,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-georgiev-angelov-602554",
@@ -587,7 +603,8 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-georgiev-angelov-602554",
@@ -604,6 +621,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B8E5A0A3-2091-4D45-8F60-A5D0F6A0A2FC89232.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

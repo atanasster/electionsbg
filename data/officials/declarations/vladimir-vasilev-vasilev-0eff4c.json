@@ -160,7 +160,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-vasilev-vasilev-0eff4c",
@@ -365,7 +366,8 @@
         "legalBasis": "възнаграждение",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-vasilev-vasilev-0eff4c",
@@ -450,7 +452,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-vasilev-vasilev-0eff4c",
@@ -589,7 +592,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-vasilev-vasilev-0eff4c",
@@ -680,7 +684,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-vasilev-vasilev-0eff4c",
@@ -1101,6 +1106,32 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Такса обучение - ЧСОУ Сж.Георги - София",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3499.2816349069194,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Такса услуги Уандър Груп ( ЧСОУ Сж.Георги)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3399.5797180736567,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1419,7 +1450,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-vasilev-vasilev-0eff4c",
@@ -1436,6 +1468,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DDB6DD98-6270-4D5F-9ACC-33664325EBA590403.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

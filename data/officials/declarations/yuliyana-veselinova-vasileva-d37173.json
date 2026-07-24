@@ -100,6 +100,20 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "алфа ромео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2914.3637228184452,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -117,7 +131,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/106A494A-26D7-4781-92CA-80E6FD1CD1DA193222.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "yuliyana-veselinova-vasileva-d37173",
@@ -225,6 +240,7 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -160,6 +160,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Направено дарение във връзка с предизборна кампания на коалиция ДПС-Ново начало по IBAN BG20SOMB91301000025474",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Направено дарение във връзка с предизборна кампания на коалиция ДПС-Ново начало по IBAN BG20SOMB91301000025474",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Направено дарение във връзка с предизборна кампания на коалиция ДПС-Ново начало по IBAN BG20SOMB91301000025474",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -299,6 +337,7 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -27,7 +27,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 81,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 34256.556040146635,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "leilya-mestan-ismail-b81f8f",
@@ -148,6 +162,7 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

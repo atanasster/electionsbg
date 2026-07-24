@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dikran-bohos-bohosyan-3adcc7",
@@ -113,7 +114,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dikran-bohos-bohosyan-3adcc7",
@@ -162,7 +164,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dikran-bohos-bohosyan-3adcc7",
@@ -229,7 +232,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dikran-bohos-bohosyan-3adcc7",
@@ -313,6 +317,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Меган",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -399,7 +417,8 @@
         "legalBasis": "покупка на жилище",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dikran-bohos-bohosyan-3adcc7",
@@ -489,7 +508,8 @@
         "legalBasis": "покупка на жилище",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dikran-bohos-bohosyan-3adcc7",
@@ -506,6 +526,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/189346D6-510B-4B6B-9B3A-BDDB89EEC97A89300.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

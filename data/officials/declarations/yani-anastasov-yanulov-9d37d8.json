@@ -106,6 +106,20 @@
         "legalBasis": "ДОГОВОР ЗА ЗАЕМ, ЛИХВА 4,9%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МИТЦУБИШИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "БРАКУВАНЕ"
+      }
     ]
   },
   {
@@ -149,6 +163,7 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

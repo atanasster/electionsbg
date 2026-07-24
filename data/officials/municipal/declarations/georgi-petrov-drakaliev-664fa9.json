@@ -105,6 +105,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Мерцедес МЛ 250",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11146.163010077564,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -121,6 +135,20 @@
     "sourceUrl": "https://register.cacbg.bg/2025/FCCC4680-B952-4C55-B064-CB32334E86ED217669.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ФОНДАЦИЯ ВМРО",
+        "detail": null,
+        "location": "ЧЛЕН",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

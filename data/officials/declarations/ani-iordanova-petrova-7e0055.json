@@ -76,7 +76,8 @@
         "legalBasis": "4.2",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ani-iordanova-petrova-7e0055",
@@ -136,6 +137,20 @@
         "isSpouse": false,
         "legalBasis": "Ипотечен крадит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "възмездно"
       }
     ]
   }

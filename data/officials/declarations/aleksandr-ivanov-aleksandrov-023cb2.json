@@ -76,7 +76,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-ivanov-aleksandrov-023cb2",
@@ -119,6 +120,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -143,7 +170,8 @@
         "amountEurSpouse": 4961.576415128105
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-ivanov-aleksandrov-023cb2",
@@ -167,6 +195,7 @@
         "amountEurSpouse": 5423.272983848289
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

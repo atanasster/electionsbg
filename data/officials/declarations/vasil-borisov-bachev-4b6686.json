@@ -100,6 +100,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4473.803960466912,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4473.803960466912,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -166,6 +192,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания и заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 10,
+        "builtAreaSqm": 10,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 10,
+        "builtAreaSqm": 10,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   }

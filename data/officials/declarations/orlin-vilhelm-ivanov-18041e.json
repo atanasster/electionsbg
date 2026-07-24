@@ -130,6 +130,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, наеми и дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент и две парко места",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 138,
+        "builtAreaSqm": 163,
+        "currency": "BGN",
+        "valueEur": 334999.9744354059,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -245,7 +259,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-vilhelm-ivanov-18041e",
@@ -378,7 +393,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-vilhelm-ivanov-18041e",
@@ -493,7 +509,8 @@
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-vilhelm-ivanov-18041e",
@@ -571,6 +588,20 @@
         "isSpouse": false,
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13549.23485169979,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -668,7 +699,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-vilhelm-ivanov-18041e",
@@ -770,6 +802,32 @@
         "isSpouse": false,
         "legalBasis": "Наем",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 71,
+        "builtAreaSqm": 71,
+        "currency": "BGN",
+        "valueEur": 89500.10992775446,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "таван",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 12,
+        "builtAreaSqm": 12,
+        "currency": "BGN",
+        "valueEur": 89500.10992775446,
+        "legalBasis": "възмездно"
       }
     ]
   }

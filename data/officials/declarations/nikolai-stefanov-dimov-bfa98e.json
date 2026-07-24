@@ -76,6 +76,20 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксфаген Туран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -137,7 +151,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-stefanov-dimov-bfa98e",
@@ -245,7 +260,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-stefanov-dimov-bfa98e",
@@ -262,7 +278,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1655F0EF-0CAB-40C5-A320-E529EFB9136089057.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-stefanov-dimov-bfa98e",
@@ -370,6 +387,7 @@
         "legalBasis": "договор кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

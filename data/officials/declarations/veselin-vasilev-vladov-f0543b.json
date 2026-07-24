@@ -46,6 +46,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОЛИБ",
+        "detail": "МЕРЦЕДЕС С 180",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -89,7 +103,8 @@
         "legalBasis": "други-придобивна давност",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-vasilev-vladov-f0543b",
@@ -113,7 +128,8 @@
         "amountEurSpouse": 3710.956473722154
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselin-vasilev-vladov-f0543b",
@@ -257,7 +273,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-vasilev-vladov-f0543b",
@@ -274,6 +291,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F27A265A-9DEC-4682-B01B-065FEBBE3DF090036.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

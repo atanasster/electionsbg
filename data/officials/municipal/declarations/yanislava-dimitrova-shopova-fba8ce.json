@@ -20,7 +20,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Ровър 75",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "yanislava-dimitrova-shopova-fba8ce",
@@ -55,6 +69,7 @@
         "legalBasis": "Заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

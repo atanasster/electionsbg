@@ -220,7 +220,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "trifon-pavkov-pavkov-b53ecb",
@@ -479,7 +480,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "trifon-pavkov-pavkov-b53ecb",
@@ -606,7 +608,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "trifon-pavkov-pavkov-b53ecb",
@@ -697,7 +700,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "trifon-pavkov-pavkov-b53ecb",
@@ -800,6 +804,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "конференция по икономика",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 557.3081505038782,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -885,6 +903,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "годишна конференция по икономика",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 1046.103188927463,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -969,6 +1001,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Сенник",
+        "municipality": "Севлиево",
+        "areaSqm": 2953,
+        "builtAreaSqm": 201,
+        "currency": "BGN",
+        "valueEur": 11759.713267513025,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 209.11837940925335,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 358.92690059974535,
+        "legalBasis": null
       }
     ]
   }

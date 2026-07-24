@@ -130,6 +130,20 @@
         "legalBasis": "протокол от ОС чл.134 ал.2 от ТЗ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ФОЛКСВАГЕН",
+        "detail": "ТУАРЕГ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -280,6 +294,20 @@
         "isSpouse": true,
         "legalBasis": "протокол от ОС чл.134 ал.2 от ТЗ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Бургас, Славейков чл.58",
+        "municipality": "Бургас",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": "възмездно"
       }
     ]
   }

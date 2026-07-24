@@ -184,6 +184,32 @@
         "legalBasis": "договор, 5,6 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 16.93,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "предварителен договор за покупко-продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "двор с постройка",
+        "detail": null,
+        "location": "с. Видраре",
+        "municipality": "Правец",
+        "areaSqm": 925,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "договор за покупко-продажба"
+      }
     ]
   },
   {
@@ -526,7 +552,8 @@
         "legalBasis": "договор, 5,6 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-rusev-kangaldzhiev-dd2add",
@@ -665,6 +692,7 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

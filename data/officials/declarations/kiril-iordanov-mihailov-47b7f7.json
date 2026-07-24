@@ -220,7 +220,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-iordanov-mihailov-47b7f7",
@@ -478,6 +479,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "С.О. Ален мак, Варна",
+        "municipality": "Варна",
+        "areaSqm": 58,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Заповед №2383/10.07.2023г. на кмет Варна за УПИ"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вила",
+        "detail": null,
+        "location": "С.О. Ален мак, Варна",
+        "municipality": "Варна",
+        "areaSqm": 39,
+        "builtAreaSqm": 39,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Съборена"
       }
     ]
   }

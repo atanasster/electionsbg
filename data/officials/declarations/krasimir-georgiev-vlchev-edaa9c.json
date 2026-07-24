@@ -442,7 +442,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-georgiev-vlchev-edaa9c",
@@ -863,6 +864,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с Капитан Андреево",
+        "municipality": "Свиленград",
+        "areaSqm": 38,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8743.091168455336,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1248,7 +1263,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-georgiev-vlchev-edaa9c",
@@ -1525,6 +1541,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

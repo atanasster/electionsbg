@@ -214,6 +214,20 @@
         "legalBasis": "безлихвен",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Швеция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 230.08134653829833,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -268,7 +282,8 @@
         "legalBasis": "ипотечен кредит дск банк",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-krasimirov-ivanov-80943c",
@@ -285,7 +300,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/CA4AE690-3019-486F-911A-1265026D3256180643.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "deyan-krasimirov-ivanov-80943c",
@@ -429,6 +445,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

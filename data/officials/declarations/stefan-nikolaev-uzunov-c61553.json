@@ -76,6 +76,20 @@
         "legalBasis": "потребителски кредит, 4.3 лихвен процент",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мицубиши Еклипс Крос",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13293.58891110168,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -149,7 +163,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-nikolaev-uzunov-c61553",
@@ -198,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-nikolaev-uzunov-c61553",
@@ -265,7 +281,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-nikolaev-uzunov-c61553",
@@ -350,7 +367,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-nikolaev-uzunov-c61553",
@@ -398,6 +416,20 @@
         "isSpouse": true,
         "legalBasis": "лизингов договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 156.45531564604286,
+        "legalBasis": null
       }
     ]
   },
@@ -489,7 +521,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-nikolaev-uzunov-c61553",
@@ -506,6 +539,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/943BECD9-FFAF-4F05-A7EF-62241461D74A89453.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -141,6 +141,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение Югоизточна Европа",
+        "detail": null,
+        "location": "нефинансово",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -158,7 +172,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/9042CAAD-1D39-4BE4-ACEC-239C9F452B3B90730.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariya-todorova-todorova-5afd3a",
@@ -296,7 +311,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-todorova-todorova-5afd3a",
@@ -416,7 +432,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-todorova-todorova-5afd3a",
@@ -536,6 +553,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

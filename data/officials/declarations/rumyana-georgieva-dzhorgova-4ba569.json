@@ -148,6 +148,20 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "софия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 97,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 61500.232637805944,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -221,7 +235,8 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumyana-georgieva-dzhorgova-4ba569",
@@ -264,6 +279,7 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране"
       }
-    ]
+    ],
+    "events": []
   }
 ]

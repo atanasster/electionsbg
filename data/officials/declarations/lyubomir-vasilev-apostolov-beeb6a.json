@@ -393,6 +393,20 @@
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Бачково",
+        "municipality": "Асеновград",
+        "areaSqm": 472,
+        "builtAreaSqm": 136,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -410,7 +424,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/406E8B11-01DC-4FE3-B9A4-9D8C1D6E33B8196991.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyubomir-vasilev-apostolov-beeb6a",
@@ -662,6 +677,7 @@
         "legalBasis": "Потребитески кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

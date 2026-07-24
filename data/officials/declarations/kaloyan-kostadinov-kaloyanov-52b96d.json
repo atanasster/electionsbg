@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия и заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kaloyan-kostadinov-kaloyanov-52b96d",
@@ -95,7 +96,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kaloyan-kostadinov-kaloyanov-52b96d",
@@ -191,6 +193,20 @@
         "isSpouse": false,
         "legalBasis": "договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -433,6 +449,7 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

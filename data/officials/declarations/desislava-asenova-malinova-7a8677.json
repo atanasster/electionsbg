@@ -130,6 +130,20 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "СОФИЯ, КРАСНА ПОЛЯНА",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 107371.29505120589,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -166,7 +180,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "desislava-asenova-malinova-7a8677",
@@ -251,6 +266,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

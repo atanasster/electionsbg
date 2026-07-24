@@ -27,7 +27,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "мониторинг по Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 680.0182019909706,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "malinka-dimitrova-marinova-605f37",
@@ -57,6 +71,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 574.6920744645496,
+        "legalBasis": null
+      }
+    ]
   }
 ]

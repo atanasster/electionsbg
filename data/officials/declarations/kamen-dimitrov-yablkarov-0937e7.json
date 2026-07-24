@@ -388,6 +388,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул. \"Средна гора\" 102",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул. \"Средна гора\" 102",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   }
 ]

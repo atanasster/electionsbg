@@ -208,7 +208,8 @@
         "legalBasis": "договор за кредитна карта - 12%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boryana-ognyanova-zhilova-3f19b5",
@@ -419,7 +420,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boryana-ognyanova-zhilova-3f19b5",
@@ -665,6 +667,56 @@
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Брестник",
+        "municipality": "Родопи",
+        "areaSqm": 510,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12141.137010885404,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Брестник",
+        "municipality": "Родопи",
+        "areaSqm": 580,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13326.311591498239,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Брестник",
+        "municipality": "Родопи",
+        "areaSqm": 580,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13326.311591498239,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот - отреден за път",
+        "detail": null,
+        "location": "с. Брестник",
+        "municipality": "Родопи",
+        "areaSqm": 694,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7976.153346661008,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -931,7 +983,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boryana-ognyanova-zhilova-3f19b5",
@@ -1105,6 +1158,20 @@
         "isSpouse": false,
         "legalBasis": "договор за разпл. Сметка",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Гела",
+        "municipality": "Смолян",
+        "areaSqm": 800,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 28909.97683847778,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1358,6 +1425,20 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 57350.58773001743,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1568,6 +1649,7 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

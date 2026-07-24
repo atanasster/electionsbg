@@ -142,6 +142,80 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "С.КАЛИПЕТРОВО",
+        "municipality": "СИЛИСТРА",
+        "areaSqm": 127,
+        "builtAreaSqm": 127,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "С/У ЗАДЪЛЖЕНИЕ ЗА ГЛЕДАНЕ И ИЗДРЪЖКА"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ГАРАЖ",
+        "detail": null,
+        "location": "С.КАЛИПЕТРОВО",
+        "municipality": "СИЛИСТРА",
+        "areaSqm": 17,
+        "builtAreaSqm": 17,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "С/У ЗАДЪЛЖЕНИЕ ЗА ГЛЕДАНЕ И ИЗДРЪЖКА"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ДВОРНО МЯСТО",
+        "detail": null,
+        "location": "С.КАЛИПЕТРОВО",
+        "municipality": "СИЛИСТРА",
+        "areaSqm": 1021,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "С/У ЗАДЪЛЖЕНИЕ ЗА ГЛЕДАНЕ И ИЗДРЪЖКА"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "С.КАЛИПЕТРОВО",
+        "municipality": "СИЛИСТРА",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "С/У ЗАДЪЛЖЕНИЕ ЗА ГЛЕДАНЕ И ИЗДРЪЖКА"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ГАРАЖ",
+        "detail": null,
+        "location": "С.КАЛИПЕТРОВО",
+        "municipality": "СИЛИСТРА",
+        "areaSqm": 15,
+        "builtAreaSqm": 15,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "С/У ЗАДЪЛЖЕНИЕ ЗА ГЛЕДАНЕ И ИЗДРЪЖКА"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МАЗДА СХ 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15594.402376484664,
+        "legalBasis": "ПРОДАЖБА"
+      }
     ]
   },
   {
@@ -304,6 +378,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "дворно място",
+        "detail": null,
+        "location": "Силистра",
+        "municipality": "Силистра",
+        "areaSqm": 1434,
+        "builtAreaSqm": 1434,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -570,7 +658,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-kulev-kulev-2100a8",
@@ -835,6 +924,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

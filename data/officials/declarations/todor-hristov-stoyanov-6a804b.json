@@ -124,7 +124,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-hristov-stoyanov-6a804b",
@@ -322,7 +323,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-hristov-stoyanov-6a804b",
@@ -449,7 +451,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-hristov-stoyanov-6a804b",
@@ -522,7 +525,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати и наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-hristov-stoyanov-6a804b",
@@ -589,7 +593,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от ком.средства"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-hristov-stoyanov-6a804b",
@@ -704,7 +709,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-hristov-stoyanov-6a804b",
@@ -746,6 +752,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 76,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 47038.8530700521,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "дворно място",
+        "detail": null,
+        "location": "с.Балканци",
+        "municipality": "Стражица",
+        "areaSqm": 475,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 178.95215841867648,
+        "legalBasis": "покупко-продажба"
       }
     ]
   }

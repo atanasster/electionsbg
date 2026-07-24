@@ -286,6 +286,32 @@
         "legalBasis": "договор, 5.04%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 14661.294693301565,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 14661.294693301565,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -522,6 +548,7 @@
         "legalBasis": "договор, 5.04%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

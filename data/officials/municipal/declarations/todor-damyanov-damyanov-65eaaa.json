@@ -201,6 +201,32 @@
         "legalBasis": null,
         "fundsOrigin": "Продажба"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Созопол",
+        "municipality": "Созопол",
+        "areaSqm": 44,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 34512.20198074475,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Созопол",
+        "municipality": "Созопол",
+        "areaSqm": 44,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 34512.20198074475,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

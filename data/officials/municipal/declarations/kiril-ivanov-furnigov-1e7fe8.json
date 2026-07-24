@@ -26,6 +26,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 74999.8721770297,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

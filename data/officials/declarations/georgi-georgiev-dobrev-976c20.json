@@ -526,7 +526,8 @@
         "legalBasis": "Договор за лизинг на лек автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-dobrev-976c20",
@@ -543,7 +544,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/B1E89FB2-2697-46E8-A0B4-3B225A91A97D173419.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-dobrev-976c20",
@@ -1065,7 +1067,8 @@
         "legalBasis": "Договор за лизинг на лек автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-dobrev-976c20",
@@ -1420,7 +1423,8 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-dobrev-976c20",
@@ -1793,6 +1797,32 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "Договор за покупко-продажба от 27.11.2018"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "Договор за покупко-продажба от 27.11.2018"
+      }
     ]
   },
   {
@@ -1810,7 +1840,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B1E89FB2-2697-46E8-A0B4-3B225A91A97D91171.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-georgiev-dobrev-976c20",
@@ -2188,6 +2219,7 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

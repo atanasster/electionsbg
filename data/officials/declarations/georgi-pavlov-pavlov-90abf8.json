@@ -262,7 +262,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-pavlov-pavlov-90abf8",
@@ -467,6 +468,32 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -484,7 +511,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/487D90ED-AE2A-409F-AB5C-8E258489DE96141969.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-pavlov-pavlov-90abf8",
@@ -844,7 +872,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-pavlov-pavlov-90abf8",
@@ -1001,7 +1030,8 @@
         "legalBasis": null,
         "fundsOrigin": "преводи от Георги Павлов Павлов"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-pavlov-pavlov-90abf8",
@@ -1086,7 +1116,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-pavlov-pavlov-90abf8",
@@ -1103,7 +1134,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/487D90ED-AE2A-409F-AB5C-8E258489DE9693281.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-pavlov-pavlov-90abf8",
@@ -1391,6 +1423,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

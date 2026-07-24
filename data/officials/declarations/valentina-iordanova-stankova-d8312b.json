@@ -40,6 +40,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 480,
+        "builtAreaSqm": 480,
+        "currency": "BGN",
+        "valueEur": 46464.160995587554,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -57,6 +71,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/6B0C6AC8-B806-47D1-95DD-5A8745E6C741190828.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

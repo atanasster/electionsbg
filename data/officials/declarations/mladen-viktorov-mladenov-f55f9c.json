@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-viktorov-mladenov-f55f9c",
@@ -173,6 +174,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолсфаген Голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2965.4929109380673,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -190,7 +205,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/A1695B41-A4F0-4ECA-8F59-866FC2D214A8156356.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mladen-viktorov-mladenov-f55f9c",
@@ -310,7 +326,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-viktorov-mladenov-f55f9c",
@@ -334,7 +351,8 @@
         "amountEurSpouse": 7976.153346661008
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mladen-viktorov-mladenov-f55f9c",
@@ -358,7 +376,8 @@
         "amountEurSpouse": 9203.253861531934
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mladen-viktorov-mladenov-f55f9c",
@@ -382,6 +401,7 @@
         "amountEurSpouse": 9132.695581926855
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -575,7 +575,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-dimitrov-raikov-3233e6",
@@ -1153,7 +1154,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-dimitrov-raikov-3233e6",
@@ -1474,6 +1476,20 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "безвъзмездво"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "гр. Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 50,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "замяна"
+      }
     ]
   },
   {
@@ -1723,7 +1739,8 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-dimitrov-raikov-3233e6",
@@ -1989,6 +2006,44 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 306,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "етаж от къща",
+        "detail": null,
+        "location": "Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 120,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 25,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -2455,6 +2510,7 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

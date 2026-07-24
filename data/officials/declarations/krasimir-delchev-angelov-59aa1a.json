@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/6AEF1825-4829-4C63-AEC4-2A24B0455FD2154754.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimir-delchev-angelov-59aa1a",
@@ -31,7 +32,33 @@
     "sourceUrl": "https://register.cacbg.bg/2023/6AEF1825-4829-4C63-AEC4-2A24B0455FD2154757.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"Проинвест\" ЕООД",
+        "detail": null,
+        "location": "не съм управител, считано от 25.04.2023г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"Билд Комерс\" ЕООД",
+        "detail": null,
+        "location": "не съм управител, считано от 27.04.2023г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "krasimir-delchev-angelov-59aa1a",
@@ -387,6 +414,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

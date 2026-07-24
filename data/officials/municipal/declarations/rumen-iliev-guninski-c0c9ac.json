@@ -207,6 +207,32 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в пленарни сесии",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 19518.567564665642,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в пленарни сесии",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2194.4647540941696,
+        "legalBasis": null
+      }
     ]
   }
 ]

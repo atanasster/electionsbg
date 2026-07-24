@@ -531,6 +531,80 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Идеални части от парцел",
+        "detail": null,
+        "location": "М-т \"Кокалу\" кв.4, парцел III",
+        "municipality": "Несебър",
+        "areaSqm": 118,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Договор за довършителни работи срещу обезщетение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Идеални части от парцел",
+        "detail": null,
+        "location": "М-т \"Кокалу\" кв.4, парцел III",
+        "municipality": "Несебър",
+        "areaSqm": 118,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Договор за довършителни работи срещу обезщетение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "СО \"Чолакова чешма\" кв.10, УПИ XV",
+        "municipality": "Несебър",
+        "areaSqm": 625,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 23621.684911265293,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "СО \"Чолакова чешма\" кв.10, УПИ XV",
+        "municipality": "Несебър",
+        "areaSqm": 625,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 23621.684911265293,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "СО \"Чолакова чешма\" кв.10, УПИ XXII",
+        "municipality": "Несебър",
+        "areaSqm": 465,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17281.665584432187,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "СО \"Чолакова чешма\" кв.10, УПИ XXII",
+        "municipality": "Несебър",
+        "areaSqm": 465,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17281.665584432187,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -602,6 +676,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

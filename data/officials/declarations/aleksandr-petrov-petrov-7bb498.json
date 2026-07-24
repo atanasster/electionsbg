@@ -21,7 +21,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-petrov-petrov-7bb498",
@@ -76,6 +77,20 @@
         "legalBasis": "строеж по стопански начин",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Сеат Ибиза",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -125,7 +140,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-petrov-petrov-7bb498",
@@ -174,7 +190,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-petrov-petrov-7bb498",
@@ -246,6 +263,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Кметовци",
+        "municipality": "Габрово",
+        "areaSqm": 1380,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -320,7 +351,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-petrov-petrov-7bb498",
@@ -446,7 +478,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-petrov-petrov-7bb498",
@@ -463,6 +496,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/806AA04B-639E-4710-A4D4-81183F3214BC89271.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА / СПЕСТЯВАНИЯ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislav-plamenov-dimitrov-b2d79e",
@@ -94,6 +95,20 @@
         "amountEurSpouse": 8222.08474151639
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

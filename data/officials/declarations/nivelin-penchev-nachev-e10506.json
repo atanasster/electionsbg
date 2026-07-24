@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания преди брака"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Exchange program Естония",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 720.921552486668,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -178,6 +192,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "семинар в Румъния",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1013.380508530905,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "семинар в Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1089.5629988291416,
+        "legalBasis": null
       }
     ]
   }

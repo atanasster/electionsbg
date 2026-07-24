@@ -76,6 +76,32 @@
         "legalBasis": "договор - 6.47 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Вранско",
+        "municipality": "Крумовград",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "замяна"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Вранско",
+        "municipality": "Крумовград",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "замяна"
+      }
     ]
   },
   {
@@ -119,6 +145,7 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

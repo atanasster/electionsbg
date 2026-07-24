@@ -141,6 +141,20 @@
         "legalBasis": "договор за издаване кредитна карта с лихвен процент 10%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Такса за обучение в училище на дете",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 5354.759871767997,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -315,7 +329,8 @@
         "legalBasis": "договор за кредитна карта с лихва 10%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselina-evgenieva-terziiska-110c00",
@@ -896,7 +911,8 @@
         "legalBasis": "договор за потребителски кредит от 2020",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselina-evgenieva-terziiska-110c00",
@@ -1071,7 +1087,8 @@
         "legalBasis": "договор за потребителски кредит от 2017",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselina-evgenieva-terziiska-110c00",
@@ -1246,7 +1263,8 @@
         "legalBasis": "договор за потребителски кредит от 2017",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselina-evgenieva-terziiska-110c00",
@@ -1379,6 +1397,7 @@
         "legalBasis": "договор за потребителски кредит от 2017 г.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

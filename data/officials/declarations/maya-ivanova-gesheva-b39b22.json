@@ -160,7 +160,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, заплати, НОИ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-ivanova-gesheva-b39b22",
@@ -502,6 +503,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "универсален пенсионен фонд Родина"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Пролеша",
+        "municipality": "Божурище",
+        "areaSqm": 1030,
+        "builtAreaSqm": 269,
+        "currency": "BGN",
+        "valueEur": 62633.255446536765,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "каща с двор",
+        "detail": null,
+        "location": "с. Пролеша",
+        "municipality": "Божурище",
+        "areaSqm": 1030,
+        "builtAreaSqm": 269,
+        "currency": "BGN",
+        "valueEur": 62633.255446536765,
+        "legalBasis": "възмездно"
       }
     ]
   }

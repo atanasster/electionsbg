@@ -195,7 +195,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-iliev-dimitrov-071eab",
@@ -388,7 +389,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-iliev-dimitrov-071eab",
@@ -568,7 +570,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-iliev-dimitrov-071eab",
@@ -647,7 +650,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-iliev-dimitrov-071eab",
@@ -792,7 +796,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-iliev-dimitrov-071eab",
@@ -870,6 +875,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": 56242.106931584036,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3221.1388515361764,
+        "legalBasis": "възмездно"
       }
     ]
   }

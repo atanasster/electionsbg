@@ -470,7 +470,8 @@
         "legalBasis": "протокол на ОС на съдружниците",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-teofilov-tudzharov-efb456",
@@ -746,7 +747,8 @@
         "legalBasis": "Протоколи на ОС на съдружниците",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-teofilov-tudzharov-efb456",
@@ -1212,7 +1214,8 @@
         "legalBasis": "протокол на ОС на съдружниците",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-teofilov-tudzharov-efb456",
@@ -1422,6 +1425,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Таблица 12 - декларирани в предходни периоди"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Атина-проект на МС и Световна банка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 272.0072807963882,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Амстердам-проект на МС и Световна банка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 356.3704411937643,
+        "legalBasis": null
       }
     ]
   },
@@ -1742,6 +1771,44 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "1/2 от гараж",
+        "detail": null,
+        "location": "Сандански",
+        "municipality": "Сандански",
+        "areaSqm": 15,
+        "builtAreaSqm": 15,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "наследство-делба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "1/4 от етаж от къща с ид. части вкл. от мазето",
+        "detail": null,
+        "location": "Сандански",
+        "municipality": "Сандански",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "наслдство-съделители-делба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ид.ч. от прилеж. таванско пом. на къща, обособено 2018г. в сам. обект-жилище",
+        "detail": null,
+        "location": "Сандански",
+        "municipality": "Сандански",
+        "areaSqm": 44,
+        "builtAreaSqm": 44,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "наследство-съделители-делба"
+      }
     ]
   },
   {
@@ -1989,6 +2056,7 @@
         "legalBasis": null,
         "fundsOrigin": "Пенсионно осигуряване втори стълб"
       }
-    ]
+    ],
+    "events": []
   }
 ]

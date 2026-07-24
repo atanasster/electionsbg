@@ -27,7 +27,8 @@
         "amountEurSpouse": 267.4056538656223
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-rumenov-traikov-8b56ab",
@@ -57,6 +58,20 @@
         "amountEurSpouse": 1004.1772546693732
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

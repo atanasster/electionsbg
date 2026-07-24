@@ -26,6 +26,20 @@
         "amountEurSpouse": 3027.8705204440057
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лека кола",
+        "detail": "Фиат-чинкуинченто",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

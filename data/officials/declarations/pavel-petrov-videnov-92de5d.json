@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "доходи от предходни години на мен и съпругата ми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-petrov-videnov-92de5d",
@@ -173,7 +174,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-petrov-videnov-92de5d",
@@ -270,7 +272,8 @@
         "legalBasis": null,
         "fundsOrigin": "доходи от предходни години на мен и съпругата ми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-petrov-videnov-92de5d",
@@ -367,7 +370,8 @@
         "legalBasis": null,
         "fundsOrigin": "доходи от предходни години на мен и съпругата ми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-petrov-videnov-92de5d",
@@ -506,7 +510,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-petrov-videnov-92de5d",
@@ -609,7 +614,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-petrov-videnov-92de5d",
@@ -777,6 +783,32 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   }

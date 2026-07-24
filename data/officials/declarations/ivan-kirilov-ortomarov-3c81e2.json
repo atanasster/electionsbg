@@ -249,7 +249,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-kirilov-ortomarov-3c81e2",
@@ -544,7 +545,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-kirilov-ortomarov-3c81e2",
@@ -838,6 +840,32 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия ДЪСТЪР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13293.58891110168,
+        "legalBasis": "възмездно-продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия ДЪСТЪР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13293.58891110168,
+        "legalBasis": "възмездно-продажба"
       }
     ]
   }

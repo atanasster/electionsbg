@@ -106,7 +106,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване и делба"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dancho-dobrinov-michev-f8d500",
@@ -227,6 +228,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване и делба"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -244,7 +259,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/CABF1071-96BD-4874-8B03-B28886316280145425.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dancho-dobrinov-michev-f8d500",
@@ -424,6 +440,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

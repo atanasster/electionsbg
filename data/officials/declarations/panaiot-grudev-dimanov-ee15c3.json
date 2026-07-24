@@ -316,7 +316,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "panaiot-grudev-dimanov-ee15c3",
@@ -635,7 +636,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "panaiot-grudev-dimanov-ee15c3",
@@ -959,7 +961,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "panaiot-grudev-dimanov-ee15c3",
@@ -1271,6 +1274,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Кабиле",
+        "municipality": "Тунджа",
+        "areaSqm": 1200,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Кабиле",
+        "municipality": "Тунджа",
+        "areaSqm": 1200,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1609,7 +1638,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "panaiot-grudev-dimanov-ee15c3",
@@ -1897,7 +1927,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "panaiot-grudev-dimanov-ee15c3",
@@ -1914,7 +1945,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/39D8B8AC-92C9-47CC-B67C-9EB1A4BCFAD290113.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "panaiot-grudev-dimanov-ee15c3",
@@ -2202,6 +2234,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

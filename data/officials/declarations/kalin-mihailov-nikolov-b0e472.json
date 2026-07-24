@@ -94,6 +94,20 @@
         "legalBasis": "Ипотенчен банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Дайхатсу",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -179,7 +193,8 @@
         "legalBasis": "Ипотенчен банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalin-mihailov-nikolov-b0e472",
@@ -294,6 +309,7 @@
         "legalBasis": "Ипотечен банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

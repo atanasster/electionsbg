@@ -202,6 +202,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировки -Швеция, Македония, Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 319.55742574763656,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -219,7 +233,21 @@
     "sourceUrl": "https://register.cacbg.bg/2019/4D1D1F89-DF71-4528-BBD6-27FD2BF1FA0497756.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ОБЩИНСКИ ФУТБОЛЕН КЛУБ ТРЯВНА",
+        "detail": null,
+        "location": "ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "nikolina-petrova-nikolova-0b7b6c",
@@ -423,6 +451,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировки - Полша",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50.61789623842563,
+        "legalBasis": null
       }
     ]
   }

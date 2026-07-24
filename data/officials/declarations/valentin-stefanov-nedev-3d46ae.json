@@ -172,6 +172,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 52,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 81999.96932248713,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -311,6 +325,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 52,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 81999.96932248713,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -437,7 +465,8 @@
         "legalBasis": "Овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-stefanov-nedev-3d46ae",
@@ -454,6 +483,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E818C8A2-04DC-414D-B112-0F20030D47FF91546.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -46,6 +46,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Брягово",
+        "municipality": "Хасково",
+        "areaSqm": 2690,
+        "builtAreaSqm": 118,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -82,6 +96,7 @@
         "amountEurSpouse": 1104.390463383832
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

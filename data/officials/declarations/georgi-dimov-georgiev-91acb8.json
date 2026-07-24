@@ -106,7 +106,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimov-georgiev-91acb8",
@@ -209,7 +210,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimov-georgiev-91acb8",
@@ -311,6 +313,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Пещера",
+        "municipality": "Пещера",
+        "areaSqm": 284,
+        "builtAreaSqm": 140,
+        "currency": "BGN",
+        "valueEur": 42181.580198688025,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -433,6 +449,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорари"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2454.2010297418487,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -536,7 +566,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimov-georgiev-91acb8",
@@ -639,7 +670,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimov-georgiev-91acb8",
@@ -729,7 +761,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-dimov-georgiev-91acb8",
@@ -746,6 +779,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D54F0958-9430-4DA7-AB3D-74054AE538A788878.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -87,6 +87,32 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания от предходни години и заплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лекотоварен автомобил",
+        "detail": "Мерцедес Спринтер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1227.1005148709244,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лекотоварен автомобил",
+        "detail": "Мерцедес Спринтер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1227.1005148709244,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

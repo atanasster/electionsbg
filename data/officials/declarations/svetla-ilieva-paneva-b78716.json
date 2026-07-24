@@ -46,7 +46,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-ilieva-paneva-b78716",
@@ -94,6 +95,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 47,
+        "builtAreaSqm": 47,
+        "currency": "BGN",
+        "valueEur": 77716.3659418252,
+        "legalBasis": "възмездно"
       }
     ]
   }

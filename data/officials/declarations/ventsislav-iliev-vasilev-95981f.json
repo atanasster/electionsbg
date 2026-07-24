@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 508",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1814.5748863653794,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -178,6 +192,56 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Русе, ул. Рупел 2, вх.2",
+        "municipality": "Русе",
+        "areaSqm": 0,
+        "builtAreaSqm": 42,
+        "currency": "BGN",
+        "valueEur": 42000.07158086337,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Русе, ул. Рупел 2, вх.2",
+        "municipality": "Русе",
+        "areaSqm": 0,
+        "builtAreaSqm": 42,
+        "currency": "BGN",
+        "valueEur": 42000.07158086337,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3783.5599208520166,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3783.5599208520166,
+        "legalBasis": "възмездно"
       }
     ]
   }

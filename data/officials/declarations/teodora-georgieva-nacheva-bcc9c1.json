@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-georgieva-nacheva-bcc9c1",
@@ -160,6 +161,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Цар Асен",
+        "municipality": "Алфатар",
+        "areaSqm": 1636,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -245,7 +260,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-georgieva-nacheva-bcc9c1",
@@ -324,7 +340,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-georgieva-nacheva-bcc9c1",
@@ -367,7 +384,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-georgieva-nacheva-bcc9c1",
@@ -416,7 +434,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-georgieva-nacheva-bcc9c1",
@@ -488,7 +507,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-georgieva-nacheva-bcc9c1",
@@ -505,6 +525,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/FF444E7B-B4CE-4006-86A2-FE87D961B07688753.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

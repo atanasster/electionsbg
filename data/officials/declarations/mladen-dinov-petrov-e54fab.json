@@ -189,7 +189,8 @@
         "legalBasis": "Договор за Лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-dinov-petrov-e54fab",
@@ -346,7 +347,8 @@
         "legalBasis": "Договор за Лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-dinov-petrov-e54fab",
@@ -501,6 +503,32 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Товарен автомобил",
+        "detail": "ХЦ 60",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5368.564752560294,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Товарен автомобил",
+        "detail": "ХЦ 60",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5368.564752560294,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -658,7 +686,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-dinov-petrov-e54fab",
@@ -675,7 +704,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B618451E-1910-4457-ABF6-CC79F2851E7590413.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mladen-dinov-petrov-e54fab",
@@ -891,6 +921,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -33,7 +33,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgeni-vrbanov-avramov-0d2fcd",
@@ -118,6 +119,32 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Зафирово",
+        "municipality": "Главиница",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Зафирово",
+        "municipality": "Главиница",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -154,7 +181,8 @@
         "legalBasis": "ОББ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgeni-vrbanov-avramov-0d2fcd",
@@ -305,6 +333,20 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "СИЛИСТРА ,КЪЛЪРАШ 32",
+        "municipality": "Силистра",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 25053.302178614707,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -449,7 +491,8 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgeni-vrbanov-avramov-0d2fcd",
@@ -466,6 +509,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/6AFC04D3-7129-4F6E-AF74-1232DECEB9F689252.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

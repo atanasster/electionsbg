@@ -76,6 +76,20 @@
         "legalBasis": "4,94%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9203.253861531934,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -191,7 +205,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-kirilov-voinov-11cb0f",
@@ -288,7 +303,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-kirilov-voinov-11cb0f",
@@ -305,7 +321,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/BA724715-E3E9-467C-B012-79EF15AF6B9B131900.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselin-kirilov-voinov-11cb0f",
@@ -431,6 +448,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

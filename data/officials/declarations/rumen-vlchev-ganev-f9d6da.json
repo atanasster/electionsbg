@@ -76,6 +76,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Разград, ул. \"Станка Николица\" № 6, ет. 1, ап. 2,",
+        "municipality": "Разград",
+        "areaSqm": 101,
+        "builtAreaSqm": 101,
+        "currency": "BGN",
+        "valueEur": 29654.92910938067,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -179,6 +193,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

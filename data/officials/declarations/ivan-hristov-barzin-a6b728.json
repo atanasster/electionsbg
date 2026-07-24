@@ -130,6 +130,20 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия, рента от земя"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Вълчедръм",
+        "municipality": "Вълчедръм",
+        "areaSqm": 5495,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -257,7 +271,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия, рента от земя"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-hristov-barzin-a6b728",
@@ -354,6 +369,20 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Стопански двор със склад и автокантар",
+        "detail": null,
+        "location": "Вълчедръм",
+        "municipality": "Вълчедръм",
+        "areaSqm": 7637,
+        "builtAreaSqm": 2341,
+        "currency": "BGN",
+        "valueEur": 306775.1287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -445,6 +474,7 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   }
 ]

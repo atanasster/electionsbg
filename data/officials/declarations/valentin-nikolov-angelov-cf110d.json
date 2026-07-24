@@ -130,6 +130,20 @@
         "legalBasis": "чл. 430, ал. 1 от ТЗ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВХ5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8691.961980335715,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -197,6 +211,7 @@
         "legalBasis": "договор за управление",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

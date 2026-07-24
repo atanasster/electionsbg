@@ -39,6 +39,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Кюстендил",
+        "municipality": "Кюстендил",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "дарение"
+      }
+    ]
   }
 ]

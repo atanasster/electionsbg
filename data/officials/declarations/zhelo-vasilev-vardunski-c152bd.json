@@ -200,7 +200,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zhelo-vasilev-vardunski-c152bd",
@@ -314,6 +315,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Камено, ул. Д. Благоев",
+        "municipality": "Камено",
+        "areaSqm": 96,
+        "builtAreaSqm": 96,
+        "currency": "BGN",
+        "valueEur": 3681.3015446127733,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -460,7 +475,8 @@
         "legalBasis": null,
         "fundsOrigin": "девидент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zhelo-vasilev-vardunski-c152bd",
@@ -545,6 +561,7 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

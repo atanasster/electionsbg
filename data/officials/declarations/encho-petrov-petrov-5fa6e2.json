@@ -118,6 +118,20 @@
         "legalBasis": null,
         "fundsOrigin": "декларирани при вспъпване и заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ВОЛВО S 60",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -275,6 +289,7 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

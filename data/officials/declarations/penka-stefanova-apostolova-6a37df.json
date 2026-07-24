@@ -52,7 +52,8 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата,пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-stefanova-apostolova-6a37df",
@@ -106,6 +107,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия,"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 97.14545742728151,
+        "legalBasis": null
       }
     ]
   }

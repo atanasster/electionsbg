@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-georgiev-minchev-b7ac2a",
@@ -131,7 +132,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и наем"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-georgiev-minchev-b7ac2a",
@@ -215,6 +217,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент и маза",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 73,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -336,6 +352,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "застраховка Живот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Опел",
+        "detail": "Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
       }
     ]
   }

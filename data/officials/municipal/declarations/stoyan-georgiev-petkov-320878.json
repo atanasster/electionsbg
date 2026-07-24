@@ -87,6 +87,20 @@
         "legalBasis": "Жилищен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 690.244039614895,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

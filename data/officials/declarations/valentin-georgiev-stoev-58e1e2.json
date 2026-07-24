@@ -106,6 +106,20 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата и наем"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Банско ул. Места 21, Блок 3, вх.  Б, ап. 10",
+        "municipality": "Банско",
+        "areaSqm": 66,
+        "builtAreaSqm": 66,
+        "currency": "BGN",
+        "valueEur": 39983.02510954429,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -221,7 +235,8 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата и наем"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-georgiev-stoev-58e1e2",
@@ -238,7 +253,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/57260D48-6673-49DC-87DF-23D89DE8C96B114825.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentin-georgiev-stoev-58e1e2",
@@ -436,6 +452,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

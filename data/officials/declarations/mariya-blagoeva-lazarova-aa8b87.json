@@ -112,6 +112,20 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "опел агива",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 405.9657536697975,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -191,7 +205,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-blagoeva-lazarova-aa8b87",
@@ -252,6 +267,7 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

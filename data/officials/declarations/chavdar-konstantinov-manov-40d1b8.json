@@ -27,7 +27,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Митцубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1923.9913489413702,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "chavdar-konstantinov-manov-40d1b8",
@@ -44,7 +58,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/403C2446-B52C-499A-9FB5-10E173AA3D6B196137.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "chavdar-konstantinov-manov-40d1b8",
@@ -98,6 +113,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

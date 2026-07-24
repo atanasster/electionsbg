@@ -190,7 +190,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-dimitrov-hristov-e77ced",
@@ -353,6 +354,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 248,
+        "builtAreaSqm": 248,
+        "currency": "BGN",
+        "valueEur": 979999.7954832475,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -444,7 +459,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - хонорар свободна професия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-dimitrov-hristov-e77ced",
@@ -553,6 +569,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

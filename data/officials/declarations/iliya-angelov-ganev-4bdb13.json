@@ -213,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-angelov-ganev-4bdb13",
@@ -310,7 +311,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-angelov-ganev-4bdb13",
@@ -371,7 +373,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-angelov-ganev-4bdb13",
@@ -413,6 +416,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Батак",
+        "municipality": "Батак",
+        "areaSqm": 93,
+        "builtAreaSqm": 93,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -462,6 +479,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, продажба на апартамент - Велинград"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Велинград",
+        "municipality": "Велинград",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 23519.42653502605,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -529,6 +560,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "КИА - Стоник",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -609,6 +654,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "преустроен гараж на апартамент",
+        "detail": null,
+        "location": "Велинград",
+        "municipality": "Велинград",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "currency": "BGN",
+        "valueEur": 10499.890072245544,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -626,7 +685,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8F654439-48C3-4B36-AEC9-2F7B9746B2C090365.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iliya-angelov-ganev-4bdb13",
@@ -824,6 +884,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

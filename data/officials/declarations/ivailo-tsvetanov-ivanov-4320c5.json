@@ -112,7 +112,8 @@
         "legalBasis": "Договор за покупко-продажба",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-tsvetanov-ivanov-4320c5",
@@ -215,7 +216,8 @@
         "legalBasis": "Договор за покупко-продажба",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-tsvetanov-ivanov-4320c5",
@@ -299,6 +301,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София,ж.к.\"Света Троица\",бл. 333",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 139999.89774162378,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -493,7 +509,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-tsvetanov-ivanov-4320c5",
@@ -686,7 +703,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-tsvetanov-ivanov-4320c5",
@@ -735,7 +753,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-tsvetanov-ivanov-4320c5",
@@ -856,6 +875,7 @@
         "legalBasis": "кредитна карта с лимит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

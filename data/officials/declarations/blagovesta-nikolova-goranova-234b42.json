@@ -130,6 +130,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 84,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 89961.80649647464,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "SUV",
+        "detail": "Porsche",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -316,6 +342,44 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания, дарение, наследство"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "1/2 гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 17,
+        "builtAreaSqm": 17,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "1/2 гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 19,
+        "builtAreaSqm": 19,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "1/2 гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 17,
+        "builtAreaSqm": 17,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -522,7 +586,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagovesta-nikolova-goranova-234b42",
@@ -637,7 +702,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagovesta-nikolova-goranova-234b42",
@@ -788,7 +854,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagovesta-nikolova-goranova-234b42",
@@ -939,7 +1006,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagovesta-nikolova-goranova-234b42",
@@ -1090,6 +1158,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

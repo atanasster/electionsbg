@@ -226,7 +226,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "margarita-dragomirova-aleksandrova-manova-7ad79e",
@@ -460,6 +461,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София-град",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 37,
+        "builtAreaSqm": 37,
+        "currency": "BGN",
+        "valueEur": 29654.92910938067,
+        "legalBasis": "възмездно"
       }
     ]
   }

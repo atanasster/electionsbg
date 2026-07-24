@@ -244,6 +244,32 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Гаранция по ДУК в лв.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -418,6 +444,20 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Гаранция по ДУК",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
       }
     ]
   },
@@ -636,6 +676,20 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Гаранция по ДУК в лв.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -799,6 +853,7 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

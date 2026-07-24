@@ -202,7 +202,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "slaveika-ivanova-grigorova-a13dca",
@@ -304,6 +305,92 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ихтиман",
+        "municipality": "Ихтиман",
+        "areaSqm": 73,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "м.Суевци",
+        "municipality": "Ихтиман",
+        "areaSqm": 500,
+        "builtAreaSqm": 500,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "м.Средишна",
+        "municipality": "Ихтиман",
+        "areaSqm": 600,
+        "builtAreaSqm": 600,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "м.Средишна",
+        "municipality": "Ихтиман",
+        "areaSqm": 30,
+        "builtAreaSqm": 30,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "м.Суевци",
+        "municipality": "Ихтиман",
+        "areaSqm": 650,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Белица",
+        "municipality": "Ихтиман",
+        "areaSqm": 656,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение за III ПКС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": null
       }
     ]
   }

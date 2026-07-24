@@ -40,6 +40,20 @@
         "legalBasis": "замяна",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13293.58891110168,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -64,6 +78,7 @@
         "amountEurSpouse": 72748.14273224155
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

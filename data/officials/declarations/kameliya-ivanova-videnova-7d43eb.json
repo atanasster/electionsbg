@@ -88,7 +88,8 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-ivanova-videnova-7d43eb",
@@ -124,7 +125,8 @@
         "legalBasis": "средства от трудови доходи на мен и съпругът ми Панайот Виденов",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-ivanova-videnova-7d43eb",
@@ -167,7 +169,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-ivanova-videnova-7d43eb",
@@ -210,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kameliya-ivanova-videnova-7d43eb",
@@ -408,6 +412,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен С3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -644,6 +662,7 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -118,7 +118,8 @@
         "legalBasis": "покупка",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-stoyanova-toncheva-89ea27",
@@ -148,7 +149,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Мобилност по програма \"Еразъм +\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1117.1727604137375,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "krasimira-stoyanova-toncheva-89ea27",
@@ -202,7 +217,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-stoyanova-toncheva-89ea27",
@@ -219,6 +235,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DF794F99-8052-4353-8991-ABE3B4C692E190858.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

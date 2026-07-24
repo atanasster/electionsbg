@@ -100,7 +100,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-makaveev-petkov-e766d0",
@@ -149,7 +150,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-makaveev-petkov-e766d0",
@@ -258,7 +260,8 @@
         "legalBasis": "Финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-makaveev-petkov-e766d0",
@@ -768,6 +771,32 @@
         "isSpouse": false,
         "legalBasis": "финансов лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Чипровци, ул.Балканска №101",
+        "municipality": "Чипровци",
+        "areaSqm": 1361,
+        "builtAreaSqm": 104,
+        "currency": "BGN",
+        "valueEur": 2709.846970339958,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Чипровци, ул.Балканска №101",
+        "municipality": "Чипровци",
+        "areaSqm": 1361,
+        "builtAreaSqm": 104,
+        "currency": "BGN",
+        "valueEur": 2709.846970339958,
+        "legalBasis": "възмездно"
       }
     ]
   }

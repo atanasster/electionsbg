@@ -14,7 +14,33 @@
     "sourceUrl": "https://register.cacbg.bg/2022/806371D3-97C0-4BFB-A5F4-74202481C279139668.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Училищно настоятество на  ОУ\"Иван Вазов\" -Видин",
+        "detail": null,
+        "location": "отписан  от 05.04.2022г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Футболен клуб\"Бдин-Видин\"",
+        "detail": null,
+        "location": "отписан  от 20.05.2022г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "lyuben-ivanov-ivanov-398f7a",
@@ -123,7 +149,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyuben-ivanov-ivanov-398f7a",
@@ -140,7 +167,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/806371D3-97C0-4BFB-A5F4-74202481C279132015.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyuben-ivanov-ivanov-398f7a",
@@ -458,6 +486,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

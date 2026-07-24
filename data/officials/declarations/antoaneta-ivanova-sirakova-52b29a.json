@@ -40,6 +40,20 @@
         "legalBasis": null,
         "fundsOrigin": "от прехвърляне на апартамент"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Враца, ул. \"Г. С. Раковски\" №6, ап.1",
+        "municipality": "Враца",
+        "areaSqm": 91,
+        "builtAreaSqm": 91,
+        "currency": "BGN",
+        "valueEur": 97145.45742728151,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -107,6 +121,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

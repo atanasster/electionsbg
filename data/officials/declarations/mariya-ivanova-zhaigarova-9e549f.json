@@ -292,6 +292,32 @@
         "legalBasis": "кредит, заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 134,
+        "builtAreaSqm": 134,
+        "currency": "BGN",
+        "valueEur": 355000.1789521584,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 15,
+        "builtAreaSqm": 15,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -646,6 +672,7 @@
         "legalBasis": "кредит, заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

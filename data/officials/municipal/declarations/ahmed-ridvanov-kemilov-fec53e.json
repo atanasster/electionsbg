@@ -45,6 +45,32 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.  Варна",
+        "municipality": "Варна",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 60332.44198115378,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.  Варна",
+        "municipality": "Варна",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 60332.44198115378,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

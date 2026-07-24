@@ -178,6 +178,44 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1204.0923802170946,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Почивка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 708.1392554567626,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Почивка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 708.1392554567626,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -275,7 +313,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-vasilev-nestorov-0f0e8d",
@@ -310,6 +349,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Ловно-рибарско дружество- Плевен",
+        "detail": null,
+        "location": "Председател на контролния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

@@ -40,6 +40,20 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "в.з Шаровитица",
+        "municipality": "Враца",
+        "areaSqm": 1073,
+        "builtAreaSqm": 1073,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -57,7 +71,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/8DE49828-9FC3-4AA4-82A4-92684475C00A178429.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasen-lyubenov-torimatsov-6f34b2",
@@ -129,6 +144,7 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

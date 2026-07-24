@@ -58,6 +58,20 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "сув",
+        "detail": "нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2351.942653502605,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

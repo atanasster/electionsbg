@@ -82,6 +82,20 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -203,6 +217,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, обезщетения, спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "УПИ",
+        "detail": null,
+        "location": "с. Момчиловци",
+        "municipality": "Смолян",
+        "areaSqm": 2,
+        "builtAreaSqm": 2400,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -239,7 +267,8 @@
         "amountEurSpouse": 1797.190962404708
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "denislav-emilov-kostov-e42790",
@@ -263,7 +292,8 @@
         "amountEurSpouse": 5106.78330938783
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "denislav-emilov-kostov-e42790",
@@ -280,7 +310,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/09318BC8-F72C-4844-BA8B-84FB79FF92F789335.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "denislav-emilov-kostov-e42790",
@@ -388,6 +419,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

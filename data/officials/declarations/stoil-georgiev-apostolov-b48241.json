@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -118,7 +132,8 @@
         "legalBasis": "работни заплати",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoil-georgiev-apostolov-b48241",
@@ -185,6 +200,44 @@
         "legalBasis": "ипотечен заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив, Пещерско шосе 133ж",
+        "municipality": "Пловдив",
+        "areaSqm": 96,
+        "builtAreaSqm": 96,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Пловдив, Пещерско шосе 133ж",
+        "municipality": "Пловдив",
+        "areaSqm": 20,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "Пловдив, Пещерско шосе 133ж",
+        "municipality": "Пловдив",
+        "areaSqm": 13,
+        "builtAreaSqm": 13,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -234,7 +287,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoil-georgiev-apostolov-b48241",
@@ -355,6 +409,20 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив, бул. Пещерско шосе 88",
+        "municipality": "Пловдив",
+        "areaSqm": 141,
+        "builtAreaSqm": 141,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -458,7 +526,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "договор за гледане"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoil-georgiev-apostolov-b48241",
@@ -561,7 +630,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoil-georgiev-apostolov-b48241",
@@ -646,7 +716,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoil-georgiev-apostolov-b48241",
@@ -663,6 +734,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2B431977-7B0B-4737-B1EC-F567F8ECAAE593375.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

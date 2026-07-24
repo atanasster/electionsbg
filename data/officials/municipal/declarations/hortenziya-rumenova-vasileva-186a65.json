@@ -225,6 +225,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "покупка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1738.392396067143,
+        "legalBasis": null
+      }
     ]
   }
 ]

@@ -359,6 +359,32 @@
         "legalBasis": "договорвн лихвен% 17",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свищов",
+        "municipality": "Свищов",
+        "areaSqm": 114,
+        "builtAreaSqm": 156,
+        "currency": "BGN",
+        "valueEur": 27609.7615845958,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Вълчи Трън",
+        "municipality": "Пордим",
+        "areaSqm": 2130,
+        "builtAreaSqm": 115,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -781,6 +807,20 @@
         "legalBasis": "договорвн лихвен% 17",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Козловец",
+        "municipality": "Свищов",
+        "areaSqm": 1400,
+        "builtAreaSqm": 238,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -817,6 +857,7 @@
         "legalBasis": "трудови доходи",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

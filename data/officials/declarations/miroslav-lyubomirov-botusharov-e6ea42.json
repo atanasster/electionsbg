@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-lyubomirov-botusharov-e6ea42",
@@ -112,6 +113,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ул. Самодивско изворче, № 12, ет. 5, ап. 9",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 28834.305640060742,
+        "legalBasis": "възмездно"
       }
     ]
   }

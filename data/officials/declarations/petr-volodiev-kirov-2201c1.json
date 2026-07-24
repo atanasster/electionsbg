@@ -130,7 +130,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-volodiev-kirov-2201c1",
@@ -287,7 +288,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-volodiev-kirov-2201c1",
@@ -444,7 +446,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-volodiev-kirov-2201c1",
@@ -583,7 +586,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-volodiev-kirov-2201c1",
@@ -685,6 +689,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ж. к. Младост 4",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 72603.44712986302,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -789,7 +807,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-volodiev-kirov-2201c1",
@@ -892,6 +911,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

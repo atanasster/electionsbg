@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наследство, пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Сухаче",
+        "municipality": "Червен бряг",
+        "areaSqm": 9,
+        "builtAreaSqm": 9,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -239,7 +253,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване и заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-petrov-stefanov-12fa0e",
@@ -480,7 +495,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-petrov-stefanov-12fa0e",
@@ -558,7 +574,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-petrov-stefanov-12fa0e",
@@ -666,7 +683,8 @@
         "legalBasis": "Кредит за строителство",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-petrov-stefanov-12fa0e",
@@ -683,6 +701,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5917F673-8E76-449A-873F-0BF6B65A0D7C89832.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

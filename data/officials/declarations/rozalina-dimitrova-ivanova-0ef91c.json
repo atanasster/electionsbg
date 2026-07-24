@@ -40,7 +40,8 @@
         "legalBasis": "НАСЛЕДСТВО,ДАРЕНИЕ, И ПОКУПКА",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rozalina-dimitrova-ivanova-0ef91c",
@@ -124,6 +125,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТИ И ПЕНСИИ"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "С.БУЙНОВЦИ",
+        "municipality": "Елена",
+        "areaSqm": 1400,
+        "builtAreaSqm": 87,
+        "currency": "BGN",
+        "valueEur": 19173.445544858194,
+        "legalBasis": "възмездно"
       }
     ]
   }

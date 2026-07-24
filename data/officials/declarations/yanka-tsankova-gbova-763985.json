@@ -21,7 +21,8 @@
         "amountEurSpouse": 19555.891871992964
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "yanka-tsankova-gbova-763985",
@@ -45,7 +46,21 @@
         "amountEurSpouse": 13775.225863188518
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил - СИО",
+        "detail": "Пежо 106",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "yanka-tsankova-gbova-763985",
@@ -88,7 +103,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yanka-tsankova-gbova-763985",
@@ -131,7 +147,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yanka-tsankova-gbova-763985",
@@ -155,7 +172,21 @@
         "amountEurSpouse": 8675.600640137436
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил - СИО",
+        "detail": "Пежо 307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "yanka-tsankova-gbova-763985",
@@ -227,7 +258,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yanka-tsankova-gbova-763985",
@@ -244,6 +276,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E3C5A857-7508-40DC-97E0-6A66DDECD8E990452.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

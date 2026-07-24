@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, приходи от граждански договори"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "местност Кърчанлъка",
+        "municipality": "Аврен",
+        "areaSqm": 762,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 14999.769918653461,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -352,7 +366,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariela-drumeva-cherkezova-ad093c",
@@ -545,6 +560,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Дъбравино, ул.Етъра 2А",
+        "municipality": "Аврен",
+        "areaSqm": 1045,
+        "builtAreaSqm": 127,
+        "currency": "BGN",
+        "valueEur": 49999.7443540594,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ауди КУ 7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -642,7 +683,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariela-drumeva-cherkezova-ad093c",
@@ -691,7 +733,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariela-drumeva-cherkezova-ad093c",
@@ -740,7 +783,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariela-drumeva-cherkezova-ad093c",
@@ -902,7 +946,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariela-drumeva-cherkezova-ad093c",
@@ -919,6 +964,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1D179B65-99B6-4018-AF4B-47927419A19292925.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

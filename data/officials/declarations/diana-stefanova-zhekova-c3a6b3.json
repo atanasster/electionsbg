@@ -63,7 +63,8 @@
         "amountEurSpouse": 0
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "diana-stefanova-zhekova-c3a6b3",
@@ -183,6 +184,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "Елин Пелин",
+        "municipality": "Елин Пелин",
+        "areaSqm": 478,
+        "builtAreaSqm": 300,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

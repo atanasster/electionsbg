@@ -33,7 +33,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-chapknova-kyuchukova-96d818",
@@ -178,7 +179,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-chapknova-kyuchukova-96d818",
@@ -232,7 +234,8 @@
         "legalBasis": "трудово възнаграждение",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-chapknova-kyuchukova-96d818",
@@ -419,7 +422,8 @@
         "legalBasis": "договор кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-chapknova-kyuchukova-96d818",
@@ -576,7 +580,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-chapknova-kyuchukova-96d818",
@@ -612,7 +617,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-chapknova-kyuchukova-96d818",
@@ -835,6 +841,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      }
     ]
   },
   {
@@ -974,7 +994,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-chapknova-kyuchukova-96d818",
@@ -1089,7 +1110,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-chapknova-kyuchukova-96d818",
@@ -1270,6 +1292,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

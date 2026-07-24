@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gabriela-nikolaeva-kozareva-4e918b",
@@ -160,6 +161,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. София, р-н Лозенец",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 15999.856838273265,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. София, р-н Лозенец",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 15999.856838273265,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Peugeot",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   }

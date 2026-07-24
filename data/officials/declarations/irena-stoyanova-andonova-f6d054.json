@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irena-stoyanova-andonova-f6d054",
@@ -161,7 +162,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irena-stoyanova-andonova-f6d054",
@@ -257,6 +259,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ниви и лозя",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "бургас",
+        "areaSqm": 43,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -361,7 +377,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irena-stoyanova-andonova-f6d054",
@@ -512,7 +529,8 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irena-stoyanova-andonova-f6d054",
@@ -645,7 +663,8 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "irena-stoyanova-andonova-f6d054",
@@ -1138,6 +1157,7 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   }
 ]

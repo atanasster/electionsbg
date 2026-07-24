@@ -232,7 +232,8 @@
         "legalBasis": "Договор за финансов лизинг с лихвен процент 2,69%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-aleksandrov-damyanov-51c894",
@@ -497,7 +498,8 @@
         "legalBasis": "Договор за финансов лизинг с лихвен процент 2,69%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-aleksandrov-damyanov-51c894",
@@ -839,6 +841,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата, декларирана в предходни периоди"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 37999.723902384154,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1183,7 +1199,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-aleksandrov-damyanov-51c894",
@@ -1418,7 +1435,8 @@
         "legalBasis": "лимит на кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-aleksandrov-damyanov-51c894",
@@ -1634,6 +1652,20 @@
         "isSpouse": true,
         "legalBasis": "усвоен лимит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в Програма \"Образователната система на Германия\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1331.9153505161491,
+        "legalBasis": null
       }
     ]
   },
@@ -1953,7 +1985,8 @@
         "legalBasis": "кредитен лимит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-aleksandrov-damyanov-51c894",
@@ -1970,6 +2003,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EC274EB5-E68E-4EC9-9061-F01B130B409689185.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

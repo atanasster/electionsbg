@@ -136,7 +136,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ganka-ivanova-dimitrova-9f4f0e",
@@ -299,6 +300,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "екскурзия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "домакинско оборудване-мебели и техника",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -316,7 +343,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/800D8AB2-07CF-484C-936D-C407B04A0E9B130908.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ganka-ivanova-dimitrova-9f4f0e",
@@ -442,6 +470,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

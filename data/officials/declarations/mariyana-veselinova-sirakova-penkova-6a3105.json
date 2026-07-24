@@ -27,6 +27,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

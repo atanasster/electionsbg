@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозе",
+        "detail": null,
+        "location": "с. Равда",
+        "municipality": "Несебър",
+        "areaSqm": 1000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "Наследство- делба"
+      }
     ]
   },
   {
@@ -167,6 +181,7 @@
         "legalBasis": null,
         "fundsOrigin": "от продажба на наследствен имот"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -136,7 +136,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-evstatieva-koteva-dfa2aa",
@@ -388,6 +389,56 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Горно Хърсово",
+        "municipality": "Благоевград",
+        "areaSqm": 28,
+        "builtAreaSqm": 28,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Горно Хърсово",
+        "municipality": "Благоевград",
+        "areaSqm": 28,
+        "builtAreaSqm": 28,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Горно Хърсово",
+        "municipality": "Благоевград",
+        "areaSqm": 1391,
+        "builtAreaSqm": 1391,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Горно Хърсово",
+        "municipality": "Благоевград",
+        "areaSqm": 1391,
+        "builtAreaSqm": 1391,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   }

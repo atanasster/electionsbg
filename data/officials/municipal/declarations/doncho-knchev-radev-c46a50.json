@@ -518,6 +518,20 @@
         "legalBasis": null,
         "fundsOrigin": "Продажба на недвижим имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловидв",
+        "municipality": "Пловдив",
+        "areaSqm": 90,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 66467.94455550841,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

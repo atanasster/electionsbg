@@ -130,6 +130,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Опан",
+        "municipality": "Опан",
+        "areaSqm": 1156,
+        "builtAreaSqm": 94,
+        "currency": "BGN",
+        "valueEur": 4345.980990167857,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -305,6 +319,7 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   }
 ]

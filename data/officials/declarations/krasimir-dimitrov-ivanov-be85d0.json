@@ -621,7 +621,8 @@
         "legalBasis": "БАНКОВ ИПОТЕЧЕН ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-dimitrov-ivanov-be85d0",
@@ -862,7 +863,8 @@
         "legalBasis": "БАНКОВ ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-dimitrov-ivanov-be85d0",
@@ -1342,7 +1344,8 @@
         "legalBasis": "БАНКОВ ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-dimitrov-ivanov-be85d0",
@@ -1359,7 +1362,21 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EA0F70F7-B832-4528-84FB-03A9CFD4B19D92911.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "СДРУЖЕНИЕ \"РЕГИОНАЛНА АГЕНЦИЯ ЗА ПРЕДПРИЕМАЧЕСТВО И ИНОВАЦИИ-ВАРНА\"",
+        "detail": null,
+        "location": "ЗАЛИЧЕНО ОБСТОЯТЕЛСТВО НА 18.07.2018 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "krasimir-dimitrov-ivanov-be85d0",
@@ -1376,6 +1393,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EA0F70F7-B832-4528-84FB-03A9CFD4B19D89128.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

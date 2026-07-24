@@ -274,7 +274,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба апартамент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-borisov-petkov-fea2f7",
@@ -449,7 +450,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-borisov-petkov-fea2f7",
@@ -707,6 +709,32 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "НИСАН ПРИМЕРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "ПРОДАЖБА"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "НИСАН ПРИМЕРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "ПРОДАЖБА"
       }
     ]
   },
@@ -1075,7 +1103,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-borisov-petkov-fea2f7",
@@ -1237,7 +1266,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-borisov-petkov-fea2f7",
@@ -1254,6 +1284,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C6163A8E-5F54-4888-A76F-A1B42B153BF790770.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

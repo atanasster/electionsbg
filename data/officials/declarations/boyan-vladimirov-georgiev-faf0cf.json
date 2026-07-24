@@ -58,7 +58,8 @@
         "legalBasis": "договор - 5.6%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boyan-vladimirov-georgiev-faf0cf",
@@ -119,7 +120,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boyan-vladimirov-georgiev-faf0cf",
@@ -162,7 +164,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boyan-vladimirov-georgiev-faf0cf",
@@ -229,7 +232,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boyan-vladimirov-georgiev-faf0cf",
@@ -296,7 +300,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boyan-vladimirov-georgiev-faf0cf",
@@ -356,6 +361,20 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракувано"
       }
     ]
   }

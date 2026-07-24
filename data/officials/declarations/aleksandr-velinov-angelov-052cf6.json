@@ -106,7 +106,8 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-velinov-angelov-052cf6",
@@ -479,6 +480,56 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Алфа Ромео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "договорна ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40719.28541846684,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Програма за обмен",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1101.3227120966546,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Програма за обмен",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1033.3208918975577,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -496,7 +547,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3EFA12A5-4E04-45E3-AEA6-295B7E401DEB89791.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-velinov-angelov-052cf6",
@@ -946,6 +998,7 @@
         "legalBasis": "Договор за потребителски кредит от 29.06.2017г.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

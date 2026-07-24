@@ -298,6 +298,56 @@
         "legalBasis": null,
         "fundsOrigin": "пенсии, дивиденти, по Таблица 12-ръчно, остатък от предходна година"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент (бивше ателие)",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 85,
+        "builtAreaSqm": 85,
+        "currency": "BGN",
+        "valueEur": 309999.84661243565,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "мазе към апартамент по т.1",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 9,
+        "builtAreaSqm": 9,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "продажба, включена в цената по т.1"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж към апартамент по т.1",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "продажба, включена в цената по т.1"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "дворно място прилежащо към СОС по т.1, т.2 и т.3",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 31,
+        "builtAreaSqm": 31,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "продажба включена в цената по т.1"
+      }
     ]
   },
   {
@@ -551,6 +601,7 @@
         "legalBasis": null,
         "fundsOrigin": "По Таблица 12-ръчно и остатък от предходна година"
       }
-    ]
+    ],
+    "events": []
   }
 ]

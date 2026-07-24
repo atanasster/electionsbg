@@ -123,7 +123,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anastas-georgiev-kaludov-85978a",
@@ -165,6 +166,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "земя за земеделско ползване",
+        "detail": null,
+        "location": "гр.Ямбол м.Курткая",
+        "municipality": "Ямбол",
+        "areaSqm": 436,
+        "builtAreaSqm": 436,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -209,7 +236,8 @@
         "legalBasis": null,
         "fundsOrigin": "работни заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anastas-georgiev-kaludov-85978a",
@@ -252,7 +280,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anastas-georgiev-kaludov-85978a",
@@ -295,6 +324,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

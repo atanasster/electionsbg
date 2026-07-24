@@ -118,7 +118,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЛИЧНИ СПЕСТЯВАНИЯ И НАСЛЕДСТВО"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-apostolov-spasov-d36330",
@@ -197,7 +198,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЛИЧНИ СПЕСТЯВАНИЯ И НАСЛЕДСТВО"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-apostolov-spasov-d36330",
@@ -276,7 +278,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЛИЧНИ СПЕСТЯВАНИЯ И НАСЛЕДСТВО"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-apostolov-spasov-d36330",
@@ -355,7 +358,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЛИЧНИ СПЕСТЯВАНИЯ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-apostolov-spasov-d36330",
@@ -434,6 +438,20 @@
         "legalBasis": null,
         "fundsOrigin": "лични спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 43,
+        "builtAreaSqm": 43,
+        "currency": "BGN",
+        "valueEur": 14060.526732896009,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -458,7 +476,8 @@
         "amountEurSpouse": 1348.7879825956243
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "atanas-apostolov-spasov-d36330",
@@ -475,7 +494,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F27BC909-7529-425D-ADB5-081534C8F9A493010.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "atanas-apostolov-spasov-d36330",
@@ -709,6 +729,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

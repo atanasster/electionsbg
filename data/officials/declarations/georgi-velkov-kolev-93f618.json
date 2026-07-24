@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "дивидент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-velkov-kolev-93f618",
@@ -137,6 +138,32 @@
         "legalBasis": "замяна",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 435,
+        "builtAreaSqm": 89,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "замяна"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 76,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -210,7 +237,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата, дивиденти"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-velkov-kolev-93f618",
@@ -283,7 +311,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-velkov-kolev-93f618",
@@ -681,7 +710,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-velkov-kolev-93f618",
@@ -698,6 +728,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/647847EC-FD08-4FF2-9744-CD0FA1BDB6F989141.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

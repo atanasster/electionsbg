@@ -154,6 +154,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен Ц3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13804.8807922979,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -257,7 +271,8 @@
         "legalBasis": "лизинг на автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dragomir-plamenov-dimitrov-a3845a",
@@ -274,7 +289,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/E20877DA-CC1F-46E8-948A-4382512FC416156284.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dragomir-plamenov-dimitrov-a3845a",
@@ -454,6 +470,7 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

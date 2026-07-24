@@ -208,6 +208,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "България-Паничище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 74.13732277345169,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 104.81483564522479,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -359,6 +385,56 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Израел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 634.0019326833109,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12.271005148709243,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12.271005148709243,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -473,6 +549,56 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 368.1301544612773,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12.271005148709243,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12.271005148709243,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 439.19972594755166,
+        "legalBasis": null
       }
     ]
   },
@@ -606,6 +732,44 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Норвегия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1843.2072317123677,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Русия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 488.79503842358486,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12.271005148709243,
+        "legalBasis": null
       }
     ]
   }

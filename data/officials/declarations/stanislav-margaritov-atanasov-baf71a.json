@@ -82,7 +82,8 @@
         "legalBasis": "договор, 4,5 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanislav-margaritov-atanasov-baf71a",
@@ -154,6 +155,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 600,
+        "builtAreaSqm": 26,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": "продажба"
       }
     ]
   }

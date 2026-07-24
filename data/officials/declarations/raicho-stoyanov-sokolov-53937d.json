@@ -55,7 +55,21 @@
         "amountEurSpouse": 17706.549137706243
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4548.963867002756,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "raicho-stoyanov-sokolov-53937d",
@@ -72,7 +86,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/90A1F7F0-6103-4A04-973B-678ED10E498F178961.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "raicho-stoyanov-sokolov-53937d",
@@ -340,6 +355,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

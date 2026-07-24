@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pencho-stoyanov-gerov-9515c2",
@@ -118,6 +119,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Чавдар, ул.\"Нешо Узунов\" 12",
+        "municipality": "Чавдар",
+        "areaSqm": 800,
+        "builtAreaSqm": 154,
+        "currency": "BGN",
+        "valueEur": 3161.317701436219,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

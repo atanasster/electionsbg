@@ -46,6 +46,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауде А3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 557.8194423850744,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -149,6 +163,296 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе",
+        "municipality": "Русе",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Табачка",
+        "municipality": "Иваново",
+        "areaSqm": 871,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе",
+        "municipality": "Русе",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр Тутракан",
+        "municipality": "Тутракан",
+        "areaSqm": 5000,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 13802,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори в земеделска земя",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 4001,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 4856,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозе",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 3450,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 6307,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 11933,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 4451,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "пасище",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 1701,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори в земеделска земя",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 4669,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозе",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 2100,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозе",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 221,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 4482,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 10406,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозе",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 3295,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 3463,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори в земеделска земя",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 6259,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "пасище",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 7101,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 3198,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Беляново",
+        "municipality": "Ценово",
+        "areaSqm": 9312,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 21673.151552026506,
+        "legalBasis": "продажба. Цената е обща за имотите от т. 5 до т. 23"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дубай",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -179,7 +483,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariela-zhivkova-licheva-7dbe02",
@@ -377,6 +682,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

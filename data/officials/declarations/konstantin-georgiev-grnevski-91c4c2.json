@@ -70,6 +70,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба земеделски имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Марково",
+        "municipality": "Родопи",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 81806.70099139496,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -100,6 +114,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

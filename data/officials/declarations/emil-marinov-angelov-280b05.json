@@ -27,7 +27,8 @@
         "amountEurSpouse": 258.71369188528655
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "emil-marinov-angelov-280b05",
@@ -75,6 +76,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 122.71005148709244,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30.67751287177311,
+        "legalBasis": null
       }
     ]
   }

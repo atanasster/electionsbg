@@ -136,7 +136,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-pazderov-088519",
@@ -274,6 +275,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг на МПС",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд Куга",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -414,7 +429,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-pazderov-088519",
@@ -517,7 +533,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-pazderov-088519",
@@ -608,6 +625,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Свети Влас",
+        "municipality": "Несебър",
+        "areaSqm": 49,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 37999.723902384154,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -681,7 +712,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-pazderov-088519",
@@ -879,7 +911,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-pazderov-088519",
@@ -896,6 +929,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DF0A2C99-4D4A-493A-997B-F404906C157A88676.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

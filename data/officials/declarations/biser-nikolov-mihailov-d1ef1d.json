@@ -130,6 +130,20 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Развален договор за учредяване право на строеж в/у апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 70,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Съдебно решение"
+      }
     ]
   },
   {
@@ -281,7 +295,8 @@
         "legalBasis": null,
         "fundsOrigin": "удръжки от заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "biser-nikolov-mihailov-d1ef1d",
@@ -438,6 +453,7 @@
         "legalBasis": null,
         "fundsOrigin": "самоосигуряване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

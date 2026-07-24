@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gancho-ivanov-petrov-129454",
@@ -173,6 +174,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Коньово",
+        "municipality": "Нова Загора",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Хюндай Санта фе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -258,6 +285,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Поморие",
+        "municipality": "Поморие",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "с.Баня",
+        "municipality": "Нова Загора",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "с.Баня",
+        "municipality": "Нова Загора",
+        "areaSqm": 11,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 664.679445555084,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -294,7 +359,8 @@
         "legalBasis": "заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gancho-ivanov-petrov-129454",
@@ -523,6 +589,44 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "с.Баня",
+        "municipality": "Нова Загора",
+        "areaSqm": 24000,
+        "builtAreaSqm": 3629,
+        "currency": "BGN",
+        "valueEur": 145309.1526359653,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндай Санта фе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1078.825869324021,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "частично погасен ипотечен кредит",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40392.058614501264,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -559,7 +663,8 @@
         "legalBasis": "Банков кледит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gancho-ivanov-petrov-129454",
@@ -764,7 +869,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gancho-ivanov-petrov-129454",
@@ -969,7 +1075,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gancho-ivanov-petrov-129454",
@@ -986,7 +1093,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/80FE246C-915B-469E-B3F5-7A26423A042192964.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "gancho-ivanov-petrov-129454",
@@ -1148,6 +1256,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

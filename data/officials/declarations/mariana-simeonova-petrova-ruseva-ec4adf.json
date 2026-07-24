@@ -40,6 +40,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "С.Ряхово",
+        "municipality": "Сливо поле",
+        "areaSqm": 56,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -101,6 +115,7 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

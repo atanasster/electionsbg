@@ -13,6 +13,7 @@ import {
   pickEurValue,
   resolveDeclarationYear,
 } from "./parse_declaration";
+import { declarationTotals } from "@/lib/declarations";
 
 // Minimal filing in the register's real shape. `year` omitted reproduces the
 // one-off filings (Entry / Vacate / Other) that carry no <Year> — ~40% of the
@@ -376,5 +377,110 @@ describe("pickEurValue — money-field separator typos", () => {
 
   it("falls back to the amount when there is no equivalent", () => {
     expect(pickEurValue(500, "EUR", null, true)).toBeCloseTo(500, 0);
+  });
+});
+
+describe("parseEventTables — disposals and third-party expenses", () => {
+  const withTable = (num: string, cells: Record<number, string>) => {
+    const cellXml = Object.entries(cells)
+      .map(([n, v]) => `<Cell Num="${n}" Description="c">${v}</Cell>`)
+      .join("");
+    return `<?xml version="1.0" encoding="utf-8"?>
+<PublicPerson>
+  <Personal><Name>Тест</Name></Personal>
+  <DeclarationData>
+    <DeclarationType>Annualy</DeclarationType><Year>2024</Year>
+  </DeclarationData>
+  <Tables>
+    <Table Num="${num}" Description="t" Declared="True">
+      <Row Num="1">${cellXml}</Row>
+    </Table>
+  </Tables>
+</PublicPerson>`;
+  };
+
+  const parseEvents = (xml: string) =>
+    parseDeclarationXml({
+      xml,
+      mpId: 0,
+      institution: "x",
+      sourceUrl: url("2025"),
+    }).events ?? [];
+
+  it("records a property sold in the prior year", () => {
+    const [e] = parseEvents(
+      withTable("2", {
+        2: "Нива",
+        3: "Карайсен",
+        4: "Павликени",
+        5: "23",
+        10: "20000",
+        11: "възмездно",
+      }),
+    );
+    expect(e.kind).toBe("disposal_property");
+    expect(e.description).toBe("Нива");
+    expect(e.municipality).toBe("Павликени");
+    expect(e.valueEur).toBeCloseTo(10226, 0); // 20 000 лв at the peg
+    expect(e.legalBasis).toBe("възмездно");
+  });
+
+  // The record the audit went looking for: "sold the Porsche the year before
+  // leaving office" lives in table 3.5 and was never parsed.
+  it("records a vehicle sold in the prior year", () => {
+    const [e] = parseEvents(
+      withTable("3.5", {
+        2: "ЛЕК АВТОМОБИЛ",
+        3: "ПОРШЕ",
+        4: "37508",
+        8: "възмездно",
+      }),
+    );
+    expect(e.kind).toBe("disposal_vehicle");
+    expect(e.detail).toBe("ПОРШЕ");
+    expect(e.valueEur).toBeCloseTo(19178, 0);
+  });
+
+  it("records a guarantee given in the declarant's favour", () => {
+    const [e] = parseEvents(
+      withTable("13", { 2: "Издръжка за 3 деца", 3: "7000" }),
+    );
+    expect(e.kind).toBe("guarantee");
+    expect(e.valueEur).toBeCloseTo(3579, 0);
+  });
+
+  it("records an expense a third party paid, with its currency", () => {
+    const [e] = parseEvents(
+      withTable("14", {
+        2: "Китай - Япония",
+        3: "3000",
+        4: "BGN",
+        5: "3000",
+      }),
+    );
+    expect(e.kind).toBe("third_party_expense");
+    expect(e.description).toBe("Китай - Япония");
+    expect(e.currency).toBe("BGN");
+    expect(e.valueEur).toBeCloseTo(1534, 0);
+  });
+
+  // The whole reason events are a separate field: a disposed property is no
+  // longer in the estate, and a trip someone else paid for was never in it.
+  it("keeps events out of the assets that feed net worth", () => {
+    const d = parseDeclarationXml({
+      xml: withTable("2", { 2: "Нива", 5: "23", 10: "20000" }),
+      mpId: 0,
+      institution: "x",
+      sourceUrl: url("2025"),
+    });
+    expect(d.events).toHaveLength(1);
+    expect(d.assets ?? []).toHaveLength(0);
+    expect(declarationTotals(d.assets).netEur).toBe(0);
+  });
+
+  it("emits nothing when the tables are not declared", () => {
+    expect(
+      parseEvents(declarationXml({ type: "Annualy", year: "2024" })),
+    ).toEqual([]);
   });
 });

@@ -112,6 +112,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2958.33482460132,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Австрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1193.355250711974,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Полша",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 393.18345663989203,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 592.075998425221,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -227,6 +277,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ГЕРМАНИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2283.940833303508,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "АВСТРИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1281.8087461589198,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ТУРЦИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 360.97206812453027,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -324,7 +412,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zdravko-dimitrov-bakalov-d28480",
@@ -414,7 +503,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zdravko-dimitrov-bakalov-d28480",
@@ -431,7 +521,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/3AE223E3-B15B-4CB8-9D5F-10C20D2A4050132593.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zdravko-dimitrov-bakalov-d28480",
@@ -503,7 +594,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zdravko-dimitrov-bakalov-d28480",
@@ -575,6 +667,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

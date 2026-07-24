@@ -154,6 +154,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "currency": "BGN",
+        "valueEur": 74999.8721770297,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ниви",
+        "detail": null,
+        "location": "с. Тополица",
+        "municipality": "Айтос",
+        "areaSqm": 159,
+        "builtAreaSqm": 159,
+        "currency": "BGN",
+        "valueEur": 13804.8807922979,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -257,7 +283,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikola-angelov-sherletov-e52ae8",
@@ -509,7 +536,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikola-angelov-sherletov-e52ae8",
@@ -526,6 +554,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E3C9796D-EEE5-41B5-B55C-734D2034372A88765.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

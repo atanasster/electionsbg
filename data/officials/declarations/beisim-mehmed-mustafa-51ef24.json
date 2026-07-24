@@ -130,7 +130,8 @@
         "legalBasis": "Отпуснат автокредит, 6.95%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "beisim-mehmed-mustafa-51ef24",
@@ -173,7 +174,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "beisim-mehmed-mustafa-51ef24",
@@ -270,7 +272,8 @@
         "legalBasis": "Отпуснат автокредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "beisim-mehmed-mustafa-51ef24",
@@ -349,6 +352,32 @@
         "legalBasis": "Отпуснат автокредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 858.970360409647,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 858.970360409647,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -398,7 +427,8 @@
         "legalBasis": "Отпуснат потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "beisim-mehmed-mustafa-51ef24",
@@ -447,7 +477,8 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "beisim-mehmed-mustafa-51ef24",
@@ -476,6 +507,7 @@
       }
     ],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

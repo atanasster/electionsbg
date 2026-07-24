@@ -178,7 +178,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-markov-823f49",
@@ -358,7 +359,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-markov-823f49",
@@ -527,7 +529,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-markov-823f49",
@@ -683,6 +686,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пазарджик",
+        "municipality": "Пазарджик",
+        "areaSqm": 109,
+        "builtAreaSqm": 109,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -877,7 +894,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-markov-823f49",
@@ -1070,7 +1088,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-markov-823f49",
@@ -1087,7 +1106,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/736E9E0F-F2E3-4425-8D54-806D1BEC78C889027.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-dimitrov-markov-823f49",
@@ -1267,6 +1287,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

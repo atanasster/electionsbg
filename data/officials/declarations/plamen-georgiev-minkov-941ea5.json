@@ -52,6 +52,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Николово",
+        "municipality": "Русе",
+        "areaSqm": 87,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 523.0515944637315,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Николово",
+        "municipality": "Русе",
+        "areaSqm": 87,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 523.0515944637315,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -191,6 +217,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

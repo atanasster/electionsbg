@@ -122,6 +122,20 @@
         "legalBasis": "потребитески кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "грСмядово",
+        "municipality": "Смядово",
+        "areaSqm": 1924,
+        "builtAreaSqm": 1924,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "продожба на имот"
+      }
     ]
   }
 ]

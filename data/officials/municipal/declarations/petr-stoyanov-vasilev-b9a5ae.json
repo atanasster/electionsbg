@@ -273,6 +273,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,пенсия,наем,рента"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек авомобил",
+        "detail": "Пежо 405",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "бракувано"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек авомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "бракувано"
+      }
     ]
   }
 ]

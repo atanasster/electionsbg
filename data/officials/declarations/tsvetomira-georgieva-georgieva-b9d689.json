@@ -166,6 +166,20 @@
         "legalBasis": "0",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Бухово,",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 769,
+        "builtAreaSqm": 769,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -299,6 +313,7 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

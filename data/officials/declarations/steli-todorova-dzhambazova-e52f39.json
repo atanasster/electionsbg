@@ -21,7 +21,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Туарег",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "steli-todorova-dzhambazova-e52f39",
@@ -64,7 +78,8 @@
         "legalBasis": "други",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "steli-todorova-dzhambazova-e52f39",
@@ -107,7 +122,8 @@
         "legalBasis": "други",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "steli-todorova-dzhambazova-e52f39",
@@ -150,6 +166,7 @@
         "legalBasis": "други",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

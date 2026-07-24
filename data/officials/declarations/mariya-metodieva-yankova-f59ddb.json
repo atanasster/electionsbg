@@ -320,7 +320,8 @@
         "legalBasis": "Финансов лизинг лихва - 2.99%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-metodieva-yankova-f59ddb",
@@ -722,7 +723,8 @@
         "legalBasis": "Финансов лизинг - лихва 2.99%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-metodieva-yankova-f59ddb",
@@ -1014,6 +1016,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр, София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 104,
+        "builtAreaSqm": 104,
+        "currency": "BGN",
+        "valueEur": 142369.22431908705,
+        "legalBasis": "възмездно"
       }
     ]
   }

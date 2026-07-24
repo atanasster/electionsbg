@@ -76,7 +76,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatko-kostadinov-velichkov-a4a752",
@@ -191,6 +192,32 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес-Бенц",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес-Бенц",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -252,7 +279,8 @@
         "legalBasis": "банков заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatko-kostadinov-velichkov-a4a752",
@@ -349,7 +377,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatko-kostadinov-velichkov-a4a752",
@@ -373,7 +402,8 @@
         "amountEurSpouse": 11260.18109958432
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zlatko-kostadinov-velichkov-a4a752",
@@ -434,7 +464,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заем"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatko-kostadinov-velichkov-a4a752",
@@ -542,7 +573,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatko-kostadinov-velichkov-a4a752",
@@ -559,6 +591,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5D988218-DF65-4696-8061-A07A3F6085D992749.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

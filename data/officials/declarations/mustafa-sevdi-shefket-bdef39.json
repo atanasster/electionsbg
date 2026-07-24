@@ -105,6 +105,20 @@
         "legalBasis": "Заем Банка",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -254,6 +268,7 @@
         "legalBasis": "Заем Банка",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

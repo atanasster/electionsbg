@@ -20,6 +20,20 @@
         "amountEurSpouse": 6307.807938317747
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2350.9200697402125,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

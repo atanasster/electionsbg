@@ -141,6 +141,92 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 4115.899643629559,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 4115.899643629559,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Българене",
+        "municipality": "Ловеч",
+        "areaSqm": 1300,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Българене",
+        "municipality": "Ловеч",
+        "areaSqm": 1300,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Българене",
+        "municipality": "Ловеч",
+        "areaSqm": 1300,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 4959.53124760332,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": 4959.53124760332,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -158,7 +244,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/93D7F8DA-BA57-4DCD-B126-4BDC6449E024195492.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rumen-lyubomirov-lukanov-1cc13f",
@@ -266,6 +353,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

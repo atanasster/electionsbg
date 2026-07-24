@@ -202,7 +202,8 @@
         "legalBasis": "Ипотечен кредит Дом за теб",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-ivanov-spasov-4dc960",
@@ -401,7 +402,8 @@
         "legalBasis": "Ипотечен кредит Дом за теб",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-ivanov-spasov-4dc960",
@@ -690,7 +692,8 @@
         "legalBasis": "Optimal leasing",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetan-ivanov-spasov-4dc960",
@@ -894,6 +897,20 @@
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Дял от продажбата на Апартамент + мазе",
+        "detail": null,
+        "location": "гр. Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 66,
+        "builtAreaSqm": 66,
+        "currency": "BGN",
+        "valueEur": 7158.086336747059,
+        "legalBasis": "възмездно"
       }
     ]
   }

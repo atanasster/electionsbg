@@ -154,6 +154,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Джип Гранд Чероки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11248.421386316806,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -311,7 +325,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-tsvetkov-dimitrov-7541a5",
@@ -414,7 +429,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-tsvetkov-dimitrov-7541a5",
@@ -517,7 +533,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-tsvetkov-dimitrov-7541a5",
@@ -619,6 +636,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 78,
+        "builtAreaSqm": 78,
+        "currency": "BGN",
+        "valueEur": 79250.24158541387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 78,
+        "builtAreaSqm": 78,
+        "currency": "BGN",
+        "valueEur": 79250.24158541387,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -722,6 +765,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доброволни вноски от заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Байлово",
+        "municipality": "Горна Малина",
+        "areaSqm": 1,
+        "builtAreaSqm": 1350,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил - дарен на пълнолетен син",
+        "detail": "фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено \"Сценик\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -148,7 +162,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sofiya-kirilova-iovcheva-fff8e3",
@@ -209,7 +224,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sofiya-kirilova-iovcheva-fff8e3",
@@ -270,7 +286,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sofiya-kirilova-iovcheva-fff8e3",
@@ -337,7 +354,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sofiya-kirilova-iovcheva-fff8e3",
@@ -397,6 +415,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Р.Кипър",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 273.0298645587807,
+        "legalBasis": null
       }
     ]
   },
@@ -458,6 +490,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата /спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 3428.7233553018414,
+        "legalBasis": null
       }
     ]
   },
@@ -585,7 +631,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sofiya-kirilova-iovcheva-fff8e3",
@@ -602,6 +649,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5FE5DD63-5EBB-4255-B473-B55EAEFAC77A88844.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

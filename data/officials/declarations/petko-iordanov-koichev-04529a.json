@@ -202,6 +202,32 @@
         "legalBasis": "лизингов кредит, 3.6%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "о-в Тасос, Република Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 662.122986149103,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пирот, Република Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 119.64230019991513,
+        "legalBasis": null
+      }
     ]
   }
 ]

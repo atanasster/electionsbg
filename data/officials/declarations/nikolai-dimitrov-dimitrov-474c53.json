@@ -184,6 +184,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "BMV 525 xdrive",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9714.54574272815,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "BMV 525 xdrive",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9714.54574272815,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -353,6 +379,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 54999.66766027722,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр.Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 19,
+        "builtAreaSqm": 19,
+        "currency": "BGN",
+        "valueEur": 8999.759692815838,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -480,6 +532,7 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

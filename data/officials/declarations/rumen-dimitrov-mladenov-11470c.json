@@ -33,7 +33,8 @@
         "legalBasis": "ЗАПЛАТА И СПЕСТЯВАНИЯ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-dimitrov-mladenov-11470c",
@@ -178,7 +179,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-dimitrov-mladenov-11470c",
@@ -323,6 +325,32 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 36,
+        "builtAreaSqm": 36,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение на пълнолетно дете"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "рено меган",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 777.1636594182521,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -340,7 +368,21 @@
     "sourceUrl": "https://register.cacbg.bg/2020/4F1B1132-5D2D-45DC-9FE8-4D991C05746C114479.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение на Съвета на ректорите на висшите училища в Република България",
+        "detail": null,
+        "location": "Член, считано от 07.07.2020 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "rumen-dimitrov-mladenov-11470c",
@@ -503,7 +545,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-dimitrov-mladenov-11470c",
@@ -575,7 +618,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-dimitrov-mladenov-11470c",
@@ -592,6 +636,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/4F1B1132-5D2D-45DC-9FE8-4D991C05746C96329.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

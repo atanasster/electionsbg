@@ -377,6 +377,32 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "currency": "BGN",
+        "valueEur": 290000.15338756435,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж-паркомясто",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 15,
+        "builtAreaSqm": 15,
+        "currency": "BGN",
+        "valueEur": 39999.89774162376,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -412,6 +438,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"НС\" ЕАД",
+        "detail": null,
+        "location": "член на Одитен комитет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"ТЕЦ МИ\" 2",
+        "detail": null,
+        "location": "член на Одитен комитет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -715,7 +767,8 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "snezhana-bobeva-iovkova-markova-526d9b",
@@ -1100,6 +1153,32 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "овощна градина 3 броя",
+        "detail": null,
+        "location": "Червен бряг",
+        "municipality": "Червен бряг",
+        "areaSqm": 14615,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Червен бряг",
+        "municipality": "Червен бряг",
+        "areaSqm": 2989,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 170.26019643834076,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1135,6 +1214,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"НС\" ЕАД",
+        "detail": null,
+        "location": "член на Одитния комитет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -1425,6 +1518,7 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   }
 ]

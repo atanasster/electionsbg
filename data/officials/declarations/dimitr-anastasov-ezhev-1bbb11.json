@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "Пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-anastasov-ezhev-1bbb11",
@@ -76,7 +77,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitr-anastasov-ezhev-1bbb11",
@@ -124,6 +126,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Субару \"Легаси\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
       }
     ]
   }

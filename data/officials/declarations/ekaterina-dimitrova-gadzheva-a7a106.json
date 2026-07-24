@@ -76,7 +76,8 @@
         "legalBasis": "Нотариален акт за учредяване на договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-dimitrova-gadzheva-a7a106",
@@ -281,7 +282,8 @@
         "legalBasis": "Нотариален акт за учредяване на договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-dimitrova-gadzheva-a7a106",
@@ -438,6 +440,20 @@
         "legalBasis": "Нотариален акт за учредяване на договорна ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек антомобил",
+        "detail": "Мицубиши аутлендер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3681.3015446127733,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -505,7 +521,8 @@
         "legalBasis": "нотариален акт за учредяване на договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-dimitrova-gadzheva-a7a106",
@@ -572,7 +589,8 @@
         "legalBasis": "нотариален акт за учрудявяне на договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-dimitrova-gadzheva-a7a106",
@@ -663,6 +681,20 @@
         "legalBasis": "нотариален акт за учредяване на дотоворна ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ровър 75",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -680,7 +712,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/05298D87-EDD3-4410-8A48-B10293BBBF4F88532.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ekaterina-dimitrova-gadzheva-a7a106",
@@ -788,6 +821,7 @@
         "legalBasis": "нотариален акт за учредяване на договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

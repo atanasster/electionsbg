@@ -88,7 +88,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-stefanov-ivanov-52006f",
@@ -137,7 +138,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсии"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-stefanov-ivanov-52006f",
@@ -258,6 +260,20 @@
         "legalBasis": null,
         "fundsOrigin": "пенсии"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Тойота RAV 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение"
+      }
     ]
   },
   {
@@ -343,6 +359,7 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   }
 ]

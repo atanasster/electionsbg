@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-genadiev-toshev-12a0aa",
@@ -142,6 +143,20 @@
         "legalBasis": null,
         "fundsOrigin": "възнаграждения"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Земеделски земи",
+        "detail": null,
+        "location": "кв. Челопечене",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51249.853003584154,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -159,7 +174,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/BC260A41-6808-4704-83E0-8A769DB6E40F156185.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-genadiev-toshev-12a0aa",
@@ -1410,6 +1426,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

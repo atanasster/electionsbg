@@ -94,6 +94,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Субару",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 490.84020594836977,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -118,6 +132,7 @@
         "amountEurSpouse": 4371.034292346472
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

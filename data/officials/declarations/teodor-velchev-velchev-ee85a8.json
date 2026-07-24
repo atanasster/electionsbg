@@ -280,7 +280,8 @@
         "legalBasis": "договорен овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodor-velchev-velchev-ee85a8",
@@ -437,6 +438,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 497.4870004039206,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -587,6 +602,44 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 90,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 54196.93940679916,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Дъбрава",
+        "municipality": "Благоевград",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Дъбрава",
+        "municipality": "Благоевград",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -912,6 +965,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 86,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 21999.867064110887,
+        "legalBasis": "възмездно"
       }
     ]
   }

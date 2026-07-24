@@ -130,7 +130,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-encheva-encheva-5feec0",
@@ -281,7 +282,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-encheva-encheva-5feec0",
@@ -432,7 +434,8 @@
         "legalBasis": "финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-encheva-encheva-5feec0",
@@ -565,7 +568,8 @@
         "legalBasis": "финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-encheva-encheva-5feec0",
@@ -698,6 +702,20 @@
         "legalBasis": "финансов лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "фиат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -715,7 +733,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/80FE4EC7-7B15-434A-A14E-FA7B603F797C91524.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milena-encheva-encheva-5feec0",
@@ -841,6 +860,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

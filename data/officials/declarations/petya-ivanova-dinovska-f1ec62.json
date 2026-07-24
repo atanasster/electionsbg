@@ -51,6 +51,32 @@
         "legalBasis": "заплати и спестявания",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Специализирана болница за активно лечение по кардиология ВеликоТърново ЕАД",
+        "detail": null,
+        "location": "Изпълнителен Директор",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Специализирана болница за активно лечение по кардиология Варна ЕАД",
+        "detail": null,
+        "location": "Член на съвета на директорите",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -166,7 +192,8 @@
         "legalBasis": "19%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-ivanova-dinovska-f1ec62",
@@ -227,7 +254,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-ivanova-dinovska-f1ec62",
@@ -306,7 +334,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-ivanova-dinovska-f1ec62",
@@ -421,7 +450,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-ivanova-dinovska-f1ec62",
@@ -554,7 +584,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-ivanova-dinovska-f1ec62",
@@ -589,6 +620,68 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Български Кардиологичен Институт АД",
+        "detail": null,
+        "location": "Член на съвета на директорите",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Специализирана болница за активно лечение по кардиология ВеликоТърново ЕАД",
+        "detail": null,
+        "location": "Член на съвета на директорите",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Специализирана болница за активно лечение по кардиология ЕАД",
+        "detail": null,
+        "location": "Член на съвета на директорите",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Специализирана болница за активно лечение по кардиология Ямбол ЕАД",
+        "detail": null,
+        "location": "Член на съвета на директорите",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Специализирана болница за активно лечение по кардиология Варна ЕАД",
+        "detail": null,
+        "location": "Член на съвета на директорите",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

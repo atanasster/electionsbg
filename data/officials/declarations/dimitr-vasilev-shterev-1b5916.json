@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-vasilev-shterev-1b5916",
@@ -167,7 +168,8 @@
         "legalBasis": "авансово внесени вноски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-vasilev-shterev-1b5916",
@@ -288,7 +290,8 @@
         "legalBasis": "авансово внесени вноски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-vasilev-shterev-1b5916",
@@ -385,6 +388,20 @@
         "legalBasis": "предварителен договор за покупка на имот",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "плащане по предварителен договор",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 19429.0914854563,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -428,7 +445,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-vasilev-shterev-1b5916",
@@ -662,7 +680,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-vasilev-shterev-1b5916",
@@ -679,6 +698,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/53F89473-E329-4676-8CAB-BA83821E591189652.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

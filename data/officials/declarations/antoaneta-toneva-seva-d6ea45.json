@@ -196,7 +196,8 @@
         "legalBasis": "масова приватизация * 1 деноминиран лв.",
         "fundsOrigin": "масова приватизация * 1 деноминиран лв."
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "antoaneta-toneva-seva-d6ea45",
@@ -395,6 +396,20 @@
         "legalBasis": "масова приватизация * 1 деноминиран лв.",
         "fundsOrigin": "масова приватизация * 1 деноминиран лв."
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "покупко-продажба"
+      }
     ]
   },
   {
@@ -587,6 +602,20 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация * 1 деноминиран лв.",
         "fundsOrigin": "масова приватизация * 1 деноминиран лв."
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "покупко-продажба"
       }
     ]
   },
@@ -792,6 +821,20 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация * 1 деноминиран лв.",
         "fundsOrigin": "масова приватизация * 1 деноминиран лв."
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "покупко-продажба"
       }
     ]
   },
@@ -1094,7 +1137,8 @@
         "legalBasis": "масова приватизация * 1 деноминиран лв.",
         "fundsOrigin": "масова приватизация * 1 деноминиран лв."
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "antoaneta-toneva-seva-d6ea45",
@@ -1305,6 +1349,7 @@
         "legalBasis": "масова приватизация * 1 деноминиран лв.",
         "fundsOrigin": "масова приватизация * 1 деноминиран лв."
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -213,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-ivanov-hasekiev-28f3fc",
@@ -411,7 +412,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-ivanov-hasekiev-28f3fc",
@@ -453,6 +455,44 @@
         "isSpouse": false,
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 600,
+        "builtAreaSqm": 60,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Закупуване на медикамента Genotropin 12mg",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4274.400126800387,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Закупуване на медикамента Genotropin 12mg",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3159.272533911434,
+        "legalBasis": null
       }
     ]
   },
@@ -515,6 +555,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Закупуване на медикамент Genotropin 16UI/5,3 mg",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2560.549741030662,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Закупуване на медикамент Genotropin 16UI/5,3 mg",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2065.1079081515263,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -557,6 +623,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот (лозе)",
+        "detail": null,
+        "location": "Созопол",
+        "municipality": "Созопол",
+        "areaSqm": 380,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3324.4198115378126,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "D172043 INTERNATIONAL INTELIGENCE FELLOWSHIP PROGRAM, Вашингтон, САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3224.206602823354,
+        "legalBasis": null
       }
     ]
   },
@@ -607,6 +699,7 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

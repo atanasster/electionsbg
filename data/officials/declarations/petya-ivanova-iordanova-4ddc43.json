@@ -202,7 +202,8 @@
         "legalBasis": null,
         "fundsOrigin": "собствени доходи от стопанска дейност"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-ivanova-iordanova-4ddc43",
@@ -341,7 +342,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАСТРАХОВКА ЖИВОТ В ДЗИ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-ivanova-iordanova-4ddc43",
@@ -546,6 +548,32 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПОЗЕМЛЕН ИМОТ",
+        "detail": null,
+        "location": "м. ДЕРВЕНЯ",
+        "municipality": "Велико Търново",
+        "areaSqm": 347,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ПОЗЕМЛЕН ИМОТ",
+        "detail": null,
+        "location": "м. ДЕРВЕНЯ",
+        "municipality": "Велико Търново",
+        "areaSqm": 347,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -709,6 +737,44 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Арбанаси",
+        "municipality": "Велико Търново",
+        "areaSqm": 943,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -812,7 +878,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-ivanova-iordanova-4ddc43",
@@ -1364,7 +1431,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-ivanova-iordanova-4ddc43",
@@ -1381,6 +1449,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/99DDC27D-7077-45D7-8723-F1BC7613A5BF89507.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

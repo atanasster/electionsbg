@@ -190,6 +190,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с. Равда",
+        "municipality": "Несебър",
+        "areaSqm": 47,
+        "builtAreaSqm": 47,
+        "currency": "BGN",
+        "valueEur": 57972.31865755204,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с. Равда",
+        "municipality": "Несебър",
+        "areaSqm": 47,
+        "builtAreaSqm": 47,
+        "currency": "BGN",
+        "valueEur": 57972.31865755204,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

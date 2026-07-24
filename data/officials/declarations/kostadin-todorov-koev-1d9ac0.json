@@ -76,7 +76,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-koev-1d9ac0",
@@ -100,7 +101,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-koev-1d9ac0",
@@ -124,7 +126,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-koev-1d9ac0",
@@ -148,7 +151,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел,ВЕДНО с находящия се в  промишлена сграда южен самостоятелен обект",
+        "detail": null,
+        "location": "УПИXVII- за производство и услуги,кв.84",
+        "municipality": "Велинград",
+        "areaSqm": 1131,
+        "builtAreaSqm": 74,
+        "currency": "BGN",
+        "valueEur": 22964.163552046957,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "kostadin-todorov-koev-1d9ac0",
@@ -219,6 +236,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "СДРУЖЕНИЕ \"ФУТБОЛЕН КЛУБ ЧЕПИНЕЦ\"",
+        "detail": null,
+        "location": "ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Организация за управление на туристически район \"Родопи\"",
+        "detail": null,
+        "location": "ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

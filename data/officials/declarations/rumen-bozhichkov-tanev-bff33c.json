@@ -46,6 +46,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент, избено помещение 16Д",
+        "detail": null,
+        "location": "Добрич, ул. Трети март, 6,вх.А, ет.1, ап.2",
+        "municipality": "Добрич",
+        "areaSqm": 66,
+        "builtAreaSqm": 66,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -95,6 +109,7 @@
         "legalBasis": null,
         "fundsOrigin": "пенсиониране"
       }
-    ]
+    ],
+    "events": []
   }
 ]

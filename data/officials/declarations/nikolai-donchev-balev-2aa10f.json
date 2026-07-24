@@ -52,6 +52,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Доспат",
+        "municipality": "Доспат",
+        "areaSqm": 700,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1201.5359208111136,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -101,7 +115,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-donchev-balev-2aa10f",
@@ -150,7 +165,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-donchev-balev-2aa10f",
@@ -199,7 +215,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-donchev-balev-2aa10f",
@@ -260,7 +277,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-donchev-balev-2aa10f",
@@ -369,6 +387,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Верен",
+        "municipality": "Братя Даскалови",
+        "areaSqm": 4,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 894.7607920933824,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -386,7 +418,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D3017A04-15E0-474F-8C09-90B5C418652289494.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-donchev-balev-2aa10f",
@@ -656,6 +689,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

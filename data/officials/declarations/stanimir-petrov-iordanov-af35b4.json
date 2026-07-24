@@ -166,7 +166,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stanimir-petrov-iordanov-af35b4",
@@ -183,7 +184,21 @@
     "sourceUrl": "https://register.cacbg.bg/2025/D5EEB1A1-7608-483C-91CE-D53C5CCADB56209133.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Военен спортен клуб \"СпортМО\"",
+        "detail": null,
+        "location": "председател на УС на ВСК \"СпортМО\", считано от 05.05.2025 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "stanimir-petrov-iordanov-af35b4",
@@ -243,6 +258,20 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил - бракуван",
+        "detail": "Рено 19",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

@@ -148,7 +148,8 @@
         "legalBasis": "Потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "airie-remzieva-ibryamova-73c319",
@@ -299,6 +300,20 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Виница",
+        "municipality": "Варна",
+        "areaSqm": 535,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 19040.509655747177,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -316,7 +331,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/10CDF71B-3E83-4721-B6D0-7FDA90E839E489423.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "airie-remzieva-ibryamova-73c319",
@@ -442,6 +458,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

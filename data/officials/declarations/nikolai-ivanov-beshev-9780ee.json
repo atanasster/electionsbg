@@ -177,7 +177,8 @@
         "legalBasis": "чл.227 ал.1,5;чл.228 ал.1 и чл.234 от ЗОВС на РБ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-ivanov-beshev-9780ee",
@@ -316,6 +317,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -424,7 +439,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-ivanov-beshev-9780ee",
@@ -441,6 +457,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3E978661-3476-43D0-A32F-3AB6CCD2A8E791294.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

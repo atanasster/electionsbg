@@ -26,6 +26,32 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Благоевград, Изгрев, бл.62, вх.А, ап.16",
+        "municipality": "Благоевград",
+        "areaSqm": 61,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Благоевград, Изгрев, бл.62, вх.А, ап.16",
+        "municipality": "Благоевград",
+        "areaSqm": 61,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

@@ -64,6 +64,20 @@
         "legalBasis": "замяна",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес Е 220",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 690.244039614895,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -81,7 +95,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/ACB30E84-BBE9-4C57-8923-0E035236E1AE89035.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zhivko-atanasov-vangelov-fc5959",
@@ -135,6 +150,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

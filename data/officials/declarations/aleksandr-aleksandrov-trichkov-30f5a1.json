@@ -88,7 +88,8 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-aleksandrov-trichkov-30f5a1",
@@ -179,7 +180,8 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-aleksandrov-trichkov-30f5a1",
@@ -318,6 +320,20 @@
         "legalBasis": "ЗАЕМ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Гаранция по ДУК в лв.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -439,6 +455,7 @@
         "legalBasis": "ЗАЕМ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

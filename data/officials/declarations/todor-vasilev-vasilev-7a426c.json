@@ -58,7 +58,8 @@
         "legalBasis": "6,7",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-vasilev-vasilev-7a426c",
@@ -119,6 +120,20 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Служебна командировка - Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1723.0536396312564,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -162,7 +177,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-vasilev-vasilev-7a426c",
@@ -204,6 +220,20 @@
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка - Участие в международно ловно изложение в Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 795.570167141316,
+        "legalBasis": null
       }
     ]
   }

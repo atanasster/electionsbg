@@ -148,7 +148,8 @@
         "legalBasis": "договор 4%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-pavlov-sapundzhiev-5a17aa",
@@ -263,7 +264,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-pavlov-sapundzhiev-5a17aa",
@@ -306,7 +308,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-pavlov-sapundzhiev-5a17aa",
@@ -384,6 +387,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за нредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес 220",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -674,7 +691,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсионно осигуряване в Алианц"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-pavlov-sapundzhiev-5a17aa",
@@ -691,7 +709,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/AB8B8998-7E0F-4AB6-B741-0C7357474EEE96357.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "konstantin-pavlov-sapundzhiev-5a17aa",
@@ -979,6 +998,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

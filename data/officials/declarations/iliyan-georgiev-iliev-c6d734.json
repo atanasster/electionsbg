@@ -178,7 +178,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-georgiev-iliev-c6d734",
@@ -352,6 +353,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -558,7 +573,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-georgiev-iliev-c6d734",
@@ -763,7 +779,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-georgiev-iliev-c6d734",
@@ -950,7 +967,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-georgiev-iliev-c6d734",
@@ -1161,7 +1179,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-georgiev-iliev-c6d734",
@@ -1178,7 +1197,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/14ECECDA-BDE1-438E-B7C6-C61E3C7DCC4C93419.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iliyan-georgiev-iliev-c6d734",
@@ -1340,6 +1360,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

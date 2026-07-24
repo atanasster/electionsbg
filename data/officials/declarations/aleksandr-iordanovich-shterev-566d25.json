@@ -76,6 +76,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 112,
+        "builtAreaSqm": 112,
+        "currency": "BGN",
+        "valueEur": 174999.8721770297,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 112,
+        "builtAreaSqm": 112,
+        "currency": "BGN",
+        "valueEur": 174999.8721770297,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -161,6 +187,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -100,7 +100,8 @@
         "legalBasis": "заем / 3.99%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-kermanov-f602c7",
@@ -239,6 +240,20 @@
         "legalBasis": "ипотека на имот",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Ц МАКС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -256,7 +271,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/19722152-9B17-42A5-A795-8651CB8EA006136834.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-kermanov-f602c7",
@@ -400,6 +416,7 @@
         "legalBasis": "ипотека на имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

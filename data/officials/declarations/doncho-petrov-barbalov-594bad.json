@@ -330,6 +330,20 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 194,
+        "builtAreaSqm": 194,
+        "currency": "BGN",
+        "valueEur": 232499.75713635643,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -366,7 +380,8 @@
         "legalBasis": "Продажба наследствен имот през 2024г.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "doncho-petrov-barbalov-594bad",
@@ -675,6 +690,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

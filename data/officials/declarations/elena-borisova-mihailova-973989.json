@@ -112,7 +112,8 @@
         "legalBasis": "лизингов договор, лп 3,86 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-borisova-mihailova-973989",
@@ -335,6 +336,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от предходни години"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "джип",
+        "detail": "БМВ Х6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -390,7 +405,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-borisova-mihailova-973989",
@@ -420,7 +436,8 @@
         "amountEurSpouse": 56242.106931584036
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "elena-borisova-mihailova-973989",
@@ -450,7 +467,8 @@
         "amountEurSpouse": 16872.63207947521
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "elena-borisova-mihailova-973989",
@@ -499,7 +517,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-borisova-mihailova-973989",
@@ -709,7 +728,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-borisova-mihailova-973989",
@@ -726,6 +746,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/910021F3-6D2B-4C85-A861-E897D0AF924288737.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

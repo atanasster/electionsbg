@@ -298,6 +298,20 @@
         "legalBasis": "банков кредит и лихва 3.39%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9458.899802130041,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -532,6 +546,7 @@
         "legalBasis": "кредита карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

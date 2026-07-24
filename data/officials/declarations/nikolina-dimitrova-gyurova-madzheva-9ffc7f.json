@@ -112,6 +112,20 @@
         "legalBasis": "догвор за потребителски кредит с лихвен процент 4.1%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "\"Сузуки S cross Sx4\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -256,7 +270,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolina-dimitrova-gyurova-madzheva-9ffc7f",
@@ -273,7 +288,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/06AF09AD-1201-4AA5-9945-833F268CBEC9167372.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolina-dimitrova-gyurova-madzheva-9ffc7f",
@@ -417,6 +433,7 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

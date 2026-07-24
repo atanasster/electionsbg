@@ -172,6 +172,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и дивиденти"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "опел корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1073.7129505120588,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -347,6 +361,7 @@
         "legalBasis": null,
         "fundsOrigin": "влог"
       }
-    ]
+    ],
+    "events": []
   }
 ]

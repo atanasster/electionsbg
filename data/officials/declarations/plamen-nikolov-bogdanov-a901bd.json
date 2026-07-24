@@ -202,6 +202,56 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 54,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16361.340198278991,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Телиш",
+        "municipality": "Червен бряг",
+        "areaSqm": 6400,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 639.1148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Телиш",
+        "municipality": "Червен бряг",
+        "areaSqm": 4200,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 639.1148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено Сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -219,7 +269,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/CDCC9CD4-C033-4646-B7D8-5E1FA6F58ED589067.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "plamen-nikolov-bogdanov-a901bd",
@@ -381,6 +432,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

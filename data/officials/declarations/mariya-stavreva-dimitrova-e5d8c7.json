@@ -82,7 +82,8 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-stavreva-dimitrova-e5d8c7",
@@ -185,6 +186,44 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "БУРГАС",
+        "municipality": "БУРГАС",
+        "areaSqm": 42,
+        "builtAreaSqm": 42,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "земеделска земя",
+        "detail": null,
+        "location": "АТИЯ",
+        "municipality": "СОЗОПОЛ",
+        "areaSqm": 530,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4213.556392938037,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "земеделска земя",
+        "detail": null,
+        "location": "АТИЯ",
+        "municipality": "СОЗОПОЛ",
+        "areaSqm": 36,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 572.1356150585685,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -282,7 +321,8 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-stavreva-dimitrova-e5d8c7",
@@ -361,7 +401,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-stavreva-dimitrova-e5d8c7",
@@ -422,6 +463,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

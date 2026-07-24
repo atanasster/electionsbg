@@ -352,6 +352,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "договор за продажба - възмездно"
+      }
     ]
   },
   {
@@ -388,7 +402,8 @@
         "legalBasis": "заплати",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobrinka-dimitrova-vicheva-79e280",
@@ -405,7 +420,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/DC34B6D0-F5BC-4580-ACD4-2CA730D532EC156154.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dobrinka-dimitrova-vicheva-79e280",
@@ -945,6 +961,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -360,7 +360,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "doncho-petrov-barbalov-cf4787",
@@ -645,7 +646,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "doncho-petrov-barbalov-cf4787",
@@ -681,7 +683,8 @@
         "legalBasis": "Продажба на имот през 2017 и спестявания",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "doncho-petrov-barbalov-cf4787",
@@ -735,7 +738,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "doncho-petrov-barbalov-cf4787",
@@ -1176,7 +1180,8 @@
         "legalBasis": "договор за ипотечен заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "doncho-petrov-barbalov-cf4787",
@@ -1261,7 +1266,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "doncho-petrov-barbalov-cf4787",
@@ -1507,6 +1513,20 @@
         "isSpouse": true,
         "legalBasis": "депозитарни сметки чужди юр. Лица.",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 82998.52236646334,
+        "legalBasis": "възмездно"
       }
     ]
   }

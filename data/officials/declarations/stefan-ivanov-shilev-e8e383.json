@@ -483,7 +483,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-ivanov-shilev-e8e383",
@@ -519,7 +520,21 @@
         "amountEurSpouse": 2691.9517544980904
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 594.6324578312021,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "stefan-ivanov-shilev-e8e383",
@@ -969,7 +984,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-ivanov-shilev-e8e383",
@@ -986,6 +1002,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E0305774-5612-47EB-95B4-6C64F8B2C27A91743.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

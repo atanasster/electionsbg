@@ -177,6 +177,32 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Кърджали, ул. Опълченска 46",
+        "municipality": "Кърджали",
+        "areaSqm": 426,
+        "builtAreaSqm": 124,
+        "currency": "BGN",
+        "valueEur": 50106.604357229415,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Заем",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      }
     ]
   }
 ]

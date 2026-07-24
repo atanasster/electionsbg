@@ -155,7 +155,8 @@
         "legalBasis": "Договор  6,35%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "slaveiko-smilkov-seloshev-3d17b4",
@@ -294,7 +295,8 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "slaveiko-smilkov-seloshev-3d17b4",
@@ -432,6 +434,20 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Почивка в Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": null
       }
     ]
   },
@@ -571,6 +587,20 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ПОЧИВКА В ТУРЦИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
       }
     ]
   },
@@ -939,7 +969,8 @@
         "legalBasis": null,
         "fundsOrigin": "от заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "slaveiko-smilkov-seloshev-3d17b4",
@@ -1252,7 +1283,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "slaveiko-smilkov-seloshev-3d17b4",
@@ -1355,6 +1387,7 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   }
 ]

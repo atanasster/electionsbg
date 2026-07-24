@@ -459,6 +459,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Строево",
+        "municipality": "Марица",
+        "areaSqm": 1340,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1329.358891110168,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Строево",
+        "municipality": "Марица",
+        "areaSqm": 1340,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1329.358891110168,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

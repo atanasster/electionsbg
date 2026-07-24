@@ -166,7 +166,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivelin-iordanov-dzhambazov-3f53da",
@@ -353,7 +354,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivelin-iordanov-dzhambazov-3f53da",
@@ -558,7 +560,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivelin-iordanov-dzhambazov-3f53da",
@@ -594,7 +597,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivelin-iordanov-dzhambazov-3f53da",
@@ -798,6 +802,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1028,7 +1046,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivelin-iordanov-dzhambazov-3f53da",
@@ -1287,6 +1306,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Микра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 664.679445555084,
+        "legalBasis": "договор"
+      }
     ]
   },
   {
@@ -1304,7 +1337,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E255B4BA-7F1C-4B5A-A0E3-7E2A2C299B0489363.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivelin-iordanov-dzhambazov-3f53da",
@@ -1520,6 +1554,7 @@
         "legalBasis": "Договор за банкова кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -33,7 +33,8 @@
         "legalBasis": "Продажба на автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-atanasova-andreeva-sotirova-d342a0",
@@ -69,7 +70,8 @@
         "legalBasis": "Договор № 000LD-R-061339/06.01.2020 g.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-atanasova-andreeva-sotirova-d342a0",
@@ -129,6 +131,20 @@
         "isSpouse": false,
         "legalBasis": "Договор 23474/02.12.2019 г. за финансов лизинг с Порше Лизинг БГ ЕООД",
         "fundsOrigin": "Първоначална вноска-продажба на автомобил Мицубиши Еклипс Крос, Договор 23474/02.12.2019 г. за финансов лизинг с Порше Лизинг БГ ЕООД, заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мицубиши Еклипс Крос",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -191,7 +207,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-atanasova-andreeva-sotirova-d342a0",
@@ -317,7 +334,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-atanasova-andreeva-sotirova-d342a0",
@@ -334,6 +352,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C49B3167-F6F7-49A9-AD1A-76059AA2FDF491512.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

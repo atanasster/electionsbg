@@ -69,6 +69,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 60,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -104,6 +118,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Костиево",
+        "municipality": "Марица",
+        "areaSqm": 600,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 12737.814636241392,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -249,7 +249,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabrie-taifi-sapundzhieva-5a15cb",
@@ -364,7 +365,8 @@
         "legalBasis": null,
         "fundsOrigin": "социални плащания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabrie-taifi-sapundzhieva-5a15cb",
@@ -461,7 +463,8 @@
         "legalBasis": null,
         "fundsOrigin": "социални плащания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabrie-taifi-sapundzhieva-5a15cb",
@@ -564,7 +567,8 @@
         "legalBasis": null,
         "fundsOrigin": "социални плащания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabrie-taifi-sapundzhieva-5a15cb",
@@ -667,7 +671,8 @@
         "legalBasis": null,
         "fundsOrigin": "социални плащания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabrie-taifi-sapundzhieva-5a15cb",
@@ -764,7 +769,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sabrie-taifi-sapundzhieva-5a15cb",
@@ -843,6 +849,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -860,7 +880,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B4AE1230-4BF0-4B9E-921E-7C5280B2C1CF88833.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "sabrie-taifi-sapundzhieva-5a15cb",
@@ -1076,6 +1097,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

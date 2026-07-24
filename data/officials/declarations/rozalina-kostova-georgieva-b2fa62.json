@@ -82,7 +82,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rozalina-kostova-georgieva-b2fa62",
@@ -167,7 +168,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rozalina-kostova-georgieva-b2fa62",
@@ -288,7 +290,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rozalina-kostova-georgieva-b2fa62",
@@ -355,7 +358,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rozalina-kostova-georgieva-b2fa62",
@@ -403,7 +407,8 @@
         "amountEurSpouse": 1050.1935239770328
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rozalina-kostova-georgieva-b2fa62",
@@ -458,6 +463,104 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 11,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5343.000158500483,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 16,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7771.636594182521,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4371.545584227668,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3885.8182970912603,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 14,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6800.182019909706,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2428.6364356820377,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Криводол",
+        "municipality": "Криводол",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2428.6364356820377,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Спасово",
+        "municipality": "Генерал Тошево",
+        "areaSqm": 11,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -475,7 +578,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0233830A-99DA-4FB0-8874-6B2C032A565890720.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rozalina-kostova-georgieva-b2fa62",
@@ -835,6 +939,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

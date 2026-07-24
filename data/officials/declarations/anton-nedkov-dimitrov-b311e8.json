@@ -375,7 +375,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-nedkov-dimitrov-b311e8",
@@ -670,7 +671,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване и заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-nedkov-dimitrov-b311e8",
@@ -994,7 +996,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-nedkov-dimitrov-b311e8",
@@ -1300,7 +1303,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследство"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-nedkov-dimitrov-b311e8",
@@ -1587,6 +1591,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1912,7 +1942,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-nedkov-dimitrov-b311e8",
@@ -1929,6 +1960,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/BE290E49-4526-445E-A2D5-C5CAB2D0B88389992.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

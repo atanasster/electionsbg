@@ -33,6 +33,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"СОМУРТО ИНВЕСТ\" ЕООД",
+        "detail": null,
+        "location": "не съм управител, вписване в ТРРЮЛНЦ на 13.03.2025 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -50,7 +64,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/F868A7C1-0D50-4FF4-9FBE-46B807E628CB202718.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "todor-vasilev-vasilev-6439d7",
@@ -266,6 +281,7 @@
         "legalBasis": "5%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

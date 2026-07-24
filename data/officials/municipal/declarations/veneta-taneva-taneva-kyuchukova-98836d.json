@@ -26,6 +26,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "к.к Пампорово",
+        "municipality": "Смолян",
+        "areaSqm": 61,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50617.89623842563,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

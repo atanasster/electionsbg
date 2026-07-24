@@ -94,6 +94,20 @@
         "legalBasis": "Договор, 4,65%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Септември",
+        "municipality": "Септември",
+        "areaSqm": 640,
+        "builtAreaSqm": 180,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -111,7 +125,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/D7D6BCBF-94C4-4D4D-AA26-730EF4FB31F3177477.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "atanaska-asenova-petkova-413e77",
@@ -273,6 +288,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

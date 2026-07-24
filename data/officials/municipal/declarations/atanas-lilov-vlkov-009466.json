@@ -519,6 +519,56 @@
         "legalBasis": "ДОГОВОР ЗА ЗАЕМ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "ГОЛЯМ ЧАРДАК",
+        "municipality": "Съединение",
+        "areaSqm": 553,
+        "builtAreaSqm": 553,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "ГОЛЯМ ЧАРДАК",
+        "municipality": "Съединение",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "ГОЛЯМ ЧАРДАК",
+        "municipality": "Съединение",
+        "areaSqm": 2695,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ТУРЦИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      }
     ]
   }
 ]

@@ -682,7 +682,8 @@
         "legalBasis": "покупка",
         "fundsOrigin": "заплата и средства по НКСЗМ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dragomir-valeriev-zakov-34f4f8",
@@ -699,7 +700,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/86447073-DD74-425B-BA1E-B376E78362E1188241.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dragomir-valeriev-zakov-34f4f8",
@@ -1437,7 +1439,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dragomir-valeriev-zakov-34f4f8",
@@ -2157,7 +2160,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dragomir-valeriev-zakov-34f4f8",
@@ -2644,7 +2648,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dragomir-valeriev-zakov-34f4f8",
@@ -2897,6 +2902,56 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотор",
+        "detail": "Ямаха",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотор",
+        "detail": "Ямаха",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -2914,7 +2969,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/86447073-DD74-425B-BA1E-B376E78362E194204.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dragomir-valeriev-zakov-34f4f8",
@@ -3328,6 +3384,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -392,7 +392,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitrina-lyubomirova-hadzhieva-nedina-866b6b",
@@ -408,7 +409,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/12643C2B-E09F-4C32-83EB-80C2780A78B7203830.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitrina-lyubomirova-hadzhieva-nedina-866b6b",
@@ -635,6 +637,20 @@
         "isSpouse": false,
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шевролет Каприз",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
       }
     ]
   }

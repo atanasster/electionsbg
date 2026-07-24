@@ -166,7 +166,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА И ХОНОРАРИ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumyana-krsteva-krsteva-119fc1",
@@ -371,7 +372,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumyana-krsteva-krsteva-119fc1",
@@ -521,6 +523,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 60,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -774,7 +790,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumyana-krsteva-krsteva-119fc1",
@@ -791,6 +808,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/A2D8B527-1BD4-4BAF-B18B-FDBDE96461A592905.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

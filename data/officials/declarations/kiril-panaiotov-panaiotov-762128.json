@@ -69,6 +69,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "БАЗА 495 ЕООД",
+        "detail": null,
+        "location": "УПРАВИТЕЛ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -398,7 +412,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-762128",
@@ -434,7 +449,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-762128",
@@ -693,6 +709,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ Х5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 37436.791541187114,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -710,7 +740,21 @@
     "sourceUrl": "https://register.cacbg.bg/2024/1375D9BF-492B-4080-B6AB-1B3B63C89E4C196188.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АСОЦИАЦИЯ ПО ФИЗИКАЛНА МЕДИЦИНА И РЕХАБИЛИТАЦИЯ",
+        "detail": null,
+        "location": "ПРЕДСЕДАТЕЛ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "kiril-panaiotov-panaiotov-762128",
@@ -873,7 +917,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-762128",
@@ -1114,6 +1159,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 105,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -1289,7 +1348,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-762128",
@@ -1434,7 +1494,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-762128",
@@ -1822,7 +1883,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-762128",
@@ -1839,6 +1901,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1375D9BF-492B-4080-B6AB-1B3B63C89E4C89977.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

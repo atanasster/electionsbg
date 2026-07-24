@@ -148,6 +148,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 34,
+        "builtAreaSqm": 34,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -275,6 +289,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Ситроен Xsara Picaso",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -292,7 +320,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/71E344E4-8FA6-4889-825B-2A96912FA3C8155726.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rumeliya-markova-petrova-bb9e6d",
@@ -454,6 +483,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

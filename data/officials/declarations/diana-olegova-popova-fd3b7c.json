@@ -257,6 +257,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучение средно образование",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 9940.025462335683,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -274,7 +288,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/19539FD9-FCEC-4A37-8479-06DB89746ECF180126.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "diana-olegova-popova-fd3b7c",
@@ -844,6 +859,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

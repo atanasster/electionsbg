@@ -663,7 +663,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spas-ivanov-shishkov-b7ef6e",
@@ -861,7 +862,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spas-ivanov-shishkov-b7ef6e",
@@ -1119,6 +1121,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Черна гора - Международен тероризъм и нелегална миграция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Република Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

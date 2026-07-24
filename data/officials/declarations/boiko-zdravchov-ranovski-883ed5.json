@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-zdravchov-ranovski-883ed5",
@@ -208,6 +209,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2147.4259010241176,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -497,7 +512,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-zdravchov-ranovski-883ed5",
@@ -720,7 +736,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсионен фонд"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-zdravchov-ranovski-883ed5",
@@ -781,6 +798,7 @@
         "legalBasis": null,
         "fundsOrigin": "Пенсионен фонд Доверие"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -87,6 +87,32 @@
         "legalBasis": "дарение",
         "fundsOrigin": "заеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Бургас, ул.Климент Охридски 35",
+        "municipality": "Бургас",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Бургас, ул. Сливница 33, ет.2",
+        "municipality": "Бургас",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -177,7 +203,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-vladimirova-velcheva-bf32e2",
@@ -194,6 +221,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C176DA4C-3FDB-4997-94BF-9F39B6AF066F91485.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

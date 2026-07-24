@@ -213,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-asenov-krov-57a480",
@@ -442,7 +443,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-asenov-krov-57a480",
@@ -617,7 +619,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-asenov-krov-57a480",
@@ -792,7 +795,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-asenov-krov-57a480",
@@ -967,7 +971,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-asenov-krov-57a480",
@@ -1058,7 +1063,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-asenov-krov-57a480",
@@ -1201,6 +1207,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Момчилград, ул.\"Сан Стефано\" №14. бл.12. вх.В, ап.35",
+        "municipality": "Момчилград",
+        "areaSqm": 97,
+        "builtAreaSqm": 97,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

@@ -51,7 +51,8 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-kostov-yanchev-ebfe64",
@@ -87,7 +88,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-kostov-yanchev-ebfe64",
@@ -267,6 +269,20 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Малко Търново",
+        "municipality": "Малко Търново",
+        "areaSqm": 72,
+        "builtAreaSqm": 72,
+        "currency": "BGN",
+        "valueEur": 10481.48356452248,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -357,6 +373,7 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

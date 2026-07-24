@@ -219,7 +219,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-georgiev-mladenov-a1522c",
@@ -307,6 +308,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба на ипотекирания имот",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "МГМ ИНВЕСТ ЕООД",
+        "detail": null,
+        "location": "УПРАВИТЕЛ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

@@ -63,7 +63,21 @@
         "amountEurSpouse": 0
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр. Оряхово",
+        "municipality": "Оряхово",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "iva-petkova-marinova-cbf547",
@@ -261,7 +275,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-petkova-marinova-cbf547",
@@ -278,6 +293,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/D5BCA0BE-07AB-41C6-BE21-7396FC6E9305179804.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

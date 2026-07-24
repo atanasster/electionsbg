@@ -148,7 +148,8 @@
         "legalBasis": "договор за финансов лизинг, 3,51%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-antonova-ivanova-88e340",
@@ -310,6 +311,20 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
       }
     ]
   }

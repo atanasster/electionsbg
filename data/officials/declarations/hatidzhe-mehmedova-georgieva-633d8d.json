@@ -46,7 +46,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hatidzhe-mehmedova-georgieva-633d8d",
@@ -99,6 +100,32 @@
         "isSpouse": true,
         "legalBasis": "заплати Георги Колев Георгиев",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "МИГ Котел - Сунгурларе - Върбица",
+        "detail": null,
+        "location": "Член на Управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Общински спортен клуб по лека атлетика \"Шампион\" - Сунгурларе",
+        "detail": null,
+        "location": "Ззместник  председател на управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -275,6 +302,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

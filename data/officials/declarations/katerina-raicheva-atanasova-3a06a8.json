@@ -159,7 +159,8 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "katerina-raicheva-atanasova-3a06a8",
@@ -302,6 +303,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17910.043306422336,
+        "legalBasis": null
       }
     ]
   }

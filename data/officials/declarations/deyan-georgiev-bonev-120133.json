@@ -142,6 +142,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 114,
+        "builtAreaSqm": 114,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "делба"
+      }
     ]
   },
   {
@@ -203,6 +217,7 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

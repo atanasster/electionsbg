@@ -82,6 +82,32 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПАРСЕЛ",
+        "detail": null,
+        "location": "С. ЖИВКОВО",
+        "municipality": "ИХТИМАН",
+        "areaSqm": 756,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "ДАРЕНИЕ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -167,7 +193,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-metodieva-mikova-a5397c",
@@ -252,7 +279,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване  и заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-metodieva-mikova-a5397c",
@@ -355,7 +383,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-metodieva-mikova-a5397c",
@@ -445,7 +474,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-metodieva-mikova-a5397c",
@@ -462,6 +492,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EF7088AD-081D-4E86-965D-AC3E39EA218E89798.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

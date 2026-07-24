@@ -105,7 +105,8 @@
         "legalBasis": "Съкредитоискател",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-malamov-1f0163",
@@ -135,7 +136,57 @@
         "amountEurSpouse": 4668.606167202671
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "гр. Винернойщадт, Република Австрия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 912.1447160540538,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "гр. Брашов, Република Румъния",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 768.4716974379164,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "гр. Рига, Република Латвия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 833.4057663498361,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "гр. Варшава, Република Полша",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1192.8439588307776,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "ivan-georgiev-malamov-1f0163",
@@ -184,6 +235,44 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел - Кралство Белгия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 915.2124673412311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Брашов - Република Румъния",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 769.4942812003088,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Атина - Република Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 915.2124673412311,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -227,7 +316,8 @@
         "amountEurSpouse": 2085.048291518179
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-malamov-1f0163",
@@ -270,6 +360,7 @@
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

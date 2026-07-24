@@ -195,6 +195,92 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до Шанхайски политехнически университет в Шанхай, Китай, 29.03-05.04.2024, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2759.9535746971874,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университети в Берлин, Германия, 01.06-08.06.2024, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1234.7698930888675,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до Министерството на образованието на Р Молдова и до ТДУ-Тараклия, Молдова, 26.10 - 03.11.2024 г., гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 233.14909782547562,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университети в Ташкент и Андижан, Узбекистан, 26.10-03.11.2024, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1609.546842005696,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университети в Истанбул, Турция, 01.12-07.12.2024, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 839.5412689241907,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университети в Берлин, Германия, 01.06-08.06.2024, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1234.7698930888675,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване до университети в Истанбул, Турция, 01.12-07.12.2024, гранд по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 839.5412689241907,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -211,6 +297,20 @@
     "sourceUrl": "https://register.cacbg.bg/2025/C00E5019-D006-4AE4-8CF4-97ADBBB29D7D218089.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Съюз на учените - Русе\"",
+        "detail": null,
+        "location": "Председател на Управителния съвет - вписан в РЮЛНЦ от 30.05.2025 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

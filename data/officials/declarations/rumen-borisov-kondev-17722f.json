@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Е220 Блутек",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -131,7 +145,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-borisov-kondev-17722f",
@@ -191,6 +206,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "земя и сграда",
+        "detail": null,
+        "location": "Ал. Стамболийски 63",
+        "municipality": "Разлог",
+        "areaSqm": 563,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 748.4290556950247,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -288,6 +317,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ЗАПЛАТА"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "ГР. РАЗЛОГ,",
+        "municipality": "РАЗЛОГ",
+        "areaSqm": 25,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -470,7 +525,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-borisov-kondev-17722f",
@@ -519,6 +575,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

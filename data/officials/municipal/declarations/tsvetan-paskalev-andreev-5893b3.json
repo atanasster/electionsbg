@@ -375,6 +375,32 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 61,
+        "builtAreaSqm": 61,
+        "currency": "BGN",
+        "valueEur": 56242.106931584036,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 61,
+        "builtAreaSqm": 61,
+        "currency": "BGN",
+        "valueEur": 56242.106931584036,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

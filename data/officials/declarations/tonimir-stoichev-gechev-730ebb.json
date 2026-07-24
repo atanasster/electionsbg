@@ -58,6 +58,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Поземлен имот",
+        "detail": null,
+        "location": "С. Белиш",
+        "municipality": "Троян",
+        "areaSqm": 372,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 774.607200012271,
+        "legalBasis": "дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Поземлен имот",
+        "detail": null,
+        "location": "С. Белиш",
+        "municipality": "Троян",
+        "areaSqm": 330,
+        "builtAreaSqm": 105,
+        "currency": "BGN",
+        "valueEur": 757.7345679327958,
+        "legalBasis": "наследство"
+      }
     ]
   },
   {
@@ -119,6 +145,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

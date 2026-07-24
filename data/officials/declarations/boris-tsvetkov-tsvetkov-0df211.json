@@ -514,7 +514,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-tsvetkov-tsvetkov-0df211",
@@ -616,6 +617,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 124,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 260000.10225837625,
+        "legalBasis": "възмездно"
       }
     ]
   }

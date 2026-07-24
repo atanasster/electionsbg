@@ -142,7 +142,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radan-milenov-knev-177af8",
@@ -299,6 +300,20 @@
         "legalBasis": "рефинансиране",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -426,7 +441,8 @@
         "legalBasis": "рефинансиране",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radan-milenov-knev-177af8",
@@ -571,6 +587,7 @@
         "legalBasis": "устен договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -112,7 +112,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "volodya-bogdanov-petrov-a5d7de",
@@ -317,6 +318,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -396,7 +411,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "volodya-bogdanov-petrov-a5d7de",
@@ -493,7 +509,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "volodya-bogdanov-petrov-a5d7de",
@@ -626,7 +643,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "volodya-bogdanov-petrov-a5d7de",
@@ -669,7 +687,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "volodya-bogdanov-petrov-a5d7de",
@@ -813,7 +832,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "volodya-bogdanov-petrov-a5d7de",
@@ -830,6 +850,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0269596A-D9F8-4539-8CD7-1F7CF68064E189903.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

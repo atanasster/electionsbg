@@ -118,7 +118,8 @@
         "legalBasis": null,
         "fundsOrigin": "разпределен дивидент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobrinka-velova-markova-028258",
@@ -370,7 +371,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobrinka-velova-markova-028258",
@@ -629,7 +631,8 @@
         "legalBasis": null,
         "fundsOrigin": "Стопанска дейност и продажба на имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobrinka-velova-markova-028258",
@@ -899,6 +902,20 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 140,
+        "builtAreaSqm": 140,
+        "currency": "BGN",
+        "valueEur": 181508.61782465756,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -948,7 +965,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobrinka-velova-markova-028258",
@@ -1223,7 +1241,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobrinka-velova-markova-028258",
@@ -1240,6 +1259,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EB7DCD46-2923-4347-8B76-9CD4BC91779590418.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -297,6 +297,56 @@
         "legalBasis": null,
         "fundsOrigin": "Наеми, заплати, продажби и ренти"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "ул. \"Камчия\", идентификатор 04426.100.363",
+        "municipality": "Аврен",
+        "areaSqm": 1316,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "м-ст Чамурлията, идентификатор 04426.28.47",
+        "municipality": "Аврен",
+        "areaSqm": 4037,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "м-ст Чамурлията, идентификатор 04426.28.12",
+        "municipality": "Аврен",
+        "areaSqm": 6442,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "м-ст Чамурлията, идентификатор 04426.28.48",
+        "municipality": "Аврен",
+        "areaSqm": 8999,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

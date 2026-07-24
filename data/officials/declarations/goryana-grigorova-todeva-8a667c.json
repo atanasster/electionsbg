@@ -88,6 +88,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Каварна",
+        "municipality": "Каварна",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -155,7 +169,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "goryana-grigorova-todeva-8a667c",
@@ -172,7 +187,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/089374C7-B303-4306-9F9C-E3CEAF60CFEC89033.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "goryana-grigorova-todeva-8a667c",
@@ -316,6 +332,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

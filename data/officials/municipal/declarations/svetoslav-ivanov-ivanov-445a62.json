@@ -93,6 +93,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Пловдив,ул.Капитан Райчо 32",
+        "municipality": "Пловдив",
+        "areaSqm": 69,
+        "builtAreaSqm": 69,
+        "currency": "BGN",
+        "valueEur": 107945.47583378924,
+        "legalBasis": "продажба"
+      }
     ]
   }
 ]

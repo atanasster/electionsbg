@@ -238,7 +238,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-borisov-gigov-682faf",
@@ -455,7 +456,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати,труд.и гр. Договори, пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-borisov-gigov-682faf",
@@ -672,7 +674,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-borisov-gigov-682faf",
@@ -871,7 +874,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-borisov-gigov-682faf",
@@ -1160,7 +1164,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, трудови възнаграждения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-borisov-gigov-682faf",
@@ -1371,7 +1376,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-borisov-gigov-682faf",
@@ -1406,6 +1412,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "УМБАЛ \"Свети Иван Рилски\"ЕАД, София",
+        "detail": null,
+        "location": "Член на съвета на директорите",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

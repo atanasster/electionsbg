@@ -298,6 +298,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Белащица",
+        "municipality": "Пловдив",
+        "areaSqm": 600,
+        "builtAreaSqm": 600,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Марино поле",
+        "municipality": "Карлово",
+        "areaSqm": 17,
+        "builtAreaSqm": 17454,
+        "currency": "BGN",
+        "valueEur": 1208.1827152666642,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -617,7 +643,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-blagoev-f6bdd7",
@@ -972,7 +999,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-blagoev-f6bdd7",
@@ -989,7 +1017,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E468EF41-E566-44D9-91FD-0AF5742E0FCC90361.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-blagoev-f6bdd7",
@@ -1331,6 +1360,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -250,6 +250,80 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в обучение на тема: Практически акценти при прилагане на СФУК. Годишно докладване",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 85.89703604096471,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в уебинар на 19.09.2024г. на тема: Новите промени в ППЗОП, предварителен контрол по чл. 237Б от ЗОП и контролът на АОП",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 134.98105663580168,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение на следните теми: \"Системи за финансово управление и контрол\" - основни изисквания; Основни видове контролни дейности по чл.13 от ЗФУКПС. Практически съвети при прилагането им; Предоставяне на новите указания за осъществяване на предварителен контрол за законосъобразност на ОП съгласно чл. 237б от ЗОП. Управлението на риска в организациите от публичния сектор.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 521.5177188201428,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 300.63962614337646,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Прахосмукачка Роборок",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 971.4545742728151,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Клавикуларна заключваща се титаниева плака, винтове и самонарези - операция след претърпяно ПТП",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 910.0995485292689,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -443,7 +517,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "shenka-iordanova-rupcheva-87fba1",
@@ -672,7 +747,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "shenka-iordanova-rupcheva-87fba1",
@@ -841,6 +917,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Смяна на тазобедрена става",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2208.780926767664,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -992,7 +1082,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "shenka-iordanova-rupcheva-87fba1",
@@ -1143,7 +1234,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "shenka-iordanova-rupcheva-87fba1",
@@ -1269,7 +1361,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "shenka-iordanova-rupcheva-87fba1",
@@ -1286,6 +1379,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/036FE9AA-18B6-4F75-807E-1A6BF2EF6FBF92159.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

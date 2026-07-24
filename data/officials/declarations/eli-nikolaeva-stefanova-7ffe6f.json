@@ -33,7 +33,8 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "eli-nikolaeva-stefanova-7ffe6f",
@@ -93,6 +94,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "НИСАН ДЖУК",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -173,6 +188,7 @@
         "legalBasis": "ФИНАНСОВ ЛИЗИНГ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

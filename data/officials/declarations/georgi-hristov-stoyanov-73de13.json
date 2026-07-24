@@ -94,6 +94,32 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Айдемир",
+        "municipality": "Силистра",
+        "areaSqm": 900,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8521.190492016178,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Айдемир",
+        "municipality": "Силистра",
+        "areaSqm": 2000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -202,6 +228,20 @@
         "isSpouse": false,
         "legalBasis": "договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -353,6 +393,20 @@
         "isSpouse": false,
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "гр. Балчик",
+        "municipality": "Балчик",
+        "areaSqm": 450,
+        "builtAreaSqm": 380,
+        "currency": "BGN",
+        "valueEur": 42437.22613928613,
+        "legalBasis": "възмездно"
       }
     ]
   }

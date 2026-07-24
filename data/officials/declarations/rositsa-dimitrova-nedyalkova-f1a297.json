@@ -159,7 +159,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-dimitrova-nedyalkova-f1a297",
@@ -273,6 +274,20 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ДВОРНО МЯСТО",
+        "detail": null,
+        "location": "ВАРНА",
+        "municipality": "Варна",
+        "areaSqm": 420,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -407,7 +422,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-dimitrova-nedyalkova-f1a297",
@@ -576,6 +592,7 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": "рента"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Подайва",
+        "municipality": "Исперих",
+        "areaSqm": 30,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "дарение"
+      }
     ]
   },
   {
@@ -179,6 +193,7 @@
         "legalBasis": null,
         "fundsOrigin": "рента от ниви"
       }
-    ]
+    ],
+    "events": []
   }
 ]

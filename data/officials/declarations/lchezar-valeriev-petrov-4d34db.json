@@ -112,6 +112,20 @@
         "legalBasis": "овърдраафт",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Правец",
+        "municipality": "Правец",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 70435.56955359106,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -221,6 +235,7 @@
         "legalBasis": "овърдраафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

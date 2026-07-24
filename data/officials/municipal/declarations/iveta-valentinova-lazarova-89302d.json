@@ -57,7 +57,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на апартамент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iveta-valentinova-lazarova-89302d",
@@ -91,6 +92,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

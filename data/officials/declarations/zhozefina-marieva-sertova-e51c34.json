@@ -21,7 +21,57 @@
         "amountEurSpouse": 37631.08245604168
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Малдиви",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 163.61340198278992,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 184.06507723063865,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Кипър",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 485.72728713640754,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "zhozefina-marieva-sertova-e51c34",
@@ -64,6 +114,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "продажба на имот"
       }
-    ]
+    ],
+    "events": []
   }
 ]

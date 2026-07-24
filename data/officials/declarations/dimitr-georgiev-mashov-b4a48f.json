@@ -94,6 +94,20 @@
         "legalBasis": "4.7%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди А 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -173,7 +187,8 @@
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-georgiev-mashov-b4a48f",
@@ -209,7 +224,8 @@
         "legalBasis": "Отказ от право на придобиване",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-georgiev-mashov-b4a48f",
@@ -312,6 +328,20 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ленд Ровър Фрилендър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2607.588594100714,
+        "legalBasis": "Продажба"
+      }
     ]
   },
   {
@@ -391,7 +421,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-georgiev-mashov-b4a48f",
@@ -506,6 +537,20 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Сузуки Игнис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -585,7 +630,8 @@
         "legalBasis": "Лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-georgiev-mashov-b4a48f",
@@ -628,6 +674,7 @@
         "legalBasis": null,
         "fundsOrigin": "от заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -380,7 +380,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "erdinch-ismail-hairula-1b54ee",
@@ -423,7 +424,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "erdinch-ismail-hairula-1b54ee",
@@ -484,7 +486,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "erdinch-ismail-hairula-1b54ee",
@@ -557,7 +560,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "erdinch-ismail-hairula-1b54ee",
@@ -636,6 +640,20 @@
         "legalBasis": "за покупка на имота по Табл. 1",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Момчилград",
+        "municipality": "Момчилград",
+        "areaSqm": 924,
+        "builtAreaSqm": 3250,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -653,7 +671,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/D9078C86-C040-4FBA-A960-70212630F452100575.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "erdinch-ismail-hairula-1b54ee",
@@ -941,6 +960,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

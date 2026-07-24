@@ -94,6 +94,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "етаж от къща с двор",
+        "detail": null,
+        "location": "гр. Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 116,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": 94588.99802130042,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -191,6 +205,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

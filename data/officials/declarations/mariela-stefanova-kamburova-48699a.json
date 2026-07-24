@@ -106,6 +106,56 @@
         "legalBasis": "покупка на апартамент",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Букурещ, Румъния",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Любляна, Словения",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1585.0048317082774,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Единбург, Великобритания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1636.1340198278992,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Прага, Чехия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1257.7780277426975,
+        "legalBasis": null
+      }
     ]
   }
 ]

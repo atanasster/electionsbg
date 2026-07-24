@@ -58,6 +58,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 301",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7209.21552486668,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -101,7 +115,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-penchev-gigov-00790f",
@@ -125,7 +140,8 @@
         "amountEurSpouse": 9203.253861531934
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitr-penchev-gigov-00790f",
@@ -142,7 +158,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/A01B3183-0FEB-4898-9530-4F56068E7E1593314.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitr-penchev-gigov-00790f",
@@ -214,6 +231,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

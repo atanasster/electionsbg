@@ -244,7 +244,8 @@
         "legalBasis": "текущи нужди",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-tsetsov-gergov-8cec5d",
@@ -334,6 +335,20 @@
         "legalBasis": "ремонт на жилище",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Месечен наем на жилище в Белгия по НДКС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1625.9081822039748,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -351,7 +366,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/C02AFF9A-3A54-48C1-8DA3-240AA64DD0F7141988.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "todor-tsetsov-gergov-8cec5d",
@@ -495,6 +511,7 @@
         "legalBasis": "текущи ремонти",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

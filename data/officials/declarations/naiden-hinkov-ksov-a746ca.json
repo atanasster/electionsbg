@@ -21,7 +21,21 @@
         "amountEurSpouse": 6839.040202880618
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 126.28909465546597,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "naiden-hinkov-ksov-a746ca",
@@ -112,6 +126,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

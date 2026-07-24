@@ -244,6 +244,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, рента"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "по златна линия"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "гр. Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "по златна линия"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 171,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "по златна линия"
+      }
     ]
   },
   {
@@ -526,6 +564,284 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, продажба на автомобил, рента"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "гр. Добрич, ул. \"Адриана Будевска\" № 4",
+        "municipality": "Добрич",
+        "areaSqm": 171,
+        "builtAreaSqm": 171,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Добрич, ул. \"Адриана Будевска\" № 4",
+        "municipality": "Добрич",
+        "areaSqm": 113,
+        "builtAreaSqm": 113,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански двор",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 1796,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 139,
+        "builtAreaSqm": 139,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "прилежаща сграда",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 31,
+        "builtAreaSqm": 31,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански двор",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 80,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "промишлена сграда",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 15,
+        "builtAreaSqm": 15,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански двор",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 1934,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "прилежаща сграда",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 52,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 544,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "спомагателни постройки",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 22,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански двор",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 8488,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "промишлена сграда",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 1319,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 2769,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "административна сграда",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 964,
+        "builtAreaSqm": 964,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стол",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 475,
+        "builtAreaSqm": 475,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 2074,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парокотелно",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 105,
+        "builtAreaSqm": 105,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански двор",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 1108,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански двор",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 2413,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "с. Карапелит",
+        "municipality": "Добричка",
+        "areaSqm": 1150,
+        "builtAreaSqm": 1150,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "доброволна делба - безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 24030.71841622227,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "договорна ипотека от 21.12.2017 г. - наследствена",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306775.1287177311,
+        "legalBasis": null
       }
     ]
   },
@@ -936,6 +1252,20 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "договорна ипотека от 21.12.2017г. - наследствена",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1231,6 +1561,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

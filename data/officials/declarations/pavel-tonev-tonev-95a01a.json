@@ -184,7 +184,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-tonev-tonev-95a01a",
@@ -454,7 +455,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-tonev-tonev-95a01a",
@@ -471,7 +473,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/5A5272C1-FAB6-4754-A078-CCF1C223329A155846.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pavel-tonev-tonev-95a01a",
@@ -687,7 +690,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavel-tonev-tonev-95a01a",
@@ -813,6 +817,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Рупките",
+        "municipality": "Чирпан",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
       }
     ]
   }

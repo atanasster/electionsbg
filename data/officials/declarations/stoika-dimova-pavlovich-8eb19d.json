@@ -40,6 +40,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "продажба на апартаменти"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Бургас, ул. Св.Св. Кирил и Методий 62, ет.3,ап.2",
+        "municipality": "Бургас",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 126999.79037032872,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ул. Перник176,вх.А,ет.14, ап.52",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 77999.62164400792,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -64,6 +90,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

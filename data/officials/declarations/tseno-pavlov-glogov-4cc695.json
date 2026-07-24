@@ -46,6 +46,32 @@
         "legalBasis": null,
         "fundsOrigin": "покупко-продажба"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с,Рибарица",
+        "municipality": "Етрополе",
+        "areaSqm": 680,
+        "builtAreaSqm": 680,
+        "currency": "BGN",
+        "valueEur": 71580.86336747059,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с.Рибарица",
+        "municipality": "Етрополе",
+        "areaSqm": 680,
+        "builtAreaSqm": 680,
+        "currency": "BGN",
+        "valueEur": 71580.86336747059,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

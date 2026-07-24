@@ -231,7 +231,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-vlchinov-pangarov-c9e993",
@@ -334,7 +335,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-vlchinov-pangarov-c9e993",
@@ -437,7 +439,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-vlchinov-pangarov-c9e993",
@@ -521,6 +524,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот и имущество"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 44999.82104784158,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -619,7 +636,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-vlchinov-pangarov-c9e993",
@@ -662,7 +680,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-vlchinov-pangarov-c9e993",
@@ -704,6 +723,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -885,7 +918,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-vlchinov-pangarov-c9e993",
@@ -902,6 +936,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F8E992C6-A19D-4273-A23B-13814813B82790243.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -58,7 +58,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georg-danielov-georgiev-eed7a0",
@@ -136,6 +137,44 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Current U.S. Social, Political, and Economic Issues for Young European Leaders, Washington",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Invitation Program for Distinguished Guests in Political &Legislative Affairs, Seul",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2867.8361616295897,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Служебно пътуване, Токио,Япония",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1268.0038653666218,
+        "legalBasis": null
       }
     ]
   }

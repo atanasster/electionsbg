@@ -267,7 +267,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-krstev-popov-e1461a",
@@ -400,7 +401,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-krstev-popov-e1461a",
@@ -569,7 +571,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-krstev-popov-e1461a",
@@ -701,6 +704,32 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "урегулиран поземлен имот",
+        "detail": null,
+        "location": "с. Бистрица",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1040,
+        "builtAreaSqm": 1040,
+        "currency": "BGN",
+        "valueEur": 96958.8358906449,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   }

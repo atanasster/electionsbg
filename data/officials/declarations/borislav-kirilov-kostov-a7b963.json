@@ -375,7 +375,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "borislav-kirilov-kostov-a7b963",
@@ -580,7 +581,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "borislav-kirilov-kostov-a7b963",
@@ -785,7 +787,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "borislav-kirilov-kostov-a7b963",
@@ -965,6 +968,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Медникарово",
+        "municipality": "Гълъбово",
+        "areaSqm": 29,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1942.9091485456302,
+        "legalBasis": "възмездно - продажба"
       }
     ]
   }

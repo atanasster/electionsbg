@@ -130,6 +130,20 @@
         "legalBasis": "лизинг процент 2,49",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 81,
+        "builtAreaSqm": 81,
+        "currency": "BGN",
+        "valueEur": 153387.56435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -257,7 +271,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagomir-nikolaev-zdravkov-0d2f40",
@@ -420,6 +435,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -552,6 +581,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Карлово",
+        "municipality": "Карлово",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 2760.97615845958,
+        "legalBasis": "възмездно"
       }
     ]
   }

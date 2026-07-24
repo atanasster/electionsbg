@@ -148,6 +148,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Силистра",
+        "municipality": "Силистра",
+        "areaSqm": 230,
+        "builtAreaSqm": 85,
+        "currency": "BGN",
+        "valueEur": 2172.9904950839286,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Силистра",
+        "municipality": "Силистра",
+        "areaSqm": 230,
+        "builtAreaSqm": 85,
+        "currency": "BGN",
+        "valueEur": 2172.9904950839286,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -239,6 +265,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

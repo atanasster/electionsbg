@@ -63,6 +63,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Сливо поле",
+        "municipality": "Сливо поле",
+        "areaSqm": 940,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1820.1990970585377,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Сливо поле",
+        "municipality": "Сливо поле",
+        "areaSqm": 1170,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2270.1359525112102,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

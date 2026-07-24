@@ -76,6 +76,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "ШУМЕН",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "ШУМЕН",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -137,7 +163,8 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bilgin-osmanov-myumyunov-e59247",
@@ -180,7 +207,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bilgin-osmanov-myumyunov-e59247",
@@ -259,7 +287,8 @@
         "legalBasis": "Банков заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bilgin-osmanov-myumyunov-e59247",
@@ -302,7 +331,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bilgin-osmanov-myumyunov-e59247",
@@ -345,7 +375,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и прехвърляне на имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bilgin-osmanov-myumyunov-e59247",
@@ -387,6 +418,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и прехвърляне на имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "село Климент",
+        "municipality": "Каолиново",
+        "areaSqm": 5300,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 448.91427169027986,
+        "legalBasis": "Дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "село Климент",
+        "municipality": "Каолиново",
+        "areaSqm": 16000,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1380.48807922979,
+        "legalBasis": "Продажба"
       }
     ]
   }

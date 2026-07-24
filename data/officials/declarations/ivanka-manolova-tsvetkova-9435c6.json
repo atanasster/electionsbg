@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-manolova-tsvetkova-9435c6",
@@ -185,6 +186,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 350,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3705.8435549101914,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -264,7 +279,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-manolova-tsvetkova-9435c6",
@@ -480,7 +496,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-manolova-tsvetkova-9435c6",
@@ -497,6 +514,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/22F7BF9E-D115-4145-B320-8BB32DE9613889359.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

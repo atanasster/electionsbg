@@ -112,6 +112,32 @@
         "legalBasis": null,
         "fundsOrigin": "продажба имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул. Плодородие 2, ет.3, ап.14",
+        "municipality": "Габрово",
+        "areaSqm": 125,
+        "builtAreaSqm": 125,
+        "currency": "BGN",
+        "valueEur": 127822.97029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мазда 6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1073.7129505120588,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -155,7 +181,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-georgieva-13bd3d",
@@ -198,7 +225,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-georgieva-13bd3d",
@@ -259,7 +287,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-georgieva-13bd3d",
@@ -332,7 +361,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-georgieva-13bd3d",
@@ -387,7 +417,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-stefanova-georgieva-13bd3d",
@@ -442,6 +473,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

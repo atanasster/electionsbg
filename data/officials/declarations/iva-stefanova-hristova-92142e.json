@@ -70,7 +70,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, наеми, хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-stefanova-hristova-92142e",
@@ -143,7 +144,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, наеми, хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-stefanova-hristova-92142e",
@@ -252,7 +254,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, наеми, хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-stefanova-hristova-92142e",
@@ -361,7 +364,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, наеми, хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-stefanova-hristova-92142e",
@@ -470,6 +474,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София, Манастирски ливади",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Тойота Аурис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -555,7 +585,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-stefanova-hristova-92142e",
@@ -753,7 +784,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iva-stefanova-hristova-92142e",
@@ -770,6 +802,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3B64F921-1016-4311-AC01-8FEA9DC3DD6689002.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

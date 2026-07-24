@@ -154,7 +154,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-ivanov-ivanov-5809af",
@@ -293,7 +294,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-ivanov-ivanov-5809af",
@@ -335,7 +337,45 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Омарчево",
+        "municipality": "Нова Загора",
+        "areaSqm": 3,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1840.6507723063867,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Омарчево",
+        "municipality": "Нова Загора",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "с. Омарчево",
+        "municipality": "Нова Загора",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "rosen-ivanov-ivanov-5809af",
@@ -352,7 +392,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/26ABF85D-166C-4DB0-9817-E59408E16EDB92706.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rosen-ivanov-ivanov-5809af",
@@ -640,6 +681,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

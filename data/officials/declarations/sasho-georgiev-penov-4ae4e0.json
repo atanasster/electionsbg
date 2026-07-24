@@ -1185,7 +1185,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sasho-georgiev-penov-4ae4e0",
@@ -2079,6 +2080,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Доктор Йосифово",
+        "municipality": "Монтана",
+        "areaSqm": 84,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 93224.35999038772,
+        "legalBasis": "възмездно"
       }
     ]
   }

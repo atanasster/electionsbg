@@ -118,6 +118,32 @@
         "legalBasis": "ипотечен кредит с лихвен процент 3,5%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Мркова",
+        "municipality": "Пловдив",
+        "areaSqm": 2729,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2500.2172990495083,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Марково",
+        "municipality": "Пловдив",
+        "areaSqm": 4000,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 33999.88751578614,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -197,7 +223,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "silviya-stefanova-berkova-donkova-84ca2e",
@@ -372,7 +399,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "silviya-stefanova-berkova-donkova-84ca2e",
@@ -535,6 +563,7 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -27,7 +27,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "svetlana-nikolova-mitseva-030861",
@@ -75,6 +76,32 @@
         "isSpouse": false,
         "legalBasis": "делба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Царевец",
+        "municipality": "Мездра",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 53.174355644406724,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Царевец",
+        "municipality": "Мездра",
+        "areaSqm": 4,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 212.6974225776269,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -413,7 +440,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetlana-nikolova-mitseva-030861",
@@ -462,7 +490,8 @@
         "legalBasis": "покупка",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetlana-nikolova-mitseva-030861",
@@ -492,7 +521,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "svetlana-nikolova-mitseva-030861",
@@ -509,7 +539,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2EE553B4-5875-42DB-B37B-54C14E04ADBD90718.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "svetlana-nikolova-mitseva-030861",
@@ -617,6 +648,7 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

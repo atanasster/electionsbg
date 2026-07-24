@@ -423,7 +423,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marieta-apostolova-georgieva-d122f5",
@@ -646,6 +647,32 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено Туинго",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1507.7997576476482,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рено Туинго",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1507.7997576476482,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -663,7 +690,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/B209405C-0AFE-4E75-A53A-D41B73E9F426155929.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "marieta-apostolova-georgieva-d122f5",
@@ -1107,7 +1135,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marieta-apostolova-georgieva-d122f5",
@@ -1124,7 +1153,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/B209405C-0AFE-4E75-A53A-D41B73E9F426138108.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "marieta-apostolova-georgieva-d122f5",
@@ -1556,6 +1586,7 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

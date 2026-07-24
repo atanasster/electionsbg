@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "По таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Рейндж Ровър Ивоук",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4908.4020594836975,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -203,6 +217,20 @@
         "legalBasis": null,
         "fundsOrigin": "По таблица 12  - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 207",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 119.13100831871891,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -275,6 +303,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апарамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 69,
+        "builtAreaSqm": 69,
+        "currency": "BGN",
+        "valueEur": 144997.7758803168,
+        "legalBasis": "възмездно-продажба имот"
       }
     ]
   }

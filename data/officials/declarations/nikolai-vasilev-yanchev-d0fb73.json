@@ -430,6 +430,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ремарке-каравана",
+        "detail": "Лунар Метеорит С",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -485,6 +499,32 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Кърджали",
+        "municipality": "Кърджали",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "currency": "BGN",
+        "valueEur": 28.121053465792016,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Кърджали",
+        "municipality": "Кърджали",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "currency": "BGN",
+        "valueEur": 38.34689108971639,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -534,6 +574,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Парични средства (в евро)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -551,7 +605,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E92A41C4-F27D-47C4-BFF5-37292988D2F089974.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-vasilev-yanchev-d0fb73",
@@ -641,6 +696,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

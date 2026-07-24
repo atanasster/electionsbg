@@ -40,6 +40,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Дерманци",
+        "municipality": "Луковит",
+        "areaSqm": 246,
+        "builtAreaSqm": 316,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -89,6 +103,7 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
-    ]
+    ],
+    "events": []
   }
 ]

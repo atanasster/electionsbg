@@ -304,7 +304,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, включително и от предходни години, декларирано"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-zlatev-cholakov-586094",
@@ -617,7 +618,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-zlatev-cholakov-586094",
@@ -959,6 +961,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 407",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

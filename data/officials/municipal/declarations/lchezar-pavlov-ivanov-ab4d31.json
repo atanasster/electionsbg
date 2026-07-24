@@ -117,6 +117,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Климентово",
+        "municipality": "Полски Тръмбеш",
+        "areaSqm": 700,
+        "builtAreaSqm": 115,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "запазва си правото на ползване"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Климентово",
+        "municipality": "Полски Тръмбеш",
+        "areaSqm": 3644,
+        "builtAreaSqm": 3644,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "запазва си правото на ползване"
+      }
     ]
   }
 ]

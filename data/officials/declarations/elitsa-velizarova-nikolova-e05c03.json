@@ -303,7 +303,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elitsa-velizarova-nikolova-e05c03",
@@ -591,7 +592,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elitsa-velizarova-nikolova-e05c03",
@@ -772,6 +774,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "продажба на земя",
+        "detail": null,
+        "location": "Герман",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1050,
+        "builtAreaSqm": 1050,
+        "currency": "BGN",
+        "valueEur": 48981.76221859773,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "продажба на земя",
+        "detail": null,
+        "location": "Герман",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1050,
+        "builtAreaSqm": 1050,
+        "currency": "BGN",
+        "valueEur": 48981.76221859773,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -808,7 +836,8 @@
         "legalBasis": "от заплати",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elitsa-velizarova-nikolova-e05c03",
@@ -989,7 +1018,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elitsa-velizarova-nikolova-e05c03",
@@ -1215,7 +1245,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elitsa-velizarova-nikolova-e05c03",
@@ -1251,7 +1282,8 @@
         "legalBasis": "заплати",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elitsa-velizarova-nikolova-e05c03",
@@ -1429,6 +1461,20 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 63911.48514952731,
+        "legalBasis": null
       }
     ]
   }

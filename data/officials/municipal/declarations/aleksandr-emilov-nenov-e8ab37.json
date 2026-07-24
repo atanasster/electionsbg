@@ -93,6 +93,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Национален зелен форум - гр. Казанлък",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30.67751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Летен форум - Албена",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 581.8501608012966,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Среща на местната власт - Албена",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 465.27561188855884,
+        "legalBasis": null
+      }
     ]
   }
 ]

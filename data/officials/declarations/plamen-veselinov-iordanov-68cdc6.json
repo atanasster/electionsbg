@@ -148,6 +148,32 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -239,7 +265,8 @@
         "legalBasis": "ЗАЕМ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-veselinov-iordanov-68cdc6",
@@ -300,7 +327,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-veselinov-iordanov-68cdc6",
@@ -505,7 +533,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-veselinov-iordanov-68cdc6",
@@ -572,6 +601,44 @@
         "legalBasis": null,
         "fundsOrigin": "продажба апартамент"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "СТАРА ЗАГОРА",
+        "municipality": "СТАРА ЗАГОРА",
+        "areaSqm": 91,
+        "builtAreaSqm": 91,
+        "currency": "BGN",
+        "valueEur": 47038.8530700521,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10992.775445718698,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10992.775445718698,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -621,7 +688,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-veselinov-iordanov-68cdc6",
@@ -783,7 +851,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-veselinov-iordanov-68cdc6",
@@ -800,6 +869,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/BC3E5EF8-25B7-44AE-9813-CD5ECB3CA2A391157.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

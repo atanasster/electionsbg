@@ -94,7 +94,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spas-nikolov-parapunov-317646",
@@ -191,7 +192,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spas-nikolov-parapunov-317646",
@@ -270,7 +272,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spas-nikolov-parapunov-317646",
@@ -367,6 +370,20 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фиат Мареа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -403,7 +420,8 @@
         "legalBasis": "спестявания",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spas-nikolov-parapunov-317646",
@@ -446,7 +464,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spas-nikolov-parapunov-317646",
@@ -489,7 +508,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spas-nikolov-parapunov-317646",
@@ -506,7 +526,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3C758196-AAA7-4593-B079-CCB547133FC788272.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "spas-nikolov-parapunov-317646",
@@ -812,6 +833,7 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

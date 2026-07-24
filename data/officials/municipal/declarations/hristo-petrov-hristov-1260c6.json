@@ -213,7 +213,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-petrov-hristov-1260c6",
@@ -265,6 +266,20 @@
         "isSpouse": true,
         "legalBasis": "спестявания/частично погасяване",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Електроразпределение Север АД, ЕИК 104518621",
+        "detail": null,
+        "location": "член на УС, 08.09.21г./декларирано в миналогодишни декларации/",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

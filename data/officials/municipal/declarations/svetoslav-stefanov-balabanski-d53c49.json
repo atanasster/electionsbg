@@ -147,6 +147,20 @@
         "legalBasis": "договор  за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр. Раковски, местност Коджа Кория",
+        "municipality": "Раковски",
+        "areaSqm": 10202,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -182,6 +196,7 @@
         "legalBasis": "Рефинансиране на кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

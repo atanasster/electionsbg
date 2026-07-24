@@ -39,7 +39,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivailo-petrov-vzharov-58dd98",
@@ -81,7 +82,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivailo-petrov-vzharov-58dd98",
@@ -178,6 +180,20 @@
         "legalBasis": "Остатък по заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди Q7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -251,7 +267,8 @@
         "legalBasis": "Остатък по заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-petrov-vzharov-58dd98",
@@ -306,7 +323,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-petrov-vzharov-58dd98",
@@ -361,7 +379,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-petrov-vzharov-58dd98",
@@ -541,7 +560,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-petrov-vzharov-58dd98",
@@ -558,6 +578,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8608AFAA-B5E1-4FFE-9CA3-C28FA570C59E89117.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

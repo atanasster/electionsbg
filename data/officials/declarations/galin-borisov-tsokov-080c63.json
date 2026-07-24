@@ -196,6 +196,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "Пежо 207 СС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -213,7 +227,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/A73C03EA-1A0A-49EB-832E-71A7BFA32B0A155771.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "galin-borisov-tsokov-080c63",
@@ -339,6 +354,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sinan-tefukov-tefukov-d3a1d7",
@@ -237,6 +238,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "гр. Сливо поле",
+        "municipality": "Сливо поле",
+        "areaSqm": 1260,
+        "builtAreaSqm": 165,
+        "currency": "BGN",
+        "valueEur": 63911.48514952731,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -105,7 +105,8 @@
         "legalBasis": "ипотечен-кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-angelov-angelov-a1d788",
@@ -166,7 +167,8 @@
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-angelov-angelov-a1d788",
@@ -245,7 +247,8 @@
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-angelov-angelov-a1d788",
@@ -341,6 +344,32 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Казанлък",
+        "municipality": "Казанлък",
+        "areaSqm": 85,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3170.0096634165548,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -457,6 +486,20 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Казанлък",
+        "municipality": "Казанлък",
+        "areaSqm": 63,
+        "builtAreaSqm": 63,
+        "currency": "BGN",
+        "valueEur": 28632.345346988237,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -518,6 +561,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 157,
+        "builtAreaSqm": 145,
+        "currency": "BGN",
+        "valueEur": 126499.7469105188,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -578,6 +635,20 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -700,6 +771,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

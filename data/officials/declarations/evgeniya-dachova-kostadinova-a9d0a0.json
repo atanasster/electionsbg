@@ -130,7 +130,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgeniya-dachova-kostadinova-a9d0a0",
@@ -346,6 +347,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Мазда 626",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -448,6 +463,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Плевен, жк Сторгозия, бл. 90",
+        "municipality": "Плевен",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 18238.803986031508,
+        "legalBasis": "продажба на апартамента"
       }
     ]
   },
@@ -557,6 +586,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка в Германия - Лапциг и Мюнхен, за обмен на опит с немската образователна сисстема",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1189.2649156624043,
+        "legalBasis": null
       }
     ]
   },
@@ -702,7 +745,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgeniya-dachova-kostadinova-a9d0a0",
@@ -719,6 +763,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F9834B1F-98F2-4E82-B7CD-06C1270357B790742.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

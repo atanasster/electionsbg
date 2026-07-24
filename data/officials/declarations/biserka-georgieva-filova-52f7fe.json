@@ -40,6 +40,32 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Сл.бряг",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 253.08948119212815,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Банско",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 252.57818931093195,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -64,6 +90,7 @@
         "amountEurSpouse": 7669.378217943277
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

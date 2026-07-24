@@ -82,7 +82,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galin-dimitrov-grudev-6e8814",
@@ -172,6 +173,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Волво",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1738.392396067143,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -189,7 +204,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8250FFB9-B0EA-45F9-B30E-71213C112AF990458.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "galin-dimitrov-grudev-6e8814",
@@ -261,6 +277,7 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

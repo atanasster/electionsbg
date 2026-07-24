@@ -88,6 +88,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -155,7 +169,8 @@
         "legalBasis": "НА 107, Рег. 388/2016",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladislav-kamenov-kamenov-a2b3e2",
@@ -222,7 +237,8 @@
         "legalBasis": "НА 107, Рег. 388/2016",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladislav-kamenov-kamenov-a2b3e2",
@@ -239,7 +255,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8C69625F-2980-430B-AAAE-271A1F720A5093320.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "vladislav-kamenov-kamenov-a2b3e2",
@@ -347,6 +364,7 @@
         "legalBasis": "НА 107, Рег. 388/2016",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

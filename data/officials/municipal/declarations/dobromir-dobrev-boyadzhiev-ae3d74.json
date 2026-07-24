@@ -141,6 +141,32 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата и пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Недвижим имот - магазин",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "currency": "BGN",
+        "valueEur": 24542.01029741849,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Недвижим имот - магазин",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "currency": "BGN",
+        "valueEur": 24542.01029741849,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

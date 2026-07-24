@@ -58,6 +58,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "КРЕДИТ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -155,7 +169,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "КРЕДИТ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelin-dimitrov-dimitrov-3658bf",
@@ -172,7 +187,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/1718A34B-F163-4791-ADAD-18CEE640203A96441.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetelin-dimitrov-dimitrov-3658bf",
@@ -226,6 +242,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

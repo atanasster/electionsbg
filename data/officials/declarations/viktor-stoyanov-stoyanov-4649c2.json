@@ -250,7 +250,8 @@
         "legalBasis": "Ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-stoyanov-stoyanov-4649c2",
@@ -304,6 +305,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"Фючър Аудио\" ЕООД, считано от 29 юни 2023 г. заличен като управител",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -321,7 +336,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/8D8109FA-4658-4D53-9E08-C34F3749D546155868.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "viktor-stoyanov-stoyanov-4649c2",
@@ -519,6 +535,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

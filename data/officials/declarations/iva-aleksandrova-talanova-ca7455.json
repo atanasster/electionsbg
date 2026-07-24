@@ -106,6 +106,32 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек антомобил",
+        "detail": "ФИАТ ПУНТО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 741.3732277345168,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автмобил",
+        "detail": "ФИАТ ПУНТО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 741.3732277345168,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -203,6 +229,7 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
-    ]
+    ],
+    "events": []
   }
 ]

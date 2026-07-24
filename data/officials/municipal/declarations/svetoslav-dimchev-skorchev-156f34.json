@@ -75,6 +75,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Фолксваген",
+        "detail": "Шаран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3609.7206812453023,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

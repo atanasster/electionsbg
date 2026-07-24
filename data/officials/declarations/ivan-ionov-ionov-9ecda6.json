@@ -537,6 +537,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 18406.507723063867,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1058,6 +1072,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Нива",
+        "detail": null,
+        "location": "Красновски мин.бани",
+        "municipality": "Хисаря",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "възмездно"
       }
     ]
   }

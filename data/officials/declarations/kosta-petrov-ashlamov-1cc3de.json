@@ -21,7 +21,21 @@
         "amountEurSpouse": 15489.587540839439
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "тойота 4рънър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "покупко-продажба"
+      }
+    ]
   },
   {
     "slug": "kosta-petrov-ashlamov-1cc3de",
@@ -63,6 +77,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд КА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -107,7 +135,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kosta-petrov-ashlamov-1cc3de",
@@ -131,7 +160,8 @@
         "amountEurSpouse": 7621.828072992029
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kosta-petrov-ashlamov-1cc3de",
@@ -155,7 +185,8 @@
         "amountEurSpouse": 8001.206648839623
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kosta-petrov-ashlamov-1cc3de",
@@ -216,7 +247,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kosta-petrov-ashlamov-1cc3de",
@@ -522,7 +554,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kosta-petrov-ashlamov-1cc3de",
@@ -539,6 +572,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7242938C-F558-4788-9101-C31BE568D12189731.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

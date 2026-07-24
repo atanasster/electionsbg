@@ -346,7 +346,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-peichinov-cf2e16",
@@ -574,6 +575,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "currency": "BGN",
+        "valueEur": 95000.07669378218,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -846,7 +861,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-peichinov-cf2e16",
@@ -863,7 +879,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/E6B5B7AF-6388-4E12-84AA-3FBDE9B7A221133055.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-nikolaev-peichinov-cf2e16",
@@ -1205,6 +1222,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

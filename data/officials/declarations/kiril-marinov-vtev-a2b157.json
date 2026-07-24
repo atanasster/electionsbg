@@ -303,7 +303,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-marinov-vtev-a2b157",
@@ -364,7 +365,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-marinov-vtev-a2b157",
@@ -381,7 +383,33 @@
     "sourceUrl": "https://register.cacbg.bg/2023/147EEF18-7C77-4423-848C-7F6B3F36CCAA156458.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Спортен клуб борба Левски\"",
+        "detail": null,
+        "location": "член на Управителния съвет - заличен, считано от 25.07.2023 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"Химремонт\" АД",
+        "detail": null,
+        "location": "член на Съвета на директорите - заличен, считано от 07.08.2023 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "kiril-marinov-vtev-a2b157",
@@ -398,7 +426,33 @@
     "sourceUrl": "https://register.cacbg.bg/2023/147EEF18-7C77-4423-848C-7F6B3F36CCAA156178.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "член на Управителния съвет на Сдружение \"Традиционни сурово-сушени месни продукти\", гр. София",
+        "detail": null,
+        "location": "заличено обстоятелство на 29.06.2023 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "управител на \"ХК Карандила\" ООД, гр. София",
+        "detail": null,
+        "location": "заличено обстоятелство на 17.07.2023 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "kiril-marinov-vtev-a2b157",
@@ -415,7 +469,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/147EEF18-7C77-4423-848C-7F6B3F36CCAA155926.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kiril-marinov-vtev-a2b157",
@@ -540,6 +595,80 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"Зидари\" ЕООД - към 14.06.2023 г., заличен като управител",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"Фууд Концепт\" ООД - към 20.06.2023 г. , заличен като управител",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"Биофар\" ООД - към 29.06.2023 г., заличен като управител",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"Биологика\" ООД - към 29.06.2023 г., заличен като управител",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"Тандем-В\" ООД - към 29.06.2023 г., заличен като управител",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "\"В-Трейд Къмпани\" ООД - към 29.06.2023 г., заличен като управител",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -889,6 +1018,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

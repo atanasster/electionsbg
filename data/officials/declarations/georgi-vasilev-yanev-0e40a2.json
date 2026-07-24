@@ -208,6 +208,92 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия, спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Батак",
+        "municipality": "Батак",
+        "areaSqm": 86,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Труд",
+        "municipality": "Марица",
+        "areaSqm": 73,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 70000.46016269308,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "язовир Батак",
+        "municipality": "Батак",
+        "areaSqm": 526,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 71.06957148627437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "язовир Батак",
+        "municipality": "Батак",
+        "areaSqm": 701,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 94.58899802130043,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "язовир Батак",
+        "municipality": "Батак",
+        "areaSqm": 468,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 67.49052831790084,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "язовир Батак",
+        "municipality": "Батак",
+        "areaSqm": 536,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 73.62603089225546,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "опел мока",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7413.732277345168,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -364,6 +450,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 54,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 61976.24537919962,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -563,7 +663,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-vasilev-yanev-0e40a2",
@@ -707,6 +808,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

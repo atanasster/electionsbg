@@ -130,7 +130,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на апартамент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "antoniya-krsteva-pencheva-83737d",
@@ -262,6 +263,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на апартямент"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "бул.Сливница 163",
+        "municipality": "Варна",
+        "areaSqm": 34,
+        "builtAreaSqm": 37,
+        "currency": "BGN",
+        "valueEur": 42437.22613928613,
+        "legalBasis": "покупко- продажба"
       }
     ]
   }

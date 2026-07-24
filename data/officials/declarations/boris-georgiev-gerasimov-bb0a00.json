@@ -130,6 +130,20 @@
         "legalBasis": "Покупка на имот",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ланчия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -214,6 +228,7 @@
         "legalBasis": "Покупка на имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

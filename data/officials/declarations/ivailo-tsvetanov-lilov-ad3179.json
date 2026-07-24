@@ -184,6 +184,44 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "дневни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 589.5195390192399,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "нощувки",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 395.7399160458731,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "транспорт",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1125.353430512877,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -346,6 +384,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

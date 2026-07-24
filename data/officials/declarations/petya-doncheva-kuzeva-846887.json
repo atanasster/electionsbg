@@ -231,7 +231,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petya-doncheva-kuzeva-846887",
@@ -381,6 +382,20 @@
         "isSpouse": false,
         "legalBasis": "увеличение на капитала",
         "fundsOrigin": "служебно от дружеството,без парични средства"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Церово",
+        "municipality": "Лесичово",
+        "areaSqm": 848,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 894.7607920933824,
+        "legalBasis": "възмездно (продажба)"
       }
     ]
   },
@@ -641,6 +656,7 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "бонова книжка,без парични средства"
       }
-    ]
+    ],
+    "events": []
   }
 ]

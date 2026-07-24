@@ -256,7 +256,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот и заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolinka-nikolaeva-cheshmedzhieva-f06c32",
@@ -335,6 +336,44 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот и заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент, избено и таванско помещение",
+        "detail": null,
+        "location": "Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 145,
+        "builtAreaSqm": 167,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда акорд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракуван"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда акорд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракуван"
+      }
     ]
   },
   {
@@ -396,7 +435,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolinka-nikolaeva-cheshmedzhieva-f06c32",
@@ -413,7 +453,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/7975396B-8938-4295-88E6-E2F1CDC0BA25131279.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolinka-nikolaeva-cheshmedzhieva-f06c32",
@@ -557,6 +598,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

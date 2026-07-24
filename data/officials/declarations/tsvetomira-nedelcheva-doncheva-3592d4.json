@@ -118,6 +118,92 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 136,
+        "builtAreaSqm": 136,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно - решение за развод"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 100,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно - решение за развод"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр.Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно - решение за развод"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 54,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно - решение за развод"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 106,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно - решение за развод"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "гр.Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 150,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно - решение за развод"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС - лек автомобил",
+        "detail": "Рено, модел Туинго",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "решение за развод"
+      }
     ]
   }
 ]

@@ -111,6 +111,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и дивидент"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10583.741940761724,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

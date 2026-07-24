@@ -100,7 +100,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefka-zdravkova-stefanova-583033",
@@ -117,7 +118,33 @@
     "sourceUrl": "https://register.cacbg.bg/2025/8CD12817-126C-4ACD-83B4-D624004819AD215980.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Ситивет 1 ЕООД",
+        "detail": null,
+        "location": "не съм управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Ситивет ЕООД",
+        "detail": null,
+        "location": "не съм управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "stefka-zdravkova-stefanova-583033",
@@ -230,7 +257,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefka-zdravkova-stefanova-583033",
@@ -315,7 +343,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefka-zdravkova-stefanova-583033",
@@ -381,6 +410,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен КСАРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракуван"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен С4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракуван"
       }
     ]
   },
@@ -449,6 +504,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, обезщ. За отглеждане на дете и детски"
       }
-    ]
+    ],
+    "events": []
   }
 ]

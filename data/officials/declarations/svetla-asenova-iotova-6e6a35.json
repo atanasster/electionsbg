@@ -58,7 +58,8 @@
         "legalBasis": "2%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-asenova-iotova-6e6a35",
@@ -82,6 +83,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ДИМИТРОВГРАД",
+        "municipality": "ДИМИТРОВГРАД",
+        "areaSqm": 70,
+        "builtAreaSqm": 140,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   }
 ]

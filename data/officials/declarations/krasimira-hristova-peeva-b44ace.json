@@ -69,7 +69,8 @@
         "legalBasis": "разплащане",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-hristova-peeva-b44ace",
@@ -160,7 +161,8 @@
         "legalBasis": "разплащане",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-hristova-peeva-b44ace",
@@ -195,6 +197,20 @@
         "isSpouse": true,
         "legalBasis": "Бари - д-р Акбар Емамзаде ЕТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Профилактика, рехабилитация и отдих ЕАД",
+        "detail": null,
+        "location": "член на СД",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

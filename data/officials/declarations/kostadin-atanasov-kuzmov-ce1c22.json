@@ -148,6 +148,20 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес Е 270CDI",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "покупко-продажба"
+      }
     ]
   },
   {
@@ -165,7 +179,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2F136C46-F5E4-40DC-8CDF-6EEAD1526F3988455.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kostadin-atanasov-kuzmov-ce1c22",
@@ -255,6 +270,7 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

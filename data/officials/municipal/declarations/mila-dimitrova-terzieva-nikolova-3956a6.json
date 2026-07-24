@@ -69,6 +69,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 46,
+        "builtAreaSqm": 46,
+        "currency": "BGN",
+        "valueEur": 69999.94887081189,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -148,7 +148,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ali-verhatov-cholakov-40fa46",
@@ -310,7 +311,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ali-verhatov-cholakov-40fa46",
@@ -472,7 +474,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ali-verhatov-cholakov-40fa46",
@@ -634,6 +637,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот и сграда",
+        "detail": null,
+        "location": "гр. Кричим",
+        "municipality": "Кричим",
+        "areaSqm": 541,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 1891.7799604260083,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -706,7 +723,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ali-verhatov-cholakov-40fa46",
@@ -760,6 +778,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

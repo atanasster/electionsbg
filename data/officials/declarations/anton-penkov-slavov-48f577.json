@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Гаранция по ДУК",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -167,7 +181,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-penkov-slavov-48f577",
@@ -270,6 +285,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил ХАВАЛ Х6",
+        "detail": "HAVAL Н6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "банкова гаранция в лв.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5982.115009995757,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -354,6 +395,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент, мазе и 12% от дворно място",
+        "detail": null,
+        "location": "София, ул. Братя Миладинови 72",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 96,
+        "builtAreaSqm": 96,
+        "currency": "BGN",
+        "valueEur": 110009.56115817837,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -440,7 +495,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-penkov-slavov-48f577",
@@ -525,7 +581,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-penkov-slavov-48f577",
@@ -651,7 +708,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-penkov-slavov-48f577",
@@ -668,6 +726,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/9DFE36BE-EC10-481F-8952-DF6703FC396F91152.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

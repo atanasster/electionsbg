@@ -166,6 +166,20 @@
         "legalBasis": "ПОТР.КРЕДИТ 8.69%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "НЕДВИЖИМ ИМОТ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2607588.594100714,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -323,7 +337,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-steliyanov-petrov-fc400b",
@@ -390,7 +405,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-steliyanov-petrov-fc400b",
@@ -476,6 +492,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Змеево",
+        "municipality": "Балчик",
+        "areaSqm": 2771,
+        "builtAreaSqm": 74,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -543,7 +573,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-steliyanov-petrov-fc400b",
@@ -646,7 +677,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-steliyanov-petrov-fc400b",
@@ -767,6 +799,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

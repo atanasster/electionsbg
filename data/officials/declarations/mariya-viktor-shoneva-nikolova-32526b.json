@@ -51,6 +51,20 @@
         "legalBasis": "договор за кредит 4,42%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Горна Василица",
+        "municipality": "Костенец",
+        "areaSqm": 810,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -123,6 +137,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

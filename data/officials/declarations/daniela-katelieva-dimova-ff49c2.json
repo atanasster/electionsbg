@@ -58,6 +58,20 @@
         "legalBasis": null,
         "fundsOrigin": "лични средства"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "екскурзия в чужбина",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": null
+      }
     ]
   }
 ]

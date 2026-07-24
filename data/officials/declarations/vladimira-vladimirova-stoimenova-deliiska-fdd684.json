@@ -51,7 +51,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimira-vladimirova-stoimenova-deliiska-fdd684",
@@ -130,7 +131,8 @@
         "legalBasis": "Потребителски кредит на стойност 20000лв.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimira-vladimirova-stoimenova-deliiska-fdd684",
@@ -209,7 +211,8 @@
         "legalBasis": "Потребителски кредит за закупуване на автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimira-vladimirova-stoimenova-deliiska-fdd684",
@@ -306,7 +309,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimira-vladimirova-stoimenova-deliiska-fdd684",
@@ -427,7 +431,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimira-vladimirova-stoimenova-deliiska-fdd684",
@@ -487,6 +492,20 @@
         "isSpouse": true,
         "legalBasis": "Остатък от потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Страсбург - Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 741.3732277345168,
+        "legalBasis": null
       }
     ]
   },
@@ -603,6 +622,20 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение в САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 3525.3575208479265,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -693,7 +726,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimira-vladimirova-stoimenova-deliiska-fdd684",
@@ -710,6 +744,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/FABB9748-FEDD-4642-AAC0-16854A50DAE788811.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

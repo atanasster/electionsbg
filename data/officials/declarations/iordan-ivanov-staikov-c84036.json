@@ -463,7 +463,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-ivanov-staikov-c84036",
@@ -638,7 +639,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-ivanov-staikov-c84036",
@@ -831,6 +833,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 123221.34336828865,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -848,7 +864,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/52A482DA-847E-4249-869A-C9EFF8502A2490199.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordan-ivanov-staikov-c84036",
@@ -1249,6 +1266,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

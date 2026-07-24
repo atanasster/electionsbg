@@ -202,7 +202,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktoriya-konstantinova-todorova-16ea8c",
@@ -478,6 +479,80 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Дворно място със сгради",
+        "detail": null,
+        "location": "Могилово",
+        "municipality": "Чирпан",
+        "areaSqm": 1270,
+        "builtAreaSqm": 144,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Дворно място със сгради",
+        "detail": null,
+        "location": "Могилово",
+        "municipality": "Чирпан",
+        "areaSqm": 1270,
+        "builtAreaSqm": 144,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Земеделски земи",
+        "detail": null,
+        "location": "Твърдица",
+        "municipality": "Твърдица",
+        "areaSqm": 12,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1308.9072158623194,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес В200",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2709.846970339958,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -768,7 +843,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktoriya-konstantinova-todorova-16ea8c",
@@ -1027,6 +1103,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Гараж",
+        "detail": null,
+        "location": "гр. Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 15,
+        "builtAreaSqm": 15,
+        "currency": "BGN",
+        "valueEur": 1227.1005148709244,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1044,7 +1134,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/6E074095-5028-4073-83DD-3F2479FA80C489272.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "viktoriya-konstantinova-todorova-16ea8c",
@@ -1728,6 +1819,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

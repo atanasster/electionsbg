@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лека кола",
+        "detail": "Рено Клио",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -99,7 +113,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/42CCDC4F-D07B-481D-9AE8-3A0832C81D64201638.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-borisov-iordanov-170a64",
@@ -171,6 +186,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

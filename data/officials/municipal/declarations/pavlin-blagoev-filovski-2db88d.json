@@ -99,6 +99,32 @@
         "legalBasis": null,
         "fundsOrigin": "наследство изаплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 42,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 28121.053465792018,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 42,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 28121.053465792018,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

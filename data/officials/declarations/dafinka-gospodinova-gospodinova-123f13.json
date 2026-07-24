@@ -40,7 +40,8 @@
         "legalBasis": "Потребителски кредит - 4%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dafinka-gospodinova-gospodinova-123f13",
@@ -83,7 +84,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dafinka-gospodinova-gospodinova-123f13",
@@ -126,6 +128,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 407",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -150,7 +166,8 @@
         "amountEurSpouse": 6706.615605650798
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dafinka-gospodinova-gospodinova-123f13",
@@ -265,7 +282,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dafinka-gospodinova-gospodinova-123f13",
@@ -444,6 +462,20 @@
         "isSpouse": true,
         "legalBasis": "ипотека",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Странско",
+        "municipality": "Димитровград",
+        "areaSqm": 80,
+        "builtAreaSqm": 160,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   }

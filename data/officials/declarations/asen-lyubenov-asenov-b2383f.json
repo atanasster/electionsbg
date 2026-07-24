@@ -94,7 +94,8 @@
         "legalBasis": "покупк на жилище",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-lyubenov-asenov-b2383f",
@@ -137,7 +138,8 @@
         "legalBasis": "покупка на жилище",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-lyubenov-asenov-b2383f",
@@ -197,6 +199,20 @@
         "isSpouse": false,
         "legalBasis": "покупка на жилище",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен, ул. Иван Вазов 56",
+        "municipality": "Плевен",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 80833.20124959736,
+        "legalBasis": "възмездно - продажба"
       }
     ]
   },
@@ -475,7 +491,8 @@
         "legalBasis": "покупка на жилище",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-lyubenov-asenov-b2383f",
@@ -536,7 +553,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-lyubenov-asenov-b2383f",
@@ -741,7 +759,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asen-lyubenov-asenov-b2383f",
@@ -813,6 +832,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

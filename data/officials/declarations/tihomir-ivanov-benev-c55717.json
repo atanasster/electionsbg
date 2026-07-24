@@ -82,6 +82,20 @@
         "legalBasis": "договор №243772588903/30.01.2024 г.",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Х трел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2544.699692713579,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -185,7 +199,8 @@
         "legalBasis": "договор №183772534070",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tihomir-ivanov-benev-c55717",
@@ -270,6 +285,7 @@
         "legalBasis": "покупка на автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

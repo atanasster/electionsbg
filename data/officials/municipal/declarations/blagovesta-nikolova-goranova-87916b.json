@@ -129,6 +129,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 84,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 89961.80649647464,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "SUV",
+        "detail": "Porsche",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

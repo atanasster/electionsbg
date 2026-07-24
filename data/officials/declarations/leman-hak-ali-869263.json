@@ -92,7 +92,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "leman-hak-ali-869263",
@@ -164,7 +165,8 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "leman-hak-ali-869263",
@@ -272,7 +274,8 @@
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "leman-hak-ali-869263",
@@ -439,6 +442,44 @@
         "isSpouse": true,
         "legalBasis": "Договор за банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "с. Нови пазар",
+        "municipality": "Черноочене",
+        "areaSqm": 69,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "Продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лека кола",
+        "detail": "Форд - С-МАХ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "Продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Микробус",
+        "detail": "Мерцедес - Вито",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "Продажба"
       }
     ]
   }

@@ -418,7 +418,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и командировачни"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-marinov-knev-967fa9",
@@ -435,7 +436,33 @@
     "sourceUrl": "https://register.cacbg.bg/2025/3C396198-381E-45F7-AE18-80D262C84A92202028.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Фондация \" Деца на Българската армия\"- София",
+        "detail": null,
+        "location": "член на контролен съвет от 22.01.2024 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Национална военна спортна федерация",
+        "detail": null,
+        "location": "председател на УС на НВСФ считано от 04.02.2025 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "krasimir-marinov-knev-967fa9",
@@ -826,7 +853,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-marinov-knev-967fa9",
@@ -843,6 +871,20 @@
     "sourceUrl": "https://register.cacbg.bg/2024/3C396198-381E-45F7-AE18-80D262C84A92183502.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Фондация \" Деца на Българската армия\"- София",
+        "detail": null,
+        "location": "член на контролен съвет от 22.01.2024 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

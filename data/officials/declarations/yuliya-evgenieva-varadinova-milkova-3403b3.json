@@ -304,6 +304,32 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Одрин, Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 818.0670099139496,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Одрин, Турция-преподаване",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 818.0670099139496,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -592,7 +618,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yuliya-evgenieva-varadinova-milkova-3403b3",
@@ -899,6 +926,7 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

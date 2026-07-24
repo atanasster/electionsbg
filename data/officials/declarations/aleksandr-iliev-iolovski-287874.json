@@ -214,6 +214,20 @@
         "legalBasis": "договор, стандартен лихвен процент",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76.69378217943277,
+        "legalBasis": "бракуване"
+      }
     ]
   },
   {
@@ -347,6 +361,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Карнобат",
+        "municipality": "Карнобат",
+        "areaSqm": 45,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5879.856633756513,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -364,7 +392,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/3D8A7CC4-9AA7-48D6-930E-1B24DF498198155686.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-iliev-iolovski-287874",
@@ -1210,7 +1239,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-iliev-iolovski-287874",
@@ -1227,7 +1257,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/3D8A7CC4-9AA7-48D6-930E-1B24DF498198131487.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-iliev-iolovski-287874",
@@ -2073,6 +2104,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

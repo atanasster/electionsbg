@@ -194,7 +194,8 @@
         "legalBasis": "договмор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivelina-gancheva-dimitrova-67974c",
@@ -416,6 +417,20 @@
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София,район Витоша",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 897,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -793,7 +808,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivelina-gancheva-dimitrova-67974c",
@@ -810,6 +826,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0FC0FB14-13C1-4E6C-9938-4B58F654F37192559.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

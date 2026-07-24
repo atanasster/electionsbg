@@ -136,6 +136,20 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксвасен Тигуан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -311,7 +325,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanas-ivanov-tashkov-ca240f",
@@ -328,7 +343,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/78D8195C-428B-45C2-93BB-C1A0B0711A90156342.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "atanas-ivanov-tashkov-ca240f",
@@ -634,6 +650,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

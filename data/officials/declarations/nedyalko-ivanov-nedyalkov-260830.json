@@ -231,7 +231,8 @@
         "legalBasis": "договор за кк",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedyalko-ivanov-nedyalkov-260830",
@@ -418,6 +419,20 @@
         "legalBasis": "договор за кк",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Ленд Круизер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9970.19168332626,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -527,7 +542,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nedyalko-ivanov-nedyalkov-260830",
@@ -630,6 +646,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

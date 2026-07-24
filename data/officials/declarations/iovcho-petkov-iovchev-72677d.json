@@ -286,7 +286,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iovcho-petkov-iovchev-72677d",
@@ -557,6 +558,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Веселиново",
+        "municipality": "Тунджа",
+        "areaSqm": 900,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -774,7 +789,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iovcho-petkov-iovchev-72677d",
@@ -1027,7 +1043,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iovcho-petkov-iovchev-72677d",
@@ -1172,7 +1189,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iovcho-petkov-iovchev-72677d",
@@ -1317,7 +1335,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iovcho-petkov-iovchev-72677d",
@@ -1334,7 +1353,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/A36E6B7B-6B43-4AF9-AF41-2E8C8893670990244.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iovcho-petkov-iovchev-72677d",
@@ -1442,6 +1462,7 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

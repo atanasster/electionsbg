@@ -177,6 +177,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, рента"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща",
+        "detail": null,
+        "location": "с.Котленци",
+        "municipality": "Добричка",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Къща",
+        "detail": null,
+        "location": "с.Котленци",
+        "municipality": "Добричка",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "продажба"
+      }
     ]
   }
 ]

@@ -160,7 +160,8 @@
         "legalBasis": "КК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "velislava-vasileva-panova-9467de",
@@ -299,7 +300,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "velislava-vasileva-panova-9467de",
@@ -450,6 +452,20 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "в.з. Иваняне, Банкя,ул. Шуманица 12А",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 675,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -535,6 +551,7 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -160,6 +160,20 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни, спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Меган Сченик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "предаден за скраб"
+      }
     ]
   },
   {
@@ -323,6 +337,7 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
-    ]
+    ],
+    "events": []
   }
 ]

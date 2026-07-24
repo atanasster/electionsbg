@@ -112,7 +112,8 @@
         "legalBasis": "договор потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toni-drumev-dimitrov-9d8dba",
@@ -281,6 +282,20 @@
         "legalBasis": "договор потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировка  В Р Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 807.329880408829,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -298,7 +313,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/208C8250-586E-40E2-A702-19E6852F582790854.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "toni-drumev-dimitrov-9d8dba",
@@ -388,6 +404,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

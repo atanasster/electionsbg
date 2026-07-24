@@ -393,7 +393,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-borislavova-koritarova-kasabova-415848",
@@ -496,6 +497,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 100000,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -575,7 +590,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване и продажба на недв. Имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-borislavova-koritarova-kasabova-415848",
@@ -654,7 +670,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-borislavova-koritarova-kasabova-415848",
@@ -769,7 +786,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-borislavova-koritarova-kasabova-415848",
@@ -1147,7 +1165,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-borislavova-koritarova-kasabova-415848",
@@ -1164,6 +1183,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7AAF27F0-5010-40F2-A370-DDD2D1B5653B92946.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

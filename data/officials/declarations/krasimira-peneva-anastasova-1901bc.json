@@ -184,6 +184,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор и гараж",
+        "detail": null,
+        "location": "гр. Долни чифлик",
+        "municipality": "Долни чифлик",
+        "areaSqm": 685,
+        "builtAreaSqm": 111,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -317,7 +331,8 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-peneva-anastasova-1901bc",
@@ -432,6 +447,20 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Конгрес на местните и регионални власти на Съвета на Европа, гр. Страсбург, Франция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1253.6876926931277,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -517,7 +546,8 @@
         "legalBasis": "ипотечен кредит, ипотекарен длъжник - Нели Рускова Петрова, съкредитоискател - Красимира Пенева Анастасова",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-peneva-anastasova-1901bc",
@@ -553,6 +583,7 @@
         "legalBasis": "обезщетение ЗАД Армеец",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

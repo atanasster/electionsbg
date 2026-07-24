@@ -238,6 +238,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Нови Искър",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1359,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -255,7 +269,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/EE5BAE4C-E502-4D50-8BBF-0E8FBEDB6CE7191843.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lilyana-nikolova-petrova-ilieva-08ca1f",
@@ -471,7 +486,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lilyana-nikolova-petrova-ilieva-08ca1f",
@@ -514,6 +530,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

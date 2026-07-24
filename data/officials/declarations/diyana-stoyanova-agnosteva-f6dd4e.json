@@ -118,7 +118,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diyana-stoyanova-agnosteva-f6dd4e",
@@ -190,6 +191,20 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Варна,ул.Марица 6 бх.Б ап.7",
+        "municipality": "Варна",
+        "areaSqm": 79,
+        "builtAreaSqm": 79,
+        "currency": "BGN",
+        "valueEur": 66467.94455550841,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -312,7 +327,8 @@
         "legalBasis": "доворна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diyana-stoyanova-agnosteva-f6dd4e",
@@ -528,6 +544,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

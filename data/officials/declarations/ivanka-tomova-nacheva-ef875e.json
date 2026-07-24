@@ -190,7 +190,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivanka-tomova-nacheva-ef875e",
@@ -388,6 +389,56 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 52,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 19999.693224871284,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 52,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 19999.693224871284,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Градево",
+        "municipality": "Симитли",
+        "areaSqm": 500,
+        "builtAreaSqm": 500,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Градево",
+        "municipality": "Симитли",
+        "areaSqm": 500,
+        "builtAreaSqm": 500,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

@@ -249,7 +249,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsetska-tsacheva-dangovska-4b809b",
@@ -501,7 +502,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsetska-tsacheva-dangovska-4b809b",
@@ -706,6 +708,32 @@
         "legalBasis": null,
         "fundsOrigin": "от трудови възнаграждения"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "офис /кантора/",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 33.1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25400.980657828135,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент с мазе",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 137.23,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 65000.02556459406,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -832,6 +860,44 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "от трудови възнаграждения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 24,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11606.32570315416,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлени имоти - ниви, ливади, гора, придобити по наследство",
+        "detail": null,
+        "location": "с.Драгана",
+        "municipality": "Ловеч",
+        "areaSqm": 117,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 120,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "възмездно"
       }
     ]
   }

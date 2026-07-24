@@ -105,6 +105,128 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Кърджали, кв.Възрожденци",
+        "municipality": "Кърджали",
+        "areaSqm": 112,
+        "builtAreaSqm": 93,
+        "currency": "BGN",
+        "valueEur": 94588.99802130042,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Кърджали, кв.Възрожденци",
+        "municipality": "Кърджали",
+        "areaSqm": 112,
+        "builtAreaSqm": 93,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проведен одит в Казабланка Мароко от 05.02.2024 до 10.02.2024",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проведен Одит във Великобритания от 18.03.2024 до 21.03.2024",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проведен одит от 16.06.2024 до 21.06.2024 в Полша и Чехия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проведен одит от 03.09.2024 до 06.09.2024 в Румъния",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проведен одит в Северна Македония, считано от 23.09.2024 до 25.09.2024",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проведен одит в Турция, считано от 30.09.2024 до 04.10.2024.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проведен одит в Нидерландия, считано от 7.10.2024 до 11.10.2024год",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Проведен одит във Франция, считано от 21.10.2024 до 25.10.2024год.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      }
     ]
   }
 ]

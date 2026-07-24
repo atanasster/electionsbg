@@ -219,6 +219,44 @@
         "legalBasis": "покупка",
         "fundsOrigin": "лични"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Допълнителна пенсионна застраховка",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10999.933532055444,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "наем кабинет",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "наем къща",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12000.020451675247,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -375,7 +413,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-petrova-padareva-525c3e",
@@ -392,6 +431,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EF9870AF-2661-47CE-984F-EFF3D9F9BD1390171.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

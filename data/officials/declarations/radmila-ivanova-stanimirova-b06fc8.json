@@ -82,7 +82,8 @@
         "legalBasis": "5,46",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radmila-ivanova-stanimirova-b06fc8",
@@ -160,6 +161,20 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 493.39666535435083,
+        "legalBasis": "възмездно"
       }
     ]
   }

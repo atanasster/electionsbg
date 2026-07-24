@@ -184,6 +184,44 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "С. ЧЕРНЕВО",
+        "municipality": "Суворово",
+        "areaSqm": 760,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2147.4259010241176,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "С. ЧЕРНЕВО",
+        "municipality": "Суворово",
+        "areaSqm": 1240,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "С. ЧЕРНЕВО",
+        "municipality": "Суворово",
+        "areaSqm": 2380,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

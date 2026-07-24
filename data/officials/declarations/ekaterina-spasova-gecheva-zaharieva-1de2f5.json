@@ -190,6 +190,68 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 92,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 129999.53983730692,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "guarantee",
+        "description": "договорна ипотека - ипотекарни длъжници - декларирано",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 699.4472934764269,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1299.1926701195912,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1799.747421810689,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -404,6 +466,116 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "договорна ипотека - ипотекарни длъжници",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 699.4472934764269,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 500.04345980990166,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 999.5756277386072,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1500.130379429705,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1500.130379429705,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 699.9585853576231,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 500.04345980990166,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 699.4472934764269,
+        "legalBasis": null
       }
     ]
   },
@@ -691,6 +863,92 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "допълнително задължително пенсионно осигуряване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "земеделска земя 1/2 идеална част",
+        "detail": null,
+        "location": "Република Гърция",
+        "municipality": "чужбина",
+        "areaSqm": 7,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1150,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 800,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 300,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1000,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1100,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 400,
+        "legalBasis": null
       }
     ]
   }

@@ -220,7 +220,8 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksandr-georgiev-madzhurov-8848a9",
@@ -442,6 +443,20 @@
         "isSpouse": false,
         "legalBasis": "Кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 97299.86757540276,
+        "legalBasis": "възмездно"
       }
     ]
   }

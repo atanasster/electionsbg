@@ -88,6 +88,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Враца",
+        "municipality": "Враца",
+        "areaSqm": 120,
+        "builtAreaSqm": 170,
+        "currency": "BGN",
+        "valueEur": 81806.70099139496,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -335,6 +349,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

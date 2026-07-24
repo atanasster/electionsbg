@@ -130,6 +130,56 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Батишница",
+        "municipality": "Две могили",
+        "areaSqm": 820,
+        "builtAreaSqm": 108,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Хърлец",
+        "municipality": "Козлодуй",
+        "areaSqm": 1400,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 43459.80990167857,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Батишница",
+        "municipality": "Две могили",
+        "areaSqm": 890,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1431.6172673494118,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил, отписан от регистрация",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -202,6 +252,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
       }
     ]
   }

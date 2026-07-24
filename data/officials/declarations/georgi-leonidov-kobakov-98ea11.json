@@ -442,6 +442,116 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Варна, ул.П.Волов 15,вх.Б,ап.19",
+        "municipality": "Варна",
+        "areaSqm": 42,
+        "builtAreaSqm": 42,
+        "currency": "BGN",
+        "valueEur": 58499.97187894653,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Варна, ул.П.Волов 15,вх.Б,ап.19",
+        "municipality": "Варна",
+        "areaSqm": 42,
+        "builtAreaSqm": 42,
+        "currency": "BGN",
+        "valueEur": 58499.97187894653,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "други/клуб риболов",
+        "detail": null,
+        "location": "гр.Варна, ЮПЗ",
+        "municipality": "Варна",
+        "areaSqm": 27,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "други/клуб риболов",
+        "detail": null,
+        "location": "гр.Варна, ЮПЗ",
+        "municipality": "Варна",
+        "areaSqm": 27,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "гр.Варна, ЮПЗ",
+        "municipality": "Варна",
+        "areaSqm": 27,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "гр.Варна, ЮПЗ",
+        "municipality": "Варна",
+        "areaSqm": 27,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр.Варна, ул.П.Волов 15",
+        "municipality": "Варна",
+        "areaSqm": 10,
+        "builtAreaSqm": 10,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Попови ливади",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 275,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Попови ливади",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 275,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -761,6 +871,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

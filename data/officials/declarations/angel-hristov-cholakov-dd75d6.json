@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата от МвНР"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-hristov-cholakov-dd75d6",
@@ -137,7 +138,8 @@
         "legalBasis": "Дог.за медиц.услуги",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-hristov-cholakov-dd75d6",
@@ -191,7 +193,8 @@
         "legalBasis": "Договор за мед.услуги",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-hristov-cholakov-dd75d6",
@@ -251,6 +254,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "НЕЗАСТРОЕН ПАРЦЕЛ",
+        "detail": null,
+        "location": "с.Рельово",
+        "municipality": "Самоков",
+        "areaSqm": 696,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -342,7 +359,8 @@
         "legalBasis": null,
         "fundsOrigin": "ЛИХВА"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-hristov-cholakov-dd75d6",
@@ -432,7 +450,8 @@
         "legalBasis": null,
         "fundsOrigin": "лихва по депозит"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angel-hristov-cholakov-dd75d6",
@@ -522,6 +541,7 @@
         "legalBasis": null,
         "fundsOrigin": "лихви по депозит"
       }
-    ]
+    ],
+    "events": []
   }
 ]

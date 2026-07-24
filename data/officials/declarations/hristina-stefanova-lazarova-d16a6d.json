@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Пчелище",
+        "municipality": "Велико Търново",
+        "areaSqm": 1000,
+        "builtAreaSqm": 200,
+        "currency": "BGN",
+        "valueEur": 1840.6507723063867,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -118,6 +132,7 @@
         "amountEurSpouse": 14518.132966566624
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/4868A817-5F39-4358-A007-76D7EF62C449111854.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordanka-ivanova-karamishova-657948",
@@ -147,7 +148,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-ivanova-karamishova-657948",
@@ -208,6 +210,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Република Хърватска",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -225,7 +241,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/4868A817-5F39-4358-A007-76D7EF62C44990812.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordanka-ivanova-karamishova-657948",
@@ -441,6 +458,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

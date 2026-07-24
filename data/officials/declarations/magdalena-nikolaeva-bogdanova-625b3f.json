@@ -94,7 +94,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "magdalena-nikolaeva-bogdanova-625b3f",
@@ -214,6 +215,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр. Якоруда",
+        "municipality": "Якоруда",
+        "areaSqm": 44,
+        "builtAreaSqm": 44,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Якоруда",
+        "municipality": "Якоруда",
+        "areaSqm": 122,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -366,7 +393,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "magdalena-nikolaeva-bogdanova-625b3f",
@@ -481,7 +509,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "magdalena-nikolaeva-bogdanova-625b3f",
@@ -505,7 +534,8 @@
         "amountEurSpouse": 3435.881441638588
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "magdalena-nikolaeva-bogdanova-625b3f",
@@ -632,7 +662,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "magdalena-nikolaeva-bogdanova-625b3f",
@@ -759,6 +790,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

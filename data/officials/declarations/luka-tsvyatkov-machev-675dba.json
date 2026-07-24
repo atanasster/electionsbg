@@ -123,6 +123,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Зимна академия на СРСНПБ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 158.50048317082772,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Лятна академия на СРСНПБ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.13464871691303,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Програма Еразъм +",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 160.03435881441638,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -231,6 +269,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

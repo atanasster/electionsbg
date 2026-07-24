@@ -112,6 +112,32 @@
         "legalBasis": "договор за кредит от 2020 г.",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7950.5887526011975,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7950.5887526011975,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -161,7 +187,8 @@
         "legalBasis": "договор при лихва 4.1%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gabriela-dimitrova-naplatanova-ruseva-e19315",
@@ -204,7 +231,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gabriela-dimitrova-naplatanova-ruseva-e19315",
@@ -221,7 +249,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/CBC15ECF-79B6-4B9E-8427-D50B29682C62140154.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "gabriela-dimitrova-naplatanova-ruseva-e19315",
@@ -347,6 +376,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

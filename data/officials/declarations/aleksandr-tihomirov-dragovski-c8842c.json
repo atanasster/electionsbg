@@ -166,6 +166,20 @@
         "legalBasis": "лизинг 4,19%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "хюндай-туксон",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12620.21750356626,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -183,7 +197,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/D131B080-1254-4DE5-B6BB-2E9C4BDD481B188050.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-tihomirov-dragovski-c8842c",
@@ -327,6 +342,7 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

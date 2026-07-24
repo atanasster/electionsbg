@@ -94,6 +94,20 @@
         "legalBasis": "съдлъжник, 7%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Кошарица",
+        "municipality": "Несебър",
+        "areaSqm": 360,
+        "builtAreaSqm": 99,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -191,6 +205,7 @@
         "legalBasis": "съдлъжник",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

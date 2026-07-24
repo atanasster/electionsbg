@@ -614,7 +614,8 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sergei-dmitrievich-stanishev-1017be",
@@ -957,7 +958,8 @@
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sergei-dmitrievich-stanishev-1017be",
@@ -1293,6 +1295,32 @@
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "България, Полша, Гърция, Бразилия, Хърватска, Чехия, Германия, Белгия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 22879.289099768386,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "хотел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4984.584549781934,
+        "legalBasis": null
       }
     ]
   },
@@ -1642,6 +1670,32 @@
         "isSpouse": true,
         "legalBasis": "договор за кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Белгия, Португалия, Германия, Франция, България, Италия, Словения, Полша",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 7877.985305471335,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "разход за хотели",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 858.970360409647,
+        "legalBasis": null
       }
     ]
   },
@@ -2040,6 +2094,32 @@
         "legalBasis": null,
         "fundsOrigin": "възнаграждения"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Испания, България, Германия, Англия, Румъния, Албания, Франция, Финландия, Швеция, Белгия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 14057.970273490027,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Испания, Германия, Англия, Румъния, Албания, Македония, Финландия, Швеция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2151.516236073687,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -2402,6 +2482,32 @@
         "legalBasis": null,
         "fundsOrigin": "възнаграждения"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Унгария,Италия, Албания, Словения, Германия, Португалия, Латвия, България",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 14212.891713492481,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Унгария,Италия, Албания, Словения, Германия, Португалия, Латвия, България",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1799.747421810689,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -2727,6 +2833,20 @@
         "legalBasis": "покупка",
         "fundsOrigin": "дивиденти"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Германия, Италия, Латвиа, Малта, Португалия, Румъния, Обединено кралство, Турция, Монголия, Босна и Херцеговина",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -2780,6 +2900,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Фондация за европейски и прогресивни изследвания",
+        "detail": null,
+        "location": "член на УС",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

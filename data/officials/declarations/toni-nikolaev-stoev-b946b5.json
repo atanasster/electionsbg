@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "Универсален пенсионен фонд"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toni-nikolaev-stoev-b946b5",
@@ -208,6 +209,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1994.038336665252,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -342,7 +357,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toni-nikolaev-stoev-b946b5",
@@ -391,7 +407,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toni-nikolaev-stoev-b946b5",
@@ -470,7 +487,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toni-nikolaev-stoev-b946b5",
@@ -549,7 +567,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toni-nikolaev-stoev-b946b5",
@@ -592,6 +611,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

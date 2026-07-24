@@ -94,6 +94,32 @@
         "legalBasis": null,
         "fundsOrigin": "задължително пенсионно осигуряване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Величково",
+        "municipality": "Пазарджик",
+        "areaSqm": 1,
+        "builtAreaSqm": 90,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес МЛ 270ЦДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -209,6 +235,7 @@
         "legalBasis": null,
         "fundsOrigin": "задължително пенсионно осигуряване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

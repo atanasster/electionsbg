@@ -118,6 +118,56 @@
         "legalBasis": "Неусвоен лимит; 18%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "ул. Гео Милев № 67",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "ул. Гео Милев № 67",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 96,
+        "builtAreaSqm": 96,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Такса частно училище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12271.005148709244,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Такса частно училище",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -280,6 +330,32 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5676.362465040418,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11167.125977206608,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -297,7 +373,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/6DF0F7F8-A699-4DD8-AC66-2C61741E35DD154544.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-zdravkov-mihailov-c7048b",
@@ -387,6 +464,7 @@
         "legalBasis": "Договр за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -130,6 +130,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Строително-ремонтни дейности",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9806.57828134347,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Превод по сметка на съпруг",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -147,7 +173,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/B632286C-E095-4FA5-9C3F-E38C71C67AF7180684.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nina-angelova-rsina-6e6c33",
@@ -164,7 +191,21 @@
     "sourceUrl": "https://register.cacbg.bg/2024/B632286C-E095-4FA5-9C3F-E38C71C67AF7180685.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ЛАЙФ РИСТАРТ ООД  - няма дейност",
+        "detail": null,
+        "location": "Управител - заличено обстоятелство в ТР на 24.04.2024 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "nina-angelova-rsina-6e6c33",
@@ -398,6 +439,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

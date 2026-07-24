@@ -172,6 +172,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Кайнарджа",
+        "municipality": "Кайнарджа",
+        "areaSqm": 14,
+        "builtAreaSqm": 14000,
+        "currency": "BGN",
+        "valueEur": 13280.29532219058,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -341,7 +355,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "antoaneta-petkova-rusanova-039767",
@@ -485,7 +500,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "antoaneta-petkova-rusanova-039767",
@@ -528,6 +544,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -158,6 +158,20 @@
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИОНЕН ФОНД"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "НЕСЕБЪР",
+        "municipality": "НЕСЕБЪР",
+        "areaSqm": 100,
+        "builtAreaSqm": 380,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "БЕЗВЪЗМЕЗДНО"
+      }
     ]
   },
   {
@@ -325,6 +339,20 @@
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИОНЕН ФОНД"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "НЕСЕБЪР",
+        "municipality": "НЕСЕБЪР",
+        "areaSqm": 100,
+        "builtAreaSqm": 380,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "БЕЗВЪЗМЕЗДНО"
+      }
     ]
   },
   {
@@ -480,6 +508,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ПЕНСИОНЕН ФОНД"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "НЕСЕБЪР",
+        "municipality": "НЕСЕБЪР",
+        "areaSqm": 100,
+        "builtAreaSqm": 380,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "БЕЗВЪЗМЕЗДНО"
       }
     ]
   },
@@ -691,6 +733,7 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

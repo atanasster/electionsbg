@@ -142,6 +142,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "Триумф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4755.014495124832,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -358,7 +372,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-georgiev-vitanov-f56624",
@@ -503,7 +518,8 @@
         "legalBasis": "Дарение от баща",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-georgiev-vitanov-f56624",
@@ -612,7 +628,8 @@
         "legalBasis": "Дарение от баща",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-georgiev-vitanov-f56624",
@@ -757,7 +774,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-georgiev-vitanov-f56624",
@@ -781,7 +799,8 @@
         "amountEurSpouse": 2314.618346175281
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimir-georgiev-vitanov-f56624",
@@ -908,7 +927,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-georgiev-vitanov-f56624",
@@ -1076,6 +1096,20 @@
         "isSpouse": true,
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
       }
     ]
   }

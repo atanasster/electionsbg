@@ -94,6 +94,20 @@
         "legalBasis": "Необходимост от финансови средства",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -173,7 +187,8 @@
         "legalBasis": "Необходимост от финансови средства",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetomir-valentinov-velev-13e80f",
@@ -190,7 +205,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/B4FF8A5D-9B22-44C9-8062-3EE71CEAAEE0114832.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetomir-valentinov-velev-13e80f",
@@ -244,6 +260,7 @@
         "legalBasis": "Необходимост от финансови средства",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

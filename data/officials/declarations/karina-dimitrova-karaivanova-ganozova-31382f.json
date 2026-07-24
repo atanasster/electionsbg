@@ -154,6 +154,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Харманли",
+        "municipality": "Харманли",
+        "areaSqm": 598,
+        "builtAreaSqm": 137,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -347,7 +361,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "karina-dimitrova-karaivanova-ganozova-31382f",
@@ -546,6 +561,32 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 21,
+        "builtAreaSqm": 27,
+        "currency": "BGN",
+        "valueEur": 7750.16233517228,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 21,
+        "builtAreaSqm": 27,
+        "currency": "BGN",
+        "valueEur": 7750.16233517228,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -739,6 +780,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

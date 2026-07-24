@@ -112,7 +112,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия и продажба на апартамент"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anastas-kostov-trendafilov-cf7953",
@@ -172,6 +173,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ С ИЗБЕНО ПОМЕЩЕНИЕ",
+        "detail": null,
+        "location": "гр.Варна, ул.Д-р Железкова №42, вх.Б, ет.4, ап.7",
+        "municipality": "Варна",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 45387.380293788316,
+        "legalBasis": "възмездно"
       }
     ]
   }

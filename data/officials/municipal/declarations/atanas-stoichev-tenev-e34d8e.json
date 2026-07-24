@@ -141,6 +141,32 @@
         "legalBasis": "ДОГОВОР, 12%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВЪЧНИ ПАРИ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 465.27561188855884,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВЪЧНИ ПАРИ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10.22583762392437,
+        "legalBasis": null
+      }
     ]
   }
 ]

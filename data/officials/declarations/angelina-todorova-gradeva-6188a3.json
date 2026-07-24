@@ -58,6 +58,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, Бул. Копенхаген 36",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 54,
+        "builtAreaSqm": 54,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -173,7 +187,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angelina-todorova-gradeva-6188a3",
@@ -264,7 +279,8 @@
         "legalBasis": "договор за изпотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "angelina-todorova-gradeva-6188a3",
@@ -354,6 +370,7 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -118,7 +118,8 @@
         "legalBasis": "договор за фининсов лизинг с лихва 7,06 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-simeonov-tonev-2a3d3b",
@@ -335,6 +336,56 @@
         "legalBasis": "Финансов лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 10,
+        "builtAreaSqm": 45,
+        "currency": "BGN",
+        "valueEur": 104999.92330621782,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Голяновци",
+        "municipality": "Костинброд",
+        "areaSqm": 593,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно-доброволна делба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Голяновци",
+        "municipality": "Костинброд",
+        "areaSqm": 500,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Голяновци",
+        "municipality": "Костинброд",
+        "areaSqm": 1000,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 13000.107371295051,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -450,6 +501,20 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1994.038336665252,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -529,7 +594,8 @@
         "legalBasis": "Договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-simeonov-tonev-2a3d3b",
@@ -608,7 +674,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-simeonov-tonev-2a3d3b",
@@ -632,7 +699,8 @@
         "amountEurSpouse": 10471.257726898555
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "emil-simeonov-tonev-2a3d3b",
@@ -649,7 +717,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/0848C771-1333-4CF9-8480-0D067B180C7994927.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "emil-simeonov-tonev-2a3d3b",
@@ -746,6 +815,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

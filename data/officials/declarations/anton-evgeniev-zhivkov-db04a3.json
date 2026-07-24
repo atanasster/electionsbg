@@ -125,6 +125,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "инвалидна пенсия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4121.012562441521,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -204,7 +218,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-evgeniev-zhivkov-db04a3",
@@ -438,7 +453,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-evgeniev-zhivkov-db04a3",
@@ -455,6 +471,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/9FC25604-993C-4BE2-8D88-68923D2BE18F89440.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

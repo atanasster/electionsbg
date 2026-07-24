@@ -184,6 +184,20 @@
         "legalBasis": "15%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Място със сграда",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 604,
+        "builtAreaSqm": 160,
+        "currency": "BGN",
+        "valueEur": 163199.76685090218,
+        "legalBasis": "Продажба на имота"
+      }
     ]
   },
   {
@@ -299,6 +313,7 @@
         "legalBasis": "Кредит с лихва EURIBOR + 3,95% надбавка",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

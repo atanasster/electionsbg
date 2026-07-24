@@ -69,7 +69,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-andreev-borisov-b0d70c",
@@ -118,7 +119,8 @@
         "legalBasis": "Покупка",
         "fundsOrigin": "Лични средства/спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-andreev-borisov-b0d70c",
@@ -173,6 +175,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка Сърбия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 15.338756435886555,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -190,7 +206,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/BE6DDE81-E7A4-4148-A820-096D040E1B2B88093.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-andreev-borisov-b0d70c",
@@ -226,6 +243,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

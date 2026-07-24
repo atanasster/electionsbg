@@ -112,7 +112,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-dochev-mishovski-0ddad7",
@@ -227,7 +228,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-dochev-mishovski-0ddad7",
@@ -372,7 +374,8 @@
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-dochev-mishovski-0ddad7",
@@ -451,7 +454,8 @@
         "legalBasis": "Кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-dochev-mishovski-0ddad7",
@@ -596,7 +600,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-dochev-mishovski-0ddad7",
@@ -693,7 +698,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-dochev-mishovski-0ddad7",
@@ -825,6 +831,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "Заплата - ДЗПО"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 36813.015446127734,
+        "legalBasis": null
       }
     ]
   }

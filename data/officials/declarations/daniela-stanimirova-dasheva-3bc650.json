@@ -226,7 +226,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-stanimirova-dasheva-3bc650",
@@ -442,7 +443,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "daniela-stanimirova-dasheva-3bc650",
@@ -664,6 +666,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Ресилово",
+        "municipality": "Сапарева баня",
+        "areaSqm": 1858,
+        "builtAreaSqm": 1858,
+        "currency": "BGN",
+        "valueEur": 7464.86146546479,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

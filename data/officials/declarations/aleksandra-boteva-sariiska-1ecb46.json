@@ -70,6 +70,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Шкода",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3273.801915299387,
+        "legalBasis": "договор за продажба"
+      }
     ]
   },
   {
@@ -143,6 +157,7 @@
         "legalBasis": "лизинг на автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

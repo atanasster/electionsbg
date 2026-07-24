@@ -267,7 +267,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-todorov-istatkov-702062",
@@ -550,7 +551,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-todorov-istatkov-702062",
@@ -641,6 +643,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Карлуково",
+        "municipality": "Луковит",
+        "areaSqm": 954,
+        "builtAreaSqm": 90,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -714,7 +730,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-todorov-istatkov-702062",
@@ -731,7 +748,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8C3677D3-B3C4-4867-9642-24E33C98D0D689108.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ventsislav-todorov-istatkov-702062",
@@ -983,6 +1001,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

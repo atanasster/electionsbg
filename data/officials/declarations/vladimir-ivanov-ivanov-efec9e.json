@@ -76,6 +76,32 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София, жк.Младост2 ,бл.208, вх1, ап.33",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 47,
+        "builtAreaSqm": 47,
+        "currency": "BGN",
+        "valueEur": 87737.6868132711,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Плана",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 27916.53671331353,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -119,7 +145,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-ivanov-ivanov-efec9e",
@@ -162,7 +189,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-ivanov-ivanov-efec9e",
@@ -241,7 +269,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-ivanov-ivanov-efec9e",
@@ -302,7 +331,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-ivanov-ivanov-efec9e",
@@ -363,7 +393,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-ivanov-ivanov-efec9e",
@@ -424,6 +455,7 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

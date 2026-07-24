@@ -27,7 +27,21 @@
         "amountEurSpouse": 5226.936901468942
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Местност \"Герено\"",
+        "municipality": "Благоевград",
+        "areaSqm": 1756,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "stoika-kostadinova-gosheva-c3bb1b",
@@ -51,6 +65,7 @@
         "amountEurSpouse": 1498.0852119049202
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

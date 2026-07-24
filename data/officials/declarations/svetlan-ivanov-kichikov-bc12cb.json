@@ -58,7 +58,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetlan-ivanov-kichikov-bc12cb",
@@ -101,6 +102,20 @@
         "legalBasis": "договор за наем",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -137,7 +152,8 @@
         "legalBasis": "продажба на МПС и заплати",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetlan-ivanov-kichikov-bc12cb",
@@ -180,6 +196,7 @@
         "legalBasis": "договор за наем",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

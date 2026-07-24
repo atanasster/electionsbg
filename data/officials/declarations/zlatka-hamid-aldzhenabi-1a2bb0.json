@@ -82,7 +82,8 @@
         "legalBasis": null,
         "fundsOrigin": "ОТ ПРОДАЖБА НА НАСЛЕДСТВЕН ИМОТ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatka-hamid-aldzhenabi-1a2bb0",
@@ -166,6 +167,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "ОТ ПРОДАЖБА НА НАСЛЕДСТВЕН ИМОТ"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "БАГДАТ",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 0,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 139022.81895665778,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -267,7 +267,8 @@
         "legalBasis": "с договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-nikolova-cherneva-markova-ea1ea4",
@@ -400,7 +401,8 @@
         "legalBasis": "с договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-nikolova-cherneva-markova-ea1ea4",
@@ -515,7 +517,8 @@
         "legalBasis": "с договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-nikolova-cherneva-markova-ea1ea4",
@@ -611,6 +614,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 57,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 78000.13293588911,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -828,7 +845,8 @@
         "legalBasis": "кредитен лимит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elena-nikolova-cherneva-markova-ea1ea4",
@@ -845,6 +863,7 @@
     "sourceUrl": "https://register.cacbg.bg/2020/68E3E081-916E-4647-881A-40364A5AFF52114762.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

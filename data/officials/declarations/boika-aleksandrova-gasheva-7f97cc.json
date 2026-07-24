@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boika-aleksandrova-gasheva-7f97cc",
@@ -118,7 +119,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи и доходи от пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boika-aleksandrova-gasheva-7f97cc",
@@ -190,7 +192,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boika-aleksandrova-gasheva-7f97cc",
@@ -233,7 +236,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boika-aleksandrova-gasheva-7f97cc",
@@ -294,6 +298,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Покупка на апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 49084.02059483698,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Покупка на апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4939.07957235547,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -311,7 +341,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C7A9AB82-6582-417F-A7E7-37E49D739BD089087.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "boika-aleksandrova-gasheva-7f97cc",
@@ -383,6 +414,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

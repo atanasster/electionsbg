@@ -46,7 +46,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-nedelkova-penkova-af151b",
@@ -70,6 +71,20 @@
         "amountEurSpouse": 1252.6651089307352
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "земл. С. Големаново",
+        "municipality": "Кула",
+        "areaSqm": 16800,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

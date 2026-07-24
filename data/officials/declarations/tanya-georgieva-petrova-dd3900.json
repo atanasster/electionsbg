@@ -64,7 +64,8 @@
         "legalBasis": "лизинг, 5.98%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-georgieva-petrova-dd3900",
@@ -94,7 +95,8 @@
         "amountEurSpouse": 5828.7274456368905
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tanya-georgieva-petrova-dd3900",
@@ -143,7 +145,8 @@
         "legalBasis": "не знам",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-georgieva-petrova-dd3900",
@@ -167,7 +170,8 @@
         "amountEurSpouse": 4294.851802048235
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tanya-georgieva-petrova-dd3900",
@@ -197,7 +201,8 @@
         "amountEurSpouse": 2556.4594059810925
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tanya-georgieva-petrova-dd3900",
@@ -227,6 +232,20 @@
         "amountEurSpouse": -987.3046225898979
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "Опел Вектра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "погубен поради умишлен палеж"
+      }
+    ]
   }
 ]

@@ -154,6 +154,20 @@
         "legalBasis": "други",
         "fundsOrigin": "дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 65000.02556459406,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -275,6 +289,20 @@
         "legalBasis": null,
         "fundsOrigin": "допълнително задължително пенсионно осигуряване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -292,7 +320,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0E7D2E6B-188F-49EC-8917-203408D3288789479.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nadezhda-boyanova-buchova-823f7c",
@@ -598,6 +627,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

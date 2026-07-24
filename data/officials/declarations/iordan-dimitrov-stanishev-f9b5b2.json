@@ -21,7 +21,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordan-dimitrov-stanishev-f9b5b2",
@@ -100,6 +101,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "с. Махалата",
+        "municipality": "Струмяни",
+        "areaSqm": 18,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7567.119841704033,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -117,7 +132,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/32B485E0-8927-403E-83DD-7A16C5A12BB4111565.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordan-dimitrov-stanishev-f9b5b2",
@@ -207,6 +223,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

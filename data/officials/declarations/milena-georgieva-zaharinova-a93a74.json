@@ -208,6 +208,20 @@
         "legalBasis": "Банков кредит-4.55%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3796.8535097631184,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -225,7 +239,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/EE28D5DC-7449-4637-B791-73FCE2C6BB75187212.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milena-georgieva-zaharinova-a93a74",
@@ -423,6 +438,7 @@
         "legalBasis": "Банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

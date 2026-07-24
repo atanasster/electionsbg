@@ -328,7 +328,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yulian-petrov-revalski-7fe7fa",
@@ -617,7 +618,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yulian-petrov-revalski-7fe7fa",
@@ -995,6 +997,44 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Сонгдо, Корея (4 нощувки)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дубна, Русия (пътни+2 нощувки)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "метабийф, Франция (4 нощувки)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 0,
+        "legalBasis": null
       }
     ]
   },
@@ -1734,6 +1774,80 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Франция, Поант-а-Питр (пътни+3 нощувки)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 0,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Китай, Пекин (5 нощувки)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Бразилия, Сао Паоло и Рио де Жанейро (3 нощувки)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Азербайджан, Баку (4 нощувки)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Китай, Пекин (5 нощувки)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Украйна, Харков (2 нощувки)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -2563,7 +2677,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yulian-petrov-revalski-7fe7fa",
@@ -2580,6 +2695,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/986918B9-F274-4862-81E3-961B80F179B188994.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

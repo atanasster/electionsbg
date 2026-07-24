@@ -20,6 +20,32 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучения и работни срещи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1209.2052990290567,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Медиа тренинг",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1043.0354376402856,
+        "legalBasis": null
+      }
+    ]
   }
 ]

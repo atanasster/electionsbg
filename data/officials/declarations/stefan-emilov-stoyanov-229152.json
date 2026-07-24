@@ -106,6 +106,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1,
+        "builtAreaSqm": 54,
+        "currency": "BGN",
+        "valueEur": 97899.61295204594,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -123,7 +137,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/D451FF5F-9302-409C-8AF2-6080B4D44B5C135305.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-emilov-stoyanov-229152",
@@ -140,7 +155,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/D451FF5F-9302-409C-8AF2-6080B4D44B5C113197.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-emilov-stoyanov-229152",
@@ -157,7 +173,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/D451FF5F-9302-409C-8AF2-6080B4D44B5C98520.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-emilov-stoyanov-229152",
@@ -266,7 +283,8 @@
         "legalBasis": "договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-emilov-stoyanov-229152",
@@ -301,6 +319,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Общинкса фондация Пловдив 2019",
+        "detail": null,
+        "location": "заместник-председател на УС",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

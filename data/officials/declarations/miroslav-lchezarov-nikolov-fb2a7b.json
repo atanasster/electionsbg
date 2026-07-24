@@ -275,6 +275,20 @@
         "legalBasis": "Солидарен длъжник",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Товарен автомобил",
+        "detail": "КИА СОРЕНТО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1692.3761267594832,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1157,7 +1171,8 @@
         "legalBasis": "Ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-lchezarov-nikolov-fb2a7b",
@@ -1174,6 +1189,7 @@
     "sourceUrl": "https://register.cacbg.bg/2022/6288A184-DEF9-412E-9061-62F5D394D3DE131672.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

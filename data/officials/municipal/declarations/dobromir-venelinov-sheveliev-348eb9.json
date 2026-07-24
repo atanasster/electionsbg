@@ -75,6 +75,20 @@
         "legalBasis": "стандартен кредит за текущо потребление,лихвен процент -9,2",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракуване"
+      }
     ]
   }
 ]

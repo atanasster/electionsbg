@@ -393,7 +393,8 @@
         "legalBasis": "Дог 4,9%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-iliev-georgiev-4acf1a",
@@ -807,7 +808,8 @@
         "legalBasis": "Кредит 5,64 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-iliev-georgiev-4acf1a",
@@ -878,6 +880,20 @@
         "isSpouse": true,
         "legalBasis": "Заплата",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Водоснабдяване и канализация ЕАД, ЕИК 812115210",
+        "detail": null,
+        "location": "Член на Съвета на директорите",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

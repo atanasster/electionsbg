@@ -135,7 +135,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "naiden-pavlov-pavlov-8ebaa9",
@@ -187,6 +188,20 @@
         "isSpouse": true,
         "legalBasis": "НОВ банков кредит от БАНКА ДСК ЕАД",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "МОМЕНТ ЕООД",
+        "detail": null,
+        "location": "100%",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

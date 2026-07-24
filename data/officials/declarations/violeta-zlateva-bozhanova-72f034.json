@@ -58,7 +58,8 @@
         "legalBasis": "ЛИДОГОВОР 63605",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "violeta-zlateva-bozhanova-72f034",
@@ -316,6 +317,140 @@
         "isSpouse": false,
         "legalBasis": "ЛИЗИНГОВ ДОГОВОР №63605",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ГОРИ",
+        "detail": null,
+        "location": "ТРОЯН",
+        "municipality": "ТРОЯН",
+        "areaSqm": 2000,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ЛИВАДА",
+        "detail": null,
+        "location": "С.БАЛАБАНСКО",
+        "municipality": "ТРОЯН",
+        "areaSqm": 1055,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ГОРИ",
+        "detail": null,
+        "location": "С.БАЛАБАНСКО",
+        "municipality": "ТРОЯН",
+        "areaSqm": 999,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ТРАЙНИ НАСЪЖДЕНИЯ",
+        "detail": null,
+        "location": "С.ГОРНО ТРАПЕ",
+        "municipality": "ТРОЯН",
+        "areaSqm": 1152,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ТРАЙНИ НАСЪЖДЕНИЯ",
+        "detail": null,
+        "location": "С.БАЛАБАНСКО",
+        "municipality": "ТРОЯН",
+        "areaSqm": 945,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ТРАЙНИ НАСЪЖДЕНИЯ",
+        "detail": null,
+        "location": "С.ГОРНО ТРАПЕ",
+        "municipality": "ТРОЯН",
+        "areaSqm": 2109,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ПАРЦЕЛ",
+        "detail": null,
+        "location": "С.ГОРНО ТРАПЕ",
+        "municipality": "ТРОЯН",
+        "areaSqm": 884,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ТРАЙНИ НАСЪЖДЕНИЯ",
+        "detail": null,
+        "location": "С.ГОРНО ТРАПЕ",
+        "municipality": "ТРОЯН",
+        "areaSqm": 474,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "НИВА",
+        "detail": null,
+        "location": "С.БАЛАБАНСКО",
+        "municipality": "ТРОЯН",
+        "areaSqm": 3133,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ЛИВАДА",
+        "detail": null,
+        "location": "С.БАЛАБАНСКО",
+        "municipality": "ТРОЯН",
+        "areaSqm": 1366,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
       }
     ]
   }

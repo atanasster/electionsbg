@@ -112,6 +112,20 @@
         "legalBasis": "заеми",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен Ц4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -173,7 +187,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-vasilev-lazarov-9bec96",
@@ -190,7 +205,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/2AE028C7-116F-4C8D-9E87-4A03A001D5C295687.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kostadin-vasilev-lazarov-9bec96",
@@ -207,7 +223,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2AE028C7-116F-4C8D-9E87-4A03A001D5C293112.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kostadin-vasilev-lazarov-9bec96",
@@ -279,6 +296,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

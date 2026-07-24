@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetana-ivanova-piralkova-a1dcaf",
@@ -137,7 +138,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetana-ivanova-piralkova-a1dcaf",
@@ -228,7 +230,8 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetana-ivanova-piralkova-a1dcaf",
@@ -245,6 +248,20 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E0411EE7-D744-46C3-8FEA-E407D5D3652088182.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение с нестопанска цел \"Форум за европейско развитие\"",
+        "detail": null,
+        "location": "член на управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

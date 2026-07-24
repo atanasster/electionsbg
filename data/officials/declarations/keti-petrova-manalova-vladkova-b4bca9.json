@@ -280,7 +280,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "keti-petrova-manalova-vladkova-b4bca9",
@@ -515,7 +516,8 @@
         "legalBasis": null,
         "fundsOrigin": "приходи от падеж на застраховка"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "keti-petrova-manalova-vladkova-b4bca9",
@@ -606,7 +608,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "keti-petrova-manalova-vladkova-b4bca9",
@@ -907,6 +910,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -924,7 +941,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2CE8ACD1-47BB-416D-BFE8-5188CE89FD7390331.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "keti-petrova-manalova-vladkova-b4bca9",
@@ -2256,6 +2274,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

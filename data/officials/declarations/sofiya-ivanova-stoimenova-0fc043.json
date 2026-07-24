@@ -118,6 +118,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Рельово",
+        "municipality": "Самоков",
+        "areaSqm": 882,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 920.3253861531933,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -202,6 +216,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Поповяне",
+        "municipality": "Самоков",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76.69378217943277,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -288,7 +316,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sofiya-ivanova-stoimenova-0fc043",
@@ -343,7 +372,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sofiya-ivanova-stoimenova-0fc043",
@@ -416,7 +446,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sofiya-ivanova-stoimenova-0fc043",
@@ -433,7 +464,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D35AB916-77A2-4E3D-A1FE-CEF912228CA188927.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "sofiya-ivanova-stoimenova-0fc043",
@@ -523,6 +555,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

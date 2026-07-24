@@ -100,7 +100,8 @@
         "legalBasis": null,
         "fundsOrigin": "Р.З. спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-stefanov-petkov-576167",
@@ -221,7 +222,8 @@
         "legalBasis": null,
         "fundsOrigin": "Р.З. спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-stefanov-petkov-576167",
@@ -354,7 +356,8 @@
         "legalBasis": null,
         "fundsOrigin": "Р.З. спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-stefanov-petkov-576167",
@@ -451,7 +454,8 @@
         "legalBasis": null,
         "fundsOrigin": "Р.З. и спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-stefanov-petkov-576167",
@@ -620,6 +624,32 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и лихви"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 113,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 56830.092594959686,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 113,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 56830.092594959686,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -735,7 +765,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и лихви"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubomir-stefanov-petkov-576167",
@@ -969,6 +1000,7 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и лихви"
       }
-    ]
+    ],
+    "events": []
   }
 ]

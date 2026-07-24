@@ -207,6 +207,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до Испания (Барселона)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 224.45713584513993,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до Латвия (Рига)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 399.83025109544286,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -412,6 +438,68 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до Белгия (Брюксел)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 550.6613560483273,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до Германия (Трир)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 334.89618218352314,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до Германия (Трир)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 227.52488713231722,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до САЩ (Вашингтон, Филаделфия, Ню Йорк)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 4054.5446178860125,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до САЩ (Вашингтон, Филаделфия, Ню Йорк)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 932.0850994207063,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -592,7 +680,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-iliyanov-kirashki-2f1585",
@@ -609,6 +698,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DCEFB563-C727-46BD-BF0C-DA0C4BD2292888828.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

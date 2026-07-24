@@ -94,6 +94,20 @@
         "legalBasis": "договор за жилищен кредит, 3 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Климент",
+        "municipality": "Каолиново",
+        "areaSqm": 12,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -137,6 +151,7 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

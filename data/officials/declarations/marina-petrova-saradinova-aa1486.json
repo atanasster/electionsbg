@@ -112,6 +112,20 @@
         "legalBasis": "ипотечен кредит - 2.15%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1224.5440554649433,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -148,7 +162,8 @@
         "legalBasis": "заплата и спестявания",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marina-petrova-saradinova-aa1486",
@@ -184,7 +199,8 @@
         "legalBasis": "ДАРЕНИЕ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marina-petrova-saradinova-aa1486",
@@ -317,6 +333,20 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -353,6 +383,7 @@
         "legalBasis": "собствени средства (заплата и спестявания)",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

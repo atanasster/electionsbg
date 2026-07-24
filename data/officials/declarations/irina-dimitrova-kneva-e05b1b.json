@@ -244,6 +244,20 @@
         "legalBasis": "4.9%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент с паркомясто",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 51,
+        "builtAreaSqm": 58,
+        "currency": "BGN",
+        "valueEur": 184999.71878946535,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -261,6 +275,7 @@
     "sourceUrl": "https://register.cacbg.bg/2025/6AE13347-A7A7-4E1D-AD19-8B80978AE499216683.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

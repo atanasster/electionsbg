@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и дарение"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-biserov-shotarov-87bd40",
@@ -164,7 +165,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-biserov-shotarov-87bd40",
@@ -282,6 +284,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 54,
+        "builtAreaSqm": 64,
+        "currency": "BGN",
+        "valueEur": 106149.81874702811,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 12,
+        "builtAreaSqm": 12,
+        "currency": "BGN",
+        "valueEur": 15021.244177663702,
+        "legalBasis": "възмездно"
       }
     ]
   }

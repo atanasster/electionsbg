@@ -262,6 +262,20 @@
         "legalBasis": "18,9 % ЛИХВА",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "ХЮНДАЙ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -279,7 +293,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/B5893E74-83B9-4D76-9C70-F96F4E6105E8203074.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitr-hristov-makakov-4fbccb",
@@ -837,6 +852,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -226,7 +226,8 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksei-elenkov-andreev-5e1dbb",
@@ -419,6 +420,20 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Мария-Ракел Андреева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4448.2393664071005,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -606,6 +621,20 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Мария-Ракел Андреева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4448.2393664071005,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -774,6 +803,20 @@
         "isSpouse": false,
         "legalBasis": "Кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Мария-Ракел Алексеева Андреева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4448.2393664071005,
+        "legalBasis": null
       }
     ]
   }

@@ -21,7 +21,21 @@
         "amountEurSpouse": 16198.238088177399
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Свети Влас",
+        "municipality": "Несебър",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 46783.20712945399,
+        "legalBasis": "продажба"
+      }
+    ]
   },
   {
     "slug": "desislava-nikolaeva-petrova-687dbc",
@@ -45,6 +59,7 @@
         "amountEurSpouse": 14602.496126964
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

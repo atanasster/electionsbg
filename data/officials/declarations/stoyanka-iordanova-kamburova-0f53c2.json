@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoyanka-iordanova-kamburova-0f53c2",
@@ -191,6 +192,20 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "малък кораб 1,5 б.т.",
+        "detail": "няма",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -215,6 +230,7 @@
         "amountEurSpouse": 14060.526732896009
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

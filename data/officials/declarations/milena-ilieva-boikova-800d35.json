@@ -250,7 +250,8 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-ilieva-boikova-800d35",
@@ -575,7 +576,8 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-ilieva-boikova-800d35",
@@ -846,7 +848,8 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-ilieva-boikova-800d35",
@@ -1194,6 +1197,32 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Лада Веста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7614.158694774086,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Лада Веста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7614.158694774086,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1861,7 +1890,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-ilieva-boikova-800d35",
@@ -2419,7 +2449,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-ilieva-boikova-800d35",
@@ -2436,7 +2467,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F04BF562-4FAC-495B-90FD-47FC40C90BA088770.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milena-ilieva-boikova-800d35",
@@ -3012,6 +3044,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

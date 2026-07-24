@@ -190,7 +190,8 @@
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-borisov-zlatkov-289a64",
@@ -383,7 +384,8 @@
         "legalBasis": "договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-borisov-zlatkov-289a64",
@@ -454,6 +456,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Образователна академия по онкология\" гр.София",
+        "detail": null,
+        "location": "Член на Управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Съюз на българските медицински специалисти\"",
+        "detail": null,
+        "location": "Член на Управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -743,7 +771,8 @@
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "viktor-borisov-zlatkov-289a64",
@@ -760,6 +789,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3DA07269-45BA-433B-853B-51C3F965B11289113.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -148,6 +148,20 @@
         "legalBasis": "13.30%, договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВКА В АЗЕРБАЙДЖАН",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 692.800499020876,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -299,6 +313,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

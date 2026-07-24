@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и допълнителни възнаграждения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-elkov-tsekov-92c9c9",
@@ -100,6 +101,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестени средства от предходни години и продадени фамилни имоти"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Киа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -162,7 +177,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестени средства от предходни години и продадени фамилни имоти"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-elkov-tsekov-92c9c9",
@@ -205,6 +221,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

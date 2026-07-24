@@ -46,6 +46,20 @@
         "legalBasis": null,
         "fundsOrigin": "Спестявания от заплати и пенсии"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Пазарджик, Зайкови мандри 55155.8.22",
+        "municipality": "Пазарджик",
+        "areaSqm": 4249,
+        "builtAreaSqm": 4249,
+        "currency": "BGN",
+        "valueEur": 13034.875219216394,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -95,6 +109,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -106,7 +106,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-koev-d15351",
@@ -196,7 +197,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-koev-d15351",
@@ -305,7 +307,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-koev-d15351",
@@ -407,6 +410,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 40,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -691,7 +708,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-koev-d15351",
@@ -708,7 +726,21 @@
     "sourceUrl": "https://register.cacbg.bg/2020/64A2E0F7-C6FE-4E77-BCE6-8F1F53E52C19111272.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"Мини Марица изток\" ЕАД гр. Раднево",
+        "detail": null,
+        "location": "Член на Съвета на Директорите",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "georgi-ivanov-koev-d15351",
@@ -973,6 +1005,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "\"ФОРД\" КА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1189,7 +1235,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-koev-d15351",
@@ -1206,6 +1253,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/64A2E0F7-C6FE-4E77-BCE6-8F1F53E52C1991109.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -130,7 +130,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "goritsa-nikolova-grncharova-kozhareva-4e1896",
@@ -335,7 +336,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "goritsa-nikolova-grncharova-kozhareva-4e1896",
@@ -612,6 +614,80 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент с гараж и прилежаща обща част от земята",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 174,
+        "builtAreaSqm": 174,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Поземлен имот - 450 кв.м., втори жил. етаж - 90 кв.м. и 2 бр. апартаменти на трети жил. етаж всеки по 45 кв.м.",
+        "detail": null,
+        "location": "Банско",
+        "municipality": "Банско",
+        "areaSqm": 450,
+        "builtAreaSqm": 180,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Поземлен имот с 1-ви жилищен етаж от къща и друг вид сграда за обитаване(навес) от 19 кв.м.",
+        "detail": null,
+        "location": "Банско",
+        "municipality": "Банско",
+        "areaSqm": 450,
+        "builtAreaSqm": 90,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Дарение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент, гараж - 41 кв.м., склад (мазе) -4 кв.м. и 11,12 % от общите части",
+        "detail": null,
+        "location": "Разлог",
+        "municipality": "Разлог",
+        "areaSqm": 139,
+        "builtAreaSqm": 139,
+        "currency": "BGN",
+        "valueEur": 28121.053465792018,
+        "legalBasis": "Продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Селскостопанска сграда",
+        "detail": null,
+        "location": "с. Годлево",
+        "municipality": "Разлог",
+        "areaSqm": 0,
+        "builtAreaSqm": 96,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "Дарение"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Алмера",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "Продажба"
+      }
     ]
   },
   {
@@ -751,6 +827,32 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Стара къща - придобита през 2004 г. съборена",
+        "detail": null,
+        "location": "Банско",
+        "municipality": "Банско",
+        "areaSqm": 0,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9970.19168332626,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -865,6 +967,20 @@
         "isSpouse": true,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

@@ -81,6 +81,56 @@
         "legalBasis": "ДОГОВОРНА ИПОТЕКА",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ВАРНА",
+        "municipality": "ВАРНА",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "currency": "BGN",
+        "valueEur": 100000,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ВАРНА",
+        "municipality": "ВАРНА",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "currency": "BGN",
+        "valueEur": 100000,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "ВАРНА",
+        "municipality": "ВАРНА",
+        "areaSqm": 20,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": 100000,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "ВАРНА",
+        "municipality": "ВАРНА",
+        "areaSqm": 20,
+        "builtAreaSqm": 20,
+        "currency": "BGN",
+        "valueEur": 100000,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

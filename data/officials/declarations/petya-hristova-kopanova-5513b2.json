@@ -21,7 +21,8 @@
         "amountEurSpouse": 6508.234355746665
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "petya-hristova-kopanova-5513b2",
@@ -63,6 +64,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 72,
+        "builtAreaSqm": 72,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

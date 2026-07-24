@@ -21,7 +21,8 @@
         "amountEurSpouse": 13740.969307148373
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "silviya-kirova-mehremova-77f684",
@@ -51,7 +52,8 @@
         "amountEurSpouse": 5354.2485798868
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "silviya-kirova-mehremova-77f684",
@@ -81,7 +83,8 @@
         "amountEurSpouse": 9976.327185900614
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "silviya-kirova-mehremova-77f684",
@@ -111,7 +114,21 @@
         "amountEurSpouse": 5835.374240092442
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Туарег",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
   },
   {
     "slug": "silviya-kirova-mehremova-77f684",
@@ -160,7 +177,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "silviya-kirova-mehremova-77f684",
@@ -196,7 +214,8 @@
         "legalBasis": "заплата и превод от роднини",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "silviya-kirova-mehremova-77f684",
@@ -311,7 +330,8 @@
         "legalBasis": "догово за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "silviya-kirova-mehremova-77f684",
@@ -328,7 +348,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/312BFA92-7C41-4C1A-9F0E-C0C7A174545C89826.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "silviya-kirova-mehremova-77f684",
@@ -472,6 +493,7 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

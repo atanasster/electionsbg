@@ -21,7 +21,21 @@
         "amountEurSpouse": 4530.557359279692
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Казанлък",
+        "municipality": "Казанлък",
+        "areaSqm": 128,
+        "builtAreaSqm": 128,
+        "currency": "BGN",
+        "valueEur": 14316.172673494118,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "genadi-sbkov-sbkov-a12174",
@@ -124,6 +138,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

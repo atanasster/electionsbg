@@ -148,7 +148,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наследяване, спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyubka-milkova-bailova-637e46",
@@ -310,6 +311,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, наследство, спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
       }
     ]
   }

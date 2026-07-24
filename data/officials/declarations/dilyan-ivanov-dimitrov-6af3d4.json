@@ -159,7 +159,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dilyan-ivanov-dimitrov-6af3d4",
@@ -225,6 +226,80 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Финансов гранд",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 574.6920744645496,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Финансов гранд",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2234.856812708671,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Финансов гранд",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1392.247792497303,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Финансов гранд",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1252.1538170495392,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Финансов гранд",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2279.339206372742,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Финансов гранд",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1017.982135461671,
+        "legalBasis": null
       }
     ]
   }

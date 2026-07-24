@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "УПФ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-zdravkov-georgiev-618c18",
@@ -143,6 +144,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Дрента",
+        "municipality": "Елена",
+        "areaSqm": 700,
+        "builtAreaSqm": 700,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "с.Дрента",
+        "municipality": "Елена",
+        "areaSqm": 54,
+        "builtAreaSqm": 54,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -167,7 +194,8 @@
         "amountEurSpouse": 8092.21660369255
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "plamen-zdravkov-georgiev-618c18",
@@ -210,7 +238,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-zdravkov-georgiev-618c18",
@@ -264,7 +293,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-zdravkov-georgiev-618c18",
@@ -281,6 +311,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/609BA4D3-C981-45DF-906C-7A3E9DFA108894156.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

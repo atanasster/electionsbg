@@ -454,7 +454,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-kostadinova-tsutsumanova-17bf01",
@@ -910,6 +911,56 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел с ниско застрояване до 10 м.",
+        "detail": null,
+        "location": "Козлодуй",
+        "municipality": "Козлодуй",
+        "areaSqm": 772,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "ДППНП№1628/01.08.2023 г."
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел с ниско застрояване до 10 м.",
+        "detail": null,
+        "location": "Козлодуй",
+        "municipality": "Козлодуй",
+        "areaSqm": 772,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "ДППНП№1628/01.08.2023 г."
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел с ниско застрояване до 10 м.",
+        "detail": null,
+        "location": "Козлодуй",
+        "municipality": "Козлодуй",
+        "areaSqm": 771,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "ДППНП№1628/01.08.2023 г."
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел с ниско застрояване до 10 м.",
+        "detail": null,
+        "location": "Козлодуй",
+        "municipality": "Козлодуй",
+        "areaSqm": 771,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "ДППНП№1628/01.08.2023 г."
       }
     ]
   }

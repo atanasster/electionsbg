@@ -40,6 +40,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "рено клио",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно/брак/"
+      }
     ]
   },
   {
@@ -76,7 +90,8 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-dimitrov-milev-e827ca",
@@ -106,7 +121,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-dimitrov-milev-e827ca",
@@ -136,7 +152,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-dimitrov-milev-e827ca",
@@ -209,6 +226,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор в с.Смолница",
+        "detail": null,
+        "location": "с.Смолница",
+        "municipality": "Добричка",
+        "areaSqm": 970,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -239,7 +270,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-dimitrov-milev-e827ca",
@@ -455,7 +487,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-dimitrov-milev-e827ca",
@@ -472,6 +505,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/0F9EBE70-54E1-417E-A35D-90A6572EA4CD89264.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

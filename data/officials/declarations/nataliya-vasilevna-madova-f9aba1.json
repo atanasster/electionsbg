@@ -70,7 +70,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nataliya-vasilevna-madova-f9aba1",
@@ -161,6 +162,20 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Джук",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -216,7 +231,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nataliya-vasilevna-madova-f9aba1",
@@ -289,7 +305,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nataliya-vasilevna-madova-f9aba1",
@@ -374,7 +391,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nataliya-vasilevna-madova-f9aba1",
@@ -464,7 +482,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nataliya-vasilevna-madova-f9aba1",
@@ -481,6 +500,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8FC7BDFC-C92E-4501-8852-3A0F38A88CFF88984.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

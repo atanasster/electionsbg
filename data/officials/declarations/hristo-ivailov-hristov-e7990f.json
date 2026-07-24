@@ -106,7 +106,8 @@
         "legalBasis": null,
         "fundsOrigin": "Универсален пенсионен фонд ДСК Родина"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-ivailov-hristov-e7990f",
@@ -190,6 +191,20 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Субару Легаци",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -276,6 +291,20 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "в.з. Лозята, с. Трудовец, общ. Ботевград",
+        "municipality": "Ботевград",
+        "areaSqm": 1100,
+        "builtAreaSqm": 165,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -293,7 +322,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/88ED5D75-EF20-4A4E-AE5C-13F5961179C2112968.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "hristo-ivailov-hristov-e7990f",
@@ -401,6 +431,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

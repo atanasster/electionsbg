@@ -268,6 +268,20 @@
         "legalBasis": "Договор с лихва 21,95%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка до Танжер, Мароко, за осъществяване на мобилност по програма Еразъм+ в периода 9 - 16.11.2024 г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1914.7880950798383,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -285,7 +299,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/BD0B7640-1F9C-41B3-B0AC-F651075FB9D1168949.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-atanasov-marin-2c8623",
@@ -591,6 +606,7 @@
         "legalBasis": "Договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

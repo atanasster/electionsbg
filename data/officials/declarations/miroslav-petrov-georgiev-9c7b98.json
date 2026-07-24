@@ -214,6 +214,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "ОПЕЛ ИНСИГНИЯ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1034.8547675411462,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

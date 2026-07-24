@@ -124,7 +124,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetanka-petkova-iotina-1e20a7",
@@ -287,6 +288,32 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в българска делегация до Тел Авив, Израел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 250.02172990495083,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Участие в българска делегация до Тел Авив, Израел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 394.7173322834807,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -414,7 +441,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetanka-petkova-iotina-1e20a7",
@@ -505,6 +533,7 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

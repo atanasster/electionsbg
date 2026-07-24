@@ -141,7 +141,8 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "geno-nikolov-peev-karapeev-2633ab",
@@ -158,7 +159,21 @@
     "sourceUrl": "https://register.cacbg.bg/2020/3E9123F2-08D5-4490-BDD2-FB036FFBEBC5111981.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Родопско настоятелство за възтановяване на параклиси в района на чепинската котлувина - ЮЛ с нестопанска цел",
+        "detail": null,
+        "location": "Председател",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "geno-nikolov-peev-karapeev-2633ab",
@@ -193,6 +208,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "СДРУЖЕНИЕ ЦАРСКИ ЛОВЕН КЛУБ",
+        "detail": null,
+        "location": "ПРЕДСЕДАТЕЛ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -230,7 +259,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "geno-nikolov-peev-karapeev-2633ab",
@@ -247,6 +277,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3E9123F2-08D5-4490-BDD2-FB036FFBEBC593366.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

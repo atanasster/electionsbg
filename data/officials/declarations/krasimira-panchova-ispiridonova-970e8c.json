@@ -21,7 +21,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimira-panchova-ispiridonova-970e8c",
@@ -64,7 +65,8 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-panchova-ispiridonova-970e8c",
@@ -107,7 +109,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-panchova-ispiridonova-970e8c",
@@ -150,7 +153,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-panchova-ispiridonova-970e8c",
@@ -211,6 +215,20 @@
         "legalBasis": "ипотечен заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Годишно счетоводно приключаване",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 122.71005148709244,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -235,7 +253,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimira-panchova-ispiridonova-970e8c",
@@ -252,7 +271,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/1C62C774-7518-471A-8D9E-B0A51928D73490323.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimira-panchova-ispiridonova-970e8c",
@@ -324,6 +344,7 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

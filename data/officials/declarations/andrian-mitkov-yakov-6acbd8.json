@@ -369,6 +369,20 @@
         "legalBasis": null,
         "fundsOrigin": "ГОДИШНА ДОХОДНОСТ"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "НАЦИОНАЛЕН КОНГРЕС ПО ЕНДОКРИНОЛОГИЯ - ПЛОВДИВ 2024Г",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -405,7 +419,8 @@
         "legalBasis": "ИПОТЕЧЕН КРЕДИТ НА ФИЗИЧЕСКИ ЛИЦЕ- МИМА ИВАНОВА ЯКОВА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrian-mitkov-yakov-6acbd8",
@@ -782,6 +797,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "ГОДИШНА ДОХОДНОСТ"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "НАЦИОНАЛЕН КОНГРЕС ПО ЕНДОКРНОЛОГИЯ - ПЛОВДИВ 2023Г",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 434.59809901678574,
+        "legalBasis": null
       }
     ]
   }

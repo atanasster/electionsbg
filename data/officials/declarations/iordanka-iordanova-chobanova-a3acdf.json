@@ -159,7 +159,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-iordanova-chobanova-a3acdf",
@@ -226,6 +227,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и задгранични командировъчни"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 69,
+        "builtAreaSqm": 69,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -275,7 +290,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-iordanova-chobanova-a3acdf",
@@ -323,6 +339,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 66,
+        "builtAreaSqm": 66,
+        "currency": "BGN",
+        "valueEur": 28274.441030150883,
+        "legalBasis": "възмездно"
       }
     ]
   }

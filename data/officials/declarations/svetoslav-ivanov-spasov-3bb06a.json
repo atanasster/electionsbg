@@ -711,7 +711,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-ivanov-spasov-3bb06a",
@@ -1580,7 +1581,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-ivanov-spasov-3bb06a",
@@ -1869,7 +1871,8 @@
         "legalBasis": null,
         "fundsOrigin": "приходи от наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-ivanov-spasov-3bb06a",
@@ -1976,6 +1979,56 @@
         "isSpouse": true,
         "legalBasis": "командировъчни средства и наем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Движение за обновление на българските региони и общини/ДОБРО\"",
+        "detail": null,
+        "location": "Председател",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Съюз на европейските федералисти - България\"",
+        "detail": null,
+        "location": "член на УС",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Фондация \"Дом на Европа - София\"",
+        "detail": null,
+        "location": "Председател- внесена молба за освобождаване през 2001 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Независим студентски съюз\"",
+        "detail": null,
+        "location": "Председател- внесена молба за освобождаване през 1998 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -2558,6 +2611,32 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гори и храсти в земеделска земя",
+        "detail": null,
+        "location": "местност \"Кара Чалък\"",
+        "municipality": "Шумен",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 186.62153663661974,
+        "legalBasis": "покупко-продажба"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "командировка до Етиопия, разрешена от МВнР",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1762.9344063645613,
+        "legalBasis": null
       }
     ]
   }

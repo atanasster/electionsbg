@@ -21,7 +21,8 @@
         "amountEurSpouse": 7823.277074183339
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nurtin-safet-sabri-a6cc16",
@@ -45,7 +46,21 @@
         "amountEurSpouse": 6025.574819897435
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "дарение за пострадалите от земетресението н Ртурция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "nurtin-safet-sabri-a6cc16",
@@ -69,7 +84,8 @@
         "amountEurSpouse": 4819.948564036752
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nurtin-safet-sabri-a6cc16",
@@ -93,7 +109,8 @@
         "amountEurSpouse": 2854.0312808372914
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nurtin-safet-sabri-a6cc16",
@@ -117,7 +134,8 @@
         "amountEurSpouse": 2585.603043209277
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nurtin-safet-sabri-a6cc16",
@@ -141,7 +159,21 @@
         "amountEurSpouse": 3129.1063129208574
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "С. МИНЕРАЛНИ БАНИ",
+        "municipality": "Минерални бани",
+        "areaSqm": 725,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "nurtin-safet-sabri-a6cc16",
@@ -165,6 +197,7 @@
         "amountEurSpouse": 2319.7312649872433
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

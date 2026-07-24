@@ -82,7 +82,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spartak-stoyanov-milev-3e766d",
@@ -184,6 +185,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Chevrolet Captiva",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -306,7 +321,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spartak-stoyanov-milev-3e766d",
@@ -415,7 +431,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spartak-stoyanov-milev-3e766d",
@@ -692,7 +709,8 @@
         "legalBasis": "покупко-продажба на имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spartak-stoyanov-milev-3e766d",
@@ -939,7 +957,8 @@
         "legalBasis": "покупко-продажба на имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spartak-stoyanov-milev-3e766d",
@@ -1173,7 +1192,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "spartak-stoyanov-milev-3e766d",
@@ -1190,6 +1210,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/6A9B5898-4E0E-4911-9D81-1189F85B21CF89796.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

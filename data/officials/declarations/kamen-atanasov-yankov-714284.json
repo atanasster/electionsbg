@@ -340,7 +340,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kamen-atanasov-yankov-714284",
@@ -671,6 +672,44 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул.\"Младежка\" № 27",
+        "municipality": "Пловдив",
+        "areaSqm": 150,
+        "builtAreaSqm": 150,
+        "currency": "BGN",
+        "valueEur": 95407.06503121437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Алмера Тино",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1738.392396067143,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Алмера Тино",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1738.392396067143,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -688,7 +727,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F6E8EEBD-27FF-42C9-BB09-B21E77F812D990613.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kamen-atanasov-yankov-714284",
@@ -904,6 +944,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -232,7 +232,8 @@
         "legalBasis": "ДОГОВОРНА ИПОТЕКА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sofiya-krumova-peneva-7ccdcc",
@@ -424,6 +425,20 @@
         "isSpouse": true,
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15083.110495288445,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -274,6 +274,20 @@
         "legalBasis": "Договор за кредитна карта - 18%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Жиленци",
+        "municipality": "Кюстендил",
+        "areaSqm": 3,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -515,6 +529,20 @@
         "legalBasis": "Договор за овърдрафт",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фиат брава",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 383.4689108971639,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -732,7 +760,8 @@
         "legalBasis": "Договор за овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-vasilev-mladenov-e45bc7",
@@ -913,6 +942,20 @@
         "legalBasis": "Договор за овърдрафт",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "гр. Кюстендил, ул. \"Бузлуджа\" №73",
+        "municipality": "Кюстендил",
+        "areaSqm": 352,
+        "builtAreaSqm": 108,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно, съгласно нотариален акт № 63, том II, рег. №1987, нот. Дело 228/2019 год"
+      }
     ]
   },
   {
@@ -1070,7 +1113,8 @@
         "legalBasis": "Договор за овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-vasilev-mladenov-e45bc7",
@@ -1592,7 +1636,8 @@
         "legalBasis": "Договор за овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-vasilev-mladenov-e45bc7",
@@ -1609,6 +1654,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/316C6745-AE24-4F4B-B3DA-8536DD945AB789524.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

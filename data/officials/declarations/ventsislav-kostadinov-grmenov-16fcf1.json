@@ -14,7 +14,21 @@
     "sourceUrl": "https://register.cacbg.bg/2023/36F80BB6-51D6-40B6-9567-8DBBEFFD8AE3154609.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ЗЕМЕДЕЛСКА ЗЕМЯ",
+        "detail": null,
+        "location": "СЕЛО БАНЯ",
+        "municipality": "Разлог",
+        "areaSqm": 2159,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13634.109303978363,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "ventsislav-kostadinov-grmenov-16fcf1",
@@ -75,7 +89,8 @@
         "legalBasis": "ДОГОВОР ЗА ЗАЕМ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-kostadinov-grmenov-16fcf1",
@@ -111,7 +126,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-kostadinov-grmenov-16fcf1",
@@ -244,7 +260,8 @@
         "legalBasis": "Договор за банков заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ventsislav-kostadinov-grmenov-16fcf1",
@@ -323,6 +340,7 @@
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

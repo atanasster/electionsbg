@@ -21,7 +21,21 @@
         "amountEurSpouse": 8219.528282110408
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучителни семинари",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 161.05694257680884,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "gergana-georgieva-stoicheva-9cefe8",
@@ -45,6 +59,32 @@
         "amountEurSpouse": 7406.062899127225
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Чернево",
+        "municipality": "Суворово",
+        "areaSqm": 1375,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3988.076673330504,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучителни курсове, семинари",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 222.92326020155127,
+        "legalBasis": null
+      }
+    ]
   }
 ]

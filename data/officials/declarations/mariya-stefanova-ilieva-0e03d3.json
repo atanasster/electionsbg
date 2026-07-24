@@ -322,7 +322,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-stefanova-ilieva-0e03d3",
@@ -604,6 +605,56 @@
         "isSpouse": true,
         "legalBasis": "договро",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Зимна академия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.13464871691303,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пролетна академия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.13464871691303,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Есенна академия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.13464871691303,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Методически сурс",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 121.6874677247,
+        "legalBasis": null
       }
     ]
   }

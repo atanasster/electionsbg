@@ -262,7 +262,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ahter-syuleimanov-veliev-01bc69",
@@ -347,7 +348,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ahter-syuleimanov-veliev-01bc69",
@@ -432,7 +434,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ahter-syuleimanov-veliev-01bc69",
@@ -600,6 +603,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Севар",
+        "municipality": "Кубрат",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 270.9846970339958,
+        "legalBasis": "възмездно"
       }
     ]
   }

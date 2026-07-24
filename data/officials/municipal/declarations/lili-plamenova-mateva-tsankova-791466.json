@@ -141,6 +141,20 @@
         "legalBasis": "зоговор за финансов лизинг ОЛП+1.6%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фиат 500Х",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2266.5569093428367,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

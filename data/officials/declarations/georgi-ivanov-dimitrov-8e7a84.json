@@ -76,7 +76,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-dimitrov-8e7a84",
@@ -197,7 +198,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-dimitrov-8e7a84",
@@ -288,6 +290,32 @@
         "legalBasis": "Потребителски",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Карнобат",
+        "municipality": "Карнобат",
+        "areaSqm": 135,
+        "builtAreaSqm": 166,
+        "currency": "BGN",
+        "valueEur": 4703.88530700521,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Крумово градище",
+        "municipality": "Карнобат",
+        "areaSqm": 530,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1175.9713267513025,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -349,6 +377,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

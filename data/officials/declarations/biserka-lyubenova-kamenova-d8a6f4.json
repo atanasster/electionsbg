@@ -190,6 +190,32 @@
         "legalBasis": "4%, закупуване на жилище",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Тошевци",
+        "municipality": "Грамада",
+        "areaSqm": 10,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ПМС",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1896.8928792379706,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -311,6 +337,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

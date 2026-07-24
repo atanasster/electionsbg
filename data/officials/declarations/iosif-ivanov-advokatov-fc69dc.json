@@ -164,7 +164,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iosif-ivanov-advokatov-fc69dc",
@@ -332,6 +333,32 @@
         "isSpouse": true,
         "legalBasis": "други",
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Кариани, окр. Кавала, Р Гърция",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 120,
+        "builtAreaSqm": 112,
+        "currency": "BGN",
+        "valueEur": 50000.2556459406,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Рупите",
+        "municipality": "Петрич",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

@@ -166,7 +166,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-mladenov-radkov-3bd0f0",
@@ -347,7 +348,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-mladenov-radkov-3bd0f0",
@@ -504,7 +506,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-mladenov-radkov-3bd0f0",
@@ -643,7 +646,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-mladenov-radkov-3bd0f0",
@@ -788,6 +792,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Попово",
+        "municipality": "Попово",
+        "areaSqm": 561,
+        "builtAreaSqm": 135,
+        "currency": "BGN",
+        "valueEur": 23008.13465382983,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -849,7 +867,8 @@
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-mladenov-radkov-3bd0f0",
@@ -952,6 +971,7 @@
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

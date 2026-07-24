@@ -134,6 +134,32 @@
         "legalBasis": null,
         "fundsOrigin": "покупко-продажба и заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Пловдив, бул. Освобождение 17",
+        "municipality": "Пловдив",
+        "areaSqm": 71,
+        "builtAreaSqm": 71,
+        "currency": "BGN",
+        "valueEur": 107000.09714545743,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Марково, местност Керемедчилница",
+        "municipality": "Родопи",
+        "areaSqm": 2173,
+        "builtAreaSqm": 2173,
+        "currency": "BGN",
+        "valueEur": 5010.660435722941,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

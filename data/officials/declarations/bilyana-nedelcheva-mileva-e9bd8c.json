@@ -40,7 +40,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "bilyana-nedelcheva-mileva-e9bd8c",
@@ -406,6 +407,20 @@
         "isSpouse": true,
         "legalBasis": "3,5 %",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Попово",
+        "municipality": "Попово",
+        "areaSqm": 57,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

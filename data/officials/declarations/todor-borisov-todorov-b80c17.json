@@ -382,6 +382,56 @@
         "legalBasis": "Вноска от собственик на ЕООД по чл.134 от ТЗ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия Дъстър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2888.7991287586347,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия Дъстър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2888.7991287586347,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -695,7 +745,8 @@
         "legalBasis": "вноска от собственик на ЕООД по чл.134 от ТЗ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-borisov-todorov-b80c17",
@@ -1014,7 +1065,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-borisov-todorov-b80c17",
@@ -1315,7 +1367,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-borisov-todorov-b80c17",
@@ -1574,7 +1627,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-borisov-todorov-b80c17",
@@ -1808,6 +1862,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Холандия- Хага",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 66,
+        "builtAreaSqm": 66,
+        "currency": "BGN",
+        "valueEur": 141584.90257333204,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Холандия- Хага",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 66,
+        "builtAreaSqm": 66,
+        "currency": "BGN",
+        "valueEur": 141584.90257333204,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -2617,7 +2697,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "todor-borisov-todorov-b80c17",
@@ -2634,6 +2715,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/9576A8D8-661B-4BFC-BA04-5EE91F17B6C390340.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

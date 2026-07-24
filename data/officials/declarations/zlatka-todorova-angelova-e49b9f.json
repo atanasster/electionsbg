@@ -27,7 +27,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "моторно превозно средство",
+        "detail": "Пежо 307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 664.679445555084,
+        "legalBasis": "продажба"
+      }
+    ]
   },
   {
     "slug": "zlatka-todorova-angelova-e49b9f",
@@ -76,6 +90,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "дарения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

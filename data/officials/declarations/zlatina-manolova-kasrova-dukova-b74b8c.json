@@ -160,7 +160,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatina-manolova-kasrova-dukova-b74b8c",
@@ -299,7 +300,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatina-manolova-kasrova-dukova-b74b8c",
@@ -426,7 +428,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatina-manolova-kasrova-dukova-b74b8c",
@@ -661,7 +664,8 @@
         "legalBasis": "покупка",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatina-manolova-kasrova-dukova-b74b8c",
@@ -793,6 +797,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Москва",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
       }
     ]
   },
@@ -950,6 +968,56 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Държавен департамент САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 3407.2490962916,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1179.550369919676,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Мадрид",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1215.8520934846076,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Виена",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 989.861081995879,
+        "legalBasis": null
       }
     ]
   },
@@ -1329,7 +1397,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zlatina-manolova-kasrova-dukova-b74b8c",
@@ -1346,6 +1415,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B248E7E0-AB61-42D8-9580-30F9154469AD88815.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

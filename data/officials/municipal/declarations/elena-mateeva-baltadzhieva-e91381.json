@@ -135,6 +135,20 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Фолксваген",
+        "detail": "пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12990.90411743352,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

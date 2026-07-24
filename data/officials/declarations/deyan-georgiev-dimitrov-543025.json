@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "deyan-georgiev-dimitrov-543025",
@@ -154,6 +155,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми, заплата, наследство"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Видраре",
+        "municipality": "Правец",
+        "areaSqm": 875,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
       }
     ]
   }

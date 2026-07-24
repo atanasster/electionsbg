@@ -69,7 +69,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-todorova-dimitrova-d742ea",
@@ -123,7 +124,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-todorova-dimitrova-d742ea",
@@ -189,6 +191,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "проучвателно посещение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "GBP",
+        "valueEur": 760.8023192199731,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "работно посещение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1020.0273029864559,
+        "legalBasis": null
       }
     ]
   }

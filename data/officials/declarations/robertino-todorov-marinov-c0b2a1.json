@@ -63,7 +63,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "robertino-todorov-marinov-c0b2a1",
@@ -106,6 +107,20 @@
         "legalBasis": "покупка",
         "fundsOrigin": "лични"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "гр. Оряхово",
+        "municipality": "Оряхово",
+        "areaSqm": 300,
+        "builtAreaSqm": 150,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -130,7 +145,8 @@
         "amountEurSpouse": 4090.3350495697478
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "robertino-todorov-marinov-c0b2a1",
@@ -209,6 +225,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   }
 ]

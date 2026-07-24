@@ -57,6 +57,44 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Драгоево",
+        "municipality": "Велики Преслав",
+        "areaSqm": 3,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 3195.5742574763653,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Драгоево",
+        "municipality": "Велики Преслав",
+        "areaSqm": 3,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 3195.5742574763653,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ВАЗ 2105",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

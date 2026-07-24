@@ -286,6 +286,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ГР. СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 52,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 61000.18917799604,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -575,6 +589,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -636,7 +664,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-bogomilov-terziiski-d94469",
@@ -653,6 +682,20 @@
     "sourceUrl": "https://register.cacbg.bg/2018/75B0314E-ABBB-46AC-93A5-6D2C74CCD93D92299.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Спортна асоциация-МВР\"",
+        "detail": null,
+        "location": "Член на Управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

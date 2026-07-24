@@ -172,6 +172,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, деца, родител"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2000.1738392396067,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 699.9585853576231,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Италия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1200.0020451675248,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Русия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 899.8737109053445,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -347,6 +397,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, деца, родител"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 3400.091009954853,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1300.2152538819837,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -521,6 +597,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания, деца и родители"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътни и престой - Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2999.749466978214,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътни и престой - Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 949.980315262574,
+        "legalBasis": null
       }
     ]
   },
@@ -727,6 +829,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания, деца и родители"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд Фиеста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 475.5014495124832,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътни и престой - Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1300.2152538819837,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътни и престой - Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1099.7888364530659,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Пътни и престой - Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1300.2152538819837,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -860,6 +1012,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания, деца и родители"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътни и престой - Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1399.9171707152461,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -992,6 +1158,20 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит-погасен 2017",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и престой - Люксембург",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 899.8737109053445,
+        "legalBasis": null
       }
     ]
   },
@@ -1221,7 +1401,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vladimir-nikolov-vichev-c3654c",
@@ -1238,6 +1419,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DBCFC045-C6AA-4173-A6D4-1FC983FB4CA989292.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -94,7 +94,8 @@
         "legalBasis": "Лизингов договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-vasilev-manev-21736e",
@@ -227,6 +228,20 @@
         "legalBasis": "ЛИЗИНГОВ ДОГОВОР",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АУДИ G7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2576.9110812289414,
+        "legalBasis": "БРАКУВАН"
+      }
     ]
   },
   {
@@ -318,6 +333,7 @@
         "legalBasis": "банков заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

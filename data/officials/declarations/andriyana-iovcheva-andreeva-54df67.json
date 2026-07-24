@@ -184,6 +184,32 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Брюксел, Белгия, Европейски парламент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 574.1807825833533,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Флоренция, Италия,",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1397.8720031904613,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -460,6 +486,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка по програма Еразъм в Грузия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1074.224242393255,
+        "legalBasis": null
       }
     ]
   }

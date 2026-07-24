@@ -58,6 +58,20 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "с. Градище",
+        "municipality": "Севлиево",
+        "areaSqm": 50,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -94,7 +108,8 @@
         "legalBasis": "Заплати",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalina-ganeva-ganeva-ed9f51",
@@ -111,7 +126,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/CC1450EA-E77C-406B-B9A3-9D7ACC556E6D155901.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kalina-ganeva-ganeva-ed9f51",
@@ -219,6 +235,7 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

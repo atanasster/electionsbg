@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-mirchev-iliev-5c25d4",
@@ -76,7 +77,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-mirchev-iliev-5c25d4",
@@ -112,7 +114,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-mirchev-iliev-5c25d4",
@@ -147,6 +150,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "СЕЛО ГАЙТАНИ",
+        "municipality": "Габрово",
+        "areaSqm": 2,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -183,6 +200,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ГЕРМАНИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
       }
     ]
   },
@@ -346,7 +377,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-mirchev-iliev-5c25d4",
@@ -363,6 +395,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/34255C33-4EBA-44DF-89C8-5E076102CD8E90071.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -274,7 +274,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagorodna-hristeva-makeva-naidenova-293f2d",
@@ -575,6 +576,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "върнат заем"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировъчни, трансфер летище и квартирни пари",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 773.0733243686824,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -654,6 +669,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

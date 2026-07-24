@@ -913,7 +913,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "borislav-yankov-borisov-84332e",
@@ -1244,7 +1245,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания и др. доходи"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "borislav-yankov-borisov-84332e",
@@ -1568,6 +1570,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "спестявания и др. Доходи"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел-ид.ч.",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 50,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1500.130379429705,
+        "legalBasis": "ппродажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 178.95215841867648,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -2503,7 +2531,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "borislav-yankov-borisov-84332e",
@@ -2520,6 +2549,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DEA3BD65-AA80-4B57-8F46-2C66C6BEDC1289438.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -214,7 +214,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-ivanov-ivanov-3b983e",
@@ -347,7 +348,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата ,майчиство и спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-ivanov-ivanov-3b983e",
@@ -408,7 +410,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-ivanov-ivanov-3b983e",
@@ -516,6 +519,20 @@
         "isSpouse": false,
         "legalBasis": "лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Чокоба",
+        "municipality": "Сливен",
+        "areaSqm": 2,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 14316.172673494118,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -638,7 +655,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-ivanov-ivanov-3b983e",
@@ -777,6 +795,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "форд фиеста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -879,6 +923,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка до Беларус",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": null
       }
     ]
   }

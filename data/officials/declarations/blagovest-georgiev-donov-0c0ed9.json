@@ -139,7 +139,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "blagovest-georgiev-donov-0c0ed9",
@@ -254,6 +255,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотоциклет",
+        "detail": "Ямаха",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -356,6 +371,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Банско",
+        "municipality": "Банско",
+        "areaSqm": 43,
+        "builtAreaSqm": 53,
+        "currency": "BGN",
+        "valueEur": 34000.91009954853,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Банско",
+        "municipality": "Банско",
+        "areaSqm": 43,
+        "builtAreaSqm": 53,
+        "currency": "BGN",
+        "valueEur": 34000.91009954853,
+        "legalBasis": "възмездно"
       }
     ]
   }

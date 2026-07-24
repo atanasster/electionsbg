@@ -160,6 +160,56 @@
         "legalBasis": "потребителски заем6,99",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр.Генерал Тошево",
+        "municipality": "Генерал Тошево",
+        "areaSqm": 18,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9203.253861531934,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "производствени помещения",
+        "detail": null,
+        "location": "с.Кардам",
+        "municipality": "Генерал Тошево",
+        "areaSqm": 645,
+        "builtAreaSqm": 48,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -268,6 +318,20 @@
         "isSpouse": true,
         "legalBasis": "потребителски заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр.Генерал Тошево",
+        "municipality": "Генерал Тошево",
+        "areaSqm": 12,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6033.244198115378,
+        "legalBasis": "възмездно"
       }
     ]
   }

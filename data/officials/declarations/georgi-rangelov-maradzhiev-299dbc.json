@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "Продажба на имущество"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес МЛ 250",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -179,6 +193,20 @@
         "legalBasis": null,
         "fundsOrigin": "Продажба на имущество"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Несебър",
+        "municipality": "Несебър",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -240,7 +268,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имущество"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-rangelov-maradzhiev-299dbc",
@@ -325,6 +354,7 @@
         "legalBasis": null,
         "fundsOrigin": "Прехвърляне на имущество,дивидент"
       }
-    ]
+    ],
+    "events": []
   }
 ]

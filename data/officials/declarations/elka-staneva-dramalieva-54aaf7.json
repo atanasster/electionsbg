@@ -52,7 +52,8 @@
         "legalBasis": "покупка",
         "fundsOrigin": "заем"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "elka-staneva-dramalieva-54aaf7",
@@ -112,6 +113,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "тойота рав",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6442.277703072353,
+        "legalBasis": "възмездно"
       }
     ]
   }

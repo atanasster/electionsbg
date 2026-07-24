@@ -76,7 +76,8 @@
         "legalBasis": "длъжник",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-metodieva-peneva-c38a08",
@@ -155,7 +156,8 @@
         "legalBasis": "длъжник",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-metodieva-peneva-c38a08",
@@ -216,7 +218,8 @@
         "legalBasis": "длъжник",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-metodieva-peneva-c38a08",
@@ -277,7 +280,8 @@
         "legalBasis": "длъжник",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-metodieva-peneva-c38a08",
@@ -356,7 +360,8 @@
         "legalBasis": "длъжник",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-metodieva-peneva-c38a08",
@@ -435,7 +440,8 @@
         "legalBasis": "длъжник",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pavlina-metodieva-peneva-c38a08",
@@ -513,6 +519,20 @@
         "isSpouse": true,
         "legalBasis": "длъжник",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
       }
     ]
   }

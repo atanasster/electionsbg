@@ -112,7 +112,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyudmil-simeonov-lichev-ec20f2",
@@ -209,7 +210,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyudmil-simeonov-lichev-ec20f2",
@@ -300,7 +302,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyudmil-simeonov-lichev-ec20f2",
@@ -391,7 +394,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyudmil-simeonov-lichev-ec20f2",
@@ -500,6 +504,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Неделино",
+        "municipality": "Неделино",
+        "areaSqm": 103,
+        "builtAreaSqm": 414,
+        "currency": "BGN",
+        "valueEur": 10675.774479377042,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Неделино",
+        "municipality": "Неделино",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 2653.604863408374,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -517,7 +547,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/41BEA8A7-22B7-46C5-B404-1124C8747EBF91078.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyudmil-simeonov-lichev-ec20f2",
@@ -864,6 +895,7 @@
         "legalBasis": "Лизингов договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

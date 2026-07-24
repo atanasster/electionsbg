@@ -166,6 +166,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -585,7 +599,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-aleksiev-nikolov-123d3b",
@@ -1107,7 +1122,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-aleksiev-nikolov-123d3b",
@@ -1444,6 +1460,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "трудови доходи, включително декларирани и в предходни декларации"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -46,6 +46,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -95,6 +109,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Зафира",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -119,7 +147,8 @@
         "amountEurSpouse": 5079.173547803234
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyudmil-ionchev-lalov-d68d55",
@@ -143,7 +172,8 @@
         "amountEurSpouse": 4619.522146607834
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyudmil-ionchev-lalov-d68d55",
@@ -173,7 +203,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyudmil-ionchev-lalov-d68d55",
@@ -222,7 +253,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyudmil-ionchev-lalov-d68d55",
@@ -294,6 +326,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

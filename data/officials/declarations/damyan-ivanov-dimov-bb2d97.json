@@ -82,6 +82,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Учебна такса за Международно училище Неапол",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4904.823016315324,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Учебна такса за Международно училище Неапол",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4904.823016315324,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -99,7 +125,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/86B64D50-A666-4AAE-B283-C85F2C1CE098156265.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "damyan-ivanov-dimov-bb2d97",
@@ -207,6 +234,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

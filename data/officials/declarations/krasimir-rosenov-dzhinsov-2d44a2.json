@@ -112,6 +112,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "DAS-CAM PROGRAMME такса",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2505.3302178614704,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "DAS-CAM PROGRAMME модул 1 Маастрихт",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1189.2649156624043,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -129,7 +155,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/96BE41B0-1F1E-44D6-A55F-E59CD0A930F3195730.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimir-rosenov-dzhinsov-2d44a2",
@@ -435,6 +462,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -58,6 +58,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Дичин",
+        "municipality": "Велико Търново",
+        "areaSqm": 1760,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1891.7799604260083,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -190,6 +204,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Дичин",
+        "municipality": "Велико Търново",
+        "areaSqm": 950,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ВАЗ2121",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -324,7 +364,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-dimitrov-iordanov-41752f",
@@ -341,7 +382,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/08E852B5-788F-40AA-8120-2C465142D6EE88453.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "plamen-dimitrov-iordanov-41752f",
@@ -503,6 +545,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

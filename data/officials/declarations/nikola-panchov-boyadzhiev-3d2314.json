@@ -52,6 +52,32 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "додж",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7055.827960507815,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотоциклет",
+        "detail": "хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1942.9091485456302,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -95,7 +121,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikola-panchov-boyadzhiev-3d2314",
@@ -125,7 +152,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikola-panchov-boyadzhiev-3d2314",
@@ -168,7 +196,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikola-panchov-boyadzhiev-3d2314",
@@ -185,7 +214,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3578B936-77FF-4B77-A6A2-39B3888FC81393119.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikola-panchov-boyadzhiev-3d2314",
@@ -202,6 +232,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3578B936-77FF-4B77-A6A2-39B3888FC81393117.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

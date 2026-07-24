@@ -33,7 +33,8 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "margarita-bogdanova-trvalieva-723a81",
@@ -106,6 +107,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "С.КОНСТАНТИНОВО",
+        "municipality": "СИМЕОНОВГРАД",
+        "areaSqm": 2062,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "ПРОДАЖБА"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "НИВА",
+        "detail": null,
+        "location": "БАТАК",
+        "municipality": "БАТАК",
+        "areaSqm": 2217,
+        "builtAreaSqm": 2217,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "ПРОДАЖБА"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "ДЖИП",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1840.6507723063867,
+        "legalBasis": "ПРОДАЖБА"
+      }
     ]
   },
   {
@@ -173,6 +212,7 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

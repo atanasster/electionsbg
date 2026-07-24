@@ -51,6 +51,20 @@
         "legalBasis": "заплата",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Фондация \"Възраждане\"",
+        "detail": null,
+        "location": "председател",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -225,6 +239,20 @@
         "isSpouse": true,
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 19429.0914854563,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -425,6 +453,20 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Дачия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -461,7 +503,8 @@
         "legalBasis": "заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-kostadinov-fc5d59",
@@ -666,6 +709,20 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9203.253861531934,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -702,7 +759,8 @@
         "legalBasis": "заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-kostadinov-fc5d59",
@@ -859,7 +917,8 @@
         "legalBasis": "даговор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-kostadinov-fc5d59",
@@ -913,7 +972,8 @@
         "legalBasis": "заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-kostadinov-fc5d59",
@@ -967,7 +1027,8 @@
         "legalBasis": "заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-kostadinov-fc5d59",
@@ -1021,7 +1082,8 @@
         "legalBasis": "заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-kostadinov-fc5d59",
@@ -1075,7 +1137,8 @@
         "legalBasis": "заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-todorov-kostadinov-fc5d59",
@@ -1172,6 +1235,20 @@
         "legalBasis": "договор за жилищен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "бракувана лека кола за части",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1238,6 +1315,20 @@
         "isSpouse": false,
         "legalBasis": "други",
         "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Форд Мондео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -1324,6 +1415,7 @@
         "legalBasis": "други",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

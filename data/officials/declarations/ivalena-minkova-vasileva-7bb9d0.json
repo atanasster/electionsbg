@@ -106,7 +106,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivalena-minkova-vasileva-7bb9d0",
@@ -233,7 +234,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivalena-minkova-vasileva-7bb9d0",
@@ -402,7 +404,8 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivalena-minkova-vasileva-7bb9d0",
@@ -534,6 +537,32 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ЛИВАДА",
+        "detail": null,
+        "location": "С ГОРНА КРЕМЕНА",
+        "municipality": "МЕЗДРА",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "ПУБЛИЧНА ПРОДАЖБА"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ГР. ПРАГА",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1175.9713267513025,
+        "legalBasis": null
       }
     ]
   },
@@ -1237,7 +1266,8 @@
         "legalBasis": "ДОГОВОР ЗА ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivalena-minkova-vasileva-7bb9d0",
@@ -1254,6 +1284,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/3F28B761-4804-4146-962B-44BBF8A3A09289672.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

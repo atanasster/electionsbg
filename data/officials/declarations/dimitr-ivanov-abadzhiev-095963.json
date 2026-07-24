@@ -123,7 +123,8 @@
         "legalBasis": "КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-ivanov-abadzhiev-095963",
@@ -262,7 +263,8 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-ivanov-abadzhiev-095963",
@@ -388,7 +390,8 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-ivanov-abadzhiev-095963",
@@ -484,6 +487,56 @@
         "isSpouse": false,
         "legalBasis": "Договор за лизинг за 7 години",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "с. Средище",
+        "municipality": "Омуртаг",
+        "areaSqm": 32,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 892.2043326874012,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "гр. Омуртаг",
+        "municipality": "Омуртаг",
+        "areaSqm": 14,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 390.6269972339109,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "гр. Омуртаг",
+        "municipality": "Омуртаг",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 251.0443136673433,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "КИА Соренто",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -689,6 +742,32 @@
         "isSpouse": false,
         "legalBasis": "Солидарен длъжник",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 130,
+        "builtAreaSqm": 130,
+        "currency": "BGN",
+        "valueEur": 199966.25473584104,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ягуар XF",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17997.47421810689,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -954,6 +1033,56 @@
         "isSpouse": false,
         "legalBasis": "Договор за Заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Омуртаг",
+        "municipality": "Омуртаг",
+        "areaSqm": 78,
+        "builtAreaSqm": 78,
+        "currency": "BGN",
+        "valueEur": 10737.129505120589,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Илийно",
+        "municipality": "Омуртаг",
+        "areaSqm": 24,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 521.5177188201428,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Птичево",
+        "municipality": "Омуртаг",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 108.39387881359832,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Омуртаг",
+        "municipality": "Омуртаг",
+        "areaSqm": 18,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 391.13828911510717,
+        "legalBasis": "възмездно"
       }
     ]
   }

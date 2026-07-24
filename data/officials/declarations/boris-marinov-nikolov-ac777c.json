@@ -100,7 +100,8 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-marinov-nikolov-ac777c",
@@ -136,7 +137,8 @@
         "legalBasis": "работна заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-marinov-nikolov-ac777c",
@@ -233,7 +235,8 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-marinov-nikolov-ac777c",
@@ -330,7 +333,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-marinov-nikolov-ac777c",
@@ -426,6 +430,20 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -560,7 +578,8 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-marinov-nikolov-ac777c",
@@ -596,7 +615,8 @@
         "legalBasis": "Договор за банков и ипотечен кредит №620/0179/96583275 от 27.05.2019 - Уникредит Булбанк",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-marinov-nikolov-ac777c",
@@ -613,7 +633,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/3418DBCB-708B-4D56-87E6-4220BB1C36D797979.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "boris-marinov-nikolov-ac777c",
@@ -775,6 +796,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -27,7 +27,21 @@
         "amountEurSpouse": 6024.040944253847
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Стражица",
+        "municipality": "Стражица",
+        "areaSqm": 92,
+        "builtAreaSqm": 92,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "penka-doneva-dimitrova-180d9f",
@@ -57,6 +71,7 @@
         "amountEurSpouse": 5706.017394149799
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -159,7 +159,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galin-stefanov-zhelev-ee18d9",
@@ -327,6 +328,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 79,
+        "builtAreaSqm": 79,
+        "currency": "BGN",
+        "valueEur": 94499.52194209109,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -497,6 +512,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

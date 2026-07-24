@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rangel-vlev-markov-9498c8",
@@ -107,7 +108,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "СПЕСТЯВАНЕ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rangel-vlev-markov-9498c8",
@@ -131,7 +133,8 @@
         "amountEurSpouse": 5982.115009995757
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rangel-vlev-markov-9498c8",
@@ -299,6 +302,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1687.263207947521,
+        "legalBasis": null
       }
     ]
   }

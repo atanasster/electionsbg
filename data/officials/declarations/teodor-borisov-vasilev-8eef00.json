@@ -118,7 +118,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, хонорар и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodor-borisov-vasilev-8eef00",
@@ -178,6 +179,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "договор"
       }
     ]
   },
@@ -240,7 +255,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodor-borisov-vasilev-8eef00",
@@ -307,7 +323,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорар"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodor-borisov-vasilev-8eef00",
@@ -428,7 +445,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и хонорар"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodor-borisov-vasilev-8eef00",
@@ -716,7 +734,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodor-borisov-vasilev-8eef00",
@@ -733,6 +752,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/06CEBDAA-DE97-4D5D-8177-AD3F5AE67F6B89641.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

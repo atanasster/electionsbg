@@ -304,7 +304,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mila-ivanova-nenova-tsoneva-524b73",
@@ -321,7 +322,21 @@
     "sourceUrl": "https://register.cacbg.bg/2024/CDE95B8C-F496-4177-9F13-8032FD478AFC195355.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Европа донна- България\"",
+        "detail": null,
+        "location": "не участвам",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "mila-ivanova-nenova-tsoneva-524b73",
@@ -646,6 +661,7 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

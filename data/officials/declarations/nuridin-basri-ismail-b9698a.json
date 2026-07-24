@@ -58,6 +58,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 66467.94455550841,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -101,7 +115,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nuridin-basri-ismail-b9698a",
@@ -144,7 +159,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nuridin-basri-ismail-b9698a",
@@ -187,6 +203,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

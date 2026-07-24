@@ -130,6 +130,20 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПИ с търговски обекти",
+        "detail": null,
+        "location": "с. Паламарца",
+        "municipality": "Попово",
+        "areaSqm": 1380,
+        "builtAreaSqm": 200,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "Покупко-продажба"
+      }
     ]
   },
   {
@@ -184,6 +198,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда CRV",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   }

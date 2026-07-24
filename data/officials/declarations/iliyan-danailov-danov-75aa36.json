@@ -51,7 +51,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliyan-danailov-danov-75aa36",
@@ -94,6 +95,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3159.78382579263,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -118,6 +133,7 @@
         "amountEurSpouse": 3946.150739072414
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

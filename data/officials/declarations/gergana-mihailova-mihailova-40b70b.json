@@ -142,7 +142,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-mihailova-mihailova-40b70b",
@@ -305,6 +306,68 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "местност Карабаир",
+        "municipality": "Тополовград",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 281.21053465792016,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "местност Арапли",
+        "municipality": "Тополовград",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 281.21053465792016,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "местност Дубрава",
+        "municipality": "Тополовград",
+        "areaSqm": 4,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 281.21053465792016,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "местност Локвата",
+        "municipality": "тополовград",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 281.21053465792016,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4908.4020594836975,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -431,6 +494,32 @@
         "isSpouse": true,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Стара Загора, бул. Патриарх Евтимий 120, ет. 2, ап. 4",
+        "municipality": "Стара Загора",
+        "areaSqm": 85,
+        "builtAreaSqm": 85,
+        "currency": "BGN",
+        "valueEur": 73999.7852574099,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Кюстендил, ул. \"Цар Освободител\" 7, ет. 5, ап. 13",
+        "municipality": "Кюстендил",
+        "areaSqm": 78,
+        "builtAreaSqm": 78,
+        "currency": "BGN",
+        "valueEur": 46999.994887081186,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -631,7 +720,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-mihailova-mihailova-40b70b",
@@ -746,7 +836,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-mihailova-mihailova-40b70b",
@@ -915,7 +1006,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-mihailova-mihailova-40b70b",
@@ -1017,6 +1109,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "спестявания от предходни години-наследяване, дарение от родители, наем от имущество, заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   }

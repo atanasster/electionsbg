@@ -316,6 +316,44 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "други",
+        "detail": null,
+        "location": "Крайполе",
+        "municipality": "Антоново",
+        "areaSqm": 17,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "м.Портата",
+        "municipality": "Антоново",
+        "areaSqm": 2,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "м.Портата",
+        "municipality": "Антоново",
+        "areaSqm": 42,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -683,7 +721,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-anastasov-3cb66b",
@@ -700,7 +739,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/443A0FAC-C84A-4019-9F18-1D7A20BC81DF155526.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-ivanov-anastasov-3cb66b",
@@ -1060,6 +1100,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

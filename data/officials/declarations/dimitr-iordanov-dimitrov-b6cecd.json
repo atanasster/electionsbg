@@ -326,6 +326,104 @@
         "legalBasis": "парична вноска от съдружник",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент №9\"б\", ведно с прилежащото му парко място и прилежащите им идеални части от терена",
+        "detail": null,
+        "location": "гр.София, кв.Кръстова вада, ул.\"Вили Казасян\"№1,ап.9Б, ПМ и прилежащи ид.ч.",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 157,
+        "builtAreaSqm": 184,
+        "currency": "BGN",
+        "valueEur": 325999.7034507089,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Порше Кайен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 50.106604357229415,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "погасено задължение на близък роднина към трето лице през 2023г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 27609.7615845958,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "връщане на финансиране, предоставено от съдружник като допълнителна парична вноска",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 23008.13465382983,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "връщане на финансиране, предоставено от съдружник като допълнителна парична вноска",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5343.000158500483,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "връщане на финансиране, предоставено от съдружник като допълнителна парична вноска",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3221.1388515361764,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "връщане на финансиране, предоставено от съдружник като допълнителна парична вноска",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3221.1388515361764,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "продажба на недвижим жилищен имот-СИО: ап.9Б, ПМ и прилеж. Ид.ч. в гр.София, ул.\"Вили Казасян\"№1. Продажбата е извършена от декларатора и съпругата му, като съгласно нотариалния акт и по изискване на банката на купувачите цялата продажна цена за улеснение е получена по банковата сметка на Димитър Йорданов Димитров от името и за сметка на двамата продавачи. Капарото по сделката от 32600 евро е получено през 2024г.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 293400,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -578,6 +676,20 @@
         "isSpouse": false,
         "legalBasis": "погасено задължение на близък роднина",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "погасено задължение на близък роднина",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 27609.7615845958,
+        "legalBasis": null
       }
     ]
   }

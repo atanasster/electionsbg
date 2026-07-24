@@ -321,7 +321,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-petrov-georgiev-105da2",
@@ -550,6 +551,56 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Доминиканска република - академичен обмен",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1595.2306693322016,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Швеция - академичен обмен",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 478.5692007996605,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Република Франция - академичен обмен",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1251.1312332871466,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Република Италия - академичен обмен",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -586,7 +637,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-petrov-georgiev-105da2",
@@ -892,7 +944,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-petrov-georgiev-105da2",
@@ -909,6 +962,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B681D3A0-4ADE-41AB-83A4-02B113FE3C9089290.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

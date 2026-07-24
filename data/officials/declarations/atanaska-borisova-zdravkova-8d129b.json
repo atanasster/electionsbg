@@ -130,7 +130,8 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanaska-borisova-zdravkova-8d129b",
@@ -263,7 +264,8 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanaska-borisova-zdravkova-8d129b",
@@ -395,6 +397,80 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Болярци",
+        "municipality": "Садово",
+        "areaSqm": 1055,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4444.660323238727,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Болярци",
+        "municipality": "Садово",
+        "areaSqm": 1121,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4722.80310660947,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел и производствено помещение-9 кв.м. за ел.ток",
+        "detail": null,
+        "location": "с. Болярци",
+        "municipality": "Садово",
+        "areaSqm": 1115,
+        "builtAreaSqm": 9,
+        "currency": "BGN",
+        "valueEur": 4697.749804430856,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Болярци",
+        "municipality": "Садово",
+        "areaSqm": 1259,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5304.141975529571,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Болярци",
+        "municipality": "Садово",
+        "areaSqm": 911,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3838.2681521400123,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "с. Болярци",
+        "municipality": "Садово",
+        "areaSqm": 442,
+        "builtAreaSqm": 442,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -529,7 +605,8 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanaska-borisova-zdravkova-8d129b",
@@ -860,7 +937,8 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "atanaska-borisova-zdravkova-8d129b",
@@ -1173,6 +1251,20 @@
         "legalBasis": "други",
         "fundsOrigin": "масова приватизация"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1190,7 +1282,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/72138E5A-0327-4FE9-B739-DE8831848E0289053.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "atanaska-borisova-zdravkova-8d129b",
@@ -1478,6 +1571,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

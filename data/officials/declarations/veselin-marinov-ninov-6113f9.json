@@ -166,6 +166,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд, Фиеста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1746.5730661662824,
+        "legalBasis": "бракуване"
+      }
     ]
   },
   {
@@ -202,7 +216,8 @@
         "legalBasis": "от заплати",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-marinov-ninov-6113f9",
@@ -299,7 +314,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-marinov-ninov-6113f9",
@@ -479,7 +495,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "veselin-marinov-ninov-6113f9",
@@ -496,6 +513,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/6C7E86A7-7EA8-4CCF-9D5D-72AFFE7A116490722.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

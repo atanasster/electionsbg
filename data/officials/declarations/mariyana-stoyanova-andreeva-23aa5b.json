@@ -70,7 +70,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariyana-stoyanova-andreeva-23aa5b",
@@ -130,6 +131,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип",
+        "detail": "Мицубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

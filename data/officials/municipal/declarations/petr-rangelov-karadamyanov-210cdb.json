@@ -135,6 +135,20 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "трактор",
+        "detail": "CLASS",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

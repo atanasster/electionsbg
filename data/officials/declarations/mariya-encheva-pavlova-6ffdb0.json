@@ -357,7 +357,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-encheva-pavlova-6ffdb0",
@@ -598,6 +599,20 @@
         "legalBasis": "договор",
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 77,
+        "builtAreaSqm": 77,
+        "currency": "BGN",
+        "valueEur": 250000.2556459406,
+        "legalBasis": "договор за покупко - продажба"
+      }
     ]
   },
   {
@@ -615,7 +630,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/4957C55B-4FA9-4740-855E-5CDC1D2B8586187771.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariya-encheva-pavlova-6ffdb0",
@@ -993,7 +1009,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-encheva-pavlova-6ffdb0",
@@ -1197,6 +1214,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": "удръжки от заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 0,
+        "builtAreaSqm": 134,
+        "currency": "BGN",
+        "valueEur": 72092.15524866681,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -1540,6 +1571,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

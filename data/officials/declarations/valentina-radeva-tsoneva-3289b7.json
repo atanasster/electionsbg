@@ -94,7 +94,8 @@
         "legalBasis": "8,47",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-radeva-tsoneva-3289b7",
@@ -178,6 +179,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "кв.\"Въбел\"",
+        "municipality": "Търговище",
+        "areaSqm": 111,
+        "builtAreaSqm": 1147,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

@@ -148,6 +148,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Мотоциклет",
+        "detail": "Триумф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4755.014495124832,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -165,7 +179,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/79FD0C92-A02C-452C-B4CB-8A028BB8332A185216.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "yura-petkova-iordanova-vitanova-cfb062",
@@ -363,6 +378,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

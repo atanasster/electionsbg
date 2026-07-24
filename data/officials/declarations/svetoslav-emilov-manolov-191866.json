@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-emilov-manolov-191866",
@@ -83,7 +84,8 @@
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-emilov-manolov-191866",
@@ -125,6 +127,20 @@
         "isSpouse": false,
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -169,6 +185,7 @@
         "legalBasis": "безвъзмездно",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   }
 ]

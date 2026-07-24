@@ -154,6 +154,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с.Равда, ул.Бриз\" №3",
+        "municipality": "Несебър",
+        "areaSqm": 27,
+        "builtAreaSqm": 23,
+        "currency": "BGN",
+        "valueEur": 16616.986138877102,
+        "legalBasis": "продажба възмедно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Равда, ул.Бриз\" №3",
+        "municipality": "Несебър",
+        "areaSqm": 27,
+        "builtAreaSqm": 23,
+        "currency": "BGN",
+        "valueEur": 16616.986138877102,
+        "legalBasis": "възмездно продажба"
+      }
     ]
   },
   {
@@ -514,7 +540,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-kostov-vlchev-c59fa5",
@@ -531,6 +558,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E22167BC-AD6A-414E-837B-B8C3F9D69B9A90319.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

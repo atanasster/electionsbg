@@ -238,6 +238,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Северна Македония",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 115.04067326914917,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 127.82297029905462,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -478,6 +504,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Институт за лидери в хранителното банкиране - Хюстън, САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 1320.6669291298324,
+        "legalBasis": null
       }
     ]
   }

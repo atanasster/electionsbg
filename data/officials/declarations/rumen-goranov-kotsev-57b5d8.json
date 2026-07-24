@@ -112,7 +112,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-goranov-kotsev-57b5d8",
@@ -227,7 +228,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-goranov-kotsev-57b5d8",
@@ -342,7 +344,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-goranov-kotsev-57b5d8",
@@ -439,7 +442,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-goranov-kotsev-57b5d8",
@@ -553,6 +557,32 @@
         "isSpouse": false,
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Авенсис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3323.39722777542,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "поръчителство",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5113.430103843381,
+        "legalBasis": null
       }
     ]
   },
@@ -669,7 +699,8 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-goranov-kotsev-57b5d8",
@@ -705,7 +736,8 @@
         "legalBasis": "влог от заплата, кредит погасен окончателно на 03.06.2019 г. , платени 6091,31 лв",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rumen-goranov-kotsev-57b5d8",
@@ -722,7 +754,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/65DD1B84-CF61-4E47-9FC8-92AF7426E15D89784.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rumen-goranov-kotsev-57b5d8",
@@ -992,6 +1025,7 @@
         "legalBasis": "договор за заем за потребление",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

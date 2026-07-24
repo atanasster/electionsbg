@@ -58,6 +58,20 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Командировка - Участие в международно ловно изложение в Германия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 813.9766748643798,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -148,7 +162,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krstyu-borisov-uzunov-b7443d",
@@ -165,7 +180,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7677610D-ECEC-44D5-88AB-39C20BA5819690128.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krstyu-borisov-uzunov-b7443d",
@@ -219,6 +235,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

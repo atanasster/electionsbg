@@ -292,6 +292,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Мездра",
+        "municipality": "Мездра",
+        "areaSqm": 103,
+        "builtAreaSqm": 103,
+        "currency": "BGN",
+        "valueEur": 69999.94887081189,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. Мездра",
+        "municipality": "Мездра",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -599,7 +625,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "delyana-valerieva-pesheva-1ce71e",
@@ -857,6 +884,20 @@
         "isSpouse": false,
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Кладница",
+        "municipality": "Перник",
+        "areaSqm": 5104,
+        "builtAreaSqm": 842,
+        "currency": "BGN",
+        "valueEur": 715808.6336747059,
+        "legalBasis": "възмездно"
       }
     ]
   }

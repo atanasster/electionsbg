@@ -135,6 +135,32 @@
         "legalBasis": "Предварителен договор за покупка на гараж, няма лихва",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Плащане по предварителен договор за покупка на апартамент и паркомясто",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40199.30157529029,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Плащане по предварителен договор за покупка на гараж",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5939.67778385647,
+        "legalBasis": null
+      }
     ]
   }
 ]

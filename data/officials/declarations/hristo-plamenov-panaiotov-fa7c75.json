@@ -622,7 +622,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-plamenov-panaiotov-fa7c75",
@@ -1385,6 +1386,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "м-ст Чаира",
+        "municipality": "Поморие",
+        "areaSqm": 4,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -1926,6 +1941,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "лични"
       }
-    ]
+    ],
+    "events": []
   }
 ]

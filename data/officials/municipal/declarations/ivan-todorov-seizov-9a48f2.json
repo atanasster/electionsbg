@@ -111,7 +111,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и пенсии"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-todorov-seizov-9a48f2",
@@ -145,6 +146,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПК \"Възкресение\"",
+        "detail": null,
+        "location": "Член на контролен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

@@ -81,6 +81,32 @@
         "legalBasis": "5,5 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "ул. \"Кръстьо Гешанов\"",
+        "municipality": "Панагюрище",
+        "areaSqm": 258,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5140.5285735467805,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "ул. \"Кръстьо Гешанов\"",
+        "municipality": "Панагюрище",
+        "areaSqm": 94,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

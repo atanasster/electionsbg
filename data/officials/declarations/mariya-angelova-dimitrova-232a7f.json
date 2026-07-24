@@ -136,6 +136,44 @@
         "legalBasis": "ОВЪРДРАФТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ГР. НОВИ ПАЗАР",
+        "municipality": "Нови пазар",
+        "areaSqm": 463,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ГР. НОВИ ПАЗАР",
+        "municipality": "Нови пазар",
+        "areaSqm": 463,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "С.ИВАНСКИ",
+        "municipality": "Шумен",
+        "areaSqm": 35,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 39369.474852108826,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -263,6 +301,7 @@
         "legalBasis": "овърдрафт",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

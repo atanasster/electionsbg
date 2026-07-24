@@ -430,7 +430,8 @@
         "legalBasis": "Записна заповед",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-aleksandrov-pelev-b5ccb7",
@@ -646,6 +647,68 @@
         "isSpouse": false,
         "legalBasis": "ЗАПИС НА ЗАПОВЕД",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "РАКИТОВО",
+        "municipality": "Ракитово",
+        "areaSqm": 95,
+        "builtAreaSqm": 95,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "РАКИТОВО",
+        "municipality": "Ракитово",
+        "areaSqm": 35,
+        "builtAreaSqm": 35,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "РАКИТОВО",
+        "municipality": "Ракитово",
+        "areaSqm": 95,
+        "builtAreaSqm": 95,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "РАКИТОВО",
+        "municipality": "Ракитово",
+        "areaSqm": 35,
+        "builtAreaSqm": 35,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "УЧАСТИЕ В КОНГРЕС В ПОРТУГАЛИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1495.5287524989392,
+        "legalBasis": null
       }
     ]
   },
@@ -989,7 +1052,8 @@
         "legalBasis": "запис на заповед",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "hristo-aleksandrov-pelev-b5ccb7",
@@ -1006,6 +1070,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7D982D90-9AC9-40B6-993B-F5A6C98ACFA889957.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

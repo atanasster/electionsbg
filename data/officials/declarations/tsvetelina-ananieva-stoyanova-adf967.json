@@ -866,7 +866,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelina-ananieva-stoyanova-adf967",
@@ -1417,6 +1418,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата, наем, дивидент"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Договорна ипотека - учредена през 2023 ( размер към дата на учредяване)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 174861.8233691067,
+        "legalBasis": null
       }
     ]
   },
@@ -1988,6 +2003,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата, наем, дивидент"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Договорна ипотека - учредена през 2023 (посоченият размер е към дата на учредяване)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 174861.8233691067,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Договорна ипотека - учредена през 2018 (посоченият размер е към дата на учредяване)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 74321.38785068232,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -2060,6 +2101,7 @@
         "legalBasis": "Банков кредит от друга банка",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -249,7 +249,8 @@
         "legalBasis": "покупко-продажба овтомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-petrov-georgiev-bdae3a",
@@ -322,7 +323,8 @@
         "legalBasis": "покупко-продажба на лек автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-petrov-georgiev-bdae3a",
@@ -389,7 +391,8 @@
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-petrov-georgiev-bdae3a",
@@ -449,6 +452,20 @@
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода Октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
       }
     ]
   }

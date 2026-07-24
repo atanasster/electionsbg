@@ -46,6 +46,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила",
+        "detail": null,
+        "location": "с. Генерал Киселово",
+        "municipality": "Вълчи дол",
+        "areaSqm": 40,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -107,6 +121,7 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

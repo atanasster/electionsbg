@@ -106,7 +106,8 @@
         "legalBasis": "договор за финансов лизинг за МПС",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-ilieva-spasova-4cfd31",
@@ -196,6 +197,20 @@
         "isSpouse": false,
         "legalBasis": "договор за финансов лизинг за МПС",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6340.0193268331095,
+        "legalBasis": "възмездно"
       }
     ]
   }

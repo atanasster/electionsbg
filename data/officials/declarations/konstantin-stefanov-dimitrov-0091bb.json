@@ -148,7 +148,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-stefanov-dimitrov-0091bb",
@@ -335,7 +336,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-stefanov-dimitrov-0091bb",
@@ -509,6 +511,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "село Козлодуйци",
+        "municipality": "Добричка",
+        "areaSqm": 316,
+        "builtAreaSqm": 316,
+        "currency": "BGN",
+        "valueEur": 558330.7342662705,
+        "legalBasis": "възмездно, продажба"
       }
     ]
   },
@@ -685,7 +701,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-stefanov-dimitrov-0091bb",
@@ -919,7 +936,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-stefanov-dimitrov-0091bb",
@@ -1081,7 +1099,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "konstantin-stefanov-dimitrov-0091bb",
@@ -1195,6 +1214,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имоти, наследство,заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 72256.27994253079,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 91,
+        "builtAreaSqm": 91,
+        "currency": "BGN",
+        "valueEur": 122403.2763583747,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -1413,6 +1458,7 @@
         "legalBasis": null,
         "fundsOrigin": "Лихви по банкови депозити"
       }
-    ]
+    ],
+    "events": []
   }
 ]

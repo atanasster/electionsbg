@@ -130,7 +130,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-nikolaeva-vasileva-vlova-1c72d9",
@@ -245,7 +246,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-nikolaeva-vasileva-vlova-1c72d9",
@@ -384,6 +386,32 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Хубавене",
+        "municipality": "Роман",
+        "areaSqm": 640,
+        "builtAreaSqm": 78,
+        "currency": "BGN",
+        "valueEur": 34767.84792134286,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Хубавене",
+        "municipality": "Роман",
+        "areaSqm": 640,
+        "builtAreaSqm": 78,
+        "currency": "BGN",
+        "valueEur": 34767.84792134286,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -492,6 +520,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

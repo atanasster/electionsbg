@@ -195,7 +195,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "klara-vasileva-karavasileva-stoyanova-5b7f30",
@@ -429,6 +430,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, дарения, продажби"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Употребяван пътнически автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
       }
     ]
   }

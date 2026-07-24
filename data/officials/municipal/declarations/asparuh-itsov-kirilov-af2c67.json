@@ -99,6 +99,20 @@
         "legalBasis": "ПОТР.КРЕДИТ; ЛИХВА 5%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ФОЛКСВАГЕН",
+        "detail": "ПОЛО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "ПОКУПКО-ПРОДАЖБА"
+      }
     ]
   }
 ]

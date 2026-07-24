@@ -106,6 +106,32 @@
         "legalBasis": "заем-4,1%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Червен бряг",
+        "municipality": "Червен бряг",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 250,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 71580.86336747059,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -197,6 +223,7 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

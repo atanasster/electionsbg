@@ -27,7 +27,8 @@
         "amountEurSpouse": 3011.509180245727
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "borislav-hristov-tsvyatkov-b7d4f2",
@@ -93,6 +94,32 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Кипилово",
+        "municipality": "Котел",
+        "areaSqm": 383,
+        "builtAreaSqm": 88,
+        "currency": "BGN",
+        "valueEur": 1145.2938138795294,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Кипилово",
+        "municipality": "Котел",
+        "areaSqm": 473,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 899.8737109053445,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -442,6 +469,68 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 912,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Волво С 40",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Волво С 40",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Тойота ланд крузер 120",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Тойота ланд крузер 120",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -810,7 +899,8 @@
         "legalBasis": "Апартамент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "borislav-hristov-tsvyatkov-b7d4f2",
@@ -1026,7 +1116,8 @@
         "legalBasis": "апартамент",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "borislav-hristov-tsvyatkov-b7d4f2",
@@ -1043,6 +1134,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/68950A19-CD5E-4DF8-9FDB-E4A520A506D490472.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

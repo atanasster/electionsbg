@@ -208,6 +208,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5206.4852262210925,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -341,7 +355,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoyan-paunov-naidenov-2a0b98",
@@ -377,7 +392,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoyan-paunov-naidenov-2a0b98",
@@ -394,6 +410,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/FD7D2E77-62D1-431D-B085-697357D37F5797272.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -143,7 +143,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-ivanov-raikov-ddf573",
@@ -178,6 +179,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АМБУЛАТОРИЯ ЗА ИНДИВИДУАЛНА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ - ОРТОШОК ЦЕНТЪР ЕООД",
+        "detail": null,
+        "location": "нямам",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -958,7 +973,8 @@
         "legalBasis": "лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-ivanov-raikov-ddf573",
@@ -975,6 +991,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/C152E481-7FFC-4B8E-8774-0A45B140833E177722.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

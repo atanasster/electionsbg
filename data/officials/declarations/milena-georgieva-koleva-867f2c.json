@@ -64,7 +64,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milena-georgieva-koleva-867f2c",
@@ -130,6 +131,56 @@
         "isSpouse": true,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "Варна ул.д-р Железкова 40",
+        "municipality": "Варна",
+        "areaSqm": 42,
+        "builtAreaSqm": 42,
+        "currency": "BGN",
+        "valueEur": 39502.41074121984,
+        "legalBasis": "възмездно/ продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "Варна ул.д-р Железкова 40",
+        "municipality": "Варна",
+        "areaSqm": 42,
+        "builtAreaSqm": 42,
+        "currency": "BGN",
+        "valueEur": 39502.41074121984,
+        "legalBasis": "възмездно/продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Захари Стояново",
+        "municipality": "Шабла",
+        "areaSqm": 2270,
+        "builtAreaSqm": 2270,
+        "currency": "BGN",
+        "valueEur": 2321.265140630832,
+        "legalBasis": "възмездно/продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Захари Стояново",
+        "municipality": "Шабла",
+        "areaSqm": 2270,
+        "builtAreaSqm": 2270,
+        "currency": "BGN",
+        "valueEur": 2321.265140630832,
+        "legalBasis": "възмездно/продажба"
       }
     ]
   },
@@ -504,6 +555,7 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

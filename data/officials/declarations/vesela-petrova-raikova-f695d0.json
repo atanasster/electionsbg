@@ -46,7 +46,8 @@
         "legalBasis": "други",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vesela-petrova-raikova-f695d0",
@@ -70,6 +71,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр. Созопол, местност \"МАПИ\"",
+        "municipality": "Созопол",
+        "areaSqm": 1000,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 60000.10225837624,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

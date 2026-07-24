@@ -412,6 +412,20 @@
         "legalBasis": null,
         "fundsOrigin": "от предходни години и възнаграждения"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировка в Азербайджан",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 692.800499020876,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -791,6 +805,7 @@
         "legalBasis": null,
         "fundsOrigin": "от предходни години и възнаграждения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

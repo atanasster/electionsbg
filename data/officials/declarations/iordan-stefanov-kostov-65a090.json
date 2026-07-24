@@ -94,6 +94,20 @@
         "legalBasis": "договор за заем 21R-LS20458 от 18.03.2021г. до 10.03.2026г. Остатък към м.Декември 6767лв.",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "част от лозе - отчуждено",
+        "detail": null,
+        "location": "с.Кралево-идент.№39390.72.41",
+        "municipality": "Търговище",
+        "areaSqm": 57,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 44.48239366407101,
+        "legalBasis": "възмездно съгласно решение Пр-200/28.08.2024г. На общ.Търговище"
+      }
     ]
   },
   {
@@ -137,7 +151,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-stefanov-kostov-65a090",
@@ -558,6 +573,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

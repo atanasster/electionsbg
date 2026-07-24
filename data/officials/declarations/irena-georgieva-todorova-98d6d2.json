@@ -64,6 +64,20 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетения по ЗМВР, присъдено от съда обезщетение, наследство, заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Гарван",
+        "municipality": "Ситово",
+        "areaSqm": 2865,
+        "builtAreaSqm": 72,
+        "currency": "BGN",
+        "valueEur": 14316.172673494118,
+        "legalBasis": "покупко-продажба"
+      }
     ]
   },
   {
@@ -81,7 +95,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/75D8030F-5731-44CC-AB90-EE6DA67ABFDE178130.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "irena-georgieva-todorova-98d6d2",
@@ -369,6 +384,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

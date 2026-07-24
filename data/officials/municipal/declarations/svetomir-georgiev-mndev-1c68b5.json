@@ -81,6 +81,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и продажба на земеделска земя"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "Сливенски кър",
+        "municipality": "Сливен",
+        "areaSqm": 20,
+        "builtAreaSqm": 20000,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Товарен",
+        "detail": "Ивеко 35,10",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

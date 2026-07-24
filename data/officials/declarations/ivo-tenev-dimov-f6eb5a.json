@@ -118,7 +118,8 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-tenev-dimov-f6eb5a",
@@ -257,6 +258,20 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "С.КРЕПОСТ",
+        "municipality": "Хасково",
+        "areaSqm": 6449,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 38653.66621843412,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -360,7 +375,8 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivo-tenev-dimov-f6eb5a",
@@ -588,6 +604,20 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСВАГЕН ПОЛО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "продажба"
       }
     ]
   }

@@ -45,6 +45,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС МЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4397.110178287479,
+        "legalBasis": "ВЪЗМЕЗДНО"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "СУЗУКИ ВИТАРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "БРАКУВАНО"
+      }
     ]
   }
 ]

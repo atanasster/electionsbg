@@ -112,7 +112,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-kirilova-kolarova-eaf08e",
@@ -227,7 +228,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-kirilova-kolarova-eaf08e",
@@ -816,7 +818,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "gergana-kirilova-kolarova-eaf08e",
@@ -1435,6 +1438,20 @@
         "legalBasis": "ДОГ ФИН ЛИЗИНГ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1452,7 +1469,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/BFEAE9C5-1604-43EF-A738-F198C4CC17DC89434.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "gergana-kirilova-kolarova-eaf08e",
@@ -2058,6 +2076,7 @@
         "legalBasis": "ФИНАНСОВ ЛИЗИНГ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

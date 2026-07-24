@@ -46,6 +46,32 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Горски Сеновец",
+        "municipality": "Стражица",
+        "areaSqm": 2000,
+        "builtAreaSqm": 45,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 337,
+        "builtAreaSqm": 107,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -76,7 +76,8 @@
         "legalBasis": "потребителски кредит, 4,3%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-angelov-georgiev-3b6078",
@@ -196,6 +197,32 @@
         "isSpouse": false,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пазарджик",
+        "municipality": "Пазарджик",
+        "areaSqm": 96,
+        "builtAreaSqm": 96,
+        "currency": "BGN",
+        "valueEur": 54708.231287995375,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пазарджик",
+        "municipality": "Пазарджик",
+        "areaSqm": 96,
+        "builtAreaSqm": 96,
+        "currency": "BGN",
+        "valueEur": 54708.231287995375,
+        "legalBasis": "възмездно"
       }
     ]
   }

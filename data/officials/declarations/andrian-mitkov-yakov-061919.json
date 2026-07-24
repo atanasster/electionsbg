@@ -375,6 +375,20 @@
         "legalBasis": null,
         "fundsOrigin": "ГОДИШНА ДОХОДНОСТ"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "НАЦОНАЛЕН КОНГРЕС ПО ЕНДОКРИНОЛОГИЯ-ПЛОВДИВ 2022Г",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -693,6 +707,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "годишна доходност"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТООТА КОРОЛА 2004г",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "ПРОДАЖБА"
       }
     ]
   },
@@ -1013,6 +1041,32 @@
         "legalBasis": null,
         "fundsOrigin": "годишна доходност"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Национален конгрес по Ендокринология",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 265.87177822203364,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Симпозиум по Ендокринология",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 163.61340198278992,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1314,6 +1368,44 @@
         "legalBasis": null,
         "fundsOrigin": "годишна доходност"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Научен семинар по Ендокринология",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 177.55633158301077,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Научен семинар по Ендокринология",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 121.17617584350378,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Национален конгрес по Ендокринология",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 286.32345346988234,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1331,7 +1423,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/6A772A6D-545C-4DF5-BDFE-BF11B7D27E9F89740.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "andrian-mitkov-yakov-061919",
@@ -2549,6 +2642,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

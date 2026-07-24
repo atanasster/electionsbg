@@ -238,7 +238,8 @@
         "legalBasis": null,
         "fundsOrigin": "от влоговое в Уникредит Булбанк"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-ivanov-dandarov-895a56",
@@ -490,6 +491,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "от влогове в Уникредит Булбанк"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Девене",
+        "municipality": "Враца",
+        "areaSqm": 26,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -756,7 +771,8 @@
         "legalBasis": null,
         "fundsOrigin": "от влогове в Уникредит Булбанк"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-ivanov-dandarov-895a56",
@@ -1063,7 +1079,8 @@
         "legalBasis": null,
         "fundsOrigin": "от влогове в Уникредит Булбанк"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-ivanov-dandarov-895a56",
@@ -1364,7 +1381,8 @@
         "legalBasis": null,
         "fundsOrigin": "от влогове в Уникредит Булбанк"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-ivanov-dandarov-895a56",
@@ -1580,7 +1598,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vasil-ivanov-dandarov-895a56",
@@ -1597,6 +1616,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7E0680DC-59F9-46A3-8ADE-3BF7A4429AEB89242.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

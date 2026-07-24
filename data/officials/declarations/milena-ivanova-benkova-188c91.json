@@ -88,6 +88,20 @@
         "legalBasis": "4,5 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ГР. СОФИЯ, Ж.К. ОВЧА КУПЕЛ 2, БЛ. 23",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 10,
+        "builtAreaSqm": 10,
+        "currency": "BGN",
+        "valueEur": 2812.1053465792015,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -160,6 +174,20 @@
         "isSpouse": false,
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "С. ВРАНЯ СТЕНА",
+        "municipality": "ЗЕМЕН",
+        "areaSqm": 500,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

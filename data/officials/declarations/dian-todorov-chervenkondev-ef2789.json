@@ -382,7 +382,8 @@
         "legalBasis": "Договор за кредит 3,97 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dian-todorov-chervenkondev-ef2789",
@@ -784,6 +785,20 @@
         "isSpouse": true,
         "legalBasis": "Договор за кредит 3,97 %",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Великобритания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "GBP",
+        "valueEur": 489.3063303047811,
+        "legalBasis": null
       }
     ]
   },
@@ -1242,7 +1257,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dian-todorov-chervenkondev-ef2789",
@@ -1609,7 +1625,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dian-todorov-chervenkondev-ef2789",
@@ -1927,6 +1944,20 @@
         "isSpouse": false,
         "legalBasis": "Договор за КК",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Форд Ескорт",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "Бракувано МПС"
       }
     ]
   },
@@ -2343,7 +2374,8 @@
         "legalBasis": "Договор за КК",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dian-todorov-chervenkondev-ef2789",
@@ -2360,7 +2392,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D17A08FA-53C6-4EF4-B9AC-669D8106440991195.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dian-todorov-chervenkondev-ef2789",
@@ -2990,6 +3023,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

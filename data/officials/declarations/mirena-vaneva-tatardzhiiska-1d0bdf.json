@@ -100,6 +100,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомонил",
+        "detail": "Мерцедес МЛ 320",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 876.3542843703185,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Петрич",
+        "municipality": "Петрич",
+        "areaSqm": 1595,
+        "builtAreaSqm": 1595,
+        "currency": "BGN",
+        "valueEur": 4294.851802048235,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -155,6 +169,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

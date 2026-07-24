@@ -40,6 +40,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "ипотека върху собствена къща",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -130,7 +144,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-bogdanova-vteva-c58268",
@@ -147,6 +162,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/491CB898-A7E2-45E1-BD2B-18C61D54288D90360.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

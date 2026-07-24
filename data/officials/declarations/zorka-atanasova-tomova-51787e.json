@@ -76,6 +76,44 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Разходи за обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 53.174355644406724,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Разходи за обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 158.50048317082772,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Република Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -154,6 +192,68 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Разходи за обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 63.91148514952731,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Разходи за обучения",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 53.174355644406724,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Разходи за обучения",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38.34689108971639,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Разходи за обучения",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 73.62603089225546,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Република Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": null
       }
     ]
   }

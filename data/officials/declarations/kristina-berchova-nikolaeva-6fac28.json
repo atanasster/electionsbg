@@ -154,7 +154,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kristina-berchova-nikolaeva-6fac28",
@@ -311,6 +312,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 75,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 37666.36159584422,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -401,7 +416,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kristina-berchova-nikolaeva-6fac28",
@@ -418,6 +434,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/A5120E42-D3A4-4D77-ABD1-BE5024B2804390421.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

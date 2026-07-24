@@ -279,6 +279,56 @@
         "legalBasis": "ПОТРЕБИТЕЛСКИ -4,76%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МОТОРНА ЯХНА",
+        "detail": "SEA RAY",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 69999.94887081189,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ТАЙЛАНД",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 9999.846612435642,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "АНТАЛИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 3499.7929267881154,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ИТАЛИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 5000.4345980990165,
+        "legalBasis": null
+      }
     ]
   }
 ]

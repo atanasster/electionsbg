@@ -94,6 +94,32 @@
         "legalBasis": "6,5",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пролетна академия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 276.097615845958,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Есенна академия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 245.42010297418489,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -147,6 +173,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Академии на СРСНПБ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Морска академия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": null
       }
     ]
   }

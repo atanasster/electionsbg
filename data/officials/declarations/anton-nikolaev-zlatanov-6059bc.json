@@ -226,6 +226,20 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес Е200",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 14827.464554690336,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -383,7 +397,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-nikolaev-zlatanov-6059bc",
@@ -400,7 +415,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/77202F16-3A03-4723-B6BA-970C264526A0156071.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "anton-nikolaev-zlatanov-6059bc",
@@ -490,6 +506,7 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

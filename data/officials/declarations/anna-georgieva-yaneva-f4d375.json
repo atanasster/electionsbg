@@ -267,7 +267,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anna-georgieva-yaneva-f4d375",
@@ -460,6 +461,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 71,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 61498.18747028116,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -635,7 +650,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anna-georgieva-yaneva-f4d375",
@@ -810,7 +826,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anna-georgieva-yaneva-f4d375",
@@ -967,7 +984,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anna-georgieva-yaneva-f4d375",
@@ -1105,6 +1123,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 75,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38249.74563228911,
+        "legalBasis": "окончателно плащане по д/р 47526"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "дарение на парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 69791.34178328382,
+        "legalBasis": null
       }
     ]
   },
@@ -1269,6 +1313,20 @@
         "legalBasis": "продажба на жилище",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 75,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 38249.74563228911,
+        "legalBasis": "частично плащане по предв.договор- 27284 лв."
+      }
     ]
   },
   {
@@ -1312,6 +1370,7 @@
         "legalBasis": null,
         "fundsOrigin": "трудово възнаграждение"
       }
-    ]
+    ],
+    "events": []
   }
 ]

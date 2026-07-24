@@ -27,7 +27,21 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотопед",
+        "detail": "ямаха дт 50",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "doncho-rusev-manov-01ce4d",
@@ -44,7 +58,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/9D7F5B65-5E75-412D-980B-01A373839756184761.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "doncho-rusev-manov-01ce4d",
@@ -206,6 +221,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

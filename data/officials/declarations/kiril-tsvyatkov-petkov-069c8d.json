@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-tsvyatkov-petkov-069c8d",
@@ -245,7 +246,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-tsvyatkov-petkov-069c8d",
@@ -359,6 +361,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 552.195231691916,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -493,7 +509,8 @@
         "legalBasis": null,
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-tsvyatkov-petkov-069c8d",
@@ -644,7 +661,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наследство"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-tsvyatkov-petkov-069c8d",
@@ -777,7 +795,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-tsvyatkov-petkov-069c8d",
@@ -1047,7 +1066,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-tsvyatkov-petkov-069c8d",
@@ -1064,6 +1084,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5B446C59-FA32-4353-BD16-D8E92744EA2390530.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

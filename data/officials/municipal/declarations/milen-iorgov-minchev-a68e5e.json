@@ -357,6 +357,32 @@
         "legalBasis": "Протокол ОС",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Разгград",
+        "municipality": "Разград",
+        "areaSqm": 435,
+        "builtAreaSqm": 81,
+        "currency": "BGN",
+        "valueEur": 25105.45395049672,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Разгград",
+        "municipality": "Разград",
+        "areaSqm": 819,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13190.81924298124,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   }
 ]

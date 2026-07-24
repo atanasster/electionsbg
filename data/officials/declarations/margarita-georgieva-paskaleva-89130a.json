@@ -82,6 +82,44 @@
         "legalBasis": "6362139/23.08.2024",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Каваците",
+        "municipality": "Созопол",
+        "areaSqm": 35,
+        "builtAreaSqm": 41,
+        "currency": "BGN",
+        "valueEur": 44482.39366407101,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 44482.39366407101,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Покупка на студио 41 кв.м - гр. Созопол",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 44482.39366407101,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -221,6 +259,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

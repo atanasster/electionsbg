@@ -58,6 +58,20 @@
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 439.7110178287479,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -118,6 +132,20 @@
         "isSpouse": false,
         "legalBasis": "дарение",
         "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 107.37129505120588,
+        "legalBasis": null
       }
     ]
   }

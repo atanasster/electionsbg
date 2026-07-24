@@ -124,6 +124,20 @@
         "legalBasis": null,
         "fundsOrigin": "дарения"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Гаранция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6033.244198115378,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -141,7 +155,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/C82757BC-9273-4B5C-89C8-CD7F109FFE77180235.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mihail-mariov-milkov-0118c1",
@@ -321,6 +336,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -524,7 +524,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-petkova-boncheva-lisicharova-87ffab",
@@ -615,7 +616,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-petkova-boncheva-lisicharova-87ffab",
@@ -904,7 +906,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-petkova-boncheva-lisicharova-87ffab",
@@ -1031,7 +1034,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,дивиденти"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-petkova-boncheva-lisicharova-87ffab",
@@ -1104,7 +1108,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-petkova-boncheva-lisicharova-87ffab",
@@ -1212,6 +1217,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 24030.71841622227,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1632,7 +1651,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ekaterina-petkova-boncheva-lisicharova-87ffab",
@@ -1649,6 +1669,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C87B9601-31C5-4FB5-87FC-B2EB9AC96BC789115.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

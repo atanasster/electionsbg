@@ -76,6 +76,32 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 63,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 94999.56540190098,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 63,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 94999.56540190098,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -106,6 +132,7 @@
         "amountEurSpouse": 20877.58138488519
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

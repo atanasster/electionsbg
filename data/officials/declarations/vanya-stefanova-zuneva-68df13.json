@@ -135,7 +135,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vanya-stefanova-zuneva-68df13",
@@ -412,6 +413,20 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Троян",
+        "municipality": "Троян",
+        "areaSqm": 103,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -605,7 +620,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vanya-stefanova-zuneva-68df13",
@@ -821,7 +837,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "vanya-stefanova-zuneva-68df13",
@@ -838,6 +855,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EB8C9B5D-BE69-4CD8-9A6C-3697B484575D89330.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

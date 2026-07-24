@@ -27,7 +27,33 @@
         "amountEurSpouse": 7976.153346661008
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Сценик",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "rositsa-nikolaeva-milcheva-d2d34b",
@@ -82,7 +108,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-nikolaeva-milcheva-d2d34b",
@@ -112,7 +139,8 @@
         "amountEurSpouse": 7239.893037738454
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rositsa-nikolaeva-milcheva-d2d34b",
@@ -136,6 +164,7 @@
         "amountEurSpouse": 6135.502574354622
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

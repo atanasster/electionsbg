@@ -154,6 +154,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -171,7 +185,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/61EB12E3-9D60-49FE-9AEA-8C8D3137E10393150.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "milen-petrov-minkov-ac9ab5",
@@ -423,6 +438,7 @@
         "legalBasis": "23048411/23.10.2015",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

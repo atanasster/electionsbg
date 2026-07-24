@@ -70,6 +70,20 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на апартамент, таблица 2"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 59825.24043500713,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -100,7 +114,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "svilen-yanchev-shitov-311b2a",
@@ -130,7 +145,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "svilen-yanchev-shitov-311b2a",
@@ -154,6 +170,7 @@
         "amountEurSpouse": 17771.483206618163
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

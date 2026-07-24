@@ -82,7 +82,8 @@
         "legalBasis": null,
         "fundsOrigin": "ПРОДАЖБА НА ИМОТ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-draganova-vladimirova-aad476",
@@ -166,6 +167,20 @@
         "isSpouse": false,
         "legalBasis": "ЗАЕМ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Павлово ул.Плевен №1  бл.87 вх.В",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 109999.84661243565,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

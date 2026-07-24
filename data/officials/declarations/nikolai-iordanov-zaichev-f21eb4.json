@@ -106,6 +106,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4786.714591758998,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -190,6 +204,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Комитет на регионите в Бруксел"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Пътуване до Бруксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 4235.030651948277,
+        "legalBasis": null
       }
     ]
   }

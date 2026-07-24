@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoyan-petrov-stoyanov-3ebe1c",
@@ -63,7 +64,21 @@
     "sourceUrl": "https://register.cacbg.bg/2020/63BED745-1F8B-4901-9319-7F524233628D111673.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Държавна комисия по хазарта",
+        "detail": null,
+        "location": "член",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "stoyan-petrov-stoyanov-3ebe1c",
@@ -112,7 +127,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stoyan-petrov-stoyanov-3ebe1c",
@@ -161,6 +177,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

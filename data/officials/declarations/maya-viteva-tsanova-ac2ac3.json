@@ -100,7 +100,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-viteva-tsanova-ac2ac3",
@@ -143,7 +144,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-viteva-tsanova-ac2ac3",
@@ -222,7 +224,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-viteva-tsanova-ac2ac3",
@@ -289,7 +292,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-viteva-tsanova-ac2ac3",
@@ -338,7 +342,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-viteva-tsanova-ac2ac3",
@@ -362,7 +367,8 @@
         "amountEurSpouse": 9510.028990249664
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "maya-viteva-tsanova-ac2ac3",
@@ -770,6 +776,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "участие в икономически и търговски панаир вгр. Тонгсиянг",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1057.35161031378,
+        "legalBasis": null
       }
     ]
   }

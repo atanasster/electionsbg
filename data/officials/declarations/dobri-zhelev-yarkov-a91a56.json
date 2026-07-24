@@ -64,7 +64,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dobri-zhelev-yarkov-a91a56",
@@ -94,7 +95,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dobri-zhelev-yarkov-a91a56",
@@ -130,7 +132,8 @@
         "amountEurSpouse": 626.8438463465639
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dobri-zhelev-yarkov-a91a56",
@@ -147,7 +150,21 @@
     "sourceUrl": "https://register.cacbg.bg/2022/BE44104B-CE3F-4BD3-9F68-B9070AB89F91141671.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "“Сдружение на Съвета на ректорите на висшите училища в Република България”",
+        "detail": null,
+        "location": "Член на УС",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "dobri-zhelev-yarkov-a91a56",
@@ -183,7 +200,8 @@
         "amountEurSpouse": 76.69378217943277
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dobri-zhelev-yarkov-a91a56",
@@ -225,6 +243,7 @@
         "amountEurSpouse": 76.69378217943277
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

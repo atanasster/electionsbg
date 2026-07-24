@@ -136,7 +136,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivailo-stefanov-ivanov-db654c",
@@ -171,6 +172,20 @@
         "isSpouse": true,
         "legalBasis": "Трансформиране на ипотечен кредит в потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Спортна асоциация-МВР\"",
+        "detail": null,
+        "location": "Член на Управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   }

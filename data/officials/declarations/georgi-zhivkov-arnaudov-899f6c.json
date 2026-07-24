@@ -112,7 +112,8 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-zhivkov-arnaudov-899f6c",
@@ -155,7 +156,8 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-zhivkov-arnaudov-899f6c",
@@ -198,7 +200,8 @@
         "legalBasis": "дарение",
         "fundsOrigin": "безвъзмездно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-zhivkov-arnaudov-899f6c",
@@ -349,7 +352,8 @@
         "legalBasis": "банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-zhivkov-arnaudov-899f6c",
@@ -385,7 +389,8 @@
         "amountEurSpouse": 0
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-zhivkov-arnaudov-899f6c",
@@ -445,6 +450,20 @@
         "isSpouse": false,
         "legalBasis": "масова приватизация",
         "fundsOrigin": "дарения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 76,
+        "builtAreaSqm": 76,
+        "currency": "BGN",
+        "valueEur": 49999.7443540594,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -525,6 +544,7 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   }
 ]

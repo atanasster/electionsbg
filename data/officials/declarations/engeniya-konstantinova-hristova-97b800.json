@@ -250,7 +250,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходна година"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "engeniya-konstantinova-hristova-97b800",
@@ -484,6 +485,80 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходна година"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Бели извор",
+        "municipality": "Враца",
+        "areaSqm": 25,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11503.044743152524,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Бели извор",
+        "municipality": "Враца",
+        "areaSqm": 25,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11503.044743152524,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гора",
+        "detail": null,
+        "location": "гр.Враца",
+        "municipality": "Враца",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1329.358891110168,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гора",
+        "detail": null,
+        "location": "гр.Враца",
+        "municipality": "Враца",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1329.358891110168,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливади",
+        "detail": null,
+        "location": "с.Паволче",
+        "municipality": "Враца",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ливади",
+        "detail": null,
+        "location": "с.Паволче",
+        "municipality": "Враца",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -727,7 +802,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "engeniya-konstantinova-hristova-97b800",
@@ -938,6 +1014,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, спестявания декларирани предходни години"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Паволче",
+        "municipality": "Враца",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -955,7 +1045,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E76BBFDF-A654-4EB6-98EA-0B18E2762C5B89764.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "engeniya-konstantinova-hristova-97b800",
@@ -1567,6 +1658,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

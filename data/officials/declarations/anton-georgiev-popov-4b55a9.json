@@ -76,7 +76,8 @@
         "legalBasis": null,
         "fundsOrigin": "Втори пенсионен фонд"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-georgiev-popov-4b55a9",
@@ -197,7 +198,8 @@
         "legalBasis": null,
         "fundsOrigin": "зоплата, пенсия, ренти, наследство"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "anton-georgiev-popov-4b55a9",
@@ -312,6 +314,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, пенсия рента"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Велики Преслав",
+        "municipality": "Велики Преслав",
+        "areaSqm": 629,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Лада 1200 S",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -360,6 +388,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

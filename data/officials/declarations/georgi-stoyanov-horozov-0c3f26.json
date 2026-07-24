@@ -124,7 +124,8 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-stoyanov-horozov-0c3f26",
@@ -214,6 +215,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ателие",
+        "detail": null,
+        "location": "София, ул. \"Цар Симеон\" 37, ет. 6",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 40008.5897036041,
+        "legalBasis": "възмездно"
       }
     ]
   }

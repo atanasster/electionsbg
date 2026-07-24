@@ -58,6 +58,44 @@
         "legalBasis": "5.2%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Планиране, организиране и контрол на обучението по БДП",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 27.609761584595798,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Сертифициращо обучение за медиатори",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 332.339722777542,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Децата алфа",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -100,6 +138,20 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "\"Етикет и протокол\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 35.79043168373529,
+        "legalBasis": null
       }
     ]
   }

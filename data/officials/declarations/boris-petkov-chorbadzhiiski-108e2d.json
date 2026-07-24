@@ -231,7 +231,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-petkov-chorbadzhiiski-108e2d",
@@ -273,6 +274,32 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Ханово",
+        "municipality": "Тунджа",
+        "areaSqm": 66658,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 23519.42653502605,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "комбайн",
+        "detail": "Ню холанд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4857.272871364075,
+        "legalBasis": "възмездно"
       }
     ]
   }

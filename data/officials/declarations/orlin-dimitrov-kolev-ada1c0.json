@@ -64,7 +64,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-dimitrov-kolev-ada1c0",
@@ -131,7 +132,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-dimitrov-kolev-ada1c0",
@@ -204,7 +206,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-dimitrov-kolev-ada1c0",
@@ -271,7 +274,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "orlin-dimitrov-kolev-ada1c0",
@@ -410,6 +414,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "САЩ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 3428.7233553018414,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -427,7 +445,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/A07C8FAB-0E1C-45FD-B1D2-1757922773B888824.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "orlin-dimitrov-kolev-ada1c0",
@@ -553,6 +572,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

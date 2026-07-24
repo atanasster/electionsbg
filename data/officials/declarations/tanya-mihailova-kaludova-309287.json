@@ -46,7 +46,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-mihailova-kaludova-309287",
@@ -95,7 +96,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-mihailova-kaludova-309287",
@@ -161,6 +163,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Костинброд",
+        "municipality": "Костинброд",
+        "areaSqm": 57,
+        "builtAreaSqm": 57,
+        "currency": "BGN",
+        "valueEur": 12271.005148709244,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Костинброд",
+        "municipality": "Костинброд",
+        "areaSqm": 57,
+        "builtAreaSqm": 57,
+        "currency": "BGN",
+        "valueEur": 12271.005148709244,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "СО \"Кринчовица\"",
+        "municipality": "Ямбол",
+        "areaSqm": 600,
+        "builtAreaSqm": 25,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "продажба"
       }
     ]
   }

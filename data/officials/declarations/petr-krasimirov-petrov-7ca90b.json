@@ -130,6 +130,20 @@
         "legalBasis": "Приятелски заем без лихва",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тесла",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "Продажба"
+      }
     ]
   },
   {
@@ -232,6 +246,20 @@
         "isSpouse": false,
         "legalBasis": "Кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Кия Ниро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 30166.22099057689,
+        "legalBasis": "възмездно"
       }
     ]
   }

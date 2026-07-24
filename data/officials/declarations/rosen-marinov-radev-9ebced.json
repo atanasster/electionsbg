@@ -40,6 +40,20 @@
         "legalBasis": null,
         "fundsOrigin": "от продажба"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "етаж от къща с двор",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 141,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 28121.053465792018,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -83,7 +97,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "договор за гледане"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-marinov-radev-9ebced",
@@ -100,7 +115,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/CA97B891-D2C3-4068-B2E9-39BF04A4D53290540.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rosen-marinov-radev-9ebced",
@@ -262,6 +278,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

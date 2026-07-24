@@ -141,7 +141,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelinka-ivanova-pencheva-eb41e3",
@@ -220,7 +221,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelinka-ivanova-pencheva-eb41e3",
@@ -364,7 +366,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelinka-ivanova-pencheva-eb41e3",
@@ -461,6 +464,20 @@
         "legalBasis": null,
         "fundsOrigin": "универсален пенсионен фонд-заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Ловеч, ул.Кн.Имеретински\"71, вх.Б, ап.18",
+        "municipality": "Ловеч",
+        "areaSqm": 104,
+        "builtAreaSqm": 104,
+        "currency": "BGN",
+        "valueEur": 39880.76673330504,
+        "legalBasis": "Нотариален акт за продажба"
+      }
     ]
   },
   {
@@ -540,7 +557,8 @@
         "legalBasis": null,
         "fundsOrigin": "Универсален пенсионен фонд"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tsvetelinka-ivanova-pencheva-eb41e3",
@@ -557,7 +575,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/9809785A-7B53-400D-8603-157DE9EABE5990545.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetelinka-ivanova-pencheva-eb41e3",
@@ -737,6 +756,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

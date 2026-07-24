@@ -118,7 +118,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sasho-blagoev-stoilov-98e397",
@@ -238,6 +239,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ПЕЖО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -214,7 +214,8 @@
         "legalBasis": "потреб.кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miglena-lazarova-meteva-67b080",
@@ -371,6 +372,20 @@
         "legalBasis": "потреб.кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "СЕВЛИЕВО",
+        "municipality": "Севлиево",
+        "areaSqm": 2,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -504,7 +519,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miglena-lazarova-meteva-67b080",
@@ -528,7 +544,8 @@
         "amountEurSpouse": 4668.606167202671
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miglena-lazarova-meteva-67b080",
@@ -545,7 +562,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/D5C5F120-C3E6-4770-B895-ABC479795E5C131114.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miglena-lazarova-meteva-67b080",
@@ -755,6 +773,7 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

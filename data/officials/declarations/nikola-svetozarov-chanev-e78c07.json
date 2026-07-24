@@ -112,7 +112,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания от заплата на родители и дядо и баба"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikola-svetozarov-chanev-e78c07",
@@ -226,6 +227,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "в Брюксел- по покана на евродепута Асим Адемов",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": null
       }
     ]
   },
@@ -414,6 +429,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -130,6 +130,20 @@
         "legalBasis": "Договор банков кредит,2,36",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "пожарево",
+        "municipality": "тутракан",
+        "areaSqm": 30,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20707.321188446847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -418,7 +432,8 @@
         "legalBasis": "д-р банков кредит3,25%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kraimir-iordanov-kiryakov-690d82",
@@ -435,7 +450,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/0A21C465-332C-4D37-A098-26804BD103A5172347.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kraimir-iordanov-kiryakov-690d82",
@@ -687,6 +703,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

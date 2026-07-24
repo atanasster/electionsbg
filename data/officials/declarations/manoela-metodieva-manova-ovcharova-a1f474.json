@@ -382,7 +382,8 @@
         "legalBasis": "договор за кредитна карта - 17,9",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "manoela-metodieva-manova-ovcharova-a1f474",
@@ -569,7 +570,8 @@
         "legalBasis": "договор за банков кредит - частично погасен със средства от кредита поради неизползван пълен размер",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "manoela-metodieva-manova-ovcharova-a1f474",
@@ -822,7 +824,8 @@
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "manoela-metodieva-manova-ovcharova-a1f474",
@@ -949,7 +952,8 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "manoela-metodieva-manova-ovcharova-a1f474",
@@ -1165,7 +1169,8 @@
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "manoela-metodieva-manova-ovcharova-a1f474",
@@ -1182,7 +1187,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/00717F07-F67C-4D7F-9FB9-4C582B99D197114527.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "manoela-metodieva-manova-ovcharova-a1f474",
@@ -1290,6 +1296,32 @@
         "isSpouse": true,
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 73,
+        "builtAreaSqm": 73,
+        "currency": "BGN",
+        "valueEur": 82264.30722506557,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 13,
+        "builtAreaSqm": 13,
+        "currency": "BGN",
+        "valueEur": 10735.595629477,
+        "legalBasis": "възмездно"
       }
     ]
   }

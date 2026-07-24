@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "fatme-aptula-sali-9904e8",
@@ -100,6 +101,20 @@
         "isSpouse": true,
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес А 190",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 448.4029798090836,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -162,7 +177,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "fatme-aptula-sali-9904e8",
@@ -186,7 +202,8 @@
         "amountEurSpouse": 4670.651334727456
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "fatme-aptula-sali-9904e8",
@@ -235,6 +252,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Венец",
+        "municipality": "Венец",
+        "areaSqm": 1700,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3221.1388515361764,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -265,7 +296,8 @@
         "amountEurSpouse": 2147.4259010241176
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "fatme-aptula-sali-9904e8",
@@ -374,6 +406,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

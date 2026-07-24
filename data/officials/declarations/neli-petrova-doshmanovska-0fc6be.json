@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/3A9DAC81-50B4-4CA4-AC9C-D1976DE8D034203281.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "neli-petrova-doshmanovska-0fc6be",
@@ -38,7 +39,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "neli-petrova-doshmanovska-0fc6be",
@@ -62,6 +64,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 169.74890455714453,
+        "legalBasis": null
+      }
+    ]
   }
 ]

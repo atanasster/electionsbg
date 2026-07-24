@@ -447,7 +447,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalin-ivanov-tsekov-12129a",
@@ -556,7 +557,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalin-ivanov-tsekov-12129a",
@@ -713,7 +715,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kalin-ivanov-tsekov-12129a",
@@ -749,7 +752,33 @@
         "amountEurSpouse": 2597.8740483579863
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Струпец",
+        "municipality": "Роман",
+        "areaSqm": 515,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Издръжка по време на обучение в чужбина",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 7911.219277749089,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "kalin-ivanov-tsekov-12129a",
@@ -766,7 +795,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/BF63CFD0-C989-481B-9A69-9E75E89C1CBB133060.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kalin-ivanov-tsekov-12129a",
@@ -1144,6 +1174,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

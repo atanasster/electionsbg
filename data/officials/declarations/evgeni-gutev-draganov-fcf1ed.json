@@ -64,7 +64,8 @@
         "legalBasis": "догонвор за банков кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "evgeni-gutev-draganov-fcf1ed",
@@ -184,6 +185,32 @@
         "isSpouse": true,
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ГРАД РАЗГРАДУЛ.\"СВЕТИ КЛИМЕНТ\"№17",
+        "municipality": "Разград",
+        "areaSqm": 205,
+        "builtAreaSqm": 128,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ГРАД РАЗГРАД УЛ.\"СВЕТИ КЛИМЕНТ\"№17",
+        "municipality": "Разград",
+        "areaSqm": 205,
+        "builtAreaSqm": 128,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -336,6 +363,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

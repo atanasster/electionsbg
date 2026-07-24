@@ -40,6 +40,32 @@
         "legalBasis": null,
         "fundsOrigin": "Попупко продажба на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Средногорово УП 3 в кв.71А",
+        "municipality": "Казанлък",
+        "areaSqm": 684,
+        "builtAreaSqm": 684,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Казанлък УПИ 9289",
+        "municipality": "Казанлък",
+        "areaSqm": 850,
+        "builtAreaSqm": 850,
+        "currency": "BGN",
+        "valueEur": 4345.980990167857,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -83,6 +109,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

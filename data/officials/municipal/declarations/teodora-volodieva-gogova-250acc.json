@@ -75,6 +75,32 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО - заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Среща на местните власти",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 465.27561188855884,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Норвегия - обучение на тема \"Повишаване на осведоменост за енергийния преход\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 536.3451833748331,
+        "legalBasis": null
+      }
     ]
   }
 ]

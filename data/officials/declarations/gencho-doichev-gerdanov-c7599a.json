@@ -208,6 +208,32 @@
         "legalBasis": "ЛИЗИНГОВ ДОГОВОР",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Копривщица",
+        "municipality": "Копривщица",
+        "areaSqm": 212,
+        "builtAreaSqm": 264,
+        "currency": "BGN",
+        "valueEur": 85385.74415976848,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Копривщица",
+        "municipality": "Копривщица",
+        "areaSqm": 212,
+        "builtAreaSqm": 264,
+        "currency": "BGN",
+        "valueEur": 85385.74415976848,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -437,6 +463,7 @@
         "legalBasis": "СЪКРЕДИТОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "пенсионен фонд Алианц България"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛМПС",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -112,7 +126,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-hristov-zhekov-aea4cd",
@@ -155,7 +170,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-hristov-zhekov-aea4cd",
@@ -198,7 +214,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-hristov-zhekov-aea4cd",
@@ -240,6 +257,20 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Дйета",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -320,7 +351,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-hristov-zhekov-aea4cd",
@@ -536,7 +568,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-hristov-zhekov-aea4cd",
@@ -553,6 +586,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/8A6BA839-0E33-4F66-A5CA-9DE0ED3B8AD488955.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

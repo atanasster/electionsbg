@@ -141,7 +141,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-petrov-slabakov-31314a",
@@ -274,7 +275,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и  служебна сметка"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-petrov-slabakov-31314a",
@@ -377,7 +379,8 @@
         "legalBasis": null,
         "fundsOrigin": "служебна сметка"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-petrov-slabakov-31314a",
@@ -533,6 +536,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 163.61340198278992,
+        "legalBasis": "бракуван"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "бмв",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 178.95215841867648,
+        "legalBasis": "бракуван"
       }
     ]
   },
@@ -734,6 +763,7 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
-    ]
+    ],
+    "events": []
   }
 ]

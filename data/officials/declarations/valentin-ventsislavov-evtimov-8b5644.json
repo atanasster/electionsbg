@@ -58,7 +58,8 @@
         "legalBasis": "други",
         "fundsOrigin": "няма"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-ventsislavov-evtimov-8b5644",
@@ -112,7 +113,33 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Лом ул.Пристанищна №4-Б ап.25",
+        "municipality": "Лом",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Лом ул.Пристанищна №4-Б ап.25",
+        "municipality": "Лом",
+        "areaSqm": 62,
+        "builtAreaSqm": 62,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "valentin-ventsislavov-evtimov-8b5644",
@@ -148,7 +175,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-ventsislavov-evtimov-8b5644",
@@ -184,7 +212,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-ventsislavov-evtimov-8b5644",
@@ -232,7 +261,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentin-ventsislavov-evtimov-8b5644",
@@ -340,6 +370,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
       }
     ]
   }

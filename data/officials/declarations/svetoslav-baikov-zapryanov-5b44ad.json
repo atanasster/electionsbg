@@ -46,6 +46,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, продажба на къща"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "ГР.ЧИРПАН",
+        "municipality": "Чирпан",
+        "areaSqm": 0,
+        "builtAreaSqm": 180,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "ГР.ЧИРПАН",
+        "municipality": "Чирпан",
+        "areaSqm": 0,
+        "builtAreaSqm": 180,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -131,6 +157,7 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

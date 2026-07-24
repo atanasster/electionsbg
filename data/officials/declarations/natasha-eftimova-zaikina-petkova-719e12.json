@@ -21,7 +21,8 @@
         "amountEurSpouse": 5127.746276516875
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "natasha-eftimova-zaikina-petkova-719e12",
@@ -117,6 +118,20 @@
         "isSpouse": false,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Магистратура",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
       }
     ]
   }

@@ -89,6 +89,20 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София-град",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1796,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -728,7 +742,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ani-aleksandrova-aleksandrova-naidenova-41dc9d",
@@ -745,6 +760,7 @@
     "sourceUrl": "https://register.cacbg.bg/2022/91B29626-1B32-4C2E-B951-814FE600B4B7140821.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -21,7 +21,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "simeon-atanasov-gadzhev-e0024a",
@@ -165,6 +166,20 @@
         "legalBasis": "заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 98,
+        "builtAreaSqm": 98,
+        "currency": "BGN",
+        "valueEur": 81806.70099139496,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -254,6 +269,20 @@
         "isSpouse": false,
         "legalBasis": "Заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 113,
+        "builtAreaSqm": 113,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "възмездно"
       }
     ]
   }

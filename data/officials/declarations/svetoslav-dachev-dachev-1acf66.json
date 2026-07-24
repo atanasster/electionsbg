@@ -166,7 +166,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-dachev-dachev-1acf66",
@@ -389,7 +390,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-dachev-dachev-1acf66",
@@ -576,7 +578,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-dachev-dachev-1acf66",
@@ -727,7 +730,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetoslav-dachev-dachev-1acf66",
@@ -913,6 +917,44 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Конгрес по алергология и имунология - португалия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2359.612031720548,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Международна научна среща по Пулмология - Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Международна научна среща по Пулмология - Турция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": null
       }
     ]
   },
@@ -1179,6 +1221,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Кнгрес детски белодробни болести Толедо, Испания",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1183.1294130880497,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Регионална Пулмологична среща 2-3-ноември 2018",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 39.880766733305045,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Експертна пулмологична среща 11.12.2018",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Изнесена лекция Натурофарма 13.11.2018",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1196,7 +1288,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/A5F8B64F-33BD-4C73-AF8B-50CD666E0BB589973.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "svetoslav-dachev-dachev-1acf66",
@@ -2098,6 +2191,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

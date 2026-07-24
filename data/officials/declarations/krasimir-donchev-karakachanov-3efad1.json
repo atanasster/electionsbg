@@ -172,7 +172,8 @@
         "legalBasis": "усвоен лимит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-donchev-karakachanov-3efad1",
@@ -437,7 +438,8 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-donchev-karakachanov-3efad1",
@@ -605,6 +607,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамен",
+        "detail": null,
+        "location": "софия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 169,
+        "builtAreaSqm": 169,
+        "currency": "BGN",
+        "valueEur": 58426.85713993548,
+        "legalBasis": "ЗАМЯНА"
       }
     ]
   }

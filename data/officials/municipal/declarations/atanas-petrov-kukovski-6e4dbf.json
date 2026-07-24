@@ -255,6 +255,32 @@
         "legalBasis": null,
         "fundsOrigin": "ДОХОДИ ОТ ЗЕМЕДЕЛИЕ И ЗАПЛАТА"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2428.6364356820377,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2428.6364356820377,
+        "legalBasis": "продажба"
+      }
     ]
   }
 ]

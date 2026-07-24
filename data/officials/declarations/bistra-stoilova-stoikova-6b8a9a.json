@@ -46,6 +46,20 @@
         "legalBasis": "покупка на жилище - 3,1%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 178.44086653748025,
+        "legalBasis": null
+      }
     ]
   }
 ]

@@ -27,7 +27,21 @@
         "amountEurSpouse": 11941.221885337683
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Радомир",
+        "municipality": "Радомир",
+        "areaSqm": 500,
+        "builtAreaSqm": 144,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "rumyana-vasileva-davidkova-5b8fd3",
@@ -75,6 +89,20 @@
         "isSpouse": false,
         "legalBasis": "банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Егълница",
+        "municipality": "Ковачевци",
+        "areaSqm": 1009,
+        "builtAreaSqm": 36,
+        "currency": "BGN",
+        "valueEur": 12271.005148709244,
+        "legalBasis": "възмездно"
       }
     ]
   }

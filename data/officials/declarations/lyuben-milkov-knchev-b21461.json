@@ -166,7 +166,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "lyuben-milkov-knchev-b21461",
@@ -311,6 +312,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Дворно място с паянтова постройка",
+        "detail": null,
+        "location": "с. Долни Романци",
+        "municipality": "Брезник",
+        "areaSqm": 1057,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -444,6 +459,7 @@
         "legalBasis": null,
         "fundsOrigin": "спестяване"
       }
-    ]
+    ],
+    "events": []
   }
 ]

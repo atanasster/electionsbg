@@ -172,7 +172,8 @@
         "legalBasis": "договор лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "delyan-valentinov-dimitrov-e81247",
@@ -406,7 +407,8 @@
         "legalBasis": "договор лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "delyan-valentinov-dimitrov-e81247",
@@ -568,6 +570,20 @@
         "isSpouse": true,
         "legalBasis": "договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автоморбил",
+        "detail": "Мерцедес МЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -774,6 +790,20 @@
         "legalBasis": "договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "паркомясто",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 35,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9999.846612435642,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -846,7 +876,8 @@
         "legalBasis": "дарение от родител",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "delyan-valentinov-dimitrov-e81247",
@@ -1027,7 +1058,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "delyan-valentinov-dimitrov-e81247",
@@ -1261,7 +1293,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "delyan-valentinov-dimitrov-e81247",
@@ -1278,6 +1311,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/D5827380-98C1-441E-A1DF-8037E2F7F28491046.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -87,6 +87,32 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "СНЦН \"Клуб на работодателя\" Стара Загора",
+        "detail": null,
+        "location": "Член на УС - подадена оставка",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "КАБ",
+        "detail": null,
+        "location": "Член на КС - подадена оставка",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -104,7 +130,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/B4B1B2B9-2384-4C20-AAED-90837A8F217F131539.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "banko-venelinov-banov-904b15",
@@ -343,6 +370,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

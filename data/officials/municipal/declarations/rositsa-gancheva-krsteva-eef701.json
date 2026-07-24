@@ -75,6 +75,80 @@
         "legalBasis": "споразумение",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСВАГЕН ПАСАТ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5368.564752560294,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ Х4 ДРАЙВ20Д",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 46420.18989380468,
+        "legalBasis": "възмездно-на части"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КОНФЕРЕНЦИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 410.0560887193672,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КОНФЕРЕНЦИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 434.59809901678574,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КОНГРЕС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 507.71283802784495,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КОНГРЕС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "CHF",
+        "valueEur": 2127.996809538661,
+        "legalBasis": null
+      }
     ]
   }
 ]

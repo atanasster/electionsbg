@@ -87,7 +87,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-georgiev-nalbantov-192bc8",
@@ -148,7 +149,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия за инвалидност"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-georgiev-nalbantov-192bc8",
@@ -209,7 +211,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iliya-georgiev-nalbantov-192bc8",
@@ -395,6 +398,20 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
       }
     ]
   }

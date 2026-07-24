@@ -154,7 +154,8 @@
         "legalBasis": "банков ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "zara-nikolaeva-dobreva-6c071e",
@@ -449,6 +450,32 @@
         "legalBasis": "банков ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 44,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 59999.590966495045,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 44,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 59999.590966495045,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -466,7 +493,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/6D43B8FF-221E-4F2C-BCC6-972DCBCDCE20145469.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "zara-nikolaeva-dobreva-6c071e",
@@ -790,6 +818,7 @@
         "legalBasis": "банков ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

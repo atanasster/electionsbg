@@ -213,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-srebrov-mihailov-3bb246",
@@ -352,7 +353,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-srebrov-mihailov-3bb246",
@@ -581,6 +583,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 42,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 86999.89262870495,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Волво",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3323.39722777542,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -720,6 +748,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "Асеновгард",
+        "municipality": "Асеновград",
+        "areaSqm": 20,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7669.378217943277,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Жилище",
+        "detail": null,
+        "location": "Асеновгард",
+        "municipality": "Асеновград",
+        "areaSqm": 96,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 62888.90138713487,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Жилище",
+        "detail": null,
+        "location": "Асеновгард",
+        "municipality": "Асеновград",
+        "areaSqm": 96,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 62888.90138713487,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -823,7 +889,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-srebrov-mihailov-3bb246",
@@ -926,7 +993,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-srebrov-mihailov-3bb246",
@@ -1064,6 +1132,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес А190",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1281,7 +1363,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boris-srebrov-mihailov-3bb246",
@@ -1298,6 +1381,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2AAE588B-67F6-419E-94F7-DEA101E0032A89043.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

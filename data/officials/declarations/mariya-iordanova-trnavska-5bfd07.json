@@ -21,6 +21,32 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 16,
+        "builtAreaSqm": 17,
+        "currency": "BGN",
+        "valueEur": 30002.607588594103,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "София",
+        "municipality": "софия-град (Столична)",
+        "areaSqm": 16,
+        "builtAreaSqm": 17,
+        "currency": "BGN",
+        "valueEur": 30002.607588594103,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

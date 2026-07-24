@@ -94,7 +94,8 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "teodora-gancheva-koshinska-95a939",
@@ -111,6 +112,20 @@
     "sourceUrl": "https://register.cacbg.bg/2024/D893B272-F7DB-4464-B5A8-E35482C96839187557.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "майчинство",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16684.9879590762,
+        "legalBasis": null
+      }
+    ]
   }
 ]

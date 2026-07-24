@@ -82,6 +82,32 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "издръжка дете",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2520.668974297357,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "добавка дете",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2430.1703113256267,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -166,6 +192,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "издръжка дете",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2019.602930725063,
+        "legalBasis": null
       }
     ]
   }

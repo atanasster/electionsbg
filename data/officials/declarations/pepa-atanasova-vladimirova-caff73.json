@@ -166,7 +166,8 @@
         "legalBasis": "договор кредит 2.5%лихва",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pepa-atanasova-vladimirova-caff73",
@@ -335,7 +336,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pepa-atanasova-vladimirova-caff73",
@@ -486,7 +488,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pepa-atanasova-vladimirova-caff73",
@@ -601,6 +604,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -644,7 +661,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pepa-atanasova-vladimirova-caff73",
@@ -711,7 +729,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "pepa-atanasova-vladimirova-caff73",
@@ -728,7 +747,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/A70C3F03-41AE-4203-AD35-7E9C999E94A389984.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pepa-atanasova-vladimirova-caff73",
@@ -908,6 +928,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

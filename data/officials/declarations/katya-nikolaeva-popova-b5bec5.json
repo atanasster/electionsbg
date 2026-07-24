@@ -400,6 +400,20 @@
         "legalBasis": "1.5%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Първомай",
+        "municipality": "Първомай",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 86919.61980335714,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -785,6 +799,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

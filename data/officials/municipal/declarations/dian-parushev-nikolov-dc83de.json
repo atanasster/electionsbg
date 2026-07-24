@@ -39,6 +39,44 @@
         "legalBasis": "паричен заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент с мазе",
+        "detail": null,
+        "location": "гр.Провадия",
+        "municipality": "Провадия",
+        "areaSqm": 59,
+        "builtAreaSqm": 72,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с гараж",
+        "detail": null,
+        "location": "гр.Провадия",
+        "municipality": "Провадия",
+        "areaSqm": 80,
+        "builtAreaSqm": 175,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Провадия",
+        "municipality": "Провадия",
+        "areaSqm": 616,
+        "builtAreaSqm": 616,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   }
 ]

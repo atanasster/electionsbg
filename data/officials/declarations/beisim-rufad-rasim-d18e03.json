@@ -328,7 +328,8 @@
         "legalBasis": "ПО ДАВНОСТ",
         "fundsOrigin": "ЗАПЛАТА"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "beisim-rufad-rasim-d18e03",
@@ -580,6 +581,32 @@
         "isSpouse": true,
         "legalBasis": "другипетгодишен лизингов договор",
         "fundsOrigin": "печалба от ЗП"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "джип",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "джип",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   }

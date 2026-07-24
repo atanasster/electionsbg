@@ -628,7 +628,8 @@
         "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariya-nikolaeva-peneva-ab6ed3",
@@ -1493,6 +1494,32 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "пътни и квартирни",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 480.10307644324917,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1841,6 +1868,32 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот със селскостопанска сграда; поземлен имот",
+        "detail": null,
+        "location": "с.Чернвръх",
+        "municipality": "Трявна",
+        "areaSqm": 2337,
+        "builtAreaSqm": 876,
+        "currency": "BGN",
+        "valueEur": 8794.220356574959,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот със селскостопанска сграда; поземлен имот",
+        "detail": null,
+        "location": "с.Чернвръх",
+        "municipality": "Трявна",
+        "areaSqm": 2337,
+        "builtAreaSqm": 876,
+        "currency": "BGN",
+        "valueEur": 8794.220356574959,
+        "legalBasis": "възмездно"
       }
     ]
   }

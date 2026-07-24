@@ -21,7 +21,8 @@
         "amountEurSpouse": 5129.79144404166
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentin-asenov-gadzhev-57bfcf",
@@ -99,6 +100,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 383.4689108971639,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 383.4689108971639,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -215,7 +242,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-asenov-gadzhev-57bfcf",
@@ -258,7 +286,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-asenov-gadzhev-57bfcf",
@@ -282,7 +311,8 @@
         "amountEurSpouse": 4329.108358088382
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentin-asenov-gadzhev-57bfcf",
@@ -768,7 +798,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentin-asenov-gadzhev-57bfcf",
@@ -785,6 +816,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B7DA9F92-1305-4DAA-A6DF-18C7945180D289630.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

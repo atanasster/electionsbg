@@ -82,6 +82,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Ново село",
+        "municipality": "Русе",
+        "areaSqm": 1435,
+        "builtAreaSqm": 155,
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -220,6 +234,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Априлци",
+        "municipality": "Априлци",
+        "areaSqm": 749,
+        "builtAreaSqm": 171,
+        "currency": "BGN",
+        "valueEur": 32722.680396557982,
+        "legalBasis": "възмездно"
       }
     ]
   }

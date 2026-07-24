@@ -220,7 +220,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-todorov-georgiev-e59744",
@@ -406,6 +407,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор и обзавеждане",
+        "detail": null,
+        "location": "гр. Крумовград",
+        "municipality": "Крумовград",
+        "areaSqm": 426,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -630,6 +645,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

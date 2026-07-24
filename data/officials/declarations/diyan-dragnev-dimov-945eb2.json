@@ -196,7 +196,8 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diyan-dragnev-dimov-945eb2",
@@ -400,6 +401,20 @@
         "isSpouse": false,
         "legalBasis": "Договори за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "с. Паскалево",
+        "municipality": "Добричка",
+        "areaSqm": 1740,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 5099.625223051084,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -642,6 +657,20 @@
         "legalBasis": "Договор за лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лека кола",
+        "detail": "Дачия Логан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1175.9713267513025,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -859,7 +888,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diyan-dragnev-dimov-945eb2",
@@ -1058,7 +1088,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diyan-dragnev-dimov-945eb2",
@@ -1401,7 +1432,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "diyan-dragnev-dimov-945eb2",
@@ -1738,6 +1770,7 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

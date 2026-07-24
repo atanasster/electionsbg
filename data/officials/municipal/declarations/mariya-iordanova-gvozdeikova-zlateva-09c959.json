@@ -207,6 +207,20 @@
         "legalBasis": "БАНКОВ КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ГР. СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 123,
+        "builtAreaSqm": 154,
+        "currency": "BGN",
+        "valueEur": 300000,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

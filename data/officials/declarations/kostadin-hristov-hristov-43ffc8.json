@@ -249,7 +249,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kostadin-hristov-hristov-43ffc8",
@@ -476,6 +477,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "УПИ",
+        "detail": null,
+        "location": "Горен Крупец",
+        "municipality": "Белоградчик",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "УПИ",
+        "detail": null,
+        "location": "Горен Крупец",
+        "municipality": "Белоградчик",
+        "areaSqm": 4,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 47550.144951248316,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -69,7 +69,8 @@
         "legalBasis": "Финансов лизинг 3,45%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galya-iordanova-peeva-3bf0a1",
@@ -374,6 +375,20 @@
         "isSpouse": true,
         "legalBasis": "Банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Брестовица",
+        "municipality": "Борово",
+        "areaSqm": 215008,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 281766.8202246617,
+        "legalBasis": "възмездно"
       }
     ]
   }

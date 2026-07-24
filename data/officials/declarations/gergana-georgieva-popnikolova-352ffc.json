@@ -21,7 +21,8 @@
         "amountEurSpouse": 9488.554731239423
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "gergana-georgieva-popnikolova-352ffc",
@@ -74,6 +75,20 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел КОРСА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   }

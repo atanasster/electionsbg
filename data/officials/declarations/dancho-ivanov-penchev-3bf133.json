@@ -262,7 +262,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dancho-ivanov-penchev-3bf133",
@@ -509,7 +510,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dancho-ivanov-penchev-3bf133",
@@ -792,6 +794,68 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "хангар",
+        "detail": null,
+        "location": "гр. Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 15,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ВОЛВО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 26331.531881605253,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение на парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 21985.550891437397,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение на парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 19491.46909496224,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение на парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13999.68299903366,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1039,6 +1103,56 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПИ, жилищна сграда и сграда",
+        "detail": null,
+        "location": "с. Лешница",
+        "municipality": "Ловеч",
+        "areaSqm": 594,
+        "builtAreaSqm": 81,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент, ведно с таван и мазе",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Лешница",
+        "municipality": "Ловеч",
+        "areaSqm": 720,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 119949.07532863285,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1142,7 +1256,8 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dancho-ivanov-penchev-3bf133",
@@ -1353,6 +1468,20 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПИ с 2 селскостопански сгради и жил. сграда",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 331,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1533,7 +1662,8 @@
         "legalBasis": "договор за ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dancho-ivanov-penchev-3bf133",
@@ -1550,6 +1680,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/601CC3A7-6F66-4B0E-9FA3-D67BAFF879A692848.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

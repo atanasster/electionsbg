@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "рента, продажба"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Долна Студена",
+        "municipality": "Ценово",
+        "areaSqm": 1167,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -100,7 +114,8 @@
         "amountEurSpouse": 4522.376689180553
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "petr-georgiev-petrov-913645",
@@ -161,7 +176,8 @@
         "legalBasis": null,
         "fundsOrigin": "рента"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "petr-georgiev-petrov-913645",
@@ -185,6 +201,7 @@
         "amountEurSpouse": 3399.0684261924607
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

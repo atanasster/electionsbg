@@ -51,7 +51,8 @@
         "legalBasis": "заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milko-edelov-blagoev-d283e7",
@@ -286,7 +287,8 @@
         "legalBasis": "ипжтека 3.6%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milko-edelov-blagoev-d283e7",
@@ -497,6 +499,20 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Монтана",
+        "municipality": "Монтана",
+        "areaSqm": 1405,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -546,7 +562,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milko-edelov-blagoev-d283e7",
@@ -613,7 +630,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milko-edelov-blagoev-d283e7",
@@ -680,7 +698,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milko-edelov-blagoev-d283e7",
@@ -734,7 +753,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milko-edelov-blagoev-d283e7",
@@ -824,7 +844,8 @@
         "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milko-edelov-blagoev-d283e7",
@@ -841,6 +862,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B15FED32-395D-4FF2-8402-6C302B9F04B292076.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

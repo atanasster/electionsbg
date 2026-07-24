@@ -51,7 +51,8 @@
         "legalBasis": "от заплата  и от продажба на недв.имот",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-marinov-stefanov-4dadd3",
@@ -135,6 +136,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "Бойковец",
+        "municipality": "Етрополе",
+        "areaSqm": 1100,
+        "builtAreaSqm": 240,
+        "currency": "BGN",
+        "valueEur": 230081.34653829833,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -221,6 +236,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "гр. Луковит",
+        "municipality": "Луковит",
+        "areaSqm": 2,
+        "builtAreaSqm": 1667,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -282,7 +311,8 @@
         "legalBasis": "Договор за потребителски заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-marinov-stefanov-4dadd3",
@@ -299,7 +329,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/2D1A93E6-0B93-468D-99F0-8E778D273EEC141942.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-marinov-stefanov-4dadd3",
@@ -569,6 +600,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

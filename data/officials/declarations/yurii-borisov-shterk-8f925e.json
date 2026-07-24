@@ -148,6 +148,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Калугерово",
+        "municipality": "Лесичово",
+        "areaSqm": 34,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 320.06871762883276,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Калугерово",
+        "municipality": "Лесичово",
+        "areaSqm": 1332,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11.759713267513025,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -286,6 +312,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Долни Воден",
+        "municipality": "Асеновград",
+        "areaSqm": 2101,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 214.74259010241175,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Долни Воден",
+        "municipality": "Асеновград",
+        "areaSqm": 4699,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
       }
     ]
   }

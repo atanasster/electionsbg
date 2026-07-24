@@ -351,6 +351,80 @@
         "legalBasis": "кредит лихва2.95",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул.Македонска9ет.5",
+        "municipality": "Попово",
+        "areaSqm": 40,
+        "builtAreaSqm": 40,
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул.Гагарин3ет.3",
+        "municipality": "Попово",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 61355.02574354622,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Садина",
+        "municipality": "Попово",
+        "areaSqm": 6,
+        "builtAreaSqm": 6000,
+        "currency": "BGN",
+        "valueEur": 9663.41655460853,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Садина",
+        "municipality": "Попово",
+        "areaSqm": 5,
+        "builtAreaSqm": 5000,
+        "currency": "BGN",
+        "valueEur": 562.4210693158403,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "инфинити кх 50",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4959.53124760332,
+        "legalBasis": "бартер"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "фоксваген джета",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8947.607920933824,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

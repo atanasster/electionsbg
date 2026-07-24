@@ -64,7 +64,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-kirilov-anastasov-23ef8b",
@@ -125,7 +126,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-kirilov-anastasov-23ef8b",
@@ -167,7 +169,21 @@
         "amountEurSpouse": 1331.404058634953
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с. Орешак",
+        "municipality": "Троян",
+        "areaSqm": 700,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "stefan-kirilov-anastasov-23ef8b",
@@ -246,6 +262,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -288,7 +318,8 @@
         "amountEurSpouse": 132.93588911101682
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-kirilov-anastasov-23ef8b",
@@ -504,7 +535,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefan-kirilov-anastasov-23ef8b",
@@ -521,6 +553,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/85DC169E-9232-45F5-9A9D-115F8E4B537C90205.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

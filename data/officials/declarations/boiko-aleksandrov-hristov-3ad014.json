@@ -322,7 +322,8 @@
         "legalBasis": "банков договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-aleksandrov-hristov-3ad014",
@@ -647,7 +648,8 @@
         "legalBasis": "банков договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-aleksandrov-hristov-3ad014",
@@ -876,7 +878,8 @@
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "boiko-aleksandrov-hristov-3ad014",
@@ -1104,6 +1107,20 @@
         "isSpouse": true,
         "legalBasis": "договор за ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "дарение, безвъзмездно"
       }
     ]
   }

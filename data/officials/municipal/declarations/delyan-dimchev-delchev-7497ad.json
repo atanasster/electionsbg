@@ -297,6 +297,56 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "ЦАРЕВА ПОЛЯНА",
+        "municipality": "Стамболово",
+        "areaSqm": 295,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "ЦАРЕВА ПОЛЯНА",
+        "municipality": "Стамболово",
+        "areaSqm": 295,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 91,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 115040.67326914916,
+        "legalBasis": "пр на имот 125000 и подобрения 100000"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ХАСКОВО",
+        "municipality": "ХАСКОВО",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 9586.722772429097,
+        "legalBasis": "продажба на апр наследствен"
+      }
     ]
   }
 ]

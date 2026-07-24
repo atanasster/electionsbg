@@ -160,6 +160,20 @@
         "legalBasis": null,
         "fundsOrigin": "Трансфер на средства от собствена банкова сметка на лицето с посочения по-горе произход"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Трансфер на средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -329,7 +343,8 @@
         "legalBasis": null,
         "fundsOrigin": "Трансфер на средства от собствена банкова сметка на лицето с посочения по-горе произход"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-todorova-karagozova-finkova-87697a",
@@ -462,7 +477,8 @@
         "legalBasis": null,
         "fundsOrigin": "С натрупване и движение на средства повече от 35 г. от заплата, хонорари,продажба на недвижимо имущество, прехвърлени средства от съпругата,клинични изпитания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-todorova-karagozova-finkova-87697a",
@@ -631,7 +647,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mariana-todorova-karagozova-finkova-87697a",
@@ -818,6 +835,7 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   }
 ]

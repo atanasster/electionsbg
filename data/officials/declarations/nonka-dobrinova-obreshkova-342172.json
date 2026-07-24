@@ -172,7 +172,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и пенсия от ТЕЛК"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nonka-dobrinova-obreshkova-342172",
@@ -328,6 +329,20 @@
         "isSpouse": false,
         "legalBasis": "договор за лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "шкода октавия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3342.3150273796805,
+        "legalBasis": "възмездно"
       }
     ]
   }

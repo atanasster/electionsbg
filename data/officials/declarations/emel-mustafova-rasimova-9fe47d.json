@@ -100,7 +100,8 @@
         "legalBasis": "6,04 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emel-mustafova-rasimova-9fe47d",
@@ -166,6 +167,20 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "обезщетение по част първа от КСО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 100.72450059565504,
+        "legalBasis": null
       }
     ]
   }

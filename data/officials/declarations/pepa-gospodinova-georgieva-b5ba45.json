@@ -21,7 +21,8 @@
         "amountEurSpouse": 13498.105663580169
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "pepa-gospodinova-georgieva-b5ba45",
@@ -51,6 +52,32 @@
         "amountEurSpouse": 12271.005148709244
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 409.0335049569748,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

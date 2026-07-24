@@ -303,7 +303,8 @@
         "legalBasis": "Предварит.договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-kostadinov-georgiev-7f22cf",
@@ -460,7 +461,8 @@
         "legalBasis": "Предварит.договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-kostadinov-georgiev-7f22cf",
@@ -581,6 +583,32 @@
         "legalBasis": null,
         "fundsOrigin": "дарение родител, заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Одринци",
+        "municipality": "Добричка",
+        "areaSqm": 660,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 869.1961980335715,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Вратарите",
+        "municipality": "Добричка",
+        "areaSqm": 1500,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 971.4545742728151,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -635,7 +663,8 @@
         "legalBasis": "работна заплата",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-kostadinov-georgiev-7f22cf",
@@ -738,7 +767,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-kostadinov-georgiev-7f22cf",
@@ -805,6 +835,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -45,6 +45,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр.Неделино",
+        "municipality": "Неделино",
+        "areaSqm": 80,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 13191.330534862436,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

@@ -261,6 +261,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплати,дивиденти,продажба имоти, наеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ж.к. Малинова Долина",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 179999.79548324752,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ж.к. Малинова Долина",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 179999.79548324752,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

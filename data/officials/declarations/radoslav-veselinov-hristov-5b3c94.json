@@ -130,6 +130,20 @@
         "legalBasis": "ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Данъчно облекчение за деца по чл. 22в от ЗДДФЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -147,7 +161,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/DFBC25F7-A423-46D9-B651-88483319A8CA93321.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "radoslav-veselinov-hristov-5b3c94",
@@ -483,6 +498,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -208,6 +208,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Ружинци",
+        "municipality": "Ружинци",
+        "areaSqm": 1500,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -251,7 +265,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georg-leonidov-spartanski-1f5736",
@@ -294,7 +309,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georg-leonidov-spartanski-1f5736",
@@ -318,6 +334,7 @@
         "amountEurSpouse": 7278.751220709367
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

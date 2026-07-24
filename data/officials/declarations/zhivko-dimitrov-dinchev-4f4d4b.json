@@ -406,6 +406,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "парични средства в лева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3650.624031741,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "запис на заповед в лева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3911.3828911510714,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -670,6 +696,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лихва"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "парични средства в лева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2760.97615845958,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "запис на заповед в лева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3911.3828911510714,
+        "legalBasis": null
       }
     ]
   },
@@ -953,6 +1005,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "лихва и заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "парични средста в лева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2770.690704202308,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "запис на заповед в лева",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2914.3637228184452,
+        "legalBasis": null
       }
     ]
   }

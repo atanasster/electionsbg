@@ -46,6 +46,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 899.8737109053445,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -89,6 +103,7 @@
         "legalBasis": "трудов договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

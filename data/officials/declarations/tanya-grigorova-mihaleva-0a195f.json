@@ -94,7 +94,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tanya-grigorova-mihaleva-0a195f",
@@ -196,6 +197,20 @@
         "isSpouse": false,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Горен чифлик",
+        "municipality": "Долни чифлик",
+        "areaSqm": 1044,
+        "builtAreaSqm": 65,
+        "currency": "BGN",
+        "valueEur": 20451.67524784874,
+        "legalBasis": "възмездно"
       }
     ]
   }

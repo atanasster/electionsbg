@@ -136,7 +136,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iskra-dimitrova-mihailova-koparova-445751",
@@ -311,7 +312,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iskra-dimitrova-mihailova-koparova-445751",
@@ -468,7 +470,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iskra-dimitrova-mihailova-koparova-445751",
@@ -637,7 +640,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iskra-dimitrova-mihailova-koparova-445751",
@@ -788,7 +792,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iskra-dimitrova-mihailova-koparova-445751",
@@ -920,6 +925,44 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 22513.204112831892,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 26945.082139040715,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Дъбене",
+        "municipality": "Карлово",
+        "areaSqm": 1445,
+        "builtAreaSqm": 50,
+        "currency": "BGN",
+        "valueEur": 1854.9669449798807,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -328,6 +328,56 @@
         "legalBasis": "банков кредит-5.11%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Стрелча",
+        "municipality": "Стрелча",
+        "areaSqm": 392,
+        "builtAreaSqm": 138,
+        "currency": "BGN",
+        "valueEur": 54999.15636839603,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 65,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 65445.360793115964,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ателие",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 38,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 79966.05021908857,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "платена учебна такса от бащата за първи срок на учебата 2024-2025 г. на Американския колеж в софия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1913.7655113174458,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -345,7 +395,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/EF12A739-DCAD-4504-9C8F-C6F6C2AC2E07196194.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "bogdan-prvanov-bogdanov-55fbd4",
@@ -471,6 +522,7 @@
         "legalBasis": "кредит с остатък 329000",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

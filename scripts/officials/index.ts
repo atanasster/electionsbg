@@ -309,6 +309,12 @@ const cmd = command({
           ownershipStakes: parsed.ownershipStakes,
           income: parsed.income,
           assets: parsed.assets,
+          // Prior-year disposals and third-party-paid expenses. Easy to forget
+          // here precisely because this object is assembled field by field
+          // rather than spread — which is how it was missed the first time,
+          // leaving the whole officials corpus without events while the MP leg
+          // (which passes the parse result straight through) had them.
+          events: parsed.events,
         };
         const arr = declsBySlug.get(slug) ?? [];
         arr.push(decl);

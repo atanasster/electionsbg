@@ -64,6 +64,20 @@
         "legalBasis": "договор за потребителски кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Ивеко Дейли 35С12",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -88,6 +102,7 @@
         "amountEurSpouse": 4535.158986210458
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

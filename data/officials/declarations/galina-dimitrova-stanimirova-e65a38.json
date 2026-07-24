@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galina-dimitrova-stanimirova-e65a38",
@@ -83,7 +84,8 @@
         "legalBasis": null,
         "fundsOrigin": "запрата, наследство, продажби"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galina-dimitrova-stanimirova-e65a38",
@@ -366,6 +368,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17895.215841867648,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -511,7 +527,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galina-dimitrova-stanimirova-e65a38",
@@ -656,7 +673,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galina-dimitrova-stanimirova-e65a38",
@@ -944,7 +962,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galina-dimitrova-stanimirova-e65a38",
@@ -961,6 +980,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/24200805-1223-4051-85D3-A34F7D88463A89609.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

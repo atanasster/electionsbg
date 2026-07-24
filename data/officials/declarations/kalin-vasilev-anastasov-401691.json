@@ -226,6 +226,20 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Един апартамент",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 168726.3207947521,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -243,7 +257,8 @@
     "sourceUrl": "https://register.cacbg.bg/2025/96E98ED4-3292-47F1-B94E-957BDE1E3565203389.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kalin-vasilev-anastasov-401691",
@@ -423,6 +438,7 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

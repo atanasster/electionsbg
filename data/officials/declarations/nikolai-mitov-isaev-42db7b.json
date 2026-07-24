@@ -250,6 +250,20 @@
         "legalBasis": "съдлъжник; 2,55%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "1-ва вноска за жилище /собствено участие към ипотечен кредит в б. ДСК/",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 28780.108700653942,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -448,6 +462,56 @@
         "isSpouse": false,
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 83,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7949.054876957609,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Хотница",
+        "municipality": "Велико Търново",
+        "areaSqm": 22397,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Предв. д-р за недв.имот в лв.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 143900.03221138852,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Предв. д-р за недв.имот в лв.",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 143900.03221138852,
+        "legalBasis": null
       }
     ]
   }

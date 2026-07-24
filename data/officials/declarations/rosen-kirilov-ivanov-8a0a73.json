@@ -70,7 +70,8 @@
         "legalBasis": "ипотечен кредит, 3.19 %",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-kirilov-ivanov-8a0a73",
@@ -124,6 +125,20 @@
         "isSpouse": false,
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "currency": "BGN",
+        "valueEur": 32499.75713635643,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -252,6 +267,20 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 72,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -325,7 +354,8 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-kirilov-ivanov-8a0a73",
@@ -398,7 +428,8 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-kirilov-ivanov-8a0a73",
@@ -471,7 +502,8 @@
         "legalBasis": null,
         "fundsOrigin": "ДЗПО"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-kirilov-ivanov-8a0a73",
@@ -562,6 +594,7 @@
         "legalBasis": "масова приватизация",
         "fundsOrigin": "масова приватизация"
       }
-    ]
+    ],
+    "events": []
   }
 ]

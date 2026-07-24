@@ -256,6 +256,32 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сграда и земя",
+        "detail": null,
+        "location": "Петрич ул.Лазар Маджаров",
+        "municipality": "Петрич",
+        "areaSqm": 94,
+        "builtAreaSqm": 207,
+        "currency": "BGN",
+        "valueEur": 71580.86336747059,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "самостоятелен обект в сграда",
+        "detail": null,
+        "location": "Петрич ул.Лазар Маджаров",
+        "municipality": "Петрич",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "продажба"
+      }
     ]
   },
   {
@@ -640,6 +666,44 @@
         "isSpouse": true,
         "legalBasis": "договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "земя и паянтова сграда",
+        "detail": null,
+        "location": "с.Долно Спанчово",
+        "municipality": "Петрич",
+        "areaSqm": 6275,
+        "builtAreaSqm": 492,
+        "currency": "BGN",
+        "valueEur": 4601.626930765967,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Сандански",
+        "municipality": "Сандански",
+        "areaSqm": 1982,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Сандански",
+        "municipality": "Сандански",
+        "areaSqm": 5005,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "продажба"
       }
     ]
   }

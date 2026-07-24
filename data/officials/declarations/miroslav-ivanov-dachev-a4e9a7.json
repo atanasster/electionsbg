@@ -202,7 +202,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата; наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "miroslav-ivanov-dachev-a4e9a7",
@@ -274,6 +275,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Асоциация за кариерно ориентиране и развитие във ВО\" (АКОРВО)",
+        "detail": null,
+        "location": "молба за напускане на УС от 12.04.2024; приета на 15.04.2024",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -291,7 +306,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/407A3EA7-9DBF-4121-A7A7-C3E47A2F0AE5177752.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslav-ivanov-dachev-a4e9a7",
@@ -453,6 +469,7 @@
         "legalBasis": "Договор №58216 с ОТП Лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

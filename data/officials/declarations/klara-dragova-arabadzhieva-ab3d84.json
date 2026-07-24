@@ -58,7 +58,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "klara-dragova-arabadzhieva-ab3d84",
@@ -136,6 +137,44 @@
         "isSpouse": false,
         "legalBasis": "Договор",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Финландия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1182.1068293256571,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Норвегия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 359.9494843621378,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Португалия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 980.1465362531509,
+        "legalBasis": null
       }
     ]
   }

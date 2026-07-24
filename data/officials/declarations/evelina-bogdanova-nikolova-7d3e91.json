@@ -33,7 +33,21 @@
         "amountEurSpouse": 460.16269307659667
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Вълчи дол",
+        "municipality": "Вълчи дол",
+        "areaSqm": 180,
+        "builtAreaSqm": 85,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
   },
   {
     "slug": "evelina-bogdanova-nikolova-7d3e91",
@@ -82,6 +96,7 @@
         "legalBasis": "наследсво делба",
         "fundsOrigin": "заплати"
       }
-    ]
+    ],
+    "events": []
   }
 ]

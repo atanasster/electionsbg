@@ -501,7 +501,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yanko-atanasov-ivanov-390524",
@@ -1042,7 +1043,8 @@
         "legalBasis": null,
         "fundsOrigin": "възнаграждения"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "yanko-atanasov-ivanov-390524",
@@ -1546,6 +1548,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "възнаграждения"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Киа Сиид",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Хюндай купе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

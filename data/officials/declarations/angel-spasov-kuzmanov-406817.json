@@ -58,6 +58,20 @@
         "legalBasis": "ЛИЗИНГОВ ДОГОВОР",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1958.2479049815167,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -88,6 +102,7 @@
         "amountEurSpouse": 22480.99272431653
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

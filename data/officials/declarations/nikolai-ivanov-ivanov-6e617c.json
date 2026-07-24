@@ -82,7 +82,8 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nikolai-ivanov-ivanov-6e617c",
@@ -209,6 +210,32 @@
         "legalBasis": null,
         "fundsOrigin": "продажба на недвижим имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ Х5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ Х5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -226,6 +253,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/6CE3254F-907D-4A56-9A50-03FAF4260F0887757.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

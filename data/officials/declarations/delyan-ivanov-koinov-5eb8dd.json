@@ -195,7 +195,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "delyan-ivanov-koinov-5eb8dd",
@@ -381,6 +382,56 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "ЗА ЗАСТРАХОВКА НА ЛИЧЕН АВТОМОБИЛ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 570.0904475337836,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ЗАКУПУВАНЕ НА ЧАСОВНИК",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 970.9432823916189,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ЗАКУПУВАНЕ НА АВТОМОБИЛНА МУЛТИМЕДИЯ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 802.728253478063,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "ЗАКУПУВАНЕ НА ИГРАЛНА КОНЗОЛА И КОМПЮТЪР",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 673.882699416616,
+        "legalBasis": null
       }
     ]
   }

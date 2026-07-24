@@ -376,6 +376,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "свободна професия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Право на строеж",
+        "detail": null,
+        "location": "гр. Белене",
+        "municipality": "Белене",
+        "areaSqm": 300,
+        "builtAreaSqm": 300,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -755,7 +769,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "свободна професия"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "milen-pavlov-dulev-5ef5e3",
@@ -1140,6 +1155,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "свободна професия"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "с. Петокладенци",
+        "municipality": "Белене",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 2454.2010297418487,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1494,6 +1523,44 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "свободна професия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "Белене",
+        "municipality": "Белене",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "замяна"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Осло",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 2000.1738392396067,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Унгария",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 579.8049932765118,
+        "legalBasis": null
       }
     ]
   }

@@ -70,6 +70,20 @@
         "legalBasis": null,
         "fundsOrigin": "СПЕСТЯВАНИЯ, ЗАПЛАТА, ПРЕДОСТАВЕНИ ОТ РОДИТЕЛ: НИКОЛАЙ ХРИСТОВ СКАРЛАТОВ"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Гаранция по ДУК в лв",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8586.635852809293,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -106,6 +120,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

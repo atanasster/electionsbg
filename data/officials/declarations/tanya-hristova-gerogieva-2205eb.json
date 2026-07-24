@@ -21,7 +21,8 @@
         "amountEurSpouse": 35694.8201019516
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tanya-hristova-gerogieva-2205eb",
@@ -38,7 +39,21 @@
     "sourceUrl": "https://register.cacbg.bg/2023/EAC21185-A8F8-4701-83A3-32D32BD9E666156211.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Асоциация на земеделските производители в България\"- член на Управителния съвет и изпълнителен директор",
+        "detail": null,
+        "location": "до 06.07.2023-вписана промяна в Търговски регистър",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "tanya-hristova-gerogieva-2205eb",
@@ -55,7 +70,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/EAC21185-A8F8-4701-83A3-32D32BD9E666156016.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tanya-hristova-gerogieva-2205eb",
@@ -199,6 +215,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

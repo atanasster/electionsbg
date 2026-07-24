@@ -94,6 +94,20 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "лазерна корекция на двете очи",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1600.343588144164,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -137,7 +151,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dragomir-nikolaev-penchev-b2b1b4",
@@ -154,7 +169,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/486B7946-A447-4FEC-8AD3-82DB8730A95290583.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dragomir-nikolaev-penchev-b2b1b4",
@@ -226,6 +242,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

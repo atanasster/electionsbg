@@ -82,6 +82,32 @@
         "legalBasis": null,
         "fundsOrigin": "средства на входа на блока"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип Хонда",
+        "detail": "ЦРВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип Хонда",
+        "detail": "ЦРВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -167,7 +193,8 @@
         "legalBasis": null,
         "fundsOrigin": "средства на входа на блока"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-tsenkova-nikolcheva-a33c9a",
@@ -252,7 +279,8 @@
         "legalBasis": null,
         "fundsOrigin": "средства на входа на блока"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-tsenkova-nikolcheva-a33c9a",
@@ -319,7 +347,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimira-tsenkova-nikolcheva-a33c9a",
@@ -336,7 +365,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/7C34E45F-3BD7-485E-BE99-B4C2BF8C1DC3109422.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimira-tsenkova-nikolcheva-a33c9a",
@@ -516,6 +546,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

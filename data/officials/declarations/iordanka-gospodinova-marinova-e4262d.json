@@ -166,7 +166,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-gospodinova-marinova-e4262d",
@@ -479,7 +480,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-gospodinova-marinova-e4262d",
@@ -648,7 +650,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-gospodinova-marinova-e4262d",
@@ -883,6 +886,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Полски извор",
+        "municipality": "Камено",
+        "areaSqm": 1025,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9203.253861531934,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1046,7 +1063,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-gospodinova-marinova-e4262d",
@@ -1209,7 +1227,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-gospodinova-marinova-e4262d",
@@ -1226,7 +1245,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/FD1E08C4-D500-4BB9-AF64-9C43B967CC6692921.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordanka-gospodinova-marinova-e4262d",
@@ -1544,6 +1564,7 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

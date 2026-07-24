@@ -514,7 +514,8 @@
         "legalBasis": "договор за систематично инвестиране",
         "fundsOrigin": "доходи от друга стопанска дейност (свободна професия)"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-arnaudov-fee607",
@@ -1049,6 +1050,20 @@
         "legalBasis": "договор за систематично инвестиране",
         "fundsOrigin": "доходи от друга стопанска дейност (свободна професия)"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "дарения (от възходящи от 2 и 3 степен)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2351.942653502605,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1066,7 +1081,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/B0964718-007F-478C-87C2-6DC73699A21A92387.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-arnaudov-fee607",
@@ -2038,6 +2054,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

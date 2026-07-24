@@ -166,7 +166,8 @@
         "legalBasis": "ипотечен кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "maya-filipova-kraeva-18f530",
@@ -244,6 +245,32 @@
         "isSpouse": true,
         "legalBasis": "ипотечен заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 480.61436832444537,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Самолетни билети и хотелско настаняване",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 873.2865330831412,
+        "legalBasis": null
       }
     ]
   }

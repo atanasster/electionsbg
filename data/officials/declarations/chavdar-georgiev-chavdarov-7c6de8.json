@@ -136,6 +136,140 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с.Белащица, ул.\"Тинтява\"№1 с идентификатор 03304.503.589",
+        "municipality": "Родопи",
+        "areaSqm": 405,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 107499.62931338613,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с.Белащица, ул.\"Тинтява\"№1 с идентификатор 03304.503.589",
+        "municipality": "Родопи",
+        "areaSqm": 405,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 107499.62931338613,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вилна сграда",
+        "detail": null,
+        "location": "с.Белащица, ул.\"Тинтява\"№1 с идентификатор 03304.503.589.1",
+        "municipality": "Родопи",
+        "areaSqm": 318,
+        "builtAreaSqm": 318,
+        "currency": "BGN",
+        "valueEur": 107499.62931338613,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вилна сграда",
+        "detail": null,
+        "location": "с.Белащища, ул.\"Тинтява\"№1 с идентификатор 03304.503.589.1",
+        "municipality": "Родопи",
+        "areaSqm": 318,
+        "builtAreaSqm": 318,
+        "currency": "BGN",
+        "valueEur": 107499.62931338613,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с.Белащица, местност \"Бялата пръст\" с идентификатор 03304.11.316",
+        "municipality": "Родопи",
+        "areaSqm": 510,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 31680.66754268009,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с.Белащица, местност \"Бялата пръст\" с идентификатор 03304.11.316",
+        "municipality": "Родопи",
+        "areaSqm": 510,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 31680.66754268009,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с.Белащица, местност \"Бялата пръст\" с идентификатор 03304.11.316.1",
+        "municipality": "Родопи",
+        "areaSqm": 277,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 31680.66754268009,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "с.Белащица, местност \"Бялата пръст\" с идентификатор 03304.11.316.1",
+        "municipality": "Родопи",
+        "areaSqm": 277,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 31680.66754268009,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с.Белащица, местност \"Бялата пръст\" с идентификатор 03304.11.318",
+        "municipality": "Родопи",
+        "areaSqm": 137,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 31680.66754268009,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с.Белащица, местност\"Бялата пръст\" с идентификатор 03304.11.318",
+        "municipality": "Родопи",
+        "areaSqm": 137,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 31680.66754268009,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "екскурзии",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 8001.71794072082,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -153,7 +287,8 @@
     "sourceUrl": "https://register.cacbg.bg/2024/53BA97D9-BD44-4512-B91D-5D53F0827BE2196349.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "chavdar-georgiev-chavdarov-7c6de8",
@@ -651,6 +786,7 @@
         "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

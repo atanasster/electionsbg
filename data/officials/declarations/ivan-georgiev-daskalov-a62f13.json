@@ -231,7 +231,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-daskalov-a62f13",
@@ -399,6 +400,20 @@
         "isSpouse": false,
         "legalBasis": "договор за банков кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -634,7 +649,8 @@
         "legalBasis": "договор за банков кредит от 2016 г.",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-georgiev-daskalov-a62f13",
@@ -651,6 +667,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/EB86D681-7B07-491C-A1C4-83916E9AA5EB89820.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

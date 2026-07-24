@@ -142,7 +142,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-adriyanov-iordanov-72e452",
@@ -287,7 +288,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-adriyanov-iordanov-72e452",
@@ -420,6 +422,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Равнището",
+        "municipality": "Лом",
+        "areaSqm": 13,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 11184.50990116728,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Кленяка",
+        "municipality": "Лом",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7518.547112990393,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Гарвана/Брестака",
+        "municipality": "Ружинци",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9152.12467341231,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Кривия път",
+        "municipality": "Лом",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4475.849127991697,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -547,7 +599,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-adriyanov-iordanov-72e452",
@@ -656,7 +709,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-adriyanov-iordanov-72e452",
@@ -1101,7 +1155,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-adriyanov-iordanov-72e452",
@@ -1317,7 +1372,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-adriyanov-iordanov-72e452",
@@ -1334,6 +1390,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E14D48B6-2434-41DB-959B-47AAFBB9734B89445.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

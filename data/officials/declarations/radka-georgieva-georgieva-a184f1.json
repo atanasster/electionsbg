@@ -112,6 +112,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3016.622099057689,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -191,7 +205,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "radka-georgieva-georgieva-a184f1",
@@ -208,7 +223,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/4CE182E7-F14C-49ED-AF8B-6075511D3071154996.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "radka-georgieva-georgieva-a184f1",
@@ -478,6 +494,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

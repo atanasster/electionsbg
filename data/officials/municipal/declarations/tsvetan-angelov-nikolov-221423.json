@@ -51,6 +51,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Чупрене",
+        "municipality": "Чупрене",
+        "areaSqm": 198,
+        "builtAreaSqm": 198,
+        "currency": "BGN",
+        "valueEur": 4345.980990167857,
+        "legalBasis": "продажба"
+      }
     ]
   }
 ]

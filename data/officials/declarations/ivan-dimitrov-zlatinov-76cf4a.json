@@ -94,6 +94,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Баня",
+        "municipality": "Карлово",
+        "areaSqm": 600,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -172,6 +186,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "Продажба на имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Баня",
+        "municipality": "Карлово",
+        "areaSqm": 600,
+        "builtAreaSqm": 120,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "възмездно"
       }
     ]
   }

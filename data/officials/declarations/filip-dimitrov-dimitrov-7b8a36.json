@@ -118,7 +118,8 @@
         "legalBasis": null,
         "fundsOrigin": "пенсии, наеми"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "filip-dimitrov-dimitrov-7b8a36",
@@ -239,7 +240,8 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "filip-dimitrov-dimitrov-7b8a36",
@@ -420,7 +422,8 @@
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "filip-dimitrov-dimitrov-7b8a36",
@@ -582,6 +585,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "От натрупвания на спестявания от заплати и наеми през последните 20 години"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Конференция - пътни и хотел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 901.9188784301294,
+        "legalBasis": null
       }
     ]
   },
@@ -817,6 +834,20 @@
         "isSpouse": false,
         "legalBasis": "лимит на кредитна карта",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Конференция САЩ - пътни и хотел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "USD",
+        "valueEur": 2668.9436198442604,
+        "legalBasis": null
       }
     ]
   },
@@ -1070,6 +1101,20 @@
         "isSpouse": true,
         "legalBasis": "покупка",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Нощувка и билет за Конференция във Виена",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 980.1465362531509,
+        "legalBasis": null
       }
     ]
   }

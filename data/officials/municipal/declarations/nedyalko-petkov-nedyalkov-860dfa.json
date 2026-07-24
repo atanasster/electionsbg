@@ -291,6 +291,32 @@
         "legalBasis": "договор - 4%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "село Манастирци",
+        "municipality": "Лозница",
+        "areaSqm": 9,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "безвъзмездно/замянка"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "село Манастирци",
+        "municipality": "Лозница",
+        "areaSqm": 2,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 153.38756435886555,
+        "legalBasis": "безвъзмездно/замянка"
+      }
     ]
   }
 ]

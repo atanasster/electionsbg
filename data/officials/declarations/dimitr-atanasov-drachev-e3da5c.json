@@ -159,7 +159,8 @@
         "legalBasis": "Нотариален акт за учредяване договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-atanasov-drachev-e3da5c",
@@ -201,6 +202,32 @@
         "isSpouse": true,
         "legalBasis": "Нотариален акт за учредяване на договорна ипотека",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Оман",
+        "municipality": "Болярово",
+        "areaSqm": 17,
+        "builtAreaSqm": 17347,
+        "currency": "BGN",
+        "valueEur": 5664.091459891709,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Оман",
+        "municipality": "Болярово",
+        "areaSqm": 9,
+        "builtAreaSqm": 8684,
+        "currency": "BGN",
+        "valueEur": 2663.8307010322983,
+        "legalBasis": "продажба"
       }
     ]
   },
@@ -364,7 +391,8 @@
         "legalBasis": "Нотариален акт за учредяване на договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-atanasov-drachev-e3da5c",
@@ -407,7 +435,8 @@
         "legalBasis": "Нотариален акт за учредяване на договорна ипотека",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-atanasov-drachev-e3da5c",
@@ -468,7 +497,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-atanasov-drachev-e3da5c",
@@ -529,6 +559,7 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

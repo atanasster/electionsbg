@@ -88,6 +88,20 @@
         "legalBasis": null,
         "fundsOrigin": "по Таблица 12 - ръчно"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Ружинци",
+        "municipality": "Ружинци",
+        "areaSqm": 2467,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 1406.0526732896008,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -105,7 +119,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/46D6CC0D-CDE7-4B4D-9647-9A63A484217193096.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "petr-dimitrov-tsolov-793323",
@@ -429,6 +444,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -88,7 +88,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, хонорари, доходи от чужбина"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-stoyanov-mitev-c799aa",
@@ -160,6 +161,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доходи от чужбина"
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Разход /дарение/",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 43459.80990167857,
+        "legalBasis": null
       }
     ]
   },
@@ -233,6 +248,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "доходи от чужбина"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Примера",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 818.0670099139496,
+        "legalBasis": "договор за продажба"
       }
     ]
   },
@@ -337,7 +366,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, хонорари"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-stoyanov-mitev-c799aa",
@@ -499,7 +529,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mitko-stoyanov-mitev-c799aa",
@@ -516,6 +547,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/ECCD0A21-CA36-46A5-ADC9-380685DF71F689944.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

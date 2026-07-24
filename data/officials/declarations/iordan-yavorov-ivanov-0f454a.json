@@ -14,7 +14,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/0AB2D1E9-FB89-4D90-BB57-615A4708E644130980.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordan-yavorov-ivanov-0f454a",
@@ -253,7 +254,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordan-yavorov-ivanov-0f454a",
@@ -468,6 +470,20 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "дивиденти"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда Акорд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5368.564752560294,
+        "legalBasis": "възмездно"
       }
     ]
   }

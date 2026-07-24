@@ -249,7 +249,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-toncheva-naidenova-stoyanova-a9d96e",
@@ -310,7 +311,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,издръжка на дете"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "iordanka-toncheva-naidenova-stoyanova-a9d96e",
@@ -550,6 +552,68 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата,рента,издръжка на дете"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Топола",
+        "municipality": "Каварна",
+        "areaSqm": 576,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно,съдебно решение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "стопански постройки",
+        "detail": null,
+        "location": "с.Житница",
+        "municipality": "Добричка",
+        "areaSqm": 6008,
+        "builtAreaSqm": 1100,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно,съдебно решение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Тянево",
+        "municipality": "Добричка",
+        "areaSqm": 2640,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно,съдебно решение"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр.Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 3301,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно,съдебно решение"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "АУДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно,съдебно решение"
       }
     ]
   },
@@ -900,6 +964,116 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "тянево",
+        "municipality": "Добричка",
+        "areaSqm": 2001,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "тянево",
+        "municipality": "Добричка",
+        "areaSqm": 3088,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "житница",
+        "municipality": "Добричка",
+        "areaSqm": 9002,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златия",
+        "municipality": "Добричка",
+        "areaSqm": 13998,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златия",
+        "municipality": "Добричка",
+        "areaSqm": 5834,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "златия",
+        "municipality": "Добричка",
+        "areaSqm": 13535,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "черна",
+        "municipality": "Добричка",
+        "areaSqm": 10498,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 710.1844229815475,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "черна",
+        "municipality": "Добричка",
+        "areaSqm": 10500,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 710.1844229815475,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "черна",
+        "municipality": "Добричка",
+        "areaSqm": 10002,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 788.9233726857651,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -917,7 +1091,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/F4E83871-17A9-4691-A7FC-355477BF256C90027.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordanka-toncheva-naidenova-stoyanova-a9d96e",
@@ -3797,6 +3972,7 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

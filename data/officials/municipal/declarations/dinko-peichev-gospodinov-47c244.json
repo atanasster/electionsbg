@@ -45,6 +45,44 @@
         "legalBasis": "Потреб. кредит - 4%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Странско",
+        "municipality": "Димитровград",
+        "areaSqm": 615,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 980.1465362531509,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Странско",
+        "municipality": "Димитровград",
+        "areaSqm": 3250,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3127.0611453960723,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Странско",
+        "municipality": "Димитровград",
+        "areaSqm": 1377,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1517.0030115091802,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

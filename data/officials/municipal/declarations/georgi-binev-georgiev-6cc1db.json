@@ -51,6 +51,68 @@
         "legalBasis": null,
         "fundsOrigin": "пенсия и заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Раднево",
+        "municipality": "Раднево",
+        "areaSqm": 12605,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Арнаутито",
+        "municipality": "Стара Загора",
+        "areaSqm": 8999,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 579.2937013953156,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Арнаутито",
+        "municipality": "Стара Загора",
+        "areaSqm": 4100,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 310.86546376730087,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Арнаутито",
+        "municipality": "Стара Загора",
+        "areaSqm": 12610,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 994.9740008078412,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Арнаутито",
+        "municipality": "Стара Загора",
+        "areaSqm": 2030,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 160.03435881441638,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

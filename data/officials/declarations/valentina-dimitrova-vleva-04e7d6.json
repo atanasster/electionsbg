@@ -190,6 +190,20 @@
         "legalBasis": "кредит; 9%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ПАЗАРДЖИК",
+        "municipality": "Пазарджик",
+        "areaSqm": 135,
+        "builtAreaSqm": 54,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -311,6 +325,20 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ТОВАРЕН АВТОМОБИЛ",
+        "detail": "ОПЕЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -396,7 +424,8 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -413,7 +442,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/5A15F9E7-1345-4CEC-A27E-DACC44751721145564.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -430,7 +460,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/5A15F9E7-1345-4CEC-A27E-DACC44751721145567.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -790,7 +821,8 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -807,7 +839,8 @@
     "sourceUrl": "https://register.cacbg.bg/2023/5A15F9E7-1345-4CEC-A27E-DACC44751721145565.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -1167,7 +1200,8 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -1252,7 +1286,8 @@
         "legalBasis": "КРЕДИТНА КАРТА",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -1306,7 +1341,8 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -1373,7 +1409,8 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -1476,7 +1513,8 @@
         "legalBasis": "КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -1493,7 +1531,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/5A15F9E7-1345-4CEC-A27E-DACC4475172189338.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "valentina-dimitrova-vleva-04e7d6",
@@ -1709,6 +1748,7 @@
         "legalBasis": "ЛИЗИНГ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -334,7 +334,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-ivanov-hristov-42ada5",
@@ -586,6 +587,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартаменти",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 453,
+        "builtAreaSqm": 453,
+        "currency": "BGN",
+        "valueEur": 300000,
+        "legalBasis": "възмездно"
       }
     ]
   }

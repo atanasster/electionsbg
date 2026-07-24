@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-aleksandrov-dimov-16daf2",
@@ -143,7 +144,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-aleksandrov-dimov-16daf2",
@@ -192,7 +194,8 @@
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-aleksandrov-dimov-16daf2",
@@ -240,6 +243,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "трудови доходи"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение - семинар",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1687.263207947521,
+        "legalBasis": null
       }
     ]
   }

@@ -321,7 +321,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-ivanova-danailova-todorova-220cf7",
@@ -591,7 +592,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-ivanova-danailova-todorova-220cf7",
@@ -712,7 +714,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "nadezhda-ivanova-danailova-todorova-220cf7",
@@ -833,6 +836,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 48,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10737.129505120589,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -882,6 +923,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата, продажба на земеделска земя, дарение от родител"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Батак",
+        "municipality": "Павликени",
+        "areaSqm": 28,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2249.6842772633613,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -899,7 +954,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/E8457F9E-9124-406E-9E08-A5E7742A35DD88270.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nadezhda-ivanova-danailova-todorova-220cf7",
@@ -1097,6 +1153,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

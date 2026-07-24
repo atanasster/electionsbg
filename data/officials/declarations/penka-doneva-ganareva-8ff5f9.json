@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penka-doneva-ganareva-8ff5f9",
@@ -154,6 +155,20 @@
         "isSpouse": false,
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Тъжа",
+        "municipality": "Павел баня",
+        "areaSqm": 1471,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

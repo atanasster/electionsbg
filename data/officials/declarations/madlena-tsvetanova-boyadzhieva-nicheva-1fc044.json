@@ -118,7 +118,8 @@
         "legalBasis": null,
         "fundsOrigin": "Задължителен универсален пенсионен фонд"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "madlena-tsvetanova-boyadzhieva-nicheva-1fc044",
@@ -239,7 +240,8 @@
         "legalBasis": null,
         "fundsOrigin": "задължителен универсален пенсионен фонд"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "madlena-tsvetanova-boyadzhieva-nicheva-1fc044",
@@ -318,7 +320,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата - УПФ"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "madlena-tsvetanova-boyadzhieva-nicheva-1fc044",
@@ -402,6 +405,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата - УПФ"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Пежо 406",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "Пежо 406",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   }

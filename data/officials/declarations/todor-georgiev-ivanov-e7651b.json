@@ -14,7 +14,21 @@
     "sourceUrl": "https://register.cacbg.bg/2022/54689CDC-130F-499E-88AD-4F38B03C1F56131056.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Атика Р5 ООД",
+        "detail": null,
+        "location": "Управител - Освободен към дата 08.02.2022",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "todor-georgiev-ivanov-e7651b",
@@ -31,7 +45,8 @@
     "sourceUrl": "https://register.cacbg.bg/2022/54689CDC-130F-499E-88AD-4F38B03C1F56131055.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "todor-georgiev-ivanov-e7651b",
@@ -133,6 +148,7 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

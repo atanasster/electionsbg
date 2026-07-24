@@ -46,6 +46,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "дарение средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 29654.92910938067,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -95,6 +109,7 @@
         "legalBasis": null,
         "fundsOrigin": "ТР.ДОХОДИ ,НАЕМ,ПЕНСИЯ"
       }
-    ]
+    ],
+    "events": []
   }
 ]

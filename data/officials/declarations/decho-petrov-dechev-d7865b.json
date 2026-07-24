@@ -333,7 +333,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "decho-petrov-dechev-d7865b",
@@ -471,6 +472,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "продажба на имот и приходи от заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 78,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 85963.50398552022,
+        "legalBasis": "покупко-продажба"
       }
     ]
   }

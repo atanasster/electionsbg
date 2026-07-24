@@ -58,7 +58,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-iordanov-petkov-389644",
@@ -119,7 +120,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-iordanov-petkov-389644",
@@ -162,7 +164,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-iordanov-petkov-389644",
@@ -360,7 +363,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-iordanov-petkov-389644",
@@ -403,7 +407,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-iordanov-petkov-389644",
@@ -439,6 +444,20 @@
         "legalBasis": null,
         "fundsOrigin": "наследяване"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ДЖИП",
+        "detail": "ЛЕНД РОВЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1789.5215841867648,
+        "legalBasis": "ПРОДАЖБА"
+      }
     ]
   },
   {
@@ -456,7 +475,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/C6B55FF6-9066-4C1B-B322-B85D7EA00DBE97167.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "toshko-iordanov-petkov-389644",
@@ -708,7 +728,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toshko-iordanov-petkov-389644",
@@ -725,6 +746,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C6B55FF6-9066-4C1B-B322-B85D7EA00DBE89542.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

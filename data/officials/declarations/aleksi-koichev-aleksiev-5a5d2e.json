@@ -76,6 +76,20 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Таурег",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13804.8807922979,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -155,6 +169,44 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетения при пенсиониране"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Сеат Ибиза",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "продажба"
+      },
+      {
+        "kind": "guarantee",
+        "description": "Дарение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9254.383049651555,
+        "legalBasis": null
+      },
+      {
+        "kind": "guarantee",
+        "description": "Дарение",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4703.88530700521,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -216,7 +268,8 @@
         "legalBasis": null,
         "fundsOrigin": "обезщетение при пенсиониране"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksi-koichev-aleksiev-5a5d2e",
@@ -277,7 +330,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "aleksi-koichev-aleksiev-5a5d2e",
@@ -307,6 +361,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес МЛ 320",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -124,6 +124,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и доходи от св. професия"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1554.8386107177005,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1554.8386107177005,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -250,6 +276,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и св.професия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "такса участие за Конференция от Jouke van der Zee Fund",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 449.93685545267226,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "такса участие за Конференция от Jouke van der Zee Fund",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 449.93685545267226,
+        "legalBasis": null
       }
     ]
   },
@@ -413,6 +465,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и доходи от своб. Професия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр. Луковит",
+        "municipality": "Луковит",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -612,6 +678,32 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплати и доходи като свободна професия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение по програма \"Еразъм+\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1394.804251903284,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Обучение по програма \"Еразъм+\"",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1394.804251903284,
+        "legalBasis": null
       }
     ]
   },
@@ -956,6 +1048,44 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и доходи от своб.професия"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1390.2026249725182,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "по програма Еразъм+",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1390.2026249725182,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "такса за участие в научна конференция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 600.2566685243605,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1263,6 +1393,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплати"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Такса участие в Международна конференция на Европейската Асоциация по обществено здраве /EUPHA/, Любляна, Словения,",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 600.2566685243605,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -1546,6 +1690,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплати и доходи от свободна професия"
       }
-    ]
+    ],
+    "events": []
   }
 ]

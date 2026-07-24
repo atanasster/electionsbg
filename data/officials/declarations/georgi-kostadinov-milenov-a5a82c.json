@@ -148,7 +148,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-kostadinov-milenov-a5a82c",
@@ -305,7 +306,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "georgi-kostadinov-milenov-a5a82c",
@@ -515,6 +517,44 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 72,
+        "builtAreaSqm": 72,
+        "currency": "BGN",
+        "valueEur": 21985.550891437397,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 4007",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
       }
     ]
   }

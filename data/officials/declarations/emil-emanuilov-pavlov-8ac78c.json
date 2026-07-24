@@ -298,6 +298,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, наследяване и отчуждаване на имот"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "БУРГАС, УЛ.АНГЕЛАРИЙ, ПИ №1191",
+        "municipality": "Бургас",
+        "areaSqm": 220,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 69868.03556546326,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -599,7 +613,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-emanuilov-pavlov-8ac78c",
@@ -900,7 +915,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "emil-emanuilov-pavlov-8ac78c",
@@ -1116,6 +1132,7 @@
         "legalBasis": "ДОГОВОР ЗА КРЕДИТ",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

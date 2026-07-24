@@ -256,6 +256,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Ивановци",
+        "municipality": "Видин",
+        "areaSqm": 2500,
+        "builtAreaSqm": 260,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -814,7 +828,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "shishman-antonov-chaushev-72e6ec",
@@ -1108,6 +1123,20 @@
         "isSpouse": true,
         "legalBasis": "кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "гр.Дунавци",
+        "municipality": "Видин",
+        "areaSqm": 3,
+        "builtAreaSqm": 3,
+        "currency": "BGN",
+        "valueEur": 1392.247792497303,
+        "legalBasis": "възмездно"
       }
     ]
   }

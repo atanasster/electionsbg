@@ -100,6 +100,20 @@
         "legalBasis": "Ипотека",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КУРС в Германия (дневни командировъчни средства и разходи за хотел по Наредбата за служебните командировки и специализации в чужбина)",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1126.3760142752694,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -117,7 +131,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/4E40B83C-7EFC-407F-978E-860FF2A4D5A693308.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-andonov-petrov-df3176",
@@ -225,6 +240,7 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -106,6 +106,20 @@
         "legalBasis": "договор за финансов лизинг; 3,95 %",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "currency": "BGN",
+        "valueEur": 114657.204358252,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -142,6 +156,7 @@
         "amountEurSpouse": 1227.1005148709244
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

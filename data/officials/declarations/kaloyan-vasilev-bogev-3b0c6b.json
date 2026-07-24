@@ -406,6 +406,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата, доходи от търговска дейност, спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Гаранция за заетата длъжност",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1305.3281726939458,
+        "legalBasis": null
+      }
     ]
   }
 ]

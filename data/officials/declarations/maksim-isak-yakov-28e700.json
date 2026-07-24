@@ -554,6 +554,44 @@
         "legalBasis": null,
         "fundsOrigin": "трудова дейност"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Гараж",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 25,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9999.846612435642,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Гараж",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 25,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 9999.846612435642,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5061.789623842563,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1285,6 +1323,32 @@
         "legalBasis": null,
         "fundsOrigin": "Доходи"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Ница",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 64499.98210478416,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Ница",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 64499.98210478416,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1908,6 +1972,44 @@
         "legalBasis": null,
         "fundsOrigin": "Трудова дейност"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Къща с двор",
+        "detail": null,
+        "location": "с. Лесичери",
+        "municipality": "Павликени",
+        "areaSqm": 1,
+        "builtAreaSqm": 250,
+        "currency": "BGN",
+        "valueEur": 18689.252133365375,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 77,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 53499.537280847515,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 77,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 53499.537280847515,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -2447,6 +2549,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплати, дивидент, наем"
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -226,6 +226,116 @@
         "legalBasis": "лизинг",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Златарица",
+        "municipality": "Златарица",
+        "areaSqm": 554,
+        "builtAreaSqm": 176,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Нива",
+        "detail": null,
+        "location": "гр.Златарица",
+        "municipality": "Златарица",
+        "areaSqm": 12515,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Нива",
+        "detail": null,
+        "location": "гр.Златарица",
+        "municipality": "Златарица",
+        "areaSqm": 3011,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Лозе",
+        "detail": null,
+        "location": "гр.Златарица",
+        "municipality": "Златарица",
+        "areaSqm": 1214,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "гр.Златарица",
+        "municipality": "Златарица",
+        "areaSqm": 34958,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гори",
+        "detail": null,
+        "location": "с.Дединци",
+        "municipality": "Златарица",
+        "areaSqm": 17993,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Дединци",
+        "municipality": "Златарица",
+        "areaSqm": 21014,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "изоставена орна земя",
+        "detail": null,
+        "location": "с.Родина",
+        "municipality": "Златарица",
+        "areaSqm": 3526,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Родина",
+        "municipality": "Златарица",
+        "areaSqm": 7832,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "безвъзмездно"
+      }
     ]
   },
   {
@@ -406,7 +516,8 @@
         "legalBasis": "Лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-lazarova-gospodinova-e94b47",
@@ -490,6 +601,20 @@
         "isSpouse": false,
         "legalBasis": "Лизинг",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -738,7 +863,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-lazarova-gospodinova-e94b47",
@@ -877,7 +1003,8 @@
         "legalBasis": "Договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-lazarova-gospodinova-e94b47",
@@ -1124,7 +1251,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rositsa-lazarova-gospodinova-e94b47",
@@ -1371,6 +1499,7 @@
         "legalBasis": "Догомор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

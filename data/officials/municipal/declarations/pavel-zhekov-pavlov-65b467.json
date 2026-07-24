@@ -81,6 +81,32 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Приморско, ул. Ропотамо 90",
+        "municipality": "Приморско",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Приморско, ул. Ропотамо 90",
+        "municipality": "Приморско",
+        "areaSqm": 33,
+        "builtAreaSqm": 33,
+        "currency": "BGN",
+        "valueEur": 11504.067326914916,
+        "legalBasis": "възмездно"
+      }
     ]
   }
 ]

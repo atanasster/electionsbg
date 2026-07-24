@@ -159,7 +159,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marin-raikov-nikolov-e3c005",
@@ -322,7 +323,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marin-raikov-nikolov-e3c005",
@@ -485,7 +487,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marin-raikov-nikolov-e3c005",
@@ -630,7 +633,8 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marin-raikov-nikolov-e3c005",
@@ -757,7 +761,8 @@
         "legalBasis": null,
         "fundsOrigin": "наследство"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marin-raikov-nikolov-e3c005",
@@ -991,7 +996,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marin-raikov-nikolov-e3c005",
@@ -1008,7 +1014,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/25F43E90-296F-4FCD-9A6A-0C63B6EDE8E594362.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "marin-raikov-nikolov-e3c005",
@@ -1260,7 +1267,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marin-raikov-nikolov-e3c005",
@@ -1380,6 +1388,20 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "дарение от съпруг"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 450,
+        "builtAreaSqm": 180,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

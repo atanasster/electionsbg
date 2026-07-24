@@ -304,6 +304,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Банско",
+        "municipality": "Банско",
+        "areaSqm": 356,
+        "builtAreaSqm": 95,
+        "currency": "BGN",
+        "valueEur": 49999.7443540594,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -611,7 +625,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tihomir-kostov-savchev-95bd6a",
@@ -888,7 +903,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tihomir-kostov-savchev-95bd6a",
@@ -1135,7 +1151,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tihomir-kostov-savchev-95bd6a",
@@ -1406,7 +1423,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "tihomir-kostov-savchev-95bd6a",
@@ -1423,7 +1441,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/CC4A141A-1E73-4B2D-924C-0A088901366F89205.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tihomir-kostov-savchev-95bd6a",
@@ -1621,6 +1640,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

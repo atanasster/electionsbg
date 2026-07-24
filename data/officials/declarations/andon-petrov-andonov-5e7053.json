@@ -100,7 +100,8 @@
         "legalBasis": null,
         "fundsOrigin": "вноски от заплати"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andon-petrov-andonov-5e7053",
@@ -352,7 +353,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andon-petrov-andonov-5e7053",
@@ -401,7 +403,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andon-petrov-andonov-5e7053",
@@ -418,7 +421,21 @@
     "sourceUrl": "https://register.cacbg.bg/2020/7E2E9721-1B83-449C-ABBB-C4A3648DB4EC111267.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "член на СД на БЕХ ЕАД",
+        "detail": null,
+        "location": "член на СД",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "andon-petrov-andonov-5e7053",
@@ -515,7 +532,8 @@
         "legalBasis": "чл.99, ал.1, т.2, б.\"д\" от КСО във вр. с чл.10, ал.2 НПОС",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andon-petrov-andonov-5e7053",
@@ -695,7 +713,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andon-petrov-andonov-5e7053",
@@ -712,6 +731,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/7E2E9721-1B83-449C-ABBB-C4A3648DB4EC91107.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -244,7 +244,8 @@
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "rosen-tinkov-todorov-9a0b12",
@@ -502,6 +503,32 @@
         "isSpouse": true,
         "legalBasis": "Потребителски кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Долни Дъбник",
+        "municipality": "Долни Дъбник",
+        "areaSqm": 17,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 13037.94297050357,
+        "legalBasis": "продажба наследен имот"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 14316.172673494118,
+        "legalBasis": "възмездно"
       }
     ]
   }

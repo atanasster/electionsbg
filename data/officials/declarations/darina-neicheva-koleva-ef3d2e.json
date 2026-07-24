@@ -202,7 +202,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "darina-neicheva-koleva-ef3d2e",
@@ -407,6 +408,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСВАГЕН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "ПРОДАЖБА"
+      }
     ]
   },
   {
@@ -424,7 +439,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/3A2BD876-F767-4DF7-9076-31D523509DE9100595.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "darina-neicheva-koleva-ef3d2e",
@@ -730,6 +746,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

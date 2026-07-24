@@ -214,6 +214,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "пътуване по проект на ВСС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1932.683310921706,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -658,7 +672,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "galateya-petrova-handzhieva-mileva-cbe11e",
@@ -675,6 +690,7 @@
     "sourceUrl": "https://register.cacbg.bg/2019/EDBBC5CB-1AC7-4D8D-A370-6E4C1AFB6C2794148.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

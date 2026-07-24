@@ -64,6 +64,20 @@
         "legalBasis": "договор з акредит, лихва 5,5%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "автомобил",
+        "detail": "субару",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -88,6 +102,7 @@
         "amountEurSpouse": 2724.163143013452
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

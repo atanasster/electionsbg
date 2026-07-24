@@ -136,6 +136,32 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заеми"
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "НЦПКПС",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 27.609761584595798,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Еразъм",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 574.9988495932673,
+        "legalBasis": null
+      }
     ]
   }
 ]

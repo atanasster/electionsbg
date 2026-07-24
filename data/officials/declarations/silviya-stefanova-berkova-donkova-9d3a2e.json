@@ -160,7 +160,8 @@
         "legalBasis": "кредитна карта",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "silviya-stefanova-berkova-donkova-9d3a2e",
@@ -304,6 +305,20 @@
         "isSpouse": false,
         "legalBasis": "задължения по кредитни карти",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Мюнхен",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 1144.782521998333,
+        "legalBasis": null
       }
     ]
   },
@@ -480,6 +495,7 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследство"
       }
-    ]
+    ],
+    "events": []
   }
 ]

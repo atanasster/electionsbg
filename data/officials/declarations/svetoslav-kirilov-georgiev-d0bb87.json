@@ -112,6 +112,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща",
+        "detail": null,
+        "location": "ул. Скобелев № 7 б, гр. Кюстендил",
+        "municipality": "Кюстендил",
+        "areaSqm": 73,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 88964.78732814202,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -155,6 +169,7 @@
         "legalBasis": "други",
         "fundsOrigin": "заеми"
       }
-    ]
+    ],
+    "events": []
   }
 ]

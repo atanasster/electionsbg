@@ -274,6 +274,20 @@
         "legalBasis": "КРЕДИТНА КАРТА 17.9%",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "в.з. Боровец",
+        "municipality": "Самоков",
+        "areaSqm": 70,
+        "builtAreaSqm": 85,
+        "currency": "BGN",
+        "valueEur": 50000.2556459406,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -497,6 +511,7 @@
         "legalBasis": "КРЕДИТНА КАРТА 17.9%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

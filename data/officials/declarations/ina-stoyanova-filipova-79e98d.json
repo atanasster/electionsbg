@@ -206,7 +206,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ina-stoyanova-filipova-79e98d",
@@ -415,7 +416,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ina-stoyanova-filipova-79e98d",
@@ -624,7 +626,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ina-stoyanova-filipova-79e98d",
@@ -797,7 +800,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ina-stoyanova-filipova-79e98d",
@@ -994,6 +998,20 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Казанлък, бул. Никола Петков № 47 вх. В ет. 2 ап. 19",
+        "municipality": "Казанлък",
+        "areaSqm": 81,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 17383.92396067143,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1126,6 +1144,7 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

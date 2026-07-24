@@ -202,7 +202,8 @@
         "legalBasis": "потребителски",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "verginiya-danchova-tsanova-ivanova-76300c",
@@ -377,6 +378,20 @@
         "legalBasis": "кр.карта",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Египет",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 644.2277703072353,
+        "legalBasis": null
+      }
     ]
   },
   {
@@ -394,6 +409,7 @@
     "sourceUrl": "https://register.cacbg.bg/2022/02132DFB-D4D3-4B58-9167-E42A2B4AD2D8130914.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

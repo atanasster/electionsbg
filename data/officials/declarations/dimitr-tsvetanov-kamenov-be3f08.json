@@ -27,7 +27,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitr-tsvetanov-kamenov-be3f08",
@@ -76,7 +77,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-tsvetanov-kamenov-be3f08",
@@ -143,6 +145,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "BMW 430 xd",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 18670.845625642312,
+        "legalBasis": "Обезщетение по автокаско"
+      }
     ]
   },
   {
@@ -192,7 +208,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-tsvetanov-kamenov-be3f08",
@@ -241,7 +258,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-tsvetanov-kamenov-be3f08",
@@ -308,7 +326,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-tsvetanov-kamenov-be3f08",
@@ -380,7 +399,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "dimitr-tsvetanov-kamenov-be3f08",
@@ -397,6 +417,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/16A4C896-8280-450F-BDCC-69A1BB94430389328.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

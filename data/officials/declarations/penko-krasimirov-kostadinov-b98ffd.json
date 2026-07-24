@@ -40,7 +40,8 @@
         "legalBasis": null,
         "fundsOrigin": "Заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "penko-krasimirov-kostadinov-b98ffd",
@@ -83,6 +84,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "VW -Golf IV",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -100,6 +115,7 @@
     "sourceUrl": "https://register.cacbg.bg/2022/8A7B9D70-6B45-45E0-99FA-53BC0A54900F136832.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

@@ -232,6 +232,20 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 690,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 200000,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -515,7 +529,8 @@
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kiril-georgiev-georgiev-6213af",
@@ -719,6 +734,44 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 119,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 155688.37782424854,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 16,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7925.024158541387,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 16,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 7925.024158541387,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -942,6 +995,32 @@
         "isSpouse": false,
         "legalBasis": "Договор за заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Гърция",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 777,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 20000.204516752478,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4908.4020594836975,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -1220,6 +1299,56 @@
         "legalBasis": "чл. 134 от ДОПК",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Божурище",
+        "municipality": "Божурище",
+        "areaSqm": 495,
+        "builtAreaSqm": 170,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Божурище",
+        "municipality": "Божурище",
+        "areaSqm": 476,
+        "builtAreaSqm": 124,
+        "currency": "BGN",
+        "valueEur": 112484.21386316807,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "Божурище",
+        "municipality": "Божурище",
+        "areaSqm": 398,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 43541.616602669965,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 89,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 69535.69584268572,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1455,6 +1584,56 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ниви - 7 бр.",
+        "detail": null,
+        "location": "с. Марчево",
+        "municipality": "Гърмен",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 345.1220198074475,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "ниви - 7 бр.",
+        "detail": null,
+        "location": "с. Марчево",
+        "municipality": "Гърмен",
+        "areaSqm": 8,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Марчево",
+        "municipality": "Гърмен",
+        "areaSqm": 330,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 144.69560237852983,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Марчево",
+        "municipality": "Гърмен",
+        "areaSqm": 270,
+        "builtAreaSqm": 80,
+        "currency": "BGN",
+        "valueEur": 351.7688142629983,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -1472,7 +1651,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/2455F66B-8604-41B3-8D7D-C1EDD74ED5B691100.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kiril-georgiev-georgiev-6213af",
@@ -1922,6 +2102,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

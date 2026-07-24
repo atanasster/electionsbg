@@ -220,7 +220,8 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marinela-georgieva-nikolova-c6db71",
@@ -353,6 +354,20 @@
         "legalBasis": "кредит",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3768.7324562973263,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -396,7 +411,8 @@
         "legalBasis": "наследство",
         "fundsOrigin": "наследяване"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "marinela-georgieva-nikolova-c6db71",
@@ -420,6 +436,7 @@
         "amountEurSpouse": 28540.312808372917
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

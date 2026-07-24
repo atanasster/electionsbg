@@ -166,6 +166,20 @@
         "legalBasis": null,
         "fundsOrigin": "НОИ"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес ГЛК 250",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8589.70360409647,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -436,7 +450,8 @@
         "legalBasis": "кредит автомобил",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "krasimir-lazarov-petkov-5b2a18",
@@ -453,6 +468,7 @@
     "sourceUrl": "https://register.cacbg.bg/2024/68F8D6D4-3E31-47A4-9B45-ECC1B7F8052F167650.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

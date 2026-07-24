@@ -63,6 +63,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Волво 850 ГЛТ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 306.7751287177311,
+        "legalBasis": "предаден за вторични суровини"
+      }
     ]
   }
 ]

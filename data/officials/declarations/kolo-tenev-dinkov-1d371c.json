@@ -195,7 +195,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kolo-tenev-dinkov-1d371c",
@@ -304,6 +305,20 @@
         "legalBasis": null,
         "fundsOrigin": "спестявания, заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Черница",
+        "municipality": "Сунгурларе",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно продажба наследство /чл. 212 от ЗЗД/"
+      }
     ]
   },
   {
@@ -321,7 +336,21 @@
     "sourceUrl": "https://register.cacbg.bg/2019/72C1F3A1-A292-4600-9466-332635C3C14194369.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение \"Бизнес университетска асоциация в хранителната индустрия и туризма\"",
+        "detail": null,
+        "location": "Председател на управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "kolo-tenev-dinkov-1d371c",
@@ -555,7 +584,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kolo-tenev-dinkov-1d371c",
@@ -572,6 +602,7 @@
     "sourceUrl": "https://register.cacbg.bg/2018/72C1F3A1-A292-4600-9466-332635C3C14189298.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

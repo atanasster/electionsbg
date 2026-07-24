@@ -159,6 +159,20 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апаратамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 133,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 117085.84079393404,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -274,7 +288,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-dimitrov-tehov-52766c",
@@ -353,7 +368,8 @@
         "legalBasis": null,
         "fundsOrigin": "командировъчни"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "andrei-dimitrov-tehov-52766c",
@@ -533,6 +549,7 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   }
 ]

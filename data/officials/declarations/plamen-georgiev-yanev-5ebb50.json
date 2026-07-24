@@ -177,7 +177,8 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-yanev-5ebb50",
@@ -328,6 +329,20 @@
         "legalBasis": "договор",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1891.7799604260083,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -395,7 +410,8 @@
         "legalBasis": "Договор за кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-yanev-5ebb50",
@@ -448,6 +464,32 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ",
+        "detail": null,
+        "location": "ОСВОБОДЕН КАТО ПРЕДСТАВЛЯВАЩ И ЧЛЕН НА УС считано от 09.03.2022г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "disposal_property",
+        "description": "СДРУЖЕНИЕ СПОРТЕН КЛУБ БУРГАС",
+        "detail": null,
+        "location": "ОСВОБОДЕН КАТО ЧЛЕН НА УС считано от 09.03.2022г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
       }
     ]
   },
@@ -521,7 +563,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-yanev-5ebb50",
@@ -538,6 +581,7 @@
     "sourceUrl": "https://register.cacbg.bg/2022/4AD69156-A64E-4E2D-98F1-8714162D0992131515.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

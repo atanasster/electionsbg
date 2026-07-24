@@ -184,7 +184,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toni-dimitrova-shekerdzhieva-novak-2bd278",
@@ -382,7 +383,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toni-dimitrova-shekerdzhieva-novak-2bd278",
@@ -581,7 +583,8 @@
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "toni-dimitrova-shekerdzhieva-novak-2bd278",
@@ -756,6 +759,32 @@
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -773,7 +802,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/AE451021-62C3-4607-90E1-5C4351E55F3E114731.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "toni-dimitrova-shekerdzhieva-novak-2bd278",
@@ -790,7 +820,8 @@
     "sourceUrl": "https://register.cacbg.bg/2020/AE451021-62C3-4607-90E1-5C4351E55F3E113379.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "toni-dimitrova-shekerdzhieva-novak-2bd278",
@@ -934,6 +965,7 @@
         "legalBasis": "Договор за финансов лизинг",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

@@ -213,7 +213,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "ivan-rusev-rusev-d427a8",
@@ -448,6 +449,20 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек",
+        "detail": "Митсубиши",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4785.692007996605,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -465,7 +480,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/A5C66E43-7452-48C3-9C6B-A454B072E2E191517.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-rusev-rusev-d427a8",
@@ -645,6 +661,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

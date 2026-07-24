@@ -14,7 +14,21 @@
     "sourceUrl": "https://register.cacbg.bg/2022/E8A3F274-C96E-4849-9F66-C53A2202A582141368.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "И Ем Пи Инвест България АД",
+        "detail": null,
+        "location": "Не съм член на Съвета на директорите от 24.06.2022 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "ivan-markos-hristanov-4b4bcd",
@@ -584,6 +598,7 @@
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "Продажба на акции"
       }
-    ]
+    ],
+    "events": []
   }
 ]

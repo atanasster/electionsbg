@@ -173,7 +173,8 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sevdzhan-mustafov-sdkev-308913",
@@ -288,7 +289,8 @@
         "legalBasis": "Кредит",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sevdzhan-mustafov-sdkev-308913",
@@ -403,7 +405,8 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sevdzhan-mustafov-sdkev-308913",
@@ -523,6 +526,56 @@
         "isSpouse": false,
         "legalBasis": "Заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Парцел",
+        "detail": null,
+        "location": "гр. Цар Калоян",
+        "municipality": "Цар Калоян",
+        "areaSqm": 658,
+        "builtAreaSqm": 658,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Парцел",
+        "detail": null,
+        "location": "гр. Цар Калоян",
+        "municipality": "Цар Калоян",
+        "areaSqm": 818,
+        "builtAreaSqm": 818,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Парцел",
+        "detail": null,
+        "location": "гр. Цар Калоян",
+        "municipality": "Цар Калоян",
+        "areaSqm": 863,
+        "builtAreaSqm": 863,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "Парцел",
+        "detail": null,
+        "location": "гр. Цар Калоян",
+        "municipality": "Цар Калоян",
+        "areaSqm": 956,
+        "builtAreaSqm": 956,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -657,6 +710,32 @@
         "isSpouse": false,
         "legalBasis": "заем",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Разград",
+        "municipality": "Разград",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -851,7 +930,8 @@
         "legalBasis": "Заем",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "sevdzhan-mustafov-sdkev-308913",
@@ -1019,6 +1099,20 @@
         "isSpouse": false,
         "legalBasis": "Кредит",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "терен",
+        "detail": null,
+        "location": "град Цар Калоян",
+        "municipality": "Цар Калоян",
+        "areaSqm": 1800,
+        "builtAreaSqm": 1800,
+        "currency": "BGN",
+        "valueEur": 4090.3350495697478,
+        "legalBasis": "възмездно"
       }
     ]
   }

@@ -94,7 +94,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefana-georgieva-karaslavova-vodenicharska-b6e279",
@@ -454,7 +455,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefana-georgieva-karaslavova-vodenicharska-b6e279",
@@ -532,6 +534,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "форд фиеста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -720,7 +736,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "stefana-georgieva-karaslavova-vodenicharska-b6e279",
@@ -781,6 +798,7 @@
         "legalBasis": null,
         "fundsOrigin": "Удръжки от възнаграждения"
       }
-    ]
+    ],
+    "events": []
   }
 ]

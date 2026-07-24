@@ -357,7 +357,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-petrov-chervenyakov-c7adc4",
@@ -736,7 +737,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-petrov-chervenyakov-c7adc4",
@@ -845,7 +847,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата и спестявания"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-petrov-chervenyakov-c7adc4",
@@ -1020,7 +1023,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-petrov-chervenyakov-c7adc4",
@@ -1037,7 +1041,8 @@
     "sourceUrl": "https://register.cacbg.bg/2019/036A01B6-5C3E-4C61-8770-75843B8D9C1698201.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mladen-petrov-chervenyakov-c7adc4",
@@ -1438,7 +1443,8 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "mladen-petrov-chervenyakov-c7adc4",
@@ -1563,6 +1569,32 @@
         "isSpouse": false,
         "legalBasis": "покупка",
         "fundsOrigin": "лични-адвокатски хонорари"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Субару Трибека",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "екскурзия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 797.6153346661008,
+        "legalBasis": null
       }
     ]
   }

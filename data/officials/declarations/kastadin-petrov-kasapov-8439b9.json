@@ -123,6 +123,20 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "моторно превозно средствно",
+        "detail": "Сузуки Витара",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1124.8421386316807,
+        "legalBasis": "възмездно"
+      }
     ]
   },
   {
@@ -231,7 +245,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "kastadin-petrov-kasapov-8439b9",
@@ -248,7 +263,8 @@
     "sourceUrl": "https://register.cacbg.bg/2018/C855B3F2-451F-4750-9CF3-949DA8E014C889538.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kastadin-petrov-kasapov-8439b9",
@@ -356,6 +372,7 @@
         "legalBasis": null,
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   }
 ]

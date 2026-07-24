@@ -27,6 +27,20 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Голямо Букова",
+        "municipality": "Средец",
+        "areaSqm": 600,
+        "builtAreaSqm": 52,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

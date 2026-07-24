@@ -52,7 +52,8 @@
         "legalBasis": null,
         "fundsOrigin": "възнаграждения  и пенсии"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asiya-ivanova-goneva-5b6ee7",
@@ -106,6 +107,20 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 74,
+        "builtAreaSqm": 74,
+        "currency": "BGN",
+        "valueEur": 129999.53983730692,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -186,7 +201,8 @@
         "legalBasis": null,
         "fundsOrigin": "заплата"
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "asiya-ivanova-goneva-5b6ee7",
@@ -216,7 +232,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "asiya-ivanova-goneva-5b6ee7",
@@ -246,7 +263,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "asiya-ivanova-goneva-5b6ee7",
@@ -276,7 +294,8 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   },
   {
     "slug": "asiya-ivanova-goneva-5b6ee7",
@@ -306,6 +325,7 @@
         "amountEurSpouse": null
       }
     ],
-    "assets": []
+    "assets": [],
+    "events": []
   }
 ]

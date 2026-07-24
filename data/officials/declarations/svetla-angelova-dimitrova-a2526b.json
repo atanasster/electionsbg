@@ -208,7 +208,8 @@
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА, ОЛП+4,3%",
         "fundsOrigin": null
       }
-    ]
+    ],
+    "events": []
   },
   {
     "slug": "svetla-angelova-dimitrova-a2526b",
@@ -382,6 +383,20 @@
         "isSpouse": false,
         "legalBasis": "ДОГОВОР ЗА БАНКОВ КРЕДИТ, ОБЕЗПЕЧЕН С ИПОТЕКА",
         "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Астра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракуван"
       }
     ]
   }
