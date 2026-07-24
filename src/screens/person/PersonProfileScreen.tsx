@@ -16,6 +16,7 @@ import { PersonElectoralSection } from "./PersonElectoralSection";
 import { PersonMpSections } from "./PersonMpSections";
 import { PersonOfficialAssets } from "./PersonOfficialAssets";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
+import { PersonWealthTrajectory } from "./PersonWealthTrajectory";
 import { PersonCompanies } from "./PersonCompanies";
 import {
   PersonConnections,
@@ -347,6 +348,12 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         name={p.name}
         candidacies={candidacyCycles}
       />
+
+      {/* Declared-wealth trajectory (Court of Audit), across every tier the person filed in.
+          Self-hides below 2 asset-bearing years, so it shows only where there is a real
+          history to plot — regardless of whether the assets themselves come from the MP or
+          the officials block below. */}
+      <PersonWealthTrajectory slug={p.slug} />
 
       {/* MP-only: voting scorecard + roll-call + declared assets (no PG equivalent). */}
       {mpId != null && (
