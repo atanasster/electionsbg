@@ -14,7 +14,7 @@ import { PersonProfile, usePersonProfile } from "./usePersonProfile";
 import { PersonHeader } from "./PersonHeader";
 import { PersonElectoralSection } from "./PersonElectoralSection";
 import { PersonMpSections } from "./PersonMpSections";
-import { PersonOfficialAssets } from "./PersonOfficialAssets";
+import { PersonDeclarations } from "./PersonDeclarations";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { PersonWealthTrajectory } from "./PersonWealthTrajectory";
 import { PersonCompanies } from "./PersonCompanies";
@@ -42,10 +42,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
-import {
-  OFFICIAL_DECLARATION_SOURCES,
-  isOfficialSource,
-} from "@/lib/officialSources";
+import { isOfficialSource } from "@/lib/officialSources";
 
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
 const fmtElection = (d: string): string => {
@@ -120,26 +117,6 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     const i = r.ref.indexOf(":");
     return { election: r.ref.slice(0, i), slug: r.ref.slice(i + 1) };
   });
-
-  // Every official declaration slug this person holds (person_role.ref IS the Court-of-Audit
-  // roster slug). Used for the non-MP declared-wealth block; MPs get their assets via
-  // PersonMpSections instead.
-  //
-  // ALL of them, not the first: the slug is name+institution hashed, so changing post mints
-  // a new one, and 112 people in the roster hold more than one. Picking with `.find()` hid
-  // the other post's whole filing history and made which one you saw depend on role order.
-  // Sorted so the fetch order — and therefore the render — is deterministic.
-  const officialSlugs = useMemo(
-    () =>
-      [
-        ...new Set(
-          p.roles
-            .filter((r) => OFFICIAL_DECLARATION_SOURCES.has(r.source))
-            .map((r) => r.ref),
-        ),
-      ].sort(),
-    [p.roles],
-  );
 
   // Does the MP register carry declared assets for this person? Same query
   // PersonMpSections/MpAssetsSummary run, deduped by React Query, so it costs
@@ -364,15 +341,16 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         />
       )}
 
-      {/* Official's declared assets (Court of Audit). Normally an MP's declarations come from
-          PersonMpSections above, so this is the non-MP counterpart — but the two registers are
-          separate, and someone can hold an mp id while having filed ONLY in the officials
-          register: a minister who stood for parliament without ever taking a seat files as a
-          cabinet member, not as an MP. Gating purely on `mpId == null` hid their declarations
-          entirely. Fall back whenever the MP side has nothing, so exactly one block renders. */}
-      {officialSlugs.length > 0 && !mpAssetRollup && (
-        <PersonOfficialAssets slugs={officialSlugs} />
-      )}
+      {/* Declared assets (Court of Audit), the UNIFIED block (audit T3.3): one PG-backed
+          component spanning every tier the person filed in (executive / municipal /
+          magistrate), replacing the three divergent per-tier renderers and the D2 "empty
+          latest filing" bug. It reads person_declarations(slug) directly, so it needs no
+          per-slug shard list. Rendered as the non-MP counterpart: an MP's assets still come
+          from PersonMpSections above (voting-bundled), and someone who holds an mp id but
+          filed only as an official — a minister who never took a seat — falls through to
+          here whenever the MP side has nothing, so exactly one block renders. It self-hides
+          when the person has no asset-bearing filing. */}
+      {!mpAssetRollup && <PersonDeclarations slug={p.slug} />}
 
       {/* Magistrate: the ИВСС declaration (court/position, declared wealth + companies) — the
           judiciary counterpart to the officials' assets block. Name-matched, so it self-hides
