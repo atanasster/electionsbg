@@ -27,10 +27,20 @@ END $$;
 --   2. unaccent lives in `public`; pg_restore runs with search_path='' and only
 --      pg_catalog is implicit, so unaccent + its dictionary are schema-qualified
 --      (translate/lower/replace are pg_catalog and resolve without qualifying).
+-- Final btrim(regexp_replace(…, '[[:space:]–—-]+', ' ')) collapses every run of
+-- whitespace and hyphen/dash variants (ASCII '-', en '–', em '—') to a SINGLE space, so a
+-- double surname folds the same however the source spaced it: "Асиова-Диамант",
+-- "Асиова - Диамант" and "Асиова Диамант" all land on `asiova diamant`. Without this the
+-- exact-key person↔TR bridge (name_fold = name_fold) silently drops the spaced variants —
+-- the Commerce Registry writes the same person's name inconsistently across filings.
+-- IMMUTABLE is preserved (regexp_replace/btrim are immutable). Changing this body makes
+-- every STORED *_fold generated column stale until recomputed — see
+-- 099_translit_fold_recompute.sql.
 CREATE OR REPLACE FUNCTION translit_bg_latin(txt text)
   RETURNS text LANGUAGE sql IMMUTABLE PARALLEL SAFE AS
 $$
-  SELECT lower(public.unaccent('public.unaccent'::regdictionary, translate(
+  SELECT btrim(regexp_replace(
+    lower(public.unaccent('public.unaccent'::regdictionary, translate(
     replace(replace(replace(replace(replace(replace(replace(
     replace(replace(replace(replace(replace(replace(replace(
       coalesce(txt, ''),
@@ -38,7 +48,8 @@ $$
       'ш','sh'),'Ш','sh'),'щ','sht'),'Щ','sht'),'ю','yu'),'Ю','yu'),
       'я','ya'),'Я','ya'),
     'абвгдезийклмнопрстуфхъьАБВГДЕЗИЙКЛМНОПРСТУФХЪЬ',
-    'abvgdeziyklmnoprstufhayabvgdeziyklmnoprstufhay')));
+    'abvgdeziyklmnoprstufhayabvgdeziyklmnoprstufhay'))),
+    '[[:space:]–—-]+', ' ', 'g'));
 $$;
 
 -- Retire the old immutable_unaccent wrapper (its body dependency broke pg_dump

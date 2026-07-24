@@ -1228,29 +1228,46 @@ async function main(): Promise<void> {
     );
 
     // Bridge B (name-based TR discovery). A public person with a globally-unique 3-part
-    // name whose full-name fold matches a TR officer/owner appearing on exactly ONE
-    // company is unambiguously that person on that company — Tier-2 (unique fold),
-    // name-independent of any block co-collision. Discovers the TR footprint BEYOND
-    // Bridge A's curated links. DOUBLE-gated: unique in tr_officers (namesake_risk<=1)
-    // AND unique in tr_person_roles (cc=1). Only touches namesake<=1 persons, so it can
-    // never form a common-name collapse. Runs in SQL (the folds live in PG); the ON
-    // CONFLICT dedups against Bridge-A rows on the same (person, company, role).
+    // name whose full-name fold matches a TR officer/owner is unambiguously that person —
+    // Tier-2 (unique fold), name-independent of any block co-collision. Discovers the TR
+    // footprint BEYOND Bridge A's curated links. Attaches the person's WHOLE small footprint
+    // (all companies under the fold), not just a single-company name:
+    //   • the fold maps to exactly ONE known person (NOT EXISTS a second person on it) — a
+    //     direct people-uniqueness guard that supersedes the old namesake_risk<=1 proxy
+    //     (officer_name_counts.company_count), which conflated one person's multiple companies
+    //     with distinct namesakes and so capped a real footprint at a single company; and
+    //   • that footprint is ≤ FOOTPRINT_CAP companies — small enough that a globally-unique
+    //     3-part name across a handful of firms is that one person, not colliding owners.
+    // The residual risk (a 3-part name shared with an unrelated private owner) is bounded by
+    // the cap and carried by the name-match caveat shown on the person page. Runs in SQL (the
+    // folds live in PG); ON CONFLICT dedups against Bridge-A rows on the same (person, company,
+    // role).
+    // Narrow to eligible persons FIRST (people-unique public 3-part folds — ~14k), THEN cap
+    // the footprint per fold via the idx_tr_person_roles_fold index. Counting distinct uics
+    // over the whole 1.2M-row table before filtering is a table-scan; this is index-driven.
+    const FOOTPRINT_CAP = 5;
     const bridgeB = await c.query(
-      `INSERT INTO person_role (person_id, source, ref, role, confidence)
-       SELECT DISTINCT p.person_id,
+      `WITH elig AS (
+         SELECT p.person_id, p.name_fold
+           FROM person p
+          WHERE p.name_parts = 3 AND p.is_public_figure
+            AND NOT EXISTS (
+              SELECT 1 FROM person p2
+               WHERE p2.name_fold = p.name_fold AND p2.person_id <> p.person_id)
+       ),
+       capped AS (
+         SELECT e.person_id, e.name_fold FROM elig e
+          WHERE (SELECT count(DISTINCT t.uic) FROM tr_person_roles t
+                  WHERE t.name_fold = e.name_fold) BETWEEN 1 AND $1
+       )
+       INSERT INTO person_role (person_id, source, ref, role, confidence)
+       SELECT DISTINCT c.person_id,
               CASE WHEN t.role IN ('ngo_board','ngo_representative') THEN 'ngo' ELSE 'tr' END,
               t.uic, t.role, 'high'
-         FROM person p
-         JOIN (
-           SELECT name_fold, count(DISTINCT uic) cc FROM tr_person_roles
-            WHERE name_fold IN (
-                    SELECT name_fold FROM person
-                     WHERE name_parts = 3 AND namesake_risk <= 1 AND is_public_figure)
-            GROUP BY name_fold HAVING count(DISTINCT uic) = 1
-         ) u ON u.name_fold = p.name_fold
-         JOIN tr_person_roles t ON t.name_fold = p.name_fold
-        WHERE p.name_parts = 3 AND p.namesake_risk <= 1 AND p.is_public_figure
+         FROM capped c
+         JOIN tr_person_roles t ON t.name_fold = c.name_fold
        ON CONFLICT (person_id, source, ref, role) DO NOTHING`,
+      [FOOTPRINT_CAP],
     );
     bridgeBRoles = bridgeB.rowCount ?? 0;
 

@@ -95,9 +95,12 @@ test.skipIf(skip)(
 //   Bridge A (shared company) — the EIK is one the person is genuinely linked to via a
 //     curated source (magistrate holdings / company_politicians); the match is the strong
 //     shared-uic corroborant.
-//   Bridge B (unique full name) — the person is globally unique (namesake_risk<=1) and
-//     their full-name fold matches a TR officer/owner ON THAT EXACT company; the company
-//     appears once for that name, so it is unambiguously them.
+//   Bridge B (people-unique full name) — the person has a 3-part name, is a public figure,
+//     and their full-name fold maps to exactly ONE known person (no second person on the
+//     fold); their whole SMALL TR footprint (≤ FOOTPRINT_CAP=5 companies under the fold) is
+//     attached, matched ON THAT EXACT entity. The people-uniqueness guard + footprint cap
+//     make a handful of firms under a globally-unique 3-part name unambiguously that one
+//     person (superseding the old company-count proxy that capped a real footprint at 1).
 // A tr/ngo role satisfying NEITHER is an unlicensed attribution and must never exist.
 // (NGO board seats bridge exactly like company officerships — same shared-uic / unique-name
 // mechanism — so both facets carry the same licensing invariant.)
@@ -111,8 +114,13 @@ test.skipIf(skip)(
         AND r.ref NOT IN (   -- Bridge A: curated company link
           SELECT eik FROM magistrate_company WHERE eik IS NOT NULL AND NOT eik_ambiguous
           UNION SELECT eik FROM company_politicians)
-        AND NOT (            -- Bridge B: unique full-name match on that exact entity
-          p.namesake_risk <= 1
+        AND NOT (            -- Bridge B: people-unique public 3-part fold, ≤5 companies, exact entity
+          p.name_parts = 3 AND p.is_public_figure
+          AND NOT EXISTS (
+            SELECT 1 FROM person p2
+             WHERE p2.name_fold = p.name_fold AND p2.person_id <> p.person_id)
+          AND (SELECT count(DISTINCT t2.uic) FROM tr_person_roles t2
+                WHERE t2.name_fold = p.name_fold) BETWEEN 1 AND 5
           AND EXISTS (
             SELECT 1 FROM tr_person_roles t
              WHERE t.uic = r.ref AND t.name_fold = p.name_fold))`,
