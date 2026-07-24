@@ -5,6 +5,50 @@
     "institution": "Конституционния  съд",
     "positionTitle": "Съдия",
     "category": "regulator",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2020-06-15",
+    "entryNumber": "Г1034",
+    "controlHash": "A4CE84FC",
+    "sourceUrl": "https://register.cacbg.bg/2020/3A61211A-F385-4EF6-B7B6-7CB7C7D3102E110918.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 70009.15212467342,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 58739,
+        "valueEur": 30032.773809584676,
+        "holderName": "Анастас Василев Анастасов",
+        "isSpouse": false,
+        "legalBasis": "договор за крадит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anastas-vasilev-anastasov-b9f2ea",
+    "declarantName": "Анастас Василев Анастасов",
+    "institution": "Конституционния  съд",
+    "positionTitle": "Съдия",
+    "category": "regulator",
     "declarationYear": 2019,
     "fiscalYear": 2018,
     "declarationType": "Annualy",

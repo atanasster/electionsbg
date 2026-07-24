@@ -1,7 +1,7 @@
 {
   "obshtina": "VRC10",
   "registryName": "Враца",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 4,
     "council_chair": 1,
-    "councillor": 33,
+    "councillor": 36,
     "chief_architect": 1,
     "other": 0
   },
@@ -131,6 +131,23 @@
         "partyCanonicalId": "bsp",
         "listPos": 107,
         "prefVotes": 147,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "borislav-konstantinov-banchev-3b008e",
+      "name": "Борислав Константинов Банчев",
+      "normalizedName": "БОРИСЛАВ КОНСТАНТИНОВ БАНЧЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Враца",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК „НОВОТО ВРЕМЕ“",
+        "partyCanonicalId": "p_151",
+        "listPos": 101,
+        "prefVotes": 171,
         "isElected": true
       }
     },
@@ -410,6 +427,23 @@
       }
     },
     {
+      "slug": "miroslav-plamenov-angelov-8364a2",
+      "name": "Мирослав Пламенов Ангелов",
+      "normalizedName": "МИРОСЛАВ ПЛАМЕНОВ АНГЕЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Враца",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БЪЛГАРСКИ ГЛАСЪ",
+        "partyCanonicalId": null,
+        "listPos": 101,
+        "prefVotes": 31,
+        "isElected": false
+      }
+    },
+    {
       "slug": "mihail-ivov-mihailov-266e2d",
       "name": "Михаил Ивов Михайлов",
       "normalizedName": "МИХАИЛ ИВОВ МИХАЙЛОВ",
@@ -510,6 +544,23 @@
         "partyCanonicalId": "gerb",
         "listPos": 106,
         "prefVotes": 267,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "nikolai-emilov-nikolov-f30542",
+      "name": "Николай Емилов Николов",
+      "normalizedName": "НИКОЛАЙ ЕМИЛОВ НИКОЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Враца",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК „НОВОТО ВРЕМЕ“",
+        "partyCanonicalId": "p_151",
+        "listPos": 102,
+        "prefVotes": 37,
         "isElected": true
       }
     },

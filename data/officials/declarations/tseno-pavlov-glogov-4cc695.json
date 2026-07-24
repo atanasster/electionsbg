@@ -5,6 +5,37 @@
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-13",
+    "entryNumber": "Г15029",
+    "controlHash": "5B4849EA",
+    "sourceUrl": "https://register.cacbg.bg/2025/38C5639B-6D35-400A-8553-97B630CC8D6A218609.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22360.83913223542,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": 11712.674414442974,
+        "amountEurSpouse": 6749.052831790084
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "tseno-pavlov-glogov-4cc695",
+    "declarantName": "ЦЕНО ПАВЛОВ ГЛОГОВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

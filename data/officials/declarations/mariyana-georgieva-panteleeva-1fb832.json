@@ -102,5 +102,109 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "mariyana-georgieva-panteleeva-1fb832",
+    "declarantName": "Марияна Георгиева Пантелеева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г14618",
+    "controlHash": "52A62396",
+    "sourceUrl": "https://register.cacbg.bg/2024/B7D7B743-2A52-4724-9733-AECE960A1F26197294.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20514.05285735468,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5237.162739092866,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Марияна Георгиева Пантелеева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Круша",
+        "municipality": "Аврен",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Марияна Георгиева Пантелеева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 30,
+        "builtAreaSqm": 30,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Марияна Георгиева Пантелеева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Червенци",
+        "municipality": "Вълчи дол",
+        "areaSqm": 200,
+        "builtAreaSqm": 60,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Марияна Георегиева Пантелеева",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
   }
 ]

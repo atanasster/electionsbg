@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:3466",
   "nodes": [
     {
@@ -102,6 +102,20 @@
       "legalForm": "AD",
       "status": "active",
       "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000"
+    },
+    {
+      "id": "official:dimitr-andreev-delchev-0883a8",
+      "type": "official",
+      "slug": "dimitr-andreev-delchev-0883a8",
+      "label": "Димитър Андреев Делчев",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "type": "person",
+      "label": "Димитър Андреев Делчев"
     },
     {
       "id": "person:САНДЖЕЙ",
@@ -392,6 +406,22 @@
       "confidence": "medium"
     },
     {
+      "source": "official:dimitr-andreev-delchev-0883a8",
+      "target": "company:Левис-Дивелопмънт-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "target": "company:Левис-Дивелопмънт-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:САНДЖЕЙ",
       "target": "company:tr:207023338",
       "kind": "tr_role",
@@ -424,7 +454,31 @@
       "confidence": "high"
     },
     {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "target": "company:tr:207023338",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:АНДРЕЙ МИТКОВ ДЕЛЧЕВ",
+      "target": "company:tr:207643563",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "target": "company:tr:207643563",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
       "target": "company:tr:207643563",
       "kind": "tr_role",
       "role": "manager",
@@ -488,6 +542,14 @@
       "confidence": "high"
     },
     {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "target": "company:tr:207739316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:МИРОСЛАВ ВАСКОВ МИТЕВ",
       "target": "company:tr:208327205",
       "kind": "tr_role",
@@ -512,6 +574,14 @@
       "confidence": "high"
     },
     {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "target": "company:tr:208327205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:САНДЖАЙ ШАРМА",
       "target": "company:tr:208000851",
       "kind": "tr_role",
@@ -529,6 +599,14 @@
     },
     {
       "source": "person:ДЖАЙН ВИДИ",
+      "target": "company:tr:208000851",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
       "target": "company:tr:208000851",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -600,6 +678,14 @@
       "confidence": "high"
     },
     {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "target": "company:tr:207785502",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:КРЕСТИЯН СВЕТОСЛАВОВ КОЛЕВ",
       "target": "company:tr:207785502",
       "kind": "tr_role",
@@ -657,6 +743,14 @@
     },
     {
       "source": "person:СТАНИСЛАВ ЗОРАН ЯНИЧ",
+      "target": "company:tr:207651147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
       "target": "company:tr:207651147",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -724,6 +818,14 @@
       "target": "company:tr:207423528",
       "kind": "tr_role",
       "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "target": "company:tr:207423528",
+      "kind": "tr_owner",
+      "role": "actual_owner",
       "isCurrent": true,
       "confidence": "high"
     },

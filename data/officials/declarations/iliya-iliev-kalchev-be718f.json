@@ -5,6 +5,136 @@
     "institution": "МБАЛ \"Св. Богородица\" ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-30",
+    "entryNumber": "Г15270",
+    "controlHash": "5A013EC1",
+    "sourceUrl": "https://register.cacbg.bg/2025/A7897C0B-E65A-48D2-95A2-5A8DAF402353219053.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 88801.17392615923,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти от МЦ Лейзър Мед ЕООД",
+        "amountEurDeclarant": 129397.74929313897,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Необлагаеми Командировъчнаи от МЦ Лейзър Мед ЕООД",
+        "amountEurDeclarant": 1608.5242582433034,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Илия Илиев Калчев",
+        "isSpouse": false,
+        "legalBasis": "Кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iliya-iliev-kalchev-be718f",
+    "declarantName": "Илия Илиев Калчев",
+    "institution": "МБАЛ \"Св. Богородица\" ООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г9838",
+    "controlHash": "AF159BD6",
+    "sourceUrl": "https://register.cacbg.bg/2024/A7897C0B-E65A-48D2-95A2-5A8DAF402353191500.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 134481.01317599177,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 65423.37524222453,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 231750.20323852278,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44238,
+        "valueEur": 22618.530240358312,
+        "holderName": "Илия Илиев Калчев",
+        "isSpouse": false,
+        "legalBasis": "Кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Илия Илиев Калчев",
+        "isSpouse": false,
+        "legalBasis": "Кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iliya-iliev-kalchev-be718f",
+    "declarantName": "Илия Илиев Калчев",
+    "institution": "МБАЛ \"Св. Богородица\" ООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2023,
     "fiscalYear": 2022,
     "declarationType": "Annualy",
@@ -63,6 +193,110 @@
         "isSpouse": false,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "iliya-iliev-kalchev-be718f",
+    "declarantName": "Илия Илиев Калчев",
+    "institution": "МБАЛ \"Св. Богородица\" ООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-06-22",
+    "entryNumber": "Г8686",
+    "controlHash": "B5945C6D",
+    "sourceUrl": "https://register.cacbg.bg/2022/A7897C0B-E65A-48D2-95A2-5A8DAF402353141302.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружествени дялове",
+        "shareSize": "51",
+        "companyName": "Българска Медена Компания ООД",
+        "registeredOffice": "София",
+        "valueEur": 1303.794297050357,
+        "holderName": "Илия Илиев Калчев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 86141.9448520577,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 11114.974205324594,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": 104410.91505907978,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ Х5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 224883,
+        "valueEur": 114980.8521190492,
+        "holderName": "Илия Илиев Калчев",
+        "isSpouse": false,
+        "legalBasis": "Лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Илия Илиев Калчев",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 146521,
+        "valueEur": 74914.99772475113,
+        "holderName": "Илия Илиев Калчев",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
       }
     ],
     "events": []

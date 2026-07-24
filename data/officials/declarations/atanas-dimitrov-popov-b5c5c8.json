@@ -137,6 +137,50 @@
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2020-06-23",
+    "entryNumber": "Г2385",
+    "controlHash": "74BFC072",
+    "sourceUrl": "https://register.cacbg.bg/2020/424661F4-102E-4332-A065-D41FC55781DD112469.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23940.731045131735,
+        "amountEurSpouse": 4342.91323888068
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "АТАНАС ДИМИТРОВ ПОПОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "atanas-dimitrov-popov-b5c5c8",
+    "declarantName": "АТАНАС ДИМИТРОВ ПОПОВ",
+    "institution": "Северозападно държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2019,
     "fiscalYear": 2018,
     "declarationType": "Annualy",

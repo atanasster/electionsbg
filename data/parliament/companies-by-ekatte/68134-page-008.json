@@ -2,8 +2,116 @@
   "ekatte": "68134",
   "page": 8,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "Лупио-Консулт",
+      "displayName": "Лупио Консулт",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1303",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "М-консулт-33-ЕООД",
+      "displayName": "М-консулт 33 ЕООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 3694,
+          "mpName": "Атанас Димитров Михнев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3694,
+          "mpName": "Атанас Димитров Михнев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МАКЕДОНСКИ-НАУЧЕН-ИНСТИТУТ",
+      "displayName": "МАКЕДОНСКИ НАУЧЕН ИНСТИТУТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София",
+      "mps": [
+        {
+          "mpId": 2775,
+          "mpName": "Милен Василев Михов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2775,
+          "mpName": "Милен Василев Михов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МАКСИМ-15",
+      "displayName": "МАКСИМ 15",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1750",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Маркет-уинг-сървисис-ООД",
+      "displayName": "Маркет уинг сървисис ООД",
+      "registeredOffice": "СОФИЯ",
+      "mps": [
+        {
+          "mpId": 4190,
+          "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МД-ЕНТЕРПРИСЕ",
+      "displayName": "МД-ЕНТЕРПРИСЕ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1505",
+      "mps": [
+        {
+          "mpId": 5245,
+          "mpName": "Мартин Димитров Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5245,
+          "mpName": "Мартин Димитров Димитров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Медиарт-студио-ООД",
       "displayName": "Медиарт студио ООД",
@@ -782,102 +890,6 @@
           "mpId": 5081,
           "mpName": "Росица Любенова Кирова",
           "role": "ngo_board",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "СЕЛ-ДЖИКОВИ",
-      "displayName": "СЕЛ-ДЖИКОВИ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1680",
-      "mps": [
-        {
-          "mpId": 5269,
-          "mpName": "Тодор Любенов Джиков",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5269,
-          "mpName": "Тодор Любенов Джиков",
-          "role": "partner",
-          "isCurrent": false
-        }
-      ]
-    },
-    {
-      "slug": "Скай-Глас-ООД",
-      "displayName": "Скай Глас ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 5159,
-          "mpName": "Димо Георгиев Дренчев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "СКАЛА",
-      "displayName": "СКАЛА",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1229",
-      "mps": [
-        {
-          "mpId": 5182,
-          "mpName": "Борислав Пламенов Георгиев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5182,
-          "mpName": "Борислав Пламенов Георгиев",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Слийв-Блум-ЕООД",
-      "displayName": "Слийв Блум ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4295,
-          "mpName": "Настимир Ананиев Ананиев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Слънчоглед-България-ООД",
-      "displayName": "Слънчоглед България ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3351,
-          "mpName": "Мария Василева Капон",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "СМГ-КОМЕРС",
-      "displayName": "СМГ-КОМЕРС",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
-      "mps": [
-        {
-          "mpId": 1464,
-          "mpName": "Стефан Господинов Господинов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 1464,
-          "mpName": "Стефан Господинов Господинов",
-          "role": "partner",
           "isCurrent": true
         }
       ]

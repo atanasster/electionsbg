@@ -5,6 +5,32 @@
   "totalPages": 3,
   "topCompanies": [
     {
+      "slug": "Омега-2005-МГ-ЕООД",
+      "displayName": "\"Омега 2005 МГ\" ЕООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4809,
+          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ралекс-ООД",
+      "displayName": "\"Ралекс\" ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4809,
+          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Чеси-Инс-Брокер-ООД",
       "displayName": "\"Чеси Инс Брокер\" ООД",
       "registeredOffice": "Пловдив",
@@ -36,32 +62,6 @@
       ]
     },
     {
-      "slug": "Омега-2005-МГ-ЕООД",
-      "displayName": "\"Омега 2005 МГ\" ЕООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4809,
-          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Ралекс-ООД",
-      "displayName": "\"Ралекс\" ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4809,
-          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "Агроплан-ООД",
       "displayName": "\"Агроплан\" ООД",
       "registeredOffice": "Пловдив",
@@ -75,13 +75,19 @@
       ]
     },
     {
-      "slug": "МАСИВ-4-ООД",
-      "displayName": "МАСИВ-4 ООД",
-      "registeredOffice": "Раковски",
+      "slug": "Издателство-Жанет-45-ООД",
+      "displayName": "Издателство Жанет 45 ООД",
+      "registeredOffice": "Пловдив",
       "mps": [
         {
-          "mpId": 4807,
-          "mpName": "Младен Николов Шишков",
+          "mpId": 4800,
+          "mpName": "Манол Костадинов Пейков",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4800,
+          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
           "role": "declared_stake",
           "isCurrent": true
         }

@@ -1,7 +1,7 @@
 {
   "obshtina": "PDV22",
   "registryName": "Пловдив",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 7,
     "deputy_mayor": 30,
     "council_chair": 0,
-    "councillor": 50,
+    "councillor": 51,
     "chief_architect": 8,
     "other": 0
   },
@@ -1386,6 +1386,23 @@
         "partyCanonicalId": "p_51",
         "listPos": 107,
         "prefVotes": 75,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "tervel-veselinov-borisov-0ef40c",
+      "name": "Тервел Веселинов Борисов",
+      "normalizedName": "ТЕРВЕЛ ВЕСЕЛИНОВ БОРИСОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пловдив",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ИМА ТАКЪВ НАРОД",
+        "partyCanonicalId": "p_0",
+        "listPos": 104,
+        "prefVotes": 433,
         "isElected": true
       }
     },

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:stanislav-ivanov-darachev-aaa028",
   "nodes": [
     {
@@ -44,6 +44,15 @@
       "municipality": null
     },
     {
+      "id": "official:metodi-georgiev-smilov-e785b4",
+      "type": "official",
+      "slug": "metodi-georgiev-smilov-e785b4",
+      "label": "Методи Георгиев Смилов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
       "id": "person:ИОАНИС ПАРМЕНИОН ПАРТЕНИОТИС",
       "type": "person",
       "label": "Иоанис Парменион Партениотис"
@@ -72,11 +81,6 @@
       "id": "person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ",
       "type": "person",
       "label": "Димитър Петров Ганджов"
-    },
-    {
-      "id": "person:МЕТОДИ ГЕОРГИЕВ СМИЛОВ",
-      "type": "person",
-      "label": "Методи Георгиев Смилов"
     },
     {
       "id": "person:ГЕОРГИ ИЛИЕВ ГЕОРГИЕВ",
@@ -113,6 +117,14 @@
     },
     {
       "source": "official:zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:metodi-georgiev-smilov-e785b4",
       "target": "company:tr:812115210",
       "kind": "tr_role",
       "role": "director",
@@ -161,14 +173,6 @@
     },
     {
       "source": "person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ",
-      "target": "company:tr:812115210",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:МЕТОДИ ГЕОРГИЕВ СМИЛОВ",
       "target": "company:tr:812115210",
       "kind": "tr_role",
       "role": "director",

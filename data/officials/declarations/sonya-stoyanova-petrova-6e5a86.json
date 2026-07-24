@@ -85,6 +85,50 @@
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": "2019-05-15",
+    "entryNumber": "Г3952",
+    "controlHash": "9E108017",
+    "sourceUrl": "https://register.cacbg.bg/2019/D21A1CD8-E945-4B86-8E71-7A7CA42546BC98665.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9622.513204112833,
+        "amountEurSpouse": 14111.65592101563
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Соня Стоянова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sonya-stoyanova-petrova-6e5a86",
+    "declarantName": "Соня Стоянова Петрова",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
     "declarationYear": 2018,
     "fiscalYear": null,
     "declarationType": "Entry",

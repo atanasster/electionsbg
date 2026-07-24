@@ -1,6 +1,136 @@
 [
   {
     "slug": "tsvetomira-karamfilova-raicheva-e164a7",
+    "declarantName": "Цветомира Карамфилова Райчева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2025,
+    "declarationType": "Vacate",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Ф636",
+    "controlHash": "906B6822",
+    "sourceUrl": "https://register.cacbg.bg/2025/8B99E59F-94A9-4761-BFEB-4058F3FBAD37219573.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Балик",
+        "municipality": "Тервел",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "acquiredYear": 2015,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Жеко Райчев Икономов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит - 4.6%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Цветомира Карамфилова Райчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tsvetomira-karamfilova-raicheva-e164a7",
+    "declarantName": "Цветомира Карамфилова Райчева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г15434",
+    "controlHash": "3EEC4172",
+    "sourceUrl": "https://register.cacbg.bg/2025/8B99E59F-94A9-4761-BFEB-4058F3FBAD37219572.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15866.920949162248,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Балик",
+        "municipality": "Тервел",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "acquiredYear": 2015,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Жеко Райчев Икономов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит - 4.6%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Цветомира Карамфилова Райчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "Обезпечение за деца",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "tsvetomira-karamfilova-raicheva-e164a7",
     "declarantName": "ЦВЕТОМИРА КАРАМФИЛОВА РАЙЧЕВА",
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",

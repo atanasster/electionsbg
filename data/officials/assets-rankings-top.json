@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T13:39:55.050Z",
+  "generatedAt": "2026-07-24T16:44:30.839Z",
   "years": [
     2015,
     2016,
@@ -12,7 +12,7 @@
     2024,
     2025
   ],
-  "total": 14562,
+  "total": 14837,
   "topOfficials": [
     {
       "slug": "delyan-slavchev-peevski-c4234a",
@@ -255,6 +255,24 @@
       "realEstateCount": 0,
       "realEstateUnvalued": 0,
       "delta": null
+    },
+    {
+      "slug": "kiril-panaiotov-panaiotov-762128",
+      "name": "Кирил Панайотов Панайотов",
+      "category": "hospital_head",
+      "institution": "СБАЛК \"Медика Кор\" ЕАД, гр. Русе",
+      "positionTitle": "Изпълнителен директор",
+      "latestDeclarationYear": 2025,
+      "totalAssetsEur": 3364950.941544,
+      "totalDebtsEur": 6356.380667031388,
+      "netWorthEur": 3358594.560876969,
+      "realEstateCount": 0,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2025,
+        "absoluteEur": 3358594.560876969,
+        "pct": null
+      }
     },
     {
       "slug": "ioshenka-nencheva-zhelyazkova-ruseva-2b8223",
@@ -653,24 +671,6 @@
       }
     },
     {
-      "slug": "yuliyan-georgiev-popov-d3ec10",
-      "name": "Юлиян Георгиев Попов",
-      "category": "cabinet",
-      "institution": "Министерство на околната среда и водите",
-      "positionTitle": "Министър",
-      "latestDeclarationYear": 2024,
-      "totalAssetsEur": 1820655.169416565,
-      "totalDebtsEur": 78120.79781985142,
-      "netWorthEur": 1742534.3715967136,
-      "realEstateCount": 3,
-      "realEstateUnvalued": 0,
-      "delta": {
-        "previousYear": 2023,
-        "absoluteEur": 286813.7823839497,
-        "pct": 0.19702529764936222
-      }
-    },
-    {
       "slug": "valentina-ilieva-mazneikova-819d29",
       "name": "Валентина Илиева Мазнейкова",
       "category": "hospital_head",
@@ -686,6 +686,24 @@
         "previousYear": 2019,
         "absoluteEur": -1434457.493749457,
         "pct": -0.4675125553530347
+      }
+    },
+    {
+      "slug": "yuliyan-georgiev-popov-d3ec10",
+      "name": "Юлиян Георгиев Попов",
+      "category": "cabinet",
+      "institution": "Министерство на околната среда и водите",
+      "positionTitle": "Министър",
+      "latestDeclarationYear": 2024,
+      "totalAssetsEur": 1706708.6607731758,
+      "totalDebtsEur": 78685.77534857324,
+      "netWorthEur": 1628022.8854246025,
+      "realEstateCount": 0,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2024,
+        "absoluteEur": -114511.486172111,
+        "pct": -0.06571548202356675
       }
     },
     {
@@ -815,24 +833,6 @@
       "realEstateCount": 12,
       "realEstateUnvalued": 0,
       "delta": null
-    },
-    {
-      "slug": "sasho-georgiev-penov-4ae4e0",
-      "name": "Сашо Георгиев Пенов",
-      "category": "cabinet",
-      "institution": "Служ. правителство-МОН",
-      "positionTitle": "Служебен министър",
-      "latestDeclarationYear": 2023,
-      "totalAssetsEur": 1471247.5010609312,
-      "totalDebtsEur": 0,
-      "netWorthEur": 1471247.5010609312,
-      "realEstateCount": 13,
-      "realEstateUnvalued": 0,
-      "delta": {
-        "previousYear": 2022,
-        "absoluteEur": 543883.6708711908,
-        "pct": 0.586483592701595
-      }
     }
   ]
 }

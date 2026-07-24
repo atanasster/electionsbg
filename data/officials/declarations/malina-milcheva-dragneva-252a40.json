@@ -222,5 +222,133 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "malina-milcheva-dragneva-252a40",
+    "declarantName": "Малина Милчева Драгнева",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-26",
+    "entryNumber": "Г8644",
+    "controlHash": "42AEF79D",
+    "sourceUrl": "https://register.cacbg.bg/2024/C7E51275-4EA9-4B51-B6A7-F3C078AF2E78190277.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялово участие",
+        "shareSize": "33",
+        "companyName": "България Уайн ООД",
+        "registeredOffice": "Шумен",
+        "valueEur": 818.0670099139496,
+        "holderName": "Малина Милчева Драгнева",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6427.9615303988585,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 100,
+        "builtAreaSqm": 220,
+        "acquiredYear": 1996,
+        "share": "50",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Малина Милчево Драгнева",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 100,
+        "builtAreaSqm": 200,
+        "acquiredYear": 1996,
+        "share": "50",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Дарин Иванов Драгнев",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44433,
+        "valueEur": 22718.232157191575,
+        "holderName": "Малина Милчева Драгнева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4377,
+        "valueEur": 4376.65850303963,
+        "holderName": "Малина Милчева Драгнева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 2305,
+        "valueEur": 2119.816139439522,
+        "holderName": "Малина Милчева Драгнева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
   }
 ]

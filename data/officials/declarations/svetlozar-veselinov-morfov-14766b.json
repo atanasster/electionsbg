@@ -1,0 +1,140 @@
+[
+  {
+    "slug": "svetlozar-veselinov-morfov-14766b",
+    "declarantName": "Светлозар Веселинов Морфов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-16",
+    "entryNumber": "Г15289",
+    "controlHash": "812CA631",
+    "sourceUrl": "https://register.cacbg.bg/2025/612D6BBF-D9AE-482F-BE37-72A11078F5F6219102.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове в ЕООД",
+        "shareSize": "100%",
+        "companyName": "Инвиво Ентъртейнмънт ЕООД",
+        "registeredOffice": "София",
+        "valueEur": 51.12918811962185,
+        "holderName": "Светлозар Веселинов Морфов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове в ЕООД",
+        "shareSize": "100%",
+        "companyName": "Къщи за гости Акела ЕООД",
+        "registeredOffice": "с. Чешма",
+        "valueEur": 51.12918811962185,
+        "holderName": "Светлозар Веселинов Морфов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове в ООД",
+        "shareSize": "50%",
+        "companyName": "Соларфууд ООД",
+        "registeredOffice": "с. Чешма",
+        "valueEur": 76.69378217943277,
+        "holderName": "Полина Георгиева Морфова",
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "table": "11",
+        "itemType": "дялове в ООД",
+        "shareSize": "50%",
+        "companyName": "Соларфууд ООД",
+        "registeredOffice": "с. Чешма",
+        "valueEur": 76.69378217943277,
+        "holderName": null,
+        "transfereeName": "Полина Георгиева Морфова",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31353.44073871451,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5385.437384639769,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3067.751287177311,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Габрово",
+        "municipality": "Габрово",
+        "areaSqm": 53,
+        "builtAreaSqm": null,
+        "acquiredYear": 2005,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 2288,
+        "valueEur": 1169.8358241769479,
+        "holderName": "Полина Георгиева Морфова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Чешма",
+        "municipality": "Златарица",
+        "areaSqm": 1639,
+        "builtAreaSqm": 245,
+        "acquiredYear": 2021,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 45400,
+        "valueEur": 23212.65140630832,
+        "holderName": "Светлозар Веселинов Морфов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55070,
+        "valueEur": 28156.843897475752,
+        "holderName": "Светлозар Веселинов Морфов",
+        "isSpouse": false,
+        "legalBasis": "4,71",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

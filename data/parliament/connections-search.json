@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "entries": [
     {
       "type": "mp",
@@ -313,6 +313,15 @@
     },
     {
       "type": "mp",
+      "mpId": 4998,
+      "label": "Самуил Борисов Славов",
+      "partyGroupShort": "МЕЧ",
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "type": "mp",
       "mpId": 3796,
       "label": "Николай Георгиев Ангов",
       "partyGroupShort": "ПП-ДБ",
@@ -434,6 +443,15 @@
       "label": "Калин Любенов Вельов",
       "partyGroupShort": "ГЕРБ-СДС",
       "nsFolders": []
+    },
+    {
+      "type": "mp",
+      "mpId": 4018,
+      "label": "Николай Димитров Благоев",
+      "partyGroupShort": "БВ",
+      "nsFolders": [
+        "48"
+      ]
     },
     {
       "type": "mp",
@@ -2473,6 +2491,13 @@
         "42",
         "43"
       ]
+    },
+    {
+      "type": "mp",
+      "mpId": 2734,
+      "label": "Тома Николов Томов",
+      "partyGroupShort": "БСП",
+      "nsFolders": []
     },
     {
       "type": "mp",
@@ -5110,6 +5135,13 @@
     },
     {
       "type": "mp",
+      "mpId": 3032,
+      "label": "Валентина Василева Василева-Филаделфевс",
+      "partyGroupShort": "АКБ",
+      "nsFolders": []
+    },
+    {
+      "type": "mp",
       "mpId": 3060,
       "label": "Кольо Йорданов Милев",
       "partyGroupShort": "БСП",
@@ -5820,13 +5852,6 @@
       "nsFolders": [
         "47"
       ]
-    },
-    {
-      "type": "mp",
-      "mpId": 4018,
-      "label": "Николай Димитров Благоев",
-      "partyGroupShort": "БВ",
-      "nsFolders": []
     },
     {
       "type": "mp",
@@ -8942,6 +8967,13 @@
     },
     {
       "type": "company",
+      "slug": "Ей-Ей-Ей-Лоджистикс-Груп-Инк-ЕООД",
+      "uic": "207244895",
+      "label": "\"Ей Ей Ей Лоджистикс Груп Инк\" ЕООД",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "type": "company",
       "slug": "ЕКО-Прециз-ЕООД",
       "uic": null,
       "label": "\"ЕКО Прециз\" ЕООД",
@@ -9128,6 +9160,20 @@
       "uic": "200061489",
       "label": "\"КЕЙ ВИ Прадакшънс\" ЕООД",
       "seat": "БЪЛГАРИЯ, с. Старо село"
+    },
+    {
+      "type": "company",
+      "slug": "Кемпес-ЗБ-ЕООД",
+      "uic": "204354906",
+      "label": "\"Кемпес ЗБ\" ЕООД",
+      "seat": "Стара Загора"
+    },
+    {
+      "type": "company",
+      "slug": "Кемпес-НБ-ЕООД",
+      "uic": "123729167",
+      "label": "\"Кемпес НБ\" ЕООД",
+      "seat": "Стара Загора"
     },
     {
       "type": "company",
@@ -10622,9 +10668,9 @@
     },
     {
       "type": "company",
-      "slug": "Грийн-Агро-Груп-ООД",
+      "slug": "Грийн-Агро-груп-ООД",
       "uic": "131351354",
-      "label": "Грийн Агро Груп ООД",
+      "label": "Грийн Агро груп ООД",
       "seat": "София"
     },
     {
@@ -12470,6 +12516,13 @@
     },
     {
       "type": "company",
+      "slug": "Наблюдател-2002",
+      "uic": "130915916",
+      "label": "Наблюдател 2002",
+      "seat": "София"
+    },
+    {
+      "type": "company",
       "slug": "Наедно-ООД",
       "uic": "206481699",
       "label": "Наедно ООД",
@@ -14126,6 +14179,13 @@
       "uic": null,
       "label": "Ълтимейт киейтив ЕООД",
       "seat": "София"
+    },
+    {
+      "type": "company",
+      "slug": "Ълтимейт-Криейтив-ЕООД",
+      "uic": "200739519",
+      "label": "Ълтимейт Криейтив ЕООД",
+      "seat": "София (столица)"
     },
     {
       "type": "company",
@@ -18302,6 +18362,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "208894910",
+      "label": "ЦЕНТЪР ЗА ОБУЧЕНИЯ И КОНСУЛТАЦИИ",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8801"
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "131108313",
       "label": "НЮОЙЛ",
       "seat": null
@@ -20146,13 +20213,6 @@
       "uic": "206693711",
       "label": "НП ИНВЕСТ 21",
       "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "123729167",
-      "label": "КЕМПЕС НБ",
-      "seat": null
     },
     {
       "type": "company",
@@ -22803,6 +22863,20 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "201549826",
+      "label": "ВАТО БГ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "127533205",
+      "label": "Сдружение на ловците и риболовците &quot;Станата&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "123544268",
       "label": "ИНДУСТРИАЛ ПАРТС",
       "seat": null
@@ -24010,13 +24084,6 @@
       "uic": "206676731",
       "label": "БОЯНА БИЛД ИНВЕСТ",
       "seat": "БЪЛГАРИЯ, гр. София, 1700"
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "127533205",
-      "label": "Сдружение на ловците и риболовците &quot;Станата&quot;",
-      "seat": null
     },
     {
       "type": "company",
@@ -27675,20 +27742,6 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "108564349",
-      "label": "Персенски ООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "202492770",
-      "label": "Жълтуша ООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
       "uic": "207479249",
       "label": "БЕРКОВИЦА - ВЪРШЕЦ ЕКО",
       "seat": null
@@ -28270,6 +28323,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "121695905",
+      "label": "СДРУЖЕНИЕ &quot;БЪЛГАРСКА ФЕДЕРАЦИЯ ПО МОДЕРЕН ПЕТОБОЙ&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "207940479",
       "label": "\"Кракра М\" ООД",
       "seat": null
@@ -28473,15 +28533,15 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "148058950",
-      "label": "Питстрой ЕООД",
+      "uic": "204361427",
+      "label": "ПИТСТРОЙ 13 ЕООД",
       "seat": null
     },
     {
       "type": "company",
       "slug": null,
       "uic": "204843622",
-      "label": "Фундаментал инвест",
+      "label": "ФУНДАМЕНТАЛ ИНВЕСТ ООД",
       "seat": null
     },
     {
@@ -29061,6 +29121,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "206325063",
+      "label": "ФИДУ ТРЕЙД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "208556734",
       "label": "ХОУММЕД.БГ",
       "seat": null
@@ -29070,6 +29137,13 @@
       "slug": null,
       "uic": "176932500",
       "label": "СДРУЖЕНИЕ &quot;ТРАКИЙСКОТО СДРУЖЕНИЕ НАЦИОНАЛНА ИНИЦИАТИВА ЗАВРЪЩАНЕ КЪМ КОРЕНИТЕ И ПО ОБРАТНИЯ ПЪТ НА ДЕДИТЕ НИ&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "160027818",
+      "label": "Агроарена",
       "seat": null
     },
     {
@@ -29132,7 +29206,7 @@
       "type": "company",
       "slug": null,
       "uic": "103796781",
-      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА МАТЕМАТИЧЕСКА ГИМНАЗИЯ \"Д-Р ПЕТЪР БЕРОН\" -  ГР. ВАРНА",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА МАТЕМАТИЧЕСКА ГИМНАЗИЯ &quot;Д-Р ПЕТЪР БЕРОН&quot; -  ГР. ВАРНА",
       "seat": null
     },
     {
@@ -29427,6 +29501,13 @@
       "slug": null,
       "uic": "123531939",
       "label": "ТЕЦ МАРИЦА ИЗТОК 2",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "207842896",
+      "label": "БПО Бийст ООД",
       "seat": null
     },
     {
@@ -29943,6 +30024,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "202089131",
+      "label": "ОБЩИНСКИ ГОРИ ЕЛИН ПЕЛИН",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "177136010",
       "label": "АСОЦИАЦИЯ ЗА СОЦИАЛНА, ЗДРАВНА И ПРАВНА ПОМОЩ",
       "seat": null
@@ -29994,13 +30082,6 @@
       "slug": null,
       "uic": "130284340",
       "label": "ДИАГНОСТИЧНО КОНСУЛТАТИВЕН ЦЕНТЪР VІ- СОФИЯ",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "206671456",
-      "label": "СОФИНВЕСТ",
       "seat": null
     },
     {
@@ -30155,6 +30236,13 @@
       "slug": null,
       "uic": "208858729",
       "label": "ИНДИВИДУАЛНА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ ПО АНЕСТЕЗИОЛОГИЯ И ИНТЕНЗИВНО ЛЕЧЕНИЕ - Д-Р ВЕЛИЧКА СТОЙЧЕВА",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "124694694",
+      "label": "ТЪРГОВСКИ ЦЕНТЪР КРАНЕВО",
       "seat": null
     },
     {
@@ -30643,6 +30731,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "202033232",
+      "label": "ФОНД ЗА УСТОЙЧИВО ГРАДСКО РАЗВИТИЕ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "206037331",
       "label": "СМАЙЛ БАР ЕООД",
       "seat": null
@@ -30778,6 +30873,20 @@
       "slug": null,
       "uic": "813158093",
       "label": "Цикония ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205082050",
+      "label": "Ехолиси ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "204806852",
+      "label": "Форсити ООД",
       "seat": null
     },
     {
@@ -31315,6 +31424,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "131390542",
+      "label": "ЖОЛИ ДИЗАЙН ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "205681729",
       "label": "Нон стоп гуми Пловдив",
       "seat": null
@@ -31373,6 +31489,13 @@
       "slug": null,
       "uic": "202965254",
       "label": "ВАШИТЕ СНИМКИ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "208411322",
+      "label": "ОЯ 64 БГ",
       "seat": null
     },
     {
@@ -31546,6 +31669,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "148003982",
+      "label": "Медтест ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "207894327",
       "label": "Джи Ен Ви декорейтинг",
       "seat": null
@@ -31567,8 +31697,29 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "208884752",
+      "label": "УебАктивити",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "208602644",
       "label": "Сдружение на държавните висши училища в Република България",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "201563562",
+      "label": "Сънимед Асист",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "208551185",
+      "label": "х",
       "seat": null
     },
     {
@@ -31833,6 +31984,20 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "147157148",
+      "label": "Гери-М ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "834017612",
+      "label": "ДОБРИЧКИ ПАНАИР",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "207916193",
       "label": "МиКаМи дизайн",
       "seat": null
@@ -32092,6 +32257,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "833067740",
+      "label": "МЕРЕСЕВ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "104657208",
       "label": "КАМИК",
       "seat": null
@@ -32099,8 +32271,43 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "115518099",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;Д-Р КИРО ПОПОВ&quot; - КАРЛОВО",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "204856976",
       "label": "Продакшън ТВ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "202571900",
+      "label": "Форест Вижънър",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "201867792",
+      "label": "Гласове.БГ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "201980844",
+      "label": "Сваргаз",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "204048941",
+      "label": "Интелсенс",
       "seat": null
     },
     {
@@ -32442,6 +32649,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "206172215",
+      "label": "Д.Д.А.Р. ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "000014975",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ОТЕЦ ПАИСИЙ - 1931&quot;",
       "seat": null
@@ -32514,13 +32728,6 @@
       "slug": null,
       "uic": "207651510",
       "label": "ДИ ЕН АЙ КОНСУЛТ",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "834017612",
-      "label": "ДОБРИЧКИ ПАНАИР",
       "seat": null
     },
     {
@@ -32785,6 +32992,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "010999642",
+      "label": "МИКО-ГЕОТОН",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "102070984",
       "label": "&quot;АВИЦЕНА&quot;",
       "seat": null
@@ -32857,6 +33071,13 @@
       "slug": null,
       "uic": "109080582",
       "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р НИКОЛА ВАСИЛИЕВ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "203461435",
+      "label": "Топ Анели ЕООД",
       "seat": null
     },
     {
@@ -32939,6 +33160,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "206342614",
+      "label": "СД Инженеринг 90",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "207554310",
       "label": "ИКОНОМИЧЕСКА ЗОНА ДОБРОСЛАВЦИ",
       "seat": null
@@ -33011,6 +33239,13 @@
       "slug": null,
       "uic": "208743883",
       "label": "Общински гори - Средец",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205625762",
+      "label": "\"Акадекс - обучителни услуги\" ЕООД",
       "seat": null
     },
     {
@@ -34003,6 +34238,20 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "206708969",
+      "label": "Болкан Хемп Индустри",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "206347173",
+      "label": "УСКАТА",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "201374120",
       "label": "МОНЕТЕН ДВОР",
       "seat": null
@@ -34150,8 +34399,22 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "131026485",
+      "label": "БАКР - АГЕНЦИЯ ЗА КРЕДИТЕН РЕЙТИНГ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "131353214",
       "label": "СПОРТЕН КЛУБ-НАЦИОНАЛНА СЛУЖБА ЗА ОХРАНА",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "129006778",
+      "label": "ИНТЕНДАНТСКО ОБСЛУЖВАНЕ",
       "seat": null
     },
     {
@@ -34416,13 +34679,6 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "123156340",
-      "label": "душаба  оод",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
       "uic": "206142332",
       "label": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА СОЦИАЛНО И ГРАЖДАНСКО РАЗВИТИЕ",
       "seat": null
@@ -34446,6 +34702,13 @@
       "slug": null,
       "uic": "000152385",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot;РАЗВИТИЕ - 1897&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "120616068",
+      "label": "Парк Консулт ЕООД",
       "seat": null
     },
     {
@@ -35256,6 +35519,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "112603224",
+      "label": "Фамилна медицина-С-ГП-ПМП ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "115353466",
       "label": "ТРАКИЙСКО ДРУЖЕСТВО РОДОПИ",
       "seat": null
@@ -35263,8 +35533,22 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "202397474",
-      "label": "Агрофийлд инвестмънтс ООД",
+      "uic": "202653333",
+      "label": "Ай Би Ди Солюшънс ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "201104865",
+      "label": "Живан ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "201389300",
+      "label": "Мизан ЕООД",
       "seat": null
     },
     {
@@ -35614,7 +35898,7 @@
       "type": "company",
       "slug": null,
       "uic": "206376189",
-      "label": "Българска Медена Компания ООД",
+      "label": "Българска Медена Компания",
       "seat": null
     },
     {
@@ -36159,6 +36443,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "208252749",
+      "label": "Каса нуева къмпани 1",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "176011388",
       "label": "Сдружение \"БЪЛГАРСКО ДРУЖЕСТВО ПО КАРДИОТОРАКАЛНА РЕНТГЕНОЛОГИЯ\"",
       "seat": null
@@ -36215,8 +36506,22 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "124539021",
+      "label": "КИРОВ И СИНОВЕ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "204860889",
       "label": "\"ИНТЕРФИН\" ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "206671456",
+      "label": "СОФИНВЕСТ",
       "seat": null
     },
     {
@@ -36294,6 +36599,13 @@
       "slug": null,
       "uic": "207332060",
       "label": "Национален енергиен оператор",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "208819993",
+      "label": "Фондация \"Проф. Стефан Савов Бобчев\"",
       "seat": null
     },
     {
@@ -36399,6 +36711,13 @@
       "slug": null,
       "uic": "205247889",
       "label": "Комфорт Инвест България ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "202821567",
+      "label": "МБАЛ СВЕТА ПАРАСКЕВА",
       "seat": null
     },
     {
@@ -36593,6 +36912,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "102680489",
+      "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР &quot;СВ.ГЕОРГИ ПОБЕДОНОСЕЦ&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "830166530",
       "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
       "seat": null
@@ -36756,6 +37082,13 @@
       "slug": null,
       "uic": "202462274",
       "label": "\"Ателие Дуо\" ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "107548712",
+      "label": "ОБЩЕСТВЕН ДАРИТЕЛСКИ ФОНД - ГАБРОВО",
       "seat": null
     },
     {
@@ -36980,6 +37313,13 @@
       "slug": null,
       "uic": "124141302",
       "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ДОБРИЧ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "203977754",
+      "label": "\"БО ФИЛМ\" ЕООД",
       "seat": null
     },
     {
@@ -37307,6 +37647,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "114107390",
+      "label": "ПРОСВЕТА 1923",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "205146420",
       "label": "МАНИПО",
       "seat": null
@@ -37510,6 +37857,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "128057549",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР  №1 - ЕЛХОВО",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "206039250",
       "label": "МИРАИ 2020",
       "seat": null
@@ -37547,6 +37901,13 @@
       "slug": null,
       "uic": "000046275",
       "label": "Народно читалище &quot;Гоце Делчев 1943&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "207012352",
+      "label": "МАРИНА ПАЛАКАРСКА - ДЪГА",
       "seat": null
     },
     {
@@ -38000,6 +38361,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "203579316",
+      "label": "Ес Джи Реклама ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "119629734",
       "label": "ЛИДА ТРЕЙД",
       "seat": null
@@ -38162,7 +38530,7 @@
       "type": "company",
       "slug": null,
       "uic": "207216127",
-      "label": "МиМ 2023",
+      "label": "МиМ 2023 ООД",
       "seat": null
     },
     {
@@ -38261,13 +38629,6 @@
       "slug": null,
       "uic": "208814031",
       "label": "Сдружение Център за върхови постижения в индустрии с двойна употреба",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "833067740",
-      "label": "МЕРЕСЕВ",
       "seat": null
     },
     {
@@ -38448,13 +38809,6 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "201563562",
-      "label": "СЪНИМЕД АСИСТ",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
       "uic": "201998598",
       "label": "МЕДЛОКАТОР ТРЕЙД ЕООД",
       "seat": null
@@ -38611,6 +38965,13 @@
       "slug": null,
       "uic": "000044744",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕТА 1888&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "207004473",
+      "label": "ТИ БИ ЕС ХИЛ ООД",
       "seat": null
     },
     {
@@ -38896,6 +39257,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "204857989",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР СМОЛЯН КЛИНИКЪЛ РИСЪРЧ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "160136582",
       "label": "Агробейс ООД",
       "seat": null
@@ -38968,6 +39336,13 @@
       "slug": null,
       "uic": "000083836",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ЕЛИН ПЕЛИН-1977&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "101579277",
+      "label": "СДРУЖЕНИЕ &quot;ЛОВНО РИБАРСКО ДРУЖЕСТВО ОБЩИНА  ЯКОРУДА&quot;",
       "seat": null
     },
     {
@@ -39456,6 +39831,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "200469163",
+      "label": "АМБУЛАТОРИЯ МЕДИЦИНСКИ ЦЕНТЪР ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ &quot;ТРАНСПОРТЕН МЕДИЦИНСКИ ЦЕНТЪР&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "204447837",
       "label": "Паркмед ООД",
       "seat": null
@@ -39514,6 +39896,13 @@
       "slug": null,
       "uic": "203567958",
       "label": "ЕУРОПАТЦ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "123761542",
+      "label": "НИАКОМ ЕООД",
       "seat": null
     },
     {
@@ -40121,6 +40510,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "102266140",
+      "label": "СДРУЖЕНИЕ НА ЛОВЦИТЕ И РИБОЛОВЦИТЕ ЛЕБЕД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "205934488",
       "label": "ГОТМИЛК",
       "seat": null
@@ -40443,6 +40839,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "131397743",
+      "label": "ИНТЕРКАПИТАЛ ПРОПЪРТИ ДИВЕЛОПМЪНТ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "000125324",
       "label": "Народно читалище &quot;Просвета-Плаково 1873&quot;",
       "seat": null
@@ -40662,6 +41065,13 @@
       "slug": null,
       "uic": "201041272",
       "label": "Соф Прайс Консулт ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "208214054",
+      "label": "ПиДи Капитал ЕООД",
       "seat": null
     },
     {
@@ -40975,6 +41385,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "207461404",
+      "label": "Биистшоп",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "000844615",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ДОБРИ ЧИНТУЛОВ-1941Г.&quot;",
       "seat": null
@@ -41067,7 +41484,7 @@
       "type": "company",
       "slug": null,
       "uic": "207210010",
-      "label": "АВИД 15",
+      "label": "\"АВИД 15\" ЕООД",
       "seat": null
     },
     {
@@ -41213,13 +41630,6 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "206923313",
-      "label": "ИНИЦИАТИВА ЗА РАЗВИТИЕ И ПРОМЯНА НА ОБЩИНА БОЙЧИНОВЦИ",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
       "uic": "204917048",
       "label": "ЪРБАНАЙЗД АД",
       "seat": null
@@ -41318,13 +41728,6 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "102663909",
-      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ГР. СРЕДЕЦ",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
       "uic": "000455913",
       "label": "НАРОДНО ЧИТАЛИЩЕ ИВАН ВАЗОВ - 1871",
       "seat": null
@@ -41334,6 +41737,13 @@
       "slug": null,
       "uic": "202855943",
       "label": "БМ енд партнърс кънсълтинг ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "823087709",
+      "label": "Авто Евро Стил ООД",
       "seat": null
     },
     {
@@ -41397,13 +41807,6 @@
       "slug": null,
       "uic": "208725351",
       "label": "МЕДИЦИНСКИ ЦЕНТЪР ПАНОРАМА 25 - ВЕЛИНГРАД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "202089131",
-      "label": "ОБЩИНСКИ ГОРИ ЕЛИН ПЕЛИН",
       "seat": null
     },
     {
@@ -41500,6 +41903,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "120066927",
+      "label": "АРТ ЦЕНТЪР \"ТАЛАНТИ НА БЪЛГАРИЯ\"\"",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "205329820",
       "label": "ЗОО 2018",
       "seat": null
@@ -41509,6 +41919,13 @@
       "slug": null,
       "uic": "204612331",
       "label": "СТОУНИ 21",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "202547753",
+      "label": "Ер Ес Ер 5 ООД",
       "seat": null
     },
     {
@@ -41803,6 +42220,27 @@
       "slug": null,
       "uic": "207993065",
       "label": "\"П енд К Груп\" ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "202993595",
+      "label": "Инвиво Ентъртейнмънт ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "207825046",
+      "label": "Къщи за гости Акела ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "206803591",
+      "label": "Соларфууд ООД",
       "seat": null
     },
     {
@@ -42151,6 +42589,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "104703591",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ ЗА ИКОНОМИЧЕСКО РАЗВИТИЕ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "200882055",
       "label": "ГРИЙН ЕНД БЕНЕФИТ ИНВЕСТ",
       "seat": null
@@ -42321,6 +42766,13 @@
       "slug": null,
       "uic": "000689022",
       "label": "ВТОРА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-СОФИЯ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "202503899",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПИРДОП",
       "seat": null
     },
     {
@@ -42529,6 +42981,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "208328830",
+      "label": "СКОРПИС",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "127572507",
       "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ &quot;Св.св КИРИЛ И МЕТОДИЙ&quot;",
       "seat": null
@@ -42552,6 +43011,27 @@
       "slug": null,
       "uic": "000559153",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot;Н.Й. ВАПЦАРОВ - 1895&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "102663909",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ГР. СРЕДЕЦ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "200062954",
+      "label": "Географика ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205327552",
+      "label": "ГеоСкан Про ООД",
       "seat": null
     },
     {
@@ -42704,13 +43184,6 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "126530074",
-      "label": "Игуасу ЕООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
       "uic": "130056874",
       "label": "МАЛЬОВИЦА",
       "seat": null
@@ -42753,6 +43226,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "200234845",
+      "label": "Тинчеви и Ко ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "202056170",
       "label": "КАС ИМОТИ",
       "seat": null
@@ -42781,6 +43261,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "208048593",
+      "label": "МОТОКЛУБ \"РОДЕН СВОБОДЕН\"",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "206927888",
       "label": "Левски на Левскарите",
       "seat": null
@@ -42790,6 +43277,27 @@
       "slug": null,
       "uic": "203989443",
       "label": "Вива инвест-Варна",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "204906450",
+      "label": "Гранд строй-Варна",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "204065321",
+      "label": "Билд строй-Варна ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "202186705",
+      "label": "Ес ай ай Боровец",
       "seat": null
     },
     {
@@ -43208,6 +43716,20 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "131003230",
+      "label": "Легис Консултинг Груп ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "131257613",
+      "label": "ТВС Консултинг ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "176554875",
       "label": "ГЛОБАЛНИ БИБЛИОТЕКИ - БЪЛГАРИЯ",
       "seat": null
@@ -43271,6 +43793,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "208269403",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР &quot;ХРИСТО БОТЕВ&quot; - ГР. ВРАЦА",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "203720884",
       "label": "Многопрофилна болница за активно лечение &quot;КАРДИОЛАЙФ&quot;",
       "seat": null
@@ -43287,6 +43816,13 @@
       "slug": null,
       "uic": "207167071",
       "label": "Блу сайн трейд",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "000463379",
+      "label": "КОМПЛЕКСЕН ОНКОЛОГИЧЕН ЦЕНТЪР - ПЛОВДИВ",
       "seat": null
     },
     {
@@ -43642,6 +44178,20 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "202103168",
+      "label": "РСР Консулт ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "129004631",
+      "label": "СНАБДЯВАНЕ И ТЪРГОВИЯ - МО",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "177179652",
       "label": "Алианс за равни права и устойчивост",
       "seat": null
@@ -43810,6 +44360,27 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "200726024",
+      "label": "ИСТРА ТМТ ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "200197279",
+      "label": "ИНДИЗАЙН ГРУП ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "203509182",
+      "label": "КОСТИНБРОД СТРОЙ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "207238579",
       "label": "ХА ПРОПС",
       "seat": null
@@ -43819,34 +44390,6 @@
       "slug": null,
       "uic": "207070245",
       "label": "ПАРТС ЕНД СЪРВИС",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "202380382",
-      "label": "Корпоративно Управление ЕООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "206558918",
-      "label": "БАКР ФинТех Солюшънс",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "201607432",
-      "label": "БМР ООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "121534058",
-      "label": "Елприват",
       "seat": null
     },
     {
@@ -44090,6 +44633,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "208159298",
+      "label": "ЕвроИнвест 25",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "206723063",
       "label": "КШЕМА",
       "seat": null
@@ -44190,13 +44740,6 @@
       "slug": null,
       "uic": "208271258",
       "label": "СПОРТЕН КЛУБ ПО ПОЖАРОПРИЛОЖЕН СПОРТ - ОРФЕЙ гр. Смолян",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "101666401",
-      "label": "РИБАРСКО ДРУЖЕСТВО &quot;ВАСИЛАК&quot;",
       "seat": null
     },
     {
@@ -44391,8 +44934,8 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "202821567",
-      "label": "МБАЛ Света Параскева",
+      "uic": "207568210",
+      "label": "Фондация \"Народни читалища\"",
       "seat": null
     },
     {
@@ -44468,13 +45011,6 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "203607687",
-      "label": "Блу Дрийм Сълюшънс",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
       "uic": "000084475",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot; КИРИЛ ГОСПОДИНОВ-1903&quot;",
       "seat": null
@@ -44526,6 +45062,13 @@
       "slug": null,
       "uic": "176441596",
       "label": "СДРУЖЕНИЕ &quot;БЪЛГАРСКА АСОЦИАЦИЯ НА ТРЕНЬОРИТЕ&quot;,",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "177147779",
+      "label": "СПОРТЕН КЛУБ &quot;ТЕМИДА&quot;",
       "seat": null
     },
     {
@@ -44790,6 +45333,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "204882864",
+      "label": "МЕТАЛ ЕКСПРЕС ПРО",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "208773741",
       "label": "Си Ен Медия ГРУП",
       "seat": null
@@ -44862,6 +45412,13 @@
       "slug": null,
       "uic": "207138904",
       "label": "Гранд строй 22 ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "160074077",
+      "label": "СДРУЖЕНИЕ &quot;КУЛТУРНО-ПРОСВЕТНО ДРУЖЕСТВО НА КАРАКАЧАНИТЕ - КАРЛОВО&quot;",
       "seat": null
     },
     {
@@ -45051,13 +45608,6 @@
       "slug": null,
       "uic": "131274160",
       "label": "\"Симов Ойл\" ООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "121695905",
-      "label": "СДРУЖЕНИЕ &quot;БЪЛГАРСКА ФЕДЕРАЦИЯ ПО МОДЕРЕН ПЕТОБОЙ&quot;",
       "seat": null
     },
     {
@@ -45897,7 +46447,14 @@
       "type": "company",
       "slug": null,
       "uic": "202483126",
-      "label": "ББ 83 Инженеринг ЕООД",
+      "label": "Бб 83 Инженеринг ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205071462",
+      "label": "Марибор Естейт ЕООД",
       "seat": null
     },
     {
@@ -45905,20 +46462,6 @@
       "slug": null,
       "uic": "206459884",
       "label": "Хилс Резиденс ООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "206891825",
-      "label": "Биар Сигничър ЕООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "208101327",
-      "label": "МС Констръкшън ЕООД",
       "seat": null
     },
     {
@@ -45996,6 +46539,13 @@
       "slug": null,
       "uic": "123624369",
       "label": "ВАЛМАР - ВАЛЕНТИН ВАНГЕЛОВ ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "207652929",
+      "label": "РУСИНЦИ",
       "seat": null
     },
     {
@@ -46533,6 +47083,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "123108616",
+      "label": "ИРИДА",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "202271899",
       "label": "Ковчазов груп",
       "seat": null
@@ -46603,6 +47160,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "147004469",
+      "label": "ДСОФТ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "207869199",
       "label": "НИВЛАРА",
       "seat": null
@@ -46647,6 +47211,13 @@
       "slug": null,
       "uic": "203961732",
       "label": "Видин Вест ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "202998852",
+      "label": "ЕМ И ЕН ИНЖЕНЕРИНГ",
       "seat": null
     },
     {
@@ -47744,6 +48315,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "102857021",
+      "label": "СДРУЖЕНИЕ &quot;БУРГАСКИ ВИСОКОТЕХНОЛОГИЧЕН БИЗНЕС ИНКУБАТОР&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "126542411",
       "label": "ВАРИАНТ 2001 ООД",
       "seat": null
@@ -48187,6 +48765,13 @@
       "slug": null,
       "uic": "201892878",
       "label": "ДИКОМ 1",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "000804396",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАНИЕ - 1938 Г.&quot;",
       "seat": null
     },
     {
@@ -48717,6 +49302,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "208000610",
+      "label": "Туристическо дружество Леденика Враца",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "000457127",
       "label": "ПРОСВЕТА - 1862 ГР. ПЕРУЩИЦА",
       "seat": null
@@ -48866,6 +49458,13 @@
       "slug": null,
       "uic": "206652171",
       "label": "ЕЛ ЕМ ПРО-90",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "206515190",
+      "label": "ИНДИВИДУАЛНА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ - АМБУЛАТОРИЯ - Д-Р ЕМИЛ ЕНЧЕВ",
       "seat": null
     },
     {
@@ -49118,6 +49717,27 @@
       "slug": null,
       "uic": "207964238",
       "label": "Авая Трейд ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "204471418",
+      "label": "СИ ЕЙЧ КОНСУЛТ ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205993561",
+      "label": "ПИ ЕЛ КОНСУЛТ 2020 ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "204108281",
+      "label": "АГРО ТОРОВЕ 77 ЕООД",
       "seat": null
     },
     {
@@ -49466,6 +50086,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "205207994",
+      "label": "\"Ивайло Иванов 92\"ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "206093796",
       "label": "ИТК Цанкови ЕООД",
       "seat": null
@@ -49620,6 +50247,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "119649834",
+      "label": "АВТОМОБИЛЕН СПОРТЕН КЛУБ БУЛСИМ РС",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "103133957",
       "label": "ЧЕРНОМОРСКИ ЦЕНТЪР ЗА ЕКОЛОГИЧНА ИНФОРМАЦИЯ И ОБРАЗОВАНИЕ",
       "seat": null
@@ -49629,6 +50263,13 @@
       "slug": null,
       "uic": "206575465",
       "label": "ЦЕРОВСКИ ГРУП",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "206038006",
+      "label": "ФТР \"Подкрепа\" ООД",
       "seat": null
     },
     {
@@ -49664,6 +50305,13 @@
       "slug": null,
       "uic": "206104698",
       "label": "ВАБИС ТРАНС 19",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "117008230",
+      "label": "Сдружение &quot;Русенска стопанска камара&quot;",
       "seat": null
     },
     {
@@ -49783,6 +50431,13 @@
       "slug": null,
       "uic": "205361519",
       "label": "Прини Арт ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "202223630",
+      "label": "Селект Къмпани ЕООД",
       "seat": null
     },
     {
@@ -50600,6 +51255,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "207826575",
+      "label": "КЛИВ-75 ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "000456349",
       "label": "НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА - 1927 С. ЙОАКИМ ГРУЕВО",
       "seat": null
@@ -50840,6 +51502,13 @@
       "slug": null,
       "uic": "160052497",
       "label": "Сдружение ЦЕНТЪР ЗА МЕСТНИ ИНИЦИАТИВИ И РАЗВИТИЕ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "203795335",
+      "label": "ЗМО 91",
       "seat": null
     },
     {
@@ -51265,6 +51934,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "205300676",
+      "label": "КИТ СТРОНГ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "175467111",
       "label": "СДРУЖЕНИЕ НА ОБЩОПРАКТИКУВАЩИТЕ ЛЕКАРИ - СОФИЯ ОБЛАСТ",
       "seat": null
@@ -51666,6 +52342,13 @@
       "slug": null,
       "uic": "123636916",
       "label": "Алт пак ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "123763269",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ ХРИСТО БОТЕВ,ГР. МЪГЛИЖ",
       "seat": null
     },
     {
@@ -52133,6 +52816,55 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "200172735",
+      "label": "МОНДЕАЛ 2008 ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205198762",
+      "label": "МОНДЕАЛ 2018 ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "102827512",
+      "label": "КИНГ 20 ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205979832",
+      "label": "КОРАЛ 2020 ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "200957497",
+      "label": "БУРГАС СПОРТ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "206317988",
+      "label": "КОМФОРТ ЕСТЕЙТС ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "203660056",
+      "label": "ГРЕЙТ ФАЙВ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "207170110",
       "label": "ПРОМУС",
       "seat": null
@@ -52392,6 +53124,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "208276006",
+      "label": "СМ СОФТ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "206754685",
       "label": "\"Хелиум диджитал\" ЕООД",
       "seat": null
@@ -52401,6 +53140,13 @@
       "slug": null,
       "uic": "203673203",
       "label": "\"ЮКЕМ\"",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "118040697",
+      "label": "Агенция за икономическо развитие и инвестиции-Силистра",
       "seat": null
     },
     {
@@ -52476,6 +53222,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "112073509",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВ. СВ. КИРИЛ И МЕТОДИЙ-1919 Г.&quot;",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "206922802",
       "label": "\"КЕНДИ ДОЛС\" ООД",
       "seat": null
@@ -52492,6 +53245,13 @@
       "slug": null,
       "uic": "207746734",
       "label": "ВИ ВИ ТИ СЪРВИЗ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "208896199",
+      "label": "УОЛФПАК ЕДИТИНГ",
       "seat": null
     },
     {
@@ -52728,13 +53488,6 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "206205380",
-      "label": "АРХИМИМАР ЕООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
       "uic": "108042543",
       "label": "ПРОБУДА 1944",
       "seat": null
@@ -52765,13 +53518,6 @@
       "slug": null,
       "uic": "203946666",
       "label": "Ен и Ен - Стандарт ООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "114015013",
-      "label": "СДРУЖЕНИЕ &quot;ТУРИСТИЧЕСКО ДРУЖЕСТВО КАЙЛЪШКА ДОЛИНА - ПЛЕВЕН&quot;",
       "seat": null
     },
     {
@@ -52821,6 +53567,13 @@
       "slug": null,
       "uic": "205586583",
       "label": "уинд 13",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "208894629",
+      "label": "ЕН СТУДИО ГРУП",
       "seat": null
     },
     {
@@ -53071,13 +53824,6 @@
     {
       "type": "company",
       "slug": null,
-      "uic": "207885564",
-      "label": "\"Еосфорос Кар Кеър\"",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
       "uic": "110016858",
       "label": "ЕТ \"ВАСИЛ ВАСИЛЕВ 51\"",
       "seat": null
@@ -53094,13 +53840,6 @@
       "slug": null,
       "uic": "175671263",
       "label": "ФУТБОЛЕН КЛУБ БОРИСЛАВ - 2009",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "205886919",
-      "label": "ПРОВАДСТРОЙ",
       "seat": null
     },
     {
@@ -53470,6 +54209,20 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "205904527",
+      "label": "ОНУР МЕДИКА ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "207481848",
+      "label": "ОНУР ЕНЕРДЖИ ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "118515489",
       "label": "ЛОВНО-РИБАРСКО ДРУЖЕСТВО &quot;СОКОЛ-1",
       "seat": null
@@ -53792,6 +54545,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "201305505",
+      "label": "Боженски чифлик ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "208452010",
       "label": "ФУТБОЛЕН КЛУБ ЗДРАВЕЦ ЧУПРЕНЕ",
       "seat": null
@@ -53883,6 +54643,55 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "202787353",
+      "label": "МИГ БИЛДИНГ ИНВЕСТ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "206945822",
+      "label": "МЕГАВАТ СОЛАР ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "147075154",
+      "label": "ВАНЯ ТРАНС ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "202841032",
+      "label": "АГРО ЛАЙФ 2020 ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "102663856",
+      "label": "АГРО ЛАЙФ ТРЕЙДИНГ ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "204197216",
+      "label": "АГРО ЛАЙФ ТРЕЙД ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205784120",
+      "label": "БЛЯК СИЙ ТАБАКО ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "000124165",
       "label": "ЧИТАЛИЩЕ \"НАПРЕДЪК - 1869\"",
       "seat": null
@@ -53913,6 +54722,13 @@
       "slug": null,
       "uic": "208144111",
       "label": "СОШЪЛ ПОЙНТ 25",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "115244367",
+      "label": "БУЛВЕР",
       "seat": null
     },
     {
@@ -54793,6 +55609,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "204820325",
+      "label": "ВТ Архитекти",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "201048911",
       "label": "ОРДЕРМУУН",
       "seat": null
@@ -55486,6 +56309,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "206528540",
+      "label": "&quot;БЮТИ СТИЛ  Т И С&quot;  2021",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "207797376",
       "label": "Отбрани 2024 ООД",
       "seat": null
@@ -55509,6 +56339,27 @@
       "slug": null,
       "uic": "000762164",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ХАДЖИ НЕНЧО ДОНЧЕВ ПАЛАВЕЕВ&quot; - 1869",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205675612",
+      "label": "СЕЙФ ТРЕЙД 1 ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205290470",
+      "label": "ТИЕС ЛОГИСТИКС ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "208340380",
+      "label": "БРАВА ЕСТЕЙТ",
       "seat": null
     },
     {
@@ -55976,6 +56827,27 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "200514530",
+      "label": "АЛКАНТАРА - БЪЛГАРИЯ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "205376446",
+      "label": "ХРИСИ-ВИБ ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "106518147",
+      "label": "ЖЕЛЕЗНИЧАРСКИ КЛУБ ПО ХУДОЖЕСТВЕНА ГИМНАСТИКА - АНЕЛИЯ",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "000522906",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТИ СВЕТИ КИРИЛ И МЕТОДИЙ 1919&quot;",
       "seat": null
@@ -56025,6 +56897,20 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "207071105",
+      "label": "ЕЙЧ ЕЛ ЕС ТРЕЙД ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "112663488",
+      "label": "ФУТБОЛЕН КЛУБ МАРИЦА",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "202282867",
       "label": "Туида груп ООД",
       "seat": null
@@ -56041,27 +56927,6 @@
       "slug": null,
       "uic": "203264092",
       "label": "АГРОЛЕС 2014",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "200726024",
-      "label": "ИСТРА ТМТ ЕООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "200197279",
-      "label": "ИНДИЗАЙН ГРУП ЕООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "203509182",
-      "label": "КОСТИНБРОД СТРОЙ ООД",
       "seat": null
     },
     {
@@ -56118,13 +56983,6 @@
       "slug": null,
       "uic": "111514573",
       "label": "АМБУЛАТОРИЯ -ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ &quot;АПОЛОН 21&quot;",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "204882864",
-      "label": "МЕТАЛ ЕКСПРЕС ПРО",
       "seat": null
     },
     {
@@ -56298,6 +57156,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "203801044",
+      "label": "ТРЕА 2015",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "205138726",
       "label": "ФЛАШ ЕЛЕКТРИК ИНВЕСТМЪНТС ООД",
       "seat": null
@@ -56424,6 +57289,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "203945176",
+      "label": "ХИМПЛЮС",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "000499966",
       "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА 1928&quot;",
       "seat": null
@@ -56433,6 +57305,13 @@
       "slug": null,
       "uic": "205688190",
       "label": "СПОРТЕН СТРЕЛКОВИ КЛУБ „СПАРТАК”",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "206555758",
+      "label": "МЕХМЕДОВИ 89",
       "seat": null
     },
     {
@@ -56636,6 +57515,13 @@
       "slug": null,
       "uic": "208615403",
       "label": "\"Борино Нет\"",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "206787112",
+      "label": "Серендипити Билд ООД",
       "seat": null
     },
     {
@@ -57643,6 +58529,13 @@
       "type": "company",
       "slug": null,
       "uic": null,
+      "label": "\"Ритейл Дивелъпмънт Сълюшънс\" ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": null,
       "label": "МАРИАНА КОЛЕВА 7 ЕООД",
       "seat": null
     },
@@ -57840,6 +58733,13 @@
       "slug": null,
       "uic": null,
       "label": "ГЮЛЕЙХАН СЮЛЕЙМАН ШАБАНОВА, като ЕТ \"ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА\", ЕИК 204014476",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": null,
+      "label": "ВМ МЕДИКЪЛ ЕООД",
       "seat": null
     },
     {
@@ -58077,6 +58977,13 @@
       "type": "company",
       "slug": null,
       "uic": null,
+      "label": "Аркандис Пропърти Дивелъпмънт ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": null,
       "label": "Виа Консепт ЕООД",
       "seat": null
     },
@@ -58119,6 +59026,13 @@
       "type": "company",
       "slug": null,
       "uic": null,
+      "label": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"ХРИСТО БОТЕВ\" АД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": null,
       "label": "\"МЕДИНА МЕД\" ООД",
       "seat": null
     },
@@ -58134,13 +59048,6 @@
       "slug": null,
       "uic": null,
       "label": "\"ОБРЕДНА ДЕЙНОСТ\" ЕООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": null,
-      "label": "ВМ МЕДИКЪЛ ЕООД",
       "seat": null
     },
     {
@@ -58434,6 +59341,20 @@
       "type": "company",
       "slug": null,
       "uic": null,
+      "label": "„ФРУКТОБУЛ” ЕООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": null,
+      "label": "„СИ-СТРОЙ“ ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": null,
       "label": "„ВАЛЕО ИНВЕСТ“ ЕООД, представлявано от Валери Маргаритов Попов",
       "seat": null
     },
@@ -58684,10 +59605,10 @@
     },
     {
       "type": "official",
-      "slug": "adam-draganov-persenski-dd9016",
-      "label": "Адам Драганов Персенски",
+      "slug": "aglika-stefcheva-videnova-0d444a",
+      "label": "Аглика Стефчева Виденова",
       "tier": "executive",
-      "role": "hospital_head",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -58918,6 +59839,14 @@
       "type": "official",
       "slug": "aleksandrina-georgieva-velichkova-2c4f8e",
       "label": "Александрина Георгиева Величкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "aleksandr-angelov-georgiev-c443fb",
+      "label": "Александър Ангелов Георгиев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -59392,6 +60321,14 @@
       "label": "Андрей Андреев Ковачев",
       "tier": "executive",
       "role": "mep",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "andrei-georgiev-kuzmanov-b15ddf",
+      "label": "АНДРЕЙ ГЕОРГИЕВ КУЗМАНОВ",
+      "tier": "executive",
+      "role": "cabinet",
       "municipality": null
     },
     {
@@ -60324,6 +61261,22 @@
     },
     {
       "type": "official",
+      "slug": "bogomil-borisov-manov-12367f",
+      "label": "Богомил Борисов Манов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "bogomil-ivanov-petkov-8b586d",
+      "label": "Богомил Иванов Петков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "bogomil-stoyanov-bogdanov-619dab",
       "label": "Богомил Стоянов Богданов",
       "tier": "executive",
@@ -60336,6 +61289,14 @@
       "label": "Божанка Петрова Богданова",
       "tier": "executive",
       "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "bozhidar-antonov-ivanov-cbab83",
+      "label": "Божидар Антонов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -60548,14 +61509,6 @@
     },
     {
       "type": "official",
-      "slug": "borislav-aleksandrov-borisov-b784ec",
-      "label": "Борислав Александров Борисов",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "municipality": null
-    },
-    {
-      "type": "official",
       "slug": "borislav-asenov-tsvetanov-04a397",
       "label": "Борислав Асенов Цветанов",
       "tier": "executive",
@@ -60742,6 +61695,14 @@
       "type": "official",
       "slug": "boyan-ivanov-boev-a09ac1",
       "label": "Боян Иванов Боев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "boyan-stefanov-byanov-520c20",
+      "label": "Боян Стефанов Бянов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -61332,6 +62293,14 @@
     },
     {
       "type": "official",
+      "slug": "vasil-angelov-mladenov-201008",
+      "label": "Васил Ангелов Младенов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "vasil-angelov-popov-c627b9",
       "label": "Васил Ангелов Попов",
       "tier": "executive",
@@ -61396,14 +62365,6 @@
     },
     {
       "type": "official",
-      "slug": "vasil-dimitrov-nekov-e11998",
-      "label": "Васил Димитров Неков",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "municipality": null
-    },
-    {
-      "type": "official",
       "slug": "vasil-dimitrov-uzunov-b7285b",
       "label": "Васил Димитров Узунов",
       "tier": "executive",
@@ -61416,6 +62377,14 @@
       "label": "Васил Исталиянов Милушев",
       "tier": "executive",
       "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "vasil-iordanov-georgiev-c817c4",
+      "label": "Васил Йорданов Георгиев",
+      "tier": "executive",
+      "role": "deputy_minister",
       "municipality": null
     },
     {
@@ -61598,6 +62567,14 @@
       "type": "official",
       "slug": "velichka-ivanova-stoicheva-76f486",
       "label": "Величка Иванова Стойчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "velichka-steliyanova-kasabova-9522ab",
+      "label": "Величка Стелиянова Касабова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -62012,6 +62989,14 @@
     },
     {
       "type": "official",
+      "slug": "veselina-vasileva-encheva-b04142",
+      "label": "Веселина Василева Енчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "veselina-vasileva-karamileva-todorova-331e80",
       "label": "Веселина Василева Карамилева Тодорова",
       "tier": "executive",
@@ -62204,6 +63189,14 @@
     },
     {
       "type": "official",
+      "slug": "viktor-ivanov-iotsov-2920bb",
+      "label": "Виктор Иванов Йоцов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "viktor-hristov-atanasov-d1bb24",
       "label": "Виктор Христов Атанасов",
       "tier": "executive",
@@ -62344,6 +63337,14 @@
       "label": "Владимир Боянов Върбанов",
       "tier": "executive",
       "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "vladimir-valeriev-hadzhiev-df3ce1",
+      "label": "Владимир Валериев Хаджиев",
+      "tier": "executive",
+      "role": "eu_funds_controller",
       "municipality": null
     },
     {
@@ -62964,6 +63965,14 @@
     },
     {
       "type": "official",
+      "slug": "georgi-bozhidarov-naidenov-de4ad5",
+      "label": "Георги Божидаров Найденов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "georgi-bonev-ivanov-4782eb",
       "label": "Георги Бонев Иванов",
       "tier": "executive",
@@ -63024,6 +64033,14 @@
       "label": "Георги Георгиев Тодоров",
       "tier": "executive",
       "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "georgi-dimitrov-gospodinov-701ebc",
+      "label": "Георги Димитров Господинов",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -63212,6 +64229,14 @@
     },
     {
       "type": "official",
+      "slug": "georgi-nedkov-kyuchukov-79897c",
+      "label": "Георги Недков Кючуков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "georgi-nikolaev-velev-bb5d1f",
       "label": "Георги Николаев Велев",
       "tier": "executive",
@@ -63244,6 +64269,14 @@
     },
     {
       "type": "official",
+      "slug": "georgi-pavlov-vasilev-84691e",
+      "label": "Георги Павлов Василев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "georgi-paunov-bakalov-07dde3",
       "label": "Георги Паунов Бакалов",
       "tier": "executive",
@@ -63256,6 +64289,14 @@
       "label": "Георги Пенчев Венков",
       "tier": "executive",
       "role": "academic",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "georgi-petkov-iliev-59dc23",
+      "label": "Георги Петков Илиев",
+      "tier": "executive",
+      "role": "hospital_head",
       "municipality": null
     },
     {
@@ -63558,6 +64599,14 @@
       "type": "official",
       "slug": "gergana-krstanova-georgieva-kirilova-6c5e60",
       "label": "Гергана Кръстанова Георгиева-Кирилова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "gergana-mihailova-vasileva-stefanova-6638dd",
+      "label": "Гергана Михайлова Василева-Стефанова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -63876,10 +64925,26 @@
     },
     {
       "type": "official",
+      "slug": "daniel-dimitrov-salabashev-31fee0",
+      "label": "Даниел Димитров Салабашев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "daniel-krasimirov-burmov-e54c94",
       "label": "Даниел Красимиров Бурмов",
       "tier": "executive",
       "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "daniel-lilov-prandzhev-135de2",
+      "label": "Даниел Лилов Пранджев",
+      "tier": "executive",
+      "role": "hospital_head",
       "municipality": null
     },
     {
@@ -63894,6 +64959,14 @@
       "type": "official",
       "slug": "daniel-malchev-malev-6342a5",
       "label": "Даниел Малчев Малев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "daniel-miloslavov-petrov-edd5c1",
+      "label": "Даниел Милославов Петров",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -64284,6 +65357,14 @@
     },
     {
       "type": "official",
+      "slug": "dafinka-asparuhova-semerdzhieva-51a10b",
+      "label": "Дафинка Аспарухова Семерджиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "delyan-valentinov-dimitrov-e81247",
       "label": "Делян Валентинов Димитров",
       "tier": "executive",
@@ -64326,6 +65407,14 @@
       "type": "official",
       "slug": "denitsa-aleksandrova-tsenkova-4c731e",
       "label": "Деница Александрова Ценкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "denitsa-andreeva-dimitrova-stoyanova-cfdc13",
+      "label": "Деница Андреева Димитрова-Стоянова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -64772,6 +65861,14 @@
     },
     {
       "type": "official",
+      "slug": "dimitrina-grozdanova-minkova-172eb1",
+      "label": "Димитрина Грозданова Минкова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "dimitrina-ivanova-kirisheva-fd54b5",
       "label": "Димитрина Иванова Киришева",
       "tier": "executive",
@@ -64840,6 +65937,14 @@
       "label": "Димитър Ангелов Ермов",
       "tier": "executive",
       "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "dimitr-andreev-delchev-0883a8",
+      "label": "Димитър Андреев Делчев",
+      "tier": "executive",
+      "role": "party_leader",
       "municipality": null
     },
     {
@@ -64988,6 +66093,14 @@
     },
     {
       "type": "official",
+      "slug": "dimitr-georgiev-hodulov-343b14",
+      "label": "Димитър Георгиев Ходулов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "dimitr-gospodinov-mihov-dcd3d2",
       "label": "Димитър Господинов Михов",
       "tier": "executive",
@@ -65062,6 +66175,14 @@
       "type": "official",
       "slug": "dimitr-kiryakov-yankov-6e5626",
       "label": "Димитър Киряков Янков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "dimitr-kolev-gochev-de53e5",
+      "label": "Димитър Колев Гочев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -65206,6 +66327,14 @@
       "type": "official",
       "slug": "dimitr-stefanov-stankov-4950d7",
       "label": "Димитър Стефанов Станков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "dimitr-stefkov-zlatarov-7858be",
+      "label": "Димитър Стефков Златаров",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -65408,6 +66537,14 @@
       "label": "Добринка Пенева Йорданова",
       "tier": "executive",
       "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "dobromir-zhechev-dobrev-fb85fa",
+      "label": "Добромир Жечев Добрев",
+      "tier": "executive",
+      "role": "regional_governor",
       "municipality": null
     },
     {
@@ -66084,6 +67221,22 @@
     },
     {
       "type": "official",
+      "slug": "elizabet-stefanova-petrova-2841db",
+      "label": "Елизабет Стефанова Петрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "elizabeta-angelova-lozanova-6226e6",
+      "label": "Елизабета Ангелова Лозанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "elitsa-velizarova-nikolova-e05c03",
       "label": "Елица Велизарова Николова",
       "tier": "executive",
@@ -66244,10 +67397,26 @@
     },
     {
       "type": "official",
+      "slug": "emil-rumenov-savov-0c7138",
+      "label": "Емил Руменов Савов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "emil-simeonov-tonev-2a3d3b",
       "label": "Емил Симеонов Тонев",
       "tier": "executive",
       "role": "security_service",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "emil-stoyanov-botov-c8cdb6",
+      "label": "Емил Стоянов Ботов",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -66392,14 +67561,6 @@
       "label": "Енчо Петров Петров",
       "tier": "executive",
       "role": "state_enterprise",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "encho-stamenov-mirchev-60b7b0",
-      "label": "Енчо Стаменов Мирчев",
-      "tier": "executive",
-      "role": "inspectorate",
       "municipality": null
     },
     {
@@ -66644,14 +67805,6 @@
     },
     {
       "type": "official",
-      "slug": "zhivko-hristakev-petrov-9ca9d3",
-      "label": "Живко Христакев Петров",
-      "tier": "executive",
-      "role": "deputy_minister",
-      "municipality": null
-    },
-    {
-      "type": "official",
       "slug": "zhulieta-doncheva-neshkova-a12b31",
       "label": "Жулиета Дончева Нешкова",
       "tier": "executive",
@@ -66694,6 +67847,14 @@
       "type": "official",
       "slug": "zaharina-damyanova-lazarova-cd98e4",
       "label": "Захарина Дамянова Лазарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "zvezdalin-zamfirov-bekyarov-fa440d",
+      "label": "Звездалин Замфиров Бекяров",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -68060,6 +69221,14 @@
     },
     {
       "type": "official",
+      "slug": "ivelina-petrova-krushkova-efc6ef",
+      "label": "Ивелина Петрова Крушкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "ivelina-petrova-petrova-0987b3",
       "label": "Ивелина Петрова Петрова",
       "tier": "executive",
@@ -68700,6 +69869,14 @@
     },
     {
       "type": "official",
+      "slug": "iordan-zdravkov-gogev-dad376",
+      "label": "Йордан Здравков Гогев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "iordan-ivanov-staikov-c84036",
       "label": "ЙОРДАН ИВАНОВ СТАЙКОВ",
       "tier": "executive",
@@ -69004,6 +70181,14 @@
     },
     {
       "type": "official",
+      "slug": "kaloyan-ivanov-stoyanov-6a83c7",
+      "label": "Калоян Иванов Стоянов",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "kameliya-zaharieva-genova-b5d2bf",
       "label": "Камелия Захариева Генова",
       "tier": "executive",
@@ -69062,6 +70247,14 @@
       "type": "official",
       "slug": "kameliya-uralova-asenova-7aed94",
       "label": "Камелия Уралова Асенова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "kamen-valentinov-kirov-9d4662",
+      "label": "Камен Валентинов Киров",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -69192,6 +70385,14 @@
       "label": "Катя Вълчинова Русалийска",
       "tier": "executive",
       "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "katya-zhivkova-mihailova-94561f",
+      "label": "Катя Живкова Михайлова",
+      "tier": "executive",
+      "role": "political_cabinet",
       "municipality": null
     },
     {
@@ -69352,6 +70553,14 @@
       "label": "Кирил Георгиев Георгиев",
       "tier": "executive",
       "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "kiril-dimitrov-pashov-6be92d",
+      "label": "Кирил Димитров Пашов",
+      "tier": "executive",
+      "role": "hospital_head",
       "municipality": null
     },
     {
@@ -69588,6 +70797,14 @@
     },
     {
       "type": "official",
+      "slug": "kostadin-iliev-partenov-a96080",
+      "label": "Костадин Илиев Партенов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "kostadin-iliev-totev-cd4621",
       "label": "Костадин Илиев Тотев",
       "tier": "executive",
@@ -69808,6 +71025,14 @@
       "label": "Красимира Арангелова Ковачка",
       "tier": "executive",
       "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "krasimira-georgieva-koleva-d0f7b2",
+      "label": "Красимира Георгиева Колева",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -70164,6 +71389,14 @@
     },
     {
       "type": "official",
+      "slug": "lchezar-iordanov-petkov-684224",
+      "label": "Лъчезар Йорданов Петков",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "lchezar-todorov-stanoev-3ff5bc",
       "label": "Лъчезар Тодоров Станоев",
       "tier": "executive",
@@ -70192,14 +71425,6 @@
       "label": "Любен Лилянов Нанов",
       "tier": "executive",
       "role": "state_enterprise",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "lyuben-petrov-tatarski-da0748",
-      "label": "Любен Петров Татарски",
-      "tier": "executive",
-      "role": "political_cabinet",
       "municipality": null
     },
     {
@@ -70572,6 +71797,14 @@
     },
     {
       "type": "official",
+      "slug": "malinka-ivanova-tsvetkova-786664",
+      "label": "Малинка Иванова Цветкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "manol-trifonov-genov-ff91a1",
       "label": "Манол Трифонов Генов",
       "tier": "executive",
@@ -70724,6 +71957,14 @@
     },
     {
       "type": "official",
+      "slug": "marzhena-lutsiya-rish-panova-5ba934",
+      "label": "Маржена Луция Риш-Панова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "marian-ivanov-dimitrov-69de53",
       "label": "Мариан Иванов Димитров",
       "tier": "executive",
@@ -70860,6 +72101,14 @@
     },
     {
       "type": "official",
+      "slug": "mariela-ivanova-vangelov-c3d877",
+      "label": "Мариела Иванова Вангелов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "mariela-todorova-modeva-a61f2f",
       "label": "Мариела Тодорова Модева",
       "tier": "executive",
@@ -70942,6 +72191,14 @@
       "type": "official",
       "slug": "marin-marinov-hristov-466645",
       "label": "Марин Маринов Христов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "marina-georgieva-palakarska-235456",
+      "label": "Марина Георгиева Палакарска",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -71492,6 +72749,14 @@
     },
     {
       "type": "official",
+      "slug": "mariyana-dimitrova-petkova-90b1e0",
+      "label": "Марияна Димитрова Петкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "mariyana-dimitrova-tafrova-5cbce1",
       "label": "Марияна Димитрова Тафрова",
       "tier": "executive",
@@ -71582,6 +72847,14 @@
       "type": "official",
       "slug": "mariyana-stoyanova-andreeva-23aa5b",
       "label": "Марияна Стоянова Андреева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "mariyana-hristova-arsenova-vladimirova-25630b",
+      "label": "Марияна Христова Арсенова-Владимирова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -71870,6 +73143,14 @@
       "type": "official",
       "slug": "metodi-georgiev-popov-47f0fa",
       "label": "Методи Георгиев Попов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "metodi-georgiev-smilov-e785b4",
+      "label": "Методи Георгиев Смилов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -72292,6 +73573,14 @@
     },
     {
       "type": "official",
+      "slug": "mina-kostova-kanarieva-a304e6",
+      "label": "Мина Костова Канариева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "minka-racheva-drinkova-f6a29d",
       "label": "Минка Рачева Дринкова",
       "tier": "executive",
@@ -72376,6 +73665,14 @@
       "label": "Мирослав Любомиров Ботушаров",
       "tier": "executive",
       "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "miroslav-obreikov-obreikov-39500a",
+      "label": "Мирослав Обрейков Обрейков",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -72676,6 +73973,14 @@
     },
     {
       "type": "official",
+      "slug": "momchil-mihalev-hubchev-1643c0",
+      "label": "Момчил Михалев Хубчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "momchil-stefanov-mavrov-29065c",
       "label": "Момчил Стефанов Мавров",
       "tier": "executive",
@@ -72726,6 +74031,14 @@
       "type": "official",
       "slug": "monka-nedkova-nikolova-61ab94",
       "label": "Монка Недкова Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "musa-salih-buzgov-2d2db9",
+      "label": "МУСА САЛИХ БУЗГЬОВ",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -73444,6 +74757,14 @@
     },
     {
       "type": "official",
+      "slug": "nikolai-valentinov-mladenov-839540",
+      "label": "Николай Валентинов Младенов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "nikolai-vasilev-belev-c6c430",
       "label": "Николай Василев Белев",
       "tier": "executive",
@@ -73484,18 +74805,18 @@
     },
     {
       "type": "official",
-      "slug": "nikolai-vichev-karaivanov-2bf04f",
-      "label": "Николай Вичев Караиванов",
-      "tier": "executive",
-      "role": "procurement_officer",
-      "municipality": null
-    },
-    {
-      "type": "official",
       "slug": "nikolai-genchev-ivanov-4e518b",
       "label": "Николай Генчев Иванов",
       "tier": "executive",
       "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "nikolai-georgiev-hristov-8ea9cc",
+      "label": "Николай Георгиев Христов",
+      "tier": "executive",
+      "role": "hospital_head",
       "municipality": null
     },
     {
@@ -74292,6 +75613,14 @@
     },
     {
       "type": "official",
+      "slug": "panaiot-zdravkov-trendafilov-f90e89",
+      "label": "Панайот Здравков Трендафилов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "paskal-todorov-zhelyazkov-9b4785",
       "label": "Паскал Тодоров Желязков",
       "tier": "executive",
@@ -74716,6 +76045,14 @@
     },
     {
       "type": "official",
+      "slug": "petya-georgieva-iordanova-640344",
+      "label": "Петя Георгиева Йорданова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "petya-georgieva-kncheva-23a53d",
       "label": "Петя Георгиева Кънчева",
       "tier": "executive",
@@ -74828,6 +76165,14 @@
     },
     {
       "type": "official",
+      "slug": "petya-stanislavova-ivanova-71b629",
+      "label": "Петя Станиславова Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "petya-tyankova-nikolova-edceb6",
       "label": "Петя Тянкова Николова",
       "tier": "executive",
@@ -74840,6 +76185,14 @@
       "label": "Петя Христова Илиева",
       "tier": "executive",
       "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "peshka-todorova-vlkova-5ed6c0",
+      "label": "Пешка  Тодорова Вълкова",
+      "tier": "executive",
+      "role": "eu_funds_controller",
       "municipality": null
     },
     {
@@ -74920,6 +76273,14 @@
       "label": "Пламен Иванов Данаилов",
       "tier": "executive",
       "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "plamen-ivanov-dermendzhiev-4ed6fa",
+      "label": "Пламен Иванов Дерменджиев",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -75236,6 +76597,14 @@
     },
     {
       "type": "official",
+      "slug": "radoslav-radoev-radev-1d02f8",
+      "label": "Радослав Радоев Радев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "radoslav-rumenov-antov-026a70",
       "label": "Радослав Руменов Антов",
       "tier": "executive",
@@ -75294,6 +76663,14 @@
       "type": "official",
       "slug": "radostina-vasileva-spasova-6d88ed",
       "label": "Радостина Василева Спасова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "radostina-vlcheva-vlcheva-d0746b",
+      "label": "Радостина Вълчева Вълчева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -75396,7 +76773,7 @@
     },
     {
       "type": "official",
-      "slug": "ralitsa-lyubomirova-simeonova-e84e38",
+      "slug": "ralitsa-lyubomirova-simeonova-c13dd2",
       "label": "Ралица Любомирова Симеонова",
       "tier": "executive",
       "role": "deputy_minister",
@@ -75580,14 +76957,6 @@
     },
     {
       "type": "official",
-      "slug": "rosen-ivanov-belchev-561c2c",
-      "label": "Росен Иванов Белчев",
-      "tier": "executive",
-      "role": "regional_governor",
-      "municipality": null
-    },
-    {
-      "type": "official",
       "slug": "rosen-ivanov-hristov-42ada5",
       "label": "Росен Иванов Христов",
       "tier": "executive",
@@ -75700,14 +77069,6 @@
     },
     {
       "type": "official",
-      "slug": "rositsa-velikova-dicheva-7496f2",
-      "label": "Росица Великова Дичева",
-      "tier": "executive",
-      "role": "hospital_head",
-      "municipality": null
-    },
-    {
-      "type": "official",
       "slug": "rositsa-dimova-dimova-f98c36",
       "label": "Росица Димова Димова",
       "tier": "executive",
@@ -75736,6 +77097,14 @@
       "label": "Росица Желязкова Темелкова",
       "tier": "executive",
       "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "rositsa-ivanova-gaidarova-e1306d",
+      "label": "Росица Иванова Гайдарова",
+      "tier": "executive",
+      "role": "hospital_head",
       "municipality": null
     },
     {
@@ -75956,10 +77325,26 @@
     },
     {
       "type": "official",
+      "slug": "rumen-petrov-bechev-58c963",
+      "label": "Румен Петров Бечев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "rumen-petrov-dimitrov-52c160",
       "label": "Румен Петров Димитров",
       "tier": "executive",
       "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "rumen-rumenov-dimitrov-f2baaa",
+      "label": "Румен Руменов Димитров",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -76396,6 +77781,14 @@
     },
     {
       "type": "official",
+      "slug": "svetlozar-veselinov-morfov-14766b",
+      "label": "Светлозар Веселинов Морфов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "svetlozar-georgiev-chavdarov-d1a444",
       "label": "Светлозар Георгиев Чавдаров",
       "tier": "executive",
@@ -76804,6 +78197,14 @@
     },
     {
       "type": "official",
+      "slug": "silviya-georgieva-aleksandrova-bc3f75",
+      "label": "Силвия Георгиева Александрова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "silviya-dimitrova-grigorova-beb328",
       "label": "Силвия Димитрова Григорова",
       "tier": "executive",
@@ -77056,6 +78457,14 @@
       "label": "Снежанка Атанасова Тодорова",
       "tier": "executive",
       "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "snezhanka-georgieva-dichev-5b89e7",
+      "label": "Снежанка Георгиева Дичев",
+      "tier": "executive",
+      "role": "hospital_head",
       "municipality": null
     },
     {
@@ -77380,6 +78789,14 @@
     },
     {
       "type": "official",
+      "slug": "stancho-georgiev-stanchev-bea4c6",
+      "label": "Станчо Георгиев Станчев",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "stancho-mitev-kaikov-fa52c8",
       "label": "Станчо Митев Кайков",
       "tier": "executive",
@@ -77432,6 +78849,14 @@
       "label": "Стелиян Проданов Славов",
       "tier": "executive",
       "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "steliyan-slavkov-dimitrov-473187",
+      "label": "Стелиян Славков Димитров",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -77660,14 +79085,6 @@
     },
     {
       "type": "official",
-      "slug": "stefka-milotinova-vasileva-d41c59",
-      "label": "Стефка Милотинова Василева",
-      "tier": "executive",
-      "role": "revenue_agency",
-      "municipality": null
-    },
-    {
-      "type": "official",
       "slug": "stefka-paneva-yarlovska-542564",
       "label": "Стефка Панева Ярловска",
       "tier": "executive",
@@ -77800,6 +79217,14 @@
       "label": "Стойчо Николов Маров",
       "tier": "executive",
       "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "stoicho-slavov-hristov-36c394",
+      "label": "Стойчо Славов Христов",
+      "tier": "executive",
+      "role": "procurement_officer",
       "municipality": null
     },
     {
@@ -78108,6 +79533,14 @@
     },
     {
       "type": "official",
+      "slug": "tanya-stoicheva-ivanova-boneva-eda8e7",
+      "label": "Таня Стойчева Иванова-Бонева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "tanya-stoyanova-mihailova-03271b",
       "label": "Таня Стоянова Михайлова",
       "tier": "executive",
@@ -78332,6 +79765,14 @@
     },
     {
       "type": "official",
+      "slug": "teodora-vladimirova-stoyanova-19c386",
+      "label": "Теодора Владимирова Стоянова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "teodora-georgieva-dacheva-d3fd9c",
       "label": "Теодора Георгиева Дачева",
       "tier": "executive",
@@ -78428,6 +79869,14 @@
     },
     {
       "type": "official",
+      "slug": "tihomir-donov-kirkov-eac21f",
+      "label": "Тихомир Донов Кирков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "tihomir-emilov-chavdarov-f3dd2c",
       "label": "Тихомир Емилов Чавдаров",
       "tier": "executive",
@@ -78464,6 +79913,14 @@
       "label": "Тихомир Костов Савчев",
       "tier": "executive",
       "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "tihomir-mishev-dermendzhiev-d67b8c",
+      "label": "Тихомир Мишев Дерменджиев",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -78884,6 +80341,14 @@
     },
     {
       "type": "official",
+      "slug": "hranimir-borisov-genchev-c871c3",
+      "label": "Хранимир Борисов Генчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "hristina-velinova-avkova-f26076",
       "label": "Христина Велинова Авкова",
       "tier": "executive",
@@ -79060,6 +80525,14 @@
     },
     {
       "type": "official",
+      "slug": "hristo-georgiev-iovov-09e4cd",
+      "label": "Христо Георгиев Йовов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "hristo-dimitrov-angelov-4b1818",
       "label": "Христо Димитров Ангелов",
       "tier": "executive",
@@ -79070,14 +80543,6 @@
       "type": "official",
       "slug": "hristo-dimitrov-pigov-097e6b",
       "label": "Христо Димитров Пигов",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "hristo-ilarionov-mihailovski-e51a5c",
-      "label": "Христо Иларионов Михайловски",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -79276,6 +80741,14 @@
     },
     {
       "type": "official",
+      "slug": "tsvetan-svetozarov-sikov-389536",
+      "label": "Цветан Светозаров Съйков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "tsvetan-stanimirov-vasev-331e53",
       "label": "Цветан Станимиров Васев",
       "tier": "executive",
@@ -79390,6 +80863,14 @@
       "type": "official",
       "slug": "tsvetelina-dobreva-petkova-b3bf3b",
       "label": "Цветелина Добрева Петкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "tsvetelina-ivanova-todorova-2fcc2d",
+      "label": "Цветелина Иванова Тодорова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -79544,14 +81025,6 @@
       "label": "Чавдар Георгиев Георгиев",
       "tier": "executive",
       "role": "security_service",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "chavdar-georgiev-rahov-f15443",
-      "label": "Чавдар Георгиев Рахов",
-      "tier": "executive",
-      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -79804,6 +81277,14 @@
     },
     {
       "type": "official",
+      "slug": "yurii-dimitrov-vlkovski-16894e",
+      "label": "Юрий Димитров Вълковски",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "yurii-todorov-voev-e69ea2",
       "label": "Юрий Тодоров Воев",
       "tier": "executive",
@@ -79884,10 +81365,10 @@
     },
     {
       "type": "official",
-      "slug": "yana-encheva-topalova-bad8d3",
-      "label": "Яна Енчева Топалова",
+      "slug": "yalchn-ismail-rasim-67b1a8",
+      "label": "Ялчън Исмаил Расим",
       "tier": "executive",
-      "role": "agency_head",
+      "role": "security_service",
       "municipality": null
     },
     {
@@ -79982,6 +81463,14 @@
       "type": "official",
       "slug": "yancho-stoyanov-stoichev-57436e",
       "label": "Янчо Стоянов Стойчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "yasen-lyubenov-todorov-5ba73a",
+      "label": "Ясен Любенов Тодоров",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -80260,6 +81749,14 @@
     },
     {
       "type": "official",
+      "slug": "aleksandr-krstev-trichkov-7b08a4",
+      "label": "Александър Кръстев Тричков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Дългопол"
+    },
+    {
+      "type": "official",
       "slug": "aleksandr-krstinov-makedonski-fb4632",
       "label": "Александър Кръстинов Македонски",
       "tier": "municipal",
@@ -80369,6 +81866,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Белоградчик"
+    },
+    {
+      "type": "official",
+      "slug": "anastasiya-dimitrova-cholakova-5d17db",
+      "label": "Анастасия Димитрова Чолакова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово"
     },
     {
       "type": "official",
@@ -81564,6 +83069,14 @@
     },
     {
       "type": "official",
+      "slug": "valentin-krumov-stoichkov-9b2c18",
+      "label": "Валентин Крумов Стоичков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Кресна"
+    },
+    {
+      "type": "official",
       "slug": "valentin-lazarov-kirilov-0b15e0",
       "label": "Валентин Лазаров Кирилов",
       "tier": "municipal",
@@ -82044,6 +83557,14 @@
     },
     {
       "type": "official",
+      "slug": "ventsi-ventsislavov-stoichev-83dc07",
+      "label": "Венци Венциславов Стойчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "type": "official",
       "slug": "ventsislav-valeriev-mitkov-81d2ec",
       "label": "Венцислав Валериев Митков",
       "tier": "municipal",
@@ -82268,6 +83789,14 @@
     },
     {
       "type": "official",
+      "slug": "viktoriya-vasileva-vasileva-7dd128",
+      "label": "Виктория Василева Василева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Раднево"
+    },
+    {
+      "type": "official",
       "slug": "viktoriya-dimitrova-kovchazova-6ac2da",
       "label": "Виктория Димитрова Ковчазова",
       "tier": "municipal",
@@ -82329,6 +83858,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Ново село"
+    },
+    {
+      "type": "official",
+      "slug": "vladimir-dukov-dukov-33cf86",
+      "label": "Владимир Дуков Дуков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Царево"
     },
     {
       "type": "official",
@@ -82401,6 +83938,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Кула"
+    },
+    {
+      "type": "official",
+      "slug": "vladimir-sergeev-deliev-6eca93",
+      "label": "Владимир Сергеев Делиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Доспат"
     },
     {
       "type": "official",
@@ -83444,6 +84989,14 @@
     },
     {
       "type": "official",
+      "slug": "daniel-nikolov-cholakov-a5bd26",
+      "label": "Даниел Николов Чолаков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Средец"
+    },
+    {
+      "type": "official",
       "slug": "daniel-rumenov-gargov-c309b6",
       "label": "Даниел Руменов Гаргов",
       "tier": "municipal",
@@ -83529,6 +85082,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Симеоновград"
+    },
+    {
+      "type": "official",
+      "slug": "dancho-dimitrov-trifonov-a3a0af",
+      "label": "Данчо Димитров Трифонов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Тополовград"
     },
     {
       "type": "official",
@@ -83937,6 +85498,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Сандански"
+    },
+    {
+      "type": "official",
+      "slug": "dimitrina-nedelcheva-dimitrova-d33871",
+      "label": "Димитрина Неделчева Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нова Загора"
     },
     {
       "type": "official",
@@ -84532,6 +86101,14 @@
     },
     {
       "type": "official",
+      "slug": "evgeni-filipov-angelov-5fed90",
+      "label": "Евгени Филипов Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Якимово"
+    },
+    {
+      "type": "official",
       "slug": "ekaterina-andreeva-toshkova-ddc6d3",
       "label": "Екатерина Андреева Тошкова",
       "tier": "municipal",
@@ -84713,6 +86290,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Ракитово"
+    },
+    {
+      "type": "official",
+      "slug": "emil-denchev-enchev-6ced97",
+      "label": "Емил Денчев Енчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Полски Тръмбеш"
     },
     {
       "type": "official",
@@ -85025,6 +86610,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Царево"
+    },
+    {
+      "type": "official",
+      "slug": "zhivka-velikova-chaneva-cc6be8",
+      "label": "Живка Великова Чанева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Вълчидол"
     },
     {
       "type": "official",
@@ -85476,6 +87069,14 @@
     },
     {
       "type": "official",
+      "slug": "ivailo-tsvetelinov-ivanov-058025",
+      "label": "Ивайло Цветелинов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Каспичан"
+    },
+    {
+      "type": "official",
       "slug": "ivalinka-todorova-tsankova-70d4f3",
       "label": "Ивалинка Тодорова Цанкова",
       "tier": "municipal",
@@ -85652,6 +87253,14 @@
     },
     {
       "type": "official",
+      "slug": "ivan-iliev-donchev-debcfc",
+      "label": "Иван Илиев Дончев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Провадия"
+    },
+    {
+      "type": "official",
       "slug": "ivan-iordanov-banchev-a652af",
       "label": "Иван Йорданов Банчев",
       "tier": "municipal",
@@ -85665,6 +87274,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Долна баня"
+    },
+    {
+      "type": "official",
+      "slug": "ivan-kirilov-kirilov-40a111",
+      "label": "Иван Кирилов Кирилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
     },
     {
       "type": "official",
@@ -85689,6 +87306,14 @@
       "tier": "municipal",
       "role": "deputy_mayor",
       "municipality": "Район \"Западен\" - Пловдив"
+    },
+    {
+      "type": "official",
+      "slug": "ivan-krasimirov-enimanev-80a648",
+      "label": "Иван Красимиров Ениманев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Сливо поле"
     },
     {
       "type": "official",
@@ -85817,6 +87442,14 @@
       "tier": "municipal",
       "role": "deputy_mayor",
       "municipality": "Несебър"
+    },
+    {
+      "type": "official",
+      "slug": "ivan-stoichev-papazov-5f5302",
+      "label": "Иван Стойчев Папазов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пазарджик"
     },
     {
       "type": "official",
@@ -86596,6 +88229,14 @@
     },
     {
       "type": "official",
+      "slug": "kalin-hristov-ivanov-2e57a6",
+      "label": "Калин Христов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Радомир"
+    },
+    {
+      "type": "official",
       "slug": "kalina-dimitrova-chervenkova-726511",
       "label": "Калина Димитрова Червенкова",
       "tier": "municipal",
@@ -86841,6 +88482,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Асеновград"
+    },
+    {
+      "type": "official",
+      "slug": "konstantin-vaskov-ivanov-86c2ee",
+      "label": "Константин Васков Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Перник"
     },
     {
       "type": "official",
@@ -87372,6 +89021,14 @@
     },
     {
       "type": "official",
+      "slug": "liliya-lyubomirova-dimitrova-vasileva-3459d8",
+      "label": "Лилия Любомирова Димитрова-Василева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливница"
+    },
+    {
+      "type": "official",
       "slug": "lilyana-angelova-draganova-b9a04b",
       "label": "Лиляна Ангелова Драганова",
       "tier": "municipal",
@@ -87860,6 +89517,14 @@
     },
     {
       "type": "official",
+      "slug": "mariya-kostova-kostova-3ea27a",
+      "label": "Мария Костова Костова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мъглиж"
+    },
+    {
+      "type": "official",
       "slug": "mariya-lyubomirova-gadzheva-e15549",
       "label": "Мария Любомирова Гаджева",
       "tier": "municipal",
@@ -88268,6 +89933,14 @@
     },
     {
       "type": "official",
+      "slug": "milen-dimitrov-georgiev-47fb2b",
+      "label": "Милен Димитров Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "type": "official",
       "slug": "milen-dimitrov-minchev-ac5d01",
       "label": "Милен Димитров Минчев",
       "tier": "municipal",
@@ -88580,6 +90253,14 @@
     },
     {
       "type": "official",
+      "slug": "miroslav-ivanov-simeonov-d62651",
+      "label": "Мирослав Иванов Симеонов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово"
+    },
+    {
+      "type": "official",
       "slug": "miroslav-iliev-cholev-eef5d6",
       "label": "Мирослав Илиев Чолев",
       "tier": "municipal",
@@ -88593,6 +90274,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Ценово"
+    },
+    {
+      "type": "official",
+      "slug": "miroslav-krasimirov-orloev-528b2f",
+      "label": "Мирослав Красимиров Орлоев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Добрич"
     },
     {
       "type": "official",
@@ -88692,6 +90381,14 @@
     },
     {
       "type": "official",
+      "slug": "mihail-kostadinov-uzunov-5dca7d",
+      "label": "Михаил Костадинов Узунов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ракитово"
+    },
+    {
+      "type": "official",
       "slug": "mihail-ognyanov-mihailov-40b08c",
       "label": "Михаил Огнянов Михайлов",
       "tier": "municipal",
@@ -88705,6 +90402,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Божурище"
+    },
+    {
+      "type": "official",
+      "slug": "mihail-todorov-mihalev-70739a",
+      "label": "Михаил Тодоров Михалев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велико Търново"
     },
     {
       "type": "official",
@@ -88916,22 +90621,6 @@
     },
     {
       "type": "official",
-      "slug": "myumyun-veli-syuleiman-5af148",
-      "label": "Мюмюн Вели Сюлейман",
-      "tier": "municipal",
-      "role": "chief_architect",
-      "municipality": "Мадан"
-    },
-    {
-      "type": "official",
-      "slug": "myumyun-veli-syuleiman-7efee2",
-      "label": "Мюмюн Вели Сюлейман",
-      "tier": "municipal",
-      "role": "chief_architect",
-      "municipality": "Черноочене"
-    },
-    {
-      "type": "official",
       "slug": "myumyun-rahim-dzhila-c6758a",
       "label": "Мюмюн Рахим Джила",
       "tier": "municipal",
@@ -88980,14 +90669,6 @@
     },
     {
       "type": "official",
-      "slug": "nadya-ivanova-genova-a96430",
-      "label": "Надя Иванова Генова",
-      "tier": "municipal",
-      "role": "chief_architect",
-      "municipality": "Братя Даскалови"
-    },
-    {
-      "type": "official",
       "slug": "naiden-pavlov-pavlov-8ebaa9",
       "label": "Найден Павлов Павлов",
       "tier": "municipal",
@@ -89009,6 +90690,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Поморие"
+    },
+    {
+      "type": "official",
+      "slug": "natali-prvanova-evtimova-8c2901",
+      "label": "Натали Първанова Евтимова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Якимово"
     },
     {
       "type": "official",
@@ -89308,14 +90997,6 @@
     },
     {
       "type": "official",
-      "slug": "nikolai-boyanov-bogdanov-d97cf3",
-      "label": "Николай Боянов Богданов",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Елин Пелин"
-    },
-    {
-      "type": "official",
       "slug": "nikolai-vasilev-todorov-3cf3a4",
       "label": "Николай Василев Тодоров",
       "tier": "municipal",
@@ -89345,14 +91026,6 @@
       "tier": "municipal",
       "role": "mayor",
       "municipality": "Първомай"
-    },
-    {
-      "type": "official",
-      "slug": "nikolai-georgiev-nikolaev-05d6cf",
-      "label": "Николай Георгиев Николаев",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Никопол"
     },
     {
       "type": "official",
@@ -89705,6 +91378,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Долна баня"
+    },
+    {
+      "type": "official",
+      "slug": "onur-sali-gochgeldi-686cee",
+      "label": "Онур Сали Гьочгелди",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разград"
     },
     {
       "type": "official",
@@ -90068,6 +91749,14 @@
     },
     {
       "type": "official",
+      "slug": "petr-iliev-petrov-207684",
+      "label": "Петър Илиев Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово"
+    },
+    {
+      "type": "official",
       "slug": "petr-lukanov-dragomanski-20fc4b",
       "label": "Петър Луканов Драгомански",
       "tier": "municipal",
@@ -90188,6 +91877,14 @@
     },
     {
       "type": "official",
+      "slug": "plamen-zhelev-kostadinov-36154d",
+      "label": "Пламен Желев Костадинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карнобат"
+    },
+    {
+      "type": "official",
       "slug": "plamen-ivanov-statev-dc190a",
       "label": "Пламен Иванов Статев",
       "tier": "municipal",
@@ -90201,6 +91898,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Сливен"
+    },
+    {
+      "type": "official",
+      "slug": "plamen-pankov-petkov-57dfff",
+      "label": "Пламен Панков Петков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Марица"
     },
     {
       "type": "official",
@@ -91340,6 +93045,14 @@
     },
     {
       "type": "official",
+      "slug": "stanimir-vladimirov-velichkov-7a58d9",
+      "label": "Станимир Владимиров Величков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Полски Тръмбеш"
+    },
+    {
+      "type": "official",
       "slug": "stanimir-emilov-tonchev-677919",
       "label": "Станимир Емилов Тончев",
       "tier": "municipal",
@@ -92100,6 +93813,14 @@
     },
     {
       "type": "official",
+      "slug": "teodor-bozhidarov-stavrev-70befd",
+      "label": "Теодор Божидаров Ставрев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Червен бряг"
+    },
+    {
+      "type": "official",
       "slug": "teodor-naidenov-radev-643ebb",
       "label": "Теодор Найденов Радев",
       "tier": "municipal",
@@ -92121,6 +93842,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Копривщица"
+    },
+    {
+      "type": "official",
+      "slug": "tervel-veselinov-borisov-0ef40c",
+      "label": "Тервел Веселинов Борисов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
     },
     {
       "type": "official",
@@ -92564,6 +94293,14 @@
     },
     {
       "type": "official",
+      "slug": "hristina-violetova-stoyanova-b8164a",
+      "label": "Христина Виолетова Стоянова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мездра"
+    },
+    {
+      "type": "official",
       "slug": "hristina-dimitrova-eftimova-29ccfc",
       "label": "Христина Димитрова Ефтимова",
       "tier": "municipal",
@@ -92625,6 +94362,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Опака"
+    },
+    {
+      "type": "official",
+      "slug": "hristo-atanasov-lazarov-da7e3e",
+      "label": "Христо Атанасов Лазаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белово"
     },
     {
       "type": "official",
@@ -92972,6 +94717,14 @@
     },
     {
       "type": "official",
+      "slug": "tsvetelina-petkova-grigorova-646cc8",
+      "label": "Цветелина Петкова Григорова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливница"
+    },
+    {
+      "type": "official",
       "slug": "tsvetelina-radeva-ralenekova-883a9b",
       "label": "Цветелина Радева Раленекова",
       "tier": "municipal",
@@ -93092,6 +94845,14 @@
     },
     {
       "type": "official",
+      "slug": "shemsi-ebazir-mustafa-83930f",
+      "label": "Шемси Ебазир Мустафа",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Руен"
+    },
+    {
+      "type": "official",
       "slug": "shengyul-ibrahim-yusuf-8879b0",
       "label": "Шенгюл Ибрахим Юсуф",
       "tier": "municipal",
@@ -93105,6 +94866,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Хасково"
+    },
+    {
+      "type": "official",
+      "slug": "shermin-adil-mehmedova-613762",
+      "label": "Шермин Адил Мехмедова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Севлиево"
     },
     {
       "type": "official",
@@ -93337,6 +95106,14 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Борино"
+    },
+    {
+      "type": "official",
+      "slug": "yavor-aleksandrov-ivanov-7b4b18",
+      "label": "Явор Александров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ковачевци"
     },
     {
       "type": "official",

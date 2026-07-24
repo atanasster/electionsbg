@@ -1,0 +1,101 @@
+[
+  {
+    "slug": "iliana-naidenova-ivanova-2b60d3",
+    "declarantName": "Илиана Найденова Иванова",
+    "institution": "Европейската комисия",
+    "positionTitle": "Член",
+    "category": "international",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6069",
+    "controlHash": "7244E4EA",
+    "sourceUrl": "https://register.cacbg.bg/2024/2FF2B6E3-9933-4C35-A0F9-610694054CA7187350.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 95001.61056942577,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Еднократна надбавка при встъпване в длъжност",
+        "amountEurDeclarant": 52428.89208162264,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 83000,
+        "valueEur": 82999.54495022574,
+        "holderName": "Илиана Найденова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 159334,
+        "valueEur": 159334,
+        "holderName": "Илиана Найденова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 10000,
+        "holderName": "Илиана Найденова Иванова",
+        "isSpouse": false,
+        "legalBasis": "по договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Наем на жилище в Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 11599.678908698608,
+        "legalBasis": null
+      }
+    ]
+  }
+]

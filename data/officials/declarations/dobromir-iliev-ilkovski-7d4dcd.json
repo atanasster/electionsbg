@@ -327,5 +327,146 @@
         "legalBasis": null
       }
     ]
+  },
+  {
+    "slug": "dobromir-iliev-ilkovski-7d4dcd",
+    "declarantName": "Добромир Илиев Илковски",
+    "institution": "СБАЛ \"Гръбнацен център\" АД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-15",
+    "entryNumber": "Г8764",
+    "controlHash": "53219D57",
+    "sourceUrl": "https://register.cacbg.bg/2022/D5A8A72E-3E46-4FA3-AFB7-CBF86FD295F0141561.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26456.28710061713,
+        "amountEurSpouse": 13451.066810510116
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13453.111978034902,
+        "amountEurSpouse": 2049.76915171564
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5061.789623842563
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "с. Кормянско",
+        "municipality": "Севлиево",
+        "areaSqm": 150,
+        "builtAreaSqm": 150,
+        "acquiredYear": 2017,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Добромир Илиев Илковски",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Елина Добромирова Илковска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "детски влог"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 6000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Елина Добромирова Илковска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "детски влог"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41000,
+        "valueEur": 20962.96712904496,
+        "holderName": "Добромир Илиев Илковски",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 185000,
+        "valueEur": 94588.99802130042,
+        "holderName": "Мая Нанкова Илковска",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "guarantee",
+        "description": "обезпечение дете",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 3579.0431683735296,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -1,7 +1,7 @@
 {
   "obshtina": "PER19",
   "registryName": "Земен",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 9,
+    "councillor": 10,
     "chief_architect": 1,
     "other": 0
   },
@@ -92,6 +92,23 @@
       "roleRaw": "Главен архитект",
       "municipality": "Земен",
       "latestDeclarationYear": 2025
+    },
+    {
+      "slug": "aleksandr-milkov-aleksandrov-8e630d",
+      "name": "Александър Милков Александров",
+      "normalizedName": "АЛЕКСАНДЪР МИЛКОВ АЛЕКСАНДРОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Земен",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ВЪЗРАЖДАНЕ",
+        "partyCanonicalId": "p_7",
+        "listPos": 103,
+        "prefVotes": 104,
+        "isElected": true
+      }
     },
     {
       "slug": "antoaneta-raicheva-stefanova-59e4d8",

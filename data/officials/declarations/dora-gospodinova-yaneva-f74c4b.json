@@ -5,6 +5,74 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-16",
+    "entryNumber": "Г14599",
+    "controlHash": "97159AD0",
+    "sourceUrl": "https://register.cacbg.bg/2025/1EC19100-6178-4368-97D4-7F198A2DB21E217947.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25978.740483579862,
+        "amountEurSpouse": 19605.487184469
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12669.812816042295
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ситроен С 5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Георги Михайлов Янев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 186013,
+        "valueEur": 95106.9366969522,
+        "holderName": "Дора господинова Янева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dora-gospodinova-yaneva-f74c4b",
+    "declarantName": "Дора Господинова Янева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

@@ -1,7 +1,7 @@
 {
   "obshtina": "VAR08",
   "registryName": "Ветрино",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,8 +9,8 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 11,
-    "chief_architect": 0,
+    "councillor": 12,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -66,6 +66,15 @@
         "prefVotes": 92,
         "isElected": true
       }
+    },
+    {
+      "slug": "nikolai-krasimirov-kutsarov-9863b8",
+      "name": "Николай Красимиров Куцаров",
+      "normalizedName": "НИКОЛАЙ КРАСИМИРОВ КУЦАРОВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Ветрино",
+      "latestDeclarationYear": 2025
     },
     {
       "slug": "ahmed-ridvanov-kemilov-fec53e",
@@ -200,6 +209,23 @@
         "partyCanonicalId": "p_13",
         "listPos": 102,
         "prefVotes": 192,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "petya-staikova-gambezova-5d9267",
+      "name": "Петя Стайкова Гамбезова",
+      "normalizedName": "ПЕТЯ СТАЙКОВА ГАМБЕЗОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Ветрино",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ВЕЛИЧИЕ",
+        "partyCanonicalId": "p_13",
+        "listPos": 108,
+        "prefVotes": 216,
         "isElected": true
       }
     },

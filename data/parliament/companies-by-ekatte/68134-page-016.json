@@ -2,8 +2,34 @@
   "ekatte": "68134",
   "page": 16,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "Такси-Волт",
+      "displayName": "Такси Волт",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1766",
+      "mps": [
+        {
+          "mpId": 3661,
+          "mpName": "Виктор Гасан Насър",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТГЕ-ТРАКИЯ-ГРИЙН-ЕНЕРДЖИ",
+      "displayName": "ТГЕ - ТРАКИЯ ГРИЙН ЕНЕРДЖИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 2794,
+          "mpName": "Красимир Христов Янков",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Теоли-ООД-не-активно",
       "displayName": "Теоли ООД не активно",
@@ -515,6 +541,19 @@
       "slug": "Ълтимейт-киейтив-ЕООД",
       "displayName": "Ълтимейт киейтив ЕООД",
       "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 4378,
+          "mpName": "Мирослава Петрова Петрова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ълтимейт-Криейтив-ЕООД",
+      "displayName": "Ълтимейт Криейтив ЕООД",
+      "registeredOffice": "София (столица)",
       "mps": [
         {
           "mpId": 4378,

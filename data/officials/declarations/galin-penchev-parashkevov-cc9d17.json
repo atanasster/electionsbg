@@ -5,6 +5,68 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г14382",
+    "controlHash": "03600220",
+    "sourceUrl": "https://register.cacbg.bg/2025/C31FA741-4E4B-4135-B1AC-56F4BAAB67E1217675.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25944.99521942091,
+        "amountEurSpouse": 17919.757852165065
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "РАФ 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 15500,
+        "valueEur": 7925.024158541387,
+        "holderName": "Галин Пенчев Парашкевов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15286,
+        "valueEur": 7815.607695965396,
+        "holderName": "Галин Пенчев Парашкевов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "galin-penchev-parashkevov-cc9d17",
+    "declarantName": "Галин Пенчев Парашкевов",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

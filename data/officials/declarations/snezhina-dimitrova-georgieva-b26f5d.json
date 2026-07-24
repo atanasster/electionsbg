@@ -79,5 +79,43 @@
         "legalBasis": null
       }
     ]
+  },
+  {
+    "slug": "snezhina-dimitrova-georgieva-b26f5d",
+    "declarantName": "Снежина Димитрова Георгиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-25",
+    "entryNumber": "Г13531",
+    "controlHash": "F387C639",
+    "sourceUrl": "https://register.cacbg.bg/2024/49262C34-6EE9-4D68-8654-BEDFFBE52D14195529.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18406.507723063867,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "обучения",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -1,7 +1,7 @@
 {
   "obshtina": "VAR06",
   "registryName": "Район \"Аспарухово\" - Варна",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,8 +9,8 @@
     "mayor": 6,
     "deputy_mayor": 28,
     "council_chair": 2,
-    "councillor": 47,
-    "chief_architect": 5,
+    "councillor": 49,
+    "chief_architect": 6,
     "other": 0
   },
   "entries": [
@@ -559,6 +559,16 @@
       "municipality": "Район \"Аспарухово\" - Варна",
       "latestDeclarationYear": 2025,
       "district": "Район Аспарухово"
+    },
+    {
+      "slug": "venelin-veskov-markov-f72c6b",
+      "name": "Венелин Весков Марков",
+      "normalizedName": "ВЕНЕЛИН ВЕСКОВ МАРКОВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Район \"Одесос\" - Варна",
+      "latestDeclarationYear": 2025,
+      "district": "Район Одесос"
     },
     {
       "slug": "viktor-stefanov-buzev-185155",
@@ -1216,6 +1226,23 @@
       }
     },
     {
+      "slug": "simeon-yulianov-todorov-9bc838",
+      "name": "Симеон Юлианов Тодоров",
+      "normalizedName": "СИМЕОН ЮЛИАНОВ ТОДОРОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Варна",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК Български гласъ (Съюз на свободните демократи, Земеделски народен съюз, Обединен блок на труда български лейбъристи, Социалдемократическа партия)",
+        "partyCanonicalId": null,
+        "listPos": 145,
+        "prefVotes": 997,
+        "isElected": true
+      }
+    },
+    {
       "slug": "sofiya-lyubomirova-koleva-1e3ff5",
       "name": "София Любомирова Колева",
       "normalizedName": "СОФИЯ ЛЮБОМИРОВА КОЛЕВА",
@@ -1384,6 +1411,23 @@
         "partyCanonicalId": "p_7",
         "listPos": 103,
         "prefVotes": 201,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "yusmen-shakir-yusmen-f8361f",
+      "name": "Юсмен Шакир Юсмен",
+      "normalizedName": "ЮСМЕН ШАКИР ЮСМЕН",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Варна",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Движение за права и свободи – ДПС",
+        "partyCanonicalId": "p_16",
+        "listPos": 107,
+        "prefVotes": 821,
         "isElected": true
       }
     },

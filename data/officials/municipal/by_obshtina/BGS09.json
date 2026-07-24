@@ -1,7 +1,7 @@
 {
   "obshtina": "BGS09",
   "registryName": "Карнобат",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 19,
+    "councillor": 21,
     "chief_architect": 1,
     "other": 0
   },
@@ -132,6 +132,23 @@
         "partyCanonicalId": null,
         "listPos": 107,
         "prefVotes": 151,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "georgi-yanev-atanasov-8437d5",
+      "name": "Георги Янев Атанасов",
+      "normalizedName": "ГЕОРГИ ЯНЕВ АТАНАСОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Карнобат",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Граждани за Общината",
+        "partyCanonicalId": null,
+        "listPos": 103,
+        "prefVotes": 220,
         "isElected": true
       }
     },
@@ -285,6 +302,23 @@
         "partyCanonicalId": "bsp",
         "listPos": 105,
         "prefVotes": 225,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "plamen-zhelev-kostadinov-36154d",
+      "name": "Пламен Желев Костадинов",
+      "normalizedName": "ПЛАМЕН ЖЕЛЕВ КОСТАДИНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Карнобат",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 101,
+        "prefVotes": 44,
         "isElected": true
       }
     },

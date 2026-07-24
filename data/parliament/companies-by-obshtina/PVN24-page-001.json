@@ -153,6 +153,25 @@
       ]
     },
     {
+      "slug": "ПЛЕВЕН-ИНТЕРТРАНС-ЕООД",
+      "displayName": "ПЛЕВЕН-ИНТЕРТРАНС ЕООД",
+      "registeredOffice": "Плевен",
+      "mps": [
+        {
+          "mpId": 4716,
+          "mpName": "Венцислав Иванов Петков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4716,
+          "mpName": "ВЕНЦИСЛАВ ИВАНОВ ПЕТКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Теодора-72-ЕООД",
       "displayName": "Теодора 72 ЕООД",
       "registeredOffice": "Плевен",
@@ -371,25 +390,6 @@
         {
           "mpId": 2828,
           "mpName": "Чавдар Йорданов Велинов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ПЛЕВЕН-ИНТЕРТРАНС-ЕООД",
-      "displayName": "ПЛЕВЕН-ИНТЕРТРАНС ЕООД",
-      "registeredOffice": "Плевен",
-      "mps": [
-        {
-          "mpId": 4716,
-          "mpName": "Венцислав Иванов Петков",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4716,
-          "mpName": "ВЕНЦИСЛАВ ИВАНОВ ПЕТКОВ",
           "role": "declared_stake",
           "isCurrent": true
         }

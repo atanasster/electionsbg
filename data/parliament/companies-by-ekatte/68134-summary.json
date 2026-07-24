@@ -1,7 +1,7 @@
 {
   "ekatte": "68134",
-  "count": 794,
-  "mpCount": 421,
+  "count": 797,
+  "mpCount": 423,
   "totalPages": 16,
   "topCompanies": [
     {
@@ -74,6 +74,43 @@
       ]
     },
     {
+      "slug": "УТГ-ООД",
+      "displayName": "УТГ ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
+          "role": "liquidator",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
+          "role": "sole_owner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Фейс-НЮЗ",
       "displayName": "Фейс НЮЗ",
       "registeredOffice": "София (столица)",
@@ -81,19 +118,6 @@
         {
           "mpId": 4739,
           "mpName": "Димитър Стойков Николов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Лиона-66-ЕООД",
-      "displayName": "\"Лиона 66\" ЕООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 5267,
-          "mpName": "Валентин Мирчов Милушев",
           "role": "declared_stake",
           "isCurrent": true
         }

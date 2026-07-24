@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:iliya-iliev-kalchev-be718f",
   "nodes": [
     {
@@ -14,7 +14,7 @@
     {
       "id": "company:tr:206376189",
       "type": "company",
-      "label": "Българска Медена Компания ООД",
+      "label": "Българска Медена Компания",
       "slug": null,
       "uic": "206376189",
       "legalForm": null,
@@ -33,14 +33,6 @@
     }
   ],
   "edges": [
-    {
-      "source": "official:iliya-iliev-kalchev-be718f",
-      "target": "company:tr:206376189",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
     {
       "source": "official:iliya-iliev-kalchev-be718f",
       "target": "company:tr:206376189",

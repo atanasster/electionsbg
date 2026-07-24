@@ -1,7 +1,7 @@
 {
   "obshtina": "VAR24",
   "registryName": "Провадия",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 1,
-    "councillor": 19,
+    "councillor": 21,
     "chief_architect": 0,
     "other": 0
   },
@@ -245,6 +245,23 @@
       }
     },
     {
+      "slug": "ivan-iliev-donchev-debcfc",
+      "name": "Иван Илиев Дончев",
+      "normalizedName": "ИВАН ИЛИЕВ ДОНЧЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Провадия",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 101,
+        "prefVotes": 44,
+        "isElected": true
+      }
+    },
+    {
       "slug": "kosta-vladimirov-vladimirov-6551ee",
       "name": "Коста Владимиров Владимиров",
       "normalizedName": "КОСТА ВЛАДИМИРОВ ВЛАДИМИРОВ",
@@ -326,6 +343,23 @@
         "partyCanonicalId": "bsp",
         "listPos": 114,
         "prefVotes": 89,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "nikolai-georgiev-nikolaev-77422b",
+      "name": "Николай Георгиев Николаев",
+      "normalizedName": "НИКОЛАЙ ГЕОРГИЕВ НИКОЛАЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Провадия",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 102,
+        "prefVotes": 96,
         "isElected": true
       }
     },

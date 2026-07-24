@@ -108,5 +108,79 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "darin-petkov-marinov-21288e",
+    "declarantName": "Дарин Петков Маринов",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-06-05",
+    "entryNumber": "Г10697",
+    "controlHash": "59167992",
+    "sourceUrl": "https://register.cacbg.bg/2024/8A68B895-7C57-4590-92B2-62BD6259DF68192401.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6715.307567631134,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 17713.707224042988,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 791.4798320917462,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13830,
+        "valueEur": 7071.166716943701,
+        "holderName": "Дарин Петков Маринов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "изплатена застраховка живот и спестяване"
+      },
+      {
+        "category": "debt",
+        "description": "договор за лизинг № 04-DL-013361",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14691,
+        "valueEur": 14647.489812509268,
+        "holderName": "Дарин Петков Маринов",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

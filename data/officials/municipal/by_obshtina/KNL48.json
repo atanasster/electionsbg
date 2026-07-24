@@ -1,7 +1,7 @@
 {
   "obshtina": "KNL48",
   "registryName": "Дупница",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 1,
-    "councillor": 27,
+    "councillor": 28,
     "chief_architect": 1,
     "other": 0
   },
@@ -349,6 +349,23 @@
         "isElected": false,
         "mpId": 5149,
         "photoUrl": "/parliament/photos/5149.webp"
+      }
+    },
+    {
+      "slug": "ivan-milanov-rakov-a6de6e",
+      "name": "Иван Миланов Раков",
+      "normalizedName": "ИВАН МИЛАНОВ РАКОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Дупница",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "СДС",
+        "partyCanonicalId": "p_126",
+        "listPos": 102,
+        "prefVotes": 218,
+        "isElected": true
       }
     },
     {

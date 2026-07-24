@@ -155,6 +155,37 @@
     "institution": "ДПБ - Нови Искър",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-13",
+    "entryNumber": "Г5774",
+    "controlHash": "D5F331D6",
+    "sourceUrl": "https://register.cacbg.bg/2022/8C31E4D6-7B9E-4F7E-A3A7-7749D62BAE53138051.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27437.456220632674,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 22642.04966689334,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "tsveteslava-ivanova-glbova-51f298",
+    "declarantName": "Цветеслава Иванова Гълъбова",
+    "institution": "ДПБ - Нови Искър",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2020,
     "fiscalYear": 2019,
     "declarationType": "Annualy",

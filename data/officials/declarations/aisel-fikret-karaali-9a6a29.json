@@ -5,6 +5,68 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-20",
+    "entryNumber": "Г15192",
+    "controlHash": "FB47A339",
+    "sourceUrl": "https://register.cacbg.bg/2025/A2A95E73-7761-4305-8BF1-97FE99EE1F86218866.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12323.668212472454,
+        "amountEurSpouse": 23314.909782547562
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 99,
+        "builtAreaSqm": 99,
+        "acquiredYear": 2023,
+        "share": "99",
+        "currency": "BGN",
+        "amount": 160,
+        "valueEur": 81.80670099139496,
+        "holderName": "Рамадан Шабан Караали",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "договорна ипотека",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 130000,
+        "valueEur": 66467.94455550841,
+        "holderName": "Рамадан Шабан Караали",
+        "isSpouse": true,
+        "legalBasis": "218400",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aisel-fikret-karaali-9a6a29",
+    "declarantName": "Айсел Фикрет Караали",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

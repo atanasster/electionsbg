@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:viktor-ivanov-iotsov-2920bb",
+  "nodes": [
+    {
+      "id": "official:viktor-ivanov-iotsov-2920bb",
+      "type": "official",
+      "slug": "viktor-ivanov-iotsov-2920bb",
+      "label": "Виктор Иванов Йоцов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202033232",
+      "type": "company",
+      "label": "ФОНД ЗА УСТОЙЧИВО ГРАДСКО РАЗВИТИЕ",
+      "slug": null,
+      "uic": "202033232",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+      "type": "person",
+      "label": "Надя Йорданова Данкинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktor-ivanov-iotsov-2920bb",
+      "target": "company:tr:202033232",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+      "target": "company:tr:202033232",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

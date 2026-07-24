@@ -556,5 +556,173 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "gecho-vlkov-zhekov-745b14",
+    "declarantName": "ГЕЧО ВЪЛКОВ ЖЕКОВ",
+    "institution": "МБАЛ \"Св.Иван Рилски\" - Разград\" АД",
+    "positionTitle": "Изпълнителен директор",
+    "category": "hospital_head",
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": "2018-06-13",
+    "entryNumber": "В3165",
+    "controlHash": "39431F50",
+    "sourceUrl": "https://register.cacbg.bg/2018/F263C058-5854-40D0-81DC-539DDC25A6BA93244.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялов капитал",
+        "shareSize": "50%",
+        "companyName": "\"ТИС\" ООД",
+        "registeredOffice": "Разград",
+        "valueEur": 1278.2297029905462,
+        "holderName": "Гечо Вълков Жеков",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "дялов капитал",
+        "shareSize": "50%",
+        "companyName": "\"Джи Енд Ей Груп\" ООД",
+        "registeredOffice": "Разград",
+        "valueEur": 7669.378217943277,
+        "holderName": "Гечо Вълков Жеков",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "дялов капитал",
+        "shareSize": "2%",
+        "companyName": "МДЛ \"Европа\" ООД",
+        "registeredOffice": "Разград",
+        "valueEur": 51.12918811962185,
+        "holderName": "Гечо Вълков Жеков",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10737.129505120589,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1022.5837623924369,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3067.751287177311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 1278.2297029905462,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Разград",
+        "municipality": "Разград",
+        "areaSqm": 75,
+        "builtAreaSqm": 75,
+        "acquiredYear": 2012,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Гечо Вълков Жеков",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Бояново",
+        "municipality": "Елхово",
+        "areaSqm": 37,
+        "builtAreaSqm": null,
+        "acquiredYear": 2014,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 37000,
+        "valueEur": 18917.799604260083,
+        "holderName": "Гечо Вълков Жеков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2008,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 68000,
+        "valueEur": 34767.84792134286,
+        "holderName": "Гечо Вълков Жеков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 68000,
+        "valueEur": 34767.84792134286,
+        "holderName": "д-р Гечо Вълков Жеков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "gecho-vlkov-zhekov-745b14",
+    "declarantName": "(unknown)",
+    "institution": "МБАЛ \"Св.Иван Рилски\" - Разград\" АД",
+    "positionTitle": "Изпълнителен директор",
+    "category": "hospital_head",
+    "declarationYear": 2018,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "В3166",
+    "controlHash": "D75B69CD",
+    "sourceUrl": "https://register.cacbg.bg/2018/F263C058-5854-40D0-81DC-539DDC25A6BA93245.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
   }
 ]

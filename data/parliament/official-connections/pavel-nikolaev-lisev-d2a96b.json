@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:pavel-nikolaev-lisev-d2a96b",
   "nodes": [
     {
@@ -43,6 +43,15 @@
       ]
     },
     {
+      "id": "official:aleksandr-angelov-georgiev-c443fb",
+      "type": "official",
+      "slug": "aleksandr-angelov-georgiev-c443fb",
+      "label": "Александър Ангелов Георгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
       "id": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
       "type": "person",
       "label": "Владимир Андонов Данаилов"
@@ -71,11 +80,6 @@
       "id": "person:БИСЕР ХРИСТОВ ПЕТКОВ",
       "type": "person",
       "label": "Бисер Христов Петков"
-    },
-    {
-      "id": "person:АЛЕКСАНДЪР АНГЕЛОВ ГЕОРГИЕВ",
-      "type": "person",
-      "label": "Александър Ангелов Георгиев"
     }
   ],
   "edges": [
@@ -89,6 +93,14 @@
     },
     {
       "source": "mp:4838",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-angelov-georgiev-c443fb",
       "target": "company:tr:203740812",
       "kind": "tr_role",
       "role": "representative",
@@ -137,14 +149,6 @@
     },
     {
       "source": "person:БИСЕР ХРИСТОВ ПЕТКОВ",
-      "target": "company:tr:203740812",
-      "kind": "tr_role",
-      "role": "representative",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:АЛЕКСАНДЪР АНГЕЛОВ ГЕОРГИЕВ",
       "target": "company:tr:203740812",
       "kind": "tr_role",
       "role": "representative",

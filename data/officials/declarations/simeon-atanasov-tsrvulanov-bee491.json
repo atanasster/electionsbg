@@ -6,6 +6,56 @@
     "positionTitle": "Директор",
     "category": "state_enterprise",
     "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-01",
+    "entryNumber": "Г715",
+    "controlHash": "D6345784",
+    "sourceUrl": "https://register.cacbg.bg/2024/142933FA-8E13-49B7-A27E-E8B936C51CEB181573.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19747.11503556035,
+        "amountEurSpouse": 6212.196356534055
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 200.42641742891766,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Симеон Атанасов Цървуланов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "simeon-atanasov-tsrvulanov-bee491",
+    "declarantName": "Симеон Атанасов Цървуланов",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
     "fiscalYear": 2024,
     "declarationType": "Vacate",
     "filedAt": "2024-03-05",

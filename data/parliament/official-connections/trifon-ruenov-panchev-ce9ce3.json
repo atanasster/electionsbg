@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:trifon-ruenov-panchev-ce9ce3",
   "nodes": [
     {
@@ -41,6 +41,11 @@
       "id": "person:ПЕТКО ВЕЛИКОВ МАРИНЧЕВ",
       "type": "person",
       "label": "Петко Великов Маринчев"
+    },
+    {
+      "id": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "type": "person",
+      "label": "Димитър Андреев Делчев"
     },
     {
       "id": "person:КРЕСТИЯН СВЕТОСЛАВОВ КОЛЕВ",
@@ -93,6 +98,14 @@
     },
     {
       "source": "person:ПЕТКО ВЕЛИКОВ МАРИНЧЕВ",
+      "target": "company:tr:207785502",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
       "target": "company:tr:207785502",
       "kind": "tr_role",
       "role": "ngo_board",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:mario-georgiev-neshev-e60c15",
   "nodes": [
     {
@@ -31,9 +31,13 @@
       "municipality": null
     },
     {
-      "id": "person:ЙОРДАН ЗДРАВКОВ ГОГЕВ",
-      "type": "person",
-      "label": "Йордан Здравков Гогев"
+      "id": "official:iordan-zdravkov-gogev-dad376",
+      "type": "official",
+      "slug": "iordan-zdravkov-gogev-dad376",
+      "label": "Йордан Здравков Гогев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
     }
   ],
   "edges": [
@@ -54,12 +58,12 @@
       "confidence": "medium"
     },
     {
-      "source": "person:ЙОРДАН ЗДРАВКОВ ГОГЕВ",
+      "source": "official:iordan-zdravkov-gogev-dad376",
       "target": "company:tr:200167154",
       "kind": "tr_role",
       "role": "manager",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     }
   ]
 }

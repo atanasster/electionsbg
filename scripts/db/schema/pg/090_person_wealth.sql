@@ -15,7 +15,35 @@
 -- silently drop the dependent.
 
 -- ---------------------------------------------------------------------------
--- person_wealth_year — one row per (person_id, declaration_year).
+-- person_wealth_year — one row per (person_id, period_year).
+--
+-- WHICH YEAR IS THE X-AXIS. period_year = COALESCE(fiscal_year, declaration_year):
+-- the period the filing COVERS, not the year it was lodged. The two are different
+-- columns and they disagree by design — resolveDeclarationYear (parse_declaration)
+-- derives declaration_year as an annual's fiscal_year + 1, and as fiscal_year
+-- itself for Entry/Vacate — so an annual filed in May 2025 states the estate at
+-- 31 Dec 2024 while an exit filing lodged that February states it as of February.
+-- Keying on declaration_year publishes the 31-Dec-2024 estate against the year
+-- 2025, which is a mislabel for all 34,238 annuals in the corpus; worse, it puts
+-- both of those filings in ONE partition and then lets the annual win on filed_at:
+--
+--   Лучия Александрова Добрева (luchiya-aleksandrova-dobreva-d06438)
+--     21571 Vacate  · covers 2025 · filed 2025-02-18 · 12 valued rows · net +€382,272
+--     21570 Annualy · covers 2024 · filed 2025-06-13 ·  3 valued rows · net −€274,784
+--
+--   both declaration_year 2025 → the fiscal-2024 annual represented "2025", and her
+--   published 2025 net worth was −€274,784. 877 person-years were represented by a
+--   filing covering an earlier period than one available in the same year.
+--
+-- On period_year the collision does not arise: the annual is 2024's snapshot and
+-- the exit filing is 2025's, and the series carries both (+180 person-years the
+-- declaration_year partition was collapsing). This is the key 096_stake_procurement
+-- already dates a declared shareholding by, and the one priorAssetDeclaration
+-- (src/lib/declarations.ts) has always differenced on.
+--
+-- The 15 asset-bearing annuals with a NULL fiscal_year fall back to
+-- declaration_year and so land one year late — the error the whole axis carried
+-- before, now confined to 15 rows out of 28,630.
 --
 -- WHICH FILING REPRESENTS A YEAR. A person can file more than once in a year (an
 -- annual plus a при-напускане vacate), and an incompatibility (Other) filing
@@ -26,9 +54,29 @@
 -- filed_at desc, then filing type (Vacate>Annualy>Other>Entry), then entry_number
 -- asc, then source_url asc — so the matview picks the SAME filing the /person and
 -- /officials pages pick, which is what stops those two pages disagreeing on a
--- person's net worth. has_assets sorts first so an empty incompatibility filing is
+-- person's net worth. That equivalence is what forces the PARTITION key to be
+-- byRecency's own leading rung: partitioning on declaration_year while ranking on
+-- the period would make this matview's newest point stop being latestAssetDeclaration's
+-- answer for 269 declarants — reintroducing the /person-vs-/officials split at four
+-- times its pre-existing size. has_assets sorts first so an empty incompatibility filing is
 -- never chosen over a real one; a year with ONLY assetless filings drops out
 -- entirely (rn-1 has no assets → filtered below) rather than showing a spurious €0.
+--
+-- has_valued_assets SORTS AHEAD OF has_assets, and that distinction is load-bearing.
+-- "Has an asset row" is too weak a test for "is a wealth statement": the parser emits
+-- a row for a blank table line, so an incompatibility filing can carry a single
+-- category='bank' row with a NULL value and nothing else. Of 4,895 Other filings only
+-- 450 have asset rows at all — and 449 of those 450 have NOT ONE valued row, against
+-- 359/28,835 for annuals. Ranked on has_assets alone such a shell TIES with the real
+-- annual and then wins on filed_at, because an annual's filed_at is sometimes NULL and
+-- NULLS LAST puts it behind anything dated. That published €0 net worth for people who
+-- had declared six figures — Анелия Атанасова Димитрова's 2025 went €610,451 → €0
+-- behind one empty bank row.
+--
+-- It is a PREFERENCE, not a filter. A genuine annual whose assets are all unvalued
+-- (359 of them; unvalued real estate is a real filing pattern that 092 rule 4 reports
+-- as a caveat) still represents its year when nothing better exists. Adding the tier
+-- changes WHICH filing speaks for a year, never WHETHER the year appears.
 --
 -- NET WORTH matches the app (src/lib/declarations.ts declarationTotals): every
 -- non-debt category summed as assets, minus the debt category. Values are EUR at
@@ -39,14 +87,19 @@ WITH ranked AS (
   SELECT
     d.declaration_id,
     d.person_id,
-    d.declaration_year,
+    -- The period covered — see WHICH YEAR IS THE X-AXIS above. Identical to
+    -- declarationPeriod() in src/lib/declarations.ts and to 096's stake_year.
+    COALESCE(d.fiscal_year, d.declaration_year) AS period_year,
     d.tier,
     d.declaration_type,
     EXISTS (SELECT 1 FROM declaration_asset a
              WHERE a.declaration_id = d.declaration_id) AS has_assets,
     row_number() OVER (
-      PARTITION BY d.person_id, d.declaration_year
+      PARTITION BY d.person_id, COALESCE(d.fiscal_year, d.declaration_year)
       ORDER BY
+        (EXISTS (SELECT 1 FROM declaration_asset a
+                  WHERE a.declaration_id = d.declaration_id
+                    AND a.value_eur > 0)) DESC,
         (EXISTS (SELECT 1 FROM declaration_asset a
                   WHERE a.declaration_id = d.declaration_id)) DESC,
         d.filed_at DESC NULLS LAST,
@@ -60,8 +113,10 @@ WITH ranked AS (
         d.entry_number ASC NULLS LAST,
         d.source_url ASC
     ) AS rn,
-    -- how many filings this person made this year (annual + vacate + …)
-    count(*) OVER (PARTITION BY d.person_id, d.declaration_year) AS filings
+    -- how many filings cover this period (annual + vacate + …)
+    count(*) OVER (
+      PARTITION BY d.person_id, COALESCE(d.fiscal_year, d.declaration_year)
+    ) AS filings
   FROM declaration d
   WHERE d.person_id IS NOT NULL
 ),
@@ -71,7 +126,7 @@ rep AS (  -- the representative filing per person-year; drop years with no
 )
 SELECT
   rep.person_id,
-  rep.declaration_year,
+  rep.period_year,
   rep.declaration_id,
   rep.tier,
   rep.filings,
@@ -98,12 +153,12 @@ SELECT
   ), '{}'::jsonb) AS by_category
 FROM rep
 LEFT JOIN declaration_asset a ON a.declaration_id = rep.declaration_id
-GROUP BY rep.person_id, rep.declaration_year, rep.declaration_id, rep.tier, rep.filings;
+GROUP BY rep.person_id, rep.period_year, rep.declaration_id, rep.tier, rep.filings;
 
 -- The series query is "everything for person N, oldest→newest"; the unique index
 -- also lets the view be REFRESHed CONCURRENTLY later if the reload needs it.
 CREATE UNIQUE INDEX IF NOT EXISTS idx_person_wealth_year_pk
-  ON person_wealth_year (person_id, declaration_year);
+  ON person_wealth_year (person_id, period_year);
 
 -- ---------------------------------------------------------------------------
 -- person_wealth_series(slug) — the trajectory. One point per year (assets /
@@ -122,7 +177,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'slug', p_slug,
     'series', COALESCE((
       SELECT jsonb_agg(jsonb_build_object(
-        'year', w.declaration_year,
+        'year', w.period_year,
         'assetsEur', round(w.assets_eur),
         'debtsEur', round(w.debts_eur),
         'netEur', round(w.net_eur),
@@ -130,19 +185,21 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         'filings', w.filings,
         'tier', w.tier,
         'byCategory', w.by_category
-      ) ORDER BY w.declaration_year)
+      ) ORDER BY w.period_year)
       FROM person_wealth_year w JOIN pick ON pick.person_id = w.person_id
     ), '[]'::jsonb),
     -- Entry/Vacate markers: the individual filings, so "worth entering vs leaving
-    -- office" reads off the chart even when both fall in one year.
+    -- office" reads off the chart even when both fall in one year. Dated on the
+    -- SAME axis as the series (period_year) — a marker keyed on declaration_year
+    -- would sit a year to the right of the point it annotates.
     'markers', COALESCE((
       SELECT jsonb_agg(jsonb_build_object(
-        'year', d.declaration_year,
+        'year', COALESCE(d.fiscal_year, d.declaration_year),
         'type', d.declaration_type,
         'filedAt', d.filed_at,
         'institution', d.institution,
         'positionTitle', d.position_title
-      ) ORDER BY d.declaration_year, d.declaration_id)
+      ) ORDER BY COALESCE(d.fiscal_year, d.declaration_year), d.declaration_id)
       FROM declaration d JOIN pick ON pick.person_id = d.person_id
       WHERE d.declaration_type IN ('Entry', 'Vacate')
     ), '[]'::jsonb)
@@ -167,6 +224,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'tier', d.tier,
       'year', d.declaration_year,
       'fiscalYear', d.fiscal_year,
+      -- The year this filing SPEAKS FOR, on the same axis as the wealth chart, so
+      -- the block labels a row with the period it describes rather than the year it
+      -- was lodged. Served rather than re-derived client-side for the usual reason:
+      -- a second copy of the COALESCE is a second thing that can drift.
+      'periodYear', COALESCE(d.fiscal_year, d.declaration_year),
       'type', d.declaration_type,
       'institution', d.institution,
       'positionTitle', d.position_title,
@@ -195,10 +257,14 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                        WHERE e.declaration_id = d.declaration_id)
     ) ORDER BY
       -- byRecency (src/lib/declarations.ts), verbatim and IN THE SAME ORDER the 090
-      -- matview ranks by: year, then filed_at, then filing type, then the stable
-      -- tie-breaks. The client takes the first asset-bearing row as the headline, so
-      -- it never re-derives this comparator and cannot drift from the wealth chart.
-      d.declaration_year DESC,
+      -- matview ranks by: the PERIOD COVERED, then filed_at, then filing type, then
+      -- the stable tie-breaks. The client takes the first asset-bearing row as the
+      -- headline, so it never re-derives this comparator and cannot drift from the
+      -- wealth chart. The leading rung is the period for the reason the matview's
+      -- partition key is: an annual for fiscal N is lodged the following May, so
+      -- ordering on declaration_year hands "latest" to the filing describing the
+      -- EARLIER state of affairs whenever an exit filing shares its filing year.
+      COALESCE(d.fiscal_year, d.declaration_year) DESC,
       d.filed_at DESC NULLS LAST,
       CASE d.declaration_type
         WHEN 'Vacate'  THEN 3

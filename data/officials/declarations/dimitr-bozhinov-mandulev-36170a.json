@@ -5,6 +5,50 @@
     "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-22",
+    "entryNumber": "Г13512",
+    "controlHash": "E4DC8835",
+    "sourceUrl": "https://register.cacbg.bg/2025/10888574-D439-4BD7-89C9-2D436BDA610C216732.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23004.044318780263,
+        "amountEurSpouse": 12092.564282171763
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16974,
+        "valueEur": 8678.668391424613,
+        "holderName": "Димитър Божинов Мандулев",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-bozhinov-mandulev-36170a",
+    "declarantName": "Димитър Божинов Мандулев",
+    "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

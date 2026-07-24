@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:vyara-emilova-iordanova-b25d24",
   "nodes": [
     {
@@ -76,14 +76,18 @@
       ]
     },
     {
+      "id": "official:aglika-stefcheva-videnova-0d444a",
+      "type": "official",
+      "slug": "aglika-stefcheva-videnova-0d444a",
+      "label": "Аглика Стефчева Виденова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
       "id": "person:БОЯН АНГЕЛОВ ИВАНОВ",
       "type": "person",
       "label": "Боян Ангелов Иванов"
-    },
-    {
-      "id": "person:АГЛИКА СТЕФЧЕВА ВИДЕНОВА",
-      "type": "person",
-      "label": "Аглика Стефчева Виденова"
     },
     {
       "id": "person:ПЕТКО ЕМИЛОВ ДИМИТРОВ",
@@ -133,23 +137,23 @@
       "confidence": "medium"
     },
     {
-      "source": "person:БОЯН АНГЕЛОВ ИВАНОВ",
-      "target": "company:tr:176936800",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:АГЛИКА СТЕФЧЕВА ВИДЕНОВА",
+      "source": "official:aglika-stefcheva-videnova-0d444a",
       "target": "company:tr:176936800",
       "kind": "tr_role",
       "role": "ngo_representative",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
-      "source": "person:АГЛИКА СТЕФЧЕВА ВИДЕНОВА",
+      "source": "official:aglika-stefcheva-videnova-0d444a",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЯН АНГЕЛОВ ИВАНОВ",
       "target": "company:tr:176936800",
       "kind": "tr_role",
       "role": "ngo_board",

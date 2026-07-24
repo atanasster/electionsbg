@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:20.371Z",
+  "generatedAt": "2026-07-24T16:20:30.336Z",
   "topMps": [
     {
       "mpId": 5006,
@@ -283,7 +283,7 @@
         "51",
         "52"
       ],
-      "totalDegree": 317,
+      "totalDegree": 318,
       "highConfDegree": 7,
       "mpMpDirectDegree": 2,
       "mpMpReachDegree": 36
@@ -907,6 +907,24 @@
       "highConfDegree": 7
     },
     {
+      "slug": "milen-dimitrov-georgiev-47fb2b",
+      "label": "Милен Димитров Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас",
+      "totalDegree": 11,
+      "highConfDegree": 7
+    },
+    {
+      "slug": "plamen-zhelev-kostadinov-36154d",
+      "label": "Пламен Желев Костадинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карнобат",
+      "totalDegree": 11,
+      "highConfDegree": 7
+    },
+    {
       "slug": "hristo-georgiev-burgazliev-72ac42",
       "label": "Христо Георгиев Бургазлиев",
       "tier": "executive",
@@ -976,6 +994,15 @@
       "role": "hospital_head",
       "municipality": null,
       "totalDegree": 8,
+      "highConfDegree": 6
+    },
+    {
+      "slug": "georgi-petkov-iliev-59dc23",
+      "label": "Георги Петков Илиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null,
+      "totalDegree": 6,
       "highConfDegree": 6
     },
     {
@@ -1114,6 +1141,15 @@
       "highConfDegree": 5
     },
     {
+      "slug": "stoyan-andreev-stoyanov-3639c0",
+      "label": "Стоян Андреев Стоянов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null,
+      "totalDegree": 5,
+      "highConfDegree": 5
+    },
+    {
       "slug": "tanya-todorova-miteva-karakash-a63f88",
       "label": "Таня Тодорова Митева-Каракаш",
       "tier": "executive",
@@ -1165,42 +1201,6 @@
       "role": "state_enterprise",
       "municipality": null,
       "totalDegree": 9,
-      "highConfDegree": 4
-    },
-    {
-      "slug": "mehmed-orlinov-mladenov-738e6e",
-      "label": "Мехмед Орлинов Младенов",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Търговище",
-      "totalDegree": 8,
-      "highConfDegree": 4
-    },
-    {
-      "slug": "osman-mehmedov-palazov-dc808a",
-      "label": "Осман Мехмедов Палазов",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Омуртаг",
-      "totalDegree": 8,
-      "highConfDegree": 4
-    },
-    {
-      "slug": "borislav-ognyanov-beshirov-2d12a9",
-      "label": "Борислав Огнянов Беширов",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Неделино",
-      "totalDegree": 7,
-      "highConfDegree": 4
-    },
-    {
-      "slug": "stefan-lyubomirov-kolarov-e75fbc",
-      "label": "Стефан Любомиров Коларов",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Ракитово",
-      "totalDegree": 7,
       "highConfDegree": 4
     }
   ],
@@ -1416,7 +1416,7 @@
             "43",
             "45"
           ],
-          "totalDegree": 4,
+          "totalDegree": 6,
           "highConfDegree": 1,
           "mpMpDirectDegree": 0,
           "mpMpReachDegree": 0
@@ -1695,6 +1695,23 @@
           "mpMpReachDegree": 0
         },
         {
+          "mpId": 3252,
+          "label": "Мая Божидарова Манолова-Найденова",
+          "partyGroupShort": "СБГ",
+          "isCurrent": false,
+          "nsFolders": [
+            "40",
+            "41",
+            "42",
+            "43",
+            "45"
+          ],
+          "totalDegree": 6,
+          "highConfDegree": 1,
+          "mpMpDirectDegree": 0,
+          "mpMpReachDegree": 0
+        },
+        {
           "mpId": 4258,
           "label": "Вежди Летиф Рашидов",
           "partyGroupShort": "ГЕРБ-СДС",
@@ -1709,23 +1726,6 @@
             "49"
           ],
           "totalDegree": 5,
-          "highConfDegree": 1,
-          "mpMpDirectDegree": 0,
-          "mpMpReachDegree": 0
-        },
-        {
-          "mpId": 3252,
-          "label": "Мая Божидарова Манолова-Найденова",
-          "partyGroupShort": "СБГ",
-          "isCurrent": false,
-          "nsFolders": [
-            "40",
-            "41",
-            "42",
-            "43",
-            "45"
-          ],
-          "totalDegree": 4,
           "highConfDegree": 1,
           "mpMpDirectDegree": 0,
           "mpMpReachDegree": 0
@@ -2131,6 +2131,23 @@
           "mpMpReachDegree": 0
         },
         {
+          "mpId": 3252,
+          "label": "Мая Божидарова Манолова-Найденова",
+          "partyGroupShort": "СБГ",
+          "isCurrent": false,
+          "nsFolders": [
+            "40",
+            "41",
+            "42",
+            "43",
+            "45"
+          ],
+          "totalDegree": 6,
+          "highConfDegree": 1,
+          "mpMpDirectDegree": 0,
+          "mpMpReachDegree": 0
+        },
+        {
           "mpId": 4258,
           "label": "Вежди Летиф Рашидов",
           "partyGroupShort": "ГЕРБ-СДС",
@@ -2145,23 +2162,6 @@
             "49"
           ],
           "totalDegree": 5,
-          "highConfDegree": 1,
-          "mpMpDirectDegree": 0,
-          "mpMpReachDegree": 0
-        },
-        {
-          "mpId": 3252,
-          "label": "Мая Божидарова Манолова-Найденова",
-          "partyGroupShort": "СБГ",
-          "isCurrent": false,
-          "nsFolders": [
-            "40",
-            "41",
-            "42",
-            "43",
-            "45"
-          ],
-          "totalDegree": 4,
           "highConfDegree": 1,
           "mpMpDirectDegree": 0,
           "mpMpReachDegree": 0
@@ -2884,6 +2884,23 @@
           "mpMpReachDegree": 0
         },
         {
+          "mpId": 3252,
+          "label": "Мая Божидарова Манолова-Найденова",
+          "partyGroupShort": "СБГ",
+          "isCurrent": false,
+          "nsFolders": [
+            "40",
+            "41",
+            "42",
+            "43",
+            "45"
+          ],
+          "totalDegree": 6,
+          "highConfDegree": 1,
+          "mpMpDirectDegree": 0,
+          "mpMpReachDegree": 0
+        },
+        {
           "mpId": 4258,
           "label": "Вежди Летиф Рашидов",
           "partyGroupShort": "ГЕРБ-СДС",
@@ -2945,23 +2962,6 @@
             "50"
           ],
           "totalDegree": 5,
-          "highConfDegree": 1,
-          "mpMpDirectDegree": 0,
-          "mpMpReachDegree": 0
-        },
-        {
-          "mpId": 3252,
-          "label": "Мая Божидарова Манолова-Найденова",
-          "partyGroupShort": "СБГ",
-          "isCurrent": false,
-          "nsFolders": [
-            "40",
-            "41",
-            "42",
-            "43",
-            "45"
-          ],
-          "totalDegree": 4,
           "highConfDegree": 1,
           "mpMpDirectDegree": 0,
           "mpMpReachDegree": 0
@@ -6859,7 +6859,7 @@
             "51",
             "52"
           ],
-          "totalDegree": 317,
+          "totalDegree": 318,
           "highConfDegree": 7,
           "mpMpDirectDegree": 0,
           "mpMpReachDegree": 2
@@ -7770,7 +7770,7 @@
             "51",
             "52"
           ],
-          "totalDegree": 317,
+          "totalDegree": 318,
           "highConfDegree": 7,
           "mpMpDirectDegree": 0,
           "mpMpReachDegree": 3
@@ -8630,7 +8630,7 @@
             "51",
             "52"
           ],
-          "totalDegree": 317,
+          "totalDegree": 318,
           "highConfDegree": 7,
           "mpMpDirectDegree": 0,
           "mpMpReachDegree": 1
@@ -9518,7 +9518,7 @@
             "51",
             "52"
           ],
-          "totalDegree": 317,
+          "totalDegree": 318,
           "highConfDegree": 7,
           "mpMpDirectDegree": 0,
           "mpMpReachDegree": 0
@@ -10328,7 +10328,7 @@
             "51",
             "52"
           ],
-          "totalDegree": 317,
+          "totalDegree": 318,
           "highConfDegree": 7,
           "mpMpDirectDegree": 0,
           "mpMpReachDegree": 2

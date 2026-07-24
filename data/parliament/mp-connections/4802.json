@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:4802",
   "nodes": [
     {
@@ -88,6 +88,11 @@
       "label": "Зузанна  Петкова"
     },
     {
+      "id": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Богомил Иванов Петков"
+    },
+    {
       "id": "person:АЛЕКСАНДЪР ГЕОРГИЕВ КАРАСТАЙКОВ",
       "type": "person",
       "label": "Александър Георгиев Карастайков"
@@ -130,6 +135,36 @@
       "id": "person:КРАСИМИР НИКОЛАЕВ КАРАМФИЛОВ",
       "type": "person",
       "label": "Красимир Николаев Карамфилов"
+    },
+    {
+      "id": "company:tr:207024454",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ШАХМАТ 64",
+      "slug": null,
+      "uic": "207024454",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:5268",
+      "type": "mp",
+      "mpId": 5268,
+      "label": "Румен Ангелов Миланов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "mp:3570",
+      "type": "mp",
+      "mpId": 3570,
+      "label": "Цвета Тодорова Галунова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
     }
   ],
   "edges": [
@@ -214,6 +249,14 @@
       "confidence": "high"
     },
     {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ КАРАСТАЙКОВ",
       "target": "company:tr:208032984",
       "kind": "tr_role",
@@ -268,6 +311,46 @@
       "role": "verifier",
       "isCurrent": true,
       "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3570",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3570",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5268",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
     }
   ],
   "paths": [
@@ -289,6 +372,32 @@
         "mp:4802",
         "company:tr:175532790",
         "mp:1707"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5268",
+      "length": 4,
+      "nodeIds": [
+        "mp:4802",
+        "company:Чеси-Инс-Брокер-ООД",
+        "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+        "company:tr:207024454",
+        "mp:5268"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3570",
+      "length": 4,
+      "nodeIds": [
+        "mp:4802",
+        "company:Чеси-Инс-Брокер-ООД",
+        "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+        "company:tr:207024454",
+        "mp:3570"
       ],
       "isAllCurrent": true,
       "isAllHighConfidence": false

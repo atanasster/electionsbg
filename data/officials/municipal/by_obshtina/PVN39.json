@@ -1,7 +1,7 @@
 {
   "obshtina": "PVN39",
   "registryName": "Кнежа",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 15,
+    "councillor": 16,
     "chief_architect": 2,
     "other": 0
   },
@@ -294,6 +294,23 @@
         "listPos": 109,
         "prefVotes": 72,
         "isElected": true
+      }
+    },
+    {
+      "slug": "nikolai-valeriev-marinski-7c7e93",
+      "name": "Николай Валериев Марински",
+      "normalizedName": "НИКОЛАЙ ВАЛЕРИЕВ МАРИНСКИ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Кнежа",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 112,
+        "prefVotes": 137,
+        "isElected": false
       }
     },
     {

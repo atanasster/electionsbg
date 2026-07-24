@@ -43,26 +43,37 @@ export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
     // assetless incompatibility filing — the D2 bug).
     //
     // The ORDER comes from the server: person_declarations (090) already sorts by
-    // byRecency — year, filed_at, filing type, then the stable tie-breaks — the SAME
-    // comparator person_wealth_year ranks by. So the first asset-bearing row IS the
-    // representative filing, and this block cannot drift from the wealth chart. Re-deriving
-    // the comparator here is what made the two disagree once already; don't.
+    // byRecency — the PERIOD COVERED, filed_at, filing type, then the stable tie-breaks —
+    // the SAME comparator person_wealth_year ranks by. So the first asset-bearing row IS
+    // the representative filing, and this block cannot drift from the wealth chart.
+    // Re-deriving the comparator here is what made the two disagree once already; don't.
     const withAssets = rows.filter((r) => r.assetCount > 0);
     if (withAssets.length === 0) return null;
-    const latest = withAssets[0];
+    // Within the newest period, prefer the filing that puts a NUMBER on something —
+    // person_wealth_year's has_valued_assets tier (090), which the server sort cannot
+    // express because it ranks across every year at once. `assetsEur > 0 || debtsEur > 0`
+    // is that tier exactly: declared values are non-negative magnitudes, so a positive
+    // sum and a `value_eur > 0` row are the same condition. Without it the block took the
+    // first asset-bearing row outright and quoted a different net worth from the chart
+    // for 23 declarants — an incompatibility shell with one empty row outranking the real
+    // filing it shares a period with.
+    const newest = withAssets.filter(
+      (r) => r.periodYear === withAssets[0].periodYear,
+    );
+    const latest =
+      newest.find((r) => r.assetsEur > 0 || r.debtsEur > 0) ?? newest[0];
     // The prior snapshot is the newest asset-bearing filing covering a DIFFERENT
-    // period. Keyed on fiscalYear ?? year, matching the shared priorAssetDeclaration
-    // selector (src/lib/declarations.ts) — an annual and an exit filing in one calendar
-    // year share a declarationYear but cover different fiscal years, so keying on the
-    // calendar year alone would skip a real year-over-year comparison and label the
-    // delta against the wrong year (the /officials page keys on the fiscal year).
-    const period = (r: DeclarationListItem) => r.fiscalYear ?? r.year;
-    const prior = withAssets.find((r) => period(r) !== period(latest)) ?? null;
+    // period — periodYear, the same key the sort above and priorAssetDeclaration
+    // (src/lib/declarations.ts) use. An annual and an exit filing lodged in one calendar
+    // year cover different periods, so keying on the filing year alone would skip a real
+    // year-over-year comparison and label the delta against the wrong year.
+    const prior =
+      withAssets.find((r) => r.periodYear !== latest.periodYear) ?? null;
     return {
       latest,
       net: latest.netEur,
       deltaNet: prior ? latest.netEur - prior.netEur : null,
-      priorYear: prior ? period(prior) : null,
+      priorYear: prior ? prior.periodYear : null,
     };
   }, [rows]);
 
@@ -81,7 +92,7 @@ export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-0.5 text-xs text-primary hover:underline"
         >
-          register.cacbg.bg · {latest.year}
+          register.cacbg.bg · {latest.periodYear}
           <ExternalLink className="h-3 w-3" />
         </a>
       }
@@ -93,7 +104,7 @@ export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
           </div>
           {summary.deltaNet != null &&
             summary.priorYear != null &&
-            summary.priorYear !== (latest.fiscalYear ?? latest.year) && (
+            summary.priorYear !== latest.periodYear && (
               <div
                 className={cn(
                   "mt-0.5 text-xs",
@@ -152,8 +163,10 @@ const FilingRow: FC<{ row: DeclarationListItem; locale: string }> = ({
         ) : (
           <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
         )}
+        {/* The period the filing covers, not the year it was lodged — the same axis
+            the wealth chart plots, so a row and its point carry one year label. */}
         <span className="w-12 shrink-0 font-semibold tabular-nums">
-          {row.year}
+          {row.periodYear}
         </span>
         <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] uppercase text-muted-foreground">
           {t(declTypeKey(row.type))}

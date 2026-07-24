@@ -1,6 +1,68 @@
 [
   {
     "slug": "rumen-zdravkov-babov-163e96",
+    "declarantName": "Румен Здравков Бабов",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Заместник-директор на териториална дирекция",
+    "category": "revenue_agency",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г13273",
+    "controlHash": "DA1A607E",
+    "sourceUrl": "https://register.cacbg.bg/2025/7556278B-002A-4863-B9FA-E68B4766D7EA216476.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24154.451051471755,
+        "amountEurSpouse": 10430.354376402856
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7500,
+        "valueEur": 7500,
+        "holderName": "София Бабова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16532,
+        "valueEur": 8452.677379935883,
+        "holderName": "Румен Здравков Бабов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "rumen-zdravkov-babov-163e96",
     "declarantName": "(unknown)",
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Заместник-директор на териториална дирекция",

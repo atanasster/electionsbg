@@ -2,8 +2,34 @@
   "ekatte": "68134",
   "page": 11,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "БЕЛИМО-БЪЛГАРИЯ",
+      "displayName": "БЕЛИМО БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1612",
+      "mps": [
+        {
+          "mpId": 4992,
+          "mpName": "Биляна Георгиева Иванова",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "БЕНДИТО",
+      "displayName": "БЕНДИТО",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
+      "mps": [
+        {
+          "mpId": 138,
+          "mpName": "Долорес Борисова Арсенова",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Бизнес-Център-Естера",
       "displayName": "Бизнес Център Естера",
@@ -624,32 +650,6 @@
           "mpId": 945,
           "mpName": "Цветан Костов Костов",
           "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ГЕО-ПЕТ-М",
-      "displayName": "ГЕО ПЕТ-М",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1505",
-      "mps": [
-        {
-          "mpId": 5113,
-          "mpName": "Георги Иванов Георгиев",
-          "role": "director",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Глобал-Груп-Еко-ЕООД",
-      "displayName": "Глобал Груп Еко ЕООД",
-      "registeredOffice": "гр.София1619, ул.Всеволод Гаршин 8",
-      "mps": [
-        {
-          "mpId": 4846,
-          "mpName": "Павлин Иванов Найденов",
-          "role": "declared_stake",
           "isCurrent": true
         }
       ]

@@ -2,7 +2,7 @@
   "ekatte": "68134",
   "page": 1,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
     {
       "slug": "Рашидов-пропъртис-ООД",
@@ -68,6 +68,43 @@
         {
           "mpId": 4739,
           "mpName": "Димитър Стойков Николов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "УТГ-ООД",
+      "displayName": "УТГ ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
+          "role": "liquidator",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
+          "role": "sole_owner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 3932,
+          "mpName": "Иван Косев Манев",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -191,43 +228,6 @@
         {
           "mpId": 4500,
           "mpName": "Христо Танчев Проданов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "УТГ-ООД",
-      "displayName": "УТГ ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3932,
-          "mpName": "Иван Косев Манев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3932,
-          "mpName": "Иван Косев Манев",
-          "role": "liquidator",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3932,
-          "mpName": "Иван Косев Манев",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3932,
-          "mpName": "Иван Косев Манев",
-          "role": "sole_owner",
-          "isCurrent": false
-        },
-        {
-          "mpId": 3932,
-          "mpName": "Иван Косев Манев",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -783,6 +783,19 @@
       ]
     },
     {
+      "slug": "Ей-Кей-Дивелъпмънт-ЕООД",
+      "displayName": "Ей Кей Дивелъпмънт ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3254,
+          "mpName": "Атанас Петров Костадинов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Елевато-ЕООД",
       "displayName": "Елевато ЕООД",
       "registeredOffice": "София (столица)",
@@ -828,31 +841,6 @@
         {
           "mpId": 3993,
           "mpName": "Георги Станчев Георгиев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Металика-М-Транс",
-      "displayName": "Металика-М Транс",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 4868,
-          "mpName": "Венцислав Михайлов Асенов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4868,
-          "mpName": "Венцислав Михайлов Асенов",
-          "role": "sole_owner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4868,
-          "mpName": "Венцислав Михайлов Асенов",
           "role": "declared_stake",
           "isCurrent": true
         }

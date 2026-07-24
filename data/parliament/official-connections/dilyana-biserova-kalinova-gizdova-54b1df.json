@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:dilyana-biserova-kalinova-gizdova-54b1df",
   "nodes": [
     {
@@ -29,6 +29,15 @@
       "partyGroupShort": "БСП-ОЛ",
       "isCurrent": false,
       "nsFolders": []
+    },
+    {
+      "id": "official:veselina-vasileva-encheva-b04142",
+      "type": "official",
+      "slug": "veselina-vasileva-encheva-b04142",
+      "label": "Веселина Василева Енчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
     },
     {
       "id": "official:zlatina-lambova-georgieva-64b615",
@@ -72,11 +81,6 @@
       "label": "Георги Пенчев Кузманов"
     },
     {
-      "id": "person:ВЕСЕЛИНА ВАСИЛЕВА ЕНЧЕВА",
-      "type": "person",
-      "label": "Веселина Василева Енчева"
-    },
-    {
       "id": "person:ГЕОРГИ ИВАНОВ ШОПОВ",
       "type": "person",
       "label": "Георги Иванов Шопов"
@@ -103,6 +107,14 @@
     },
     {
       "source": "mp:2750",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselina-vasileva-encheva-b04142",
       "target": "company:tr:201847598",
       "kind": "tr_role",
       "role": "director",
@@ -151,14 +163,6 @@
     },
     {
       "source": "person:ГЕОРГИ ПЕНЧЕВ КУЗМАНОВ",
-      "target": "company:tr:201847598",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ВЕСЕЛИНА ВАСИЛЕВА ЕНЧЕВА",
       "target": "company:tr:201847598",
       "kind": "tr_role",
       "role": "director",

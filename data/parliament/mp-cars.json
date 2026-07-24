@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:34.035Z",
+  "generatedAt": "2026-07-24T16:20:46.306Z",
   "cars": [
     {
       "mpId": 4812,
@@ -522,7 +522,7 @@
       "share": "1/1",
       "mergedFromCount": 1,
       "declarationYear": 2023,
-      "sourceUrl": "https://register.cacbg.bg/2023/E8A3F274-C96E-4849-9F66-C53A2202A582145864.xml"
+      "sourceUrl": "https://register.cacbg.bg/2023/E8A3F274-C96E-4849-9F66-C53A2202A582156206.xml"
     },
     {
       "mpId": 3448,
@@ -1606,26 +1606,6 @@
       "sourceUrl": "https://register.cacbg.bg/2025/1C92FB4A-6DBC-4787-A94D-2C3298FB95BD208608.xml"
     },
     {
-      "mpId": 4991,
-      "mpName": "Десислав Петров Тасков",
-      "partyGroupShort": null,
-      "nsFolders": [
-        "44"
-      ],
-      "make": "Peugeot",
-      "detail": "Пежо 3008",
-      "description": "Лек автомобил SUV",
-      "acquiredYear": 2019,
-      "valueEur": 28121.053465792018,
-      "amount": 55000,
-      "currency": "BGN",
-      "isSpouse": false,
-      "share": "1",
-      "mergedFromCount": 1,
-      "declarationYear": 2021,
-      "sourceUrl": "https://register.cacbg.bg/2022/EC3E0C87-2A3F-4A61-B157-206EF2D9CA2A132845.xml"
-    },
-    {
       "mpId": 3116,
       "mpName": "Таня Тодорова Петрова",
       "partyGroupShort": null,
@@ -2188,7 +2168,7 @@
       "share": "1/1",
       "mergedFromCount": 1,
       "declarationYear": 2023,
-      "sourceUrl": "https://register.cacbg.bg/2023/E8A3F274-C96E-4849-9F66-C53A2202A582145864.xml"
+      "sourceUrl": "https://register.cacbg.bg/2023/E8A3F274-C96E-4849-9F66-C53A2202A582156206.xml"
     },
     {
       "mpId": 3455,
@@ -2500,6 +2480,46 @@
       "mergedFromCount": 1,
       "declarationYear": 2024,
       "sourceUrl": "https://register.cacbg.bg/2024/A6D99BF1-38C2-45EC-8F20-5F39109ECE67182420.xml"
+    },
+    {
+      "mpId": 3869,
+      "mpName": "Антон Йорданов Тонев",
+      "partyGroupShort": null,
+      "nsFolders": [
+        "47"
+      ],
+      "make": "Hyundai",
+      "detail": "Хюндай",
+      "description": "лек автомобил",
+      "acquiredYear": 2022,
+      "valueEur": 19684.737426054413,
+      "amount": 38500,
+      "currency": "BGN",
+      "isSpouse": false,
+      "share": "1/2",
+      "mergedFromCount": 1,
+      "declarationYear": 2023,
+      "sourceUrl": "https://register.cacbg.bg/2023/53FF68D3-5DAD-438B-8189-07EE3C2FD896145984.xml"
+    },
+    {
+      "mpId": 3869,
+      "mpName": "Антон Йорданов Тонев",
+      "partyGroupShort": null,
+      "nsFolders": [
+        "47"
+      ],
+      "make": "Hyundai",
+      "detail": "Хюндай",
+      "description": "лек автомобил",
+      "acquiredYear": 2022,
+      "valueEur": 19684.737426054413,
+      "amount": 38500,
+      "currency": "BGN",
+      "isSpouse": true,
+      "share": "1/2",
+      "mergedFromCount": 1,
+      "declarationYear": 2023,
+      "sourceUrl": "https://register.cacbg.bg/2023/53FF68D3-5DAD-438B-8189-07EE3C2FD896145984.xml"
     },
     {
       "mpId": 2641,
@@ -3511,8 +3531,8 @@
         "43"
       ],
       "make": "Škoda",
-      "detail": "Шкода Октавия",
-      "description": "лек автомобил",
+      "detail": "Шкода",
+      "description": "Лек автомобил",
       "acquiredYear": 2004,
       "valueEur": 14316.172673494118,
       "amount": 28000,
@@ -3521,7 +3541,7 @@
       "share": "1/1",
       "mergedFromCount": 1,
       "declarationYear": 2021,
-      "sourceUrl": "https://register.cacbg.bg/2021_nc/2EC2915E-41F1-49FA-AB60-24F21911B57B120550.xml"
+      "sourceUrl": "https://register.cacbg.bg/2022/2EC2915E-41F1-49FA-AB60-24F21911B57B140879.xml"
     },
     {
       "mpId": 4726,
@@ -4519,6 +4539,24 @@
       "mergedFromCount": 1,
       "declarationYear": 2024,
       "sourceUrl": "https://register.cacbg.bg/2024/B2F86AF3-990F-4467-89FA-D1D3E6974936182512.xml"
+    },
+    {
+      "mpId": 2942,
+      "mpName": "Евгени Генчев Будинов",
+      "partyGroupShort": null,
+      "nsFolders": [],
+      "make": "Kia",
+      "detail": "KIA SPORTAGE",
+      "description": "лек автомобил - придобит чрез лизингов договор",
+      "acquiredYear": 2022,
+      "valueEur": 10225.83762392437,
+      "amount": 20000,
+      "currency": "BGN",
+      "isSpouse": false,
+      "share": "1/1",
+      "mergedFromCount": 1,
+      "declarationYear": 2021,
+      "sourceUrl": "https://register.cacbg.bg/2022/648C1842-F3F9-426A-AFEE-903C793894EC138053.xml"
     },
     {
       "mpId": 4557,
@@ -5554,6 +5592,24 @@
       "sourceUrl": "https://register.cacbg.bg/2024/D6FB7B43-A7B9-496A-BEA5-05040F3EB514188296.xml"
     },
     {
+      "mpId": 3124,
+      "mpName": "Мастън Османов Мастънов",
+      "partyGroupShort": null,
+      "nsFolders": [],
+      "make": "Mercedes-Benz",
+      "detail": "Мерцедес",
+      "description": "лек автомобил",
+      "acquiredYear": 2016,
+      "valueEur": 7669.378217943277,
+      "amount": 15000,
+      "currency": "BGN",
+      "isSpouse": true,
+      "share": "1",
+      "mergedFromCount": 1,
+      "declarationYear": 2021,
+      "sourceUrl": "https://register.cacbg.bg/2021_nc/0FD3C13E-0557-4E47-BD13-F945C39E0710126151.xml"
+    },
+    {
       "mpId": 2735,
       "mpName": "Николай Кръстев Бошкилов",
       "partyGroupShort": null,
@@ -5919,12 +5975,30 @@
       "sourceUrl": "https://register.cacbg.bg/2021_nc/B30D287D-7B0F-4DEE-9BE5-4BEAC18796E4129076.xml"
     },
     {
+      "mpId": 2844,
+      "mpName": "Запрян Василев Янков",
+      "partyGroupShort": null,
+      "nsFolders": [],
+      "make": "Volkswagen",
+      "detail": "Фолксваген Таурег",
+      "description": "лек автомобил",
+      "acquiredYear": 2019,
+      "valueEur": 6135.502574354622,
+      "amount": 12000,
+      "currency": "BGN",
+      "isSpouse": false,
+      "share": "1/1",
+      "mergedFromCount": 1,
+      "declarationYear": 2021,
+      "sourceUrl": "https://register.cacbg.bg/2021_nc/384C1E51-4BA0-4A77-B079-F27D7AC9C5EA122929.xml"
+    },
+    {
       "mpId": 3091,
       "mpName": "Илко Стоянов Стоянов",
       "partyGroupShort": null,
       "nsFolders": [],
       "make": "Mercedes-Benz",
-      "detail": "Мерцедес ДжиЛЦ",
+      "detail": "мерцедес ДжиЕлЦе",
       "description": "Лек автомобил",
       "acquiredYear": 2017,
       "valueEur": 6135.502574354622,
@@ -5934,7 +6008,7 @@
       "share": "1/1",
       "mergedFromCount": 1,
       "declarationYear": 2021,
-      "sourceUrl": "https://register.cacbg.bg/2021_nc/B270C62E-998C-40EC-B275-6397420F4F8C123413.xml"
+      "sourceUrl": "https://register.cacbg.bg/2021_nc/B270C62E-998C-40EC-B275-6397420F4F8C126968.xml"
     },
     {
       "mpId": 2968,
@@ -7119,24 +7193,48 @@
       "sourceUrl": "https://register.cacbg.bg/2025/3BC5FF98-0E30-4EDB-B91D-53C920415ACC202679.xml"
     },
     {
-      "mpId": 4991,
-      "mpName": "Десислав Петров Тасков",
+      "mpId": 4108,
+      "mpName": "Смиляна Николова Нитова-Кръстева",
       "partyGroupShort": null,
       "nsFolders": [
-        "44"
+        "42",
+        "44",
+        "48"
       ],
-      "make": "Citroën",
-      "detail": "Ситроен С5",
+      "make": "Opel",
+      "detail": "Опел Корса",
       "description": "Лек автомобил",
-      "acquiredYear": 2021,
+      "acquiredYear": 2020,
       "valueEur": 4090.3350495697478,
       "amount": 8000,
       "currency": "BGN",
       "isSpouse": false,
-      "share": "1",
+      "share": "1/2",
       "mergedFromCount": 1,
-      "declarationYear": 2021,
-      "sourceUrl": "https://register.cacbg.bg/2022/EC3E0C87-2A3F-4A61-B157-206EF2D9CA2A132845.xml"
+      "declarationYear": 2024,
+      "sourceUrl": "https://register.cacbg.bg/2024/7430891E-A856-4F0D-9B59-5B0A156D407F194176.xml"
+    },
+    {
+      "mpId": 4108,
+      "mpName": "Смиляна Николова Нитова-Кръстева",
+      "partyGroupShort": null,
+      "nsFolders": [
+        "42",
+        "44",
+        "48"
+      ],
+      "make": "Opel",
+      "detail": "Опел Корса",
+      "description": "Лек автомобил",
+      "acquiredYear": 2020,
+      "valueEur": 4090.3350495697478,
+      "amount": 8000,
+      "currency": "BGN",
+      "isSpouse": true,
+      "share": "1/2",
+      "mergedFromCount": 1,
+      "declarationYear": 2024,
+      "sourceUrl": "https://register.cacbg.bg/2024/7430891E-A856-4F0D-9B59-5B0A156D407F194176.xml"
     },
     {
       "mpId": 3155,
@@ -7235,7 +7333,7 @@
       "share": "0",
       "mergedFromCount": 1,
       "declarationYear": 2023,
-      "sourceUrl": "https://register.cacbg.bg/2023/E388647E-93A2-481F-A5FE-C630B099D4EF145785.xml"
+      "sourceUrl": "https://register.cacbg.bg/2023/E388647E-93A2-481F-A5FE-C630B099D4EF156439.xml"
     },
     {
       "mpId": 3067,
@@ -7558,6 +7656,24 @@
       "mergedFromCount": 1,
       "declarationYear": 2021,
       "sourceUrl": "https://register.cacbg.bg/2021_nc/1578AEFA-E016-4488-938B-E1BAAEF5E8D4124390.xml"
+    },
+    {
+      "mpId": 4998,
+      "mpName": "Самуил Борисов Славов",
+      "partyGroupShort": null,
+      "nsFolders": [],
+      "make": "Audi",
+      "detail": "Ауди",
+      "description": "Лек автомобил",
+      "acquiredYear": 2006,
+      "valueEur": 3579.0431683735296,
+      "amount": 7000,
+      "currency": "BGN",
+      "isSpouse": false,
+      "share": "1",
+      "mergedFromCount": 1,
+      "declarationYear": 2025,
+      "sourceUrl": "https://register.cacbg.bg/2025/D699161E-D1D1-459C-A676-15FFC1A0B63D208188.xml"
     },
     {
       "mpId": 2770,
@@ -8176,17 +8292,17 @@
       "partyGroupShort": null,
       "nsFolders": [],
       "make": "Opel",
-      "detail": "Опел",
+      "detail": "опел",
       "description": "Лек автомобил",
-      "acquiredYear": 2014,
+      "acquiredYear": 2017,
       "valueEur": 2709.846970339958,
       "amount": 5300,
       "currency": "BGN",
-      "isSpouse": true,
+      "isSpouse": false,
       "share": null,
       "mergedFromCount": 1,
       "declarationYear": 2024,
-      "sourceUrl": "https://register.cacbg.bg/2024/C8BBC1DE-6FCA-471A-A206-38A17EB492EA181471.xml"
+      "sourceUrl": "https://register.cacbg.bg/2024/C8BBC1DE-6FCA-471A-A206-38A17EB492EA197025.xml"
     },
     {
       "mpId": 4272,
@@ -8342,7 +8458,7 @@
       "share": "0",
       "mergedFromCount": 1,
       "declarationYear": 2023,
-      "sourceUrl": "https://register.cacbg.bg/2023/E388647E-93A2-481F-A5FE-C630B099D4EF145785.xml"
+      "sourceUrl": "https://register.cacbg.bg/2023/E388647E-93A2-481F-A5FE-C630B099D4EF156439.xml"
     },
     {
       "mpId": 2716,
@@ -8440,6 +8556,46 @@
       "sourceUrl": "https://register.cacbg.bg/2022/BF505869-547A-406A-97AD-E4A61C705F70141604.xml"
     },
     {
+      "mpId": 3869,
+      "mpName": "Антон Йорданов Тонев",
+      "partyGroupShort": null,
+      "nsFolders": [
+        "47"
+      ],
+      "make": "Mercedes-Benz",
+      "detail": "Мерцедес Бенц",
+      "description": "лек автомобил",
+      "acquiredYear": 2018,
+      "valueEur": 2556.4594059810925,
+      "amount": 5000,
+      "currency": "BGN",
+      "isSpouse": false,
+      "share": "1/2",
+      "mergedFromCount": 1,
+      "declarationYear": 2023,
+      "sourceUrl": "https://register.cacbg.bg/2023/53FF68D3-5DAD-438B-8189-07EE3C2FD896145984.xml"
+    },
+    {
+      "mpId": 3869,
+      "mpName": "Антон Йорданов Тонев",
+      "partyGroupShort": null,
+      "nsFolders": [
+        "47"
+      ],
+      "make": "Mercedes-Benz",
+      "detail": "Мерцедес Бенц",
+      "description": "лек автомобил",
+      "acquiredYear": 2018,
+      "valueEur": 2556.4594059810925,
+      "amount": 5000,
+      "currency": "BGN",
+      "isSpouse": true,
+      "share": "1/2",
+      "mergedFromCount": 1,
+      "declarationYear": 2023,
+      "sourceUrl": "https://register.cacbg.bg/2023/53FF68D3-5DAD-438B-8189-07EE3C2FD896145984.xml"
+    },
+    {
       "mpId": 4182,
       "mpName": "Медиха Енвер Мехмед-Хамза",
       "partyGroupShort": null,
@@ -8476,6 +8632,24 @@
       "mergedFromCount": 1,
       "declarationYear": 2021,
       "sourceUrl": "https://register.cacbg.bg/2022/5B658292-662A-4736-B5AB-A6A970319ABA133019.xml"
+    },
+    {
+      "mpId": 2734,
+      "mpName": "Тома Николов Томов",
+      "partyGroupShort": null,
+      "nsFolders": [],
+      "make": "Range Rover",
+      "detail": "Лендровер Рейндж Ровер",
+      "description": "Лек автомобил",
+      "acquiredYear": 2016,
+      "valueEur": 2556.4594059810925,
+      "amount": 5000,
+      "currency": "BGN",
+      "isSpouse": false,
+      "share": null,
+      "mergedFromCount": 1,
+      "declarationYear": 2021,
+      "sourceUrl": "https://register.cacbg.bg/2021_nc/BC09E5CD-725A-4852-8E8B-5040B5A4124D127428.xml"
     },
     {
       "mpId": 5128,
@@ -8742,7 +8916,7 @@
       "share": "1/2",
       "mergedFromCount": 1,
       "declarationYear": 2023,
-      "sourceUrl": "https://register.cacbg.bg/2023/2D2044C2-5B26-40F1-BFE7-388F024602B8145438.xml"
+      "sourceUrl": "https://register.cacbg.bg/2023/2D2044C2-5B26-40F1-BFE7-388F024602B8156094.xml"
     },
     {
       "mpId": 4658,
@@ -8763,7 +8937,7 @@
       "share": "1/2",
       "mergedFromCount": 1,
       "declarationYear": 2023,
-      "sourceUrl": "https://register.cacbg.bg/2023/2D2044C2-5B26-40F1-BFE7-388F024602B8145438.xml"
+      "sourceUrl": "https://register.cacbg.bg/2023/2D2044C2-5B26-40F1-BFE7-388F024602B8156094.xml"
     },
     {
       "mpId": 4658,
@@ -8784,7 +8958,7 @@
       "share": "1/1",
       "mergedFromCount": 1,
       "declarationYear": 2023,
-      "sourceUrl": "https://register.cacbg.bg/2023/2D2044C2-5B26-40F1-BFE7-388F024602B8145438.xml"
+      "sourceUrl": "https://register.cacbg.bg/2023/2D2044C2-5B26-40F1-BFE7-388F024602B8156094.xml"
     },
     {
       "mpId": 2860,
@@ -8890,6 +9064,24 @@
       "sourceUrl": "https://register.cacbg.bg/2024/B2F86AF3-990F-4467-89FA-D1D3E6974936182512.xml"
     },
     {
+      "mpId": 2844,
+      "mpName": "Запрян Василев Янков",
+      "partyGroupShort": null,
+      "nsFolders": [],
+      "make": "Volkswagen",
+      "detail": "Фолксваген Джета",
+      "description": "лек автомобил",
+      "acquiredYear": 2017,
+      "valueEur": 2045.1675247848739,
+      "amount": 4000,
+      "currency": "BGN",
+      "isSpouse": false,
+      "share": "1/1",
+      "mergedFromCount": 1,
+      "declarationYear": 2021,
+      "sourceUrl": "https://register.cacbg.bg/2021_nc/384C1E51-4BA0-4A77-B079-F27D7AC9C5EA122929.xml"
+    },
+    {
       "mpId": 3941,
       "mpName": "Лилия Недкова Недева",
       "partyGroupShort": null,
@@ -8976,6 +9168,24 @@
       "sourceUrl": "https://register.cacbg.bg/2025/3BC5FF98-0E30-4EDB-B91D-53C920415ACC202679.xml"
     },
     {
+      "mpId": 2844,
+      "mpName": "Запрян Василев Янков",
+      "partyGroupShort": null,
+      "nsFolders": [],
+      "make": null,
+      "detail": "Фолксвоген Голф",
+      "description": "лек автомобил",
+      "acquiredYear": 2006,
+      "valueEur": 2045.1675247848739,
+      "amount": 4000,
+      "currency": "BGN",
+      "isSpouse": false,
+      "share": null,
+      "mergedFromCount": 1,
+      "declarationYear": 2021,
+      "sourceUrl": "https://register.cacbg.bg/2021_nc/384C1E51-4BA0-4A77-B079-F27D7AC9C5EA122929.xml"
+    },
+    {
       "mpId": 2976,
       "mpName": "Калин Любенов Вельов",
       "partyGroupShort": null,
@@ -9050,6 +9260,24 @@
       "mergedFromCount": 1,
       "declarationYear": 2021,
       "sourceUrl": "https://register.cacbg.bg/2022/66F28B1F-625B-4C0D-ABA9-6CCF13990905140125.xml"
+    },
+    {
+      "mpId": 3124,
+      "mpName": "Мастън Османов Мастънов",
+      "partyGroupShort": null,
+      "nsFolders": [],
+      "make": "Opel",
+      "detail": "Опел",
+      "description": "лек автомобил",
+      "acquiredYear": 2010,
+      "valueEur": 1942.9091485456302,
+      "amount": 3800,
+      "currency": "BGN",
+      "isSpouse": true,
+      "share": "1",
+      "mergedFromCount": 1,
+      "declarationYear": 2021,
+      "sourceUrl": "https://register.cacbg.bg/2021_nc/0FD3C13E-0557-4E47-BD13-F945C39E0710126151.xml"
     },
     {
       "mpId": 4227,
@@ -9318,16 +9546,16 @@
       "nsFolders": [],
       "make": "Suzuki",
       "detail": "СУЗУКИ",
-      "description": "ЛЕК АВТОМОБИЛ",
+      "description": "лек автомобил",
       "acquiredYear": 2023,
       "valueEur": 1585.0048317082774,
       "amount": 3100,
       "currency": "BGN",
-      "isSpouse": false,
-      "share": "100",
+      "isSpouse": true,
+      "share": null,
       "mergedFromCount": 1,
       "declarationYear": 2025,
-      "sourceUrl": "https://register.cacbg.bg/2025/8CDD2F14-0095-4B61-A159-7FF13F55AC74204893.xml"
+      "sourceUrl": "https://register.cacbg.bg/2025/8CDD2F14-0095-4B61-A159-7FF13F55AC74217827.xml"
     },
     {
       "mpId": 3236,
@@ -9890,7 +10118,7 @@
       ],
       "make": "Volvo",
       "detail": "Волво",
-      "description": "лек автомобил",
+      "description": "Лек автомобил",
       "acquiredYear": 2019,
       "valueEur": 1090.5855825915341,
       "amount": 2133,
@@ -9899,7 +10127,7 @@
       "share": "1/1",
       "mergedFromCount": 1,
       "declarationYear": 2021,
-      "sourceUrl": "https://register.cacbg.bg/2021_nc/2EC2915E-41F1-49FA-AB60-24F21911B57B120550.xml"
+      "sourceUrl": "https://register.cacbg.bg/2022/2EC2915E-41F1-49FA-AB60-24F21911B57B140879.xml"
     },
     {
       "mpId": 3322,
@@ -10301,7 +10529,7 @@
       "share": "1/1",
       "mergedFromCount": 1,
       "declarationYear": 2021,
-      "sourceUrl": "https://register.cacbg.bg/2021_nc/648C1842-F3F9-426A-AFEE-903C793894EC122399.xml"
+      "sourceUrl": "https://register.cacbg.bg/2022/648C1842-F3F9-426A-AFEE-903C793894EC138053.xml"
     },
     {
       "mpId": 3296,
@@ -10825,7 +11053,7 @@
       ],
       "make": "Ford",
       "detail": "Форд",
-      "description": "лек автомобил",
+      "description": "Лек автомобил",
       "acquiredYear": 2019,
       "valueEur": 634.0019326833109,
       "amount": 1240,
@@ -10834,7 +11062,7 @@
       "share": "1/1",
       "mergedFromCount": 1,
       "declarationYear": 2021,
-      "sourceUrl": "https://register.cacbg.bg/2021_nc/2EC2915E-41F1-49FA-AB60-24F21911B57B120550.xml"
+      "sourceUrl": "https://register.cacbg.bg/2022/2EC2915E-41F1-49FA-AB60-24F21911B57B140879.xml"
     },
     {
       "mpId": 4858,
@@ -12329,6 +12557,28 @@
       "sourceUrl": "https://register.cacbg.bg/2022/60B87CAF-DDE7-408E-8061-E5F03B0BA139136047.xml"
     },
     {
+      "mpId": 4108,
+      "mpName": "Смиляна Николова Нитова-Кръстева",
+      "partyGroupShort": null,
+      "nsFolders": [
+        "42",
+        "44",
+        "48"
+      ],
+      "make": "Ford",
+      "detail": "Форд Фиеста",
+      "description": "Лек автомобил",
+      "acquiredYear": 2022,
+      "valueEur": 0,
+      "amount": 0,
+      "currency": "BGN",
+      "isSpouse": false,
+      "share": "1/1",
+      "mergedFromCount": 1,
+      "declarationYear": 2024,
+      "sourceUrl": "https://register.cacbg.bg/2024/7430891E-A856-4F0D-9B59-5B0A156D407F194176.xml"
+    },
+    {
       "mpId": 2679,
       "mpName": "Боряна Любенова Георгиева",
       "partyGroupShort": null,
@@ -12683,6 +12933,24 @@
       "mergedFromCount": 2,
       "declarationYear": 2025,
       "sourceUrl": "https://register.cacbg.bg/2025/0AB2D1E9-FB89-4D90-BB57-615A4708E644210298.xml"
+    },
+    {
+      "mpId": 4931,
+      "mpName": "Станислав Георгиев Иванов",
+      "partyGroupShort": null,
+      "nsFolders": [],
+      "make": "Hyundai",
+      "detail": "Хюндай",
+      "description": "лек автомобил",
+      "acquiredYear": 2024,
+      "valueEur": null,
+      "amount": null,
+      "currency": null,
+      "isSpouse": false,
+      "share": "1",
+      "mergedFromCount": 1,
+      "declarationYear": 2025,
+      "sourceUrl": "https://register.cacbg.bg/2025/00787AEB-8B65-4339-87A7-26503A47CC38217828.xml"
     },
     {
       "mpId": 4326,

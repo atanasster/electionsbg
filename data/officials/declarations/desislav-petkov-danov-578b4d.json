@@ -168,5 +168,108 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "desislav-petkov-danov-578b4d",
+    "declarantName": "(unknown)",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2024-05-08",
+    "entryNumber": "В887",
+    "controlHash": "E42CFC8F",
+    "sourceUrl": "https://register.cacbg.bg/2024/6E7F7EC8-A28C-4427-A8B2-B45E4074BAE2181230.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "desislav-petkov-danov-578b4d",
+    "declarantName": "Десислав Петков Данов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Entry",
+    "filedAt": "2024-05-08",
+    "entryNumber": "В886",
+    "controlHash": "72BEE045",
+    "sourceUrl": "https://register.cacbg.bg/2024/6E7F7EC8-A28C-4427-A8B2-B45E4074BAE2181229.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дял",
+        "shareSize": "2 BGN",
+        "companyName": "Иншуртехболканс ЕООД",
+        "registeredOffice": "с.Чомаковци",
+        "valueEur": null,
+        "holderName": "Десислав Петков Данов",
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "acquiredYear": 1980,
+        "share": "1/4",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Десислав Петков Данов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЧСИ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Десислав Петков Данов",
+        "isSpouse": false,
+        "legalBasis": "договор заа цесия",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЧСИ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Десислав Петков Данов",
+        "isSpouse": false,
+        "legalBasis": "договор заа цесия",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

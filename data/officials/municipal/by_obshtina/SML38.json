@@ -1,7 +1,7 @@
 {
   "obshtina": "SML38",
   "registryName": "Чепеларе",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 11,
+    "councillor": 12,
     "chief_architect": 1,
     "other": 0
   },
@@ -82,6 +82,23 @@
       "roleRaw": "Главен архитект",
       "municipality": "Чепеларе",
       "latestDeclarationYear": 2025
+    },
+    {
+      "slug": "angel-georgiev-nikolov-d39497",
+      "name": "Ангел Георгиев Николов",
+      "normalizedName": "АНГЕЛ ГЕОРГИЕВ НИКОЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Чепеларе",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ЛЕВИЦАТА!",
+        "partyCanonicalId": "p_48",
+        "listPos": 102,
+        "prefVotes": 52,
+        "isElected": true
+      }
     },
     {
       "slug": "aneta-trayanova-pashalieva-978722",

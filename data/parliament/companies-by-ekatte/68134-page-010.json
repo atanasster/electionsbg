@@ -2,8 +2,97 @@
   "ekatte": "68134",
   "page": 10,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "Хоум-офис-студио",
+      "displayName": "Хоум офис студио",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1619",
+      "mps": [
+        {
+          "mpId": 940,
+          "mpName": "Ивелин Николаев Николов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 940,
+          "mpName": "Ивелин Николаев Николов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Хоумхиид-ООД",
+      "displayName": "Хоумхиид ООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 4144,
+          "mpName": "Михал Григоров Камбарев",
+          "role": "partner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 4144,
+          "mpName": "Михал Григоров Камбарев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЦЕНТЪР-ЗА-РАЗВИТИЕ-И-УСПЕХ",
+      "displayName": "ЦЕНТЪР ЗА РАЗВИТИЕ И УСПЕХ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
+      "mps": [
+        {
+          "mpId": 3011,
+          "mpName": "Милена Цветанова Дамянова",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3011,
+          "mpName": "Милена Цветанова Дамянова",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЦЕНТЪР-ЗА-ТЕЛЕСНА-ПСИХОТЕРАПИЯ-И-РАБОТА-С-ТРАВМА",
+      "displayName": "ЦЕНТЪР ЗА ТЕЛЕСНА ПСИХОТЕРАПИЯ И РАБОТА С ТРАВМА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1700",
+      "mps": [
+        {
+          "mpId": 4221,
+          "mpName": "Ирена Тодорова Анастасова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4221,
+          "mpName": "Ирена Тодорова Анастасова",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Чинар-Дондуков-ООД",
+      "displayName": "Чинар Дондуков ООД",
+      "registeredOffice": "Варна",
+      "mps": [
+        {
+          "mpId": 2760,
+          "mpName": "Иван Димов Иванов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "ШЕРИФ-1",
       "displayName": "ШЕРИФ 1",
@@ -89,45 +178,6 @@
           "mpId": 5182,
           "mpName": "Борислав Пламенов Георгиев",
           "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Янков-ЕООД",
-      "displayName": "Янков ЕООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3444,
-          "mpName": "Калоян Милков Янков",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Янков-и-Ко-ООД",
-      "displayName": "Янков и Ко ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3444,
-          "mpName": "Калоян Милков Янков",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Архинал",
-      "displayName": "\"Архинал\"",
-      "registeredOffice": "гр. София",
-      "mps": [
-        {
-          "mpId": 3901,
-          "mpName": "Мукаддес Юсуф Налбант",
-          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -648,32 +698,6 @@
           "mpId": 5072,
           "mpName": "Йордан Ивов Терзийски",
           "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "БЕЛИМО-БЪЛГАРИЯ",
-      "displayName": "БЕЛИМО БЪЛГАРИЯ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1612",
-      "mps": [
-        {
-          "mpId": 4992,
-          "mpName": "Биляна Георгиева Иванова",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "БЕНДИТО",
-      "displayName": "БЕНДИТО",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
-      "mps": [
-        {
-          "mpId": 138,
-          "mpName": "Долорес Борисова Арсенова",
-          "role": "director",
           "isCurrent": true
         }
       ]

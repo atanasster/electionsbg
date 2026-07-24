@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:stiliyana-ivanova-sbeva-tincheva-c207f8",
   "nodes": [
     {
@@ -12,6 +12,16 @@
       "municipality": null
     },
     {
+      "id": "company:tr:200234845",
+      "type": "company",
+      "label": "Тинчеви и Ко ООД",
+      "slug": null,
+      "uic": "200234845",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
       "id": "company:tr:207332936",
       "type": "company",
       "label": "Сдружение с нестопанска цел \"Пенчо Семов\"",
@@ -20,6 +30,16 @@
       "legalForm": null,
       "status": null,
       "seat": null
+    },
+    {
+      "id": "person:СТРАЦИМИР НИКОЛАЕВ ТИНЧЕВ",
+      "type": "person",
+      "label": "Страцимир Николаев Тинчев"
+    },
+    {
+      "id": "person:НИКОЛАЙ СТОЯНОВ ТИНЧЕВ",
+      "type": "person",
+      "label": "Николай Стоянов Тинчев"
     },
     {
       "id": "official:radoslav-stefanov-stoyanov-8851fa",
@@ -39,11 +59,35 @@
   "edges": [
     {
       "source": "official:stiliyana-ivanova-sbeva-tincheva-c207f8",
+      "target": "company:tr:200234845",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stiliyana-ivanova-sbeva-tincheva-c207f8",
       "target": "company:tr:207332936",
       "kind": "tr_role",
       "role": "ngo_board",
       "isCurrent": true,
       "confidence": "medium"
+    },
+    {
+      "source": "person:СТРАЦИМИР НИКОЛАЕВ ТИНЧЕВ",
+      "target": "company:tr:200234845",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТОЯНОВ ТИНЧЕВ",
+      "target": "company:tr:200234845",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
     },
     {
       "source": "official:radoslav-stefanov-stoyanov-8851fa",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:5092",
   "nodes": [
     {
@@ -143,9 +143,23 @@
       "label": "Зузанна  Петкова"
     },
     {
+      "id": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Богомил Иванов Петков"
+    },
+    {
       "id": "person:РУМЕН ВАСИЛЕВ ДЕМИРОВ",
       "type": "person",
       "label": "Румен Василев Демиров"
+    },
+    {
+      "id": "official:bogomil-ivanov-petkov-8b586d",
+      "type": "official",
+      "slug": "bogomil-ivanov-petkov-8b586d",
+      "label": "Богомил Иванов Петков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
     },
     {
       "id": "person:ИВАЙЛО СТОЙЧЕВ МИЛАНОВ",
@@ -430,6 +444,14 @@
       "confidence": "high"
     },
     {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:РУМЕН ВАСИЛЕВ ДЕМИРОВ",
       "target": "company:Биптан-ЕООД",
       "kind": "tr_role",
@@ -438,6 +460,14 @@
       "confidence": "high"
     },
     {
+      "source": "official:bogomil-ivanov-petkov-8b586d",
+      "target": "company:Биптан-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:ИВАЙЛО СТОЙЧЕВ МИЛАНОВ",
       "target": "company:Бокал-ПЕТ-ООД",
       "kind": "tr_role",
@@ -498,6 +528,30 @@
       "target": "company:БОКАЛ-ПЕТ-ООД",
       "kind": "tr_owner",
       "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:bogomil-ivanov-petkov-8b586d",
+      "target": "company:БОКАЛ-ПЕТ-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "target": "company:БОКАЛ-ПЕТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:bogomil-ivanov-petkov-8b586d",
+      "target": "company:Мазалат-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -519,6 +573,14 @@
     },
     {
       "source": "person:БОРИСЛАВ ГЕОРГИЕВ АЦЕВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
       "target": "company:tr:207550917",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -654,6 +716,14 @@
       "confidence": "high"
     },
     {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ",
       "target": "company:tr:207024454",
       "kind": "tr_role",
@@ -663,6 +733,14 @@
     },
     {
       "source": "person:ИВАНКА БЕРОВА ПЕТКОВА",
+      "target": "company:tr:110001952",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
       "target": "company:tr:110001952",
       "kind": "tr_owner",
       "role": "actual_owner",
@@ -719,6 +797,14 @@
     },
     {
       "source": "person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ",
+      "target": "company:tr:110032243",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
       "target": "company:tr:110032243",
       "kind": "tr_owner",
       "role": "actual_owner",

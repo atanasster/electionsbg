@@ -239,6 +239,56 @@
     "institution": "Български червен кръст",
     "positionTitle": "Генерален директор",
     "category": "civil_society",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-29",
+    "entryNumber": "Г6134",
+    "controlHash": "F2F05AB6",
+    "sourceUrl": "https://register.cacbg.bg/2023/D35AB916-77A2-4E3D-A1FE-CEF912228CA1152708.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31555.912323668214,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5296.472597311627,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Яни Стаменов Стоименов",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "sofiya-ivanova-stoimenova-0fc043",
+    "declarantName": "София Иванова Стоименова",
+    "institution": "Български червен кръст",
+    "positionTitle": "Генерален директор",
+    "category": "civil_society",
     "declarationYear": 2022,
     "fiscalYear": 2021,
     "declarationType": "Annualy",

@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:dimitrina-nedelcheva-dimitrova-d33871",
+  "nodes": [
+    {
+      "id": "official:dimitrina-nedelcheva-dimitrova-d33871",
+      "type": "official",
+      "slug": "dimitrina-nedelcheva-dimitrova-d33871",
+      "label": "Димитрина Неделчева Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нова Загора"
+    },
+    {
+      "id": "company:tr:000804396",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАНИЕ - 1938 Г.&quot;",
+      "slug": null,
+      "uic": "000804396",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛОЯН ДАНЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Калоян Данев Иванов"
+    },
+    {
+      "id": "person:КОСТА АТАНАСОВ КОСТОВ",
+      "type": "person",
+      "label": "Коста Атанасов Костов"
+    },
+    {
+      "id": "person:ДИМИТРИНА ЖЕЧЕВА ПАМУКОВА",
+      "type": "person",
+      "label": "Димитрина Жечева Памукова"
+    },
+    {
+      "id": "person:СВЕТЛА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Светла Иванова Георгиева"
+    },
+    {
+      "id": "person:МАРИН МАТЕЕВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Марин Матеев Йорданов"
+    },
+    {
+      "id": "person:ДИНКА РАДЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Динка Радева Георгиева"
+    },
+    {
+      "id": "person:КАМЕН ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Камен Иванов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitrina-nedelcheva-dimitrova-d33871",
+      "target": "company:tr:000804396",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАЛОЯН ДАНЕВ ИВАНОВ",
+      "target": "company:tr:000804396",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ДАНЕВ ИВАНОВ",
+      "target": "company:tr:000804396",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТА АТАНАСОВ КОСТОВ",
+      "target": "company:tr:000804396",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ЖЕЧЕВА ПАМУКОВА",
+      "target": "company:tr:000804396",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000804396",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН МАТЕЕВ ЙОРДАНОВ",
+      "target": "company:tr:000804396",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКА РАДЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000804396",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:000804396",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -6,6 +6,80 @@
     "positionTitle": "Служебен заместник-министър",
     "category": "deputy_minister",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-02",
+    "entryNumber": "Г14528",
+    "controlHash": "E6C4BDC1",
+    "sourceUrl": "https://register.cacbg.bg/2025/8DA5481C-32C2-4F85-BB05-138C1109C5F2217848.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23604.81227918582,
+        "amountEurSpouse": 7238.3591620948655
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 17299.560800274052,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 7559.961755367287,
+        "amountEurSpouse": 6074.147548611076
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 94788,
+        "valueEur": 48464.33483482716,
+        "holderName": "живко христакев петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25980,
+        "valueEur": 13283.363073477756,
+        "holderName": "славена колева петрова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "zhivko-hristakev-petrov-9ca9d3",
+    "declarantName": "живко христакев петров",
+    "institution": "Министерство на транспорта и съобщенията",
+    "positionTitle": "Служебен заместник-министър",
+    "category": "deputy_minister",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-02-27",

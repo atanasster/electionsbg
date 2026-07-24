@@ -152,10 +152,7 @@ describe("extractDeclarationXmlFiles", () => {
       "ЦЕЛЕВА",
       person("Иван", decl("a.xml") + decl("b.xml", "False")),
     );
-    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual([
-      "a.xml",
-      "b.xml",
-    ]);
+    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual(["a.xml", "b.xml"]);
   });
 
   it("skips a declaration whose person has no name", () => {

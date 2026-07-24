@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:2389",
   "nodes": [
     {
@@ -25,6 +25,21 @@
       "legalForm": "ASSOC",
       "status": "active",
       "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:3252",
+      "type": "mp",
+      "mpId": 3252,
+      "label": "Мая Божидарова Манолова-Найденова",
+      "partyGroupShort": "СБГ",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "45"
+      ]
     }
   ],
   "edges": [
@@ -43,7 +58,35 @@
       "role": "ngo_board",
       "isCurrent": true,
       "confidence": "medium"
+    },
+    {
+      "source": "mp:3252",
+      "target": "company:tr:177161138",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3252",
+      "target": "company:tr:177161138",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
     }
   ],
-  "paths": []
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3252",
+      "length": 2,
+      "nodeIds": [
+        "mp:2389",
+        "company:tr:177161138",
+        "mp:3252"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
 }

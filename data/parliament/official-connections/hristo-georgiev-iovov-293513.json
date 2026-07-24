@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:hristo-georgiev-iovov-293513",
   "nodes": [
     {
@@ -42,6 +42,15 @@
       "seat": null
     },
     {
+      "id": "official:hristo-georgiev-iovov-09e4cd",
+      "type": "official",
+      "slug": "hristo-georgiev-iovov-09e4cd",
+      "label": "Христо Георгиев Йовов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
       "id": "person:НАДЯ ВАНЕВА ЯНКУЛОВА-ЙОВОВА",
       "type": "person",
       "label": "Надя Ванева Янкулова-Йовова"
@@ -66,6 +75,30 @@
     },
     {
       "source": "official:hristo-georgiev-iovov-293513",
+      "target": "company:tr:203509182",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-georgiev-iovov-09e4cd",
+      "target": "company:tr:200726024",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-georgiev-iovov-09e4cd",
+      "target": "company:tr:200197279",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-georgiev-iovov-09e4cd",
       "target": "company:tr:203509182",
       "kind": "declared_stake",
       "role": "declared_share",

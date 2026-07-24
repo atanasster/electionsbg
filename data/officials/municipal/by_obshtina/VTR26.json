@@ -1,7 +1,7 @@
 {
   "obshtina": "VTR26",
   "registryName": "Полски Тръмбеш",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,8 +9,8 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 14,
-    "chief_architect": 0,
+    "councillor": 16,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -77,6 +77,15 @@
       }
     },
     {
+      "slug": "stanimir-vladimirov-velichkov-7a58d9",
+      "name": "Станимир Владимиров Величков",
+      "normalizedName": "СТАНИМИР ВЛАДИМИРОВ ВЕЛИЧКОВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Полски Тръмбеш",
+      "latestDeclarationYear": 2025
+    },
+    {
       "slug": "vasil-marinov-vasilev-44e6d4",
       "name": "Васил Маринов Василев",
       "normalizedName": "ВАСИЛ МАРИНОВ ВАСИЛЕВ",
@@ -90,6 +99,23 @@
         "partyCanonicalId": "bsp",
         "listPos": 102,
         "prefVotes": 147,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "vaska-atanasova-krumova-1c4472",
+      "name": "Васка Атанасова Крумова",
+      "normalizedName": "ВАСКА АТАНАСОВА КРУМОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Полски Тръмбеш",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ВМРО-БНД (РЗС)",
+        "partyCanonicalId": "p_51",
+        "listPos": 106,
+        "prefVotes": 94,
         "isElected": true
       }
     },
@@ -124,6 +150,23 @@
         "partyCanonicalId": "bsp",
         "listPos": 107,
         "prefVotes": 165,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "emil-denchev-enchev-6ced97",
+      "name": "Емил Денчев Енчев",
+      "normalizedName": "ЕМИЛ ДЕНЧЕВ ЕНЧЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Полски Тръмбеш",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 101,
+        "prefVotes": 94,
         "isElected": true
       }
     },

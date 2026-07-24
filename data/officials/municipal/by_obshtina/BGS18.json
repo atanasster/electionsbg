@@ -1,7 +1,7 @@
 {
   "obshtina": "BGS18",
   "registryName": "Руен",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 2,
-    "councillor": 26,
+    "councillor": 27,
     "chief_architect": 2,
     "other": 0
   },
@@ -533,6 +533,23 @@
         "listPos": 101,
         "prefVotes": 30,
         "isElected": true
+      }
+    },
+    {
+      "slug": "shemsi-ebazir-mustafa-83930f",
+      "name": "Шемси Ебазир Мустафа",
+      "normalizedName": "ШЕМСИ ЕБАЗИР МУСТАФА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Руен",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
+        "partyCanonicalId": null,
+        "listPos": 107,
+        "prefVotes": 85,
+        "isElected": false
       }
     }
   ]

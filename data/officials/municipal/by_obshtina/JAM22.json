@@ -1,7 +1,7 @@
 {
   "obshtina": "JAM22",
   "registryName": "Стралджа",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 0,
-    "councillor": 16,
+    "councillor": 17,
     "chief_architect": 1,
     "other": 0
   },
@@ -82,6 +82,23 @@
       "roleRaw": "Главен архитект",
       "municipality": "Стралджа",
       "latestDeclarationYear": 2025
+    },
+    {
+      "slug": "angel-ivanov-angelov-c70181",
+      "name": "Ангел Иванов Ангелов",
+      "normalizedName": "АНГЕЛ ИВАНОВ АНГЕЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Стралджа",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК БЪЛГАРИЯ НА РЕГИОНИТЕ ( БЪЛГАРИЯ НА РЕГИОНИТЕ, ГЕРБ, ВМРО, ЛЕВИЦАТА!)",
+        "partyCanonicalId": "vmro",
+        "listPos": 114,
+        "prefVotes": 53,
+        "isElected": false
+      }
     },
     {
       "slug": "valentina-dzhenkova-miteva-7f6eea",

@@ -181,5 +181,108 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "rusi-goshev-nikolov-b9121c",
+    "declarantName": "(unknown)",
+    "institution": "ПУДООС",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
+    "declarationYear": 2022,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2022-04-27",
+    "entryNumber": "В624",
+    "controlHash": "6FF47759",
+    "sourceUrl": "https://register.cacbg.bg/2022/BC94E20A-8E48-4F5D-BE55-6009D5302AED133581.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "rusi-goshev-nikolov-b9121c",
+    "declarantName": "Руси Гошев Николов",
+    "institution": "ПУДООС",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
+    "declarationYear": 2022,
+    "fiscalYear": 2022,
+    "declarationType": "Entry",
+    "filedAt": "2022-04-27",
+    "entryNumber": "В623",
+    "controlHash": "B643AF24",
+    "sourceUrl": "https://register.cacbg.bg/2022/BC94E20A-8E48-4F5D-BE55-6009D5302AED133580.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "34",
+        "companyName": "\"Ебро\"ООД",
+        "registeredOffice": "гр.София",
+        "valueEur": 17.383923960671428,
+        "holderName": "Руси Гошев Николов",
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Крум",
+        "municipality": "Димитровград",
+        "areaSqm": 841,
+        "builtAreaSqm": 134,
+        "acquiredYear": 2010,
+        "share": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Руси Гошев Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Крум",
+        "municipality": "Димитровград",
+        "areaSqm": 0.692,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60,
+        "valueEur": 30.67751287177311,
+        "holderName": "Руси Гошев Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Субару",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2012,
+        "share": null,
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Руси Гошев Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

@@ -2,8 +2,116 @@
   "ekatte": "68134",
   "page": 6,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "ГОЛД-ЛАЙФ-4",
+      "displayName": "ГОЛД ЛАЙФ 4",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1172",
+      "mps": [
+        {
+          "mpId": 2953,
+          "mpName": "Станислав Иванов Стоянов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2953,
+          "mpName": "Станислав Иванов Стоянов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГРАЖДАНСКИ-СЪВЕТ",
+      "displayName": "ГРАЖДАНСКИ СЪВЕТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1407",
+      "mps": [
+        {
+          "mpId": 2337,
+          "mpName": "Петър Владиславов Славов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2337,
+          "mpName": "Петър Владиславов Славов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Грийн-Инвестмънт-Пропъртис-ООД",
+      "displayName": "Грийн Инвестмънт Пропъртис ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3285,
+          "mpName": "Християна Анастасова Тодорова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Грийн-касъл-груп-ЕООД",
+      "displayName": "Грийн касъл груп ЕООД",
+      "registeredOffice": "СОФИЯ",
+      "mps": [
+        {
+          "mpId": 4925,
+          "mpName": "Мюмюн Сали Мюмюн",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4925,
+          "mpName": "МЮМЮН САЛИ МЮМЮН",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДАНАЯ",
+      "displayName": "ДАНАЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1799",
+      "mps": [
+        {
+          "mpId": 4058,
+          "mpName": "Кремена Миленова Кунева",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4058,
+          "mpName": "Кремена Миленова Кунева",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДВИЖЕНИЕ-ЗА-ЕДИНСТВО-НА-НАРОДА",
+      "displayName": "ДВИЖЕНИЕ ЗА ЕДИНСТВО НА НАРОДА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 559,
+          "mpName": "Мехмед Мехмед Дикме",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 559,
+          "mpName": "Мехмед Мехмед Дикме",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Дейта-център",
       "displayName": "Дейта център",
@@ -782,108 +890,6 @@
           "mpId": 5064,
           "mpName": "Мария Тодорова Тодорова",
           "role": "ngo_board",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Заряд",
-      "displayName": "Заряд",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1111",
-      "mps": [
-        {
-          "mpId": 4324,
-          "mpName": "Искрен Николаев Митев",
-          "role": "ngo_representative",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4324,
-          "mpName": "Искрен Николаев Митев",
-          "role": "ngo_board",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ЗВЕЗДНА-РЕАЛНОСТ",
-      "displayName": "ЗВЕЗДНА РЕАЛНОСТ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1231",
-      "mps": [
-        {
-          "mpId": 112,
-          "mpName": "Силвия Николаева Алексиева",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 112,
-          "mpName": "Силвия Николаева Алексиева",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ЗЕРО-МАТ",
-      "displayName": "ЗЕРО МАТ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
-      "mps": [
-        {
-          "mpId": 5241,
-          "mpName": "Здравко Александров Огнянов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5241,
-          "mpName": "Здравко Александров Огнянов",
-          "role": "partner",
-          "isCurrent": false
-        }
-      ]
-    },
-    {
-      "slug": "ЗИГ-ЗАГ-КОР-ООД",
-      "displayName": "ЗИГ ЗАГ КОР ООД",
-      "registeredOffice": "СОФИЯ",
-      "mps": [
-        {
-          "mpId": 4190,
-          "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "И-Ви-Лог",
-      "displayName": "И Ви Лог",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1715",
-      "mps": [
-        {
-          "mpId": 630,
-          "mpName": "Владимир Иванов Димитров",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 630,
-          "mpName": "Владимир Иванов Димитров",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Ивени-Консулт-ЕООД",
-      "displayName": "Ивени Консулт ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 2671,
-          "mpName": "Жельо Иванов Бойчев",
-          "role": "declared_stake",
           "isCurrent": true
         }
       ]

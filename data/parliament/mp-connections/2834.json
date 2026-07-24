@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:2834",
   "nodes": [
     {
@@ -31,7 +31,7 @@
       "label": "\"Такс консулт\" ООД",
       "slug": "Такс-консулт-ООД",
       "uic": "160037036",
-      "legalForm": "OOD",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
       "status": "active",
       "seat": "Пловдив"
     },
@@ -119,6 +119,11 @@
       "id": "person:ГЕОРГИ СТОЯНОВ СТОЯНОВ",
       "type": "person",
       "label": "Георги Стоянов Стоянов"
+    },
+    {
+      "id": "person:КРИСТИНА ДРАГОМИРОВА ХАЛАЧЕВА",
+      "type": "person",
+      "label": "Кристина Драгомирова Халачева"
     },
     {
       "id": "person:МЕГЕ ИНВЕСТМЪНТ",
@@ -277,6 +282,22 @@
       "target": "company:Фил-Комерс-Е-оод",
       "kind": "tr_owner",
       "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ДРАГОМИРОВА ХАЛАЧЕВА",
+      "target": "company:Такс-консулт-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ДРАГОМИРОВА ХАЛАЧЕВА",
+      "target": "company:Такс-консулт-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
       "isCurrent": true,
       "confidence": "high"
     },

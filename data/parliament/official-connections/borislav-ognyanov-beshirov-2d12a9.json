@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:borislav-ognyanov-beshirov-2d12a9",
   "nodes": [
     {
@@ -14,9 +14,19 @@
     {
       "id": "company:tr:202483126",
       "type": "company",
-      "label": "ББ 83 Инженеринг ЕООД",
+      "label": "Бб 83 Инженеринг ЕООД",
       "slug": null,
       "uic": "202483126",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205071462",
+      "type": "company",
+      "label": "Марибор Естейт ЕООД",
+      "slug": null,
+      "uic": "205071462",
       "legalForm": null,
       "status": null,
       "seat": null
@@ -27,26 +37,6 @@
       "label": "Хилс Резиденс ООД",
       "slug": null,
       "uic": "206459884",
-      "legalForm": null,
-      "status": null,
-      "seat": null
-    },
-    {
-      "id": "company:tr:206891825",
-      "type": "company",
-      "label": "Биар Сигничър ЕООД",
-      "slug": null,
-      "uic": "206891825",
-      "legalForm": null,
-      "status": null,
-      "seat": null
-    },
-    {
-      "id": "company:tr:208101327",
-      "type": "company",
-      "label": "МС Констръкшън ЕООД",
-      "slug": null,
-      "uic": "208101327",
       "legalForm": null,
       "status": null,
       "seat": null
@@ -70,11 +60,6 @@
       "id": "person:ТАТЯНА ФИДАНОВА БЕШИРОВА",
       "type": "person",
       "label": "Татяна Фиданова Беширова"
-    },
-    {
-      "id": "person:TАТЯНА ФИДАНОВА БЕШИРОВА",
-      "type": "person",
-      "label": "Tатяна Фиданова Беширова"
     }
   ],
   "edges": [
@@ -88,23 +73,15 @@
     },
     {
       "source": "official:borislav-ognyanov-beshirov-2d12a9",
+      "target": "company:tr:205071462",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-ognyanov-beshirov-2d12a9",
       "target": "company:tr:206459884",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:borislav-ognyanov-beshirov-2d12a9",
-      "target": "company:tr:206891825",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:borislav-ognyanov-beshirov-2d12a9",
-      "target": "company:tr:208101327",
       "kind": "declared_stake",
       "role": "declared_share",
       "isCurrent": true,
@@ -115,22 +92,6 @@
       "target": "company:tr:206459884",
       "kind": "tr_owner",
       "role": "partner",
-      "isCurrent": true,
-      "confidence": "medium"
-    },
-    {
-      "source": "official:borislav-ognyanov-beshirov-2d12a9",
-      "target": "company:tr:208101327",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "medium"
-    },
-    {
-      "source": "official:borislav-ognyanov-beshirov-2d12a9",
-      "target": "company:tr:208101327",
-      "kind": "tr_owner",
-      "role": "sole_owner",
       "isCurrent": true,
       "confidence": "medium"
     },
@@ -155,22 +116,6 @@
       "target": "company:tr:206459884",
       "kind": "tr_role",
       "role": "manager",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:TАТЯНА ФИДАНОВА БЕШИРОВА",
-      "target": "company:tr:206891825",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:TАТЯНА ФИДАНОВА БЕШИРОВА",
-      "target": "company:tr:206891825",
-      "kind": "tr_owner",
-      "role": "sole_owner",
       "isCurrent": true,
       "confidence": "high"
     }

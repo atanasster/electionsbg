@@ -102,5 +102,103 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "ivelina-stoikova-vasileva-627bcf",
+    "declarantName": "Ивелина Стойкова Василева",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-11",
+    "entryNumber": "Г6105",
+    "controlHash": "5275DAB4",
+    "sourceUrl": "https://register.cacbg.bg/2024/B0ECC6AA-7377-4112-B6AB-BA7A7A1BE459187394.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 64531.170909537126,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32425,
+        "valueEur": 16578.639247787385,
+        "holderName": "Ивелина Стойкова Василева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата; пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 200724,
+        "valueEur": 102628.55156122976,
+        "holderName": "Ивелина Стойкова Василева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата; пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 260,
+        "valueEur": 259.736275647679,
+        "holderName": "Ивелина Стойкова Василева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата; пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2514,
+        "valueEur": 2514.0221798418065,
+        "holderName": "Ивелина Стойкова Василева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата; пенсия"
+      }
+    ],
+    "events": []
   }
 ]

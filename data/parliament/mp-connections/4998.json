@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "mpNodeId": "mp:4998",
+  "nodes": [
+    {
+      "id": "mp:4998",
+      "type": "mp",
+      "mpId": 4998,
+      "label": "Самуил Борисов Славов",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "id": "company:Ей-Ей-Ей-Лоджистикс-Груп-Инк-ЕООД",
+      "type": "company",
+      "label": "\"Ей Ей Ей Лоджистикс Груп Инк\" ЕООД",
+      "slug": "Ей-Ей-Ей-Лоджистикс-Груп-Инк-ЕООД",
+      "uic": "207244895",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4998",
+      "target": "company:Ей-Ей-Ей-Лоджистикс-Груп-Инк-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4998",
+      "target": "company:Ей-Ей-Ей-Лоджистикс-Груп-Инк-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4998",
+      "target": "company:Ей-Ей-Ей-Лоджистикс-Груп-Инк-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

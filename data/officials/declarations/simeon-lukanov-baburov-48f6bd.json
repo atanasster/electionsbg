@@ -54,5 +54,78 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "simeon-lukanov-baburov-48f6bd",
+    "declarantName": "Симеов Луканов Бабуров",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2024-05-02",
+    "entryNumber": "Ф270",
+    "controlHash": "00D739EF",
+    "sourceUrl": "https://register.cacbg.bg/2024/06F6923C-DD66-42DF-AD7A-F325C37E51D1179174.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Мирково",
+        "municipality": "Мирково",
+        "areaSqm": 52,
+        "builtAreaSqm": 104,
+        "acquiredYear": 2016,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Симеон Луканов Бабуров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Мирково",
+        "municipality": "Мирково",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Симеон Луканов Бабуров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Симеон Луканов Бабуров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

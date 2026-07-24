@@ -283,6 +283,97 @@
     "institution": "СБР - \"Родопи\" ЕООД, гр. Рудозем",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7066",
+    "controlHash": "09616F7B",
+    "sourceUrl": "https://register.cacbg.bg/2023/4CF6D684-9EAE-4294-9ECC-0D941A90D1FD153679.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "1/2",
+        "companyName": "ПЛАВИС",
+        "registeredOffice": "ТРЯВНА",
+        "valueEur": 1278.2297029905462,
+        "holderName": "ПЛАМЕН МИХАЙЛОВ ЛАКОВ",
+        "legalBasis": "ДРУГИ",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "1/2",
+        "companyName": "ПЛАВИС",
+        "registeredOffice": "ТРЯВНА",
+        "valueEur": 1278.2297029905462,
+        "holderName": "ВАЛЕНТИНА СТОЙЧЕВА ЛАКОВА",
+        "legalBasis": "ДРУГИ",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5930.985821876135,
+        "amountEurSpouse": 12415.700751087774
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 152064.34097032974,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "ПЛАМЕН МИХАЙЛОВ ЛАКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "ВАЛЕНТИНА СТОЙЧЕВА ЛАКОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "plamen-mihailov-lakov-08541e",
+    "declarantName": "ПЛАМЕН МИХАЙЛОВ ЛАКОВ",
+    "institution": "СБР - \"Родопи\" ЕООД, гр. Рудозем",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2022,
     "fiscalYear": 2021,
     "declarationType": "Annualy",

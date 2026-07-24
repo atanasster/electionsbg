@@ -548,6 +548,55 @@
     "institution": "МБАЛ \"Св. Иван Рилски\" ЕООД гр. Елхово",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Ф604",
+    "controlHash": "9E71F04A",
+    "sourceUrl": "https://register.cacbg.bg/2022/C220AED1-97C6-4EEA-B8E9-1EEF05840C17138155.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествени дялове",
+        "shareSize": "100%",
+        "companyName": "\"Дипоникс\" ЕООД",
+        "registeredOffice": "Търговище",
+        "valueEur": 511.29188119621847,
+        "holderName": "Димитър Колев Помаков",
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50732,
+        "valueEur": 25938.859716846557,
+        "holderName": "Димитър Колев Помаков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-kolev-pomakov-1d58c6",
+    "declarantName": "Димитър Колев Помаков",
+    "institution": "МБАЛ \"Св. Иван Рилски\" ЕООД гр. Елхово",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2020,
     "fiscalYear": 2019,
     "declarationType": "Annualy",

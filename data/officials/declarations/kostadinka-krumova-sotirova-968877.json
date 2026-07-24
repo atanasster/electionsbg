@@ -48,5 +48,91 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "kostadinka-krumova-sotirova-968877",
+    "declarantName": "Костадинка Крумова Сотирова",
+    "institution": "СБАЛПФЗ \"Д-р Никола Пенчев\" - Пазарджик",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-07-04",
+    "entryNumber": "Г8821",
+    "controlHash": "0ABA949E",
+    "sourceUrl": "https://register.cacbg.bg/2022/D946EBC6-B5C5-45C4-B82F-E4BD552B3866141762.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17008.124427992207,
+        "amountEurSpouse": 17422.78214364234
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 20580.00951002899,
+        "amountEurSpouse": 1333.960518040934
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 25,
+        "builtAreaSqm": null,
+        "acquiredYear": 2015,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
+        "holderName": "Николай Захариев Сотиров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Главиница",
+        "municipality": "Пазарджик",
+        "areaSqm": 8365,
+        "builtAreaSqm": null,
+        "acquiredYear": 2000,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 5628,
+        "valueEur": 2877.5507073723174,
+        "holderName": "Николай Захариев Сотиров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 97000,
+        "valueEur": 49595.31247603319,
+        "holderName": "Костадинка Крумова Сотирова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

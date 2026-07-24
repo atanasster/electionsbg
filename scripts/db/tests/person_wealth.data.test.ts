@@ -38,8 +38,8 @@ afterAll(async () => {
 // net_eur = (every non-debt category) − debt, exactly as src/lib/declarations.ts
 // declarationTotals computes it. Re-derive from the child rows and compare.
 test.skipIf(skip)("net_eur equals non-debt assets minus debt", async () => {
-  const bad = await allRows<{ person_id: string; declaration_year: number }>(
-    `SELECT w.person_id, w.declaration_year
+  const bad = await allRows<{ person_id: string; period_year: number }>(
+    `SELECT w.person_id, w.period_year
        FROM person_wealth_year w
        JOIN LATERAL (
          SELECT
@@ -58,9 +58,9 @@ test.skipIf(skip)("net_eur equals non-debt assets minus debt", async () => {
 // One row per (person, year): the matview must collapse multiple filings in a year
 // to the single representative snapshot, not emit one row per filing.
 test.skipIf(skip)("one wealth row per person-year", async () => {
-  const dups = await allRows<{ person_id: string; declaration_year: number }>(
-    `SELECT person_id, declaration_year FROM person_wealth_year
-      GROUP BY person_id, declaration_year HAVING count(*) > 1 LIMIT 5`,
+  const dups = await allRows<{ person_id: string; period_year: number }>(
+    `SELECT person_id, period_year FROM person_wealth_year
+      GROUP BY person_id, period_year HAVING count(*) > 1 LIMIT 5`,
   );
   assert.equal(
     dups.length,
@@ -76,7 +76,7 @@ test.skipIf(skip)(
   "the representative filing bears assets whenever the year has one that does",
   async () => {
     const bad = await allRows<{ person_id: string; year: number }>(
-      `SELECT w.person_id, w.declaration_year AS year
+      `SELECT w.person_id, w.period_year AS year
          FROM person_wealth_year w
         WHERE NOT EXISTS (
                 SELECT 1 FROM declaration_asset a
@@ -85,7 +85,8 @@ test.skipIf(skip)(
                 SELECT 1 FROM declaration d
                   JOIN declaration_asset a ON a.declaration_id = d.declaration_id
                  WHERE d.person_id = w.person_id
-                   AND d.declaration_year = w.declaration_year)
+                   AND COALESCE(d.fiscal_year, d.declaration_year)
+                         = w.period_year)
         LIMIT 5`,
     );
     assert.equal(

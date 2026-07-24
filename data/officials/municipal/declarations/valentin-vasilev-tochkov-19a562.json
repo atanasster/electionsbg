@@ -1,0 +1,142 @@
+[
+  {
+    "slug": "valentin-vasilev-tochkov-19a562",
+    "declarantName": "Валентин Василев Точков",
+    "institution": "Велико Търново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-04",
+    "entryNumber": "Г14779",
+    "controlHash": "1E013D8C",
+    "sourceUrl": "https://register.cacbg.bg/2025/009680CF-F4C6-4BC2-AE4B-21E7AE51F7CE218240.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8353.486754983818,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 45040.21310645608,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 13982.299075072988,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 7063.497338725759,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 5640.060741475486,
+        "amountEurSpouse": 3037.073774305538
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 1125.8647223940732,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Валентин Василев Точкав",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40628,
+        "valueEur": 20772.766549239965,
+        "holderName": "Валентин Василев Точков",
+        "isSpouse": false,
+        "legalBasis": "договор, 3.85%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55590,
+        "valueEur": 28422.715675697786,
+        "holderName": "Валентин Василев Точков",
+        "isSpouse": false,
+        "legalBasis": "договор, 2.857%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Овърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Валентин Василев Точков",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 6800.182019909706,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

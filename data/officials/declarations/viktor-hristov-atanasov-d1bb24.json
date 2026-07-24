@@ -118,5 +118,101 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "viktor-hristov-atanasov-d1bb24",
+    "declarantName": "(unknown)",
+    "institution": "Министерство на околната среда и водите",
+    "positionTitle": "Служебен заместник-министър",
+    "category": "deputy_minister",
+    "declarationYear": 2024,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2024-07-04",
+    "entryNumber": "В923",
+    "controlHash": "B7EE06A1",
+    "sourceUrl": "https://register.cacbg.bg/2024/C8FDBD68-5B8E-42A0-B200-184C12ABE554181652.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "viktor-hristov-atanasov-d1bb24",
+    "declarantName": "Виктор Христов Атанасов",
+    "institution": "Министерство на околната среда и водите",
+    "positionTitle": "Служебен заместник-министър",
+    "category": "deputy_minister",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Entry",
+    "filedAt": "2024-07-04",
+    "entryNumber": "В922",
+    "controlHash": "1D56C072",
+    "sourceUrl": "https://register.cacbg.bg/2024/C8FDBD68-5B8E-42A0-B200-184C12ABE554181651.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "СМАЙЛ БАР ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 51.12918811962185,
+        "holderName": "Виктор Христов Атанасов",
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "33",
+        "companyName": "Роял Екзекютив сървисизСофия",
+        "registeredOffice": "София (столица)",
+        "valueEur": 16.87263207947521,
+        "holderName": "Виктор Христов Атанасов",
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19000,
+        "valueEur": 9714.54574272815,
+        "holderName": "Виктор Христов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 40494.3169907405,
+        "holderName": "Виктор Христов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

@@ -48,5 +48,55 @@
         "legalBasis": "възмездно"
       }
     ]
+  },
+  {
+    "slug": "yanina-stoicheva-todorova-ad8fba",
+    "declarantName": "Янина Стойчева Тодорова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Ръководител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г6538",
+    "controlHash": "C34B2194",
+    "sourceUrl": "https://register.cacbg.bg/2024/4D4471C0-0249-4C8D-833E-2B229D217FC9187914.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21033.01411676884,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5419.693940679916,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Янина Стойчева Тодорова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

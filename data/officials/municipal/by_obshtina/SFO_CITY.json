@@ -1,7 +1,7 @@
 {
   "obshtina": "SFO_CITY",
   "registryName": "Столична община",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 9,
     "council_chair": 0,
-    "councillor": 60,
+    "councillor": 63,
     "chief_architect": 2,
     "other": 0
   },
@@ -333,6 +333,23 @@
       }
     },
     {
+      "slug": "vanya-lazarova-tagareva-b38e34",
+      "name": "Ваня Лазарова Тагарева",
+      "normalizedName": "ВАНЯ ЛАЗАРОВА ТАГАРЕВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Столична община",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Местна коалиция ГЕРБ /СДС/",
+        "partyCanonicalId": "gerb",
+        "listPos": 107,
+        "prefVotes": 784,
+        "isElected": true
+      }
+    },
+    {
       "slug": "vanya-rumenova-grigorova-3dd311",
       "name": "Ваня Руменова Григорова",
       "normalizedName": "ВАНЯ РУМЕНОВА ГРИГОРОВА",
@@ -346,6 +363,23 @@
         "partyCanonicalId": "bsp",
         "listPos": 101,
         "prefVotes": 5798,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "ventsi-ventsislavov-stoichev-83dc07",
+      "name": "Венци Венциславов Стойчев",
+      "normalizedName": "ВЕНЦИ ВЕНЦИСЛАВОВ СТОЙЧЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Столична община",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ВЪЗРАЖДАНЕ",
+        "partyCanonicalId": "p_7",
+        "listPos": 105,
+        "prefVotes": 71,
         "isElected": true
       }
     },
@@ -718,6 +752,23 @@
         "prefVotes": 588,
         "isElected": true,
         "mpId": 2201
+      }
+    },
+    {
+      "slug": "ivan-kirilov-kirilov-40a111",
+      "name": "Иван Кирилов Кирилов",
+      "normalizedName": "ИВАН КИРИЛОВ КИРИЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Столична община",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК „БСП ЗА БЪЛГАРИЯ“ (коалиция „БСП ЗА БЪЛГАРИЯ“, КП „ЛЕВИЦАТА!“, КП „НЕУТРАЛНА БЪЛГАРИЯ“, КП „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ“, ПП „АТАКА“)",
+        "partyCanonicalId": "bsp",
+        "listPos": 110,
+        "prefVotes": 501,
+        "isElected": false
       }
     },
     {

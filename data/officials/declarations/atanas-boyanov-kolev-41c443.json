@@ -53,5 +53,60 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "atanas-boyanov-kolev-41c443",
+    "declarantName": "(unknown)",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2020,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2020-03-24",
+    "entryNumber": "В10384",
+    "controlHash": "E3426468",
+    "sourceUrl": "https://register.cacbg.bg/2020/10C8FBFE-9A53-4E93-9D62-662CDBC97E64113019.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "atanas-boyanov-kolev-41c443",
+    "declarantName": "Атанас Боянов Колев",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2019,
+    "fiscalYear": 2019,
+    "declarationType": "Entry",
+    "filedAt": "2020-03-24",
+    "entryNumber": "В10383",
+    "controlHash": "8B117CA7",
+    "sourceUrl": "https://register.cacbg.bg/2020/10C8FBFE-9A53-4E93-9D62-662CDBC97E64113018.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "лизинг на автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "\"Ауто Бохемия\" АД",
+        "isSpouse": true,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

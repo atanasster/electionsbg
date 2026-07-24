@@ -1,0 +1,272 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:mariya-kostova-kostova-3ea27a",
+  "nodes": [
+    {
+      "id": "official:mariya-kostova-kostova-3ea27a",
+      "type": "official",
+      "slug": "mariya-kostova-kostova-3ea27a",
+      "label": "Мария Костова Костова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мъглиж"
+    },
+    {
+      "id": "company:tr:123763269",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ ХРИСТО БОТЕВ,ГР. МЪГЛИЖ",
+      "slug": null,
+      "uic": "123763269",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕВГЕНИ ПАВЛОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Евгени Павлов Михайлов"
+    },
+    {
+      "id": "person:МИЛЕНА ПЕТКОВА ЧЕЛЕБИЕВА",
+      "type": "person",
+      "label": "Милена Петкова Челебиева"
+    },
+    {
+      "id": "person:НЕВЕНА ИВАНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Невена Иванова Колева"
+    },
+    {
+      "id": "person:НАНЬО ДИМИТРОВ НАНЕВ",
+      "type": "person",
+      "label": "Наньо Димитров Нанев"
+    },
+    {
+      "id": "person:ПАВЛИНА ЖЕЛЕВА ЦАНЕВА",
+      "type": "person",
+      "label": "Павлина Желева Цанева"
+    },
+    {
+      "id": "person:ЕМИЛ МИТЕВ ЯНЧЕВ",
+      "type": "person",
+      "label": "Емил Митев Янчев"
+    },
+    {
+      "id": "person:ДИЯНА ИВАНОВА ЯНЕВА",
+      "type": "person",
+      "label": "Дияна Иванова Янева"
+    },
+    {
+      "id": "person:ПЛАМЕН СЛАВЧЕВ МАНЧЕВ",
+      "type": "person",
+      "label": "Пламен Славчев Манчев"
+    },
+    {
+      "id": "person:ДИАНА НЕДЕЛЧЕВА ТЕБЕРОВА",
+      "type": "person",
+      "label": "Диана Неделчева Теберова"
+    },
+    {
+      "id": "person:ФАНЧА СЛАВОВА ИВАНОВА",
+      "type": "person",
+      "label": "Фанча Славова Иванова"
+    },
+    {
+      "id": "person:ЮЛИЯ ЗЛАТЕВА РАШЕВА",
+      "type": "person",
+      "label": "Юлия Златева Рашева"
+    },
+    {
+      "id": "person:МИЛЕНА МАНОЛОВА ГОШЕВА",
+      "type": "person",
+      "label": "Милена Манолова Гошева"
+    },
+    {
+      "id": "person:СТЕФКА АСЕНОВА ГОШЕВА",
+      "type": "person",
+      "label": "Стефка Асенова Гошева"
+    },
+    {
+      "id": "person:МАРИЯ АСЕНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Мария Асенова Ангелова"
+    },
+    {
+      "id": "person:КАТЯ ГАНЧЕВА АСЕНОВА",
+      "type": "person",
+      "label": "Катя Ганчева Асенова"
+    },
+    {
+      "id": "person:МАРИЯ НИКОЛАЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Мария Николаева Стоянова"
+    },
+    {
+      "id": "person:РАДКА ГЕОРГИЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Радка Георгиева Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-kostova-kostova-3ea27a",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-kostova-kostova-3ea27a",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИ ПАВЛОВ МИХАЙЛОВ",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ПАВЛОВ МИХАЙЛОВ",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ПЕТКОВА ЧЕЛЕБИЕВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА ИВАНОВА КОЛЕВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАНЬО ДИМИТРОВ НАНЕВ",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ЖЕЛЕВА ЦАНЕВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МИТЕВ ЯНЧЕВ",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ИВАНОВА ЯНЕВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН СЛАВЧЕВ МАНЧЕВ",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА НЕДЕЛЧЕВА ТЕБЕРОВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАНЧА СЛАВОВА ИВАНОВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ЗЛАТЕВА РАШЕВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА МАНОЛОВА ГОШЕВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА АСЕНОВА ГОШЕВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АСЕНОВА АНГЕЛОВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ГАНЧЕВА АСЕНОВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НИКОЛАЕВА СТОЯНОВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ГЕОРГИЕВА ЙОРДАНОВА",
+      "target": "company:tr:123763269",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

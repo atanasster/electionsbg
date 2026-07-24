@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:steliyan-prodanov-slavov-0db98a",
   "nodes": [
     {
@@ -22,18 +22,14 @@
       "seat": null
     },
     {
-      "id": "official:rositsa-velikova-dicheva-7496f2",
-      "type": "official",
-      "slug": "rositsa-velikova-dicheva-7496f2",
-      "label": "Росица Великова Дичева",
-      "tier": "executive",
-      "role": "hospital_head",
-      "municipality": null
-    },
-    {
       "id": "person:ДАНИЕЛА ПРОДАНОВА БОЗДУКОВА",
       "type": "person",
       "label": "Даниела Проданова Боздукова"
+    },
+    {
+      "id": "person:РОСИЦА ВЕЛИКОВА ДИЧЕВА",
+      "type": "person",
+      "label": "Росица Великова Дичева"
     }
   ],
   "edges": [
@@ -46,15 +42,15 @@
       "confidence": "medium"
     },
     {
-      "source": "official:rositsa-velikova-dicheva-7496f2",
+      "source": "person:ДАНИЕЛА ПРОДАНОВА БОЗДУКОВА",
       "target": "company:tr:102663909",
       "kind": "tr_role",
       "role": "manager",
       "isCurrent": true,
-      "confidence": "medium"
+      "confidence": "high"
     },
     {
-      "source": "person:ДАНИЕЛА ПРОДАНОВА БОЗДУКОВА",
+      "source": "person:РОСИЦА ВЕЛИКОВА ДИЧЕВА",
       "target": "company:tr:102663909",
       "kind": "tr_role",
       "role": "manager",

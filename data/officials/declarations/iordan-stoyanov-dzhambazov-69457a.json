@@ -97,5 +97,91 @@
         "legalBasis": null
       }
     ]
+  },
+  {
+    "slug": "iordan-stoyanov-dzhambazov-69457a",
+    "declarantName": "ЙОРДАН СТОЯНОВ ДЖАМБАЗОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-18",
+    "entryNumber": "Г9875",
+    "controlHash": "5D225AFF",
+    "sourceUrl": "https://register.cacbg.bg/2024/9FE9C64F-C996-431E-8C13-5F19A18F4D0F191538.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12664.188605349136,
+        "amountEurSpouse": 8691.961980335715
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5112.918811962185,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48000,
+        "valueEur": 24542.01029741849,
+        "holderName": "ЙОРДАН СТОЯНОВ ДЖАМБАЗОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 2000,
+        "valueEur": 1738.392396067143,
+        "holderName": "ЙОРДАН СТОЯНОВ ДЖАМБАЗОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51400,
+        "valueEur": 26280.40269348563,
+        "holderName": "ЙОРДАН СТОЯНОВ ДЖАМБАЗОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

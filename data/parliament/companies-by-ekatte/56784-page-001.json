@@ -5,6 +5,32 @@
   "count": 140,
   "companies": [
     {
+      "slug": "Омега-2005-МГ-ЕООД",
+      "displayName": "\"Омега 2005 МГ\" ЕООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4809,
+          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ралекс-ООД",
+      "displayName": "\"Ралекс\" ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4809,
+          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Чеси-Инс-Брокер-ООД",
       "displayName": "\"Чеси Инс Брокер\" ООД",
       "registeredOffice": "Пловдив",
@@ -36,32 +62,6 @@
       ]
     },
     {
-      "slug": "Омега-2005-МГ-ЕООД",
-      "displayName": "\"Омега 2005 МГ\" ЕООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4809,
-          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Ралекс-ООД",
-      "displayName": "\"Ралекс\" ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4809,
-          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "Агроплан-ООД",
       "displayName": "\"Агроплан\" ООД",
       "registeredOffice": "Пловдив",
@@ -69,6 +69,25 @@
         {
           "mpId": 5152,
           "mpName": "РУМЕН ДИМИТРОВ ХРИСТОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Издателство-Жанет-45-ООД",
+      "displayName": "Издателство Жанет 45 ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4800,
+          "mpName": "Манол Костадинов Пейков",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4800,
+          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -88,6 +107,45 @@
       ]
     },
     {
+      "slug": "2-по-2-ЕООД",
+      "displayName": "2 по 2 ЕООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4800,
+          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Буклавър-ЕООД",
+      "displayName": "Буклавър ЕООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4800,
+          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Гамера-ЕООД",
+      "displayName": "Гамера ЕООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4800,
+          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Голдмайнд",
       "displayName": "Голдмайнд",
       "registeredOffice": "Пловдив",
@@ -95,6 +153,45 @@
         {
           "mpId": 5101,
           "mpName": "Георги Николаев Георгиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Интербридж-ООД",
+      "displayName": "Интербридж ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4800,
+          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПК-Жанет-45-ООД",
+      "displayName": "ПК Жанет 45 ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4800,
+          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Скамандър-ЕООД",
+      "displayName": "Скамандър ЕООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4800,
+          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -247,25 +344,6 @@
         {
           "mpId": 4795,
           "mpName": "Емил Янков Янков",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Издателство-Жанет-45-ООД",
-      "displayName": "Издателство Жанет 45 ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4800,
-          "mpName": "Манол Костадинов Пейков",
-          "role": "sole_owner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4800,
-          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -613,19 +691,6 @@
       ]
     },
     {
-      "slug": "2-по-2-ЕООД",
-      "displayName": "2 по 2 ЕООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4800,
-          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "Бардуков-ООД",
       "displayName": "Бардуков ООД",
       "registeredOffice": "Пловдив",
@@ -633,32 +698,6 @@
         {
           "mpId": 3047,
           "mpName": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Буклавър-ЕООД",
-      "displayName": "Буклавър ЕООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4800,
-          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Гамера-ЕООД",
-      "displayName": "Гамера ЕООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4800,
-          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -741,19 +780,6 @@
       ]
     },
     {
-      "slug": "Интербридж-ООД",
-      "displayName": "Интербридж ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4800,
-          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "Исит-ООД",
       "displayName": "Исит ООД",
       "registeredOffice": "Пловдив",
@@ -767,44 +793,6 @@
         {
           "mpId": 5193,
           "mpName": "Йордан Яворов Иванов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Литературна-агенция-София-ЕООД",
-      "displayName": "Литературна агенция София ЕООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4800,
-          "mpName": "Манол Костадинов Пейков",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4800,
-          "mpName": "Манол Костадинов Пейков",
-          "role": "sole_owner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4800,
-          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ПК-Жанет-45-ООД",
-      "displayName": "ПК Жанет 45 ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4800,
-          "mpName": "МАНОЛ КОСТАДИНОВ ПЕЙКОВ",
           "role": "declared_stake",
           "isCurrent": true
         }

@@ -48,5 +48,67 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "ivailo-georgiev-filibev-f528bf",
+    "declarantName": "ИВАЙЛО ГЕОРГИЕВ ФИЛИБЕВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-08-19",
+    "entryNumber": "Г14507",
+    "controlHash": "CC523C63",
+    "sourceUrl": "https://register.cacbg.bg/2024/9509F3A9-68CB-41AC-ACD7-2B4D813C4525197174.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18927.51415000281,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Добротино",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 500,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Ивайло Георгиев Филибев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 132416,
+        "valueEur": 67703.22574047846,
+        "holderName": "Ивайло Георгиев Филибев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

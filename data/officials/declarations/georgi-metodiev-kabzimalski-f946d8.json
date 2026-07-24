@@ -263,6 +263,56 @@
     "institution": "Югозападно държавно предприятие ДП Благоевград",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-07-26",
+    "entryNumber": "Г8857",
+    "controlHash": "A36F90BA",
+    "sourceUrl": "https://register.cacbg.bg/2022/B961B446-932C-4D51-9186-7D7966465FD0141885.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15742.677022031567,
+        "amountEurSpouse": 6483.181053568051
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1936.2623540900795
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Георги Методиев Кабзималски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "georgi-metodiev-kabzimalski-f946d8",
+    "declarantName": "Георги Методиев Кабзималски",
+    "institution": "Югозападно държавно предприятие ДП Благоевград",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2020,
     "fiscalYear": 2019,
     "declarationType": "Annualy",

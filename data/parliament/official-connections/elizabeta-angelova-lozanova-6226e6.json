@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:elizabeta-angelova-lozanova-6226e6",
+  "nodes": [
+    {
+      "id": "official:elizabeta-angelova-lozanova-6226e6",
+      "type": "official",
+      "slug": "elizabeta-angelova-lozanova-6226e6",
+      "label": "Елизабета Ангелова Лозанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206347173",
+      "type": "company",
+      "label": "УСКАТА",
+      "slug": null,
+      "uic": "206347173",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАНАИЛ ЦВЕТАНОВ ЙОТОВ",
+      "type": "person",
+      "label": "Данаил Цветанов Йотов"
+    },
+    {
+      "id": "person:ТАТЯНА АНГЕЛОВА СТАМЕНОВА",
+      "type": "person",
+      "label": "Татяна Ангелова Стаменова"
+    },
+    {
+      "id": "person:МАРУСЯ ВЕЛИЧКОВА ЛУКАНОВА",
+      "type": "person",
+      "label": "Маруся Величкова Луканова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН МИХАЙЛОВ ЛУКАНОВ",
+      "type": "person",
+      "label": "Валентин Михайлов Луканов"
+    },
+    {
+      "id": "person:ПАВЛИН НИКОЛАЕВ НЕДКОВ",
+      "type": "person",
+      "label": "Павлин Николаев Недков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elizabeta-angelova-lozanova-6226e6",
+      "target": "company:tr:206347173",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНАИЛ ЦВЕТАНОВ ЙОТОВ",
+      "target": "company:tr:206347173",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА АНГЕЛОВА СТАМЕНОВА",
+      "target": "company:tr:206347173",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРУСЯ ВЕЛИЧКОВА ЛУКАНОВА",
+      "target": "company:tr:206347173",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН МИХАЙЛОВ ЛУКАНОВ",
+      "target": "company:tr:206347173",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН НИКОЛАЕВ НЕДКОВ",
+      "target": "company:tr:206347173",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРУСЯ ВЕЛИЧКОВА ЛУКАНОВА",
+      "target": "company:tr:206347173",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

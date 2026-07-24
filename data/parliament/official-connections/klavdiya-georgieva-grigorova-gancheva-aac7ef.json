@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:klavdiya-georgieva-grigorova-gancheva-aac7ef",
   "nodes": [
     {
@@ -33,6 +33,15 @@
       ]
     },
     {
+      "id": "official:radoslav-radoev-radev-1d02f8",
+      "type": "official",
+      "slug": "radoslav-radoev-radev-1d02f8",
+      "label": "Радослав Радоев Радев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
       "id": "person:КЛАВДИЯ ГЕОРГИЕВА ГРИГОРОВА - ГАНЧЕВА",
       "type": "person",
       "label": "Клавдия Георгиева Григорова - Ганчева"
@@ -41,11 +50,6 @@
       "id": "person:ЦВЕТЕЛИНА ВАСИЛЕВА ЦАНКОВА",
       "type": "person",
       "label": "Цветелина Василева Цанкова"
-    },
-    {
-      "id": "person:РАДОСЛАВ РАДОЕВ РАДЕВ",
-      "type": "person",
-      "label": "Радослав Радоев Радев"
     },
     {
       "id": "person:ОБЩИНА ГОРНА ОРЯХОВИЦА",
@@ -99,6 +103,14 @@
       "confidence": "medium"
     },
     {
+      "source": "official:radoslav-radoev-radev-1d02f8",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
       "source": "person:КЛАВДИЯ ГЕОРГИЕВА ГРИГОРОВА - ГАНЧЕВА",
       "target": "company:tr:206974197",
       "kind": "tr_role",
@@ -116,14 +128,6 @@
     },
     {
       "source": "person:ЦВЕТЕЛИНА ВАСИЛЕВА ЦАНКОВА",
-      "target": "company:tr:206974197",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:РАДОСЛАВ РАДОЕВ РАДЕВ",
       "target": "company:tr:206974197",
       "kind": "tr_role",
       "role": "director",

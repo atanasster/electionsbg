@@ -396,6 +396,99 @@
   },
   {
     "slug": "todor-aleksandrov-keranov-1512da",
+    "declarantName": "Тодор Александров Керанов",
+    "institution": "Министерство на културата",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-07-26",
+    "entryNumber": "Г8823",
+    "controlHash": "D0EABB5D",
+    "sourceUrl": "https://register.cacbg.bg/2023/8C0128BE-99AA-436A-8C81-CB11AEA681D2156240.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31987.44267139782,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Тодор Александров Керанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110000,
+        "valueEur": 56242.106931584036,
+        "holderName": "Тодор Александров Керанов",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Тодор Александров Керанов",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "todor-aleksandrov-keranov-1512da",
     "declarantName": "(unknown)",
     "institution": "Министерство на културата",
     "positionTitle": "Главен секретар",

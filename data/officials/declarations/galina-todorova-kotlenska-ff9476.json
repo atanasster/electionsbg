@@ -60,5 +60,49 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "galina-todorova-kotlenska-ff9476",
+    "declarantName": "Галина Тодорова Котленска",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-16",
+    "entryNumber": "Г8166",
+    "controlHash": "BCA1EFA4",
+    "sourceUrl": "https://register.cacbg.bg/2024/138D68E4-0B05-4EC8-8AB6-90FB402C7067189782.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20659.7710434956,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "TOYOTA",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33287,
+        "valueEur": 17019.372849378524,
+        "holderName": "Галина Тодорова Котленска",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "лизинг"
+      }
+    ],
+    "events": []
   }
 ]

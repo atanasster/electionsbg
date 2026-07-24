@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:2699",
   "nodes": [
     {
@@ -35,6 +35,11 @@
       "id": "person:НИКОЛАЙ ГАНЧЕВ МИХАЙЛОВ",
       "type": "person",
       "label": "Николай Ганчев Михайлов"
+    },
+    {
+      "id": "person:МУРАД ГЮРЕЛ ТЮРК",
+      "type": "person",
+      "label": "Мурад Гюрел Тюрк"
     },
     {
       "id": "person:КОСЬО ХРИСТОВ СТОЙЧЕВ",
@@ -91,6 +96,14 @@
     },
     {
       "source": "person:НИКОЛАЙ ГАНЧЕВ МИХАЙЛОВ",
+      "target": "company:tr:176798712",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУРАД ГЮРЕЛ ТЮРК",
       "target": "company:tr:176798712",
       "kind": "tr_role",
       "role": "ngo_representative",

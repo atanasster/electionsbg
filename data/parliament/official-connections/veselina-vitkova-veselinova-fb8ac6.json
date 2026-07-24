@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:veselina-vitkova-veselinova-fb8ac6",
   "nodes": [
     {
@@ -48,15 +48,6 @@
       "label": "Венцеслав Христов Пеев",
       "tier": "executive",
       "role": "state_enterprise",
-      "municipality": null
-    },
-    {
-      "id": "official:encho-stamenov-mirchev-60b7b0",
-      "type": "official",
-      "slug": "encho-stamenov-mirchev-60b7b0",
-      "label": "Енчо Стаменов Мирчев",
-      "tier": "executive",
-      "role": "inspectorate",
       "municipality": null
     },
     {
@@ -117,6 +108,11 @@
       "label": "Венцислав Стойнев Крушарски"
     },
     {
+      "id": "person:ДИМИТЪР КОЛЕВ ГОЧЕВ",
+      "type": "person",
+      "label": "Димитър Колев Гочев"
+    },
+    {
       "id": "person:ЦЕНКА СТЕФАНОВА НИКОЛОВА",
       "type": "person",
       "label": "Ценка Стефанова Николова"
@@ -160,6 +156,11 @@
       "id": "person:ЯНИТА ЦОЛОВА ДИМИТРОВА",
       "type": "person",
       "label": "Янита Цолова Димитрова"
+    },
+    {
+      "id": "person:ЕНЧО СТАМЕНОВ МИРЧЕВ",
+      "type": "person",
+      "label": "Енчо Стаменов Мирчев"
     },
     {
       "id": "person:АНТОНИЙ ВАСИЛЕВ ВАСИЛЕВ",
@@ -214,14 +215,6 @@
       "confidence": "medium"
     },
     {
-      "source": "official:encho-stamenov-mirchev-60b7b0",
-      "target": "company:tr:121577013",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "medium"
-    },
-    {
       "source": "official:krasimira-hristova-peeva-b44ace",
       "target": "company:tr:121577013",
       "kind": "tr_role",
@@ -234,6 +227,14 @@
       "target": "company:tr:121577013",
       "kind": "tr_role",
       "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-nikolaev-boyadzhiev-3e29e4",
+      "target": "company:tr:121577013",
+      "kind": "tr_role",
+      "role": "procurator",
       "isCurrent": true,
       "confidence": "medium"
     },
@@ -306,6 +307,22 @@
       "target": "company:tr:121577013",
       "kind": "tr_role",
       "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КОЛЕВ ГОЧЕВ",
+      "target": "company:tr:121577013",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КОЛЕВ ГОЧЕВ",
+      "target": "company:tr:121577013",
+      "kind": "tr_role",
+      "role": "director",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -415,6 +432,14 @@
     },
     {
       "source": "person:ЯНИТА ЦОЛОВА ДИМИТРОВА",
+      "target": "company:tr:121577013",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНЧО СТАМЕНОВ МИРЧЕВ",
       "target": "company:tr:121577013",
       "kind": "tr_role",
       "role": "director",

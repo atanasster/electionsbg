@@ -121,5 +121,80 @@
         "legalBasis": "възмездно"
       }
     ]
+  },
+  {
+    "slug": "aikut-aihanov-hyuseinov-5a6b7f",
+    "declarantName": "Айкут Айханов Хюсеинов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г11375",
+    "controlHash": "A25F5E7F",
+    "sourceUrl": "https://register.cacbg.bg/2024/F2E7AEF2-E6EF-42D1-B4E7-C74E850108D4193107.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6564.987754559445,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5400,
+        "valueEur": 5383.903508996181,
+        "holderName": "Айкут Айханов Хюсеинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5400,
+        "valueEur": 5383.903508996181,
+        "holderName": "Айкут Айханов Хюсеинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "висше образование-бакалавър",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:georgi-nedkov-kyuchukov-79897c",
+  "nodes": [
+    {
+      "id": "official:georgi-nedkov-kyuchukov-79897c",
+      "type": "official",
+      "slug": "georgi-nedkov-kyuchukov-79897c",
+      "label": "Георги Недков Кючуков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:148003982",
+      "type": "company",
+      "label": "Медтест ООД",
+      "slug": null,
+      "uic": "148003982",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207141518",
+      "type": "company",
+      "label": "ВЕРНИТЕ ПРИЯТЕЛИ 95",
+      "slug": null,
+      "uic": "207141518",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "mp:2528",
+      "type": "mp",
+      "mpId": 2528,
+      "label": "Георги Недков Кючуков",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:5329",
+      "type": "mp",
+      "mpId": 5329,
+      "label": "Юлиан Георгиев Димитров",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:ЕВЛОГИ ПЕТКОВ САВОВ",
+      "type": "person",
+      "label": "Евлоги Петков Савов"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Николов Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-nedkov-kyuchukov-79897c",
+      "target": "company:tr:148003982",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-nedkov-kyuchukov-79897c",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-nedkov-kyuchukov-79897c",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2528",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2528",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5329",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5329",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЛОГИ ПЕТКОВ САВОВ",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

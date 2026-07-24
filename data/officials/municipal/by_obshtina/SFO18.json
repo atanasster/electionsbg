@@ -1,7 +1,7 @@
 {
   "obshtina": "SFO18",
   "registryName": "Етрополе",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -10,7 +10,7 @@
     "deputy_mayor": 3,
     "council_chair": 1,
     "councillor": 16,
-    "chief_architect": 0,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -90,6 +90,15 @@
         "prefVotes": 120,
         "isElected": true
       }
+    },
+    {
+      "slug": "kameliya-nikolaeva-kncheva-3a188c",
+      "name": "Камелия Николаева Кънчева",
+      "normalizedName": "КАМЕЛИЯ НИКОЛАЕВА КЪНЧЕВА",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Етрополе",
+      "latestDeclarationYear": 2025
     },
     {
       "slug": "boril-valentinov-karakanov-6a41a8",

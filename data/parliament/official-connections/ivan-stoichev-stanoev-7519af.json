@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:ivan-stoichev-stanoev-7519af",
   "nodes": [
     {
@@ -10,6 +10,16 @@
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
+    },
+    {
+      "id": "company:tr:112603224",
+      "type": "company",
+      "label": "Фамилна медицина-С-ГП-ПМП ООД",
+      "slug": null,
+      "uic": "112603224",
+      "legalForm": null,
+      "status": null,
+      "seat": null
     },
     {
       "id": "company:tr:130072241",
@@ -56,6 +66,14 @@
     }
   ],
   "edges": [
+    {
+      "source": "official:ivan-stoichev-stanoev-7519af",
+      "target": "company:tr:112603224",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
     {
       "source": "official:ivan-stoichev-stanoev-7519af",
       "target": "company:tr:130072241",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:3372",
   "nodes": [
     {
@@ -79,6 +79,20 @@
       "label": "Йордан Христов Георгиев"
     },
     {
+      "id": "official:vasil-iordanov-georgiev-c817c4",
+      "type": "official",
+      "slug": "vasil-iordanov-georgiev-c817c4",
+      "label": "Васил Йорданов Георгиев",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАСИЛ ЙОРДАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Васил Йорданов Георгиев"
+    },
+    {
       "id": "mp:5211",
       "type": "mp",
       "mpId": 5211,
@@ -156,10 +170,26 @@
       "confidence": "high"
     },
     {
+      "source": "official:vasil-iordanov-georgiev-c817c4",
+      "target": "company:Екс-Натура-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ",
       "target": "company:tr:203532722",
       "kind": "tr_role",
       "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:203532722",
+      "kind": "tr_owner",
+      "role": "sole_owner",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -170,6 +200,22 @@
       "role": "manager",
       "isCurrent": true,
       "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:203313194",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:200576813",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
     }
   ],
   "paths": [

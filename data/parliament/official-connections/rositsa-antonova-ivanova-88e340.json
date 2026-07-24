@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:rositsa-antonova-ivanova-88e340",
   "nodes": [
     {
@@ -42,14 +42,18 @@
       "municipality": null
     },
     {
+      "id": "official:miroslav-obreikov-obreikov-39500a",
+      "type": "official",
+      "slug": "miroslav-obreikov-obreikov-39500a",
+      "label": "Мирослав Обрейков Обрейков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
       "id": "person:ВЛАДИМИРА ПЕТРОВА КОСТОВА",
       "type": "person",
       "label": "Владимира Петрова Костова"
-    },
-    {
-      "id": "person:МИРОСЛАВ ОБРЕЙКОВ ОБРЕЙКОВ",
-      "type": "person",
-      "label": "Мирослав Обрейков Обрейков"
     }
   ],
   "edges": [
@@ -94,23 +98,23 @@
       "confidence": "medium"
     },
     {
-      "source": "person:ВЛАДИМИРА ПЕТРОВА КОСТОВА",
-      "target": "company:tr:102274111",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:МИРОСЛАВ ОБРЕЙКОВ ОБРЕЙКОВ",
+      "source": "official:miroslav-obreikov-obreikov-39500a",
       "target": "company:tr:102274111",
       "kind": "tr_role",
       "role": "representative",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
-      "source": "person:МИРОСЛАВ ОБРЕЙКОВ ОБРЕЙКОВ",
+      "source": "official:miroslav-obreikov-obreikov-39500a",
+      "target": "company:tr:102274111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИРА ПЕТРОВА КОСТОВА",
       "target": "company:tr:102274111",
       "kind": "tr_role",
       "role": "director",

@@ -459,5 +459,127 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "vanya-tinkova-tividosheva-9f6076",
+    "declarantName": "Ваня Тинкова Тивидошева",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2020-07-17",
+    "entryNumber": "Г3786",
+    "controlHash": "0BBAAE12",
+    "sourceUrl": "https://register.cacbg.bg/2020/7CA50A58-2876-4524-AC1A-200C85FE24A8114337.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10377.180020758451,
+        "amountEurSpouse": 4294.851802048235
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6403.930811982636,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 81,
+        "builtAreaSqm": 75,
+        "acquiredYear": 1979,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Ваня Тинкова Тивидошева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Луково",
+        "municipality": "Своге",
+        "areaSqm": 430,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 890,
+        "valueEur": 455.04977426463444,
+        "holderName": "Ваня Тинкова Тивидошева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Милево",
+        "municipality": "Садово",
+        "areaSqm": 18600,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2267,
+        "valueEur": 1159.0986946718274,
+        "holderName": "Георги Димитров Тивидошев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Сеат Толедо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2400,
+        "valueEur": 1227.1005148709244,
+        "holderName": "Георги Димитров Тивидошев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен Берлинго",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Георги Димитров Тивидошев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

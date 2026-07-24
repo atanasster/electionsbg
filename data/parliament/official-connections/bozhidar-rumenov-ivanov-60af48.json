@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:bozhidar-rumenov-ivanov-60af48",
   "nodes": [
     {
@@ -14,7 +14,7 @@
     {
       "id": "company:tr:103796781",
       "type": "company",
-      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА МАТЕМАТИЧЕСКА ГИМНАЗИЯ \"Д-Р ПЕТЪР БЕРОН\" -  ГР. ВАРНА",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА МАТЕМАТИЧЕСКА ГИМНАЗИЯ &quot;Д-Р ПЕТЪР БЕРОН&quot; -  ГР. ВАРНА",
       "slug": null,
       "uic": "103796781",
       "legalForm": null,
@@ -65,6 +65,16 @@
       "id": "person:СВИЛЕН СТОЙЧЕВ АНДОНОВ",
       "type": "person",
       "label": "Свилен Стойчев Андонов"
+    },
+    {
+      "id": "person:АННА ПРОДАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Анна Проданова Василева"
+    },
+    {
+      "id": "person:СТЕФАН МИХАЙЛОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стефан Михайлов Стоянов"
     }
   ],
   "edges": [
@@ -158,6 +168,22 @@
     },
     {
       "source": "person:СВИЛЕН СТОЙЧЕВ АНДОНОВ",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ПРОДАНОВА ВАСИЛЕВА",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МИХАЙЛОВ СТОЯНОВ",
       "target": "company:tr:103796781",
       "kind": "tr_role",
       "role": "ngo_board",

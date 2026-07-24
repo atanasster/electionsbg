@@ -78,5 +78,49 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "vasil-dimitrov-topuzov-4e5a97",
+    "declarantName": "Васил Димитров Топузов",
+    "institution": "Търговски дружества",
+    "positionTitle": "Представител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-27",
+    "entryNumber": "Г7713",
+    "controlHash": "97DECD67",
+    "sourceUrl": "https://register.cacbg.bg/2024/64933935-6403-484F-8134-FB695329E571189319.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11632.912880976362,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Васил Димитров Топузов",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

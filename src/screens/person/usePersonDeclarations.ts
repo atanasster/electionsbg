@@ -13,8 +13,14 @@ import { useEffect, useState } from "react";
 export type DeclarationListItem = {
   id: number;
   tier: string;
+  /** The year the filing was LODGED (declaration_year). */
   year: number;
   fiscalYear: number | null;
+  /** The year the filing SPEAKS FOR — `fiscalYear ?? year`, served by 090 so the
+   *  client does not keep a second copy of the COALESCE. This is the wealth
+   *  chart's x-axis and the year this row is labelled with; `year` differs from it
+   *  by one on every annual, which is filed the May after the year it closes. */
+  periodYear: number;
   type: string; // Annualy | Entry | Vacate | Other
   institution: string | null;
   positionTitle: string | null;

@@ -1,0 +1,335 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:georgi-petkov-iliev-59dc23",
+  "nodes": [
+    {
+      "id": "official:georgi-petkov-iliev-59dc23",
+      "type": "official",
+      "slug": "georgi-petkov-iliev-59dc23",
+      "label": "Георги Петков Илиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201563562",
+      "type": "company",
+      "label": "Сънимед Асист",
+      "slug": null,
+      "uic": "201563562",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203571547",
+      "type": "company",
+      "label": "ХЪНТЪР ГРУП КАМЧИЯ",
+      "slug": null,
+      "uic": "203571547",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:200506170",
+      "type": "company",
+      "label": "ФРОНТ 85",
+      "slug": null,
+      "uic": "200506170",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:204122092",
+      "type": "company",
+      "label": "МАЙСТОР МЕРИ",
+      "slug": null,
+      "uic": "204122092",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:208551185",
+      "type": "company",
+      "label": "х",
+      "slug": null,
+      "uic": "208551185",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202360497",
+      "type": "company",
+      "label": "РЕП АГРО 12",
+      "slug": null,
+      "uic": "202360497",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:milen-penkov-penkov-78aad3",
+      "type": "official",
+      "slug": "milen-penkov-penkov-78aad3",
+      "label": "Милен Пенков Пенков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "mp:5066",
+      "type": "mp",
+      "mpId": 5066,
+      "label": "Георги Петков Илиев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:ВАЛЕНТИН ЯНЧЕВ СЛАВОВ",
+      "type": "person",
+      "label": "Валентин Янчев Славов"
+    },
+    {
+      "id": "person:ИЛИЯ ХРИСТОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Илия Христов Илиев"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Георги Петков Илиев"
+    },
+    {
+      "id": "person:БОГОМИЛ ПЕТКОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Богомил Петков Илиев"
+    },
+    {
+      "id": "person:СТОЯН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Стоян Георгиев Георгиев"
+    },
+    {
+      "id": "person:ЙОСИФ АНДРЕЕВ ЙОСИФОВ",
+      "type": "person",
+      "label": "Йосиф Андреев Йосифов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:201563562",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:203571547",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:200506170",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:204122092",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:208551185",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:202360497",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:201563562",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5066",
+      "target": "company:tr:203571547",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ЯНЧЕВ СЛАВОВ",
+      "target": "company:tr:203571547",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ХРИСТОВ ИЛИЕВ",
+      "target": "company:tr:203571547",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:203571547",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ЯНЧЕВ СЛАВОВ",
+      "target": "company:tr:203571547",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5066",
+      "target": "company:tr:200506170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОГОМИЛ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:200506170",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОМИЛ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:200506170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:200506170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5066",
+      "target": "company:tr:204122092",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5066",
+      "target": "company:tr:204122092",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:204122092",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:204122092",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОСИФ АНДРЕЕВ ЙОСИФОВ",
+      "target": "company:tr:208551185",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОСИФ АНДРЕЕВ ЙОСИФОВ",
+      "target": "company:tr:208551185",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5066",
+      "target": "company:tr:202360497",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОГОМИЛ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:202360497",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:202360497",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОМИЛ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:202360497",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

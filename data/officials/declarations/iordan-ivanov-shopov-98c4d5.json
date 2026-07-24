@@ -42,5 +42,67 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "iordan-ivanov-shopov-98c4d5",
+    "declarantName": "Йордан Иванов Шопов",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-19",
+    "entryNumber": "Г2185",
+    "controlHash": "4CBC9DB4",
+    "sourceUrl": "https://register.cacbg.bg/2024/9CA822D8-48DC-4194-9497-B334BDEB6D1B183201.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9203.253861531934,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23772,
+        "valueEur": 12154.430599796506,
+        "holderName": "Йордан Иванов Шопов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6342,
+        "valueEur": 3242.613110546418,
+        "holderName": "Йордан Иванов Шопов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсии"
+      }
+    ],
+    "events": []
   }
 ]

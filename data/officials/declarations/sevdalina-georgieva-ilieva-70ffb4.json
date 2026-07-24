@@ -89,5 +89,78 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "sevdalina-georgieva-ilieva-70ffb4",
+    "declarantName": "Севдалина Георгиева Илиева",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г2566",
+    "controlHash": "93E756AC",
+    "sourceUrl": "https://register.cacbg.bg/2024/E713D941-58E8-45C1-A4A3-20008A8F16AE183617.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Шабла",
+        "municipality": "Шабла",
+        "areaSqm": 1798,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2020,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Севдалина Георгиева Илиева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "фиат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10500,
+        "valueEur": 5368.564752560294,
+        "holderName": "Пламен Стоянов Илиев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12696,
+        "valueEur": 6491.36172366719,
+        "holderName": "Севдалина Георгиева Илиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

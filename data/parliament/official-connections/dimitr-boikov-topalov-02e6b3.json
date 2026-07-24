@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:dimitr-boikov-topalov-02e6b3",
   "nodes": [
     {
@@ -10,6 +10,16 @@
       "tier": "executive",
       "role": "eu_funds_controller",
       "municipality": null
+    },
+    {
+      "id": "company:tr:203461435",
+      "type": "company",
+      "label": "Топ Анели ЕООД",
+      "slug": null,
+      "uic": "203461435",
+      "legalForm": null,
+      "status": null,
+      "seat": null
     },
     {
       "id": "company:tr:207751329",
@@ -23,6 +33,14 @@
     }
   ],
   "edges": [
+    {
+      "source": "official:dimitr-boikov-topalov-02e6b3",
+      "target": "company:tr:203461435",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
     {
       "source": "official:dimitr-boikov-topalov-02e6b3",
       "target": "company:tr:207751329",

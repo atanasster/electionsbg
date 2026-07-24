@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:5066",
   "nodes": [
     {
@@ -74,9 +74,23 @@
       "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
     },
     {
+      "id": "official:georgi-petkov-iliev-59dc23",
+      "type": "official",
+      "slug": "georgi-petkov-iliev-59dc23",
+      "label": "Георги Петков Илиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
       "id": "person:БОГОМИЛ ПЕТКОВ ИЛИЕВ",
       "type": "person",
       "label": "Богомил Петков Илиев"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Георги Петков Илиев"
     },
     {
       "id": "person:РУСИ ПАРАШКЕВОВ РУСЕВ",
@@ -196,6 +210,14 @@
       "confidence": "medium"
     },
     {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:200506170",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:БОГОМИЛ ПЕТКОВ ИЛИЕВ",
       "target": "company:tr:200506170",
       "kind": "tr_role",
@@ -212,10 +234,34 @@
       "confidence": "high"
     },
     {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:200506170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:202360497",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:БОГОМИЛ ПЕТКОВ ИЛИЕВ",
       "target": "company:tr:202360497",
       "kind": "tr_role",
       "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:202360497",
+      "kind": "tr_owner",
+      "role": "partner",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -236,6 +282,14 @@
       "confidence": "high"
     },
     {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:200429329",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:СИЛВИЯ МАРИЯНОВА ДИМИТРОВА",
       "target": "company:tr:200429329",
       "kind": "tr_role",
@@ -244,10 +298,34 @@
       "confidence": "high"
     },
     {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:204122092",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
+      "target": "company:tr:204122092",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:СТОЯН ГЕОРГИЕВ ГЕОРГИЕВ",
       "target": "company:tr:204122092",
       "kind": "tr_owner",
       "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:203571547",
+      "kind": "declared_stake",
+      "role": "declared_share",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -261,6 +339,14 @@
     },
     {
       "source": "person:ИЛИЯ ХРИСТОВ ИЛИЕВ",
+      "target": "company:tr:203571547",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
       "target": "company:tr:203571547",
       "kind": "tr_owner",
       "role": "partner",
@@ -285,6 +371,14 @@
     },
     {
       "source": "person:ГЕОРГИ АЛЕКСАНДРОВ КОВАЧЕВ",
+      "target": "company:tr:207475090",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ ИЛИЕВ",
       "target": "company:tr:207475090",
       "kind": "tr_role",
       "role": "director",

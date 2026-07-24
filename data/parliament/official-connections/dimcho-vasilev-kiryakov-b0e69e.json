@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:dimcho-vasilev-kiryakov-b0e69e",
   "nodes": [
     {
@@ -105,6 +105,11 @@
       "id": "person:ПЛАМЕНА ЦЕНКОВА БОЖИЛОВА",
       "type": "person",
       "label": "Пламена Ценкова Божилова"
+    },
+    {
+      "id": "person:АЛЕКСАНДРИНА АТАНАСОВА ТАГАРОВА",
+      "type": "person",
+      "label": "Александрина Атанасова Тагарова"
     }
   ],
   "edges": [
@@ -281,6 +286,14 @@
       "target": "company:tr:117055543",
       "kind": "tr_owner",
       "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРИНА АТАНАСОВА ТАГАРОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
       "isCurrent": true,
       "confidence": "high"
     }

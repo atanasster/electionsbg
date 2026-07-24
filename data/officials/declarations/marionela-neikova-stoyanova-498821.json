@@ -66,5 +66,55 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "marionela-neikova-stoyanova-498821",
+    "declarantName": "Марионела Нейкова Стоянова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г13",
+    "controlHash": "90C77463",
+    "sourceUrl": "https://register.cacbg.bg/2024/C55CAE3D-26EE-414D-B4A3-B99B334C7C5E180721.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12612.548125348318,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1081.3823287300022,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит 5%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12090,
+        "valueEur": 6181.518843662281,
+        "holderName": "Марионела Нейкова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

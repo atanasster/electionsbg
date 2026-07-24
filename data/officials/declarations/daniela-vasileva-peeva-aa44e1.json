@@ -6,6 +6,74 @@
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
     "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-26",
+    "entryNumber": "Г6611",
+    "controlHash": "4EF24015",
+    "sourceUrl": "https://register.cacbg.bg/2023/894D7C4E-C02F-41EB-B8AE-844CCFC04553153208.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14067.684819232756,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "обезщетения за временна неработоспособност",
+        "amountEurDeclarant": 3372.992540251453,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5144,
+        "valueEur": 2630.085436873348,
+        "holderName": "Даниела Василева Пеева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 5325,
+        "valueEur": 4865.4535414632155,
+        "holderName": "Даниела Василева Пеева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "daniela-vasileva-peeva-aa44e1",
+    "declarantName": "ДАНИЕЛА ВАСИЛЕВА ПЕЕВА",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2023,
     "fiscalYear": 2023,
     "declarationType": "Vacate",
     "filedAt": "2023-04-24",

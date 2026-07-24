@@ -71,5 +71,85 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "katya-vergilova-petkova-13030c",
+    "declarantName": "Катя Вергилова Петкова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-13",
+    "entryNumber": "Г8662",
+    "controlHash": "0D6247D8",
+    "sourceUrl": "https://register.cacbg.bg/2024/FAFDAEA6-72AA-43EC-86A9-5D8105C99397190299.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 51378.698557645606,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 252,
+        "builtAreaSqm": 252,
+        "acquiredYear": 2004,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 87600,
+        "valueEur": 44789.16879278874,
+        "holderName": "Георги Антонов Петков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "вила",
+        "detail": null,
+        "location": "Балчик",
+        "municipality": "Балчик",
+        "areaSqm": 85,
+        "builtAreaSqm": 85,
+        "acquiredYear": 2003,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Георги Антонов Петков",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Дропла",
+        "municipality": "Добричка",
+        "areaSqm": 18,
+        "builtAreaSqm": null,
+        "acquiredYear": 2009,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Георги Антонов Петков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

@@ -1,7 +1,7 @@
 {
   "obshtina": "SHU19",
   "registryName": "Каспичан",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 1,
     "council_chair": 0,
-    "councillor": 12,
+    "councillor": 13,
     "chief_architect": 1,
     "other": 0
   },
@@ -165,6 +165,23 @@
         "partyCanonicalId": "p_16",
         "listPos": 101,
         "prefVotes": 30,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "ivailo-tsvetelinov-ivanov-058025",
+      "name": "Ивайло Цветелинов Иванов",
+      "normalizedName": "ИВАЙЛО ЦВЕТЕЛИНОВ ИВАНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Каспичан",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БСП ЗА БЪЛГАРИЯ",
+        "partyCanonicalId": "bsp",
+        "listPos": 102,
+        "prefVotes": 65,
         "isElected": true
       }
     },

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:172",
   "nodes": [
     {
@@ -42,9 +42,13 @@
       "label": "Живка Димитрова Хаджиангелова"
     },
     {
-      "id": "person:ДАНЧО ДИМИТРОВ ТРИФОНОВ",
-      "type": "person",
-      "label": "Данчо Димитров Трифонов"
+      "id": "official:dancho-dimitrov-trifonov-a3a0af",
+      "type": "official",
+      "slug": "dancho-dimitrov-trifonov-a3a0af",
+      "label": "Данчо Димитров Трифонов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Тополовград"
     },
     {
       "id": "person:НИКОЛАЙ ЯНКОВ ЯНЕВ",
@@ -120,23 +124,23 @@
       "confidence": "high"
     },
     {
-      "source": "person:ДАНЧО ДИМИТРОВ ТРИФОНОВ",
+      "source": "official:dancho-dimitrov-trifonov-a3a0af",
       "target": "company:tr:126073800",
       "kind": "tr_role",
       "role": "ngo_representative",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
-      "source": "person:НИКОЛАЙ ЯНКОВ ЯНЕВ",
+      "source": "official:dancho-dimitrov-trifonov-a3a0af",
       "target": "company:tr:126073800",
       "kind": "tr_role",
       "role": "ngo_board",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
-      "source": "person:ДАНЧО ДИМИТРОВ ТРИФОНОВ",
+      "source": "person:НИКОЛАЙ ЯНКОВ ЯНЕВ",
       "target": "company:tr:126073800",
       "kind": "tr_role",
       "role": "ngo_board",

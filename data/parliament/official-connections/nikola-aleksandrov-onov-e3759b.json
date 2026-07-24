@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:nikola-aleksandrov-onov-e3759b",
   "nodes": [
     {
@@ -20,15 +20,6 @@
       "legalForm": null,
       "status": null,
       "seat": null
-    },
-    {
-      "id": "official:vasil-dimitrov-nekov-e11998",
-      "type": "official",
-      "slug": "vasil-dimitrov-nekov-e11998",
-      "label": "Васил Димитров Неков",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "municipality": null
     },
     {
       "id": "official:kamen-vasilev-pchelarov-f0f5bf",
@@ -64,6 +55,11 @@
       "label": "Деляна Антонова Панайотова"
     },
     {
+      "id": "person:ВАСИЛ ДИМИТРОВ НЕКОВ",
+      "type": "person",
+      "label": "Васил Димитров Неков"
+    },
+    {
       "id": "person:НАДЕЖДА ГАНЧЕВА НИКОВА",
       "type": "person",
       "label": "Надежда Ганчева Никова"
@@ -72,14 +68,6 @@
   "edges": [
     {
       "source": "official:nikola-aleksandrov-onov-e3759b",
-      "target": "company:tr:206671456",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "medium"
-    },
-    {
-      "source": "official:vasil-dimitrov-nekov-e11998",
       "target": "company:tr:206671456",
       "kind": "tr_role",
       "role": "director",
@@ -136,6 +124,14 @@
     },
     {
       "source": "person:ДЕЛЯНА АНТОНОВА ПАНАЙОТОВА",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ДИМИТРОВ НЕКОВ",
       "target": "company:tr:206671456",
       "kind": "tr_role",
       "role": "director",

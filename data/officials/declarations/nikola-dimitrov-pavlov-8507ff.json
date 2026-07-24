@@ -539,5 +539,60 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "nikola-dimitrov-pavlov-8507ff",
+    "declarantName": "НИКОЛА ДИМИТРОВ ПАВЛОВ",
+    "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7133",
+    "controlHash": "257ABF59",
+    "sourceUrl": "https://register.cacbg.bg/2024/2140CE0B-36DB-4422-A304-274A564EA7E3188701.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 8851.996339150131
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 27623.566465388096,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3303.4568444087677
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 138.048807922979,
+        "amountEurSpouse": 575.2033663457458
+      },
+      {
+        "parent": null,
+        "category": "не облагаеми доходи от ваучери",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 797.6153346661008
+      },
+      {
+        "parent": null,
+        "category": "не облагаеми обещетения",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 120.66488396230757
+      }
+    ],
+    "assets": [],
+    "events": []
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:antoaneta-zhelyazkova-petrova-4f32f2",
   "nodes": [
     {
@@ -12,11 +12,11 @@
       "municipality": null
     },
     {
-      "id": "company:tr:148058950",
+      "id": "company:tr:204361427",
       "type": "company",
-      "label": "Питстрой ЕООД",
+      "label": "ПИТСТРОЙ 13 ЕООД",
       "slug": null,
-      "uic": "148058950",
+      "uic": "204361427",
       "legalForm": null,
       "status": null,
       "seat": null
@@ -24,7 +24,7 @@
     {
       "id": "company:tr:204843622",
       "type": "company",
-      "label": "Фундаментал инвест",
+      "label": "ФУНДАМЕНТАЛ ИНВЕСТ ООД",
       "slug": null,
       "uic": "204843622",
       "legalForm": null,
@@ -135,7 +135,7 @@
   "edges": [
     {
       "source": "official:antoaneta-zhelyazkova-petrova-4f32f2",
-      "target": "company:tr:148058950",
+      "target": "company:tr:204361427",
       "kind": "declared_stake",
       "role": "declared_share",
       "isCurrent": true,

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:mehmed-nedzhmi-zeinel-8fa77c",
   "nodes": [
     {
@@ -22,6 +22,15 @@
       "seat": null
     },
     {
+      "id": "official:daniel-dimitrov-salabashev-31fee0",
+      "type": "official",
+      "slug": "daniel-dimitrov-salabashev-31fee0",
+      "label": "Даниел Димитров Салабашев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
       "id": "person:МАРИЯ АНДРЕЕВА БОНЕВА",
       "type": "person",
       "label": "Мария Андреева Бонева"
@@ -30,16 +39,19 @@
       "id": "person:МАРГАРИТА ДИМИТРОВА ДИМИТРОВА",
       "type": "person",
       "label": "Маргарита Димитрова Димитрова"
-    },
-    {
-      "id": "person:ДАНИЕЛ ДИМИТРОВ САЛАБАШЕВ",
-      "type": "person",
-      "label": "Даниел Димитров Салабашев"
     }
   ],
   "edges": [
     {
       "source": "official:mehmed-nedzhmi-zeinel-8fa77c",
+      "target": "company:tr:833067740",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-dimitrov-salabashev-31fee0",
       "target": "company:tr:833067740",
       "kind": "tr_role",
       "role": "manager",
@@ -56,14 +68,6 @@
     },
     {
       "source": "person:МАРГАРИТА ДИМИТРОВА ДИМИТРОВА",
-      "target": "company:tr:833067740",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ДАНИЕЛ ДИМИТРОВ САЛАБАШЕВ",
       "target": "company:tr:833067740",
       "kind": "tr_role",
       "role": "manager",

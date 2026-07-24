@@ -2124,9 +2124,9 @@ const DB_ROUTES = {
   "person-elections": async (dbRows, q) => {
     const slug = s(q, "slug");
     if (!slug) return { body: [] };
-    const rows = await dbRows("SELECT person_elections($1) AS r", [
-      slug,
-    ]).catch(missingMigrationEmpty);
+    const rows = await dbRows("SELECT person_elections($1) AS r", [slug]).catch(
+      missingMigrationEmpty,
+    );
     return { body: rows[0]?.r ?? [] };
   },
   // Declared-wealth trajectory: one point per year (assets/debts/net/income +
@@ -2180,6 +2180,19 @@ const DB_ROUTES = {
     const r = rows[0]?.r;
     return { body: Array.isArray(r) ? null : (r ?? null) };
   },
+  // Declared company stakes whose company holds public contracts (audit T3.8). The
+  // declaration form carries no EIK, so every row here is a RESOLVED link that passed
+  // all three of 096's gates — unique TRADING-company name in the TR, the registry
+  // independently placing this person at that EIK, and no namesake sharing their folded
+  // name. Unconfirmed and namesake-risky matches are absent, not flagged.
+  "person-stake-procurement": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: [] };
+    const rows = await dbRows("SELECT person_stake_procurement($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
   // Disposals + third-party expenses for one person (audit T3.4): what they transferred
   // in the year before a filing, and what someone else paid for. Register facts about a
   // filing, so public-figure gated but NOT cohort-gated like the accumulation gap.
@@ -2207,9 +2220,10 @@ const DB_ROUTES = {
   // declarant — the register's `Sent` flag turned out NOT to mean filed/not-filed (a
   // Sent=False row fetches a complete declaration), so no compliance metric is served.
   "register-coverage": async (dbRows) => {
-    const rows = await dbRows("SELECT register_coverage_by_year() AS r", []).catch(
-      missingMigrationEmpty,
-    );
+    const rows = await dbRows(
+      "SELECT register_coverage_by_year() AS r",
+      [],
+    ).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
   },
   // The person's public-contract take bucketed by cabinet tenure (the "money vs power"
@@ -2238,10 +2252,10 @@ const DB_ROUTES = {
     const name = s(q, "name");
     if (!name) return { body: { personSlug: null } };
     const party = q.party != null ? clampInt(q.party, null, 1, 99) : null;
-    const rows = await dbRows(
-      "SELECT candidate_person_by_name($1, $2) AS r",
-      [name, party],
-    ).catch(missingMigrationEmpty);
+    const rows = await dbRows("SELECT candidate_person_by_name($1, $2) AS r", [
+      name,
+      party,
+    ]).catch(missingMigrationEmpty);
     return { body: { personSlug: rows[0]?.r ?? null } };
   },
 };

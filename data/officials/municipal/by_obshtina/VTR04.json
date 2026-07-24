@@ -1,7 +1,7 @@
 {
   "obshtina": "VTR04",
   "registryName": "Велико Търново",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 5,
     "council_chair": 1,
-    "councillor": 35,
+    "councillor": 36,
     "chief_architect": 1,
     "other": 0
   },
@@ -141,6 +141,23 @@
         "partyCanonicalId": "p_0",
         "listPos": 103,
         "prefVotes": 86,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "valentin-vasilev-tochkov-19a562",
+      "name": "Валентин Василев Точков",
+      "normalizedName": "ВАЛЕНТИН ВАСИЛЕВ ТОЧКОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Велико Търново",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 105,
+        "prefVotes": 348,
         "isElected": true
       }
     },

@@ -327,6 +327,37 @@
     "institution": "СБДПЛ \"Иван Раев\" ЕООД, гр. Сопот",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": "2019-05-14",
+    "entryNumber": "Г3946",
+    "controlHash": "E956C52C",
+    "sourceUrl": "https://register.cacbg.bg/2019/85DC169E-9232-45F5-9A9D-115F8E4B537C98657.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2389.7782527111253,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 19684.737426054413,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "stefan-kirilov-anastasov-23ef8b",
+    "declarantName": "Стефан Кирилов Анастасов",
+    "institution": "СБДПЛ \"Иван Раев\" ЕООД, гр. Сопот",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2018,
     "fiscalYear": null,
     "declarationType": "Entry",

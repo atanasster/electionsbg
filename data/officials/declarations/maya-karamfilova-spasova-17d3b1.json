@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-23",
+    "entryNumber": "Г15224",
+    "controlHash": "45827BB1",
+    "sourceUrl": "https://register.cacbg.bg/2025/0C424798-CFFE-4512-AD83-4B59FB0EC180218930.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28657.909941048045,
+        "amountEurSpouse": 6490.850431785993
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20500,
+        "valueEur": 10481.48356452248,
+        "holderName": "Мая Карамфилова Спасова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "maya-karamfilova-spasova-17d3b1",
+    "declarantName": "Мая Карамфилова Спасова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

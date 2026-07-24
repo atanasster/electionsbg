@@ -1,7 +1,7 @@
 {
   "obshtina": "KNL31",
   "registryName": "Невестино",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 1,
     "council_chair": 1,
-    "councillor": 9,
+    "councillor": 10,
     "chief_architect": 1,
     "other": 0
   },
@@ -157,6 +157,23 @@
         "partyCanonicalId": "p_51",
         "listPos": 101,
         "prefVotes": 9,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "milen-raichov-paunov-7f7f1a",
+      "name": "Милен Райчов Паунов",
+      "normalizedName": "МИЛЕН РАЙЧОВ ПАУНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Невестино",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ВМРО-БНД/ПП\"ВМРО-БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ/,ПП\"ГЕРБ\",ПП\"ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ\",ПП\"БЪДЕЩЕ ЗА РОДИНАТА\"/",
+        "partyCanonicalId": "p_51",
+        "listPos": 105,
+        "prefVotes": 28,
         "isElected": true
       }
     },

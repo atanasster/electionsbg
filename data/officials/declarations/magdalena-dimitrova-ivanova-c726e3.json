@@ -114,5 +114,85 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "magdalena-dimitrova-ivanova-c726e3",
+    "declarantName": "Магдалена Димитрова Иванова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-22",
+    "entryNumber": "Г7335",
+    "controlHash": "A14151AA",
+    "sourceUrl": "https://register.cacbg.bg/2024/65BD2234-123C-4BA9-9B27-B3C99242FA12188918.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11362.95076770476,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Калипетрово",
+        "municipality": "Силистра",
+        "areaSqm": 700,
+        "builtAreaSqm": 400,
+        "acquiredYear": 2012,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Магдалена Димитрова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Айдемир",
+        "municipality": "Силистра",
+        "areaSqm": 1,
+        "builtAreaSqm": 1,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Магдалена Димитрова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мазда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Магдалена Димитрова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

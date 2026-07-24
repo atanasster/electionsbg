@@ -1,7 +1,7 @@
 {
   "obshtina": "RSE27",
   "registryName": "Русе",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 5,
     "council_chair": 2,
-    "councillor": 47,
+    "councillor": 49,
     "chief_architect": 1,
     "other": 0
   },
@@ -345,6 +345,23 @@
       }
     },
     {
+      "slug": "galichka-tinkova-nikolova-ba7f0c",
+      "name": "Галичка Тинкова Николова",
+      "normalizedName": "ГАЛИЧКА ТИНКОВА НИКОЛОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Русе",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Граждани за Общината",
+        "partyCanonicalId": null,
+        "listPos": 101,
+        "prefVotes": 68,
+        "isElected": true
+      }
+    },
+    {
       "slug": "gyunai-akkeva-kadnkova-f30228",
       "name": "Гюнай Аккъева Кадънкова",
       "normalizedName": "ГЮНАЙ АККЪЕВА КАДЪНКОВА",
@@ -410,6 +427,23 @@
         "listPos": 107,
         "prefVotes": 206,
         "isElected": true
+      }
+    },
+    {
+      "slug": "dobrin-raichev-raichev-992556",
+      "name": "Добрин Райчев Райчев",
+      "normalizedName": "ДОБРИН РАЙЧЕВ РАЙЧЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Русе",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК „БСП ЗА БЪЛГАРИЯ“ (КП „ЛЕВИЦАТА!“, ПП „ПОЛИТИЧЕСКО ДВИЖЕНИЕ СОЦИАЛДЕМОКРАТИ“, КП „АЛТЕРНАТИВАТА НА ГРАЖДАНИТЕ“, ПП „МИР“)",
+        "partyCanonicalId": "bsp",
+        "listPos": 115,
+        "prefVotes": 120,
+        "isElected": false
       }
     },
     {

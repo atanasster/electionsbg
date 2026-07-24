@@ -295,5 +295,73 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "ognyan-dimitrov-dimitrov-ffa425",
+    "declarantName": "Огнян Димитров Димитров",
+    "institution": "Североцентрално държавно предприятие - ДП Габрово",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-06-24",
+    "entryNumber": "Г8762",
+    "controlHash": "206AAE3C",
+    "sourceUrl": "https://register.cacbg.bg/2022/1744F748-64ED-4F01-B77A-D32C147D09AF141559.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11253.53430512877,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1003.6659627881769,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17189,
+        "valueEur": 8788.5961458818,
+        "holderName": "Огнян Димитров Димитров",
+        "isSpouse": false,
+        "legalBasis": "потребителски заеми",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17946,
+        "valueEur": 9175.644099947336,
+        "holderName": "Огнян Димитров Димитров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

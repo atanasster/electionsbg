@@ -1,7 +1,7 @@
 {
   "obshtina": "BGS13",
   "registryName": "Царево",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 4,
     "council_chair": 1,
-    "councillor": 11,
+    "councillor": 13,
     "chief_architect": 1,
     "other": 0
   },
@@ -128,6 +128,23 @@
       }
     },
     {
+      "slug": "vladimir-dukov-dukov-33cf86",
+      "name": "Владимир Дуков Дуков",
+      "normalizedName": "ВЛАДИМИР ДУКОВ ДУКОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Царево",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 102,
+        "prefVotes": 35,
+        "isElected": false
+      }
+    },
+    {
       "slug": "georgi-atanasov-rusinov-519679",
       "name": "Георги Атанасов Русинов",
       "normalizedName": "ГЕОРГИ АТАНАСОВ РУСИНОВ",
@@ -192,6 +209,23 @@
         "partyCanonicalId": "gerb",
         "listPos": 107,
         "prefVotes": 148,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "iliya-iovnov-iliev-34bec4",
+      "name": "Илия Йовнов Илиев",
+      "normalizedName": "ИЛИЯ ЙОВНОВ ИЛИЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Царево",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ОБТ БЪЛГАРСКИ ЛЕЙБЪРИСТИ",
+        "partyCanonicalId": null,
+        "listPos": 101,
+        "prefVotes": 93,
         "isElected": true
       }
     },

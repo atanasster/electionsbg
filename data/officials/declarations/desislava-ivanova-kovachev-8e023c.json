@@ -60,5 +60,115 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "desislava-ivanova-kovachev-8e023c",
+    "declarantName": "Десислава Иванова Ковачева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-31",
+    "entryNumber": "Г7459",
+    "controlHash": "BF5AD059",
+    "sourceUrl": "https://register.cacbg.bg/2024/C678FBE6-223B-46BA-AC78-B7D66A6B7B34189055.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15960.487363421156,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 169493.25861654643
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2945.0412356902184
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Елин Пелин",
+        "municipality": "Елин Пелин",
+        "areaSqm": 570,
+        "builtAreaSqm": 54,
+        "acquiredYear": 2003,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Десислава Иванова Ковачева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Айго",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Десислава Иванова Ковачева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
+        "holderName": "Максим Колев Генчев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Десислава Иванова Ковачева",
+        "isSpouse": false,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

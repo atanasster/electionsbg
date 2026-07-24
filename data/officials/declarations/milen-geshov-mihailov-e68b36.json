@@ -161,5 +161,103 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "milen-geshov-mihailov-e68b36",
+    "declarantName": "Милен Гешов Михайлов",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12088",
+    "controlHash": "314B7B6D",
+    "sourceUrl": "https://register.cacbg.bg/2024/620233FF-3ED1-47D1-9D2D-EA73737AEA07193893.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 32722.680396557982,
+        "amountEurSpouse": 12271.005148709244
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 74,
+        "builtAreaSqm": null,
+        "acquiredYear": 2010,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Милен Гешов Михайлов",
+        "isSpouse": false,
+        "legalBasis": "Покупка",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "Парцел Радина чешма",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 1600,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Милен Гешов Михайлов",
+        "isSpouse": false,
+        "legalBasis": "Покупка",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек Автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33600,
+        "valueEur": 17179.40720819294,
+        "holderName": "Милен Гешов Михайлов",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56000,
+        "valueEur": 28632.345346988237,
+        "holderName": "Милен Гешов Михайлов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

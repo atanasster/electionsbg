@@ -1,0 +1,71 @@
+[
+  {
+    "slug": "georgi-byanov-byanov-076a10",
+    "declarantName": "Георги Бянов Бянов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2025,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г15255",
+    "controlHash": "7341772B",
+    "sourceUrl": "https://register.cacbg.bg/2025/51516819-5C11-419E-A681-C8C7CD74D64B219018.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 41374.76161016039,
+        "amountEurSpouse": 45428.28364428401
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 12271.005148709244,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": 517.4273837705731,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19000,
+        "valueEur": 9714.54574272815,
+        "holderName": "Георги Бянов Бянов",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Канада",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 347.67847921342855,
+        "legalBasis": null
+      }
+    ]
+  }
+]

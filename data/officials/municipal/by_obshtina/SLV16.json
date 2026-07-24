@@ -1,7 +1,7 @@
 {
   "obshtina": "SLV16",
   "registryName": "Нова Загора",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 28,
+    "councillor": 30,
     "chief_architect": 1,
     "other": 0
   },
@@ -172,6 +172,23 @@
       }
     },
     {
+      "slug": "dimitrina-nedelcheva-dimitrova-d33871",
+      "name": "Димитрина Неделчева Димитрова",
+      "normalizedName": "ДИМИТРИНА НЕДЕЛЧЕВА ДИМИТРОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Нова Загора",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 113,
+        "prefVotes": 18,
+        "isElected": true
+      }
+    },
+    {
       "slug": "dimitr-lalev-kovachev-01118b",
       "name": "Димитър Лалев Ковачев",
       "normalizedName": "ДИМИТЪР ЛАЛЕВ КОВАЧЕВ",
@@ -202,6 +219,23 @@
         "partyCanonicalId": "p_7",
         "listPos": 102,
         "prefVotes": 22,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "diyan-kolev-kolev-c526f2",
+      "name": "Диян Колев Колев",
+      "normalizedName": "ДИЯН КОЛЕВ КОЛЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Нова Загора",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 102,
+        "prefVotes": 49,
         "isElected": true
       }
     },

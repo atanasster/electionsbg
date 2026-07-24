@@ -1,7 +1,7 @@
 {
   "obshtina": "SLS32",
   "registryName": "Ситово",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -10,7 +10,7 @@
     "deputy_mayor": 2,
     "council_chair": 1,
     "councillor": 12,
-    "chief_architect": 0,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -57,6 +57,15 @@
         "prefVotes": 13,
         "isElected": true
       }
+    },
+    {
+      "slug": "mariya-drumeva-nikolova-ded3e0",
+      "name": "Мария Друмева Николова",
+      "normalizedName": "МАРИЯ ДРУМЕВА НИКОЛОВА",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Ситово",
+      "latestDeclarationYear": 2025
     },
     {
       "slug": "dzhengis-myudesir-eyub-621962",

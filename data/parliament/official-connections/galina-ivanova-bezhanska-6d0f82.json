@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:galina-ivanova-bezhanska-6d0f82",
   "nodes": [
     {
@@ -31,18 +31,14 @@
       "municipality": null
     },
     {
-      "id": "official:borislav-aleksandrov-borisov-b784ec",
-      "type": "official",
-      "slug": "borislav-aleksandrov-borisov-b784ec",
-      "label": "Борислав Александров Борисов",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "municipality": null
-    },
-    {
       "id": "person:СТОЙЧО ТОДОРОВ ТОМОВ",
       "type": "person",
       "label": "Стойчо Тодоров Томов"
+    },
+    {
+      "id": "person:БОРИСЛАВ АЛЕКСАНДРОВ БОРИСОВ",
+      "type": "person",
+      "label": "Борислав Александров Борисов"
     }
   ],
   "edges": [
@@ -71,15 +67,15 @@
       "confidence": "medium"
     },
     {
-      "source": "official:borislav-aleksandrov-borisov-b784ec",
+      "source": "person:СТОЙЧО ТОДОРОВ ТОМОВ",
       "target": "company:tr:130111826",
       "kind": "tr_role",
       "role": "director",
       "isCurrent": true,
-      "confidence": "medium"
+      "confidence": "high"
     },
     {
-      "source": "person:СТОЙЧО ТОДОРОВ ТОМОВ",
+      "source": "person:БОРИСЛАВ АЛЕКСАНДРОВ БОРИСОВ",
       "target": "company:tr:130111826",
       "kind": "tr_role",
       "role": "director",

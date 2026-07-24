@@ -61,6 +61,93 @@
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
     "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-06-27",
+    "entryNumber": "Г8749",
+    "controlHash": "5D96E871",
+    "sourceUrl": "https://register.cacbg.bg/2022/FCBDBB98-A1E7-4291-9C8D-700514DA8CF2141498.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "ООД",
+        "shareSize": "30%",
+        "companyName": "Матемотическо школо",
+        "registeredOffice": "гр.Русе",
+        "valueEur": 1.5338756435886554,
+        "holderName": null,
+        "transfereeName": "Стефка Романова Караколева",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10698.782614030872,
+        "amountEurSpouse": 52.6630637632105
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5799.07251652751,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1737.8811041859467,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мазда 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2200,
+        "valueEur": 1124.8421386316807,
+        "holderName": "Стефка Романова Караколева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мазда 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2200,
+        "valueEur": 1124.8421386316807,
+        "holderName": "Дончо Тодоров Караколев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "stefka-romanova-karakoleva-9c1c23",
+    "declarantName": "Стефка Романова Караколева",
+    "institution": "Област - Русе",
+    "positionTitle": "Заместник-областен управител",
+    "category": "regional_governor",
+    "declarationYear": 2022,
     "fiscalYear": 2022,
     "declarationType": "Vacate",
     "filedAt": "2022-03-08",

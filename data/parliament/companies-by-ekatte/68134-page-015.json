@@ -2,8 +2,34 @@
   "ekatte": "68134",
   "page": 15,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "с-Плюс-консулт-ООД",
+      "displayName": "с Плюс консулт ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 5232,
+          "mpName": "Стою Теодоров Стоев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "с+-Консулт-ООД",
+      "displayName": "с+ Консулт ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 5232,
+          "mpName": "Стою Теодоров Стоев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "САНГУС",
       "displayName": "САНГУС",
@@ -624,32 +650,6 @@
           "mpId": 3060,
           "mpName": "Кольо Йорданов Милев",
           "role": "ngo_board",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Такси-Волт",
-      "displayName": "Такси Волт",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1766",
-      "mps": [
-        {
-          "mpId": 3661,
-          "mpName": "Виктор Гасан Насър",
-          "role": "director",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ТГЕ-ТРАКИЯ-ГРИЙН-ЕНЕРДЖИ",
-      "displayName": "ТГЕ - ТРАКИЯ ГРИЙН ЕНЕРДЖИ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
-      "mps": [
-        {
-          "mpId": 2794,
-          "mpName": "Красимир Христов Янков",
-          "role": "manager",
           "isCurrent": true
         }
       ]

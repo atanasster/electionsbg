@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:yurii-tsvetanova-nikolov-66f4c2",
   "nodes": [
     {
@@ -14,7 +14,7 @@
     {
       "id": "company:tr:202821567",
       "type": "company",
-      "label": "МБАЛ Света Параскева",
+      "label": "МБАЛ СВЕТА ПАРАСКЕВА",
       "slug": null,
       "uic": "202821567",
       "legalForm": null,
@@ -22,14 +22,18 @@
       "seat": null
     },
     {
+      "id": "official:kiril-dimitrov-pashov-6be92d",
+      "type": "official",
+      "slug": "kiril-dimitrov-pashov-6be92d",
+      "label": "Кирил Димитров Пашов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
       "id": "person:ЮРИЙ ЦВЕТАНОВ НИКОЛОВ",
       "type": "person",
       "label": "Юрий Цветанов Николов"
-    },
-    {
-      "id": "person:КИРИЛ ДИМИТРОВ ПАШОВ",
-      "type": "person",
-      "label": "Кирил Димитров Пашов"
     },
     {
       "id": "person:ГЕРГАНА ГЕОРГИЕВА ГЕОРГИЕВА",
@@ -57,15 +61,15 @@
       "confidence": "high"
     },
     {
-      "source": "person:ЮРИЙ ЦВЕТАНОВ НИКОЛОВ",
+      "source": "official:kiril-dimitrov-pashov-6be92d",
       "target": "company:tr:202821567",
       "kind": "tr_role",
       "role": "manager",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
-      "source": "person:КИРИЛ ДИМИТРОВ ПАШОВ",
+      "source": "person:ЮРИЙ ЦВЕТАНОВ НИКОЛОВ",
       "target": "company:tr:202821567",
       "kind": "tr_role",
       "role": "manager",

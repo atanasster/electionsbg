@@ -33,6 +33,14 @@
 --      (26,347) outnumber the NULLs (16,172), and counting only NULLs suppressed the
 --      caveat entirely for 268 people.
 --
+-- fromYear / toYear are person_wealth_year.period_year — the years the endpoint filings
+-- COVER, not the years they were lodged (090). That is the only axis on which "Δ net worth
+-- from 2016 to 2024, against the income declared over those years" is a true sentence: an
+-- annual's income and its closing estate describe the same fiscal year, and dating both a
+-- year later would put a published span one year off the period it measures. Rule 3's
+-- (fromYear, toYear] window is unchanged — net worth and income move to the new axis
+-- together, because they are read off the same representative filing.
+--
 -- The function computes; it does not conclude. A positive gap is the part of the wealth
 -- change the declared income does not by itself account for — inheritance, restitution, a
 -- sale of a previously-owned asset and a spouse's business income all move net worth
@@ -52,30 +60,30 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
      LIMIT 1
   ),
   yrs AS (
-    SELECT w.declaration_year, w.net_eur, w.income_eur, w.declaration_id
+    SELECT w.period_year, w.net_eur, w.income_eur, w.declaration_id
       FROM person_wealth_year w JOIN pick ON pick.person_id = w.person_id
   ),
   bounds AS (
     SELECT
-      min(declaration_year) AS from_year,
-      max(declaration_year) AS to_year,
+      min(period_year) AS from_year,
+      max(period_year) AS to_year,
       count(*)              AS filed_years,
       -- Rule 2: the span must be fully covered. person_wealth_year is unique on
       -- (person_id, year), so filed_years = span exactly when there is no gap.
-      max(declaration_year) - min(declaration_year) + 1 AS span_years
+      max(period_year) - min(period_year) + 1 AS span_years
       FROM yrs
   ),
   endpoints AS (
     SELECT
-      (SELECT net_eur FROM yrs ORDER BY declaration_year ASC  LIMIT 1) AS from_net,
-      (SELECT net_eur FROM yrs ORDER BY declaration_year DESC LIMIT 1) AS to_net,
-      (SELECT declaration_id FROM yrs ORDER BY declaration_year DESC LIMIT 1) AS to_decl
+      (SELECT net_eur FROM yrs ORDER BY period_year ASC  LIMIT 1) AS from_net,
+      (SELECT net_eur FROM yrs ORDER BY period_year DESC LIMIT 1) AS to_net,
+      (SELECT declaration_id FROM yrs ORDER BY period_year DESC LIMIT 1) AS to_decl
   ),
   income AS (
     -- Rule 3: strictly AFTER the opening snapshot.
     SELECT COALESCE(SUM(y.income_eur), 0) AS declared_income
       FROM yrs y, bounds b
-     WHERE y.declaration_year > b.from_year
+     WHERE y.period_year > b.from_year
   ),
   unvalued AS (
     -- Rule 4: the closing snapshot only, NULL or zero.

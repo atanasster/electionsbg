@@ -1,7 +1,7 @@
 {
   "obshtina": "PDV43",
   "registryName": "Сопот",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 1,
     "council_chair": 2,
-    "councillor": 14,
+    "councillor": 15,
     "chief_architect": 1,
     "other": 0
   },
@@ -258,6 +258,23 @@
         "partyCanonicalId": "bsp",
         "listPos": 108,
         "prefVotes": 66,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "osman-yusein-uzun-92a33a",
+      "name": "Осман Юсеин Узун",
+      "normalizedName": "ОСМАН ЮСЕИН УЗУН",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Сопот",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК БСП ЗА БЪЛГАРИЯ ( БСП ЗА БЪЛГАРИЯ, БВ, ДПС, ДБГ)",
+        "partyCanonicalId": "bsp",
+        "listPos": 113,
+        "prefVotes": 84,
         "isElected": true
       }
     },

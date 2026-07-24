@@ -1,7 +1,7 @@
 {
   "obshtina": "SZR22",
   "registryName": "Мъглиж",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 0,
     "deputy_mayor": 3,
     "council_chair": 0,
-    "councillor": 16,
+    "councillor": 17,
     "chief_architect": 1,
     "other": 0
   },
@@ -183,6 +183,23 @@
         "partyCanonicalId": "bsp",
         "listPos": 101,
         "prefVotes": 13,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "mariya-kostova-kostova-3ea27a",
+      "name": "Мария Костова Костова",
+      "normalizedName": "МАРИЯ КОСТОВА КОСТОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Мъглиж",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 102,
+        "prefVotes": 59,
         "isElected": true
       }
     },

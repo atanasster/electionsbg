@@ -1,7 +1,7 @@
 {
   "obshtina": "VRC27",
   "registryName": "Мездра",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 0,
-    "councillor": 15,
+    "councillor": 17,
     "chief_architect": 1,
     "other": 0
   },
@@ -212,6 +212,23 @@
       }
     },
     {
+      "slug": "kosto-tomov-kostov-a630ff",
+      "name": "Косто Томов Костов",
+      "normalizedName": "КОСТО ТОМОВ КОСТОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Мездра",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 117,
+        "prefVotes": 272,
+        "isElected": true
+      }
+    },
+    {
       "slug": "miroslav-ivanov-asparuhov-400c50",
       "name": "Мирослав Иванов Аспарухов",
       "normalizedName": "МИРОСЛАВ ИВАНОВ АСПАРУХОВ",
@@ -294,6 +311,23 @@
         "partyCanonicalId": "p_7",
         "listPos": 101,
         "prefVotes": 157,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "hristina-violetova-stoyanova-b8164a",
+      "name": "Христина Виолетова Стоянова",
+      "normalizedName": "ХРИСТИНА ВИОЛЕТОВА СТОЯНОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Мездра",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 105,
+        "prefVotes": 168,
         "isElected": true
       }
     },

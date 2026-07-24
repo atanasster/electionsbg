@@ -1,7 +1,7 @@
 {
   "obshtina": "VID09",
   "registryName": "Видин",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 5,
     "council_chair": 1,
-    "councillor": 31,
+    "councillor": 32,
     "chief_architect": 1,
     "other": 0
   },
@@ -343,6 +343,23 @@
         "listPos": 110,
         "prefVotes": 59,
         "isElected": false
+      }
+    },
+    {
+      "slug": "ivanela-tsvyatkova-ilieva-446f03",
+      "name": "Иванела Цвяткова Илиева",
+      "normalizedName": "ИВАНЕЛА ЦВЯТКОВА ИЛИЕВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Видин",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БСП ЗА БЪЛГАРИЯ",
+        "partyCanonicalId": "bsp",
+        "listPos": 108,
+        "prefVotes": 108,
+        "isElected": true
       }
     },
     {

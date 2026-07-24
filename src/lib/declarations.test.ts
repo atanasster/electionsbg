@@ -88,6 +88,29 @@ describe("latestAssetDeclaration", () => {
     expect(latestAssetDeclaration([])).toBeNull();
   });
 
+  // Анелия Атанасова Димитрова's real 2025 shape. The parser emits a row for a
+  // blank table line, so her incompatibility filing carries ONE unvalued `bank`
+  // row — enough to pass hasDeclaredAssets — and it is the newer filing. Ranked
+  // on "has an asset row" it won, and her published net worth went €610,451 → €0.
+  it("prefers a valued filing over a newer one that values nothing", () => {
+    const decls = [
+      decl(2025, null, [asset("bank", null)]),
+      decl(2025, 2024, [asset("real_estate", 671806)]),
+    ];
+    expect(latestAssetDeclaration(decls)?.fiscalYear).toBe(2024);
+  });
+
+  // …but the preference must not become a filter. Unvalued real estate is a real
+  // filing pattern (359 annuals), reported as a caveat rather than treated as
+  // absence, so a person who has never valued anything still gets a wealth block.
+  it("falls back to an unvalued filing when nothing is valued", () => {
+    const decls = [
+      decl(2025, 2024, [asset("real_estate", null)]),
+      decl(2024, 2023, [asset("real_estate", 0)]),
+    ];
+    expect(latestAssetDeclaration(decls)?.declarationYear).toBe(2025);
+  });
+
   // A debts-only filing is a real wealth statement (net worth is negative), so
   // it must not be skipped the way an empty one is.
   it("treats a debts-only filing as a wealth snapshot", () => {

@@ -5,6 +5,81 @@
     "institution": "СБАЛК - Велико Търново ЕАД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2020-06-15",
+    "entryNumber": "Г2455",
+    "controlHash": "9AABA936",
+    "sourceUrl": "https://register.cacbg.bg/2020/96BB3754-31AF-4307-89C8-5239CD5C924F112657.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31818.205058721873,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1607.5016744809109,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Присово",
+        "municipality": "Велико Търново",
+        "areaSqm": 78,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6558,
+        "valueEur": 3353.0521568848008,
+        "holderName": "Йорданка Георгиева Томова - Димова",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Войнежа",
+        "municipality": "Велико Търново",
+        "areaSqm": 1200,
+        "builtAreaSqm": 100,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фиат Браво",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4039.205861450126,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "iordanka-georgieva-tomova-dimova-d0e4f1",
+    "declarantName": "Йорданка Георгиева Томова - Димова",
+    "institution": "СБАЛК - Велико Търново ЕАД",
+    "positionTitle": "Изпълнителен директор",
+    "category": "hospital_head",
     "declarationYear": 2019,
     "fiscalYear": 2018,
     "declarationType": "Annualy",

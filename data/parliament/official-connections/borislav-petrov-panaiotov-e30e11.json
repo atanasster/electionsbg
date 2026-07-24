@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:borislav-petrov-panaiotov-e30e11",
   "nodes": [
     {
@@ -22,6 +22,15 @@
       "seat": null
     },
     {
+      "id": "official:dobromir-zhechev-dobrev-fb85fa",
+      "type": "official",
+      "slug": "dobromir-zhechev-dobrev-fb85fa",
+      "label": "Добромир Жечев Добрев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
       "id": "person:ИВАН КОСТАДИНОВ ИВАНОВ",
       "type": "person",
       "label": "Иван Костадинов Иванов"
@@ -40,11 +49,6 @@
       "id": "person:РОСЕН АЛЕКСАНДРОВ РАНГЕЛОВ",
       "type": "person",
       "label": "Росен Александров Рангелов"
-    },
-    {
-      "id": "person:ДОБРОМИР ЖЕЧЕВ ДОБРЕВ",
-      "type": "person",
-      "label": "Добромир Жечев Добрев"
     },
     {
       "id": "person:КРИСТИЯН ДИМИТРОВ АЛЕКСАНДРОВ",
@@ -127,6 +131,14 @@
       "confidence": "medium"
     },
     {
+      "source": "official:dobromir-zhechev-dobrev-fb85fa",
+      "target": "company:tr:175790627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
       "source": "person:ИВАН КОСТАДИНОВ ИВАНОВ",
       "target": "company:tr:175790627",
       "kind": "tr_role",
@@ -152,14 +164,6 @@
     },
     {
       "source": "person:РОСЕН АЛЕКСАНДРОВ РАНГЕЛОВ",
-      "target": "company:tr:175790627",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ДОБРОМИР ЖЕЧЕВ ДОБРЕВ",
       "target": "company:tr:175790627",
       "kind": "tr_role",
       "role": "ngo_board",

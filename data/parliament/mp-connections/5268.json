@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:5268",
   "nodes": [
     {
@@ -236,6 +236,11 @@
       "label": "Росен Петров Илчев"
     },
     {
+      "id": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Богомил Иванов Петков"
+    },
+    {
       "id": "person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ",
       "type": "person",
       "label": "Недялко Димчев Неделчев"
@@ -407,6 +412,32 @@
         "41",
         "42",
         "43"
+      ]
+    },
+    {
+      "id": "company:Чеси-Инс-Брокер-ООД",
+      "type": "company",
+      "label": "\"Чеси Инс Брокер\" ООД",
+      "slug": "Чеси-Инс-Брокер-ООД",
+      "uic": "115322442",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "mp:4802",
+      "type": "mp",
+      "mpId": 4802,
+      "label": "Иван Богомилов Петков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
       ]
     },
     {
@@ -920,6 +951,14 @@
       "confidence": "high"
     },
     {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ",
       "target": "company:tr:207024454",
       "kind": "tr_role",
@@ -964,6 +1003,22 @@
       "target": "company:tr:207621168",
       "kind": "tr_owner",
       "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -1182,6 +1237,30 @@
       "role": "representative",
       "isCurrent": true,
       "confidence": "medium"
+    },
+    {
+      "source": "mp:4802",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4802",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4802",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
     }
   ],
   "paths": [
@@ -1346,6 +1425,19 @@
         "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
         "company:tr:121856059",
         "mp:2823"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4802",
+      "length": 4,
+      "nodeIds": [
+        "mp:5268",
+        "company:tr:207024454",
+        "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+        "company:Чеси-Инс-Брокер-ООД",
+        "mp:4802"
       ],
       "isAllCurrent": true,
       "isAllHighConfidence": false

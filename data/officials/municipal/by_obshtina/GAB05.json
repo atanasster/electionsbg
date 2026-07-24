@@ -1,7 +1,7 @@
 {
   "obshtina": "GAB05",
   "registryName": "Габрово",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 4,
     "council_chair": 1,
-    "councillor": 30,
+    "councillor": 32,
     "chief_architect": 1,
     "other": 0
   },
@@ -448,6 +448,23 @@
       }
     },
     {
+      "slug": "miroslav-ivanov-simeonov-d62651",
+      "name": "Мирослав Иванов Симеонов",
+      "normalizedName": "МИРОСЛАВ ИВАНОВ СИМЕОНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Габрово",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 105,
+        "prefVotes": 39,
+        "isElected": true
+      }
+    },
+    {
       "slug": "miroslav-leventov-kokalarov-16d899",
       "name": "Мирослав Левентов Кокаларов",
       "normalizedName": "МИРОСЛАВ ЛЕВЕНТОВ КОКАЛАРОВ",
@@ -552,6 +569,23 @@
         "partyCanonicalId": null,
         "listPos": 101,
         "prefVotes": 196,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "petr-iliev-petrov-207684",
+      "name": "Петър Илиев Петров",
+      "normalizedName": "ПЕТЪР ИЛИЕВ ПЕТРОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Габрово",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 104,
+        "prefVotes": 99,
         "isElected": true
       }
     },

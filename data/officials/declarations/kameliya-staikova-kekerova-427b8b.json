@@ -60,5 +60,80 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "kameliya-staikova-kekerova-427b8b",
+    "declarantName": "КАМЕЛИЯ СТАЙКОВА КЕКЕРОВА",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-31",
+    "entryNumber": "Г12310",
+    "controlHash": "16F26232",
+    "sourceUrl": "https://register.cacbg.bg/2024/D6B646C4-083D-4813-AFC9-470C9DBB862B194130.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21102.03852073033,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20014,
+        "valueEur": 10232.995710261117,
+        "holderName": "КАМЕЛИЯ СТАЙКОВА КЕКЕРОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13433,
+        "valueEur": 12952.557226343803,
+        "holderName": "КАМЕЛИЯ СТАЙКОВА КЕКЕРОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "С.ПОДГУМЕР",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 800,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 12952.557226343803,
+        "legalBasis": "възмездно"
+      }
+    ]
   }
 ]

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:rositsa-ivanova-gaidarova-e1306d",
+  "nodes": [
+    {
+      "id": "official:rositsa-ivanova-gaidarova-e1306d",
+      "type": "official",
+      "slug": "rositsa-ivanova-gaidarova-e1306d",
+      "label": "Росица Иванова Гайдарова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:823087709",
+      "type": "company",
+      "label": "Авто Евро Стил ООД",
+      "slug": null,
+      "uic": "823087709",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rositsa-ivanova-gaidarova-e1306d",
+      "target": "company:tr:823087709",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

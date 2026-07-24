@@ -1,7 +1,7 @@
 {
   "obshtina": "MON12",
   "registryName": "Вършец",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -10,7 +10,7 @@
     "deputy_mayor": 2,
     "council_chair": 1,
     "councillor": 12,
-    "chief_architect": 0,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -65,6 +65,15 @@
         "prefVotes": 130,
         "isElected": true
       }
+    },
+    {
+      "slug": "plamen-milchev-stoyanov-2e189e",
+      "name": "Пламен Милчев Стоянов",
+      "normalizedName": "ПЛАМЕН МИЛЧЕВ СТОЯНОВ",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Вършец",
+      "latestDeclarationYear": 2025
     },
     {
       "slug": "adriyana-nikolova-nikolova-45f4ca",

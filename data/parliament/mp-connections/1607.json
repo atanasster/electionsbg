@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:1607",
   "nodes": [
     {
@@ -22,15 +22,6 @@
       "legalForm": "EOOD",
       "status": "active",
       "seat": null
-    },
-    {
-      "id": "official:lyuben-petrov-tatarski-da0748",
-      "type": "official",
-      "slug": "lyuben-petrov-tatarski-da0748",
-      "label": "Любен Петров Татарски",
-      "tier": "executive",
-      "role": "political_cabinet",
-      "municipality": null
     }
   ],
   "edges": [
@@ -48,14 +39,6 @@
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": false,
-      "confidence": "medium"
-    },
-    {
-      "source": "official:lyuben-petrov-tatarski-da0748",
-      "target": "company:tr:205497316",
-      "kind": "tr_owner",
-      "role": "sole_owner",
-      "isCurrent": true,
       "confidence": "medium"
     }
   ],

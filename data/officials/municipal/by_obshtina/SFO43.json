@@ -1,13 +1,13 @@
 {
   "obshtina": "SFO43",
   "registryName": "Своге",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 2,
+    "deputy_mayor": 3,
     "council_chair": 1,
     "councillor": 16,
     "chief_architect": 1,
@@ -37,6 +37,15 @@
       "slug": "valentin-asenov-mihailov-8fb9a2",
       "name": "Валентин Асенов Михайлов",
       "normalizedName": "ВАЛЕНТИН АСЕНОВ МИХАЙЛОВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Своге",
+      "latestDeclarationYear": 2025
+    },
+    {
+      "slug": "iliya-traikov-bogdanov-2fdec9",
+      "name": "Илия Трайков Богданов",
+      "normalizedName": "ИЛИЯ ТРАЙКОВ БОГДАНОВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Своге",

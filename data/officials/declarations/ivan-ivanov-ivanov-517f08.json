@@ -158,5 +158,127 @@
         "legalBasis": null
       }
     ]
+  },
+  {
+    "slug": "ivan-ivanov-ivanov-517f08",
+    "declarantName": "ИВАН ИВАНОВ ИВАНОВ",
+    "institution": "Български червен кръст",
+    "positionTitle": "Член на НС",
+    "category": "civil_society",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8846",
+    "controlHash": "ED3778B4",
+    "sourceUrl": "https://register.cacbg.bg/2022/16CA52B6-2FA6-4CFE-BC82-AFF9880E1590141849.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5484.6280095918355,
+        "amountEurSpouse": 31435.758731587102
+      },
+      {
+        "parent": null,
+        "category": "РЕНТА",
+        "amountEurDeclarant": 7762.944632202185,
+        "amountEurSpouse": 3469.1154139163423
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "С. Плачи дол",
+        "municipality": "Добричка",
+        "areaSqm": 3,
+        "builtAreaSqm": 3000,
+        "acquiredYear": 2021,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7503,
+        "valueEur": 3836.2229846152272,
+        "holderName": "Иван Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30516,
+        "valueEur": 15602.583046583803,
+        "holderName": "Павлинка Димитрова Иванова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5815,
+        "valueEur": 2973.1622891560105,
+        "holderName": "Иван Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 9372,
+        "valueEur": null,
+        "holderName": "Павлинка Димитрова Иванова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "Жилищен/ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 270000,
+        "valueEur": 138048.807922979,
+        "holderName": "Павлинка Димитрова Иванова",
+        "isSpouse": true,
+        "legalBasis": "Договор за ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

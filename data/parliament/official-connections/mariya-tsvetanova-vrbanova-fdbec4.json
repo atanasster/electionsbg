@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:mariya-tsvetanova-vrbanova-fdbec4",
   "nodes": [
     {
@@ -31,6 +31,15 @@
       "municipality": null
     },
     {
+      "id": "official:peshka-todorova-vlkova-5ed6c0",
+      "type": "official",
+      "slug": "peshka-todorova-vlkova-5ed6c0",
+      "label": "Пешка  Тодорова Вълкова",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
       "id": "person:ИВАНКА СВЕТЛОЗАРОВА ПЕТКОВА",
       "type": "person",
       "label": "Иванка Светлозарова Петкова"
@@ -56,11 +65,6 @@
       "label": "Богдана Кръстева Маринова"
     },
     {
-      "id": "person:ПЕШКА ТОДОРОВА ВЪЛКОВА",
-      "type": "person",
-      "label": "Пешка Тодорова Вълкова"
-    },
-    {
       "id": "person:ЮЛИЯ ВЪТОВА ИВАНОВА",
       "type": "person",
       "label": "Юлия Вътова Иванова"
@@ -80,6 +84,14 @@
       "target": "company:tr:000183831",
       "kind": "tr_role",
       "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:peshka-todorova-vlkova-5ed6c0",
+      "target": "company:tr:000183831",
+      "kind": "tr_role",
+      "role": "verifier",
       "isCurrent": true,
       "confidence": "medium"
     },
@@ -125,14 +137,6 @@
     },
     {
       "source": "person:БОГДАНА КРЪСТЕВА МАРИНОВА",
-      "target": "company:tr:000183831",
-      "kind": "tr_role",
-      "role": "verifier",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ПЕШКА ТОДОРОВА ВЪЛКОВА",
       "target": "company:tr:000183831",
       "kind": "tr_role",
       "role": "verifier",

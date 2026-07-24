@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:velichka-steliyanova-kasabova-9522ab",
+  "nodes": [
+    {
+      "id": "official:velichka-steliyanova-kasabova-9522ab",
+      "type": "official",
+      "slug": "velichka-steliyanova-kasabova-9522ab",
+      "label": "Величка Стелиянова Касабова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124694694",
+      "type": "company",
+      "label": "ТЪРГОВСКИ ЦЕНТЪР КРАНЕВО",
+      "slug": null,
+      "uic": "124694694",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velichka-steliyanova-kasabova-9522ab",
+      "target": "company:tr:124694694",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

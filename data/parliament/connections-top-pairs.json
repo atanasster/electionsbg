@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "pairs": [
     {
       "mpA": {
@@ -2434,6 +2434,108 @@
           "target": "company:tr:131049199",
           "kind": "tr_role",
           "role": "ngo_board",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "score": 154,
+      "sharedCompanyCount": 1,
+      "crossParty": true
+    },
+    {
+      "mpA": {
+        "mpId": 2389,
+        "nodeId": "mp:2389",
+        "label": "Ангел Петров Найденов",
+        "partyGroupShort": "БСП",
+        "nsFolders": [
+          "39",
+          "40",
+          "41",
+          "42"
+        ],
+        "isCurrent": false
+      },
+      "mpB": {
+        "mpId": 3252,
+        "nodeId": "mp:3252",
+        "label": "Мая Божидарова Манолова-Найденова",
+        "partyGroupShort": "СБГ",
+        "nsFolders": [
+          "40",
+          "41",
+          "42",
+          "43",
+          "45"
+        ],
+        "isCurrent": false
+      },
+      "path": {
+        "targetMpNodeId": "mp:3252",
+        "length": 2,
+        "nodeIds": [
+          "mp:2389",
+          "company:tr:177161138",
+          "mp:3252"
+        ],
+        "isAllCurrent": true,
+        "isAllHighConfidence": false
+      },
+      "pathNodes": [
+        {
+          "id": "mp:2389",
+          "type": "mp",
+          "mpId": 2389,
+          "label": "Ангел Петров Найденов",
+          "partyGroupShort": "БСП",
+          "isCurrent": false,
+          "nsFolders": [
+            "39",
+            "40",
+            "41",
+            "42"
+          ]
+        },
+        {
+          "id": "company:tr:177161138",
+          "type": "company",
+          "label": "ЦЕНТЪР ЗА ИЗСЛЕДВАНЕ НА ОТБРАНАТА И СИГУРНОСТТА",
+          "slug": null,
+          "uic": "177161138",
+          "legalForm": "ASSOC",
+          "status": "active",
+          "seat": "БЪЛГАРИЯ, гр. София, 1000"
+        },
+        {
+          "id": "mp:3252",
+          "type": "mp",
+          "mpId": 3252,
+          "label": "Мая Божидарова Манолова-Найденова",
+          "partyGroupShort": "СБГ",
+          "isCurrent": false,
+          "nsFolders": [
+            "40",
+            "41",
+            "42",
+            "43",
+            "45"
+          ]
+        }
+      ],
+      "pathEdges": [
+        {
+          "source": "mp:2389",
+          "target": "company:tr:177161138",
+          "kind": "tr_role",
+          "role": "ngo_representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "source": "mp:3252",
+          "target": "company:tr:177161138",
+          "kind": "tr_role",
+          "role": "ngo_representative",
           "isCurrent": true,
           "confidence": "medium"
         }
@@ -51519,6 +51621,137 @@
     },
     {
       "mpA": {
+        "mpId": 4802,
+        "nodeId": "mp:4802",
+        "label": "Иван Богомилов Петков",
+        "partyGroupShort": "БСП",
+        "nsFolders": [
+          "45",
+          "47",
+          "48",
+          "49",
+          "50",
+          "51"
+        ],
+        "isCurrent": false
+      },
+      "mpB": {
+        "mpId": 5268,
+        "nodeId": "mp:5268",
+        "label": "Румен Ангелов Миланов",
+        "partyGroupShort": "ПГ \"Прогресивна България\"",
+        "nsFolders": [
+          "52"
+        ],
+        "isCurrent": true
+      },
+      "path": {
+        "targetMpNodeId": "mp:5268",
+        "length": 4,
+        "nodeIds": [
+          "mp:4802",
+          "company:Чеси-Инс-Брокер-ООД",
+          "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+          "company:tr:207024454",
+          "mp:5268"
+        ],
+        "isAllCurrent": true,
+        "isAllHighConfidence": false
+      },
+      "pathNodes": [
+        {
+          "id": "mp:4802",
+          "type": "mp",
+          "mpId": 4802,
+          "label": "Иван Богомилов Петков",
+          "partyGroupShort": "БСП",
+          "isCurrent": false,
+          "nsFolders": [
+            "45",
+            "47",
+            "48",
+            "49",
+            "50",
+            "51"
+          ]
+        },
+        {
+          "id": "company:Чеси-Инс-Брокер-ООД",
+          "type": "company",
+          "label": "\"Чеси Инс Брокер\" ООД",
+          "slug": "Чеси-Инс-Брокер-ООД",
+          "uic": "115322442",
+          "legalForm": "OOD",
+          "status": "active",
+          "seat": "Пловдив"
+        },
+        {
+          "id": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+          "type": "person",
+          "label": "Богомил Иванов Петков"
+        },
+        {
+          "id": "company:tr:207024454",
+          "type": "company",
+          "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ШАХМАТ 64",
+          "slug": null,
+          "uic": "207024454",
+          "legalForm": "ASSOC",
+          "status": "active",
+          "seat": "БЪЛГАРИЯ, гр. София, 1000"
+        },
+        {
+          "id": "mp:5268",
+          "type": "mp",
+          "mpId": 5268,
+          "label": "Румен Ангелов Миланов",
+          "partyGroupShort": "ПГ \"Прогресивна България\"",
+          "isCurrent": true,
+          "nsFolders": [
+            "52"
+          ]
+        }
+      ],
+      "pathEdges": [
+        {
+          "source": "mp:4802",
+          "target": "company:Чеси-Инс-Брокер-ООД",
+          "kind": "declared_stake",
+          "role": "current_share",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+          "target": "company:Чеси-Инс-Брокер-ООД",
+          "kind": "tr_role",
+          "role": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+          "target": "company:tr:207024454",
+          "kind": "tr_role",
+          "role": "ngo_board",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "source": "mp:5268",
+          "target": "company:tr:207024454",
+          "kind": "tr_role",
+          "role": "ngo_board",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "score": 118,
+      "sharedCompanyCount": 0,
+      "crossParty": true
+    },
+    {
+      "mpA": {
         "mpId": 2636,
         "nodeId": "mp:2636",
         "label": "Иван Димитров Стойнов",
@@ -54092,270 +54325,6 @@
           "target": "company:tr:205432603",
           "kind": "tr_role",
           "role": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "score": 118,
-      "sharedCompanyCount": 0,
-      "crossParty": true
-    },
-    {
-      "mpA": {
-        "mpId": 5108,
-        "nodeId": "mp:5108",
-        "label": "Илко Пенков Илиев",
-        "partyGroupShort": "ПрБ",
-        "nsFolders": [],
-        "isCurrent": false
-      },
-      "mpB": {
-        "mpId": 5113,
-        "nodeId": "mp:5113",
-        "label": "Георги Иванов Георгиев",
-        "partyGroupShort": "ПГ на ГЕРБ – СДС",
-        "nsFolders": [
-          "48",
-          "49",
-          "50",
-          "51",
-          "52"
-        ],
-        "isCurrent": true
-      },
-      "path": {
-        "targetMpNodeId": "mp:5113",
-        "length": 4,
-        "nodeIds": [
-          "mp:5108",
-          "company:tr:125021188",
-          "person:ИВО ИЛКОВ ИЛИЕВ",
-          "company:tr:205931093",
-          "mp:5113"
-        ],
-        "isAllCurrent": true,
-        "isAllHighConfidence": false
-      },
-      "pathNodes": [
-        {
-          "id": "mp:5108",
-          "type": "mp",
-          "mpId": 5108,
-          "label": "Илко Пенков Илиев",
-          "partyGroupShort": "ПрБ",
-          "isCurrent": false,
-          "nsFolders": []
-        },
-        {
-          "id": "company:tr:125021188",
-          "type": "company",
-          "label": "МЕБЕЛ-СТИЛ",
-          "slug": null,
-          "uic": "125021188",
-          "legalForm": "OOD",
-          "status": "active",
-          "seat": null
-        },
-        {
-          "id": "person:ИВО ИЛКОВ ИЛИЕВ",
-          "type": "person",
-          "label": "Иво Илков Илиев"
-        },
-        {
-          "id": "company:tr:205931093",
-          "type": "company",
-          "label": "АНУБИС СТРОЙ",
-          "slug": null,
-          "uic": "205931093",
-          "legalForm": "EOOD",
-          "status": "active",
-          "seat": "БЪЛГАРИЯ, с. Челопеч"
-        },
-        {
-          "id": "mp:5113",
-          "type": "mp",
-          "mpId": 5113,
-          "label": "Георги Иванов Георгиев",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
-          "nsFolders": [
-            "48",
-            "49",
-            "50",
-            "51",
-            "52"
-          ]
-        }
-      ],
-      "pathEdges": [
-        {
-          "source": "mp:5108",
-          "target": "company:tr:125021188",
-          "kind": "tr_role",
-          "role": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "source": "person:ИВО ИЛКОВ ИЛИЕВ",
-          "target": "company:tr:125021188",
-          "kind": "tr_owner",
-          "role": "partner",
-          "isCurrent": true,
-          "confidence": "high"
-        },
-        {
-          "source": "person:ИВО ИЛКОВ ИЛИЕВ",
-          "target": "company:tr:205931093",
-          "kind": "tr_owner",
-          "role": "sole_owner",
-          "isCurrent": true,
-          "confidence": "high"
-        },
-        {
-          "source": "mp:5113",
-          "target": "company:tr:205931093",
-          "kind": "tr_role",
-          "role": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "score": 118,
-      "sharedCompanyCount": 0,
-      "crossParty": true
-    },
-    {
-      "mpA": {
-        "mpId": 4225,
-        "nodeId": "mp:4225",
-        "label": "Ирена Методиева Димова",
-        "partyGroupShort": "ГЕРБ-СДС",
-        "nsFolders": [
-          "44",
-          "45",
-          "46",
-          "47",
-          "48",
-          "49"
-        ],
-        "isCurrent": false
-      },
-      "mpB": {
-        "mpId": 5113,
-        "nodeId": "mp:5113",
-        "label": "Георги Иванов Георгиев",
-        "partyGroupShort": "ПГ на ГЕРБ – СДС",
-        "nsFolders": [
-          "48",
-          "49",
-          "50",
-          "51",
-          "52"
-        ],
-        "isCurrent": true
-      },
-      "path": {
-        "targetMpNodeId": "mp:5113",
-        "length": 4,
-        "nodeIds": [
-          "mp:4225",
-          "company:tr:111548344",
-          "person:ИЛИЯ ГЕОРГИЕВ ГЕОРГИЕВ",
-          "company:tr:130552297",
-          "mp:5113"
-        ],
-        "isAllCurrent": true,
-        "isAllHighConfidence": false
-      },
-      "pathNodes": [
-        {
-          "id": "mp:4225",
-          "type": "mp",
-          "mpId": 4225,
-          "label": "Ирена Методиева Димова",
-          "partyGroupShort": "ГЕРБ-СДС",
-          "isCurrent": false,
-          "nsFolders": [
-            "44",
-            "45",
-            "46",
-            "47",
-            "48",
-            "49"
-          ]
-        },
-        {
-          "id": "company:tr:111548344",
-          "type": "company",
-          "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО СВЕТИ КЛИМЕНТ ОХРИДСКИ ПРИ ПМПГ СВЕТИ КЛИМЕНТ ОХРИДСКИ",
-          "slug": null,
-          "uic": "111548344",
-          "legalForm": "ASSOC",
-          "status": "active",
-          "seat": "БЪЛГАРИЯ, гр. Монтана, 3400"
-        },
-        {
-          "id": "person:ИЛИЯ ГЕОРГИЕВ ГЕОРГИЕВ",
-          "type": "person",
-          "label": "Илия Георгиев Георгиев"
-        },
-        {
-          "id": "company:tr:130552297",
-          "type": "company",
-          "label": "ГЕО ПЕТ-М",
-          "slug": null,
-          "uic": "130552297",
-          "legalForm": "AD",
-          "status": "active",
-          "seat": "БЪЛГАРИЯ, гр. София, 1505"
-        },
-        {
-          "id": "mp:5113",
-          "type": "mp",
-          "mpId": 5113,
-          "label": "Георги Иванов Георгиев",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
-          "nsFolders": [
-            "48",
-            "49",
-            "50",
-            "51",
-            "52"
-          ]
-        }
-      ],
-      "pathEdges": [
-        {
-          "source": "mp:4225",
-          "target": "company:tr:111548344",
-          "kind": "tr_role",
-          "role": "ngo_representative",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "source": "person:ИЛИЯ ГЕОРГИЕВ ГЕОРГИЕВ",
-          "target": "company:tr:111548344",
-          "kind": "tr_role",
-          "role": "ngo_board",
-          "isCurrent": true,
-          "confidence": "high"
-        },
-        {
-          "source": "person:ИЛИЯ ГЕОРГИЕВ ГЕОРГИЕВ",
-          "target": "company:tr:130552297",
-          "kind": "tr_role",
-          "role": "director",
-          "isCurrent": true,
-          "confidence": "high"
-        },
-        {
-          "source": "mp:5113",
-          "target": "company:tr:130552297",
-          "kind": "tr_role",
-          "role": "director",
           "isCurrent": true,
           "confidence": "medium"
         }

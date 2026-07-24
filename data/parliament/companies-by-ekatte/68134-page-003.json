@@ -2,8 +2,188 @@
   "ekatte": "68134",
   "page": 3,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "Център-за-развитие-и-политики",
+      "displayName": "Център за развитие и политики",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 2843,
+          "mpName": "Константин Веселинов Попов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2843,
+          "mpName": "Константин Веселинов Попов",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3101,
+          "mpName": "Ивелина Веселинова Василева",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4258,
+          "mpName": "Вежди Летиф Рашидов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Чала-ООД",
+      "displayName": "Чала ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4719,
+          "mpName": "Петър Георгиев Кънев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Чес-Лайънс-ООД",
+      "displayName": "Чес Лайънс ООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 3352,
+          "mpName": "Антоанета Андонова Стефанова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ъпсурт-ООД",
+      "displayName": "Ъпсурт ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4316,
+          "mpName": "Христо Христов Петров",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Янков-ЕООД",
+      "displayName": "Янков ЕООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 3444,
+          "mpName": "Калоян Милков Янков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Янков-и-Ко-ООД",
+      "displayName": "Янков и Ко ООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 3444,
+          "mpName": "Калоян Милков Янков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Адвансд-Мениджмънт-Консултинг-ООД",
+      "displayName": "\"Адвансд Мениджмънт Консултинг\" ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4858,
+          "mpName": "Виктор Тенчев Папазов",
+          "role": "partner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 4858,
+          "mpName": "Виктор Тенчев Папазов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Валтранс-2001-ЕООД",
+      "displayName": "\"Валтранс 2001\" ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3322,
+          "mpName": "Крум Георгиев Дончев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Галакси-боулинг-Варна-ООД",
+      "displayName": "\"Галакси боулинг Варна\" ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3123,
+          "mpName": "ВЕСЕЛА НИКОЛАЕВА ЛЕЧЕВА",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ирис-Трейд-КонсултЕООД",
+      "displayName": "\"Ирис Трейд Консулт\"ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3681,
+          "mpName": "Николина Панайотова Ангелкова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МАЙ-Диеней-МАЧ-ООД",
+      "displayName": "\"МАЙ Диеней МАЧ\" ООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 2803,
+          "mpName": "Валери Мирчев Жаблянов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МРК-ООД",
+      "displayName": "\"МРК\" ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3123,
+          "mpName": "ВЕСЕЛА НИКОЛАЕВА ЛЕЧЕВА",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Тенис-рашеви-ООД",
       "displayName": "\"Тенис рашеви\" ООД",
@@ -44,45 +224,6 @@
           "mpId": 3101,
           "mpName": "Ивелина Веселинова Василева",
           "role": "ngo_board",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Алгафари-Ентъртейнмънт-ЕООД",
-      "displayName": "Алгафари Ентъртейнмънт ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4830,
-          "mpName": "Николай Нидал Алгафари",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Алгафари-ООД",
-      "displayName": "Алгафари ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4830,
-          "mpName": "Николай Нидал Алгафари",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Алзак-ЕООД",
-      "displayName": "Алзак ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4830,
-          "mpName": "Николай Нидал Алгафари",
-          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -279,6 +420,25 @@
           "mpId": 933,
           "mpName": "Владислав Евгениев Димитров",
           "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Грийн-Агро-груп-ООД",
+      "displayName": "Грийн Агро груп ООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 4385,
+          "mpName": "Вениамин Иванов Воденичаров",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4385,
+          "mpName": "Вениамин Иванов Воденичаров",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -702,6 +862,19 @@
       ]
     },
     {
+      "slug": "Лауреа-ООД",
+      "displayName": "Лауреа ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3254,
+          "mpName": "Атанас Петров Костадинов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Левис-Дивелопмънт-ООД",
       "displayName": "Левис Дивелопмънт ООД",
       "registeredOffice": "София (столица)",
@@ -741,227 +914,6 @@
           "mpId": 3694,
           "mpName": "Атанас Димитров Михнев",
           "role": "director",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Мадж.ио",
-      "displayName": "Мадж.ио",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 5229,
-          "mpName": "Божидар Пламенов Божанов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Монна-Интернешънъл",
-      "displayName": "Монна Интернешънъл",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1574",
-      "mps": [
-        {
-          "mpId": 3342,
-          "mpName": "Юлиян Милчев Ненчев",
-          "role": "sole_owner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3342,
-          "mpName": "Юлиян Милчев Ненчев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3342,
-          "mpName": "Юлиян Милчев Ненчев",
-          "role": "partner",
-          "isCurrent": false
-        }
-      ]
-    },
-    {
-      "slug": "НАПОИТЕЛНИ-СИСТЕМИ",
-      "displayName": "НАПОИТЕЛНИ СИСТЕМИ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1186",
-      "mps": [
-        {
-          "mpId": 4649,
-          "mpName": "Генади Събков Събков",
-          "role": "branch_manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5198,
-          "mpName": "Галин Неделчев Дурев",
-          "role": "director",
-          "isCurrent": true
-        },
-        {
-          "mpId": 909,
-          "mpName": "Емил Димитров Гущеров",
-          "role": "director",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Новосолар-ООД",
-      "displayName": "Новосолар ООД",
-      "registeredOffice": "СОФИЯ",
-      "mps": [
-        {
-          "mpId": 4190,
-          "mpName": "Калоян Тонев Икономов",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4190,
-          "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Орхание-1-ООД",
-      "displayName": "Орхание 1 ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3047,
-          "mpName": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Орхание-дистрибюшън-ООД",
-      "displayName": "Орхание дистрибюшън ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3047,
-          "mpName": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Психотерапевтични-и-консултантски-услуги-Александрова",
-      "displayName": "Психотерапевтични и консултантски услуги Александрова",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1434",
-      "mps": [
-        {
-          "mpId": 2936,
-          "mpName": "Миглена Дойкова Александрова",
-          "role": "sole_owner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2936,
-          "mpName": "Миглена Дойкова Александрова",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2936,
-          "mpName": "Миглена Дойкова Александрова",
-          "role": "partner",
-          "isCurrent": false
-        }
-      ]
-    },
-    {
-      "slug": "Раведас-ЕООД",
-      "displayName": "Раведас ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4252,
-          "mpName": "Гроздан Спасов Караджов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "РАЙЗЕН-ТЕХНОЛОДЖИ",
-      "displayName": "РАЙЗЕН ТЕХНОЛОДЖИ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1407",
-      "mps": [
-        {
-          "mpId": 1558,
-          "mpName": "Доброслав Дилянов Димитров",
-          "role": "director",
-          "isCurrent": true
-        },
-        {
-          "mpId": 1558,
-          "mpName": "Доброслав Дилянов Димитров",
-          "role": "actual_owner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 1558,
-          "mpName": "Доброслав Дилянов Димитров",
-          "role": "representative",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "РЕНТ-ФИКС",
-      "displayName": "РЕНТ ФИКС",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1415",
-      "mps": [
-        {
-          "mpId": 76,
-          "mpName": "Валентин Николов Милтенов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 76,
-          "mpName": "Валентин Николов Милтенов",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 76,
-          "mpName": "Валентин Николов Милтенов",
-          "role": "sole_owner",
-          "isCurrent": false
-        }
-      ]
-    },
-    {
-      "slug": "РОДОЛЮБЦИ-ЗА-БЪЛГАРИЯ",
-      "displayName": "РОДОЛЮБЦИ ЗА БЪЛГАРИЯ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1421",
-      "mps": [
-        {
-          "mpId": 4465,
-          "mpName": "Николай Георгиев Марков",
-          "role": "ngo_representative",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4465,
-          "mpName": "Николай Георгиев Марков",
-          "role": "ngo_board",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5006,
-          "mpName": "Ивелин Людмилов Михайлов",
-          "role": "ngo_board",
           "isCurrent": true
         }
       ]

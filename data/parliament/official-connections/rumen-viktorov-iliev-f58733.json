@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:rumen-viktorov-iliev-f58733",
   "nodes": [
     {
@@ -22,6 +22,15 @@
       "seat": null
     },
     {
+      "id": "official:vasil-angelov-mladenov-201008",
+      "type": "official",
+      "slug": "vasil-angelov-mladenov-201008",
+      "label": "Васил Ангелов Младенов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
       "id": "official:stefan-evgeniev-kisov-236819",
       "type": "official",
       "slug": "stefan-evgeniev-kisov-236819",
@@ -34,16 +43,19 @@
       "id": "person:СТОЯН НИКОЛАЕВ КОЛЕВ",
       "type": "person",
       "label": "Стоян Николаев Колев"
-    },
-    {
-      "id": "person:ВАСИЛ АНГЕЛОВ МЛАДЕНОВ",
-      "type": "person",
-      "label": "Васил Ангелов Младенов"
     }
   ],
   "edges": [
     {
       "source": "official:rumen-viktorov-iliev-f58733",
+      "target": "company:tr:202089131",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-angelov-mladenov-201008",
       "target": "company:tr:202089131",
       "kind": "tr_role",
       "role": "manager",
@@ -60,14 +72,6 @@
     },
     {
       "source": "person:СТОЯН НИКОЛАЕВ КОЛЕВ",
-      "target": "company:tr:202089131",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ВАСИЛ АНГЕЛОВ МЛАДЕНОВ",
       "target": "company:tr:202089131",
       "kind": "tr_role",
       "role": "manager",

@@ -5,6 +5,75 @@
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-05",
+    "entryNumber": "Г14840",
+    "controlHash": "123FB5E5",
+    "sourceUrl": "https://register.cacbg.bg/2025/B521EDE6-7635-4F56-B89B-FE03A2BA29D8218320.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27015.64041864579,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Маргарита Стоянова Младенова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на наследствен имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дневни пари за участие в Генералната асамблея на театрите на Европа в Чехия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 141.6278510913525,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дневни пари за участие в Генералната асамблея на театрите на Европа в Португалия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 184.57636911183488,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "margarita-stoyanova-mladenova-ed71bb",
+    "declarantName": "Маргарита Стоянова Младенова",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

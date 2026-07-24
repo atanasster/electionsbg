@@ -96,5 +96,103 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "mariyan-angelov-marinov-a8fe0d",
+    "declarantName": "Мариян Ангелов Маринов",
+    "institution": "Българските граждани заемащи длъжности в НАТО",
+    "positionTitle": "Представител",
+    "category": "international",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-04-01",
+    "entryNumber": "Г8848",
+    "controlHash": "EA49D3F6",
+    "sourceUrl": "https://register.cacbg.bg/2022/F2864CEF-01D8-40BA-9557-16B79BDE65EF141852.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13293.58891110168,
+        "amountEurSpouse": 6135.502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 79,
+        "builtAreaSqm": 79,
+        "acquiredYear": 2010,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 105000,
+        "valueEur": 53685.647525602944,
+        "holderName": "Мариян Ангелов Маринов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Търговище",
+        "municipality": "Търговище",
+        "areaSqm": 50,
+        "builtAreaSqm": 50,
+        "acquiredYear": 1980,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Иванка Стоименова Ангелова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Търговище",
+        "municipality": "Търговище",
+        "areaSqm": 350,
+        "builtAreaSqm": 55,
+        "acquiredYear": 1962,
+        "share": "1/12",
+        "currency": "BGN",
+        "amount": 6900,
+        "valueEur": 3527.9139802539075,
+        "holderName": "Иванка Стоименова Ангелова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено \"Каджар\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 37746,
+        "valueEur": 19299.22334763246,
+        "holderName": "Мариян Ангелов Маринов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

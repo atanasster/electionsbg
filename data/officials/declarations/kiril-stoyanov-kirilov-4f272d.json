@@ -252,5 +252,60 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "kiril-stoyanov-kirilov-4f272d",
+    "declarantName": "Кирил Стоянов Кирилов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-02",
+    "entryNumber": "Г8156",
+    "controlHash": "02255486",
+    "sourceUrl": "https://register.cacbg.bg/2024/3B190475-66D5-4047-B6D7-2DDF5FE5679E189772.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24000,
+        "valueEur": 12271.005148709244,
+        "holderName": "Кирил Стоянов Кирилов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "Заплати",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Кирил Стоянов Кирилов",
+        "isSpouse": false,
+        "legalBasis": "ДУГ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

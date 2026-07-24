@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:daniel-nikolov-cholakov-a5bd26",
+  "nodes": [
+    {
+      "id": "official:daniel-nikolov-cholakov-a5bd26",
+      "type": "official",
+      "slug": "daniel-nikolov-cholakov-a5bd26",
+      "label": "Даниел Николов Чолаков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Средец"
+    },
+    {
+      "id": "company:tr:102857021",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;БУРГАСКИ ВИСОКОТЕХНОЛОГИЧЕН БИЗНЕС ИНКУБАТОР&quot;",
+      "slug": null,
+      "uic": "102857021",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖЕЛЯЗКО ДИМИТРОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Желязко Димитров Вълчев"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА ЯНЧЕВА",
+      "type": "person",
+      "label": "Мария Димитрова Янчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-nikolov-cholakov-a5bd26",
+      "target": "company:tr:102857021",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-nikolov-cholakov-a5bd26",
+      "target": "company:tr:102857021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО ДИМИТРОВ ВЪЛЧЕВ",
+      "target": "company:tr:102857021",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ЯНЧЕВА",
+      "target": "company:tr:102857021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО ДИМИТРОВ ВЪЛЧЕВ",
+      "target": "company:tr:102857021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

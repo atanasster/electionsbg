@@ -1,14 +1,14 @@
 {
   "obshtina": "HKV11",
   "registryName": "Ивайловград",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
   "byRole": {
     "mayor": 1,
     "deputy_mayor": 2,
-    "council_chair": 0,
+    "council_chair": 1,
     "councillor": 12,
     "chief_architect": 1,
     "other": 0
@@ -48,6 +48,23 @@
       "roleRaw": "Заместник кмет",
       "municipality": "Ивайловград",
       "latestDeclarationYear": 2025
+    },
+    {
+      "slug": "bogdana-ivanova-bogdanova-9dc691",
+      "name": "Богдана Иванова Богданова",
+      "normalizedName": "БОГДАНА ИВАНОВА БОГДАНОВА",
+      "role": "council_chair",
+      "roleRaw": "Председател на ОбС",
+      "municipality": "Ивайловград",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 105,
+        "prefVotes": 41,
+        "isElected": true
+      }
     },
     {
       "slug": "ivan-georgiev-takuchev-75759e",

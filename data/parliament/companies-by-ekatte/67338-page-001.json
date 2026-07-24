@@ -2,7 +2,7 @@
   "ekatte": "67338",
   "page": 1,
   "totalPages": 1,
-  "count": 26,
+  "count": 27,
   "companies": [
     {
       "slug": "Биогард-БГ-ООД",
@@ -12,6 +12,19 @@
         {
           "mpId": 3459,
           "mpName": "Чавдар Борисов Божурски",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Видитерра-ЕООД",
+      "displayName": "\"Видитерра\" ЕООД",
+      "registeredOffice": "Сливен",
+      "mps": [
+        {
+          "mpId": 3249,
+          "mpName": "Владимир Стоянов Русев",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -279,19 +292,6 @@
       ]
     },
     {
-      "slug": "Видитерра-ЕООД",
-      "displayName": "\"Видитерра\" ЕООД",
-      "registeredOffice": "Сливен",
-      "mps": [
-        {
-          "mpId": 3249,
-          "mpName": "Владимир Стоянов Русев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "БИЙФ-МАСТЕР-ТИЙМ",
       "displayName": "БИЙФ МАСТЕР ТИЙМ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Сливен, 8800",
@@ -404,6 +404,19 @@
           "mpId": 825,
           "mpName": "Николай Георгиев Григоров",
           "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЦЕНТЪР-ЗА-ОБУЧЕНИЯ-И-КОНСУЛТАЦИИ",
+      "displayName": "ЦЕНТЪР ЗА ОБУЧЕНИЯ И КОНСУЛТАЦИИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сливен, 8801",
+      "mps": [
+        {
+          "mpId": 3032,
+          "mpName": "Валентина Василева Василева-Филаделфевс",
+          "role": "ngo_board",
           "isCurrent": true
         }
       ]

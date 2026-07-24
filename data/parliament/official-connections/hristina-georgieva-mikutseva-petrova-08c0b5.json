@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:hristina-georgieva-mikutseva-petrova-08c0b5",
   "nodes": [
     {
@@ -22,9 +22,13 @@
       "seat": null
     },
     {
-      "id": "person:ЦВЕТАН СВЕТОЗАРОВ СЪЙКОВ",
-      "type": "person",
-      "label": "Цветан Светозаров Съйков"
+      "id": "official:tsvetan-svetozarov-sikov-389536",
+      "type": "official",
+      "slug": "tsvetan-svetozarov-sikov-389536",
+      "label": "Цветан Светозаров Съйков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
     },
     {
       "id": "person:ХРИСТИНА ГЕОРГИЕВА МИКУЦЕВА - ПЕТРОВА",
@@ -42,12 +46,12 @@
       "confidence": "medium"
     },
     {
-      "source": "person:ЦВЕТАН СВЕТОЗАРОВ СЪЙКОВ",
+      "source": "official:tsvetan-svetozarov-sikov-389536",
       "target": "company:tr:128000893",
       "kind": "tr_role",
       "role": "manager",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
       "source": "person:ХРИСТИНА ГЕОРГИЕВА МИКУЦЕВА - ПЕТРОВА",

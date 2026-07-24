@@ -5,6 +5,50 @@
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г13412",
+    "controlHash": "604FBAE5",
+    "sourceUrl": "https://register.cacbg.bg/2025/CE7C13A2-13E0-4C09-B086-07B85B4344B2216622.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18144.7262798914,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Рила",
+        "municipality": "Рила",
+        "areaSqm": 300,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Татяна Иванова Симеонова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "tatyana-ivanova-simeonova-d8d3ca",
+    "declarantName": "Татяна Иванова Симеонова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

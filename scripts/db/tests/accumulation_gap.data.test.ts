@@ -98,7 +98,7 @@ test.skipIf(skip)("income excludes the opening year", async () => {
          SELECT COALESCE(SUM(w.income_eur), 0) expected
            FROM person_wealth_year w
           WHERE w.person_id = a.person_id
-            AND w.declaration_year > (x.g->>'fromYear')::int
+            AND w.period_year > (x.g->>'fromYear')::int
        ) e ON true
       WHERE x.g IS NOT NULL
         AND round((x.g->>'declaredIncomeEur')::numeric) <> round(e.expected)
@@ -124,7 +124,7 @@ test.skipIf(skip)(
            SELECT w.declaration_id
              FROM person_wealth_year w
             WHERE w.person_id = a.person_id
-            ORDER BY w.declaration_year DESC LIMIT 1
+            ORDER BY w.period_year DESC LIMIT 1
          ) last ON true
          JOIN LATERAL (
            SELECT count(*) expected FROM declaration_asset d

@@ -1,13 +1,13 @@
 {
   "obshtina": "PVN37",
   "registryName": "Червен бряг",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 3,
+    "deputy_mayor": 4,
     "council_chair": 1,
     "councillor": 19,
     "chief_architect": 1,
@@ -53,6 +53,15 @@
       "slug": "stefka-tsvetkova-lazarova-f922c2",
       "name": "Стефка Цветкова Лазарова",
       "normalizedName": "СТЕФКА ЦВЕТКОВА ЛАЗАРОВА",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Червен бряг",
+      "latestDeclarationYear": 2025
+    },
+    {
+      "slug": "teodor-bozhidarov-stavrev-70befd",
+      "name": "Теодор Божидаров Ставрев",
+      "normalizedName": "ТЕОДОР БОЖИДАРОВ СТАВРЕВ",
       "role": "deputy_mayor",
       "roleRaw": "Заместник кмет",
       "municipality": "Червен бряг",

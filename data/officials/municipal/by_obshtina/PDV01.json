@@ -1,13 +1,13 @@
 {
   "obshtina": "PDV01",
   "registryName": "Асеновград",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
   "byRole": {
     "mayor": 1,
-    "deputy_mayor": 2,
+    "deputy_mayor": 3,
     "council_chair": 1,
     "councillor": 32,
     "chief_architect": 1,
@@ -49,6 +49,15 @@
         "prefVotes": 111,
         "isElected": true
       }
+    },
+    {
+      "slug": "stoyan-radnev-dimitrov-901339",
+      "name": "Стоян Раднев Димитров",
+      "normalizedName": "СТОЯН РАДНЕВ ДИМИТРОВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Асеновград",
+      "latestDeclarationYear": 2025
     },
     {
       "slug": "teno-nikolov-manolov-5c407e",

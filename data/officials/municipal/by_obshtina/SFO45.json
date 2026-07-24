@@ -1,7 +1,7 @@
 {
   "obshtina": "SFO45",
   "registryName": "Сливница",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 1,
     "council_chair": 1,
-    "councillor": 10,
+    "councillor": 11,
     "chief_architect": 1,
     "other": 0
   },
@@ -97,6 +97,23 @@
         "partyCanonicalId": null,
         "listPos": 102,
         "prefVotes": 184,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "liliya-lyubomirova-dimitrova-vasileva-3459d8",
+      "name": "Лилия Любомирова Димитрова-Василева",
+      "normalizedName": "ЛИЛИЯ ЛЮБОМИРОВА ДИМИТРОВА-ВАСИЛЕВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Сливница",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ВЪЗРАЖДАНЕ",
+        "partyCanonicalId": "p_7",
+        "listPos": 103,
+        "prefVotes": 127,
         "isElected": true
       }
     },

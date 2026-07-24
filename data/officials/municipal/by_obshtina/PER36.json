@@ -1,7 +1,7 @@
 {
   "obshtina": "PER36",
   "registryName": "Радомир",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 14,
+    "councillor": 15,
     "chief_architect": 1,
     "other": 0
   },
@@ -216,6 +216,23 @@
         "partyCanonicalId": "p_67",
         "listPos": 104,
         "prefVotes": 99,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "kalin-hristov-ivanov-2e57a6",
+      "name": "Калин Христов Иванов",
+      "normalizedName": "КАЛИН ХРИСТОВ ИВАНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Радомир",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БЪДЕЩЕ ЗА РОДИНАТА",
+        "partyCanonicalId": null,
+        "listPos": 101,
+        "prefVotes": 166,
         "isElected": true
       }
     },

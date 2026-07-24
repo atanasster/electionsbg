@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-24T03:36:34.038Z",
+  "generatedAt": "2026-07-24T16:20:46.312Z",
   "all": {
     "topMakes": [
       {
         "make": "Mercedes-Benz",
-        "mpCount": 58,
-        "vehicleCount": 72,
+        "mpCount": 60,
+        "vehicleCount": 75,
         "sampleMpIds": [
           2679,
           2706,
@@ -43,8 +43,8 @@
       },
       {
         "make": "Volkswagen",
-        "mpCount": 43,
-        "vehicleCount": 53,
+        "mpCount": 44,
+        "vehicleCount": 55,
         "sampleMpIds": [
           2641,
           2665,
@@ -56,8 +56,8 @@
       },
       {
         "make": "Audi",
-        "mpCount": 40,
-        "vehicleCount": 43,
+        "mpCount": 41,
+        "vehicleCount": 44,
         "sampleMpIds": [
           2659,
           2668,
@@ -82,8 +82,8 @@
       },
       {
         "make": "Opel",
-        "mpCount": 24,
-        "vehicleCount": 28,
+        "mpCount": 26,
+        "vehicleCount": 31,
         "sampleMpIds": [
           2641,
           2715,
@@ -95,8 +95,8 @@
       },
       {
         "make": "Ford",
-        "mpCount": 22,
-        "vehicleCount": 27,
+        "mpCount": 23,
+        "vehicleCount": 28,
         "sampleMpIds": [
           2803,
           2817,
@@ -104,6 +104,19 @@
           2836,
           2934,
           3079
+        ]
+      },
+      {
+        "make": "Hyundai",
+        "mpCount": 20,
+        "vehicleCount": 22,
+        "sampleMpIds": [
+          2695,
+          2763,
+          2870,
+          3177,
+          3222,
+          3869
         ]
       },
       {
@@ -120,19 +133,6 @@
         ]
       },
       {
-        "make": "Hyundai",
-        "mpCount": 18,
-        "vehicleCount": 19,
-        "sampleMpIds": [
-          2695,
-          2763,
-          2870,
-          3177,
-          3222,
-          4059
-        ]
-      },
-      {
         "make": "Renault",
         "mpCount": 13,
         "vehicleCount": 15,
@@ -146,19 +146,6 @@
         ]
       },
       {
-        "make": "Peugeot",
-        "mpCount": 12,
-        "vehicleCount": 15,
-        "sampleMpIds": [
-          2648,
-          3067,
-          3162,
-          3204,
-          3272,
-          3300
-        ]
-      },
-      {
         "make": "Honda",
         "mpCount": 12,
         "vehicleCount": 13,
@@ -169,6 +156,19 @@
           2973,
           3089,
           4009
+        ]
+      },
+      {
+        "make": "Peugeot",
+        "mpCount": 11,
+        "vehicleCount": 14,
+        "sampleMpIds": [
+          2648,
+          3067,
+          3162,
+          3204,
+          3272,
+          3300
         ]
       },
       {
@@ -199,21 +199,21 @@
       },
       {
         "make": "Kia",
-        "mpCount": 8,
-        "vehicleCount": 10,
+        "mpCount": 9,
+        "vehicleCount": 11,
         "sampleMpIds": [
+          2942,
           3572,
           3731,
           3942,
           4220,
-          4225,
-          4873
+          4225
         ]
       },
       {
         "make": "Citroën",
-        "mpCount": 8,
-        "vehicleCount": 9,
+        "mpCount": 7,
+        "vehicleCount": 8,
         "sampleMpIds": [
           2939,
           3047,
@@ -374,6 +374,15 @@
         ]
       },
       {
+        "make": "Range Rover",
+        "mpCount": 2,
+        "vehicleCount": 2,
+        "sampleMpIds": [
+          2734,
+          4738
+        ]
+      },
+      {
         "make": "Trabant",
         "mpCount": 2,
         "vehicleCount": 2,
@@ -455,14 +464,6 @@
         ]
       },
       {
-        "make": "Range Rover",
-        "mpCount": 1,
-        "vehicleCount": 1,
-        "sampleMpIds": [
-          4738
-        ]
-      },
-      {
         "make": "Saab",
         "mpCount": 1,
         "vehicleCount": 1,
@@ -498,6 +499,7 @@
     "unmatchedSamples": [
       "ЛЕК АВТОМОБИЛ",
       "ТЕК 415 Е",
+      "Фолксвоген Голф",
       "ТОЙТА АВЕНСИС",
       "Huyndai Tucson",
       "дайхатсу териос",
@@ -511,7 +513,7 @@
       "КНАУС 510",
       "Волксваген Пасат"
     ],
-    "unmatchedMpCount": 13
+    "unmatchedMpCount": 14
   },
   "byNs": {
     "39": {
@@ -791,6 +793,19 @@
           ]
         },
         {
+          "make": "Ford",
+          "mpCount": 6,
+          "vehicleCount": 8,
+          "sampleMpIds": [
+            2803,
+            2817,
+            2836,
+            4108,
+            4374,
+            4911
+          ]
+        },
+        {
           "make": "Škoda",
           "mpCount": 6,
           "vehicleCount": 6,
@@ -801,18 +816,6 @@
             3252,
             4304,
             4326
-          ]
-        },
-        {
-          "make": "Ford",
-          "mpCount": 5,
-          "vehicleCount": 7,
-          "sampleMpIds": [
-            2803,
-            2817,
-            2836,
-            4374,
-            4911
           ]
         },
         {
@@ -850,6 +853,16 @@
           ]
         },
         {
+          "make": "Opel",
+          "mpCount": 3,
+          "vehicleCount": 7,
+          "sampleMpIds": [
+            4108,
+            4304,
+            4326
+          ]
+        },
+        {
           "make": "Audi",
           "mpCount": 3,
           "vehicleCount": 3,
@@ -867,15 +880,6 @@
             2723,
             2803,
             3172
-          ]
-        },
-        {
-          "make": "Opel",
-          "mpCount": 2,
-          "vehicleCount": 5,
-          "sampleMpIds": [
-            4304,
-            4326
           ]
         },
         {
@@ -1292,6 +1296,19 @@
           ]
         },
         {
+          "make": "Opel",
+          "mpCount": 7,
+          "vehicleCount": 11,
+          "sampleMpIds": [
+            3116,
+            3155,
+            3274,
+            4108,
+            4304,
+            4326
+          ]
+        },
+        {
           "make": "BMW",
           "mpCount": 7,
           "vehicleCount": 9,
@@ -1315,19 +1332,6 @@
             4720,
             5100,
             5216
-          ]
-        },
-        {
-          "make": "Opel",
-          "mpCount": 6,
-          "vehicleCount": 9,
-          "sampleMpIds": [
-            3116,
-            3155,
-            3274,
-            4304,
-            4326,
-            4827
           ]
         },
         {
@@ -1368,16 +1372,6 @@
           ]
         },
         {
-          "make": "Peugeot",
-          "mpCount": 3,
-          "vehicleCount": 4,
-          "sampleMpIds": [
-            3162,
-            4879,
-            4991
-          ]
-        },
-        {
           "make": "Honda",
           "mpCount": 3,
           "vehicleCount": 3,
@@ -1408,6 +1402,24 @@
           ]
         },
         {
+          "make": "Peugeot",
+          "mpCount": 2,
+          "vehicleCount": 3,
+          "sampleMpIds": [
+            3162,
+            4879
+          ]
+        },
+        {
+          "make": "Ford",
+          "mpCount": 2,
+          "vehicleCount": 2,
+          "sampleMpIds": [
+            4108,
+            5236
+          ]
+        },
+        {
           "make": "Lexus",
           "mpCount": 2,
           "vehicleCount": 2,
@@ -1435,27 +1447,11 @@
           ]
         },
         {
-          "make": "Citroën",
-          "mpCount": 1,
-          "vehicleCount": 1,
-          "sampleMpIds": [
-            4991
-          ]
-        },
-        {
           "make": "Daihatsu",
           "mpCount": 1,
           "vehicleCount": 1,
           "sampleMpIds": [
             3453
-          ]
-        },
-        {
-          "make": "Ford",
-          "mpCount": 1,
-          "vehicleCount": 1,
-          "sampleMpIds": [
-            5236
           ]
         },
         {
@@ -2131,15 +2127,15 @@
       "topMakes": [
         {
           "make": "Mercedes-Benz",
-          "mpCount": 16,
-          "vehicleCount": 21,
+          "mpCount": 17,
+          "vehicleCount": 23,
           "sampleMpIds": [
+            3869,
             3901,
             4059,
             4116,
             4272,
-            4325,
-            4552
+            4325
           ]
         },
         {
@@ -2195,6 +2191,19 @@
           ]
         },
         {
+          "make": "Hyundai",
+          "mpCount": 8,
+          "vehicleCount": 9,
+          "sampleMpIds": [
+            3869,
+            4059,
+            4295,
+            4752,
+            4762,
+            5102
+          ]
+        },
+        {
           "make": "Audi",
           "mpCount": 8,
           "vehicleCount": 8,
@@ -2218,19 +2227,6 @@
             4326,
             4658,
             4827
-          ]
-        },
-        {
-          "make": "Hyundai",
-          "mpCount": 7,
-          "vehicleCount": 7,
-          "sampleMpIds": [
-            4059,
-            4295,
-            4752,
-            4762,
-            5102,
-            5172
           ]
         },
         {
@@ -2562,6 +2558,19 @@
           ]
         },
         {
+          "make": "Ford",
+          "mpCount": 8,
+          "vehicleCount": 10,
+          "sampleMpIds": [
+            4108,
+            4707,
+            4911,
+            4928,
+            5236,
+            5244
+          ]
+        },
+        {
           "make": "Hyundai",
           "mpCount": 8,
           "vehicleCount": 8,
@@ -2575,29 +2584,16 @@
           ]
         },
         {
-          "make": "Ford",
-          "mpCount": 7,
-          "vehicleCount": 9,
-          "sampleMpIds": [
-            4707,
-            4911,
-            4928,
-            5236,
-            5244,
-            5247
-          ]
-        },
-        {
           "make": "Opel",
-          "mpCount": 6,
-          "vehicleCount": 9,
+          "mpCount": 7,
+          "vehicleCount": 11,
           "sampleMpIds": [
+            4108,
             4152,
             4273,
             4304,
             4326,
-            4658,
-            4827
+            4658
           ]
         },
         {

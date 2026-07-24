@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:malinka-ivanova-tsvetkova-786664",
+  "nodes": [
+    {
+      "id": "official:malinka-ivanova-tsvetkova-786664",
+      "type": "official",
+      "slug": "malinka-ivanova-tsvetkova-786664",
+      "label": "Малинка Иванова Цветкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114107390",
+      "type": "company",
+      "label": "ПРОСВЕТА 1923",
+      "slug": null,
+      "uic": "114107390",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Маринов Стефанов"
+    },
+    {
+      "id": "person:ЯНИТА АЛЕКСАНДРОВА КОЦЕВА",
+      "type": "person",
+      "label": "Янита Александрова Коцева"
+    },
+    {
+      "id": "person:ИЛИЯНА РУСЕВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Илияна Русева Кръстева"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА МАНЕВА МИТЕВА",
+      "type": "person",
+      "label": "Веселина Манева Митева"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ИЛИЕВА ПЕНОВА",
+      "type": "person",
+      "label": "Веселка Илиева Пенова"
+    },
+    {
+      "id": "person:ЯНА АЛЕКСАНДРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Яна Александрова Иванова"
+    },
+    {
+      "id": "person:НЕВЯНКА ЛАЧЕВА РУСЕНОВА",
+      "type": "person",
+      "label": "Невянка Лачева Русенова"
+    },
+    {
+      "id": "person:ИВАН ТЕОДОСИЕВ КИРИЛОВ",
+      "type": "person",
+      "label": "Иван  Теодосиев Кирилов"
+    },
+    {
+      "id": "person:КРАСИМИР ПЕТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Красимир Петров Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:malinka-ivanova-tsvetkova-786664",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИТА АЛЕКСАНДРОВА КОЦЕВА",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА РУСЕВА КРЪСТЕВА",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА МАНЕВА МИТЕВА",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ИЛИЕВА ПЕНОВА",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА АЛЕКСАНДРОВА ИВАНОВА",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИТА АЛЕКСАНДРОВА КОЦЕВА",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЯНКА ЛАЧЕВА РУСЕНОВА",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТЕОДОСИЕВ КИРИЛОВ",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТРОВ ИВАНОВ",
+      "target": "company:tr:114107390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

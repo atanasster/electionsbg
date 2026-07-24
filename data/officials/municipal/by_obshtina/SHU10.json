@@ -1,7 +1,7 @@
 {
   "obshtina": "SHU10",
   "registryName": "Върбица",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 1,
     "council_chair": 1,
-    "councillor": 15,
+    "councillor": 16,
     "chief_architect": 1,
     "other": 0
   },
@@ -318,6 +318,23 @@
         "partyCanonicalId": "p_16",
         "listPos": 105,
         "prefVotes": 5,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "yanaki-ivanov-yanakiev-fbe00c",
+      "name": "Янаки Иванов Янакиев",
+      "normalizedName": "ЯНАКИ ИВАНОВ ЯНАКИЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Върбица",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Движение за права и свободи – ДПС",
+        "partyCanonicalId": "p_16",
+        "listPos": 110,
+        "prefVotes": 1,
         "isElected": true
       }
     }

@@ -1,7 +1,7 @@
 {
   "obshtina": "RAZ29",
   "registryName": "Самуил",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 15,
+    "councillor": 16,
     "chief_architect": 0,
     "other": 0
   },
@@ -115,6 +115,23 @@
         "partyCanonicalId": "p_16",
         "listPos": 110,
         "prefVotes": 5,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "ersin-fevzi-ismail-a01cbe",
+      "name": "Ерсин Февзи Исмаил",
+      "normalizedName": "ЕРСИН ФЕВЗИ ИСМАИЛ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Самуил",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Движение за права и свободи – ДПС",
+        "partyCanonicalId": "p_16",
+        "listPos": 113,
+        "prefVotes": 6,
         "isElected": true
       }
     },

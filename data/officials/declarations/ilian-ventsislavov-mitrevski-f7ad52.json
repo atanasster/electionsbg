@@ -23,5 +23,67 @@
     ],
     "assets": [],
     "events": []
+  },
+  {
+    "slug": "ilian-ventsislavov-mitrevski-f7ad52",
+    "declarantName": "Илиан Венциславов Митревски",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-29",
+    "entryNumber": "Г10327",
+    "controlHash": "A7C88C01",
+    "sourceUrl": "https://register.cacbg.bg/2024/4C6EDDB2-E877-4096-8FE0-E8301A0A9D2A192019.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4622.078606013815,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "град Симитли, кв. Ораново",
+        "municipality": "Симитли",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Илиан Венциславов Митревски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фалксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Илиан Венциславов Митревски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

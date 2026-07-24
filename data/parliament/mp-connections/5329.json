@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:5329",
   "nodes": [
     {
@@ -41,6 +41,15 @@
       "partyGroupShort": "БСП-ОЛ",
       "isCurrent": false,
       "nsFolders": []
+    },
+    {
+      "id": "official:georgi-nedkov-kyuchukov-79897c",
+      "type": "official",
+      "slug": "georgi-nedkov-kyuchukov-79897c",
+      "label": "Георги Недков Кючуков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
     },
     {
       "id": "person:ЕВЛОГИ ПЕТКОВ САВОВ",
@@ -128,6 +137,22 @@
     },
     {
       "source": "mp:2528",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-nedkov-kyuchukov-79897c",
+      "target": "company:tr:207141518",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-nedkov-kyuchukov-79897c",
       "target": "company:tr:207141518",
       "kind": "tr_role",
       "role": "ngo_board",

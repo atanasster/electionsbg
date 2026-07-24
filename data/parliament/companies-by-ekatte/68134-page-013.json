@@ -2,8 +2,21 @@
   "ekatte": "68134",
   "page": 13,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "ИНТЕЛЕКТА-ГРУП",
+      "displayName": "ИНТЕЛЕКТА ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1359",
+      "mps": [
+        {
+          "mpId": 3914,
+          "mpName": "Инна Владимирова Иванова",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Интер-солар-ЕИК-200597348-софия",
       "displayName": "Интер солар ЕИК 200597348 софия",
@@ -637,19 +650,6 @@
           "mpId": 827,
           "mpName": "Надя Димитрова Иванова",
           "role": "manager",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "МЕЧ-Секюрити-ЕООД",
-      "displayName": "МЕЧ - Секюрити ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4773,
-          "mpName": "Емил Димитров Трифонов",
-          "role": "declared_stake",
           "isCurrent": true
         }
       ]

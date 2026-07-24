@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:5113",
   "nodes": [
     {
@@ -76,6 +76,26 @@
       "legalForm": "OOD",
       "status": "active",
       "seat": "Плоски"
+    },
+    {
+      "id": "company:tr:201549826",
+      "type": "company",
+      "label": "ВАТО БГ",
+      "slug": null,
+      "uic": "201549826",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:127533205",
+      "type": "company",
+      "label": "Сдружение на ловците и риболовците &quot;Станата&quot;",
+      "slug": null,
+      "uic": "127533205",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
     },
     {
       "id": "company:tr:123544268",
@@ -1828,16 +1848,6 @@
       "seat": "БЪЛГАРИЯ, гр. София, 1700"
     },
     {
-      "id": "company:tr:127533205",
-      "type": "company",
-      "label": "Сдружение на ловците и риболовците &quot;Станата&quot;",
-      "slug": null,
-      "uic": "127533205",
-      "legalForm": "ASSOC",
-      "status": "active",
-      "seat": null
-    },
-    {
       "id": "company:tr:206660360",
       "type": "company",
       "label": "ТЕХНОПЛЕЙС 7",
@@ -2066,6 +2076,125 @@
       "id": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
       "type": "person",
       "label": "Георги Иванов Георгиев"
+    },
+    {
+      "id": "official:yalchn-ismail-rasim-67b1a8",
+      "type": "official",
+      "slug": "yalchn-ismail-rasim-67b1a8",
+      "label": "Ялчън Исмаил Расим",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "person:ИВАЙЛО КИРИЛОВ ТОШЕВ",
+      "type": "person",
+      "label": "Ивайло Кирилов Тошев"
+    },
+    {
+      "id": "person:ДЯКО СЛАВОВ ЧЕРНЕВ",
+      "type": "person",
+      "label": "Дяко Славов Чернев"
+    },
+    {
+      "id": "person:ПЕЙЧО ВАСИЛЕВ ПЕЙЧЕВ",
+      "type": "person",
+      "label": "Пейчо Василев Пейчев"
+    },
+    {
+      "id": "person:КАДИР АХМЕД БОДУР",
+      "type": "person",
+      "label": "Кадир Ахмед Бодур"
+    },
+    {
+      "id": "person:ИВАЙЛО ДИМЧЕВ ДИЯНОВ",
+      "type": "person",
+      "label": "Ивайло Димчев Диянов"
+    },
+    {
+      "id": "person:ФЕРХАН ФАДЛИЕВ МЕХМЕДОВ",
+      "type": "person",
+      "label": "Ферхан Фадлиев Мехмедов"
+    },
+    {
+      "id": "person:АНТОН ХРИСТОВ ТУНЧЕВ",
+      "type": "person",
+      "label": "Антон Христов Тунчев"
+    },
+    {
+      "id": "person:НАДЖИ КЯЗИМ ЕЮБ",
+      "type": "person",
+      "label": "Наджи Кязим Еюб"
+    },
+    {
+      "id": "person:ШЕНОЛ ФЕВЗИЕВ КЯЗИМОВ",
+      "type": "person",
+      "label": "Шенол Февзиев Кязимов"
+    },
+    {
+      "id": "person:ДОБРИН ЯНКОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Добрин Янков Йорданов"
+    },
+    {
+      "id": "person:РУМЯНА ДРАГОМИРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Румяна Драгомирова Димитрова"
+    },
+    {
+      "id": "person:ПЛАМЕН ПЕТРОВ КОЛЕВ",
+      "type": "person",
+      "label": "Пламен Петров Колев"
+    },
+    {
+      "id": "person:ВЕДАТ МЕТИНОВ ВЕДАТОВ",
+      "type": "person",
+      "label": "Ведат Метинов Ведатов"
+    },
+    {
+      "id": "person:КУДРЕТ АХМЕД МЕХМЕД",
+      "type": "person",
+      "label": "Кудрет Ахмед Мехмед"
+    },
+    {
+      "id": "person:ПЕТЪР ЖЕЛЕВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Петър Желев Панайотов"
+    },
+    {
+      "id": "person:ТОДОР АНГЕЛОВ ВАНГЕЛОВ",
+      "type": "person",
+      "label": "Тодор Ангелов Вангелов"
+    },
+    {
+      "id": "person:ЮСЕИН МЕХМЕД ЮМЕР",
+      "type": "person",
+      "label": "Юсеин Мехмед Юмер"
+    },
+    {
+      "id": "person:АЙДЪН АХМЕД КЯМИЛ",
+      "type": "person",
+      "label": "Айдън Ахмед Кямил"
+    },
+    {
+      "id": "person:МИЛЕН МИЛЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Милен Милчев Иванов"
+    },
+    {
+      "id": "person:ИВАН ИВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Иван Иванов Димитров"
+    },
+    {
+      "id": "person:ПЛАМЕН ИВАНОВ БОЖИЛОВ",
+      "type": "person",
+      "label": "Пламен Иванов Божилов"
+    },
+    {
+      "id": "person:ХРИСТО ЯНКОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Христо Янков Господинов"
     },
     {
       "id": "person:ГЕОРГИ ТОДОРОВ ГЕОРГИЕВ",
@@ -3857,86 +3986,6 @@
       "label": "Билд Проджект Инвест"
     },
     {
-      "id": "person:ИВАЙЛО КИРИЛОВ ТОШЕВ",
-      "type": "person",
-      "label": "Ивайло Кирилов Тошев"
-    },
-    {
-      "id": "person:ДЯКО СЛАВОВ ЧЕРНЕВ",
-      "type": "person",
-      "label": "Дяко Славов Чернев"
-    },
-    {
-      "id": "person:ПЕЙЧО ВАСИЛЕВ ПЕЙЧЕВ",
-      "type": "person",
-      "label": "Пейчо Василев Пейчев"
-    },
-    {
-      "id": "person:КАДИР АХМЕД БОДУР",
-      "type": "person",
-      "label": "Кадир Ахмед Бодур"
-    },
-    {
-      "id": "person:ИВАЙЛО ДИМЧЕВ ДИЯНОВ",
-      "type": "person",
-      "label": "Ивайло Димчев Диянов"
-    },
-    {
-      "id": "person:ФЕРХАН ФАДЛИЕВ МЕХМЕДОВ",
-      "type": "person",
-      "label": "Ферхан Фадлиев Мехмедов"
-    },
-    {
-      "id": "person:АНТОН ХРИСТОВ ТУНЧЕВ",
-      "type": "person",
-      "label": "Антон Христов Тунчев"
-    },
-    {
-      "id": "person:НАДЖИ КЯЗИМ ЕЮБ",
-      "type": "person",
-      "label": "Наджи Кязим Еюб"
-    },
-    {
-      "id": "person:ШЕНОЛ ФЕВЗИЕВ КЯЗИМОВ",
-      "type": "person",
-      "label": "Шенол Февзиев Кязимов"
-    },
-    {
-      "id": "person:ДОБРИН ЯНКОВ ЙОРДАНОВ",
-      "type": "person",
-      "label": "Добрин Янков Йорданов"
-    },
-    {
-      "id": "person:РУМЯНА ДРАГОМИРОВА ДИМИТРОВА",
-      "type": "person",
-      "label": "Румяна Драгомирова Димитрова"
-    },
-    {
-      "id": "person:ПЛАМЕН ПЕТРОВ КОЛЕВ",
-      "type": "person",
-      "label": "Пламен Петров Колев"
-    },
-    {
-      "id": "person:ВЕДАТ МЕТИНОВ ВЕДАТОВ",
-      "type": "person",
-      "label": "Ведат Метинов Ведатов"
-    },
-    {
-      "id": "person:КУДРЕТ АХМЕД МЕХМЕД",
-      "type": "person",
-      "label": "Кудрет Ахмед Мехмед"
-    },
-    {
-      "id": "person:ПЕТЪР ЖЕЛЕВ ПАНАЙОТОВ",
-      "type": "person",
-      "label": "Петър Желев Панайотов"
-    },
-    {
-      "id": "person:ТОДОР АНГЕЛОВ ВАНГЕЛОВ",
-      "type": "person",
-      "label": "Тодор Ангелов Вангелов"
-    },
-    {
       "id": "person:СТЕФАН РОСЕНОВ ПОПАДИИН",
       "type": "person",
       "label": "Стефан Росенов Попадиин"
@@ -4862,6 +4911,22 @@
       "role": "current_share",
       "isCurrent": true,
       "confidence": "high"
+    },
+    {
+      "source": "mp:5113",
+      "target": "company:tr:201549826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5113",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
     },
     {
       "source": "mp:5113",
@@ -7025,14 +7090,6 @@
     },
     {
       "source": "mp:5113",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "medium"
-    },
-    {
-      "source": "mp:5113",
       "target": "company:tr:206660360",
       "kind": "tr_role",
       "role": "manager",
@@ -7356,6 +7413,230 @@
       "target": "company:Ристовица-ООД",
       "kind": "tr_role",
       "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ НАНЕВ МАРКОВ",
+      "target": "company:tr:201549826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕОРГИЕВ ИЛИЕВ",
+      "target": "company:tr:201549826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:201549826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yalchn-ismail-rasim-67b1a8",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО КИРИЛОВ ТОШЕВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЯКО СЛАВОВ ЧЕРНЕВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕЙЧО ВАСИЛЕВ ПЕЙЧЕВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАДИР АХМЕД БОДУР",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ДИМЧЕВ ДИЯНОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРХАН ФАДЛИЕВ МЕХМЕДОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ХРИСТОВ ТУНЧЕВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЖИ КЯЗИМ ЕЮБ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕНОЛ ФЕВЗИЕВ КЯЗИМОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИН ЯНКОВ ЙОРДАНОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО КИРИЛОВ ТОШЕВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ДРАГОМИРОВА ДИМИТРОВА",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ПЕТРОВ КОЛЕВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕДАТ МЕТИНОВ ВЕДАТОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КУДРЕТ АХМЕД МЕХМЕД",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЖЕЛЕВ ПАНАЙОТОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР АНГЕЛОВ ВАНГЕЛОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮСЕИН МЕХМЕД ЮМЕР",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙДЪН АХМЕД КЯМИЛ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН МИЛЧЕВ ИВАНОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ИВАНОВ БОЖИЛОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЯНКОВ ГОСПОДИНОВ",
+      "target": "company:tr:127533205",
+      "kind": "tr_role",
+      "role": "ngo_board",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -12956,150 +13237,6 @@
       "target": "company:tr:206676731",
       "kind": "tr_owner",
       "role": "partner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ИВАЙЛО КИРИЛОВ ТОШЕВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_representative",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ДЯКО СЛАВОВ ЧЕРНЕВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ПЕЙЧО ВАСИЛЕВ ПЕЙЧЕВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:КАДИР АХМЕД БОДУР",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ИВАЙЛО ДИМЧЕВ ДИЯНОВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ФЕРХАН ФАДЛИЕВ МЕХМЕДОВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:АНТОН ХРИСТОВ ТУНЧЕВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:НАДЖИ КЯЗИМ ЕЮБ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ШЕНОЛ ФЕВЗИЕВ КЯЗИМОВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ДОБРИН ЯНКОВ ЙОРДАНОВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ИВАЙЛО КИРИЛОВ ТОШЕВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:РУМЯНА ДРАГОМИРОВА ДИМИТРОВА",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ПЛАМЕН ПЕТРОВ КОЛЕВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ВЕДАТ МЕТИНОВ ВЕДАТОВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:КУДРЕТ АХМЕД МЕХМЕД",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ПЕТЪР ЖЕЛЕВ ПАНАЙОТОВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ТОДОР АНГЕЛОВ ВАНГЕЛОВ",
-      "target": "company:tr:127533205",
-      "kind": "tr_role",
-      "role": "ngo_board",
       "isCurrent": true,
       "confidence": "high"
     },

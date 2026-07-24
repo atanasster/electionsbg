@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:4385",
   "nodes": [
     {
@@ -14,10 +14,10 @@
       ]
     },
     {
-      "id": "company:Грийн-Агро-Груп-ООД",
+      "id": "company:Грийн-Агро-груп-ООД",
       "type": "company",
-      "label": "Грийн Агро Груп ООД",
-      "slug": "Грийн-Агро-Груп-ООД",
+      "label": "Грийн Агро груп ООД",
+      "slug": "Грийн-Агро-груп-ООД",
       "uic": "131351354",
       "legalForm": "OOD",
       "status": "active",
@@ -41,7 +41,7 @@
   "edges": [
     {
       "source": "mp:4385",
-      "target": "company:Грийн-Агро-Груп-ООД",
+      "target": "company:Грийн-Агро-груп-ООД",
       "kind": "declared_stake",
       "role": "current_share",
       "isCurrent": true,
@@ -49,7 +49,7 @@
     },
     {
       "source": "mp:4385",
-      "target": "company:Грийн-Агро-Груп-ООД",
+      "target": "company:Грийн-Агро-груп-ООД",
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": true,
@@ -57,7 +57,7 @@
     },
     {
       "source": "person:БОЙКО ВЕСЕЛИНОВ ГАДЕВ",
-      "target": "company:Грийн-Агро-Груп-ООД",
+      "target": "company:Грийн-Агро-груп-ООД",
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": true,
@@ -65,7 +65,7 @@
     },
     {
       "source": "official:hristo-veselinov-gadev-d42447",
-      "target": "company:Грийн-Агро-Груп-ООД",
+      "target": "company:Грийн-Агро-груп-ООД",
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": true,
@@ -73,7 +73,7 @@
     },
     {
       "source": "official:hristo-veselinov-gadev-d42447",
-      "target": "company:Грийн-Агро-Груп-ООД",
+      "target": "company:Грийн-Агро-груп-ООД",
       "kind": "tr_role",
       "role": "manager",
       "isCurrent": true,

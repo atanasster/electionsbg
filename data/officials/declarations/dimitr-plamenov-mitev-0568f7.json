@@ -109,6 +109,68 @@
     "institution": "МБАЛ \"ЗДРАВЕТО 2012\" ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-06-07",
+    "entryNumber": "Г9881",
+    "controlHash": "82863986",
+    "sourceUrl": "https://register.cacbg.bg/2024/9D9018B7-FC60-401D-B922-7EBAEB4307E3191544.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 90393.84813608545,
+        "amountEurSpouse": 55576.40490226656
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Димитър Пламенов Митев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "остатък декл.предх.год. + дивиденти от предх.год."
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 184756,
+        "valueEur": 94464.24280228854,
+        "holderName": "Димитър Пламенов Митев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата + остатък декл.предх.год."
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dimitr-plamenov-mitev-0568f7",
+    "declarantName": "Димитър Пламенов Митев",
+    "institution": "МБАЛ \"ЗДРАВЕТО 2012\" ООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2022,
     "fiscalYear": 2021,
     "declarationType": "Annualy",

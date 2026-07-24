@@ -5,6 +5,56 @@
     "institution": "Детски градини, ясли, детка кухня",
     "positionTitle": "Директор",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г15283",
+    "controlHash": "85ABA95C",
+    "sourceUrl": "https://register.cacbg.bg/2025/8F1593FB-CCEE-4A05-85B6-5B3F1701A8F7219088.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18456.982457575556,
+        "amountEurSpouse": 11058.220806511814
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1523.649805964731,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Дачия Сандеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 4900,
+        "valueEur": 2505.3302178614704,
+        "holderName": "Анна Димитрова Георгиева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "anna-dimitrova-georgieva-b56dd7",
+    "declarantName": "Анна Димитрова Георгиева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

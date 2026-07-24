@@ -161,5 +161,85 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "neli-prvanova-grozdanova-02c22e",
+    "declarantName": "Нели Първанова Грозданова",
+    "institution": "ПУДООС",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7229",
+    "controlHash": "92710BB5",
+    "sourceUrl": "https://register.cacbg.bg/2024/75636ECD-C848-4AA8-9E49-6F9D61CED4DC188807.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22957.005465710212,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3081,
+        "valueEur": 1575.2902859655492,
+        "holderName": "Нели Първанова Грозданова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 16001,
+        "valueEur": 16000.879422035658,
+        "holderName": "Нели Първанова Грозданова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 66,
+        "valueEur": 33.74526415895042,
+        "holderName": "Нели Първанова Грозданова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

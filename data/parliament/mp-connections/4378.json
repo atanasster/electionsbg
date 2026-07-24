@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:4378",
   "nodes": [
     {
@@ -25,6 +25,16 @@
       "seat": "София"
     },
     {
+      "id": "company:Ълтимейт-Криейтив-ЕООД",
+      "type": "company",
+      "label": "Ълтимейт Криейтив ЕООД",
+      "slug": "Ълтимейт-Криейтив-ЕООД",
+      "uic": "200739519",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
       "id": "company:tr:176022484",
       "type": "company",
       "label": "Да запазим Корал",
@@ -43,6 +53,11 @@
       "legalForm": "Сдружение",
       "status": "active",
       "seat": "БЪЛГАРИЯ, с. Лозен, 1151"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВЕЛЧЕВ ТОНИНСКИ",
+      "type": "person",
+      "label": "Александър Велчев Тонински"
     },
     {
       "id": "person:ЯВОР ЯНКОВ ЯНЧЕВ",
@@ -130,6 +145,14 @@
     },
     {
       "source": "mp:4378",
+      "target": "company:Ълтимейт-Криейтив-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4378",
       "target": "company:tr:176022484",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -143,6 +166,14 @@
       "role": "ngo_board",
       "isCurrent": true,
       "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВЕЛЧЕВ ТОНИНСКИ",
+      "target": "company:Ълтимейт-Криейтив-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
     },
     {
       "source": "person:ЯВОР ЯНКОВ ЯНЧЕВ",

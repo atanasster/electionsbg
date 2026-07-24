@@ -649,5 +649,91 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "tihomir-ivanov-georgiev-66b2df",
+    "declarantName": "Тихомир Иванов Георгиев",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": "2018-07-30",
+    "entryNumber": "Г2423",
+    "controlHash": "BF9F6F7E",
+    "sourceUrl": "https://register.cacbg.bg/2018/3428FB7B-0E71-4600-8E57-D8ED22D9810993425.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4901.24397314695,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2113.169344983971,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Кладоруб",
+        "municipality": "Димово",
+        "areaSqm": 500,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2012,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Тихомир Иванов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2007,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Тихомир Иванов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Мотоциклет",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2015,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Тихомир Иванов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

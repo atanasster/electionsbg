@@ -55,5 +55,49 @@
         "legalBasis": "възмездно"
       }
     ]
+  },
+  {
+    "slug": "gabriela-georgieva-hristova-e517ec",
+    "declarantName": "ГАБРИЕЛА ГЕОРГИЕВА ХРИСТОВА",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-31",
+    "entryNumber": "Г10016",
+    "controlHash": "CD2ED3C0",
+    "sourceUrl": "https://register.cacbg.bg/2024/481ADFA2-0214-4E3F-A645-D18D20098A97191686.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8947.607920933824,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "НИСАН ПРИМЕРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "ГАБРИЕЛА ГЕОРГИЕВА ХРИСТОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
   }
 ]

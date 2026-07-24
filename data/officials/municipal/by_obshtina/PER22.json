@@ -1,7 +1,7 @@
 {
   "obshtina": "PER22",
   "registryName": "Ковачевци",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 9,
+    "councillor": 10,
     "chief_architect": 1,
     "other": 0
   },
@@ -230,6 +230,23 @@
         "isElected": true,
         "mpId": 4590,
         "photoUrl": "/parliament/photos/4590.webp"
+      }
+    },
+    {
+      "slug": "yavor-aleksandrov-ivanov-7b4b18",
+      "name": "Явор Александров Иванов",
+      "normalizedName": "ЯВОР АЛЕКСАНДРОВ ИВАНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Ковачевци",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БСП ЗА БЪЛГАРИЯ",
+        "partyCanonicalId": "bsp",
+        "listPos": 106,
+        "prefVotes": 15,
+        "isElected": true
       }
     }
   ]

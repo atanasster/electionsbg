@@ -29,5 +29,49 @@
     ],
     "assets": [],
     "events": []
+  },
+  {
+    "slug": "mariya-georgieva-kusimitreva-c47fba",
+    "declarantName": "МАРИЯ ГЕОРГИЕВА КУСИМИТРЕВА",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г833",
+    "controlHash": "F0F7D636",
+    "sourceUrl": "https://register.cacbg.bg/2024/2CD6D9BB-7395-4B33-926D-1E8473AD748E181704.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14357.076023989815,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "МАРИЯ ГЕОРГИЕВА КУСИМИТРЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

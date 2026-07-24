@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:gergana-zhelyazkova-stefanova-81eb5f",
   "nodes": [
     {
@@ -114,6 +114,11 @@
       "id": "person:ХРИСТО ПЕТКОВ ХРИСТОВ",
       "type": "person",
       "label": "Христо Петков Христов"
+    },
+    {
+      "id": "person:МИКИ ШУЛЕСКИ",
+      "type": "person",
+      "label": "Мики  Шулески"
     },
     {
       "id": "person:АЙСЕЛ АЗИС КАРАДЕНИЗ",
@@ -243,6 +248,14 @@
     },
     {
       "source": "person:ХРИСТО ПЕТКОВ ХРИСТОВ",
+      "target": "company:Витагер-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИКИ ШУЛЕСКИ",
       "target": "company:Витагер-ЕООД",
       "kind": "tr_role",
       "role": "manager",

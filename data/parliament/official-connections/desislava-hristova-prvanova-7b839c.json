@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:desislava-hristova-prvanova-7b839c",
   "nodes": [
     {
@@ -20,6 +20,15 @@
       "legalForm": null,
       "status": null,
       "seat": null
+    },
+    {
+      "id": "official:gergana-mihailova-vasileva-stefanova-6638dd",
+      "type": "official",
+      "slug": "gergana-mihailova-vasileva-stefanova-6638dd",
+      "label": "Гергана Михайлова Василева-Стефанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
     },
     {
       "id": "person:СНЕЖИНА ВЕСЕЛИНОВА МИНЧЕВА",
@@ -50,6 +59,14 @@
   "edges": [
     {
       "source": "official:desislava-hristova-prvanova-7b839c",
+      "target": "company:tr:834017612",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-mihailova-vasileva-stefanova-6638dd",
       "target": "company:tr:834017612",
       "kind": "tr_role",
       "role": "director",

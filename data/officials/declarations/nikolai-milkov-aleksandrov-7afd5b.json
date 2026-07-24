@@ -5,6 +5,56 @@
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г13390",
+    "controlHash": "9B3CC96B",
+    "sourceUrl": "https://register.cacbg.bg/2025/7A6CABFF-1A4F-4A20-ACA7-03D21D0BE9D2216597.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12782.297029905461
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6072.613672967487,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33146,
+        "valueEur": 16947.28069412986,
+        "holderName": "Николай Милков Александров",
+        "isSpouse": false,
+        "legalBasis": "ИПОТЕЧЕН КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nikolai-milkov-aleksandrov-7afd5b",
+    "declarantName": "Николай Милков Александров",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
     "declarationYear": 2024,
     "fiscalYear": 2023,
     "declarationType": "Annualy",

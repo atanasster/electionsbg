@@ -2,8 +2,129 @@
   "ekatte": "68134",
   "page": 5,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "АЛИНВЕСТМЪНТ-05",
+      "displayName": "АЛИНВЕСТМЪНТ 05",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1303",
+      "mps": [
+        {
+          "mpId": 4323,
+          "mpName": "Александър Димитров Арангелов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4323,
+          "mpName": "Александър Димитров Арангелов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АЛТИОРА",
+      "displayName": "АЛТИОРА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1616",
+      "mps": [
+        {
+          "mpId": 899,
+          "mpName": "Петър Владимиров Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 899,
+          "mpName": "Петър Владимиров Димитров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АМБУЛАТОРИЯ-ЗА-ИНДИВИДУАЛНА-ПРАКТИКА-ЗА-ПЪРВИЧНА-ИЗВЪНБОЛНИЧНА-МЕДИЦИНСКА-ПОМОЩ-Д-Р-МИЛКО-ПЕНЕВ",
+      "displayName": "АМБУЛАТОРИЯ ЗА ИНДИВИДУАЛНА ПРАКТИКА ЗА ПЪРВИЧНА ИЗВЪНБОЛНИЧНА МЕДИЦИНСКА ПОМОЩ - Д-Р МИЛКО ПЕНЕВ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 3522,
+          "mpName": "Милко Асенов Пенев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3522,
+          "mpName": "Милко Асенов Пенев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Анимекс-ЕООД",
+      "displayName": "Анимекс ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4295,
+          "mpName": "Настимир Ананиев Ананиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Апиа-КОнсулт-ЕООД",
+      "displayName": "Апиа КОнсулт ЕООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 4866,
+          "mpName": "Ангел Николаев Славчев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АСОЦИАЦИЯ-НА-БЪЛГАРСКИТЕ-СПОРТНИ-ФЕДЕРАЦИИ",
+      "displayName": "АСОЦИАЦИЯ НА БЪЛГАРСКИТЕ СПОРТНИ ФЕДЕРАЦИИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1404",
+      "mps": [
+        {
+          "mpId": 1043,
+          "mpName": "Иван Дечков Колев",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1087,
+          "mpName": "Румен Стефанов Стоилов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АСТРАЛ-ХОУМ",
+      "displayName": "АСТРАЛ ХОУМ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "АфтърМен",
       "displayName": "АфтърМен",
@@ -799,133 +920,6 @@
           "mpId": 5335,
           "mpName": "Христо Георгиев Гаджев",
           "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ГОЛД-ЛАЙФ-4",
-      "displayName": "ГОЛД ЛАЙФ 4",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1172",
-      "mps": [
-        {
-          "mpId": 2953,
-          "mpName": "Станислав Иванов Стоянов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2953,
-          "mpName": "Станислав Иванов Стоянов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ГРАЖДАНСКИ-СЪВЕТ",
-      "displayName": "ГРАЖДАНСКИ СЪВЕТ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1407",
-      "mps": [
-        {
-          "mpId": 2337,
-          "mpName": "Петър Владиславов Славов",
-          "role": "ngo_representative",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2337,
-          "mpName": "Петър Владиславов Славов",
-          "role": "ngo_board",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Грийн-Агро-Груп-ООД",
-      "displayName": "Грийн Агро Груп ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 4385,
-          "mpName": "Вениамин Иванов Воденичаров",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4385,
-          "mpName": "Вениамин Иванов Воденичаров",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Грийн-Инвестмънт-Пропъртис-ООД",
-      "displayName": "Грийн Инвестмънт Пропъртис ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3285,
-          "mpName": "Християна Анастасова Тодорова",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Грийн-касъл-груп-ЕООД",
-      "displayName": "Грийн касъл груп ЕООД",
-      "registeredOffice": "СОФИЯ",
-      "mps": [
-        {
-          "mpId": 4925,
-          "mpName": "Мюмюн Сали Мюмюн",
-          "role": "sole_owner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4925,
-          "mpName": "МЮМЮН САЛИ МЮМЮН",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ДАНАЯ",
-      "displayName": "ДАНАЯ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1799",
-      "mps": [
-        {
-          "mpId": 4058,
-          "mpName": "Кремена Миленова Кунева",
-          "role": "ngo_representative",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4058,
-          "mpName": "Кремена Миленова Кунева",
-          "role": "ngo_board",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ДВИЖЕНИЕ-ЗА-ЕДИНСТВО-НА-НАРОДА",
-      "displayName": "ДВИЖЕНИЕ ЗА ЕДИНСТВО НА НАРОДА",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
-      "mps": [
-        {
-          "mpId": 559,
-          "mpName": "Мехмед Мехмед Дикме",
-          "role": "ngo_representative",
-          "isCurrent": true
-        },
-        {
-          "mpId": 559,
-          "mpName": "Мехмед Мехмед Дикме",
-          "role": "ngo_board",
           "isCurrent": true
         }
       ]

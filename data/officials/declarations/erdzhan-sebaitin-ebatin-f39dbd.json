@@ -382,6 +382,50 @@
     "positionTitle": "Директор",
     "category": "regional_director",
     "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-31",
+    "entryNumber": "Г7714",
+    "controlHash": "33538618",
+    "sourceUrl": "https://register.cacbg.bg/2023/44E06102-182F-4EC3-B2F2-E87D8E05C394154349.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 44971.69999437579,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Белоградец,",
+        "municipality": "Ветрино",
+        "areaSqm": 450,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2022,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Ерджан Себайтин Ебатин",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "erdzhan-sebaitin-ebatin-f39dbd",
+    "declarantName": "ЕРДЖАН СЕБАЙТИН ЕБАТИН",
+    "institution": "РИОСВ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
+    "declarationYear": 2023,
     "fiscalYear": 2023,
     "declarationType": "Entry",
     "filedAt": "2023-03-14",

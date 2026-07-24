@@ -30,6 +30,63 @@
     "institution": "СБАЛОТ \"Витоша\" ЕООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8574",
+    "controlHash": "A585318D",
+    "sourceUrl": "https://register.cacbg.bg/2022/2DB08D1C-AF07-4261-8607-1649A5825E2D141100.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "ДРУЖЕСТВЕНИ ДЯЛОВЕ",
+        "shareSize": "100",
+        "companyName": "АЛОПЛАСТ РИСЪРЧ ЕООД",
+        "registeredOffice": "Плевен",
+        "valueEur": 51.12918811962185,
+        "holderName": null,
+        "transfereeName": "ОРЛИН БОРИСОВ ФИЛИПОВ",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42904.03562681828,
+        "amountEurSpouse": 1278.2297029905462
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 180166,
+        "valueEur": 92117.4130675979,
+        "holderName": "ОРЛИН БОРИСОВ ФИЛИПОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "orlin-borisov-filipov-b96232",
+    "declarantName": "ОРЛИН БОРИСОВ ФИЛИПОВ",
+    "institution": "СБАЛОТ \"Витоша\" ЕООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2020,
     "fiscalYear": 2019,
     "declarationType": "Annualy",

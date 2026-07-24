@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:daniel-miloslavov-petrov-edd5c1",
+  "nodes": [
+    {
+      "id": "official:daniel-miloslavov-petrov-edd5c1",
+      "type": "official",
+      "slug": "daniel-miloslavov-petrov-edd5c1",
+      "label": "Даниел Милославов Петров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202571900",
+      "type": "company",
+      "label": "Форест Вижънър",
+      "slug": null,
+      "uic": "202571900",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201867792",
+      "type": "company",
+      "label": "Гласове.БГ",
+      "slug": null,
+      "uic": "201867792",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201980844",
+      "type": "company",
+      "label": "Сваргаз",
+      "slug": null,
+      "uic": "201980844",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204048941",
+      "type": "company",
+      "label": "Интелсенс",
+      "slug": null,
+      "uic": "204048941",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-miloslavov-petrov-edd5c1",
+      "target": "company:tr:202571900",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniel-miloslavov-petrov-edd5c1",
+      "target": "company:tr:201867792",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniel-miloslavov-petrov-edd5c1",
+      "target": "company:tr:201980844",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniel-miloslavov-petrov-edd5c1",
+      "target": "company:tr:204048941",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

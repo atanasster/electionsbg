@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:anastasiya-ilieva-marinova-c33728",
   "nodes": [
     {
@@ -44,6 +44,24 @@
       "type": "official",
       "slug": "ivanka-slavcheva-veselinova-df102c",
       "label": "Иванка Славчева Веселинова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:mariyana-hristova-arsenova-vladimirova-25630b",
+      "type": "official",
+      "slug": "mariyana-hristova-arsenova-vladimirova-25630b",
+      "label": "Марияна Христова Арсенова-Владимирова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:petya-stanislavova-ivanova-71b629",
+      "type": "official",
+      "slug": "petya-stanislavova-ivanova-71b629",
+      "label": "Петя Станиславова Иванова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -94,11 +112,6 @@
       "label": "Нина Кубратова Найденова"
     },
     {
-      "id": "person:ПЕТЯ СТАНИСЛАВОВА ИВАНОВА",
-      "type": "person",
-      "label": "Петя Станиславова Иванова"
-    },
-    {
       "id": "person:МАРИЯНА ХРИСТОВА АРСЕНОВА - ВЛАДИМИРОВА",
       "type": "person",
       "label": "Марияна Христова Арсенова - Владимирова"
@@ -112,11 +125,6 @@
       "id": "person:ЕМИЛИЯ ИВАНОВА ПЕТКОВА",
       "type": "person",
       "label": "Емилия Иванова Петкова"
-    },
-    {
-      "id": "person:МАРИЯНА ХРИСТОВА АРСЕНОВА-ВЛАДИМИРОВА",
-      "type": "person",
-      "label": "Марияна Христова Арсенова-Владимирова"
     },
     {
       "id": "person:ИЯ ТОДОРОВА ПЕТКОВА-АНГЕЛОВА",
@@ -166,6 +174,22 @@
     },
     {
       "source": "official:ivanka-slavcheva-veselinova-df102c",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariyana-hristova-arsenova-vladimirova-25630b",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petya-stanislavova-ivanova-71b629",
       "target": "company:tr:201570119",
       "kind": "tr_role",
       "role": "director",
@@ -277,14 +301,6 @@
       "confidence": "high"
     },
     {
-      "source": "person:ПЕТЯ СТАНИСЛАВОВА ИВАНОВА",
-      "target": "company:tr:201570119",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
       "source": "person:МАРИЯНА ХРИСТОВА АРСЕНОВА - ВЛАДИМИРОВА",
       "target": "company:tr:201570119",
       "kind": "tr_role",
@@ -302,14 +318,6 @@
     },
     {
       "source": "person:ЕМИЛИЯ ИВАНОВА ПЕТКОВА",
-      "target": "company:tr:201570119",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:МАРИЯНА ХРИСТОВА АРСЕНОВА-ВЛАДИМИРОВА",
       "target": "company:tr:201570119",
       "kind": "tr_role",
       "role": "director",

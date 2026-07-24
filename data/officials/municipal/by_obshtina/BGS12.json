@@ -1,7 +1,7 @@
 {
   "obshtina": "BGS12",
   "registryName": "Малко Търново",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -10,7 +10,7 @@
     "deputy_mayor": 2,
     "council_chair": 1,
     "councillor": 10,
-    "chief_architect": 0,
+    "chief_architect": 1,
     "other": 0
   },
   "entries": [
@@ -57,6 +57,15 @@
         "prefVotes": 66,
         "isElected": true
       }
+    },
+    {
+      "slug": "temenuga-nikolova-barbova-469573",
+      "name": "Теменуга Николова Барбова",
+      "normalizedName": "ТЕМЕНУГА НИКОЛОВА БАРБОВА",
+      "role": "chief_architect",
+      "roleRaw": "Главен архитект",
+      "municipality": "Малко Търново",
+      "latestDeclarationYear": 2025
     },
     {
       "slug": "andrei-todorov-todorov-9726d0",

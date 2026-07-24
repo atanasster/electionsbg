@@ -78,6 +78,14 @@ const OBLIGATIONS_SCHEMA = path.join(
   "scripts/db/schema/pg/094_declaration_obligations.sql",
 );
 const OBLIGATIONS_FILE = path.join(ROOT, "data/officials/obligations.json");
+// Declared stakes → public contracts (T3.8). Resolves a declared company NAME to an EIK
+// through the Търговски регистър and requires the registry to independently place the
+// person at that EIK, so it joins declaration_stake, person AND tr_* — every one of which
+// is only complete after the resolve. Phase 2, after 090.
+const STAKE_PROC_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/096_stake_procurement.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -536,15 +544,23 @@ const resolve = async () => {
   await exec(fs.readFileSync(GATE_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(GAP_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(EVENTS_SCHEMA, "utf-8"));
+  await exec(fs.readFileSync(STAKE_PROC_SCHEMA, "utf-8"));
   await exec("REFRESH MATERIALIZED VIEW person_wealth_year");
   const [{ n: wealthRows }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM person_wealth_year",
+  );
+  // 096's matview is populated by its own CREATE ... AS, so it needs no REFRESH here —
+  // but report the count, because a collapse to zero means the TR tables went missing
+  // rather than that no official owns a company.
+  const [{ n: stakeLinks }] = await allRows<{ n: string }>(
+    "SELECT count(*) n FROM declaration_stake_company",
   );
 
   console.log(
     `declarations --resolve: filled ${filled} person_id(s); ` +
       `${unresolved}/${total} still NULL (subjects the resolver did not place); ` +
-      `person_wealth_year refreshed to ${wealthRows} person-year rows`,
+      `person_wealth_year refreshed to ${wealthRows} person-year rows; ` +
+      `${stakeLinks} confirmed stake→company link(s)`,
   );
 };
 

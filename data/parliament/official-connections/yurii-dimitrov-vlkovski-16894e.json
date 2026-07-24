@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:yurii-dimitrov-vlkovski-16894e",
+  "nodes": [
+    {
+      "id": "official:yurii-dimitrov-vlkovski-16894e",
+      "type": "official",
+      "slug": "yurii-dimitrov-vlkovski-16894e",
+      "label": "Юрий Димитров Вълковски",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207568210",
+      "type": "company",
+      "label": "Фондация \"Народни читалища\"",
+      "slug": null,
+      "uic": "207568210",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yurii-dimitrov-vlkovski-16894e",
+      "target": "company:tr:207568210",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yurii-dimitrov-vlkovski-16894e",
+      "target": "company:tr:207568210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

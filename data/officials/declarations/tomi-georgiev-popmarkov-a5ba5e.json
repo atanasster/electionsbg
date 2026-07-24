@@ -126,5 +126,79 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "tomi-georgiev-popmarkov-a5ba5e",
+    "declarantName": "Томи  Георгиев  Попмарков",
+    "institution": "Четвърта МБАЛ - София ЕАД",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-22",
+    "entryNumber": "Г662",
+    "controlHash": "BE849D22",
+    "sourceUrl": "https://register.cacbg.bg/2024/D15CCBCB-A5EC-4913-919B-361BCF71717E181518.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48312.992437993074,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 204.5167524784874,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 22009.070317972422,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 134263,
+        "valueEur": 68647.58184504788,
+        "holderName": "Томи Георгиев Попмарков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 19659,
+        "valueEur": 19735.866614174032,
+        "holderName": "Томи георгиев Попмрков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      }
+    ],
+    "events": []
   }
 ]

@@ -6,6 +6,62 @@
     "positionTitle": "Областен управител",
     "category": "regional_governor",
     "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-06-05",
+    "entryNumber": "Г8100",
+    "controlHash": "BDAE5136",
+    "sourceUrl": "https://register.cacbg.bg/2023/1578AEFA-E016-4488-938B-E1BAAEF5E8D4154830.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11616.551540778084,
+        "amountEurSpouse": 10021.320871445881
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 15338.756435886555,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1380.48807922979,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55420,
+        "valueEur": 28335.79605589443,
+        "holderName": "Минко Велчев Ангелов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "minko-velchev-angelov-c63816",
+    "declarantName": "Минко Велчев Ангелов",
+    "institution": "Област - Хасково",
+    "positionTitle": "Областен управител",
+    "category": "regional_governor",
+    "declarationYear": 2023,
     "fiscalYear": 2023,
     "declarationType": "Vacate",
     "filedAt": "2023-04-01",

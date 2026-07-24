@@ -5,6 +5,98 @@
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-19",
+    "entryNumber": "Г8260",
+    "controlHash": "7774B7AE",
+    "sourceUrl": "https://register.cacbg.bg/2022/533DD197-0109-4034-83EF-2B134BDEF4B5140703.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19980.264133385826,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 80394.0015236498
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 16361.340198278991,
+        "amountEurSpouse": 16361.340198278991
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 157237,
+        "valueEur": 80394.0015236498,
+        "holderName": "Йорданка Николова Джамбазова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 41954,
+        "valueEur": 41954,
+        "holderName": "Йорданка Николова Джамбазова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "депозит от предходни години"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22010,
+        "valueEur": 11253.53430512877,
+        "holderName": "Владимир Николов Джамбазов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vladimir-nikolov-dzhambazov-dd28bb",
+    "declarantName": "Владимир Николов Джамбазов",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
     "declarationYear": 2020,
     "fiscalYear": 2019,
     "declarationType": "Annualy",

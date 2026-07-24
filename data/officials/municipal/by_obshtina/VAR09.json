@@ -1,7 +1,7 @@
 {
   "obshtina": "VAR09",
   "registryName": "Вълчидол",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 10,
+    "councillor": 12,
     "chief_architect": 1,
     "other": 0
   },
@@ -182,6 +182,40 @@
         "partyCanonicalId": "gerb",
         "listPos": 111,
         "prefVotes": 116,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "despa-marinova-tocheva-4f9326",
+      "name": "Деспа Маринова Точева",
+      "normalizedName": "ДЕСПА МАРИНОВА ТОЧЕВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Вълчидол",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Местна коалиция „Свобода/Коалиция „БСП за България“, ПП „Има Такъв Народ“, ПП“ВМРО-Българско Национално Движение“, Коалиция „Левицата!“, ПП“Величие“, ПП„Партия Консервативна България “ , ПП „Български Земеделски Народен Съюз “/ “",
+        "partyCanonicalId": "p_80",
+        "listPos": 104,
+        "prefVotes": 55,
+        "isElected": false
+      }
+    },
+    {
+      "slug": "zhivka-velikova-chaneva-cc6be8",
+      "name": "Живка Великова Чанева",
+      "normalizedName": "ЖИВКА ВЕЛИКОВА ЧАНЕВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Вълчидол",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Местна коалиция „Свобода/Коалиция „БСП за България“, ПП „Има Такъв Народ“, ПП“ВМРО-Българско Национално Движение“, Коалиция „Левицата!“, ПП“Величие“, ПП„Партия Консервативна България “ , ПП „Български Земеделски Народен Съюз “/ “",
+        "partyCanonicalId": "p_80",
+        "listPos": 110,
+        "prefVotes": 89,
         "isElected": true
       }
     },

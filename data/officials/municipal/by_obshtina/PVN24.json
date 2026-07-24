@@ -1,7 +1,7 @@
 {
   "obshtina": "PVN24",
   "registryName": "Плевен",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 5,
     "council_chair": 1,
-    "councillor": 36,
+    "councillor": 39,
     "chief_architect": 1,
     "other": 0
   },
@@ -141,6 +141,25 @@
         "listPos": 108,
         "prefVotes": 169,
         "isElected": true
+      }
+    },
+    {
+      "slug": "antonio-vladimirov-vasilev-886b57",
+      "name": "Антонио Владимиров Василев",
+      "normalizedName": "АНТОНИО ВЛАДИМИРОВ ВАСИЛЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Плевен",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БСП ЗА БЪЛГАРИЯ",
+        "partyCanonicalId": "bsp",
+        "listPos": 113,
+        "prefVotes": 346,
+        "isElected": true,
+        "mpId": 5183,
+        "photoUrl": "/parliament/photos/5183.webp"
       }
     },
     {
@@ -571,6 +590,23 @@
       }
     },
     {
+      "slug": "pavlin-stefanov-stefanov-48094f",
+      "name": "Павлин Стефанов Стефанов",
+      "normalizedName": "ПАВЛИН СТЕФАНОВ СТЕФАНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Плевен",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 114,
+        "prefVotes": 225,
+        "isElected": true
+      }
+    },
+    {
       "slug": "pepo-vasilev-petkov-2e001d",
       "name": "Пепо Василев Петков",
       "normalizedName": "ПЕПО ВАСИЛЕВ ПЕТКОВ",
@@ -720,6 +756,23 @@
         "partyCanonicalId": "p_126",
         "listPos": 102,
         "prefVotes": 72,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "chavdar-markos-hristanov-63d274",
+      "name": "Чавдар Маркос Христанов",
+      "normalizedName": "ЧАВДАР МАРКОС ХРИСТАНОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Плевен",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП СРЕДНА ЕВРОПЕЙСКА КЛАСА",
+        "partyCanonicalId": null,
+        "listPos": 101,
+        "prefVotes": 225,
         "isElected": true
       }
     },

@@ -115,5 +115,49 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "plamen-valeriev-petkov-479def",
+    "declarantName": "Пламен Валериев Петков",
+    "institution": "ОД МВР Враца",
+    "positionTitle": "Заместник-директор",
+    "category": "security_service",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-04-04",
+    "entryNumber": "Г8813",
+    "controlHash": "E8A4301B",
+    "sourceUrl": "https://register.cacbg.bg/2022/5E9CF507-1D33-4887-A4DC-366A79524B2D141736.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17269.394579283475,
+        "amountEurSpouse": 6928.516282089957
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Пламен Валериев Петков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

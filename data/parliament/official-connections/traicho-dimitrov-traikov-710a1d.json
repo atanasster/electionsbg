@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:traicho-dimitrov-traikov-710a1d",
   "nodes": [
     {
@@ -76,6 +76,11 @@
       "label": "Росен Петров Илчев"
     },
     {
+      "id": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Богомил Иванов Петков"
+    },
+    {
       "id": "person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ",
       "type": "person",
       "label": "Недялко Димчев Неделчев"
@@ -148,6 +153,14 @@
     },
     {
       "source": "person:РОСЕН ПЕТРОВ ИЛЧЕВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОМИЛ ИВАНОВ ПЕТКОВ",
       "target": "company:tr:207024454",
       "kind": "tr_role",
       "role": "ngo_board",

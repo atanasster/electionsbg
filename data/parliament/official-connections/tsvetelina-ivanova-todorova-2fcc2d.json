@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:tsvetelina-ivanova-todorova-2fcc2d",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-ivanova-todorova-2fcc2d",
+      "type": "official",
+      "slug": "tsvetelina-ivanova-todorova-2fcc2d",
+      "label": "Цветелина Иванова Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208159298",
+      "type": "company",
+      "label": "ЕвроИнвест 25",
+      "slug": null,
+      "uic": "208159298",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-ivanova-todorova-2fcc2d",
+      "target": "company:tr:208159298",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetelina-ivanova-todorova-2fcc2d",
+      "target": "company:tr:208159298",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "obshtina": "PDV13",
   "registryName": "Карлово",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 4,
     "council_chair": 1,
-    "councillor": 30,
+    "councillor": 32,
     "chief_architect": 1,
     "other": 0
   },
@@ -110,6 +110,23 @@
       "roleRaw": "Главен архитект",
       "municipality": "Карлово",
       "latestDeclarationYear": 2025
+    },
+    {
+      "slug": "anastasiya-dimitrova-cholakova-5d17db",
+      "name": "Анастасия Димитрова Чолакова",
+      "normalizedName": "АНАСТАСИЯ ДИМИТРОВА ЧОЛАКОВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Карлово",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МЕСТНА КОАЛИЦИЯ СДС (АТАКА, ДБГ)",
+        "partyCanonicalId": "p_126",
+        "listPos": 104,
+        "prefVotes": 91,
+        "isElected": true
+      }
     },
     {
       "slug": "angel-todorov-hazurov-9ba31f",
@@ -604,6 +621,23 @@
         "partyCanonicalId": "gerb",
         "listPos": 105,
         "prefVotes": 54,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "toshko-simeonov-stoev-e0ff26",
+      "name": "Тошко Симеонов Стоев",
+      "normalizedName": "ТОШКО СИМЕОНОВ СТОЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Карлово",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МЕСТНА КОАЛИЦИЯ СДС (АТАКА, ДБГ)",
+        "partyCanonicalId": "p_126",
+        "listPos": 102,
+        "prefVotes": 29,
         "isElected": true
       }
     },

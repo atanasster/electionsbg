@@ -102,5 +102,67 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "dragomir-vchev-marchev-31aea2",
+    "declarantName": "Драгомир Вълчев Марчев",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-18",
+    "entryNumber": "Г8182",
+    "controlHash": "80630968",
+    "sourceUrl": "https://register.cacbg.bg/2022/DAB79420-C524-42CE-BACD-E92EF5D4178F140614.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14206.756210918127,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 600,
+        "builtAreaSqm": 48,
+        "acquiredYear": 2021,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Драгомир Вълчев Марчев",
+        "isSpouse": false,
+        "legalBasis": "завещание",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28400,
+        "valueEur": 14520.689425972605,
+        "holderName": "Драгомир Вълчев Марчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

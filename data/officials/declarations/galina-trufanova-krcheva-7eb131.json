@@ -89,5 +89,103 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "galina-trufanova-krcheva-7eb131",
+    "declarantName": "Галина Труфанова Кърчева",
+    "institution": "СБР - Несебър АД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": "2019-07-04",
+    "entryNumber": "Г3957",
+    "controlHash": "64F1A481",
+    "sourceUrl": "https://register.cacbg.bg/2019/41F6D09E-D545-4FC1-BFE0-E9447FB722FB98690.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5689.656053951519,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 76,
+        "builtAreaSqm": 76,
+        "acquiredYear": 1993,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Галина Труфанова Кърчева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "acquiredYear": 2018,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Галина Труфанова Кърчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Тръстика",
+        "municipality": "Попово",
+        "areaSqm": 55,
+        "builtAreaSqm": null,
+        "acquiredYear": 2014,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Галина Труфанова Кърчева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
+        "holderName": "Галина Труфанова Кърчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

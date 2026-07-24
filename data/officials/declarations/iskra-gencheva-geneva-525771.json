@@ -115,5 +115,73 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "iskra-gencheva-geneva-525771",
+    "declarantName": "Искра Генчева Генева",
+    "institution": "РЗИ",
+    "positionTitle": "Директор на РЗИ",
+    "category": "regional_director",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-05",
+    "entryNumber": "Г8174",
+    "controlHash": "93EFB38A",
+    "sourceUrl": "https://register.cacbg.bg/2022/442A4D4A-8A82-4FF4-902B-F2DE32A4FB34140605.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23274.006432051865,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2929.702479254332,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Русе, бул. Цар Освободител №40",
+        "municipality": "Русе",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "acquiredYear": 1981,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Искра Генчева Генева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "землището на с. Дряновец",
+        "municipality": "Бяла (Русе)",
+        "areaSqm": 29,
+        "builtAreaSqm": null,
+        "acquiredYear": 1981,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Искра Генчева Генева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
   }
 ]

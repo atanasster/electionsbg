@@ -54,5 +54,49 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "stefan-ivanov-stefanov-a18361",
+    "declarantName": "СТЕФАН ИВАНОВ СТЕФАНОВ",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-09",
+    "entryNumber": "Г204",
+    "controlHash": "B2D7FAA7",
+    "sourceUrl": "https://register.cacbg.bg/2024/35BF0161-FDDA-4EF9-A3E4-D6C0540E880E180966.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22053.552711636494,
+        "amountEurSpouse": 12561.418937228696
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 71030,
+        "valueEur": 36317.0623213674,
+        "holderName": "Стефан Иванов Стефанов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

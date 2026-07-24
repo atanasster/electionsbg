@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:5201",
   "nodes": [
     {
@@ -39,7 +39,7 @@
       "label": "БЪЛГАРСКА ОРЪЖЕЙНА АСОЦИАЦИЯ",
       "slug": null,
       "uic": "207382946",
-      "legalForm": "Сдружение",
+      "legalForm": "ASSOC",
       "status": "active",
       "seat": "БЪЛГАРИЯ, гр. София, 1000"
     },
@@ -92,6 +92,11 @@
       "id": "person:ТОДОР БОРИСОВ ТОДОРОВ",
       "type": "person",
       "label": "Тодор Борисов Тодоров"
+    },
+    {
+      "id": "person:АСЕН НЕДКОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Асен Недков Минчев"
     }
   ],
   "edges": [
@@ -233,6 +238,14 @@
     },
     {
       "source": "person:СТЕФАН ИВАНОВ ЦАНКОВ",
+      "target": "company:tr:207382946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН НЕДКОВ МИНЧЕВ",
       "target": "company:tr:207382946",
       "kind": "tr_role",
       "role": "ngo_board",

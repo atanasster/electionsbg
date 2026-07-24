@@ -288,6 +288,75 @@
     "institution": "МТБ Пловдив",
     "positionTitle": "Директор",
     "category": "hospital_head",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-31",
+    "entryNumber": "Г5999",
+    "controlHash": "C192591C",
+    "sourceUrl": "https://register.cacbg.bg/2022/0D12AC78-6256-4BF3-B673-57AF30F960BB138289.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48694.41618136546,
+        "amountEurSpouse": 12674.41444297306
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3373.5038321326497,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 357.90431683735295,
+        "amountEurSpouse": 153.38756435886555
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 113,
+        "builtAreaSqm": 113,
+        "acquiredYear": 2021,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 64600,
+        "valueEur": 33029.45552527571,
+        "holderName": "Пламен Димитров Павлов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 113,
+        "builtAreaSqm": 113,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "plamen-dimitrov-pavlov-667eba",
+    "declarantName": "Пламен Димитров Павлов",
+    "institution": "МТБ Пловдив",
+    "positionTitle": "Директор",
+    "category": "hospital_head",
     "declarationYear": 2020,
     "fiscalYear": 2019,
     "declarationType": "Annualy",

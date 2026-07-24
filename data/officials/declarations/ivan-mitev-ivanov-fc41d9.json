@@ -6,6 +6,56 @@
     "positionTitle": "Директор",
     "category": "regional_director",
     "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-23",
+    "entryNumber": "Г10333",
+    "controlHash": "E98C5C2C",
+    "sourceUrl": "https://register.cacbg.bg/2024/501A20EB-92C4-4170-9E32-9C5462D92661192025.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20758.45037656647,
+        "amountEurSpouse": 3190.4613386644032
+      },
+      {
+        "parent": null,
+        "category": "Обезщетения за безработица",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 745.4635627840865
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр.Търговище",
+        "municipality": "Търговище",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Таня Ивайлова Иванова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-mitev-ivanov-fc41d9",
+    "declarantName": "Иван Митев Иванов",
+    "institution": "ОДБХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
+    "declarationYear": 2024,
     "fiscalYear": 2024,
     "declarationType": "Vacate",
     "filedAt": "2024-01-12",

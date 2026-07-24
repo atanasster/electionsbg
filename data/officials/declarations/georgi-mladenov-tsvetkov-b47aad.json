@@ -6,6 +6,81 @@
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-04",
+    "entryNumber": "Г14740",
+    "controlHash": "0D58C2A6",
+    "sourceUrl": "https://register.cacbg.bg/2025/32CAC2CD-DA50-43A5-9C69-B7378A49AEC4218184.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48350.828037201594,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 57402,
+        "valueEur": 29349.176564425336,
+        "holderName": "Георги Младенов Цветков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16725,
+        "valueEur": 8551.356713006755,
+        "holderName": "Георги Младенов Цветков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение от родител",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 16361.340198278991,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "georgi-mladenov-tsvetkov-b47aad",
+    "declarantName": "Георги Младенов Цветков",
+    "institution": "Политически кабинет",
+    "positionTitle": "Началник кабинет",
+    "category": "political_cabinet",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-03-17",

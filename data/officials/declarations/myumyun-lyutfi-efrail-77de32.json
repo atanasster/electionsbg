@@ -6,6 +6,74 @@
     "positionTitle": "Директор",
     "category": "state_enterprise",
     "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-21",
+    "entryNumber": "Г10044",
+    "controlHash": "A801F3E5",
+    "sourceUrl": "https://register.cacbg.bg/2024/8C2ED74A-82A3-44DF-9CE4-B2E52C95C082191721.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14194.996497650614,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 646.7842297132164,
+        "amountEurSpouse": 4122.54643808511
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50954,
+        "valueEur": 26052.366514472116,
+        "holderName": "МЮМЮН ЛЮТФИ ЕФРАИЛ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 81000,
+        "valueEur": 41414.642376893695,
+        "holderName": "АЙШЕГЮЛ ИСЛЯМ ЕФРАИЛ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "myumyun-lyutfi-efrail-77de32",
+    "declarantName": "МЮМЮН ЛЮТФИ ЕФРАИЛ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
     "fiscalYear": 2024,
     "declarationType": "Vacate",
     "filedAt": "2024-02-26",

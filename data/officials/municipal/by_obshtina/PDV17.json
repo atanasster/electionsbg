@@ -1,7 +1,7 @@
 {
   "obshtina": "PDV17",
   "registryName": "Марица",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 4,
     "council_chair": 1,
-    "councillor": 27,
+    "councillor": 28,
     "chief_architect": 1,
     "other": 0
   },
@@ -455,6 +455,23 @@
         "partyCanonicalId": null,
         "listPos": 107,
         "prefVotes": 61,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "plamen-pankov-petkov-57dfff",
+      "name": "Пламен Панков Петков",
+      "normalizedName": "ПЛАМЕН ПАНКОВ ПЕТКОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Марица",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ (ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ)",
+        "partyCanonicalId": "p_67",
+        "listPos": 101,
+        "prefVotes": 48,
         "isElected": true
       }
     },

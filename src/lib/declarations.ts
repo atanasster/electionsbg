@@ -70,6 +70,20 @@ export const latestDeclarationWith = <T extends DeclarationLike>(
 export const hasDeclaredAssets = (d: DeclarationLike | undefined): boolean =>
   (d?.assets?.length ?? 0) > 0;
 
+/** Does this filing put a NUMBER on anything? The stronger test, and the one
+ *  `latestAssetDeclaration` tries first.
+ *
+ *  `hasDeclaredAssets` asks only whether an asset ROW exists, and the parser
+ *  emits a row for a blank table line — so an incompatibility filing can carry a
+ *  single `bank` row with no value and no description and still pass. Of 4,895
+ *  Other filings only 450 have asset rows, and 449 of those 450 have not one
+ *  valued row (against 359/28,835 for annuals): an Other filing with rows is
+ *  essentially always a shell. Treating that shell as an asset picture let it
+ *  outrank a real annual — it is newer, and an annual's `filedAt` is sometimes
+ *  null — and publish €0 for someone who had declared six figures. */
+export const hasValuedAssets = (d: DeclarationLike | undefined): boolean =>
+  (d?.assets ?? []).some((a) => (a.valueEur ?? 0) > 0);
+
 export const hasDeclaredIncome = (d: DeclarationLike | undefined): boolean =>
   (d?.income ?? []).some(
     (r) => (r.amountEurDeclarant ?? 0) !== 0 || (r.amountEurSpouse ?? 0) !== 0,
@@ -84,10 +98,53 @@ export const hasDeclaredStakes = (d: DeclarationLike | undefined): boolean =>
  *  have filings but no asset tables anywhere in their history, and they still
  *  have a profile, a filing list, procurement links and council activity. Use
  *  `declarations[0]` for "does this person exist / what is their newest
- *  filing", and this only for "what are they worth". */
+ *  filing", and this only for "what are they worth".
+ *
+ *  Two passes, not one predicate: prefer the latest filing that VALUES something,
+ *  and only if the person has never valued anything fall back to the latest that
+ *  merely has asset rows. The fallback is what keeps the 359 annuals whose assets
+ *  are all unvalued (unvalued real estate is a real pattern, reported as a caveat
+ *  rather than treated as absence) from losing their wealth block entirely. Kept
+ *  in lockstep with person_wealth_year's ORDER BY in
+ *  scripts/db/schema/pg/090_person_wealth.sql, which ranks the same two tiers in
+ *  the same order — if these drift, a person's profile and the leaderboard quote
+ *  different net worths for the same year. The matview's PARTITION key must equal
+ *  this sort's leading rung (`declarationPeriod`) for the same reason: partition on
+ *  one year and rank on another and the matview's newest point stops being this
+ *  selector's answer, which measured at 269 declarants when tried. */
 export const latestAssetDeclaration = <T extends DeclarationLike>(
   declarations: readonly T[],
-): T | null => latestDeclarationWith(declarations, hasDeclaredAssets);
+): T | null =>
+  latestDeclarationWith(declarations, hasValuedAssets) ??
+  latestDeclarationWith(declarations, hasDeclaredAssets);
+
+/** The year a filing SPEAKS FOR — the period it covers, not the year it was filed.
+ *
+ *  The two are different fields and they routinely disagree. `declarationYear` is
+ *  the filing year (parse_declaration.resolveDeclarationYear derives it as an
+ *  annual's `fiscalYear + 1`, and as `fiscalYear` itself for Entry/Vacate);
+ *  `fiscalYear` is the period the estate is stated as of. So an annual filed in
+ *  May 2025 declares the estate at 31 Dec 2024 — filed 2025, covering 2024 — while
+ *  an exit filing lodged in February 2025 declares it as of that February.
+ *
+ *  Every question a wealth figure answers is about the period, not the filing
+ *  date: "what were they worth in 2024", "what changed between two snapshots",
+ *  "which of two filings describes the later state of affairs". Publishing a net
+ *  worth against a year therefore has to key on this, or the figure shown against
+ *  2025 describes 2024.
+ *
+ *  The fallback matters: `fiscalYear` is null on 450 incompatibility filings, 267
+ *  Entry and 8 Vacate filings, and on 15 annuals whose `<Year>` was unusable or
+ *  implausible (resolveDeclarationYear refuses to believe those rather than
+ *  inventing one). For Entry/Vacate the filing year IS the period, so the fallback
+ *  is exact; for the handful of undated annuals it is off by one, which is the
+ *  same error the whole series carried before and strictly rarer.
+ *
+ *  Kept identical to `COALESCE(fiscal_year, declaration_year)` in
+ *  scripts/db/schema/pg/090_person_wealth.sql (and 096_stake_procurement.sql,
+ *  which already dates a declared shareholding this way). */
+export const declarationPeriod = (d: DeclarationLike): number =>
+  d.fiscalYear ?? d.declarationYear;
 
 /** The filing to compare the snapshot against: the next asset-bearing filing
  *  that covers a DIFFERENT period.
@@ -102,11 +159,13 @@ export const priorAssetDeclaration = <T extends DeclarationLike>(
   latest: DeclarationLike | null,
 ): T | null => {
   if (!latest) return null;
-  const period = (d: DeclarationLike) => d.fiscalYear ?? d.declarationYear;
-  const latestPeriod = period(latest);
+  const latestPeriod = declarationPeriod(latest);
   return (
     declarations.find(
-      (d) => d !== latest && hasDeclaredAssets(d) && period(d) !== latestPeriod,
+      (d) =>
+        d !== latest &&
+        hasDeclaredAssets(d) &&
+        declarationPeriod(d) !== latestPeriod,
     ) ?? null
   );
 };
@@ -148,10 +207,30 @@ const filingOrder = (d: DeclarationLike): number =>
  *  32 declarants showing one net worth on /person and a different one on
  *  /officials, up to 4.8x apart.
  *
+ *  THE LEADING RUNG IS THE PERIOD COVERED, NOT THE YEAR FILED. "Newest" here
+ *  means "describes the most recent state of affairs" — that is the only sense in
+ *  which one wealth statement supersedes another. Ranking on `declarationYear`
+ *  instead let a filing that covers an EARLIER period win purely by being lodged
+ *  later, because an annual for fiscal N is filed the following May while an exit
+ *  filing for fiscal N+1 is lodged in-year:
+ *
+ *    Лучия Александрова Добрева, both filings dated 2025
+ *      Vacate  · covers 2025 · filed 2025-02-18 · 12 valued rows · net +€382,272
+ *      Annualy · covers 2024 · filed 2025-06-13 ·  3 valued rows · net −€274,784
+ *
+ *  On `filedAt` the fiscal-2024 annual wins, so her published 2025 net worth was
+ *  −€274,784 — a figure that describes 2024, on a card headlined 2025, for a named
+ *  public figure. 877 person-years were represented by a filing covering an
+ *  earlier period than another filing available for the same year.
+ *
+ *  `filedAt` keeps the next rung and is still the right tie-break WITHIN a period:
+ *  an annual closes the calendar year and is filed after any entry/exit lodged
+ *  during it, so the later-filed of two same-period filings is the later snapshot.
+ *
  *  `sourceUrl` is the terminal tie-break: opaque, but unique and stable, so the
  *  order is deterministic across runs and renders. */
 export const byRecency = (a: DeclarationLike, b: DeclarationLike): number =>
-  b.declarationYear - a.declarationYear ||
+  declarationPeriod(b) - declarationPeriod(a) ||
   (b.filedAt ?? "").localeCompare(a.filedAt ?? "") ||
   filingOrder(b) - filingOrder(a) ||
   (a.entryNumber ?? "").localeCompare(b.entryNumber ?? "") ||

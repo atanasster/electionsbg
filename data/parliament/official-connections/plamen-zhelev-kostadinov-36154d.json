@@ -1,0 +1,317 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:plamen-zhelev-kostadinov-36154d",
+  "nodes": [
+    {
+      "id": "official:plamen-zhelev-kostadinov-36154d",
+      "type": "official",
+      "slug": "plamen-zhelev-kostadinov-36154d",
+      "label": "Пламен Желев Костадинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карнобат"
+    },
+    {
+      "id": "company:tr:202787353",
+      "type": "company",
+      "label": "МИГ БИЛДИНГ ИНВЕСТ ООД",
+      "slug": null,
+      "uic": "202787353",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206945822",
+      "type": "company",
+      "label": "МЕГАВАТ СОЛАР ООД",
+      "slug": null,
+      "uic": "206945822",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:147075154",
+      "type": "company",
+      "label": "ВАНЯ ТРАНС ООД",
+      "slug": null,
+      "uic": "147075154",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202841032",
+      "type": "company",
+      "label": "АГРО ЛАЙФ 2020 ЕООД",
+      "slug": null,
+      "uic": "202841032",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:102663856",
+      "type": "company",
+      "label": "АГРО ЛАЙФ ТРЕЙДИНГ ЕООД",
+      "slug": null,
+      "uic": "102663856",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204197216",
+      "type": "company",
+      "label": "АГРО ЛАЙФ ТРЕЙД ЕООД",
+      "slug": null,
+      "uic": "204197216",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205784120",
+      "type": "company",
+      "label": "БЛЯК СИЙ ТАБАКО ЕООД",
+      "slug": null,
+      "uic": "205784120",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЮЛИЯНОВ МАНЧИКОВ",
+      "type": "person",
+      "label": "Веселин Юлиянов Манчиков"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЯНЧЕВ ЯНЕВ",
+      "type": "person",
+      "label": "Веселин Янчев Янев"
+    },
+    {
+      "id": "person:НИКОЛА ГЕОРГИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Никола Георгиев Христов"
+    },
+    {
+      "id": "person:ИВАНКА ДИМОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Иванка Димова Костадинова"
+    },
+    {
+      "id": "person:АТАНАС ПЛАМЕНОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Атанас Пламенов Костадинов"
+    },
+    {
+      "id": "person:ПЕПА КОСТОВА МЛАДЕНОВА",
+      "type": "person",
+      "label": "Пепа Костова Младенова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:202787353",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:206945822",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:147075154",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:202841032",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:102663856",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:204197216",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:205784120",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:202787353",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:206945822",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:206945822",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:plamen-zhelev-kostadinov-36154d",
+      "target": "company:tr:102663856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЮЛИЯНОВ МАНЧИКОВ",
+      "target": "company:tr:202787353",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЯНЧЕВ ЯНЕВ",
+      "target": "company:tr:206945822",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:206945822",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМОВА КОСТАДИНОВА",
+      "target": "company:tr:147075154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ПЛАМЕНОВ КОСТАДИНОВ",
+      "target": "company:tr:147075154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМОВА КОСТАДИНОВА",
+      "target": "company:tr:202841032",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМОВА КОСТАДИНОВА",
+      "target": "company:tr:202841032",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМОВА КОСТАДИНОВА",
+      "target": "company:tr:102663856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМОВА КОСТАДИНОВА",
+      "target": "company:tr:102663856",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМОВА КОСТАДИНОВА",
+      "target": "company:tr:204197216",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМОВА КОСТАДИНОВА",
+      "target": "company:tr:204197216",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПА КОСТОВА МЛАДЕНОВА",
+      "target": "company:tr:205784120",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМОВА КОСТАДИНОВА",
+      "target": "company:tr:205784120",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ПЛАМЕНОВ КОСТАДИНОВ",
+      "target": "company:tr:205784120",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

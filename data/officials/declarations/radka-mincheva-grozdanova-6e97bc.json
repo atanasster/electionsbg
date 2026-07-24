@@ -207,6 +207,74 @@
     "institution": "МБАЛ - Девин ЕАД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": "2019-06-26",
+    "entryNumber": "Г3838",
+    "controlHash": "D81BA991",
+    "sourceUrl": "https://register.cacbg.bg/2019/30102A3B-5793-4EDB-8345-673DD3D4F70398450.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19868.291211403855,
+        "amountEurSpouse": 3546.3204879769714
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2945.0412356902184
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "МПС",
+        "detail": "Фолсфаген голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1900,
+        "valueEur": 971.4545742728151,
+        "holderName": "Радка Минчева Грозданова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Радка Минчева Грозданова",
+        "isSpouse": false,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "radka-mincheva-grozdanova-6e97bc",
+    "declarantName": "Радка Минчева Грозданова",
+    "institution": "МБАЛ - Девин ЕАД",
+    "positionTitle": "Изпълнителен директор",
+    "category": "hospital_head",
     "declarationYear": 2018,
     "fiscalYear": null,
     "declarationType": "Entry",

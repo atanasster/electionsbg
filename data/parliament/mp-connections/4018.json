@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:4018",
   "nodes": [
     {
@@ -9,7 +9,29 @@
       "label": "Николай Димитров Благоев",
       "partyGroupShort": "БВ",
       "isCurrent": false,
-      "nsFolders": []
+      "nsFolders": [
+        "48"
+      ]
+    },
+    {
+      "id": "company:Кемпес-ЗБ-ЕООД",
+      "type": "company",
+      "label": "\"Кемпес ЗБ\" ЕООД",
+      "slug": "Кемпес-ЗБ-ЕООД",
+      "uic": "204354906",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Стара Загора"
+    },
+    {
+      "id": "company:Кемпес-НБ-ЕООД",
+      "type": "company",
+      "label": "\"Кемпес НБ\" ЕООД",
+      "slug": "Кемпес-НБ-ЕООД",
+      "uic": "123729167",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Стара Загора"
     },
     {
       "id": "company:tr:206693711",
@@ -22,14 +44,9 @@
       "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
     },
     {
-      "id": "company:tr:123729167",
-      "type": "company",
-      "label": "КЕМПЕС НБ",
-      "slug": null,
-      "uic": "123729167",
-      "legalForm": "EOOD",
-      "status": "active",
-      "seat": null
+      "id": "person:ЗОРНИЦА АСЕНОВА БЛАГОЕВА",
+      "type": "person",
+      "label": "Зорница Асенова Благоева"
     },
     {
       "id": "person:ПЛАМЕН ХРИСТОВ МИХАЛЕВ",
@@ -45,11 +62,6 @@
       "id": "person:ЛЕСО ИНВЕСТ",
       "type": "person",
       "label": "Лесо Инвест"
-    },
-    {
-      "id": "person:ЗОРНИЦА АСЕНОВА БЛАГОЕВА",
-      "type": "person",
-      "label": "Зорница Асенова Благоева"
     },
     {
       "id": "company:tr:123656776",
@@ -76,6 +88,30 @@
   "edges": [
     {
       "source": "mp:4018",
+      "target": "company:Кемпес-ЗБ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4018",
+      "target": "company:Кемпес-НБ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4018",
+      "target": "company:Кемпес-НБ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4018",
       "target": "company:tr:206693711",
       "kind": "tr_role",
       "role": "manager",
@@ -83,12 +119,20 @@
       "confidence": "medium"
     },
     {
-      "source": "mp:4018",
-      "target": "company:tr:123729167",
+      "source": "person:ЗОРНИЦА АСЕНОВА БЛАГОЕВА",
+      "target": "company:Кемпес-НБ-ЕООД",
       "kind": "tr_role",
       "role": "manager",
       "isCurrent": true,
-      "confidence": "medium"
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРНИЦА АСЕНОВА БЛАГОЕВА",
+      "target": "company:Кемпес-НБ-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
     },
     {
       "source": "person:ПЛАМЕН ХРИСТОВ МИХАЛЕВ",
@@ -111,22 +155,6 @@
       "target": "company:tr:206693711",
       "kind": "tr_owner",
       "role": "partner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ЗОРНИЦА АСЕНОВА БЛАГОЕВА",
-      "target": "company:tr:123729167",
-      "kind": "tr_owner",
-      "role": "sole_owner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ЗОРНИЦА АСЕНОВА БЛАГОЕВА",
-      "target": "company:tr:123729167",
-      "kind": "tr_role",
-      "role": "manager",
       "isCurrent": true,
       "confidence": "high"
     },

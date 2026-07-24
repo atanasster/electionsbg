@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:marina-georgieva-palakarska-235456",
+  "nodes": [
+    {
+      "id": "official:marina-georgieva-palakarska-235456",
+      "type": "official",
+      "slug": "marina-georgieva-palakarska-235456",
+      "label": "Марина Георгиева Палакарска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207012352",
+      "type": "company",
+      "label": "МАРИНА ПАЛАКАРСКА - ДЪГА",
+      "slug": null,
+      "uic": "207012352",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marina-georgieva-palakarska-235456",
+      "target": "company:tr:207012352",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marina-georgieva-palakarska-235456",
+      "target": "company:tr:207012352",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

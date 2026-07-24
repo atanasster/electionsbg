@@ -143,5 +143,55 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "emiliya-lyubomirova-ilchevska-dddb06",
+    "declarantName": "Емилия Любомирова Илчевска",
+    "institution": "Инспекторати",
+    "positionTitle": "Ръководител",
+    "category": "inspectorate",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8818",
+    "controlHash": "C530DAD2",
+    "sourceUrl": "https://register.cacbg.bg/2023/2A090C42-098B-463D-B916-01C2AD458A13156219.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17682.51841929002,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 71.06957148627437,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46000,
+        "valueEur": 23519.42653502605,
+        "holderName": "Емилия Любомирова Илчевска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
   }
 ]

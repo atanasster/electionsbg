@@ -1,7 +1,7 @@
 {
   "obshtina": "KRZ16",
   "registryName": "Кърджали",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 4,
     "council_chair": 1,
-    "councillor": 39,
+    "councillor": 40,
     "chief_architect": 1,
     "other": 0
   },
@@ -668,6 +668,23 @@
         "partyCanonicalId": "p_16",
         "listPos": 105,
         "prefVotes": 45,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "seidali-syuleman-seidali-210ca5",
+      "name": "Сейдали Сюлеман Сейдали",
+      "normalizedName": "СЕЙДАЛИ СЮЛЕМАН СЕЙДАЛИ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Кърджали",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Движение за права и свободи – ДПС",
+        "partyCanonicalId": "p_16",
+        "listPos": 118,
+        "prefVotes": 14,
         "isElected": true
       }
     },

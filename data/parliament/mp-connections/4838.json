@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:4838",
   "nodes": [
     {
@@ -74,6 +74,15 @@
       "label": "Йоана Ценкова Йорданова"
     },
     {
+      "id": "official:aleksandr-angelov-georgiev-c443fb",
+      "type": "official",
+      "slug": "aleksandr-angelov-georgiev-c443fb",
+      "label": "Александър Ангелов Георгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
       "id": "official:pavel-nikolaev-lisev-d2a96b",
       "type": "official",
       "slug": "pavel-nikolaev-lisev-d2a96b",
@@ -111,11 +120,6 @@
       "id": "person:БИСЕР ХРИСТОВ ПЕТКОВ",
       "type": "person",
       "label": "Бисер Христов Петков"
-    },
-    {
-      "id": "person:АЛЕКСАНДЪР АНГЕЛОВ ГЕОРГИЕВ",
-      "type": "person",
-      "label": "Александър Ангелов Георгиев"
     },
     {
       "id": "mp:5248",
@@ -277,6 +281,14 @@
       "confidence": "high"
     },
     {
+      "source": "official:aleksandr-angelov-georgiev-c443fb",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
       "source": "official:pavel-nikolaev-lisev-d2a96b",
       "target": "company:tr:203740812",
       "kind": "tr_role",
@@ -326,14 +338,6 @@
     },
     {
       "source": "person:БИСЕР ХРИСТОВ ПЕТКОВ",
-      "target": "company:tr:203740812",
-      "kind": "tr_role",
-      "role": "representative",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:АЛЕКСАНДЪР АНГЕЛОВ ГЕОРГИЕВ",
       "target": "company:tr:203740812",
       "kind": "tr_role",
       "role": "representative",

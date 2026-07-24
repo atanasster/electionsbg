@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:kristina-dragomirova-halacheva-141070",
   "nodes": [
     {
@@ -25,6 +25,11 @@
       "id": "person:ХРИСТОМИРА АНЕВА ПАНОВА",
       "type": "person",
       "label": "Христомира Анева Панова"
+    },
+    {
+      "id": "person:КРИСТИНА ДРАГОМИРОВА ХАЛАЧЕВА",
+      "type": "person",
+      "label": "Кристина Драгомирова Халачева"
     }
   ],
   "edges": [
@@ -37,22 +42,6 @@
       "confidence": "high"
     },
     {
-      "source": "official:kristina-dragomirova-halacheva-141070",
-      "target": "company:tr:206522410",
-      "kind": "tr_owner",
-      "role": "partner",
-      "isCurrent": true,
-      "confidence": "medium"
-    },
-    {
-      "source": "official:kristina-dragomirova-halacheva-141070",
-      "target": "company:tr:206522410",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "medium"
-    },
-    {
       "source": "person:ХРИСТОМИРА АНЕВА ПАНОВА",
       "target": "company:tr:206522410",
       "kind": "tr_role",
@@ -65,6 +54,22 @@
       "target": "company:tr:206522410",
       "kind": "tr_owner",
       "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ДРАГОМИРОВА ХАЛАЧЕВА",
+      "target": "company:tr:206522410",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ДРАГОМИРОВА ХАЛАЧЕВА",
+      "target": "company:tr:206522410",
+      "kind": "tr_role",
+      "role": "manager",
       "isCurrent": true,
       "confidence": "high"
     }

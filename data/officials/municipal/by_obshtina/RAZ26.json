@@ -1,7 +1,7 @@
 {
   "obshtina": "RAZ26",
   "registryName": "Разград",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 0,
     "deputy_mayor": 5,
     "council_chair": 1,
-    "councillor": 31,
+    "councillor": 32,
     "chief_architect": 1,
     "other": 0
   },
@@ -514,6 +514,23 @@
         "partyCanonicalId": "p_6",
         "listPos": 104,
         "prefVotes": 119,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "onur-sali-gochgeldi-686cee",
+      "name": "Онур Сали Гьочгелди",
+      "normalizedName": "ОНУР САЛИ ГЬОЧГЕЛДИ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Разград",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ",
+        "partyCanonicalId": "p_6",
+        "listPos": 107,
+        "prefVotes": 221,
         "isElected": true
       }
     },

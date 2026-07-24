@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "mpNodeId": "mp:3467",
   "nodes": [
     {
@@ -37,6 +37,15 @@
       "type": "official",
       "slug": "anna-ilieva-stoikova-1a1801",
       "label": "Анна Илиева Стойкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "official:ventsi-ventsislavov-stoichev-83dc07",
+      "type": "official",
+      "slug": "ventsi-ventsislavov-stoichev-83dc07",
+      "label": "Венци Венциславов Стойчев",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Столична община"
@@ -130,11 +139,6 @@
       "id": "person:ИВАЙЛО ХРИСТОВ ЙОНКОВ",
       "type": "person",
       "label": "Ивайло Христов Йонков"
-    },
-    {
-      "id": "person:ВЕНЦИ ВЕНЦИСЛАВОВ СТОЙЧЕВ",
-      "type": "person",
-      "label": "Венци Венциславов Стойчев"
     },
     {
       "id": "person:ИВАН ЯНЧОВ ТАКОВ",
@@ -873,6 +877,14 @@
       "confidence": "medium"
     },
     {
+      "source": "official:ventsi-ventsislavov-stoichev-83dc07",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
       "source": "official:veselin-iordanov-kalanovski-773e55",
       "target": "company:tr:176909251",
       "kind": "tr_role",
@@ -978,14 +990,6 @@
     },
     {
       "source": "person:ИВАЙЛО ХРИСТОВ ЙОНКОВ",
-      "target": "company:tr:176909251",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ВЕНЦИ ВЕНЦИСЛАВОВ СТОЙЧЕВ",
       "target": "company:tr:176909251",
       "kind": "tr_role",
       "role": "ngo_board",

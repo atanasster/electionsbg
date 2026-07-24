@@ -84,5 +84,67 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "stefka-paneva-yarlovska-542564",
+    "declarantName": "Стефка Панева Ярловска",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-02-16",
+    "entryNumber": "Г5830",
+    "controlHash": "0E3FF924",
+    "sourceUrl": "https://register.cacbg.bg/2024/8C4F3916-9370-4585-8765-6D882C5EDE95187087.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9571.38401599321,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Самоков ул. Никола Образописв 10",
+        "municipality": "Самоков",
+        "areaSqm": 400,
+        "builtAreaSqm": 150,
+        "acquiredYear": 1972,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Стефка Панева Ярловска",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Рельово",
+        "municipality": "Самоков",
+        "areaSqm": 1000,
+        "builtAreaSqm": 80,
+        "acquiredYear": 1990,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Стефка Панева Ярловска",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      }
+    ],
+    "events": []
   }
 ]

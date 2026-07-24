@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:natali-prvanova-evtimova-8c2901",
+  "nodes": [
+    {
+      "id": "official:natali-prvanova-evtimova-8c2901",
+      "type": "official",
+      "slug": "natali-prvanova-evtimova-8c2901",
+      "label": "Натали Първанова Евтимова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Якимово"
+    },
+    {
+      "id": "company:tr:208894629",
+      "type": "company",
+      "label": "ЕН СТУДИО ГРУП",
+      "slug": null,
+      "uic": "208894629",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:natali-prvanova-evtimova-8c2901",
+      "target": "company:tr:208894629",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:natali-prvanova-evtimova-8c2901",
+      "target": "company:tr:208894629",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

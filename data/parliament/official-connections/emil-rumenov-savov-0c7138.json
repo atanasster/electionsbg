@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "officialNodeId": "official:emil-rumenov-savov-0c7138",
+  "nodes": [
+    {
+      "id": "official:emil-rumenov-savov-0c7138",
+      "type": "official",
+      "slug": "emil-rumenov-savov-0c7138",
+      "label": "Емил Руменов Савов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131026485",
+      "type": "company",
+      "label": "БАКР - АГЕНЦИЯ ЗА КРЕДИТЕН РЕЙТИНГ",
+      "slug": null,
+      "uic": "131026485",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯНА ДИМИТРОВА ДЖУПАНОВА-МИХАЙЛОВА",
+      "type": "person",
+      "label": "Марияна Димитрова Джупанова-Михайлова"
+    },
+    {
+      "id": "person:АЛИКС РЕБЕКА МАРИ ВАЛДИС",
+      "type": "person",
+      "label": "Аликс Ребека Мари Валдис"
+    },
+    {
+      "id": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "type": "person",
+      "label": "Христо Иларионов Михайловски"
+    },
+    {
+      "id": "person:КАТЕРИНА ДОБРЕВА МИХАЙЛОВСКА",
+      "type": "person",
+      "label": "Катерина Добрева Михайловска"
+    },
+    {
+      "id": "person:ХОРТЕНЗОР ИНВЕСТМЪНТ АГ",
+      "type": "person",
+      "label": "Хортензор Инвестмънт Аг"
+    },
+    {
+      "id": "person:ФЕРДИНАНД БАРДОЛИ КУШМОШ",
+      "type": "person",
+      "label": "Фердинанд Бардоли Кушмош"
+    },
+    {
+      "id": "person:ВЕНЦЕСЛАВ СТОЯНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Венцеслав Стоянов Петров"
+    },
+    {
+      "id": "person:СТЕФАН ХРИСТОВ ПЕТРАНОВ",
+      "type": "person",
+      "label": "Стефан Христов Петранов"
+    },
+    {
+      "id": "person:ДИМИТЪР АЛЕКСАНДРОВ БОРИСОВ",
+      "type": "person",
+      "label": "Димитър Александров Борисов"
+    },
+    {
+      "id": "person:АЛИКС РЕБЕКА МАРИ ДЕЛАВО",
+      "type": "person",
+      "label": "Аликс Ребека Мари Делаво"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ЖОРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Светослав Жоров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-rumenov-savov-0c7138",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯНА ДИМИТРОВА ДЖУПАНОВА-МИХАЙЛОВА",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИКС РЕБЕКА МАРИ ВАЛДИС",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ДОБРЕВА МИХАЙЛОВСКА",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "target": "company:tr:131026485",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХОРТЕНЗОР ИНВЕСТМЪНТ АГ",
+      "target": "company:tr:131026485",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРДИНАНД БАРДОЛИ КУШМОШ",
+      "target": "company:tr:131026485",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦЕСЛАВ СТОЯНОВ ПЕТРОВ",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦЕСЛАВ СТОЯНОВ ПЕТРОВ",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ХРИСТОВ ПЕТРАНОВ",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АЛЕКСАНДРОВ БОРИСОВ",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИКС РЕБЕКА МАРИ ДЕЛАВО",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ЖОРОВ ДИМИТРОВ",
+      "target": "company:tr:131026485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

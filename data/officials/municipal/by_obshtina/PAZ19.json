@@ -1,7 +1,7 @@
 {
   "obshtina": "PAZ19",
   "registryName": "Пазарджик",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 4,
     "council_chair": 1,
-    "councillor": 39,
+    "councillor": 40,
     "chief_architect": 1,
     "other": 0
   },
@@ -409,6 +409,23 @@
         "partyCanonicalId": null,
         "listPos": 113,
         "prefVotes": 116,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "ivan-stoichev-papazov-5f5302",
+      "name": "Иван Стойчев Папазов",
+      "normalizedName": "ИВАН СТОЙЧЕВ ПАПАЗОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Пазарджик",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Земеделски съюз Ал. Стамболийски",
+        "partyCanonicalId": null,
+        "listPos": 101,
+        "prefVotes": 39,
         "isElected": true
       }
     },

@@ -1,7 +1,7 @@
 {
   "obshtina": "SLS07",
   "registryName": "Главиница",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 4,
     "council_chair": 1,
-    "councillor": 15,
+    "councillor": 16,
     "chief_architect": 1,
     "other": 0
   },
@@ -201,6 +201,23 @@
         "partyCanonicalId": "p_16",
         "listPos": 107,
         "prefVotes": 7,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "nikola-petrov-dimov-49584d",
+      "name": "Никола Петров Димов",
+      "normalizedName": "НИКОЛА ПЕТРОВ ДИМОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Главиница",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ПП ГЕРБ",
+        "partyCanonicalId": "gerb",
+        "listPos": 103,
+        "prefVotes": 97,
         "isElected": true
       }
     },

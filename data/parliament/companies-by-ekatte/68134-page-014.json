@@ -2,8 +2,21 @@
   "ekatte": "68134",
   "page": 14,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "МЕЧ-Секюрити-ЕООД",
+      "displayName": "МЕЧ - Секюрити ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4773,
+          "mpName": "Емил Димитров Трифонов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "МИСТЪР-ДОМО",
       "displayName": "МИСТЪР ДОМО",
@@ -52,6 +65,19 @@
           "mpId": 5064,
           "mpName": "Мария Тодорова Тодорова",
           "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Наблюдател-2002",
+      "displayName": "Наблюдател 2002",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 2734,
+          "mpName": "Тома Николов Томов",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -624,32 +650,6 @@
           "mpId": 5113,
           "mpName": "Георги Иванов Георгиев",
           "role": "manager",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "с-Плюс-консулт-ООД",
-      "displayName": "с Плюс консулт ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 5232,
-          "mpName": "Стою Теодоров Стоев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "с+-Консулт-ООД",
-      "displayName": "с+ Консулт ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 5232,
-          "mpName": "Стою Теодоров Стоев",
-          "role": "declared_stake",
           "isCurrent": true
         }
       ]

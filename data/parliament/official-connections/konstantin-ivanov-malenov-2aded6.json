@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:konstantin-ivanov-malenov-2aded6",
   "nodes": [
     {
@@ -22,9 +22,13 @@
       "seat": null
     },
     {
-      "id": "person:МАРЖЕНА ЛУЦИЯ РИШ-ПАНОВА",
-      "type": "person",
-      "label": "Маржена Луция Риш-Панова"
+      "id": "official:marzhena-lutsiya-rish-panova-5ba934",
+      "type": "official",
+      "slug": "marzhena-lutsiya-rish-panova-5ba934",
+      "label": "Маржена Луция Риш-Панова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
     },
     {
       "id": "person:РАЛИЦА ВИЛСОН ГЕОРГИЕВА",
@@ -50,12 +54,12 @@
       "confidence": "medium"
     },
     {
-      "source": "person:МАРЖЕНА ЛУЦИЯ РИШ-ПАНОВА",
+      "source": "official:marzhena-lutsiya-rish-panova-5ba934",
       "target": "company:tr:000689182",
       "kind": "tr_role",
       "role": "director",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
       "source": "person:РАЛИЦА ВИЛСОН ГЕОРГИЕВА",

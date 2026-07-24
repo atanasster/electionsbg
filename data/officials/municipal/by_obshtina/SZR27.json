@@ -1,19 +1,36 @@
 {
   "obshtina": "SZR27",
   "registryName": "Раднево",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
   "byRole": {
     "mayor": 0,
-    "deputy_mayor": 1,
+    "deputy_mayor": 2,
     "council_chair": 0,
-    "councillor": 17,
+    "councillor": 18,
     "chief_architect": 1,
     "other": 0
   },
   "entries": [
+    {
+      "slug": "krasimir-knev-kurtev-e5697f",
+      "name": "Красимир Кънев Куртев",
+      "normalizedName": "КРАСИМИР КЪНЕВ КУРТЕВ",
+      "role": "deputy_mayor",
+      "roleRaw": "Заместник кмет",
+      "municipality": "Раднево",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "БСП ЗА БЪЛГАРИЯ",
+        "partyCanonicalId": "bsp",
+        "listPos": 101,
+        "prefVotes": 67,
+        "isElected": true
+      }
+    },
     {
       "slug": "temenuzhka-svetoslavova-sotirova-299f71",
       "name": "Теменужка Светославова Сотирова",
@@ -71,6 +88,23 @@
         "partyCanonicalId": null,
         "listPos": 102,
         "prefVotes": 161,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "viktoriya-vasileva-vasileva-7dd128",
+      "name": "Виктория Василева Василева",
+      "normalizedName": "ВИКТОРИЯ ВАСИЛЕВА ВАСИЛЕВА",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Раднево",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "ЗАЕДНО ЗА СИЛНА ОБЩИНА",
+        "partyCanonicalId": null,
+        "listPos": 102,
+        "prefVotes": 191,
         "isElected": true
       }
     },

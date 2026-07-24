@@ -1,7 +1,7 @@
 {
   "obshtina": "MON38",
   "registryName": "Якимово",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 2,
     "council_chair": 1,
-    "councillor": 9,
+    "councillor": 11,
     "chief_architect": 1,
     "other": 0
   },
@@ -137,6 +137,23 @@
       }
     },
     {
+      "slug": "evgeni-filipov-angelov-5fed90",
+      "name": "Евгени Филипов Ангелов",
+      "normalizedName": "ЕВГЕНИ ФИЛИПОВ АНГЕЛОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Якимово",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК НДСВ (ДПС,ЗНС)",
+        "partyCanonicalId": "p_58",
+        "listPos": 104,
+        "prefVotes": 53,
+        "isElected": false
+      }
+    },
+    {
       "slug": "ivo-todorov-mladenov-b518a3",
       "name": "Иво Тодоров Младенов",
       "normalizedName": "ИВО ТОДОРОВ МЛАДЕНОВ",
@@ -167,6 +184,23 @@
         "partyCanonicalId": "gerb",
         "listPos": 103,
         "prefVotes": 104,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "naiden-serafimov-kolchov-e81bf9",
+      "name": "Найден Серафимов Колчов",
+      "normalizedName": "НАЙДЕН СЕРАФИМОВ КОЛЧОВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Якимово",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "МК НДСВ (ДПС,ЗНС)",
+        "partyCanonicalId": "p_58",
+        "listPos": 105,
+        "prefVotes": 56,
         "isElected": true
       }
     },

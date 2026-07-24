@@ -1,6 +1,56 @@
 [
   {
     "slug": "neli-slavova-boicheva-664361",
+    "declarantName": "Нели Славова Бойчева",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-29",
+    "entryNumber": "Г14430",
+    "controlHash": "78875318",
+    "sourceUrl": "https://register.cacbg.bg/2025/2CD503DE-0480-403A-AC0C-3DCFB293170E217737.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16231.983352336349,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1610.5694257680882,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75845,
+        "valueEur": 38778.93272932719,
+        "holderName": "Нели Славова Бойчева",
+        "isSpouse": false,
+        "legalBasis": "Договор за банков кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "neli-slavova-boicheva-664361",
     "declarantName": "(unknown)",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",

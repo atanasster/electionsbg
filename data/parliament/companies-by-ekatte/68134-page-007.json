@@ -2,8 +2,123 @@
   "ekatte": "68134",
   "page": 7,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "Заряд",
+      "displayName": "Заряд",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1111",
+      "mps": [
+        {
+          "mpId": 4324,
+          "mpName": "Искрен Николаев Митев",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4324,
+          "mpName": "Искрен Николаев Митев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЗВЕЗДНА-РЕАЛНОСТ",
+      "displayName": "ЗВЕЗДНА РЕАЛНОСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1231",
+      "mps": [
+        {
+          "mpId": 112,
+          "mpName": "Силвия Николаева Алексиева",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 112,
+          "mpName": "Силвия Николаева Алексиева",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЗЕРО-МАТ",
+      "displayName": "ЗЕРО МАТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
+      "mps": [
+        {
+          "mpId": 5241,
+          "mpName": "Здравко Александров Огнянов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5241,
+          "mpName": "Здравко Александров Огнянов",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "ЗИГ-ЗАГ-КОР-ООД",
+      "displayName": "ЗИГ ЗАГ КОР ООД",
+      "registeredOffice": "СОФИЯ",
+      "mps": [
+        {
+          "mpId": 4190,
+          "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "И-Ви-Лог",
+      "displayName": "И Ви Лог",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1715",
+      "mps": [
+        {
+          "mpId": 630,
+          "mpName": "Владимир Иванов Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 630,
+          "mpName": "Владимир Иванов Димитров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "и-ЕМ-ПИ-Инвест-България-АД",
+      "displayName": "и ЕМ ПИ Инвест България АД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3931,
+          "mpName": "Иван Маркос Христанов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ивени-Консулт-ЕООД",
+      "displayName": "Ивени Консулт ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 2671,
+          "mpName": "Жельо Иванов Бойчев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Ивент-Проджект-ООД",
       "displayName": "Ивент Проджект ООД",
@@ -692,19 +807,6 @@
       ]
     },
     {
-      "slug": "Лауреа-ООД",
-      "displayName": "Лауреа ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3254,
-          "mpName": "Атанас Петров Костадинов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "ЛЕВИС-1",
       "displayName": "ЛЕВИС 1",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1124",
@@ -775,114 +877,6 @@
         {
           "mpId": 1563,
           "mpName": "Димитър Димчев Димов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Лупио-Консулт",
-      "displayName": "Лупио Консулт",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1303",
-      "mps": [
-        {
-          "mpId": 5113,
-          "mpName": "Георги Иванов Георгиев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5113,
-          "mpName": "Георги Иванов Георгиев",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "М-консулт-33-ЕООД",
-      "displayName": "М-консулт 33 ЕООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3694,
-          "mpName": "Атанас Димитров Михнев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3694,
-          "mpName": "Атанас Димитров Михнев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "МАКЕДОНСКИ-НАУЧЕН-ИНСТИТУТ",
-      "displayName": "МАКЕДОНСКИ НАУЧЕН ИНСТИТУТ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София",
-      "mps": [
-        {
-          "mpId": 2775,
-          "mpName": "Милен Василев Михов",
-          "role": "ngo_representative",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2775,
-          "mpName": "Милен Василев Михов",
-          "role": "ngo_board",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "МАКСИМ-15",
-      "displayName": "МАКСИМ 15",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1750",
-      "mps": [
-        {
-          "mpId": 5113,
-          "mpName": "Георги Иванов Георгиев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5113,
-          "mpName": "Георги Иванов Георгиев",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Маркет-уинг-сървисис-ООД",
-      "displayName": "Маркет уинг сървисис ООД",
-      "registeredOffice": "СОФИЯ",
-      "mps": [
-        {
-          "mpId": 4190,
-          "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "МД-ЕНТЕРПРИСЕ",
-      "displayName": "МД-ЕНТЕРПРИСЕ",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1505",
-      "mps": [
-        {
-          "mpId": 5245,
-          "mpName": "Мартин Димитров Димитров",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5245,
-          "mpName": "Мартин Димитров Димитров",
           "role": "sole_owner",
           "isCurrent": true
         }

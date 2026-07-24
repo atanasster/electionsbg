@@ -2,8 +2,33 @@
   "ekatte": "68134",
   "page": 2,
   "totalPages": 16,
-  "count": 794,
+  "count": 797,
   "companies": [
+    {
+      "slug": "Металика-М-Транс",
+      "displayName": "Металика-М Транс",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 4868,
+          "mpName": "Венцислав Михайлов Асенов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4868,
+          "mpName": "Венцислав Михайлов Асенов",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4868,
+          "mpName": "Венцислав Михайлов Асенов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Тентус-България-ООД",
       "displayName": "Тентус България ООД",
@@ -132,6 +157,57 @@
       ]
     },
     {
+      "slug": "Бизнес-консулт-АЯ-ЕООД",
+      "displayName": "\"Бизнес консулт - АЯ\" ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4483,
+          "mpName": "Ализан Нихат Яхова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Бизнес-консулт-и-иновации-ЕООД",
+      "displayName": "\"Бизнес консулт и иновации\" ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4483,
+          "mpName": "Ализан Нихат Яхова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ей-Ей-Ей-Лоджистикс-Груп-Инк-ЕООД",
+      "displayName": "\"Ей Ей Ей Лоджистикс Груп Инк\" ЕООД",
+      "registeredOffice": "гр. София",
+      "mps": [
+        {
+          "mpId": 4998,
+          "mpName": "Самуил Борисов Славов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4998,
+          "mpName": "Самуил Борисов Славов",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4998,
+          "mpName": "Самуил Борисов Славов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Ивентс-Криейтърс-ООД",
       "displayName": "\"Ивентс Криейтърс\" ООД",
       "registeredOffice": "София (столица)",
@@ -139,6 +215,19 @@
         {
           "mpId": 3011,
           "mpName": "Милена Цветанова Дамянова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Илиянци-строй-груп-ООД",
+      "displayName": "\"Илиянци строй груп\" ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3123,
+          "mpName": "ВЕСЕЛА НИКОЛАЕВА ЛЕЧЕВА",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -189,6 +278,19 @@
       ]
     },
     {
+      "slug": "Корект-транс-ООД",
+      "displayName": "\"Корект транс\" ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3123,
+          "mpName": "ВЕСЕЛА НИКОЛАЕВА ЛЕЧЕВА",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Криейтив-Солюшънс-ООД",
       "displayName": "\"Криейтив Солюшънс\" ООД",
       "registeredOffice": "София (столица)",
@@ -196,6 +298,19 @@
         {
           "mpId": 4858,
           "mpName": "Виктор Тенчев Папазов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Профита-ООД",
+      "displayName": "\"Профита\" ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3123,
+          "mpName": "ВЕСЕЛА НИКОЛАЕВА ЛЕЧЕВА",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -241,6 +356,45 @@
         {
           "mpId": 4997,
           "mpName": "Иван Руменов Клисурски",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Алгафари-Ентъртейнмънт-ЕООД",
+      "displayName": "Алгафари Ентъртейнмънт ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4830,
+          "mpName": "Николай Нидал Алгафари",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Алгафари-ООД",
+      "displayName": "Алгафари ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4830,
+          "mpName": "Николай Нидал Алгафари",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Алзак-ЕООД",
+      "displayName": "Алзак ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4830,
+          "mpName": "Николай Нидал Алгафари",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -387,19 +541,6 @@
         {
           "mpId": 3395,
           "mpName": "Арман Агоп Бабикян",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Ей-Кей-Дивелъпмънт-ЕООД",
-      "displayName": "Ей Кей Дивелъпмънт ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3254,
-          "mpName": "Атанас Петров Костадинов",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -729,155 +870,32 @@
       ]
     },
     {
-      "slug": "Център-за-развитие-и-политики",
-      "displayName": "Център за развитие и политики",
+      "slug": "ЦЕНТЪР-ЗА-ИЗСЛЕДВАНЕ-НА-ОТБРАНАТА-И-СИГУРНОСТТА",
+      "displayName": "ЦЕНТЪР ЗА ИЗСЛЕДВАНЕ НА ОТБРАНАТА И СИГУРНОСТТА",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
       "mps": [
         {
-          "mpId": 2843,
-          "mpName": "Константин Веселинов Попов",
+          "mpId": 2389,
+          "mpName": "Ангел Петров Найденов",
           "role": "ngo_representative",
           "isCurrent": true
         },
         {
-          "mpId": 2843,
-          "mpName": "Константин Веселинов Попов",
+          "mpId": 2389,
+          "mpName": "Ангел Петров Найденов",
           "role": "ngo_board",
           "isCurrent": true
         },
         {
-          "mpId": 3101,
-          "mpName": "Ивелина Веселинова Василева",
-          "role": "ngo_board",
+          "mpId": 3252,
+          "mpName": "Мая Божидарова Манолова-Найденова",
+          "role": "ngo_representative",
           "isCurrent": true
         },
         {
-          "mpId": 4258,
-          "mpName": "Вежди Летиф Рашидов",
+          "mpId": 3252,
+          "mpName": "Мая Божидарова Манолова-Найденова",
           "role": "ngo_board",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Чала-ООД",
-      "displayName": "Чала ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4719,
-          "mpName": "Петър Георгиев Кънев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Чес-Лайънс-ООД",
-      "displayName": "Чес Лайънс ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3352,
-          "mpName": "Антоанета Андонова Стефанова",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Ъпсурт-ООД",
-      "displayName": "Ъпсурт ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4316,
-          "mpName": "Христо Христов Петров",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Адвансд-Мениджмънт-Консултинг-ООД",
-      "displayName": "\"Адвансд Мениджмънт Консултинг\" ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4858,
-          "mpName": "Виктор Тенчев Папазов",
-          "role": "partner",
-          "isCurrent": false
-        },
-        {
-          "mpId": 4858,
-          "mpName": "Виктор Тенчев Папазов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Валтранс-2001-ЕООД",
-      "displayName": "\"Валтранс 2001\" ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3322,
-          "mpName": "Крум Георгиев Дончев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Илиянци-строй-груп-ООД",
-      "displayName": "\"Илиянци строй груп\" ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3123,
-          "mpName": "ВЕСЕЛА НИКОЛАЕВА ЛЕЧЕВА",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Ирис-Трейд-КонсултЕООД",
-      "displayName": "\"Ирис Трейд Консулт\"ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3681,
-          "mpName": "Николина Панайотова Ангелкова",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Корект-транс-ООД",
-      "displayName": "\"Корект транс\" ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3123,
-          "mpName": "ВЕСЕЛА НИКОЛАЕВА ЛЕЧЕВА",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Профита-ООД",
-      "displayName": "\"Профита\" ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3123,
-          "mpName": "ВЕСЕЛА НИКОЛАЕВА ЛЕЧЕВА",
-          "role": "declared_stake",
           "isCurrent": true
         }
       ]

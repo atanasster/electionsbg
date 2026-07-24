@@ -1,7 +1,7 @@
 {
   "obshtina": "SZR24",
   "registryName": "Павел баня",
-  "generatedAt": "2026-07-24T03:35:18.786Z",
+  "generatedAt": "2026-07-24T16:18:46.795Z",
   "years": [
     2025
   ],
@@ -9,7 +9,7 @@
     "mayor": 1,
     "deputy_mayor": 3,
     "council_chair": 1,
-    "councillor": 15,
+    "councillor": 16,
     "chief_architect": 1,
     "other": 0
   },
@@ -217,6 +217,23 @@
         "partyCanonicalId": "bsp",
         "listPos": 101,
         "prefVotes": 41,
+        "isElected": true
+      }
+    },
+    {
+      "slug": "raiko-nikolaev-kolev-b20613",
+      "name": "Райко Николаев Колев",
+      "normalizedName": "РАЙКО НИКОЛАЕВ КОЛЕВ",
+      "role": "councillor",
+      "roleRaw": "Общински съветник",
+      "municipality": "Павел баня",
+      "latestDeclarationYear": 2025,
+      "candidateLink": {
+        "cycle": "2023_10_29_mi",
+        "partyName": "Движение за права и свободи – ДПС",
+        "partyCanonicalId": "p_16",
+        "listPos": 112,
+        "prefVotes": 109,
         "isElected": true
       }
     },

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:bozhidar-kostadinov-chaparov-e03f7a",
   "nodes": [
     {
@@ -50,6 +50,15 @@
       "legalForm": null,
       "status": null,
       "seat": null
+    },
+    {
+      "id": "official:stoyan-andreev-stoyanov-3639c0",
+      "type": "official",
+      "slug": "stoyan-andreev-stoyanov-3639c0",
+      "label": "Стоян Андреев Стоянов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
     },
     {
       "id": "official:hristo-vlev-kosev-764273",
@@ -123,6 +132,14 @@
       "role": "ngo_representative",
       "isCurrent": true,
       "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-andreev-stoyanov-3639c0",
+      "target": "company:tr:148097608",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
     },
     {
       "source": "official:hristo-vlev-kosev-764273",

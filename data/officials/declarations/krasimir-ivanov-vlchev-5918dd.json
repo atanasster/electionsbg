@@ -1,6 +1,86 @@
 [
   {
     "slug": "krasimir-ivanov-vlchev-5918dd",
+    "declarantName": "Красимир Иванов Вълчев",
+    "institution": "Българските граждани заемащи длъжности в НАТО",
+    "positionTitle": "Представител",
+    "category": "international",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-23",
+    "entryNumber": "Г10818",
+    "controlHash": "228D9072",
+    "sourceUrl": "https://register.cacbg.bg/2024/D2FAFE0E-6D72-4AD1-854C-BCCEC722A9E1192529.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16361.340198278991,
+        "amountEurSpouse": 4601.626930765967
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "SUV",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Красимир Иванов Вълчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Красимир Иванов Вълчев",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13000,
+        "valueEur": 12961.249188324138,
+        "holderName": "Иван Николов Бонев",
+        "isSpouse": true,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "krasimir-ivanov-vlchev-5918dd",
     "declarantName": "(unknown)",
     "institution": "Българските граждани заемащи длъжности в НАТО",
     "positionTitle": "Представител",

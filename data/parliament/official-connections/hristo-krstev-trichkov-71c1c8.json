@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:hristo-krstev-trichkov-71c1c8",
   "nodes": [
     {
@@ -22,9 +22,13 @@
       "seat": null
     },
     {
-      "id": "person:АЛЕКСАНДЪР КРЪСТЕВ ТРИЧКОВ",
-      "type": "person",
-      "label": "Александър Кръстев Тричков"
+      "id": "official:aleksandr-krstev-trichkov-7b08a4",
+      "type": "official",
+      "slug": "aleksandr-krstev-trichkov-7b08a4",
+      "label": "Александър Кръстев Тричков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Дългопол"
     }
   ],
   "edges": [
@@ -45,12 +49,12 @@
       "confidence": "medium"
     },
     {
-      "source": "person:АЛЕКСАНДЪР КРЪСТЕВ ТРИЧКОВ",
+      "source": "official:aleksandr-krstev-trichkov-7b08a4",
       "target": "company:tr:204882864",
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     }
   ]
 }

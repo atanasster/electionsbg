@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "generatedAt": "2026-07-24T16:20:29.185Z",
   "officialNodeId": "official:geno-ivanov-georgiev-e22ed0",
   "nodes": [
     {
@@ -46,6 +46,15 @@
       "type": "official",
       "slug": "ivan-denchev-kolarov-a83f0f",
       "label": "Иван Денчев Коларов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ivelina-petrova-krushkova-efc6ef",
+      "type": "official",
+      "slug": "ivelina-petrova-krushkova-efc6ef",
+      "label": "Ивелина Петрова Крушкова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -121,11 +130,6 @@
       "id": "person:ДИМИТЪР ЦЕНКОВ ПЕНЕВ",
       "type": "person",
       "label": "Димитър Ценков Пенев"
-    },
-    {
-      "id": "person:ИВЕЛИНА ПЕТРОВА КРУШКОВА",
-      "type": "person",
-      "label": "Ивелина Петрова Крушкова"
     },
     {
       "id": "person:НИКОЛАЙ МАГРИОТОВ ЕДРЕВ",
@@ -210,6 +214,14 @@
     },
     {
       "source": "official:ivan-denchev-kolarov-a83f0f",
+      "target": "company:tr:831646048",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivelina-petrova-krushkova-efc6ef",
       "target": "company:tr:831646048",
       "kind": "tr_role",
       "role": "director",
@@ -346,14 +358,6 @@
     },
     {
       "source": "person:ДИМИТЪР ЦЕНКОВ ПЕНЕВ",
-      "target": "company:tr:831646048",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ИВЕЛИНА ПЕТРОВА КРУШКОВА",
       "target": "company:tr:831646048",
       "kind": "tr_role",
       "role": "director",

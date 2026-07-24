@@ -149,6 +149,21 @@ Re-run both after Step 1 / Step 1b so the artifacts reflect the fresh roster. Bo
 
 > **After a significant officials refresh, also run `/update-connections`.** The two builders above refresh `company_links.json` + the officials `connections.json` bridge, but the MP connections **graph** (`data/parliament/connections.json`, per-MP/official subgraphs) and the per-EIK `company-connections/` both fold the officials links and only rebuild inside the declarations pipeline. If cacbg/data.egov is reachable, `/update-connections` does it; if it's network-blocked, run the offline rebuild `npx tsx scripts/run-connections-rebuild.ts` (no fetch — see `/update-connections`). Skipping this leaves the graph's officials edges stale relative to the new roster.
 
+## Step 1d — Reload Postgres, IN THIS ORDER
+
+The officials ingest writes `data/officials/index.json`, but the person resolver does **not** read that file — it reads the `official_roster` Postgres table, and the only thing that loads `official_roster` is `db:load:ngo-board-links`. So a refresh that adds officials and skips this step leaves the resolver unable to place any of them: their declarations load with `person_id` NULL, contribute to nobody's wealth series, and the `declarations_load` data tests fail on the resolution rate. Adding ~1,900 filings this way left 518 declarations unresolved (98.9% vs the 99.9% floor) until `official_roster` was reloaded — then 47,982 of 47,983 resolved.
+
+```bash
+npm run db:load:ngo-board-links       # official_roster ← data/officials/{,municipal/}index.json
+npm run db:load:declarations:pg       # filings, person_id LEFT NULL
+npm run db:resolve:persons            # person / person_role from official_roster
+npm run db:load:declarations:pg -- --resolve   # fill person_id, REFRESH person_wealth_year
+npm run db:load:person-elections:pg   # candidate_person — person_ids were just reassigned
+npm run person:slugs                  # data/person/prerender_slugs.json
+```
+
+The last two are not optional after a re-resolve: `db:resolve:persons` mints new `person_id`s, so `candidate_person` and the prerender slug manifest both go stale and their data tests fail. This is the same tail `npm run db:refresh` runs — reach for that when in doubt.
+
 ## Step 2 — Verify
 
 ```bash

@@ -2,7 +2,7 @@
   "obshtina": "SZR31",
   "page": 1,
   "totalPages": 1,
-  "count": 40,
+  "count": 42,
   "companies": [
     {
       "slug": "Магсим-ЕООД",
@@ -260,6 +260,25 @@
         {
           "mpId": 5272,
           "mpName": "Радослав Стефанов Рибарски",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Кемпес-НБ-ЕООД",
+      "displayName": "\"Кемпес НБ\" ЕООД",
+      "registeredOffice": "Стара Загора",
+      "mps": [
+        {
+          "mpId": 4018,
+          "mpName": "Николай Димитров Благоев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4018,
+          "mpName": "Николай Димитров Благоев",
           "role": "declared_stake",
           "isCurrent": true
         }
@@ -553,6 +572,19 @@
           "mpId": 2404,
           "mpName": "Пламен Веселинов Йорданов",
           "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Кемпес-ЗБ-ЕООД",
+      "displayName": "\"Кемпес ЗБ\" ЕООД",
+      "registeredOffice": "Стара Загора",
+      "mps": [
+        {
+          "mpId": 4018,
+          "mpName": "Николай Димитров Благоев",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
