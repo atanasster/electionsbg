@@ -1,1 +1,103 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ruska-dimitrova-boyadzhieva-6c00d0","nodes":[{"id":"official:ruska-dimitrova-boyadzhieva-6c00d0","type":"official","slug":"ruska-dimitrova-boyadzhieva-6c00d0","label":"Руска Димитрова Бояджиева","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:206779806","type":"company","label":"Сдружение ПроспектиМ","slug":null,"uic":"206779806","legalForm":null,"status":null,"seat":null},{"id":"person:ВАСИЛЕНА ГАЛИНОВА ВАСИЛЕВА","type":"person","label":"Василена Галинова Василева"},{"id":"person:АТАНАСКА ДИМИТРОВА НИКОЛОВА","type":"person","label":"Атанаска Димитрова Николова"},{"id":"person:КАЛОЯНА ЖИВКОВА ПЕТКОВА","type":"person","label":"Калояна Живкова Петкова"},{"id":"person:ЛЕНИЯ-НЕЗАЕТ ДЕ БРИТО ГОНСАЛВЕШ","type":"person","label":"Ления-Незает Де Брито Гонсалвеш"}],"edges":[{"source":"official:ruska-dimitrova-boyadzhieva-6c00d0","target":"company:tr:206779806","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:ruska-dimitrova-boyadzhieva-6c00d0","target":"company:tr:206779806","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВАСИЛЕНА ГАЛИНОВА ВАСИЛЕВА","target":"company:tr:206779806","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАСКА ДИМИТРОВА НИКОЛОВА","target":"company:tr:206779806","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯНА ЖИВКОВА ПЕТКОВА","target":"company:tr:206779806","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАСКА ДИМИТРОВА НИКОЛОВА","target":"company:tr:206779806","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЕНИЯ-НЕЗАЕТ ДЕ БРИТО ГОНСАЛВЕШ","target":"company:tr:206779806","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ruska-dimitrova-boyadzhieva-6c00d0",
+  "nodes": [
+    {
+      "id": "official:ruska-dimitrova-boyadzhieva-6c00d0",
+      "type": "official",
+      "slug": "ruska-dimitrova-boyadzhieva-6c00d0",
+      "label": "Руска Димитрова Бояджиева",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206779806",
+      "type": "company",
+      "label": "Сдружение ПроспектиМ",
+      "slug": null,
+      "uic": "206779806",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСИЛЕНА ГАЛИНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Василена Галинова Василева"
+    },
+    {
+      "id": "person:АТАНАСКА ДИМИТРОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Атанаска Димитрова Николова"
+    },
+    {
+      "id": "person:КАЛОЯНА ЖИВКОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Калояна Живкова Петкова"
+    },
+    {
+      "id": "person:ЛЕНИЯ-НЕЗАЕТ ДЕ БРИТО ГОНСАЛВЕШ",
+      "type": "person",
+      "label": "Ления-Незает Де Брито Гонсалвеш"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ruska-dimitrova-boyadzhieva-6c00d0",
+      "target": "company:tr:206779806",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ruska-dimitrova-boyadzhieva-6c00d0",
+      "target": "company:tr:206779806",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛЕНА ГАЛИНОВА ВАСИЛЕВА",
+      "target": "company:tr:206779806",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ДИМИТРОВА НИКОЛОВА",
+      "target": "company:tr:206779806",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯНА ЖИВКОВА ПЕТКОВА",
+      "target": "company:tr:206779806",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ДИМИТРОВА НИКОЛОВА",
+      "target": "company:tr:206779806",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕНИЯ-НЕЗАЕТ ДЕ БРИТО ГОНСАЛВЕШ",
+      "target": "company:tr:206779806",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

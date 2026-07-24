@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vesela-danailova-kondakova-cc1508","nodes":[{"id":"official:vesela-danailova-kondakova-cc1508","type":"official","slug":"vesela-danailova-kondakova-cc1508","label":"ВЕСЕЛА ДАНАИЛОВА КОНДАКОВА","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:177210231","type":"company","label":"ПОНТЕС АРТИС","slug":null,"uic":"177210231","legalForm":null,"status":null,"seat":null},{"id":"person:МИХАЕЛА РАЙЧЕВА ТОДОРОВА","type":"person","label":"Михаела Райчева Тодорова"},{"id":"person:ГЕОРГИ ДАНАИЛОВ ПАУНОВ","type":"person","label":"Георги Данаилов Паунов"},{"id":"person:ЗОРИНА ПАНАЙОТОВА МИЛКОВСКА","type":"person","label":"Зорина Панайотова Милковска"}],"edges":[{"source":"official:vesela-danailova-kondakova-cc1508","target":"company:tr:177210231","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МИХАЕЛА РАЙЧЕВА ТОДОРОВА","target":"company:tr:177210231","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ДАНАИЛОВ ПАУНОВ","target":"company:tr:177210231","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИХАЕЛА РАЙЧЕВА ТОДОРОВА","target":"company:tr:177210231","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗОРИНА ПАНАЙОТОВА МИЛКОВСКА","target":"company:tr:177210231","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vesela-danailova-kondakova-cc1508",
+  "nodes": [
+    {
+      "id": "official:vesela-danailova-kondakova-cc1508",
+      "type": "official",
+      "slug": "vesela-danailova-kondakova-cc1508",
+      "label": "ВЕСЕЛА ДАНАИЛОВА КОНДАКОВА",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177210231",
+      "type": "company",
+      "label": "ПОНТЕС АРТИС",
+      "slug": null,
+      "uic": "177210231",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИХАЕЛА РАЙЧЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Михаела Райчева Тодорова"
+    },
+    {
+      "id": "person:ГЕОРГИ ДАНАИЛОВ ПАУНОВ",
+      "type": "person",
+      "label": "Георги Данаилов Паунов"
+    },
+    {
+      "id": "person:ЗОРИНА ПАНАЙОТОВА МИЛКОВСКА",
+      "type": "person",
+      "label": "Зорина Панайотова Милковска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vesela-danailova-kondakova-cc1508",
+      "target": "company:tr:177210231",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИХАЕЛА РАЙЧЕВА ТОДОРОВА",
+      "target": "company:tr:177210231",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДАНАИЛОВ ПАУНОВ",
+      "target": "company:tr:177210231",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА РАЙЧЕВА ТОДОРОВА",
+      "target": "company:tr:177210231",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРИНА ПАНАЙОТОВА МИЛКОВСКА",
+      "target": "company:tr:177210231",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

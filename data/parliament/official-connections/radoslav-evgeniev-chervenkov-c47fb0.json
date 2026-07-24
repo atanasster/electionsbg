@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:radoslav-evgeniev-chervenkov-c47fb0","nodes":[{"id":"official:radoslav-evgeniev-chervenkov-c47fb0","type":"official","slug":"radoslav-evgeniev-chervenkov-c47fb0","label":"Радослав Евгениев Червенков","tier":"municipal","role":"councillor","municipality":"Перник"},{"id":"company:tr:204812474","type":"company","label":"БУЛ НР","slug":null,"uic":"204812474","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:radoslav-evgeniev-chervenkov-c47fb0","target":"company:tr:204812474","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:radoslav-evgeniev-chervenkov-c47fb0",
+  "nodes": [
+    {
+      "id": "official:radoslav-evgeniev-chervenkov-c47fb0",
+      "type": "official",
+      "slug": "radoslav-evgeniev-chervenkov-c47fb0",
+      "label": "Радослав Евгениев Червенков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Перник"
+    },
+    {
+      "id": "company:tr:204812474",
+      "type": "company",
+      "label": "БУЛ НР",
+      "slug": null,
+      "uic": "204812474",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-evgeniev-chervenkov-c47fb0",
+      "target": "company:tr:204812474",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,246 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:darina-svetleva-pavlova-7172d3","nodes":[{"id":"official:darina-svetleva-pavlova-7172d3","type":"official","slug":"darina-svetleva-pavlova-7172d3","label":"Дарина Светлева Павлова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000924171","type":"company","label":"ВАСИЛ ЛЕВСКИ - 1895","slug":null,"uic":"000924171","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕЯН ЙОВЧЕВ ЛЮБЕНОВ","type":"person","label":"Деян Йовчев Любенов"},{"id":"person:СИЛВИЯ КРЪСТЕВА КОЛЕВА","type":"person","label":"Силвия Кръстева Колева"},{"id":"person:ТАТЯНА ИВАНОВА АЛЕКСАНДРОВА","type":"person","label":"Татяна Иванова Александрова"},{"id":"person:РУМЕН КЪНЧЕВ НИКОЛОВ","type":"person","label":"Румен Кънчев Николов"},{"id":"person:АСЕН ИВАНОВ СТАНЕВ","type":"person","label":"Асен Иванов Станев"},{"id":"person:АНТОН БОЯНОВ БОРИСОВ","type":"person","label":"Антон Боянов Борисов"},{"id":"person:ПЕТЪР ЗДРАВКОВ ПЕНЕВ","type":"person","label":"Петър Здравков Пенев"},{"id":"person:МИЛЕНА ГЕРЧЕВА ИВАНОВА","type":"person","label":"Милена Герчева Иванова"},{"id":"person:ВИКТОРИЯ МИЛЕНОВА ЙОРДАНОВА","type":"person","label":"Виктория Миленова Йорданова"},{"id":"person:ВАЛЯ РУСЕВА ДИМИТРОВА","type":"person","label":"Валя Русева Димитрова"},{"id":"person:ДАФИНКА ИВАНОВА ДОБРЕВА","type":"person","label":"Дафинка Иванова Добрева"},{"id":"person:ТАТЯНА МИХАЙЛОВА КУЦАРОВА","type":"person","label":"Татяна Михайлова Куцарова"},{"id":"person:ГЕРГАНА ЖИВКОВА ЯНКОВА","type":"person","label":"Гергана Живкова Янкова"},{"id":"person:МЛАДЕН ПЕТЕВ МАРИНОВ","type":"person","label":"Младен Петев Маринов"},{"id":"person:МАРИНЕЛА ДИМИТРОВА ХРИСТОВА","type":"person","label":"Маринела Димитрова Христова"}],"edges":[{"source":"official:darina-svetleva-pavlova-7172d3","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕЯН ЙОВЧЕВ ЛЮБЕНОВ","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ КРЪСТЕВА КОЛЕВА","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА ИВАНОВА АЛЕКСАНДРОВА","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН КЪНЧЕВ НИКОЛОВ","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН ИВАНОВ СТАНЕВ","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН БОЯНОВ БОРИСОВ","target":"company:tr:000924171","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ЗДРАВКОВ ПЕНЕВ","target":"company:tr:000924171","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ГЕРЧЕВА ИВАНОВА","target":"company:tr:000924171","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ МИЛЕНОВА ЙОРДАНОВА","target":"company:tr:000924171","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЯ РУСЕВА ДИМИТРОВА","target":"company:tr:000924171","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ МИЛЕНОВА ЙОРДАНОВА","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАФИНКА ИВАНОВА ДОБРЕВА","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА МИХАЙЛОВА КУЦАРОВА","target":"company:tr:000924171","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ КРЪСТЕВА КОЛЕВА","target":"company:tr:000924171","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ЖИВКОВА ЯНКОВА","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МЛАДЕН ПЕТЕВ МАРИНОВ","target":"company:tr:000924171","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНЕЛА ДИМИТРОВА ХРИСТОВА","target":"company:tr:000924171","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:darina-svetleva-pavlova-7172d3",
+  "nodes": [
+    {
+      "id": "official:darina-svetleva-pavlova-7172d3",
+      "type": "official",
+      "slug": "darina-svetleva-pavlova-7172d3",
+      "label": "Дарина Светлева Павлова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000924171",
+      "type": "company",
+      "label": "ВАСИЛ ЛЕВСКИ - 1895",
+      "slug": null,
+      "uic": "000924171",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕЯН ЙОВЧЕВ ЛЮБЕНОВ",
+      "type": "person",
+      "label": "Деян Йовчев Любенов"
+    },
+    {
+      "id": "person:СИЛВИЯ КРЪСТЕВА КОЛЕВА",
+      "type": "person",
+      "label": "Силвия Кръстева Колева"
+    },
+    {
+      "id": "person:ТАТЯНА ИВАНОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Татяна Иванова Александрова"
+    },
+    {
+      "id": "person:РУМЕН КЪНЧЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Румен Кънчев Николов"
+    },
+    {
+      "id": "person:АСЕН ИВАНОВ СТАНЕВ",
+      "type": "person",
+      "label": "Асен Иванов Станев"
+    },
+    {
+      "id": "person:АНТОН БОЯНОВ БОРИСОВ",
+      "type": "person",
+      "label": "Антон Боянов Борисов"
+    },
+    {
+      "id": "person:ПЕТЪР ЗДРАВКОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Петър Здравков Пенев"
+    },
+    {
+      "id": "person:МИЛЕНА ГЕРЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Милена Герчева Иванова"
+    },
+    {
+      "id": "person:ВИКТОРИЯ МИЛЕНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Виктория Миленова Йорданова"
+    },
+    {
+      "id": "person:ВАЛЯ РУСЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Валя Русева Димитрова"
+    },
+    {
+      "id": "person:ДАФИНКА ИВАНОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Дафинка Иванова Добрева"
+    },
+    {
+      "id": "person:ТАТЯНА МИХАЙЛОВА КУЦАРОВА",
+      "type": "person",
+      "label": "Татяна Михайлова Куцарова"
+    },
+    {
+      "id": "person:ГЕРГАНА ЖИВКОВА ЯНКОВА",
+      "type": "person",
+      "label": "Гергана Живкова Янкова"
+    },
+    {
+      "id": "person:МЛАДЕН ПЕТЕВ МАРИНОВ",
+      "type": "person",
+      "label": "Младен Петев Маринов"
+    },
+    {
+      "id": "person:МАРИНЕЛА ДИМИТРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Маринела Димитрова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:darina-svetleva-pavlova-7172d3",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕЯН ЙОВЧЕВ ЛЮБЕНОВ",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ КРЪСТЕВА КОЛЕВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ИВАНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН КЪНЧЕВ НИКОЛОВ",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ИВАНОВ СТАНЕВ",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН БОЯНОВ БОРИСОВ",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЗДРАВКОВ ПЕНЕВ",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ГЕРЧЕВА ИВАНОВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ МИЛЕНОВА ЙОРДАНОВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ РУСЕВА ДИМИТРОВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ МИЛЕНОВА ЙОРДАНОВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАФИНКА ИВАНОВА ДОБРЕВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА МИХАЙЛОВА КУЦАРОВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ КРЪСТЕВА КОЛЕВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ЖИВКОВА ЯНКОВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕН ПЕТЕВ МАРИНОВ",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА ДИМИТРОВА ХРИСТОВА",
+      "target": "company:tr:000924171",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

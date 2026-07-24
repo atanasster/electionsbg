@@ -1,1 +1,113 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-iordanov-mertekchiiski-9161cd","nodes":[{"id":"official:nikolai-iordanov-mertekchiiski-9161cd","type":"official","slug":"nikolai-iordanov-mertekchiiski-9161cd","label":"Николай Йорданов Мертекчийски","tier":"municipal","role":"councillor","municipality":"Сапарева баня"},{"id":"company:tr:204774220","type":"company","label":"НИК ТРАНС 1 ООД","slug":null,"uic":"204774220","legalForm":null,"status":null,"seat":null},{"id":"company:tr:200758221","type":"company","label":"СЪНИ ДРИЙМС 1 ООД","slug":null,"uic":"200758221","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203176888","type":"company","label":"ЙОНИВЕСТ ЕООД","slug":null,"uic":"203176888","legalForm":null,"status":null,"seat":null},{"id":"person:ГАЛИНА НИКОЛОВА ГЕОРГИЕВА","type":"person","label":"Галина Николова Георгиева"},{"id":"person:ВЕСЕЛКА СТАНИМИРОВА МЕРТЕКЧИЙСКА","type":"person","label":"Веселка Станимирова Мертекчийска"}],"edges":[{"source":"official:nikolai-iordanov-mertekchiiski-9161cd","target":"company:tr:204774220","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-iordanov-mertekchiiski-9161cd","target":"company:tr:200758221","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-iordanov-mertekchiiski-9161cd","target":"company:tr:203176888","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-iordanov-mertekchiiski-9161cd","target":"company:tr:204774220","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-iordanov-mertekchiiski-9161cd","target":"company:tr:204774220","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ГАЛИНА НИКОЛОВА ГЕОРГИЕВА","target":"company:tr:204774220","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА СТАНИМИРОВА МЕРТЕКЧИЙСКА","target":"company:tr:204774220","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-iordanov-mertekchiiski-9161cd",
+  "nodes": [
+    {
+      "id": "official:nikolai-iordanov-mertekchiiski-9161cd",
+      "type": "official",
+      "slug": "nikolai-iordanov-mertekchiiski-9161cd",
+      "label": "Николай Йорданов Мертекчийски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сапарева баня"
+    },
+    {
+      "id": "company:tr:204774220",
+      "type": "company",
+      "label": "НИК ТРАНС 1 ООД",
+      "slug": null,
+      "uic": "204774220",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200758221",
+      "type": "company",
+      "label": "СЪНИ ДРИЙМС 1 ООД",
+      "slug": null,
+      "uic": "200758221",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203176888",
+      "type": "company",
+      "label": "ЙОНИВЕСТ ЕООД",
+      "slug": null,
+      "uic": "203176888",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛИНА НИКОЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Галина Николова Георгиева"
+    },
+    {
+      "id": "person:ВЕСЕЛКА СТАНИМИРОВА МЕРТЕКЧИЙСКА",
+      "type": "person",
+      "label": "Веселка Станимирова Мертекчийска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-iordanov-mertekchiiski-9161cd",
+      "target": "company:tr:204774220",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-iordanov-mertekchiiski-9161cd",
+      "target": "company:tr:200758221",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-iordanov-mertekchiiski-9161cd",
+      "target": "company:tr:203176888",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-iordanov-mertekchiiski-9161cd",
+      "target": "company:tr:204774220",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-iordanov-mertekchiiski-9161cd",
+      "target": "company:tr:204774220",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛИНА НИКОЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:204774220",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА СТАНИМИРОВА МЕРТЕКЧИЙСКА",
+      "target": "company:tr:204774220",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

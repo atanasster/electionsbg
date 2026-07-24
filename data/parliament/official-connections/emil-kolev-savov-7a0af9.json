@@ -1,1 +1,106 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-kolev-savov-7a0af9","nodes":[{"id":"official:emil-kolev-savov-7a0af9","type":"official","slug":"emil-kolev-savov-7a0af9","label":"Емил Колев Савов","tier":"municipal","role":"councillor","municipality":"Каварна"},{"id":"company:tr:206542369","type":"company","label":"ЕМО 1 ЕООД","slug":null,"uic":"206542369","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207977794","type":"company","label":"БУТИК ИЗКУШЕНИЕ ЕООД","slug":null,"uic":"207977794","legalForm":null,"status":null,"seat":null},{"id":"person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА","type":"person","label":"Камелия Младенова Иванова"}],"edges":[{"source":"official:emil-kolev-savov-7a0af9","target":"company:tr:206542369","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emil-kolev-savov-7a0af9","target":"company:tr:207977794","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emil-kolev-savov-7a0af9","target":"company:tr:206542369","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:emil-kolev-savov-7a0af9","target":"company:tr:206542369","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА","target":"company:tr:206542369","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА","target":"company:tr:206542369","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА","target":"company:tr:207977794","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА","target":"company:tr:207977794","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-kolev-savov-7a0af9",
+  "nodes": [
+    {
+      "id": "official:emil-kolev-savov-7a0af9",
+      "type": "official",
+      "slug": "emil-kolev-savov-7a0af9",
+      "label": "Емил Колев Савов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Каварна"
+    },
+    {
+      "id": "company:tr:206542369",
+      "type": "company",
+      "label": "ЕМО 1 ЕООД",
+      "slug": null,
+      "uic": "206542369",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207977794",
+      "type": "company",
+      "label": "БУТИК ИЗКУШЕНИЕ ЕООД",
+      "slug": null,
+      "uic": "207977794",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Камелия Младенова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-kolev-savov-7a0af9",
+      "target": "company:tr:206542369",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-kolev-savov-7a0af9",
+      "target": "company:tr:207977794",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-kolev-savov-7a0af9",
+      "target": "company:tr:206542369",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-kolev-savov-7a0af9",
+      "target": "company:tr:206542369",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА",
+      "target": "company:tr:206542369",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА",
+      "target": "company:tr:206542369",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА",
+      "target": "company:tr:207977794",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ МЛАДЕНОВА ИВАНОВА",
+      "target": "company:tr:207977794",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

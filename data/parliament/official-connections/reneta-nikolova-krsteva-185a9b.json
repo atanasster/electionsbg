@@ -1,1 +1,220 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:reneta-nikolova-krsteva-185a9b","nodes":[{"id":"official:reneta-nikolova-krsteva-185a9b","type":"official","slug":"reneta-nikolova-krsteva-185a9b","label":"Ренета Николова Кръстева","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:107020750","type":"company","label":"ВЕЦ ХРИСТО ЛУЛЕВ ООД","slug":null,"uic":"107020750","legalForm":null,"status":null,"seat":null},{"id":"person:БОНКА ДИМОВА ХОРОЗОВА","type":"person","label":"Бонка Димова Хорозова"},{"id":"person:ДИМИТЪР ДИМОВ ДИМИТРОВ","type":"person","label":"Димитър Димов Димитров"},{"id":"person:ДЕСИСЛАВА ХРИСТОВА НИКОЛОВА","type":"person","label":"Десислава Христова Николова"},{"id":"person:ПЕТЪР ХРИСТОВ НАНЧЕВ","type":"person","label":"Петър Христов Нанчев"},{"id":"person:ЗДРАВКА ВЛАДИМИРОВА НАНЧЕВА","type":"person","label":"Здравка Владимирова Нанчева"},{"id":"person:ДЕЯНА ДИМИТРОВА КЮРЧИЕВА","type":"person","label":"Деяна Димитрова Кюрчиева"},{"id":"person:ФИЛИП ЛЮБЕНОВ ЗИДАРОВ","type":"person","label":"Филип Любенов Зидаров"},{"id":"person:ПЕТЯ НИКОЛОВА РАЕВА","type":"person","label":"Петя Николова Раева"},{"id":"person:ИВА НИКОЛАЕВА ЙОРДАНОВА","type":"person","label":"Ива Николаева Йорданова"},{"id":"person:ВЕРА ДИМИТРОВА ДИМИТРОВА","type":"person","label":"Вера Димитрова Димитрова"},{"id":"person:ЕЛИЗАБЕТ БОЯНОВА ЦОНЕВА","type":"person","label":"Елизабет Боянова Цонева"},{"id":"person:МАРИЯ КРЪСТЕВА КРЪСТЕВА-ОВЧАРОВА","type":"person","label":"Мария Кръстева Кръстева-Овчарова"},{"id":"person:ПЕТЪР КРЪСТЕВ КРЪСТЕВ","type":"person","label":"Петър Кръстев Кръстев"}],"edges":[{"source":"official:reneta-nikolova-krsteva-185a9b","target":"company:tr:107020750","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:БОНКА ДИМОВА ХОРОЗОВА","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ДИМОВ ДИМИТРОВ","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ХРИСТОВА НИКОЛОВА","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ХРИСТОВ НАНЧЕВ","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКА ВЛАДИМИРОВА НАНЧЕВА","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯНА ДИМИТРОВА КЮРЧИЕВА","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП ЛЮБЕНОВ ЗИДАРОВ","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ НИКОЛОВА РАЕВА","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВА НИКОЛАЕВА ЙОРДАНОВА","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРА ДИМИТРОВА ДИМИТРОВА","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЗАБЕТ БОЯНОВА ЦОНЕВА","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ КРЪСТЕВА КРЪСТЕВА-ОВЧАРОВА","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР КРЪСТЕВ КРЪСТЕВ","target":"company:tr:107020750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ХРИСТОВ НАНЧЕВ","target":"company:tr:107020750","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЗАБЕТ БОЯНОВА ЦОНЕВА","target":"company:tr:107020750","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:reneta-nikolova-krsteva-185a9b",
+  "nodes": [
+    {
+      "id": "official:reneta-nikolova-krsteva-185a9b",
+      "type": "official",
+      "slug": "reneta-nikolova-krsteva-185a9b",
+      "label": "Ренета Николова Кръстева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107020750",
+      "type": "company",
+      "label": "ВЕЦ ХРИСТО ЛУЛЕВ ООД",
+      "slug": null,
+      "uic": "107020750",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОНКА ДИМОВА ХОРОЗОВА",
+      "type": "person",
+      "label": "Бонка Димова Хорозова"
+    },
+    {
+      "id": "person:ДИМИТЪР ДИМОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Димов Димитров"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ХРИСТОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Десислава Христова Николова"
+    },
+    {
+      "id": "person:ПЕТЪР ХРИСТОВ НАНЧЕВ",
+      "type": "person",
+      "label": "Петър Христов Нанчев"
+    },
+    {
+      "id": "person:ЗДРАВКА ВЛАДИМИРОВА НАНЧЕВА",
+      "type": "person",
+      "label": "Здравка Владимирова Нанчева"
+    },
+    {
+      "id": "person:ДЕЯНА ДИМИТРОВА КЮРЧИЕВА",
+      "type": "person",
+      "label": "Деяна Димитрова Кюрчиева"
+    },
+    {
+      "id": "person:ФИЛИП ЛЮБЕНОВ ЗИДАРОВ",
+      "type": "person",
+      "label": "Филип Любенов Зидаров"
+    },
+    {
+      "id": "person:ПЕТЯ НИКОЛОВА РАЕВА",
+      "type": "person",
+      "label": "Петя Николова Раева"
+    },
+    {
+      "id": "person:ИВА НИКОЛАЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Ива Николаева Йорданова"
+    },
+    {
+      "id": "person:ВЕРА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Вера Димитрова Димитрова"
+    },
+    {
+      "id": "person:ЕЛИЗАБЕТ БОЯНОВА ЦОНЕВА",
+      "type": "person",
+      "label": "Елизабет Боянова Цонева"
+    },
+    {
+      "id": "person:МАРИЯ КРЪСТЕВА КРЪСТЕВА-ОВЧАРОВА",
+      "type": "person",
+      "label": "Мария Кръстева Кръстева-Овчарова"
+    },
+    {
+      "id": "person:ПЕТЪР КРЪСТЕВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Петър Кръстев Кръстев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:reneta-nikolova-krsteva-185a9b",
+      "target": "company:tr:107020750",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОНКА ДИМОВА ХОРОЗОВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДИМОВ ДИМИТРОВ",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ХРИСТОВА НИКОЛОВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ХРИСТОВ НАНЧЕВ",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКА ВЛАДИМИРОВА НАНЧЕВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯНА ДИМИТРОВА КЮРЧИЕВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ЛЮБЕНОВ ЗИДАРОВ",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ НИКОЛОВА РАЕВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА НИКОЛАЕВА ЙОРДАНОВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЗАБЕТ БОЯНОВА ЦОНЕВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КРЪСТЕВА КРЪСТЕВА-ОВЧАРОВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР КРЪСТЕВ КРЪСТЕВ",
+      "target": "company:tr:107020750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ХРИСТОВ НАНЧЕВ",
+      "target": "company:tr:107020750",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЗАБЕТ БОЯНОВА ЦОНЕВА",
+      "target": "company:tr:107020750",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

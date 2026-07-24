@@ -1,1 +1,147 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dinko-tanev-mihailov-d4a994","nodes":[{"id":"official:dinko-tanev-mihailov-d4a994","type":"official","slug":"dinko-tanev-mihailov-d4a994","label":"Динко Танев Михайлов","tier":"municipal","role":"councillor","municipality":"Стара Загора"},{"id":"company:tr:123128444","type":"company","label":"СПОРТЕН КЛУБ ПО ВОЛЕЙБОЛ БЕРОЕ","slug":null,"uic":"123128444","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ТОДОРОВ ГЕОРГИЕВ","type":"person","label":"Георги Тодоров Георгиев"},{"id":"person:ИВАН СЛАВОВ НИКОЛОВ","type":"person","label":"Иван Славов Николов"},{"id":"person:НИКОЛАЙ ВАЛЕРИЕВ НИКОЛОВ","type":"person","label":"Николай Валериев Николов"},{"id":"person:АТАНАС ПАВЛОВ ПАВЛОВ","type":"person","label":"Атанас Павлов Павлов"},{"id":"person:ИВЕЛИН МАРИНОВ КОЛЕВ","type":"person","label":"Ивелин Маринов Колев"},{"id":"person:ЛАРИСА ЕВГЕНИЕВНА КИТИПОВА","type":"person","label":"Лариса Евгениевна Китипова"},{"id":"person:ВАЛЕНТИН ГАНЧЕВ ТОТЕВ","type":"person","label":"Валентин Ганчев Тотев"},{"id":"person:ДИМО ГИРГИНОВ ГИРГИНОВ","type":"person","label":"Димо Гиргинов Гиргинов"}],"edges":[{"source":"official:dinko-tanev-mihailov-d4a994","target":"company:tr:123128444","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ТОДОРОВ ГЕОРГИЕВ","target":"company:tr:123128444","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СЛАВОВ НИКОЛОВ","target":"company:tr:123128444","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ВАЛЕРИЕВ НИКОЛОВ","target":"company:tr:123128444","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ПАВЛОВ ПАВЛОВ","target":"company:tr:123128444","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИН МАРИНОВ КОЛЕВ","target":"company:tr:123128444","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИН МАРИНОВ КОЛЕВ","target":"company:tr:123128444","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛАРИСА ЕВГЕНИЕВНА КИТИПОВА","target":"company:tr:123128444","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ГАНЧЕВ ТОТЕВ","target":"company:tr:123128444","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМО ГИРГИНОВ ГИРГИНОВ","target":"company:tr:123128444","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dinko-tanev-mihailov-d4a994",
+  "nodes": [
+    {
+      "id": "official:dinko-tanev-mihailov-d4a994",
+      "type": "official",
+      "slug": "dinko-tanev-mihailov-d4a994",
+      "label": "Динко Танев Михайлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:123128444",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ВОЛЕЙБОЛ БЕРОЕ",
+      "slug": null,
+      "uic": "123128444",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ТОДОРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Тодоров Георгиев"
+    },
+    {
+      "id": "person:ИВАН СЛАВОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Иван Славов Николов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВАЛЕРИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Валериев Николов"
+    },
+    {
+      "id": "person:АТАНАС ПАВЛОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Атанас Павлов Павлов"
+    },
+    {
+      "id": "person:ИВЕЛИН МАРИНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Ивелин Маринов Колев"
+    },
+    {
+      "id": "person:ЛАРИСА ЕВГЕНИЕВНА КИТИПОВА",
+      "type": "person",
+      "label": "Лариса Евгениевна Китипова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ГАНЧЕВ ТОТЕВ",
+      "type": "person",
+      "label": "Валентин Ганчев Тотев"
+    },
+    {
+      "id": "person:ДИМО ГИРГИНОВ ГИРГИНОВ",
+      "type": "person",
+      "label": "Димо Гиргинов Гиргинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dinko-tanev-mihailov-d4a994",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ТОДОРОВ ГЕОРГИЕВ",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СЛАВОВ НИКОЛОВ",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАЛЕРИЕВ НИКОЛОВ",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ПАВЛОВ ПАВЛОВ",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН МАРИНОВ КОЛЕВ",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН МАРИНОВ КОЛЕВ",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАРИСА ЕВГЕНИЕВНА КИТИПОВА",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ГАНЧЕВ ТОТЕВ",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО ГИРГИНОВ ГИРГИНОВ",
+      "target": "company:tr:123128444",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

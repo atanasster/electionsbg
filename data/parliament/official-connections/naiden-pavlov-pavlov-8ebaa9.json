@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:naiden-pavlov-pavlov-8ebaa9","nodes":[{"id":"official:naiden-pavlov-pavlov-8ebaa9","type":"official","slug":"naiden-pavlov-pavlov-8ebaa9","label":"Найден Павлов Павлов","tier":"municipal","role":"councillor","municipality":"Хисаря"},{"id":"company:tr:206538029","type":"company","label":"МОМЕНТ ЕООД","slug":null,"uic":"206538029","legalForm":null,"status":null,"seat":null},{"id":"person:МЛАДЕН ВАСИЛЕВ ГАНЧЕВ","type":"person","label":"Младен Василев Ганчев"}],"edges":[{"source":"official:naiden-pavlov-pavlov-8ebaa9","target":"company:tr:206538029","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:naiden-pavlov-pavlov-8ebaa9","target":"company:tr:206538029","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:naiden-pavlov-pavlov-8ebaa9","target":"company:tr:206538029","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:МЛАДЕН ВАСИЛЕВ ГАНЧЕВ","target":"company:tr:206538029","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:naiden-pavlov-pavlov-8ebaa9",
+  "nodes": [
+    {
+      "id": "official:naiden-pavlov-pavlov-8ebaa9",
+      "type": "official",
+      "slug": "naiden-pavlov-pavlov-8ebaa9",
+      "label": "Найден Павлов Павлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хисаря"
+    },
+    {
+      "id": "company:tr:206538029",
+      "type": "company",
+      "label": "МОМЕНТ ЕООД",
+      "slug": null,
+      "uic": "206538029",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЛАДЕН ВАСИЛЕВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Младен Василев Ганчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:naiden-pavlov-pavlov-8ebaa9",
+      "target": "company:tr:206538029",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:naiden-pavlov-pavlov-8ebaa9",
+      "target": "company:tr:206538029",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:naiden-pavlov-pavlov-8ebaa9",
+      "target": "company:tr:206538029",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЛАДЕН ВАСИЛЕВ ГАНЧЕВ",
+      "target": "company:tr:206538029",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

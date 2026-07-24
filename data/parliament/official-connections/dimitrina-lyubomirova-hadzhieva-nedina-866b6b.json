@@ -1,1 +1,194 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitrina-lyubomirova-hadzhieva-nedina-866b6b","nodes":[{"id":"official:dimitrina-lyubomirova-hadzhieva-nedina-866b6b","type":"official","slug":"dimitrina-lyubomirova-hadzhieva-nedina-866b6b","label":"Димитрина Любомирова Хаджиева-Недина","tier":"municipal","role":"councillor","municipality":"Сандански"},{"id":"company:tr:208731468","type":"company","label":"\"Сърце за всяка лапа\" гр. Сандански","slug":null,"uic":"208731468","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Сандански, 2800"},{"id":"mp:4376","type":"mp","mpId":4376,"label":"Димитрина Любомирова Хаджиева-Недина","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":[]},{"id":"person:НОРА СТАНЧЕВА ДИМИТРОВА","type":"person","label":"Нора Станчева Димитрова"},{"id":"person:ВИКТОРИЯ СТАНЧЕВА ДИМИТРОВА","type":"person","label":"Виктория Станчева Димитрова"},{"id":"person:ЕЛЕНА ГУТНИКОВА","type":"person","label":"Елена Гутникова"},{"id":"person:КРИСТИНА ДАМЯНОВА КИРИЧКОВА","type":"person","label":"Кристина Дамянова Киричкова"},{"id":"person:САРАФИМА ГАНЧЕВА НЕДЯЛКОВА","type":"person","label":"Сарафима Ганчева Недялкова"},{"id":"person:СОФИЯ ГОРАНОВА КОСТАДИНОВА","type":"person","label":"София Горанова Костадинова"}],"edges":[{"source":"official:dimitrina-lyubomirova-hadzhieva-nedina-866b6b","target":"company:tr:208731468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:dimitrina-lyubomirova-hadzhieva-nedina-866b6b","target":"company:tr:208731468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4376","target":"company:tr:208731468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4376","target":"company:tr:208731468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НОРА СТАНЧЕВА ДИМИТРОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ СТАНЧЕВА ДИМИТРОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ГУТНИКОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА ДАМЯНОВА КИРИЧКОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:САРАФИМА ГАНЧЕВА НЕДЯЛКОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СОФИЯ ГОРАНОВА КОСТАДИНОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ СТАНЧЕВА ДИМИТРОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ГУТНИКОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА ДАМЯНОВА КИРИЧКОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НОРА СТАНЧЕВА ДИМИТРОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САРАФИМА ГАНЧЕВА НЕДЯЛКОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОФИЯ ГОРАНОВА КОСТАДИНОВА","target":"company:tr:208731468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitrina-lyubomirova-hadzhieva-nedina-866b6b",
+  "nodes": [
+    {
+      "id": "official:dimitrina-lyubomirova-hadzhieva-nedina-866b6b",
+      "type": "official",
+      "slug": "dimitrina-lyubomirova-hadzhieva-nedina-866b6b",
+      "label": "Димитрина Любомирова Хаджиева-Недина",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:208731468",
+      "type": "company",
+      "label": "\"Сърце за всяка лапа\" гр. Сандански",
+      "slug": null,
+      "uic": "208731468",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сандански, 2800"
+    },
+    {
+      "id": "mp:4376",
+      "type": "mp",
+      "mpId": 4376,
+      "label": "Димитрина Любомирова Хаджиева-Недина",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:НОРА СТАНЧЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Нора Станчева Димитрова"
+    },
+    {
+      "id": "person:ВИКТОРИЯ СТАНЧЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Виктория Станчева Димитрова"
+    },
+    {
+      "id": "person:ЕЛЕНА ГУТНИКОВА",
+      "type": "person",
+      "label": "Елена Гутникова"
+    },
+    {
+      "id": "person:КРИСТИНА ДАМЯНОВА КИРИЧКОВА",
+      "type": "person",
+      "label": "Кристина Дамянова Киричкова"
+    },
+    {
+      "id": "person:САРАФИМА ГАНЧЕВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Сарафима Ганчева Недялкова"
+    },
+    {
+      "id": "person:СОФИЯ ГОРАНОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "София Горанова Костадинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitrina-lyubomirova-hadzhieva-nedina-866b6b",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitrina-lyubomirova-hadzhieva-nedina-866b6b",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4376",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4376",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НОРА СТАНЧЕВА ДИМИТРОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ СТАНЧЕВА ДИМИТРОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ГУТНИКОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ДАМЯНОВА КИРИЧКОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САРАФИМА ГАНЧЕВА НЕДЯЛКОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ ГОРАНОВА КОСТАДИНОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ СТАНЧЕВА ДИМИТРОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ГУТНИКОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ДАМЯНОВА КИРИЧКОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НОРА СТАНЧЕВА ДИМИТРОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САРАФИМА ГАНЧЕВА НЕДЯЛКОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ ГОРАНОВА КОСТАДИНОВА",
+      "target": "company:tr:208731468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

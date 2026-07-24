@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:darina-todorova-spiridonova-1efc8d","nodes":[{"id":"official:darina-todorova-spiridonova-1efc8d","type":"official","slug":"darina-todorova-spiridonova-1efc8d","label":"Дарина Тодорова Спиридонова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:201950331","type":"company","label":"СБК - ДАРИНА СПИРИДОНОВА","slug":null,"uic":"201950331","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:darina-todorova-spiridonova-1efc8d","target":"company:tr:201950331","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:darina-todorova-spiridonova-1efc8d",
+  "nodes": [
+    {
+      "id": "official:darina-todorova-spiridonova-1efc8d",
+      "type": "official",
+      "slug": "darina-todorova-spiridonova-1efc8d",
+      "label": "Дарина Тодорова Спиридонова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201950331",
+      "type": "company",
+      "label": "СБК - ДАРИНА СПИРИДОНОВА",
+      "slug": null,
+      "uic": "201950331",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:darina-todorova-spiridonova-1efc8d",
+      "target": "company:tr:201950331",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,1 +1,98 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-angelov-ermov-d909a5","nodes":[{"id":"official:dimitr-angelov-ermov-d909a5","type":"official","slug":"dimitr-angelov-ermov-d909a5","label":"Димитър Ангелов Ермов","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:207755498","type":"company","label":"КЕМ БИЛД ООД","slug":null,"uic":"207755498","legalForm":null,"status":null,"seat":null},{"id":"person:РОСЕН ЙОРДАНОВ КИРИШЕВ","type":"person","label":"Росен Йорданов Киришев"},{"id":"person:ГЕОРГИ СТОЯНОВ МАНОЛОВ","type":"person","label":"Георги  Стоянов  Манолов"},{"id":"person:МАРГАРИТА СТОЯНОВА ЕРМОВА","type":"person","label":"Маргарита  Стоянова  Ермова"}],"edges":[{"source":"official:dimitr-angelov-ermov-d909a5","target":"company:tr:207755498","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ЙОРДАНОВ КИРИШЕВ","target":"company:tr:207755498","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СТОЯНОВ МАНОЛОВ","target":"company:tr:207755498","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА СТОЯНОВА ЕРМОВА","target":"company:tr:207755498","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ЙОРДАНОВ КИРИШЕВ","target":"company:tr:207755498","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СТОЯНОВ МАНОЛОВ","target":"company:tr:207755498","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА СТОЯНОВА ЕРМОВА","target":"company:tr:207755498","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-angelov-ermov-d909a5",
+  "nodes": [
+    {
+      "id": "official:dimitr-angelov-ermov-d909a5",
+      "type": "official",
+      "slug": "dimitr-angelov-ermov-d909a5",
+      "label": "Димитър Ангелов Ермов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207755498",
+      "type": "company",
+      "label": "КЕМ БИЛД ООД",
+      "slug": null,
+      "uic": "207755498",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН ЙОРДАНОВ КИРИШЕВ",
+      "type": "person",
+      "label": "Росен Йорданов Киришев"
+    },
+    {
+      "id": "person:ГЕОРГИ СТОЯНОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Георги  Стоянов  Манолов"
+    },
+    {
+      "id": "person:МАРГАРИТА СТОЯНОВА ЕРМОВА",
+      "type": "person",
+      "label": "Маргарита  Стоянова  Ермова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-angelov-ermov-d909a5",
+      "target": "company:tr:207755498",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ЙОРДАНОВ КИРИШЕВ",
+      "target": "company:tr:207755498",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ МАНОЛОВ",
+      "target": "company:tr:207755498",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА СТОЯНОВА ЕРМОВА",
+      "target": "company:tr:207755498",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ЙОРДАНОВ КИРИШЕВ",
+      "target": "company:tr:207755498",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ МАНОЛОВ",
+      "target": "company:tr:207755498",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА СТОЯНОВА ЕРМОВА",
+      "target": "company:tr:207755498",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:krasimir-borisov-hristov-cbf90f","nodes":[{"id":"official:krasimir-borisov-hristov-cbf90f","type":"official","slug":"krasimir-borisov-hristov-cbf90f","label":"Красимир Борисов Христов","tier":"executive","role":"security_service","municipality":null},{"id":"company:tr:207733352","type":"company","label":"КРАЗ-62","slug":null,"uic":"207733352","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:krasimir-borisov-hristov-cbf90f","target":"company:tr:207733352","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:krasimir-borisov-hristov-cbf90f","target":"company:tr:207733352","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:krasimir-borisov-hristov-cbf90f",
+  "nodes": [
+    {
+      "id": "official:krasimir-borisov-hristov-cbf90f",
+      "type": "official",
+      "slug": "krasimir-borisov-hristov-cbf90f",
+      "label": "Красимир Борисов Христов",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207733352",
+      "type": "company",
+      "label": "КРАЗ-62",
+      "slug": null,
+      "uic": "207733352",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-borisov-hristov-cbf90f",
+      "target": "company:tr:207733352",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krasimir-borisov-hristov-cbf90f",
+      "target": "company:tr:207733352",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

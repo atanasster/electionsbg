@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:doncho-vasilev-zashev-5ec618","nodes":[{"id":"official:doncho-vasilev-zashev-5ec618","type":"official","slug":"doncho-vasilev-zashev-5ec618","label":"Дончо Василев Зашев","tier":"municipal","role":"councillor","municipality":"Самоков"},{"id":"company:tr:208084657","type":"company","label":"АКАУНТ МЕНИДЖМЪНТ БГ","slug":null,"uic":"208084657","legalForm":null,"status":null,"seat":null},{"id":"person:СНЕЖАНКА АНГЕЛОВА ЗАШЕВА","type":"person","label":"Снежанка Ангелова Зашева"}],"edges":[{"source":"official:doncho-vasilev-zashev-5ec618","target":"company:tr:208084657","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:СНЕЖАНКА АНГЕЛОВА ЗАШЕВА","target":"company:tr:208084657","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНКА АНГЕЛОВА ЗАШЕВА","target":"company:tr:208084657","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:doncho-vasilev-zashev-5ec618",
+  "nodes": [
+    {
+      "id": "official:doncho-vasilev-zashev-5ec618",
+      "type": "official",
+      "slug": "doncho-vasilev-zashev-5ec618",
+      "label": "Дончо Василев Зашев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Самоков"
+    },
+    {
+      "id": "company:tr:208084657",
+      "type": "company",
+      "label": "АКАУНТ МЕНИДЖМЪНТ БГ",
+      "slug": null,
+      "uic": "208084657",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СНЕЖАНКА АНГЕЛОВА ЗАШЕВА",
+      "type": "person",
+      "label": "Снежанка Ангелова Зашева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:doncho-vasilev-zashev-5ec618",
+      "target": "company:tr:208084657",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖАНКА АНГЕЛОВА ЗАШЕВА",
+      "target": "company:tr:208084657",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА АНГЕЛОВА ЗАШЕВА",
+      "target": "company:tr:208084657",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

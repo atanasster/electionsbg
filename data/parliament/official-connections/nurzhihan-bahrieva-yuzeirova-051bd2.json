@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nurzhihan-bahrieva-yuzeirova-051bd2","nodes":[{"id":"official:nurzhihan-bahrieva-yuzeirova-051bd2","type":"official","slug":"nurzhihan-bahrieva-yuzeirova-051bd2","label":"Нуржихан Бахриева Юзеирова","tier":"municipal","role":"councillor","municipality":"Кубрат"},{"id":"company:tr:000499553","type":"company","label":"НЧ &quot;СВЕТИЛО - 1926&quot;","slug":null,"uic":"000499553","legalForm":null,"status":null,"seat":null},{"id":"person:МИЛЕНА ИВАНОВА ПЕНЧЕВА","type":"person","label":"Милена Иванова Пенчева"},{"id":"person:АДРИЯН ИВАНОВ ДОЧЕВ","type":"person","label":"Адриян Иванов Дочев"},{"id":"person:ЕМИЛИЯ ПЕТРОВА ИЛИЕВА","type":"person","label":"Емилия Петрова Илиева"},{"id":"person:СТОЯНКА ЦАНЕВА ПЕТКОВА","type":"person","label":"Стоянка Цанева Петкова"},{"id":"person:ГАЛИНА ЙОСИФОВА КИРИЛОВА","type":"person","label":"Галина Йосифова Кирилова"},{"id":"person:БЕЙЛЯН БЕЙТИЕВА ЕМИНОВА","type":"person","label":"Бейлян Бейтиева Еминова"},{"id":"person:ДЕНИЦА ТОДОРОВА ИВАНОВА","type":"person","label":"Деница Тодорова Иванова"}],"edges":[{"source":"official:nurzhihan-bahrieva-yuzeirova-051bd2","target":"company:tr:000499553","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛЕНА ИВАНОВА ПЕНЧЕВА","target":"company:tr:000499553","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АДРИЯН ИВАНОВ ДОЧЕВ","target":"company:tr:000499553","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ ПЕТРОВА ИЛИЕВА","target":"company:tr:000499553","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯНКА ЦАНЕВА ПЕТКОВА","target":"company:tr:000499553","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ЙОСИФОВА КИРИЛОВА","target":"company:tr:000499553","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:БЕЙЛЯН БЕЙТИЕВА ЕМИНОВА","target":"company:tr:000499553","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА ТОДОРОВА ИВАНОВА","target":"company:tr:000499553","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nurzhihan-bahrieva-yuzeirova-051bd2",
+  "nodes": [
+    {
+      "id": "official:nurzhihan-bahrieva-yuzeirova-051bd2",
+      "type": "official",
+      "slug": "nurzhihan-bahrieva-yuzeirova-051bd2",
+      "label": "Нуржихан Бахриева Юзеирова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кубрат"
+    },
+    {
+      "id": "company:tr:000499553",
+      "type": "company",
+      "label": "НЧ &quot;СВЕТИЛО - 1926&quot;",
+      "slug": null,
+      "uic": "000499553",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕНА ИВАНОВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Милена Иванова Пенчева"
+    },
+    {
+      "id": "person:АДРИЯН ИВАНОВ ДОЧЕВ",
+      "type": "person",
+      "label": "Адриян Иванов Дочев"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ПЕТРОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Емилия Петрова Илиева"
+    },
+    {
+      "id": "person:СТОЯНКА ЦАНЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Стоянка Цанева Петкова"
+    },
+    {
+      "id": "person:ГАЛИНА ЙОСИФОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Галина Йосифова Кирилова"
+    },
+    {
+      "id": "person:БЕЙЛЯН БЕЙТИЕВА ЕМИНОВА",
+      "type": "person",
+      "label": "Бейлян Бейтиева Еминова"
+    },
+    {
+      "id": "person:ДЕНИЦА ТОДОРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Деница Тодорова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nurzhihan-bahrieva-yuzeirova-051bd2",
+      "target": "company:tr:000499553",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕНА ИВАНОВА ПЕНЧЕВА",
+      "target": "company:tr:000499553",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДРИЯН ИВАНОВ ДОЧЕВ",
+      "target": "company:tr:000499553",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ПЕТРОВА ИЛИЕВА",
+      "target": "company:tr:000499553",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ЦАНЕВА ПЕТКОВА",
+      "target": "company:tr:000499553",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ЙОСИФОВА КИРИЛОВА",
+      "target": "company:tr:000499553",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЙЛЯН БЕЙТИЕВА ЕМИНОВА",
+      "target": "company:tr:000499553",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ТОДОРОВА ИВАНОВА",
+      "target": "company:tr:000499553",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

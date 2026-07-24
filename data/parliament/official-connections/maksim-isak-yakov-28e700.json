@@ -1,1 +1,159 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:maksim-isak-yakov-28e700","nodes":[{"id":"official:maksim-isak-yakov-28e700","type":"official","slug":"maksim-isak-yakov-28e700","label":"Максим Исак Яков","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:103548907","type":"company","label":"МЕДИКО ИНВЕСТ АД","slug":null,"uic":"103548907","legalForm":null,"status":null,"seat":null},{"id":"official:maksim-isak-yakov-876a27","type":"official","slug":"maksim-isak-yakov-876a27","label":"Максим Исак Яков","tier":"executive","role":"hospital_head","municipality":null},{"id":"person:МАКСИМ ИСАК ЯКОВ","type":"person","label":"Максим Исак Яков"},{"id":"person:ТРУФАНКА ЦВЯТКОВА ЯКОВА","type":"person","label":"Труфанка Цвяткова Якова"},{"id":"person:ЮЛИЯ СТЕФАНОВА ИЛИЕВА","type":"person","label":"Юлия Стефанова Илиева"},{"id":"person:СВЕТЛИН ДИМИТРОВ СТОЯНОВ","type":"person","label":"Светлин Димитров Стоянов"},{"id":"person:ДАРИНКА ДОБРЕВА ГЕРЧЕВА","type":"person","label":"Даринка Добрева Герчева"},{"id":"person:НАТАЛИЯ СЛАВЧЕВА ЮДОВА-ПЕТРОВА","type":"person","label":"Наталия Славчева Юдова-Петрова"},{"id":"person:ДАНИЕЛА СТАНЕВА ИВАНОВА","type":"person","label":"Даниела Станева Иванова"}],"edges":[{"source":"official:maksim-isak-yakov-28e700","target":"company:tr:103548907","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:maksim-isak-yakov-876a27","target":"company:tr:103548907","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:МАКСИМ ИСАК ЯКОВ","target":"company:tr:103548907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТРУФАНКА ЦВЯТКОВА ЯКОВА","target":"company:tr:103548907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЯ СТЕФАНОВА ИЛИЕВА","target":"company:tr:103548907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛИН ДИМИТРОВ СТОЯНОВ","target":"company:tr:103548907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИНКА ДОБРЕВА ГЕРЧЕВА","target":"company:tr:103548907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ СЛАВЧЕВА ЮДОВА-ПЕТРОВА","target":"company:tr:103548907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА СТАНЕВА ИВАНОВА","target":"company:tr:103548907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАКСИМ ИСАК ЯКОВ","target":"company:tr:103548907","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ТРУФАНКА ЦВЯТКОВА ЯКОВА","target":"company:tr:103548907","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:maksim-isak-yakov-28e700",
+  "nodes": [
+    {
+      "id": "official:maksim-isak-yakov-28e700",
+      "type": "official",
+      "slug": "maksim-isak-yakov-28e700",
+      "label": "Максим Исак Яков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103548907",
+      "type": "company",
+      "label": "МЕДИКО ИНВЕСТ АД",
+      "slug": null,
+      "uic": "103548907",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:maksim-isak-yakov-876a27",
+      "type": "official",
+      "slug": "maksim-isak-yakov-876a27",
+      "label": "Максим Исак Яков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:МАКСИМ ИСАК ЯКОВ",
+      "type": "person",
+      "label": "Максим Исак Яков"
+    },
+    {
+      "id": "person:ТРУФАНКА ЦВЯТКОВА ЯКОВА",
+      "type": "person",
+      "label": "Труфанка Цвяткова Якова"
+    },
+    {
+      "id": "person:ЮЛИЯ СТЕФАНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Юлия Стефанова Илиева"
+    },
+    {
+      "id": "person:СВЕТЛИН ДИМИТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Светлин Димитров Стоянов"
+    },
+    {
+      "id": "person:ДАРИНКА ДОБРЕВА ГЕРЧЕВА",
+      "type": "person",
+      "label": "Даринка Добрева Герчева"
+    },
+    {
+      "id": "person:НАТАЛИЯ СЛАВЧЕВА ЮДОВА-ПЕТРОВА",
+      "type": "person",
+      "label": "Наталия Славчева Юдова-Петрова"
+    },
+    {
+      "id": "person:ДАНИЕЛА СТАНЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Даниела Станева Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:maksim-isak-yakov-28e700",
+      "target": "company:tr:103548907",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:maksim-isak-yakov-876a27",
+      "target": "company:tr:103548907",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАКСИМ ИСАК ЯКОВ",
+      "target": "company:tr:103548907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРУФАНКА ЦВЯТКОВА ЯКОВА",
+      "target": "company:tr:103548907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ СТЕФАНОВА ИЛИЕВА",
+      "target": "company:tr:103548907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:103548907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНКА ДОБРЕВА ГЕРЧЕВА",
+      "target": "company:tr:103548907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ СЛАВЧЕВА ЮДОВА-ПЕТРОВА",
+      "target": "company:tr:103548907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТАНЕВА ИВАНОВА",
+      "target": "company:tr:103548907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАКСИМ ИСАК ЯКОВ",
+      "target": "company:tr:103548907",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРУФАНКА ЦВЯТКОВА ЯКОВА",
+      "target": "company:tr:103548907",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

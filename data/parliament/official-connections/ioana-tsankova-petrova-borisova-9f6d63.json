@@ -1,1 +1,191 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ioana-tsankova-petrova-borisova-9f6d63","nodes":[{"id":"official:ioana-tsankova-petrova-borisova-9f6d63","type":"official","slug":"ioana-tsankova-petrova-borisova-9f6d63","label":"Йоана Цанкова Петрова-Борисова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:110574293","type":"company","label":"ДЕВЕТАШКО ПЛАТО","slug":null,"uic":"110574293","legalForm":null,"status":null,"seat":null},{"id":"person:ИВА ЙОРДАНОВА ТАРАЛЕЖКОВА","type":"person","label":"Ива Йорданова Таралежкова"},{"id":"person:ВАЛЕНТИН ВЕСЕЛИНОВ ВАСИЛЕВ","type":"person","label":"Валентин Веселинов Василев"},{"id":"person:ДЕТЕЛИНА МИНЧЕВА КАРАПЕТРОВА-БЪЧЕВА","type":"person","label":"Детелина Минчева Карапетрова-Бъчева"},{"id":"person:ЛЮБОМИР СТЕФАНОВ ВАСИЛЕВ","type":"person","label":"Любомир Стефанов Василев"},{"id":"person:РАДИНКА ИВАНОВА ТОТЕВА","type":"person","label":"Радинка Иванова Тотева"},{"id":"person:ИВАН ЦАНКОВ КАРАИВАНОВ","type":"person","label":"Иван Цанков Караиванов"},{"id":"person:ИВАНИЧКА ДИМИТРОВА СТАНЧЕВА","type":"person","label":"Иваничка Димитрова Станчева"},{"id":"person:СТЕФАН МИШЕВ НЕЙКОВ","type":"person","label":"Стефан Мишев Нейков"},{"id":"person:ВЕЛИСЛАВА ИВАНОВА ЧИЛИНГИРОВА","type":"person","label":"Велислава Иванова Чилингирова"},{"id":"person:МИХАИЛ МИТКОВ ХРИСТОВ","type":"person","label":"Михаил Митков Христов"},{"id":"person:ПОЛЯ ХРИСТОВА ХРИСТОВА","type":"person","label":"Поля Христова Христова"},{"id":"person:ХРИСТИНА БОГДАНОВА ЙОНКОВА","type":"person","label":"Христина Богданова Йонкова"}],"edges":[{"source":"official:ioana-tsankova-petrova-borisova-9f6d63","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВА ЙОРДАНОВА ТАРАЛЕЖКОВА","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ВЕСЕЛИНОВ ВАСИЛЕВ","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕТЕЛИНА МИНЧЕВА КАРАПЕТРОВА-БЪЧЕВА","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР СТЕФАНОВ ВАСИЛЕВ","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДИНКА ИВАНОВА ТОТЕВА","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЦАНКОВ КАРАИВАНОВ","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНИЧКА ДИМИТРОВА СТАНЧЕВА","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН МИШЕВ НЕЙКОВ","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИСЛАВА ИВАНОВА ЧИЛИНГИРОВА","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИХАИЛ МИТКОВ ХРИСТОВ","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПОЛЯ ХРИСТОВА ХРИСТОВА","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА БОГДАНОВА ЙОНКОВА","target":"company:tr:110574293","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ioana-tsankova-petrova-borisova-9f6d63",
+  "nodes": [
+    {
+      "id": "official:ioana-tsankova-petrova-borisova-9f6d63",
+      "type": "official",
+      "slug": "ioana-tsankova-petrova-borisova-9f6d63",
+      "label": "Йоана Цанкова Петрова-Борисова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:110574293",
+      "type": "company",
+      "label": "ДЕВЕТАШКО ПЛАТО",
+      "slug": null,
+      "uic": "110574293",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВА ЙОРДАНОВА ТАРАЛЕЖКОВА",
+      "type": "person",
+      "label": "Ива Йорданова Таралежкова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВЕСЕЛИНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Валентин Веселинов Василев"
+    },
+    {
+      "id": "person:ДЕТЕЛИНА МИНЧЕВА КАРАПЕТРОВА-БЪЧЕВА",
+      "type": "person",
+      "label": "Детелина Минчева Карапетрова-Бъчева"
+    },
+    {
+      "id": "person:ЛЮБОМИР СТЕФАНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Любомир Стефанов Василев"
+    },
+    {
+      "id": "person:РАДИНКА ИВАНОВА ТОТЕВА",
+      "type": "person",
+      "label": "Радинка Иванова Тотева"
+    },
+    {
+      "id": "person:ИВАН ЦАНКОВ КАРАИВАНОВ",
+      "type": "person",
+      "label": "Иван Цанков Караиванов"
+    },
+    {
+      "id": "person:ИВАНИЧКА ДИМИТРОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Иваничка Димитрова Станчева"
+    },
+    {
+      "id": "person:СТЕФАН МИШЕВ НЕЙКОВ",
+      "type": "person",
+      "label": "Стефан Мишев Нейков"
+    },
+    {
+      "id": "person:ВЕЛИСЛАВА ИВАНОВА ЧИЛИНГИРОВА",
+      "type": "person",
+      "label": "Велислава Иванова Чилингирова"
+    },
+    {
+      "id": "person:МИХАИЛ МИТКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Михаил Митков Христов"
+    },
+    {
+      "id": "person:ПОЛЯ ХРИСТОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Поля Христова Христова"
+    },
+    {
+      "id": "person:ХРИСТИНА БОГДАНОВА ЙОНКОВА",
+      "type": "person",
+      "label": "Христина Богданова Йонкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ioana-tsankova-petrova-borisova-9f6d63",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВА ЙОРДАНОВА ТАРАЛЕЖКОВА",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВЕСЕЛИНОВ ВАСИЛЕВ",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИНА МИНЧЕВА КАРАПЕТРОВА-БЪЧЕВА",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР СТЕФАНОВ ВАСИЛЕВ",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДИНКА ИВАНОВА ТОТЕВА",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЦАНКОВ КАРАИВАНОВ",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНИЧКА ДИМИТРОВА СТАНЧЕВА",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МИШЕВ НЕЙКОВ",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИСЛАВА ИВАНОВА ЧИЛИНГИРОВА",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ МИТКОВ ХРИСТОВ",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛЯ ХРИСТОВА ХРИСТОВА",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА БОГДАНОВА ЙОНКОВА",
+      "target": "company:tr:110574293",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

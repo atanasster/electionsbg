@@ -1,1 +1,103 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nenko-vidolov-kalakunov-d09cd1","nodes":[{"id":"official:nenko-vidolov-kalakunov-d09cd1","type":"official","slug":"nenko-vidolov-kalakunov-d09cd1","label":"Ненко Видолов Калакунов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206777164","type":"company","label":"Българска асоциация за паркиране и устойчива градска мобилност","slug":null,"uic":"206777164","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:4721","type":"mp","mpId":4721,"label":"Андрей Стоянов Рунчев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["48","49","50"]},{"id":"person:НИКОЛА ДИМИТРОВ РОГАЧЕВ","type":"person","label":"Никола Димитров Рогачев"},{"id":"person:ИВАН ХРИСТОВ АНТОВ","type":"person","label":"Иван Христов Антов"},{"id":"person:РУМЯНА МАРИНОВА МИЛОВА","type":"person","label":"Румяна Маринова Милова"}],"edges":[{"source":"official:nenko-vidolov-kalakunov-d09cd1","target":"company:tr:206777164","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4721","target":"company:tr:206777164","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛА ДИМИТРОВ РОГАЧЕВ","target":"company:tr:206777164","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ДИМИТРОВ РОГАЧЕВ","target":"company:tr:206777164","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ХРИСТОВ АНТОВ","target":"company:tr:206777164","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА МАРИНОВА МИЛОВА","target":"company:tr:206777164","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nenko-vidolov-kalakunov-d09cd1",
+  "nodes": [
+    {
+      "id": "official:nenko-vidolov-kalakunov-d09cd1",
+      "type": "official",
+      "slug": "nenko-vidolov-kalakunov-d09cd1",
+      "label": "Ненко Видолов Калакунов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206777164",
+      "type": "company",
+      "label": "Българска асоциация за паркиране и устойчива градска мобилност",
+      "slug": null,
+      "uic": "206777164",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:4721",
+      "type": "mp",
+      "mpId": 4721,
+      "label": "Андрей Стоянов Рунчев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "person:НИКОЛА ДИМИТРОВ РОГАЧЕВ",
+      "type": "person",
+      "label": "Никола Димитров Рогачев"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ АНТОВ",
+      "type": "person",
+      "label": "Иван Христов Антов"
+    },
+    {
+      "id": "person:РУМЯНА МАРИНОВА МИЛОВА",
+      "type": "person",
+      "label": "Румяна Маринова Милова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nenko-vidolov-kalakunov-d09cd1",
+      "target": "company:tr:206777164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4721",
+      "target": "company:tr:206777164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА ДИМИТРОВ РОГАЧЕВ",
+      "target": "company:tr:206777164",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ДИМИТРОВ РОГАЧЕВ",
+      "target": "company:tr:206777164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ АНТОВ",
+      "target": "company:tr:206777164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА МАРИНОВА МИЛОВА",
+      "target": "company:tr:206777164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

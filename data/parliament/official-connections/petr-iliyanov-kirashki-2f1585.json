@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-iliyanov-kirashki-2f1585","nodes":[{"id":"official:petr-iliyanov-kirashki-2f1585","type":"official","slug":"petr-iliyanov-kirashki-2f1585","label":"Петър Илиянов Кирашки","tier":"executive","role":"regulator","municipality":null},{"id":"company:tr:204006091","type":"company","label":"КЕЙ ИНВЕСТМЪНТС ЕООД","slug":null,"uic":"204006091","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ ВЛАДИМИР ПЕТРОВА","type":"person","label":"Мария Владимир Петрова"},{"id":"person:ЕЛЕНА МАРКОВА ТОДОРОВА - РАДОМИРОВА","type":"person","label":"Елена Маркова Тодорова - Радомирова"}],"edges":[{"source":"official:petr-iliyanov-kirashki-2f1585","target":"company:tr:204006091","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ВЛАДИМИР ПЕТРОВА","target":"company:tr:204006091","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА МАРКОВА ТОДОРОВА - РАДОМИРОВА","target":"company:tr:204006091","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА МАРКОВА ТОДОРОВА - РАДОМИРОВА","target":"company:tr:204006091","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-iliyanov-kirashki-2f1585",
+  "nodes": [
+    {
+      "id": "official:petr-iliyanov-kirashki-2f1585",
+      "type": "official",
+      "slug": "petr-iliyanov-kirashki-2f1585",
+      "label": "Петър Илиянов Кирашки",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204006091",
+      "type": "company",
+      "label": "КЕЙ ИНВЕСТМЪНТС ЕООД",
+      "slug": null,
+      "uic": "204006091",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ВЛАДИМИР ПЕТРОВА",
+      "type": "person",
+      "label": "Мария Владимир Петрова"
+    },
+    {
+      "id": "person:ЕЛЕНА МАРКОВА ТОДОРОВА - РАДОМИРОВА",
+      "type": "person",
+      "label": "Елена Маркова Тодорова - Радомирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-iliyanov-kirashki-2f1585",
+      "target": "company:tr:204006091",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВЛАДИМИР ПЕТРОВА",
+      "target": "company:tr:204006091",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА МАРКОВА ТОДОРОВА - РАДОМИРОВА",
+      "target": "company:tr:204006091",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА МАРКОВА ТОДОРОВА - РАДОМИРОВА",
+      "target": "company:tr:204006091",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

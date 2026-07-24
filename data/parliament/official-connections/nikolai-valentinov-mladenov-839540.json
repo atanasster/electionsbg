@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-valentinov-mladenov-839540","nodes":[{"id":"official:nikolai-valentinov-mladenov-839540","type":"official","slug":"nikolai-valentinov-mladenov-839540","label":"Николай Валентинов Младенов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:200469163","type":"company","label":"АМБУЛАТОРИЯ МЕДИЦИНСКИ ЦЕНТЪР ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ &quot;ТРАНСПОРТЕН МЕДИЦИНСКИ ЦЕНТЪР&quot;","slug":null,"uic":"200469163","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:nikolai-valentinov-mladenov-839540","target":"company:tr:200469163","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-valentinov-mladenov-839540",
+  "nodes": [
+    {
+      "id": "official:nikolai-valentinov-mladenov-839540",
+      "type": "official",
+      "slug": "nikolai-valentinov-mladenov-839540",
+      "label": "Николай Валентинов Младенов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200469163",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ МЕДИЦИНСКИ ЦЕНТЪР ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ &quot;ТРАНСПОРТЕН МЕДИЦИНСКИ ЦЕНТЪР&quot;",
+      "slug": null,
+      "uic": "200469163",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-valentinov-mladenov-839540",
+      "target": "company:tr:200469163",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

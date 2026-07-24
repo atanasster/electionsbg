@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:galina-ilieva-leshtarska-mladenova-92f00a","nodes":[{"id":"official:galina-ilieva-leshtarska-mladenova-92f00a","type":"official","slug":"galina-ilieva-leshtarska-mladenova-92f00a","label":"Галина Илиева Лещарска-Младенова","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:207780416","type":"company","label":"Сдружение Национална асоциация на работодателите в спешната медицинска помощ в Република България","slug":null,"uic":"207780416","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ИВАНОВ ГЕЛЕВ","type":"person","label":"Георги Иванов Гелев"},{"id":"person:АТАНАС ТОДОРОВ МИТКОВ","type":"person","label":"Атанас Тодоров Митков"}],"edges":[{"source":"official:galina-ilieva-leshtarska-mladenova-92f00a","target":"company:tr:207780416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ИВАНОВ ГЕЛЕВ","target":"company:tr:207780416","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ ГЕЛЕВ","target":"company:tr:207780416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ТОДОРОВ МИТКОВ","target":"company:tr:207780416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:galina-ilieva-leshtarska-mladenova-92f00a",
+  "nodes": [
+    {
+      "id": "official:galina-ilieva-leshtarska-mladenova-92f00a",
+      "type": "official",
+      "slug": "galina-ilieva-leshtarska-mladenova-92f00a",
+      "label": "Галина Илиева Лещарска-Младенова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207780416",
+      "type": "company",
+      "label": "Сдружение Национална асоциация на работодателите в спешната медицинска помощ в Република България",
+      "slug": null,
+      "uic": "207780416",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ГЕЛЕВ",
+      "type": "person",
+      "label": "Георги Иванов Гелев"
+    },
+    {
+      "id": "person:АТАНАС ТОДОРОВ МИТКОВ",
+      "type": "person",
+      "label": "Атанас Тодоров Митков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-ilieva-leshtarska-mladenova-92f00a",
+      "target": "company:tr:207780416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ГЕЛЕВ",
+      "target": "company:tr:207780416",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ГЕЛЕВ",
+      "target": "company:tr:207780416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ТОДОРОВ МИТКОВ",
+      "target": "company:tr:207780416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

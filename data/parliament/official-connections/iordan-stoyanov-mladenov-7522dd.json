@@ -1,1 +1,273 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iordan-stoyanov-mladenov-7522dd","nodes":[{"id":"official:iordan-stoyanov-mladenov-7522dd","type":"official","slug":"iordan-stoyanov-mladenov-7522dd","label":"Йордан Стоянов Младенов","tier":"municipal","role":"mayor","municipality":"Пещера"},{"id":"company:tr:176957142","type":"company","label":"ВЗАИМОСПОМАГАТЕЛНА КАСА КЪМ ФТР &quot;ПОДКРЕПА&quot;","slug":null,"uic":"176957142","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, София, 1000"},{"id":"mp:2816","type":"mp","mpId":2816,"label":"Йордан Стоянов Младенов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42"]},{"id":"person:АНТОАН ДИМИТРОВ ЯНКОВ","type":"person","label":"Антоан Димитров Янков"},{"id":"person:МАРИЯ ДИМИТРОВА ДИМИТРОВА","type":"person","label":"Мария Димитрова Димитрова"},{"id":"person:ДОНИКА ГРОЗДАНОВА РОБЕРТОВА","type":"person","label":"Доника Грозданова Робертова"},{"id":"person:ИВАН КИРИЛОВ КИРИЛОВ","type":"person","label":"Иван Кирилов Кирилов"},{"id":"person:ПЕТЪР СИДЕРОВ НЕЙЧЕВ","type":"person","label":"Петър Сидеров Нейчев"},{"id":"person:ИВАН СЛАВЕЕВ ГЬОШЕВ","type":"person","label":"Иван Славеев Гьошев"},{"id":"person:ВАСИЛ КИРИЛОВ ПЕНКОВ","type":"person","label":"Васил Кирилов Пенков"},{"id":"person:ПИРИНКА СИМЕОНОВА БЕЙЛЕРЯНОВА","type":"person","label":"Пиринка Симеонова Бейлерянова"},{"id":"person:НИКОЛАЙ ИВАНОВ МУРАВЕЕВ","type":"person","label":"Николай Иванов Муравеев"},{"id":"person:ДРАГА САШКОВА БЛАГОЕВА-АСЕНОВА","type":"person","label":"Драга Сашкова Благоева-Асенова"},{"id":"person:ГЕОРГИ ВАСИЛЕВ ПАНАЙОТОВ","type":"person","label":"Георги Василев Панайотов"},{"id":"person:МАРИЕЛА НИКОЛАЕВА ЙОНЧЕВА","type":"person","label":"Мариела Николаева Йончева"},{"id":"person:ГЕОРГИ ЖЕЛЕВ ЖЕЛЕВ","type":"person","label":"Георги Желев Желев"},{"id":"person:АСЯ КОНСТАНТИНОВА ЙОСИФОВА","type":"person","label":"Ася Константинова Йосифова"},{"id":"person:ТОНИ АЛЕКСАНДРОВА ДОБРЕВА","type":"person","label":"Тони Александрова Добрева"}],"edges":[{"source":"official:iordan-stoyanov-mladenov-7522dd","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2816","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНТОАН ДИМИТРОВ ЯНКОВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАН ДИМИТРОВ ЯНКОВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА ДИМИТРОВА","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНИКА ГРОЗДАНОВА РОБЕРТОВА","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КИРИЛОВ КИРИЛОВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР СИДЕРОВ НЕЙЧЕВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СЛАВЕЕВ ГЬОШЕВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ КИРИЛОВ ПЕНКОВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПИРИНКА СИМЕОНОВА БЕЙЛЕРЯНОВА","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ИВАНОВ МУРАВЕЕВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КИРИЛОВ КИРИЛОВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГА САШКОВА БЛАГОЕВА-АСЕНОВА","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ВАСИЛЕВ ПАНАЙОТОВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГА САШКОВА БЛАГОЕВА-АСЕНОВА","target":"company:tr:176957142","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЕЛА НИКОЛАЕВА ЙОНЧЕВА","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЖЕЛЕВ ЖЕЛЕВ","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АСЯ КОНСТАНТИНОВА ЙОСИФОВА","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОНИ АЛЕКСАНДРОВА ДОБРЕВА","target":"company:tr:176957142","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iordan-stoyanov-mladenov-7522dd",
+  "nodes": [
+    {
+      "id": "official:iordan-stoyanov-mladenov-7522dd",
+      "type": "official",
+      "slug": "iordan-stoyanov-mladenov-7522dd",
+      "label": "Йордан Стоянов Младенов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Пещера"
+    },
+    {
+      "id": "company:tr:176957142",
+      "type": "company",
+      "label": "ВЗАИМОСПОМАГАТЕЛНА КАСА КЪМ ФТР &quot;ПОДКРЕПА&quot;",
+      "slug": null,
+      "uic": "176957142",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1000"
+    },
+    {
+      "id": "mp:2816",
+      "type": "mp",
+      "mpId": 2816,
+      "label": "Йордан Стоянов Младенов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    },
+    {
+      "id": "person:АНТОАН ДИМИТРОВ ЯНКОВ",
+      "type": "person",
+      "label": "Антоан Димитров Янков"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Мария Димитрова Димитрова"
+    },
+    {
+      "id": "person:ДОНИКА ГРОЗДАНОВА РОБЕРТОВА",
+      "type": "person",
+      "label": "Доника Грозданова Робертова"
+    },
+    {
+      "id": "person:ИВАН КИРИЛОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Иван Кирилов Кирилов"
+    },
+    {
+      "id": "person:ПЕТЪР СИДЕРОВ НЕЙЧЕВ",
+      "type": "person",
+      "label": "Петър Сидеров Нейчев"
+    },
+    {
+      "id": "person:ИВАН СЛАВЕЕВ ГЬОШЕВ",
+      "type": "person",
+      "label": "Иван Славеев Гьошев"
+    },
+    {
+      "id": "person:ВАСИЛ КИРИЛОВ ПЕНКОВ",
+      "type": "person",
+      "label": "Васил Кирилов Пенков"
+    },
+    {
+      "id": "person:ПИРИНКА СИМЕОНОВА БЕЙЛЕРЯНОВА",
+      "type": "person",
+      "label": "Пиринка Симеонова Бейлерянова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ МУРАВЕЕВ",
+      "type": "person",
+      "label": "Николай Иванов Муравеев"
+    },
+    {
+      "id": "person:ДРАГА САШКОВА БЛАГОЕВА-АСЕНОВА",
+      "type": "person",
+      "label": "Драга Сашкова Благоева-Асенова"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАСИЛЕВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Георги Василев Панайотов"
+    },
+    {
+      "id": "person:МАРИЕЛА НИКОЛАЕВА ЙОНЧЕВА",
+      "type": "person",
+      "label": "Мариела Николаева Йончева"
+    },
+    {
+      "id": "person:ГЕОРГИ ЖЕЛЕВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Георги Желев Желев"
+    },
+    {
+      "id": "person:АСЯ КОНСТАНТИНОВА ЙОСИФОВА",
+      "type": "person",
+      "label": "Ася Константинова Йосифова"
+    },
+    {
+      "id": "person:ТОНИ АЛЕКСАНДРОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Тони Александрова Добрева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-stoyanov-mladenov-7522dd",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2816",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОАН ДИМИТРОВ ЯНКОВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАН ДИМИТРОВ ЯНКОВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНИКА ГРОЗДАНОВА РОБЕРТОВА",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КИРИЛОВ КИРИЛОВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СИДЕРОВ НЕЙЧЕВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СЛАВЕЕВ ГЬОШЕВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ КИРИЛОВ ПЕНКОВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПИРИНКА СИМЕОНОВА БЕЙЛЕРЯНОВА",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ МУРАВЕЕВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КИРИЛОВ КИРИЛОВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГА САШКОВА БЛАГОЕВА-АСЕНОВА",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ ПАНАЙОТОВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГА САШКОВА БЛАГОЕВА-АСЕНОВА",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕЛА НИКОЛАЕВА ЙОНЧЕВА",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЖЕЛЕВ ЖЕЛЕВ",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЯ КОНСТАНТИНОВА ЙОСИФОВА",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНИ АЛЕКСАНДРОВА ДОБРЕВА",
+      "target": "company:tr:176957142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

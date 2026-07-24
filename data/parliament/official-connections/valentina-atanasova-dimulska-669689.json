@@ -1,1 +1,159 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valentina-atanasova-dimulska-669689","nodes":[{"id":"official:valentina-atanasova-dimulska-669689","type":"official","slug":"valentina-atanasova-dimulska-669689","label":"Валентина Атанасова Димулска","tier":"municipal","role":"deputy_mayor","municipality":"Харманли"},{"id":"company:tr:175874986","type":"company","label":"МЕСТНА ИНИЦИАТИВНА ГРУПА ХАРМАНЛИ СДРУЖЕНИЕ МИГ ХАРМАНЛИ","slug":null,"uic":"175874986","legalForm":null,"status":null,"seat":null},{"id":"company:name:ЧИЗИ АУТО","type":"company","label":"ЧИЗИ АУТО ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ГАЛЯ ИВАНОВА ЗДРАВЧЕВА","type":"person","label":"Галя Иванова Здравчева"},{"id":"company:name:СКОРОСТ - ДИМЧО НАЛБАНТОВ","type":"company","label":"ЕТ СКОРОСТ - ДИМЧО НАЛБАНТОВ","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ТЕОДОРА ГЕОРГИЕВА ЦЕНЕВА","type":"person","label":"Теодора Георгиева Ценева"},{"id":"person:ОБЩИНА ХАРМАНЛИ","type":"person","label":"Община Харманли"},{"id":"person:ЗП ИВАН НИКОЛАЕВ ИВАНОВ","type":"person","label":"Зп Иван Николаев Иванов"},{"id":"company:name:СИТИВЕТ 1","type":"company","label":"Ситивет 1 ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:НАТАША ГАНЧЕВА","type":"company","label":"ЕТ Наташа Ганчева","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:valentina-atanasova-dimulska-669689","target":"company:tr:175874986","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"company:name:ЧИЗИ АУТО","target":"company:tr:175874986","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛЯ ИВАНОВА ЗДРАВЧЕВА","target":"company:tr:175874986","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:СКОРОСТ - ДИМЧО НАЛБАНТОВ","target":"company:tr:175874986","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ГЕОРГИЕВА ЦЕНЕВА","target":"company:tr:175874986","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ХАРМАНЛИ","target":"company:tr:175874986","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗП ИВАН НИКОЛАЕВ ИВАНОВ","target":"company:tr:175874986","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:СИТИВЕТ 1","target":"company:tr:175874986","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:НАТАША ГАНЧЕВА","target":"company:tr:175874986","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valentina-atanasova-dimulska-669689",
+  "nodes": [
+    {
+      "id": "official:valentina-atanasova-dimulska-669689",
+      "type": "official",
+      "slug": "valentina-atanasova-dimulska-669689",
+      "label": "Валентина Атанасова Димулска",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Харманли"
+    },
+    {
+      "id": "company:tr:175874986",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА ХАРМАНЛИ СДРУЖЕНИЕ МИГ ХАРМАНЛИ",
+      "slug": null,
+      "uic": "175874986",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ЧИЗИ АУТО",
+      "type": "company",
+      "label": "ЧИЗИ АУТО ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛЯ ИВАНОВА ЗДРАВЧЕВА",
+      "type": "person",
+      "label": "Галя Иванова Здравчева"
+    },
+    {
+      "id": "company:name:СКОРОСТ - ДИМЧО НАЛБАНТОВ",
+      "type": "company",
+      "label": "ЕТ СКОРОСТ - ДИМЧО НАЛБАНТОВ",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОРА ГЕОРГИЕВА ЦЕНЕВА",
+      "type": "person",
+      "label": "Теодора Георгиева Ценева"
+    },
+    {
+      "id": "person:ОБЩИНА ХАРМАНЛИ",
+      "type": "person",
+      "label": "Община Харманли"
+    },
+    {
+      "id": "person:ЗП ИВАН НИКОЛАЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Зп Иван Николаев Иванов"
+    },
+    {
+      "id": "company:name:СИТИВЕТ 1",
+      "type": "company",
+      "label": "Ситивет 1 ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:НАТАША ГАНЧЕВА",
+      "type": "company",
+      "label": "ЕТ Наташа Ганчева",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentina-atanasova-dimulska-669689",
+      "target": "company:tr:175874986",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:ЧИЗИ АУТО",
+      "target": "company:tr:175874986",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ИВАНОВА ЗДРАВЧЕВА",
+      "target": "company:tr:175874986",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СКОРОСТ - ДИМЧО НАЛБАНТОВ",
+      "target": "company:tr:175874986",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ГЕОРГИЕВА ЦЕНЕВА",
+      "target": "company:tr:175874986",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ХАРМАНЛИ",
+      "target": "company:tr:175874986",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗП ИВАН НИКОЛАЕВ ИВАНОВ",
+      "target": "company:tr:175874986",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СИТИВЕТ 1",
+      "target": "company:tr:175874986",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:НАТАША ГАНЧЕВА",
+      "target": "company:tr:175874986",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

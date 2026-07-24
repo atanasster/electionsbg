@@ -1,1 +1,165 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:neli-hinkova-todorova-28de8b","nodes":[{"id":"official:neli-hinkova-todorova-28de8b","type":"official","slug":"neli-hinkova-todorova-28de8b","label":"Нели Хинкова Тодорова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:116039739","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАЙ СЕБЕ СИ-1895 Г.&quot;","slug":null,"uic":"116039739","legalForm":null,"status":null,"seat":null},{"id":"person:СТОЯНКА ВЪЛЕВА СТОЯНОВА","type":"person","label":"Стоянка Вълева Стоянова"},{"id":"person:РОСИЦА ТРИФОНОВА АЛЕКСАНДРОВА","type":"person","label":"Росица Трифонова Александрова"},{"id":"person:ЛАЗАР СТАНЕВ ЛАЗАРОВ","type":"person","label":"Лазар Станев Лазаров"},{"id":"person:ГЕНЧО ТРУФАНОВ СТАНКОВ","type":"person","label":"Генчо Труфанов Станков"},{"id":"person:АТАНАС ИВАНОВ АТАНАСОВ","type":"person","label":"Атанас Иванов Атанасов"},{"id":"person:ГИНКА АНГЕЛОВА МАРИНОВА","type":"person","label":"Гинка Ангелова Маринова"},{"id":"person:ИРЕНА СТЕФАНОВА ИВАНОВА","type":"person","label":"Ирена Стефанова Иванова"},{"id":"person:НЕЛИ ПЕТРОВА ГОСПОДИНОВА","type":"person","label":"Нели Петрова Господинова"},{"id":"person:МИЛЕНА БОНЕВА КЪСОВА","type":"person","label":"Милена Бонева Късова"},{"id":"person:ГЛОРИЯ ТИХОМИРОВА ХИНКОВА","type":"person","label":"Глория Тихомирова Хинкова"}],"edges":[{"source":"official:neli-hinkova-todorova-28de8b","target":"company:tr:116039739","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯНКА ВЪЛЕВА СТОЯНОВА","target":"company:tr:116039739","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ТРИФОНОВА АЛЕКСАНДРОВА","target":"company:tr:116039739","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЗАР СТАНЕВ ЛАЗАРОВ","target":"company:tr:116039739","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕНЧО ТРУФАНОВ СТАНКОВ","target":"company:tr:116039739","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ИВАНОВ АТАНАСОВ","target":"company:tr:116039739","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА АНГЕЛОВА МАРИНОВА","target":"company:tr:116039739","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА СТЕФАНОВА ИВАНОВА","target":"company:tr:116039739","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ ПЕТРОВА ГОСПОДИНОВА","target":"company:tr:116039739","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА БОНЕВА КЪСОВА","target":"company:tr:116039739","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГЛОРИЯ ТИХОМИРОВА ХИНКОВА","target":"company:tr:116039739","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:neli-hinkova-todorova-28de8b",
+  "nodes": [
+    {
+      "id": "official:neli-hinkova-todorova-28de8b",
+      "type": "official",
+      "slug": "neli-hinkova-todorova-28de8b",
+      "label": "Нели Хинкова Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:116039739",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАЙ СЕБЕ СИ-1895 Г.&quot;",
+      "slug": null,
+      "uic": "116039739",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯНКА ВЪЛЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Стоянка Вълева Стоянова"
+    },
+    {
+      "id": "person:РОСИЦА ТРИФОНОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Росица Трифонова Александрова"
+    },
+    {
+      "id": "person:ЛАЗАР СТАНЕВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Лазар Станев Лазаров"
+    },
+    {
+      "id": "person:ГЕНЧО ТРУФАНОВ СТАНКОВ",
+      "type": "person",
+      "label": "Генчо Труфанов Станков"
+    },
+    {
+      "id": "person:АТАНАС ИВАНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Иванов Атанасов"
+    },
+    {
+      "id": "person:ГИНКА АНГЕЛОВА МАРИНОВА",
+      "type": "person",
+      "label": "Гинка Ангелова Маринова"
+    },
+    {
+      "id": "person:ИРЕНА СТЕФАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ирена Стефанова Иванова"
+    },
+    {
+      "id": "person:НЕЛИ ПЕТРОВА ГОСПОДИНОВА",
+      "type": "person",
+      "label": "Нели Петрова Господинова"
+    },
+    {
+      "id": "person:МИЛЕНА БОНЕВА КЪСОВА",
+      "type": "person",
+      "label": "Милена Бонева Късова"
+    },
+    {
+      "id": "person:ГЛОРИЯ ТИХОМИРОВА ХИНКОВА",
+      "type": "person",
+      "label": "Глория Тихомирова Хинкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-hinkova-todorova-28de8b",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯНКА ВЪЛЕВА СТОЯНОВА",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТРИФОНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАР СТАНЕВ ЛАЗАРОВ",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНЧО ТРУФАНОВ СТАНКОВ",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ИВАНОВ АТАНАСОВ",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА АНГЕЛОВА МАРИНОВА",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА СТЕФАНОВА ИВАНОВА",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ПЕТРОВА ГОСПОДИНОВА",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА БОНЕВА КЪСОВА",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЛОРИЯ ТИХОМИРОВА ХИНКОВА",
+      "target": "company:tr:116039739",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

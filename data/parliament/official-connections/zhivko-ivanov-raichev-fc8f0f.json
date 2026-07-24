@@ -1,1 +1,282 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zhivko-ivanov-raichev-fc8f0f","nodes":[{"id":"official:zhivko-ivanov-raichev-fc8f0f","type":"official","slug":"zhivko-ivanov-raichev-fc8f0f","label":"Живко Иванов Райчев","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:108559170","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - КЪРДЖАЛИ","slug":null,"uic":"108559170","legalForm":null,"status":null,"seat":null},{"id":"person:РУСКА КРАСИМИРОВА СТОЯНОВА","type":"person","label":"Руска Красимирова Стоянова"},{"id":"person:ПАУНКА ИВАНОВА КАЛЪМОВА","type":"person","label":"Паунка Иванова Калъмова"},{"id":"person:ЗИХНИЕ РУФАТ АЛИ","type":"person","label":"Зихние Руфат Али"},{"id":"person:ИВАН НЕДЯЛКОВ ПАНАЙОТОВ","type":"person","label":"Иван Недялков Панайотов"},{"id":"person:НИКОЛИНА ДИМИТРОВА СЕМЕРДЖИЕВА","type":"person","label":"Николина Димитрова Семерджиева"},{"id":"person:МАРК ГЕОРГИЕВ БАЗЛЯНКОВ","type":"person","label":"Марк Георгиев Базлянков"},{"id":"person:ГЕОРГИ ЯНЧЕВ ЯНЧЕВ","type":"person","label":"Георги Янчев Янчев"},{"id":"person:РУСКА ПЕТКОВА ДИМИТРОВА","type":"person","label":"Руска Петкова Димитрова"},{"id":"person:НЕДЯЛКА ГЕОРГИЕВА АНДРЕЕВА","type":"person","label":"Недялка Георгиева Андреева"},{"id":"person:ЕЛМИРА БЛАГОЕВА ГЕОРГИЕВА","type":"person","label":"Елмира Благоева Георгиева"},{"id":"person:ИВАН КИРКОВ СТАНЧЕВ","type":"person","label":"Иван Кирков Станчев"},{"id":"person:МИЛКО КОСТОВ ГОСПОДИНОВ","type":"person","label":"Милко Костов Господинов"},{"id":"person:ВАСИЛ ГЕОРГИЕВ ЧАУШЕВ","type":"person","label":"Васил Георгиев Чаушев"},{"id":"person:ЛЮБОМИР АНДРЕЕВ ГЕОРГИЕВ","type":"person","label":"Любомир Андреев Георгиев"},{"id":"person:ДАНИЕЛА ГЕОРГИЕВА МИЛУШЕВА","type":"person","label":"Даниела Георгиева Милушева"},{"id":"person:МАРИЯ ПАНАЙОТОВА ТОДОРОВА","type":"person","label":"Мария Панайотова Тодорова"},{"id":"person:ХРИСТО КОСТАДИНОВ РОЛЕВ","type":"person","label":"Христо Костадинов Ролев"},{"id":"person:АСЕН ИВАНОВ КРАЧУНОВ","type":"person","label":"Асен Иванов Крачунов"},{"id":"person:ДОНКА БОЙЧЕВА ДАМАКОВА","type":"person","label":"Донка Бойчева Дамакова"}],"edges":[{"source":"official:zhivko-ivanov-raichev-fc8f0f","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:РУСКА КРАСИМИРОВА СТОЯНОВА","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПАУНКА ИВАНОВА КАЛЪМОВА","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЗИХНИЕ РУФАТ АЛИ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН НЕДЯЛКОВ ПАНАЙОТОВ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНА ДИМИТРОВА СЕМЕРДЖИЕВА","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРК ГЕОРГИЕВ БАЗЛЯНКОВ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЯНЧЕВ ЯНЧЕВ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РУСКА ПЕТКОВА ДИМИТРОВА","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКА ГЕОРГИЕВА АНДРЕЕВА","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛМИРА БЛАГОЕВА ГЕОРГИЕВА","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КИРКОВ СТАНЧЕВ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКО КОСТОВ ГОСПОДИНОВ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ГЕОРГИЕВ ЧАУШЕВ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР АНДРЕЕВ ГЕОРГИЕВ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ГЕОРГИЕВА МИЛУШЕВА","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ПАНАЙОТОВА ТОДОРОВА","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО КОСТАДИНОВ РОЛЕВ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН ИВАНОВ КРАЧУНОВ","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА БОЙЧЕВА ДАМАКОВА","target":"company:tr:108559170","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zhivko-ivanov-raichev-fc8f0f",
+  "nodes": [
+    {
+      "id": "official:zhivko-ivanov-raichev-fc8f0f",
+      "type": "official",
+      "slug": "zhivko-ivanov-raichev-fc8f0f",
+      "label": "Живко Иванов Райчев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:108559170",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - КЪРДЖАЛИ",
+      "slug": null,
+      "uic": "108559170",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУСКА КРАСИМИРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Руска Красимирова Стоянова"
+    },
+    {
+      "id": "person:ПАУНКА ИВАНОВА КАЛЪМОВА",
+      "type": "person",
+      "label": "Паунка Иванова Калъмова"
+    },
+    {
+      "id": "person:ЗИХНИЕ РУФАТ АЛИ",
+      "type": "person",
+      "label": "Зихние Руфат Али"
+    },
+    {
+      "id": "person:ИВАН НЕДЯЛКОВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Иван Недялков Панайотов"
+    },
+    {
+      "id": "person:НИКОЛИНА ДИМИТРОВА СЕМЕРДЖИЕВА",
+      "type": "person",
+      "label": "Николина Димитрова Семерджиева"
+    },
+    {
+      "id": "person:МАРК ГЕОРГИЕВ БАЗЛЯНКОВ",
+      "type": "person",
+      "label": "Марк Георгиев Базлянков"
+    },
+    {
+      "id": "person:ГЕОРГИ ЯНЧЕВ ЯНЧЕВ",
+      "type": "person",
+      "label": "Георги Янчев Янчев"
+    },
+    {
+      "id": "person:РУСКА ПЕТКОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Руска Петкова Димитрова"
+    },
+    {
+      "id": "person:НЕДЯЛКА ГЕОРГИЕВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Недялка Георгиева Андреева"
+    },
+    {
+      "id": "person:ЕЛМИРА БЛАГОЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Елмира Благоева Георгиева"
+    },
+    {
+      "id": "person:ИВАН КИРКОВ СТАНЧЕВ",
+      "type": "person",
+      "label": "Иван Кирков Станчев"
+    },
+    {
+      "id": "person:МИЛКО КОСТОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Милко Костов Господинов"
+    },
+    {
+      "id": "person:ВАСИЛ ГЕОРГИЕВ ЧАУШЕВ",
+      "type": "person",
+      "label": "Васил Георгиев Чаушев"
+    },
+    {
+      "id": "person:ЛЮБОМИР АНДРЕЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Любомир Андреев Георгиев"
+    },
+    {
+      "id": "person:ДАНИЕЛА ГЕОРГИЕВА МИЛУШЕВА",
+      "type": "person",
+      "label": "Даниела Георгиева Милушева"
+    },
+    {
+      "id": "person:МАРИЯ ПАНАЙОТОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Мария Панайотова Тодорова"
+    },
+    {
+      "id": "person:ХРИСТО КОСТАДИНОВ РОЛЕВ",
+      "type": "person",
+      "label": "Христо Костадинов Ролев"
+    },
+    {
+      "id": "person:АСЕН ИВАНОВ КРАЧУНОВ",
+      "type": "person",
+      "label": "Асен Иванов Крачунов"
+    },
+    {
+      "id": "person:ДОНКА БОЙЧЕВА ДАМАКОВА",
+      "type": "person",
+      "label": "Донка Бойчева Дамакова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-ivanov-raichev-fc8f0f",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУСКА КРАСИМИРОВА СТОЯНОВА",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАУНКА ИВАНОВА КАЛЪМОВА",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗИХНИЕ РУФАТ АЛИ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НЕДЯЛКОВ ПАНАЙОТОВ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА ДИМИТРОВА СЕМЕРДЖИЕВА",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРК ГЕОРГИЕВ БАЗЛЯНКОВ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЯНЧЕВ ЯНЧЕВ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСКА ПЕТКОВА ДИМИТРОВА",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА ГЕОРГИЕВА АНДРЕЕВА",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛМИРА БЛАГОЕВА ГЕОРГИЕВА",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КИРКОВ СТАНЧЕВ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО КОСТОВ ГОСПОДИНОВ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ГЕОРГИЕВ ЧАУШЕВ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР АНДРЕЕВ ГЕОРГИЕВ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ГЕОРГИЕВА МИЛУШЕВА",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПАНАЙОТОВА ТОДОРОВА",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КОСТАДИНОВ РОЛЕВ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ИВАНОВ КРАЧУНОВ",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА БОЙЧЕВА ДАМАКОВА",
+      "target": "company:tr:108559170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

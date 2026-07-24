@@ -1,1 +1,147 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stanka-georgieva-manolova-d53ca2","nodes":[{"id":"official:stanka-georgieva-manolova-d53ca2","type":"official","slug":"stanka-georgieva-manolova-d53ca2","label":"Станка Георгиева Манолова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:175697557","type":"company","label":"Народно читалище ПРОБУДА СЕЛО БИСЕР - 2009","slug":null,"uic":"175697557","legalForm":null,"status":null,"seat":null},{"id":"person:ЖЕНЯ ИЛИЯНОВА ПЕТКОВА","type":"person","label":"Женя Илиянова Петкова"},{"id":"person:МАРИЯ ТОДОРОВА МИТЕВА","type":"person","label":"Мария Тодорова Митева"},{"id":"person:МАРИЯ ВЪЧКОВА КИРИЛОВА","type":"person","label":"Мария Въчкова Кирилова"},{"id":"person:СНЕЖАНА ГОШЕВА АНГЕЛОВА","type":"person","label":"Снежана Гошева Ангелова"},{"id":"person:ЖИВКА ПАВЛОВА СТОЯНОВА","type":"person","label":"Живка Павлова Стоянова"},{"id":"person:ХРИСТИНА ГОРЧЕВА КАРАИВАНОВА","type":"person","label":"Христина Горчева Караиванова"},{"id":"person:ВИОЛЕТА ГЕОРГИЕВА ПОПОВА","type":"person","label":"Виолета Георгиева Попова"},{"id":"person:ТЕОДОРА ГЕОРГИЕВА ЦЕНЕВА","type":"person","label":"Теодора Георгиева Ценева"}],"edges":[{"source":"official:stanka-georgieva-manolova-d53ca2","target":"company:tr:175697557","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:stanka-georgieva-manolova-d53ca2","target":"company:tr:175697557","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ЖЕНЯ ИЛИЯНОВА ПЕТКОВА","target":"company:tr:175697557","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ТОДОРОВА МИТЕВА","target":"company:tr:175697557","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ВЪЧКОВА КИРИЛОВА","target":"company:tr:175697557","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА ГОШЕВА АНГЕЛОВА","target":"company:tr:175697557","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКА ПАВЛОВА СТОЯНОВА","target":"company:tr:175697557","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА ГОРЧЕВА КАРАИВАНОВА","target":"company:tr:175697557","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ГЕОРГИЕВА ПОПОВА","target":"company:tr:175697557","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ГЕОРГИЕВА ЦЕНЕВА","target":"company:tr:175697557","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stanka-georgieva-manolova-d53ca2",
+  "nodes": [
+    {
+      "id": "official:stanka-georgieva-manolova-d53ca2",
+      "type": "official",
+      "slug": "stanka-georgieva-manolova-d53ca2",
+      "label": "Станка Георгиева Манолова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175697557",
+      "type": "company",
+      "label": "Народно читалище ПРОБУДА СЕЛО БИСЕР - 2009",
+      "slug": null,
+      "uic": "175697557",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖЕНЯ ИЛИЯНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Женя Илиянова Петкова"
+    },
+    {
+      "id": "person:МАРИЯ ТОДОРОВА МИТЕВА",
+      "type": "person",
+      "label": "Мария Тодорова Митева"
+    },
+    {
+      "id": "person:МАРИЯ ВЪЧКОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Мария Въчкова Кирилова"
+    },
+    {
+      "id": "person:СНЕЖАНА ГОШЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Снежана Гошева Ангелова"
+    },
+    {
+      "id": "person:ЖИВКА ПАВЛОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Живка Павлова Стоянова"
+    },
+    {
+      "id": "person:ХРИСТИНА ГОРЧЕВА КАРАИВАНОВА",
+      "type": "person",
+      "label": "Христина Горчева Караиванова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ГЕОРГИЕВА ПОПОВА",
+      "type": "person",
+      "label": "Виолета Георгиева Попова"
+    },
+    {
+      "id": "person:ТЕОДОРА ГЕОРГИЕВА ЦЕНЕВА",
+      "type": "person",
+      "label": "Теодора Георгиева Ценева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanka-georgieva-manolova-d53ca2",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanka-georgieva-manolova-d53ca2",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕНЯ ИЛИЯНОВА ПЕТКОВА",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТОДОРОВА МИТЕВА",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВЪЧКОВА КИРИЛОВА",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ГОШЕВА АНГЕЛОВА",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ПАВЛОВА СТОЯНОВА",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ГОРЧЕВА КАРАИВАНОВА",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ГЕОРГИЕВА ПОПОВА",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ГЕОРГИЕВА ЦЕНЕВА",
+      "target": "company:tr:175697557",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,152 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariana-ivanova-yanchevska-2e32da","nodes":[{"id":"official:mariana-ivanova-yanchevska-2e32da","type":"official","slug":"mariana-ivanova-yanchevska-2e32da","label":"Мариана Иванова Янчевска","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000456250","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА - кв. ДЕБЪР - 1905 г.&quot;","slug":null,"uic":"000456250","legalForm":null,"status":null,"seat":null},{"id":"person:ЛИЛЯНА КОСТАДИНОВА ЗАПРЯНОВА","type":"person","label":"Лиляна Костадинова Запрянова"},{"id":"person:НЕВЕНА СЛАВЧЕВА РУПЦОВА","type":"person","label":"Невена Славчева Рупцова"},{"id":"person:СЛАВЧО ДИНКОВ НИКОЛОВ","type":"person","label":"Славчо Динков Николов"},{"id":"person:НЕДЯЛКА ДИМОВА ТОМААТАНАСОВА","type":"person","label":"Недялка Димова Томаатанасова"},{"id":"person:ПЕТЯ ДИМИТРОВА ПАВЛОВА","type":"person","label":"Петя Димитрова Павлова"},{"id":"person:НЕДЯЛКА ЙОРДАНОВА АТАНАСОВА","type":"person","label":"Недялка Йорданова Атанасова"},{"id":"person:ЖЕЛЯЗКО КОСТАДИНОВ ТРИФОНОВ","type":"person","label":"Желязко Костадинов Трифонов"},{"id":"person:МАРИЯ АНГЕЛОВА ТОДОРОВА","type":"person","label":"Мария Ангелова Тодорова"},{"id":"person:МАРИЯ ЗАПРЯНОВА ТАНЕВА","type":"person","label":"Мария Запрянова Танева"}],"edges":[{"source":"official:mariana-ivanova-yanchevska-2e32da","target":"company:tr:000456250","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ЛИЛЯНА КОСТАДИНОВА ЗАПРЯНОВА","target":"company:tr:000456250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕНА СЛАВЧЕВА РУПЦОВА","target":"company:tr:000456250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВЧО ДИНКОВ НИКОЛОВ","target":"company:tr:000456250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКА ДИМОВА ТОМААТАНАСОВА","target":"company:tr:000456250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ДИМИТРОВА ПАВЛОВА","target":"company:tr:000456250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКА ЙОРДАНОВА АТАНАСОВА","target":"company:tr:000456250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛЯЗКО КОСТАДИНОВ ТРИФОНОВ","target":"company:tr:000456250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ АНГЕЛОВА ТОДОРОВА","target":"company:tr:000456250","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ЗАПРЯНОВА ТАНЕВА","target":"company:tr:000456250","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariana-ivanova-yanchevska-2e32da",
+  "nodes": [
+    {
+      "id": "official:mariana-ivanova-yanchevska-2e32da",
+      "type": "official",
+      "slug": "mariana-ivanova-yanchevska-2e32da",
+      "label": "Мариана Иванова Янчевска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000456250",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА - кв. ДЕБЪР - 1905 г.&quot;",
+      "slug": null,
+      "uic": "000456250",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛЯНА КОСТАДИНОВА ЗАПРЯНОВА",
+      "type": "person",
+      "label": "Лиляна Костадинова Запрянова"
+    },
+    {
+      "id": "person:НЕВЕНА СЛАВЧЕВА РУПЦОВА",
+      "type": "person",
+      "label": "Невена Славчева Рупцова"
+    },
+    {
+      "id": "person:СЛАВЧО ДИНКОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Славчо Динков Николов"
+    },
+    {
+      "id": "person:НЕДЯЛКА ДИМОВА ТОМААТАНАСОВА",
+      "type": "person",
+      "label": "Недялка Димова Томаатанасова"
+    },
+    {
+      "id": "person:ПЕТЯ ДИМИТРОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Петя Димитрова Павлова"
+    },
+    {
+      "id": "person:НЕДЯЛКА ЙОРДАНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Недялка Йорданова Атанасова"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКО КОСТАДИНОВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Желязко Костадинов Трифонов"
+    },
+    {
+      "id": "person:МАРИЯ АНГЕЛОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Мария Ангелова Тодорова"
+    },
+    {
+      "id": "person:МАРИЯ ЗАПРЯНОВА ТАНЕВА",
+      "type": "person",
+      "label": "Мария Запрянова Танева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariana-ivanova-yanchevska-2e32da",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛЯНА КОСТАДИНОВА ЗАПРЯНОВА",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА СЛАВЧЕВА РУПЦОВА",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО ДИНКОВ НИКОЛОВ",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА ДИМОВА ТОМААТАНАСОВА",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ДИМИТРОВА ПАВЛОВА",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА ЙОРДАНОВА АТАНАСОВА",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО КОСТАДИНОВ ТРИФОНОВ",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АНГЕЛОВА ТОДОРОВА",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ЗАПРЯНОВА ТАНЕВА",
+      "target": "company:tr:000456250",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

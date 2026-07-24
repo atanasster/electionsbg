@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristo-stoyanov-yanchovichin-9539aa","nodes":[{"id":"official:hristo-stoyanov-yanchovichin-9539aa","type":"official","slug":"hristo-stoyanov-yanchovichin-9539aa","label":"Христо Стоянов Янчовичин","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207644964","type":"company","label":"СКИ КЛУБ ЕЛ ТЕПЕ","slug":null,"uic":"207644964","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛА СТОЯНОВ ЯНЧОВИЧИН","type":"person","label":"Никола Стоянов Янчовичин"}],"edges":[{"source":"official:hristo-stoyanov-yanchovichin-9539aa","target":"company:tr:207644964","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-stoyanov-yanchovichin-9539aa","target":"company:tr:207644964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛА СТОЯНОВ ЯНЧОВИЧИН","target":"company:tr:207644964","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА СТОЯНОВ ЯНЧОВИЧИН","target":"company:tr:207644964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristo-stoyanov-yanchovichin-9539aa",
+  "nodes": [
+    {
+      "id": "official:hristo-stoyanov-yanchovichin-9539aa",
+      "type": "official",
+      "slug": "hristo-stoyanov-yanchovichin-9539aa",
+      "label": "Христо Стоянов Янчовичин",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207644964",
+      "type": "company",
+      "label": "СКИ КЛУБ ЕЛ ТЕПЕ",
+      "slug": null,
+      "uic": "207644964",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛА СТОЯНОВ ЯНЧОВИЧИН",
+      "type": "person",
+      "label": "Никола Стоянов Янчовичин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-stoyanov-yanchovichin-9539aa",
+      "target": "company:tr:207644964",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-stoyanov-yanchovichin-9539aa",
+      "target": "company:tr:207644964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА СТОЯНОВ ЯНЧОВИЧИН",
+      "target": "company:tr:207644964",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА СТОЯНОВ ЯНЧОВИЧИН",
+      "target": "company:tr:207644964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

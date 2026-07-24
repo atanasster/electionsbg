@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mustafa-mehmedov-korov-befcb7","nodes":[{"id":"official:mustafa-mehmedov-korov-befcb7","type":"official","slug":"mustafa-mehmedov-korov-befcb7","label":"Мустафа Мехмедов Кьоров","tier":"municipal","role":"councillor","municipality":"Якоруда"},{"id":"company:tr:207446612","type":"company","label":"Обединение за Якоруда","slug":null,"uic":"207446612","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ИЛКОВ БУЧКОВ","type":"person","label":"Георги Илков Бучков"},{"id":"person:ЛЮБОМИР МАРИО СЕДЛОЕВ","type":"person","label":"Любомир Марио Седлоев"}],"edges":[{"source":"official:mustafa-mehmedov-korov-befcb7","target":"company:tr:207446612","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:mustafa-mehmedov-korov-befcb7","target":"company:tr:207446612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ИЛКОВ БУЧКОВ","target":"company:tr:207446612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР МАРИО СЕДЛОЕВ","target":"company:tr:207446612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mustafa-mehmedov-korov-befcb7",
+  "nodes": [
+    {
+      "id": "official:mustafa-mehmedov-korov-befcb7",
+      "type": "official",
+      "slug": "mustafa-mehmedov-korov-befcb7",
+      "label": "Мустафа Мехмедов Кьоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Якоруда"
+    },
+    {
+      "id": "company:tr:207446612",
+      "type": "company",
+      "label": "Обединение за Якоруда",
+      "slug": null,
+      "uic": "207446612",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ИЛКОВ БУЧКОВ",
+      "type": "person",
+      "label": "Георги Илков Бучков"
+    },
+    {
+      "id": "person:ЛЮБОМИР МАРИО СЕДЛОЕВ",
+      "type": "person",
+      "label": "Любомир Марио Седлоев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mustafa-mehmedov-korov-befcb7",
+      "target": "company:tr:207446612",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mustafa-mehmedov-korov-befcb7",
+      "target": "company:tr:207446612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛКОВ БУЧКОВ",
+      "target": "company:tr:207446612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР МАРИО СЕДЛОЕВ",
+      "target": "company:tr:207446612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:deyan-mladenov-georgiev-c4efb4","nodes":[{"id":"official:deyan-mladenov-georgiev-c4efb4","type":"official","slug":"deyan-mladenov-georgiev-c4efb4","label":"Деян Младенов Георгиев","tier":"municipal","role":"council_chair","municipality":"Бойчиновци"},{"id":"company:tr:207547472","type":"company","label":"ТЕРРА ФЕШЪН","slug":null,"uic":"207547472","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:deyan-mladenov-georgiev-c4efb4","target":"company:tr:207547472","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:deyan-mladenov-georgiev-c4efb4","target":"company:tr:207547472","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:deyan-mladenov-georgiev-c4efb4",
+  "nodes": [
+    {
+      "id": "official:deyan-mladenov-georgiev-c4efb4",
+      "type": "official",
+      "slug": "deyan-mladenov-georgiev-c4efb4",
+      "label": "Деян Младенов Георгиев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Бойчиновци"
+    },
+    {
+      "id": "company:tr:207547472",
+      "type": "company",
+      "label": "ТЕРРА ФЕШЪН",
+      "slug": null,
+      "uic": "207547472",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:deyan-mladenov-georgiev-c4efb4",
+      "target": "company:tr:207547472",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:deyan-mladenov-georgiev-c4efb4",
+      "target": "company:tr:207547472",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

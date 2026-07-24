@@ -1,1 +1,108 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:doncho-ivanov-boradzhiev-f7b0a4","nodes":[{"id":"official:doncho-ivanov-boradzhiev-f7b0a4","type":"official","slug":"doncho-ivanov-boradzhiev-f7b0a4","label":"Дончо Иванов Бораджиев","tier":"municipal","role":"councillor","municipality":"Велико Търново"},{"id":"company:tr:204846462","type":"company","label":"Стаекс Фарма","slug":null,"uic":"204846462","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207394051","type":"company","label":"Кей Пи Инвестмънтс","slug":null,"uic":"207394051","legalForm":null,"status":null,"seat":null},{"id":"person:ДОНЧО ИВАНОВ БОРАДЖИЕВ","type":"person","label":"Дончо Иванов Бораджиев"},{"id":"person:СИМЕОН ПЕТРОВ МОНОВ","type":"person","label":"Симеон Петров Монов"},{"id":"person:ПЕТКО НЕДЯЛКОВ ДЕНЕВ","type":"person","label":"Петко Недялков Денев"}],"edges":[{"source":"official:doncho-ivanov-boradzhiev-f7b0a4","target":"company:tr:204846462","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:doncho-ivanov-boradzhiev-f7b0a4","target":"company:tr:207394051","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ДОНЧО ИВАНОВ БОРАДЖИЕВ","target":"company:tr:204846462","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН ПЕТРОВ МОНОВ","target":"company:tr:204846462","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО НЕДЯЛКОВ ДЕНЕВ","target":"company:tr:204846462","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДОНЧО ИВАНОВ БОРАДЖИЕВ","target":"company:tr:207394051","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДОНЧО ИВАНОВ БОРАДЖИЕВ","target":"company:tr:207394051","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:doncho-ivanov-boradzhiev-f7b0a4",
+  "nodes": [
+    {
+      "id": "official:doncho-ivanov-boradzhiev-f7b0a4",
+      "type": "official",
+      "slug": "doncho-ivanov-boradzhiev-f7b0a4",
+      "label": "Дончо Иванов Бораджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велико Търново"
+    },
+    {
+      "id": "company:tr:204846462",
+      "type": "company",
+      "label": "Стаекс Фарма",
+      "slug": null,
+      "uic": "204846462",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207394051",
+      "type": "company",
+      "label": "Кей Пи Инвестмънтс",
+      "slug": null,
+      "uic": "207394051",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОНЧО ИВАНОВ БОРАДЖИЕВ",
+      "type": "person",
+      "label": "Дончо Иванов Бораджиев"
+    },
+    {
+      "id": "person:СИМЕОН ПЕТРОВ МОНОВ",
+      "type": "person",
+      "label": "Симеон Петров Монов"
+    },
+    {
+      "id": "person:ПЕТКО НЕДЯЛКОВ ДЕНЕВ",
+      "type": "person",
+      "label": "Петко Недялков Денев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:doncho-ivanov-boradzhiev-f7b0a4",
+      "target": "company:tr:204846462",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:doncho-ivanov-boradzhiev-f7b0a4",
+      "target": "company:tr:207394051",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ИВАНОВ БОРАДЖИЕВ",
+      "target": "company:tr:204846462",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ПЕТРОВ МОНОВ",
+      "target": "company:tr:204846462",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО НЕДЯЛКОВ ДЕНЕВ",
+      "target": "company:tr:204846462",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ИВАНОВ БОРАДЖИЕВ",
+      "target": "company:tr:207394051",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ИВАНОВ БОРАДЖИЕВ",
+      "target": "company:tr:207394051",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,181 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:daniel-atanasov-ivanov-4e2967","nodes":[{"id":"official:daniel-atanasov-ivanov-4e2967","type":"official","slug":"daniel-atanasov-ivanov-4e2967","label":"Даниел Атанасов Иванов","tier":"municipal","role":"councillor","municipality":"Бургас"},{"id":"company:tr:207843119","type":"company","label":"СДРУЖЕНИЕ ПРОГРЕС И РАЗВИТИЕ","slug":null,"uic":"207843119","legalForm":null,"status":null,"seat":null},{"id":"official:kostadin-evgeniev-andonov-8d7172","type":"official","slug":"kostadin-evgeniev-andonov-8d7172","label":"Костадин Евгениев Андонов","tier":"municipal","role":"councillor","municipality":"Бургас"},{"id":"official:stoyan-demirev-grozev-53b1c8","type":"official","slug":"stoyan-demirev-grozev-53b1c8","label":"Стоян Демирев Грозев","tier":"municipal","role":"councillor","municipality":"Бургас"},{"id":"person:СЕРГЕЙ СЛАВЧЕВ ИВАНОВ","type":"person","label":"Сергей Славчев Иванов"},{"id":"person:НИКОЛАЙ КОСТОВ СТОЯНОВ","type":"person","label":"Николай Костов Стоянов"},{"id":"person:ВАНЯ ИВАНЧЕВА СТОЕВА-АНДОНОВА","type":"person","label":"Ваня Иванчева Стоева-Андонова"},{"id":"person:МАРИЕЛА НИКОЛАЕВА КИРОВА","type":"person","label":"Мариела Николаева Кирова"},{"id":"person:КАЛИН КАЛЧЕВ ТАУШАНОВ","type":"person","label":"Калин Калчев Таушанов"},{"id":"person:ЯВОР МИШЕВ ЖЕКОВ","type":"person","label":"Явор Мишев Жеков"},{"id":"person:ГЕОРГИ НИКОЛОВ КУЗМАНОВ","type":"person","label":"Георги Николов Кузманов"},{"id":"person:АНЕЛИЯ ИВАНОВА ИВАНОВА","type":"person","label":"Анелия Иванова Иванова"}],"edges":[{"source":"official:daniel-atanasov-ivanov-4e2967","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:kostadin-evgeniev-andonov-8d7172","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:stoyan-demirev-grozev-53b1c8","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СЕРГЕЙ СЛАВЧЕВ ИВАНОВ","target":"company:tr:207843119","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СЕРГЕЙ СЛАВЧЕВ ИВАНОВ","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КОСТОВ СТОЯНОВ","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ИВАНЧЕВА СТОЕВА-АНДОНОВА","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЕЛА НИКОЛАЕВА КИРОВА","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН КАЛЧЕВ ТАУШАНОВ","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР МИШЕВ ЖЕКОВ","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛОВ КУЗМАНОВ","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ ИВАНОВА ИВАНОВА","target":"company:tr:207843119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:daniel-atanasov-ivanov-4e2967",
+  "nodes": [
+    {
+      "id": "official:daniel-atanasov-ivanov-4e2967",
+      "type": "official",
+      "slug": "daniel-atanasov-ivanov-4e2967",
+      "label": "Даниел Атанасов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:207843119",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ПРОГРЕС И РАЗВИТИЕ",
+      "slug": null,
+      "uic": "207843119",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:kostadin-evgeniev-andonov-8d7172",
+      "type": "official",
+      "slug": "kostadin-evgeniev-andonov-8d7172",
+      "label": "Костадин Евгениев Андонов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "official:stoyan-demirev-grozev-53b1c8",
+      "type": "official",
+      "slug": "stoyan-demirev-grozev-53b1c8",
+      "label": "Стоян Демирев Грозев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "person:СЕРГЕЙ СЛАВЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Сергей Славчев Иванов"
+    },
+    {
+      "id": "person:НИКОЛАЙ КОСТОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Николай Костов Стоянов"
+    },
+    {
+      "id": "person:ВАНЯ ИВАНЧЕВА СТОЕВА-АНДОНОВА",
+      "type": "person",
+      "label": "Ваня Иванчева Стоева-Андонова"
+    },
+    {
+      "id": "person:МАРИЕЛА НИКОЛАЕВА КИРОВА",
+      "type": "person",
+      "label": "Мариела Николаева Кирова"
+    },
+    {
+      "id": "person:КАЛИН КАЛЧЕВ ТАУШАНОВ",
+      "type": "person",
+      "label": "Калин Калчев Таушанов"
+    },
+    {
+      "id": "person:ЯВОР МИШЕВ ЖЕКОВ",
+      "type": "person",
+      "label": "Явор Мишев Жеков"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛОВ КУЗМАНОВ",
+      "type": "person",
+      "label": "Георги Николов Кузманов"
+    },
+    {
+      "id": "person:АНЕЛИЯ ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Анелия Иванова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-atanasov-ivanov-4e2967",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kostadin-evgeniev-andonov-8d7172",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-demirev-grozev-53b1c8",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕРГЕЙ СЛАВЧЕВ ИВАНОВ",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГЕЙ СЛАВЧЕВ ИВАНОВ",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КОСТОВ СТОЯНОВ",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ИВАНЧЕВА СТОЕВА-АНДОНОВА",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕЛА НИКОЛАЕВА КИРОВА",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН КАЛЧЕВ ТАУШАНОВ",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР МИШЕВ ЖЕКОВ",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛОВ КУЗМАНОВ",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ИВАНОВА ИВАНОВА",
+      "target": "company:tr:207843119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

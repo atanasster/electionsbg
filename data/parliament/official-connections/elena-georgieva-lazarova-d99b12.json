@@ -1,1 +1,139 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:elena-georgieva-lazarova-d99b12","nodes":[{"id":"official:elena-georgieva-lazarova-d99b12","type":"official","slug":"elena-georgieva-lazarova-d99b12","label":"Елена Георгиева Лазарова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:112075314","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ТЕОФИЛ БЕЙКОВ - 1907&quot;","slug":null,"uic":"112075314","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИАНА ГЕОРГИЕВА ПОПОВА","type":"person","label":"Мариана Георгиева Попова"},{"id":"person:ГЕОРГИ НЕНКОВ ЛАЗАРОВ","type":"person","label":"Георги Ненков Лазаров"},{"id":"person:ДЕЛКА ИВАНОВА ВЕЛЕВА","type":"person","label":"Делка Иванова Велева"},{"id":"person:СИЛВИЯ СТЕФАНОВА КОСТОВА","type":"person","label":"Силвия Стефанова Костова"},{"id":"person:НИНА КРУМОВА МОЛЛОВА","type":"person","label":"Нина Крумова Моллова"},{"id":"person:НИНА НИКОЛАЕВА ДЕНКОВА","type":"person","label":"Нина Николаева Денкова"},{"id":"person:ПЕНКА АТАНАСОВА ДИМИТРОВА","type":"person","label":"Пенка Атанасова Димитрова"},{"id":"person:ТРЪНКА НИКОЛОВА НЕШЕВА","type":"person","label":"Трънка Николова Нешева"}],"edges":[{"source":"official:elena-georgieva-lazarova-d99b12","target":"company:tr:112075314","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИАНА ГЕОРГИЕВА ПОПОВА","target":"company:tr:112075314","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НЕНКОВ ЛАЗАРОВ","target":"company:tr:112075314","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛКА ИВАНОВА ВЕЛЕВА","target":"company:tr:112075314","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ СТЕФАНОВА КОСТОВА","target":"company:tr:112075314","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НИНА КРУМОВА МОЛЛОВА","target":"company:tr:112075314","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НИНА НИКОЛАЕВА ДЕНКОВА","target":"company:tr:112075314","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА АТАНАСОВА ДИМИТРОВА","target":"company:tr:112075314","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТРЪНКА НИКОЛОВА НЕШЕВА","target":"company:tr:112075314","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:elena-georgieva-lazarova-d99b12",
+  "nodes": [
+    {
+      "id": "official:elena-georgieva-lazarova-d99b12",
+      "type": "official",
+      "slug": "elena-georgieva-lazarova-d99b12",
+      "label": "Елена Георгиева Лазарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112075314",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ТЕОФИЛ БЕЙКОВ - 1907&quot;",
+      "slug": null,
+      "uic": "112075314",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАНА ГЕОРГИЕВА ПОПОВА",
+      "type": "person",
+      "label": "Мариана Георгиева Попова"
+    },
+    {
+      "id": "person:ГЕОРГИ НЕНКОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Георги Ненков Лазаров"
+    },
+    {
+      "id": "person:ДЕЛКА ИВАНОВА ВЕЛЕВА",
+      "type": "person",
+      "label": "Делка Иванова Велева"
+    },
+    {
+      "id": "person:СИЛВИЯ СТЕФАНОВА КОСТОВА",
+      "type": "person",
+      "label": "Силвия Стефанова Костова"
+    },
+    {
+      "id": "person:НИНА КРУМОВА МОЛЛОВА",
+      "type": "person",
+      "label": "Нина Крумова Моллова"
+    },
+    {
+      "id": "person:НИНА НИКОЛАЕВА ДЕНКОВА",
+      "type": "person",
+      "label": "Нина Николаева Денкова"
+    },
+    {
+      "id": "person:ПЕНКА АТАНАСОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Пенка Атанасова Димитрова"
+    },
+    {
+      "id": "person:ТРЪНКА НИКОЛОВА НЕШЕВА",
+      "type": "person",
+      "label": "Трънка Николова Нешева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-georgieva-lazarova-d99b12",
+      "target": "company:tr:112075314",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАНА ГЕОРГИЕВА ПОПОВА",
+      "target": "company:tr:112075314",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НЕНКОВ ЛАЗАРОВ",
+      "target": "company:tr:112075314",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛКА ИВАНОВА ВЕЛЕВА",
+      "target": "company:tr:112075314",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ СТЕФАНОВА КОСТОВА",
+      "target": "company:tr:112075314",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА КРУМОВА МОЛЛОВА",
+      "target": "company:tr:112075314",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НИКОЛАЕВА ДЕНКОВА",
+      "target": "company:tr:112075314",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА АТАНАСОВА ДИМИТРОВА",
+      "target": "company:tr:112075314",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРЪНКА НИКОЛОВА НЕШЕВА",
+      "target": "company:tr:112075314",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,285 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:gergana-vasileva-gancheva-9a701a","nodes":[{"id":"official:gergana-vasileva-gancheva-9a701a","type":"official","slug":"gergana-vasileva-gancheva-9a701a","label":"Гергана Василева Ганчева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000210479","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ПЕНЧО СЛАВЕЙКОВ 1871","slug":null,"uic":"000210479","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕНЧО ВЕСЕЛИНОВ МИНЕВ","type":"person","label":"Денчо Веселинов Минев"},{"id":"person:ЖИВКО ТОДОРОВ КОЖУХАРОВ","type":"person","label":"Живко Тодоров Кожухаров"},{"id":"person:АНЕЛИЯ ХРИСТОВА ЗАХАРИЕВА","type":"person","label":"Анелия Христова Захариева"},{"id":"person:СТЕФКА МАРИНОВА ТОДОРОВА","type":"person","label":"Стефка Маринова Тодорова"},{"id":"person:АНТОН ЙОНЧЕВ НИКОЛОВ","type":"person","label":"Антон Йончев Николов"},{"id":"person:ИЛИЯ ВАСИЛЕВ СИРАКОВ","type":"person","label":"Илия Василев Сираков"},{"id":"person:ВЕСЕЛИН БОРИСЛАВОВ ЗИДАРОВ","type":"person","label":"Веселин Бориславов Зидаров"},{"id":"person:ХРИСТО СЛАВЧЕВ СЛАВОВ","type":"person","label":"Христо Славчев Славов"},{"id":"person:НИКОЛИНА ИВАНОВА КОЛЕВА","type":"person","label":"Николина Иванова Колева"},{"id":"person:АНЯ МЛАДЕНОВА СТОИЛКОВА","type":"person","label":"Аня Младенова Стоилкова"},{"id":"person:ВИОЛЕТА ПЕТКОВА КОЕВА","type":"person","label":"Виолета Петкова Коева"},{"id":"person:МАРИАНА ДИМОВА ГЕОРГИЕВА","type":"person","label":"Мариана Димова Георгиева"},{"id":"person:ДАНИЕЛ ТОШКОВ НИКОЛАЕВ","type":"person","label":"Даниел Тошков Николаев"},{"id":"person:ВЕРЖИНИЯ ПЕТКОВА СТАНЧЕВА","type":"person","label":"Вержиния Петкова Станчева"},{"id":"person:ИВАЛИНА БОНЧЕВА ИВАНОВА","type":"person","label":"Ивалина Бончева Иванова"},{"id":"person:СОФРОНИ ТИХОМИРОВ МИНКОВ","type":"person","label":"Софрони Тихомиров Минков"},{"id":"person:ИВАЛИНА БОНЧЕВА СЪБЕВА","type":"person","label":"Ивалина Бончева Събева"},{"id":"person:МИХАЕЛА ЙОРДАНОВА МИХАЙЛОВА","type":"person","label":"Михаела Йорданова Михайлова"}],"edges":[{"source":"official:gergana-vasileva-gancheva-9a701a","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕНЧО ВЕСЕЛИНОВ МИНЕВ","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ТОДОРОВ КОЖУХАРОВ","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ ХРИСТОВА ЗАХАРИЕВА","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА МАРИНОВА ТОДОРОВА","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ЙОНЧЕВ НИКОЛОВ","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ВАСИЛЕВ СИРАКОВ","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН БОРИСЛАВОВ ЗИДАРОВ","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО СЛАВЧЕВ СЛАВОВ","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНА ИВАНОВА КОЛЕВА","target":"company:tr:000210479","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНЯ МЛАДЕНОВА СТОИЛКОВА","target":"company:tr:000210479","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ПЕТКОВА КОЕВА","target":"company:tr:000210479","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ДИМОВА ГЕОРГИЕВА","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ ТОШКОВ НИКОЛАЕВ","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРЖИНИЯ ПЕТКОВА СТАНЧЕВА","target":"company:tr:000210479","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ВАСИЛЕВ СИРАКОВ","target":"company:tr:000210479","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЛИНА БОНЧЕВА ИВАНОВА","target":"company:tr:000210479","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СОФРОНИ ТИХОМИРОВ МИНКОВ","target":"company:tr:000210479","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СОФРОНИ ТИХОМИРОВ МИНКОВ","target":"company:tr:000210479","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЛИНА БОНЧЕВА СЪБЕВА","target":"company:tr:000210479","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИХАЕЛА ЙОРДАНОВА МИХАЙЛОВА","target":"company:tr:000210479","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:gergana-vasileva-gancheva-9a701a",
+  "nodes": [
+    {
+      "id": "official:gergana-vasileva-gancheva-9a701a",
+      "type": "official",
+      "slug": "gergana-vasileva-gancheva-9a701a",
+      "label": "Гергана Василева Ганчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000210479",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПЕНЧО СЛАВЕЙКОВ 1871",
+      "slug": null,
+      "uic": "000210479",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕНЧО ВЕСЕЛИНОВ МИНЕВ",
+      "type": "person",
+      "label": "Денчо Веселинов Минев"
+    },
+    {
+      "id": "person:ЖИВКО ТОДОРОВ КОЖУХАРОВ",
+      "type": "person",
+      "label": "Живко Тодоров Кожухаров"
+    },
+    {
+      "id": "person:АНЕЛИЯ ХРИСТОВА ЗАХАРИЕВА",
+      "type": "person",
+      "label": "Анелия Христова Захариева"
+    },
+    {
+      "id": "person:СТЕФКА МАРИНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Стефка Маринова Тодорова"
+    },
+    {
+      "id": "person:АНТОН ЙОНЧЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Антон Йончев Николов"
+    },
+    {
+      "id": "person:ИЛИЯ ВАСИЛЕВ СИРАКОВ",
+      "type": "person",
+      "label": "Илия Василев Сираков"
+    },
+    {
+      "id": "person:ВЕСЕЛИН БОРИСЛАВОВ ЗИДАРОВ",
+      "type": "person",
+      "label": "Веселин Бориславов Зидаров"
+    },
+    {
+      "id": "person:ХРИСТО СЛАВЧЕВ СЛАВОВ",
+      "type": "person",
+      "label": "Христо Славчев Славов"
+    },
+    {
+      "id": "person:НИКОЛИНА ИВАНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Николина Иванова Колева"
+    },
+    {
+      "id": "person:АНЯ МЛАДЕНОВА СТОИЛКОВА",
+      "type": "person",
+      "label": "Аня Младенова Стоилкова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ПЕТКОВА КОЕВА",
+      "type": "person",
+      "label": "Виолета Петкова Коева"
+    },
+    {
+      "id": "person:МАРИАНА ДИМОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Мариана Димова Георгиева"
+    },
+    {
+      "id": "person:ДАНИЕЛ ТОШКОВ НИКОЛАЕВ",
+      "type": "person",
+      "label": "Даниел Тошков Николаев"
+    },
+    {
+      "id": "person:ВЕРЖИНИЯ ПЕТКОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Вержиния Петкова Станчева"
+    },
+    {
+      "id": "person:ИВАЛИНА БОНЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Ивалина Бончева Иванова"
+    },
+    {
+      "id": "person:СОФРОНИ ТИХОМИРОВ МИНКОВ",
+      "type": "person",
+      "label": "Софрони Тихомиров Минков"
+    },
+    {
+      "id": "person:ИВАЛИНА БОНЧЕВА СЪБЕВА",
+      "type": "person",
+      "label": "Ивалина Бончева Събева"
+    },
+    {
+      "id": "person:МИХАЕЛА ЙОРДАНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Михаела Йорданова Михайлова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-vasileva-gancheva-9a701a",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕНЧО ВЕСЕЛИНОВ МИНЕВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ТОДОРОВ КОЖУХАРОВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ХРИСТОВА ЗАХАРИЕВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА МАРИНОВА ТОДОРОВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ЙОНЧЕВ НИКОЛОВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ВАСИЛЕВ СИРАКОВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН БОРИСЛАВОВ ЗИДАРОВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СЛАВЧЕВ СЛАВОВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА ИВАНОВА КОЛЕВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЯ МЛАДЕНОВА СТОИЛКОВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ПЕТКОВА КОЕВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ДИМОВА ГЕОРГИЕВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ТОШКОВ НИКОЛАЕВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРЖИНИЯ ПЕТКОВА СТАНЧЕВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ВАСИЛЕВ СИРАКОВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЛИНА БОНЧЕВА ИВАНОВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФРОНИ ТИХОМИРОВ МИНКОВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФРОНИ ТИХОМИРОВ МИНКОВ",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЛИНА БОНЧЕВА СЪБЕВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА ЙОРДАНОВА МИХАЙЛОВА",
+      "target": "company:tr:000210479",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

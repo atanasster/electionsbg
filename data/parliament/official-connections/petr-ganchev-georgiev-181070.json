@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-ganchev-georgiev-181070","nodes":[{"id":"official:petr-ganchev-georgiev-181070","type":"official","slug":"petr-ganchev-georgiev-181070","label":"Петър Ганчев Георгиев","tier":"municipal","role":"deputy_mayor","municipality":"Садово"},{"id":"company:tr:176021731","type":"company","label":"МЕСТНА ИНИЦИАТИВНА ГРУПА-МИГ-ОБЩИНА САДОВО","slug":null,"uic":"176021731","legalForm":null,"status":null,"seat":null},{"id":"person:ПЛАМЕН ГЕОРГИЕВ АНДОНОВ","type":"person","label":"Пламен Георгиев Андонов"},{"id":"person:АНГЕЛ ГЕОРГИЕВ НИКОВ","type":"person","label":"Ангел Георгиев Ников"},{"id":"person:ЛИЛЯНА ДИМИТРОВА ПЕТКОВА","type":"person","label":"Лиляна Димитрова Петкова"},{"id":"person:ДЕЯН ГИОРГИЕВ ПОПОВ","type":"person","label":"Деян Гиоргиев Попов"},{"id":"person:НИКОЛА ДИМИТРОВ МАНДЕВ","type":"person","label":"Никола Димитров Мандев"},{"id":"person:МАРИЯ САШОВА ПАНЕВА","type":"person","label":"Мария Сашова Панева"},{"id":"person:МИКЕЛЕ САНТОРЕЛЛИ","type":"person","label":"Микеле  Санторелли"}],"edges":[{"source":"official:petr-ganchev-georgiev-181070","target":"company:tr:176021731","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЛАМЕН ГЕОРГИЕВ АНДОНОВ","target":"company:tr:176021731","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ГЕОРГИЕВ НИКОВ","target":"company:tr:176021731","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛЯНА ДИМИТРОВА ПЕТКОВА","target":"company:tr:176021731","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН ГИОРГИЕВ ПОПОВ","target":"company:tr:176021731","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ДИМИТРОВ МАНДЕВ","target":"company:tr:176021731","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ САШОВА ПАНЕВА","target":"company:tr:176021731","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИКЕЛЕ САНТОРЕЛЛИ","target":"company:tr:176021731","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-ganchev-georgiev-181070",
+  "nodes": [
+    {
+      "id": "official:petr-ganchev-georgiev-181070",
+      "type": "official",
+      "slug": "petr-ganchev-georgiev-181070",
+      "label": "Петър Ганчев Георгиев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Садово"
+    },
+    {
+      "id": "company:tr:176021731",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА-МИГ-ОБЩИНА САДОВО",
+      "slug": null,
+      "uic": "176021731",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ГЕОРГИЕВ АНДОНОВ",
+      "type": "person",
+      "label": "Пламен Георгиев Андонов"
+    },
+    {
+      "id": "person:АНГЕЛ ГЕОРГИЕВ НИКОВ",
+      "type": "person",
+      "label": "Ангел Георгиев Ников"
+    },
+    {
+      "id": "person:ЛИЛЯНА ДИМИТРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Лиляна Димитрова Петкова"
+    },
+    {
+      "id": "person:ДЕЯН ГИОРГИЕВ ПОПОВ",
+      "type": "person",
+      "label": "Деян Гиоргиев Попов"
+    },
+    {
+      "id": "person:НИКОЛА ДИМИТРОВ МАНДЕВ",
+      "type": "person",
+      "label": "Никола Димитров Мандев"
+    },
+    {
+      "id": "person:МАРИЯ САШОВА ПАНЕВА",
+      "type": "person",
+      "label": "Мария Сашова Панева"
+    },
+    {
+      "id": "person:МИКЕЛЕ САНТОРЕЛЛИ",
+      "type": "person",
+      "label": "Микеле  Санторелли"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-ganchev-georgiev-181070",
+      "target": "company:tr:176021731",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ АНДОНОВ",
+      "target": "company:tr:176021731",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ НИКОВ",
+      "target": "company:tr:176021731",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ДИМИТРОВА ПЕТКОВА",
+      "target": "company:tr:176021731",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ГИОРГИЕВ ПОПОВ",
+      "target": "company:tr:176021731",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ДИМИТРОВ МАНДЕВ",
+      "target": "company:tr:176021731",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ САШОВА ПАНЕВА",
+      "target": "company:tr:176021731",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИКЕЛЕ САНТОРЕЛЛИ",
+      "target": "company:tr:176021731",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

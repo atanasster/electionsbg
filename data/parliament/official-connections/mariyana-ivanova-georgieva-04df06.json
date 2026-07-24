@@ -1,1 +1,71 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariyana-ivanova-georgieva-04df06","nodes":[{"id":"official:mariyana-ivanova-georgieva-04df06","type":"official","slug":"mariyana-ivanova-georgieva-04df06","label":"Марияна Иванова Георгиева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:200090708","type":"company","label":"ПРО КЛИМА-2","slug":null,"uic":"200090708","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4000"},{"id":"mp:5113","type":"mp","mpId":5113,"label":"Георги Иванов Георгиев","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["48","49","50","51","52"]},{"id":"person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ","type":"person","label":"Георги Иванов Георгиев"}],"edges":[{"source":"official:mariyana-ivanova-georgieva-04df06","target":"company:tr:200090708","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5113","target":"company:tr:200090708","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ","target":"company:tr:200090708","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariyana-ivanova-georgieva-04df06",
+  "nodes": [
+    {
+      "id": "official:mariyana-ivanova-georgieva-04df06",
+      "type": "official",
+      "slug": "mariyana-ivanova-georgieva-04df06",
+      "label": "Марияна Иванова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200090708",
+      "type": "company",
+      "label": "ПРО КЛИМА-2",
+      "slug": null,
+      "uic": "200090708",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000"
+    },
+    {
+      "id": "mp:5113",
+      "type": "mp",
+      "mpId": 5113,
+      "label": "Георги Иванов Георгиев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Иванов Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-ivanova-georgieva-04df06",
+      "target": "company:tr:200090708",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5113",
+      "target": "company:tr:200090708",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:200090708",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

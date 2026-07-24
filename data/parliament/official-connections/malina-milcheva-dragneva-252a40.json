@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:malina-milcheva-dragneva-252a40","nodes":[{"id":"official:malina-milcheva-dragneva-252a40","type":"official","slug":"malina-milcheva-dragneva-252a40","label":"Малина Милчева Драгнева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:127515577","type":"company","label":"БЪЛГАРИЯ УАЙН","slug":null,"uic":"127515577","legalForm":null,"status":null,"seat":null},{"id":"person:ДАРИН ИВАНОВ ДРАГНЕВ","type":"person","label":"Дарин Иванов Драгнев"},{"id":"person:ЛАРИСА КОЛОМБО","type":"person","label":"Лариса Коломбо"},{"id":"company:name:КОЛОМБО И КОМПАНИ","type":"company","label":"\"КОЛОМБО И КОМПАНИ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:malina-milcheva-dragneva-252a40","target":"company:tr:127515577","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДАРИН ИВАНОВ ДРАГНЕВ","target":"company:tr:127515577","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛАРИСА КОЛОМБО","target":"company:tr:127515577","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИН ИВАНОВ ДРАГНЕВ","target":"company:tr:127515577","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:КОЛОМБО И КОМПАНИ","target":"company:tr:127515577","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛАРИСА КОЛОМБО","target":"company:tr:127515577","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:malina-milcheva-dragneva-252a40",
+  "nodes": [
+    {
+      "id": "official:malina-milcheva-dragneva-252a40",
+      "type": "official",
+      "slug": "malina-milcheva-dragneva-252a40",
+      "label": "Малина Милчева Драгнева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:127515577",
+      "type": "company",
+      "label": "БЪЛГАРИЯ УАЙН",
+      "slug": null,
+      "uic": "127515577",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАРИН ИВАНОВ ДРАГНЕВ",
+      "type": "person",
+      "label": "Дарин Иванов Драгнев"
+    },
+    {
+      "id": "person:ЛАРИСА КОЛОМБО",
+      "type": "person",
+      "label": "Лариса Коломбо"
+    },
+    {
+      "id": "company:name:КОЛОМБО И КОМПАНИ",
+      "type": "company",
+      "label": "\"КОЛОМБО И КОМПАНИ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:malina-milcheva-dragneva-252a40",
+      "target": "company:tr:127515577",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАРИН ИВАНОВ ДРАГНЕВ",
+      "target": "company:tr:127515577",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАРИСА КОЛОМБО",
+      "target": "company:tr:127515577",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИН ИВАНОВ ДРАГНЕВ",
+      "target": "company:tr:127515577",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КОЛОМБО И КОМПАНИ",
+      "target": "company:tr:127515577",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАРИСА КОЛОМБО",
+      "target": "company:tr:127515577",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

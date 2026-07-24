@@ -1,1 +1,194 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valeri-georgiev-simeonov-fcad9b","nodes":[{"id":"official:valeri-georgiev-simeonov-fcad9b","type":"official","slug":"valeri-georgiev-simeonov-fcad9b","label":"Валери Георгиев Симеонов","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:000868931","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;УСПЕХ-1921&quot;","slug":null,"uic":"000868931","legalForm":null,"status":null,"seat":null},{"id":"person:БОНКА ИЛИЕВА ПЕТКОВА","type":"person","label":"Бонка Илиева Петкова"},{"id":"person:ЖЕНЯ АНТОНОВА НИКОЛОВА","type":"person","label":"Женя Антонова Николова"},{"id":"person:ВИОЛЕТА ДИМИТРОВА ГЕОРГИЕВА","type":"person","label":"Виолета Димитрова Георгиева"},{"id":"person:АНТОН ДИМИТРОВ ПЕТРОВ","type":"person","label":"Антон Димитров Петров"},{"id":"person:АЛБЕНА ИВАНОВА ТОДОРОВА","type":"person","label":"Албена Иванова Тодорова"},{"id":"person:КИРИЛ МАРКОВ КОЛЕВ","type":"person","label":"Кирил Марков Колев"},{"id":"person:ТЕОДОР КОЛЕВ ГЯУРОВ","type":"person","label":"Теодор Колев Гяуров"},{"id":"person:РУМЕН СИМЕОНОВ СТОЯНОВ","type":"person","label":"Румен Симеонов Стоянов"},{"id":"person:ПЕТЯ СТОЯНОВА КОЛЕВА","type":"person","label":"Петя Стоянова Колева"},{"id":"person:МАРИЯНА ИВАНОВА КРЪСТЕВА","type":"person","label":"Марияна Иванова Кръстева"},{"id":"person:ВАНЯ ЮЛИЯНОВА ЕКЕР","type":"person","label":"Ваня Юлиянова Екер"}],"edges":[{"source":"official:valeri-georgiev-simeonov-fcad9b","target":"company:tr:000868931","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:БОНКА ИЛИЕВА ПЕТКОВА","target":"company:tr:000868931","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕНЯ АНТОНОВА НИКОЛОВА","target":"company:tr:000868931","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОНКА ИЛИЕВА ПЕТКОВА","target":"company:tr:000868931","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ДИМИТРОВА ГЕОРГИЕВА","target":"company:tr:000868931","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ДИМИТРОВ ПЕТРОВ","target":"company:tr:000868931","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА ИВАНОВА ТОДОРОВА","target":"company:tr:000868931","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ МАРКОВ КОЛЕВ","target":"company:tr:000868931","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР КОЛЕВ ГЯУРОВ","target":"company:tr:000868931","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН СИМЕОНОВ СТОЯНОВ","target":"company:tr:000868931","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ СТОЯНОВА КОЛЕВА","target":"company:tr:000868931","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА ИВАНОВА КРЪСТЕВА","target":"company:tr:000868931","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ЮЛИЯНОВА ЕКЕР","target":"company:tr:000868931","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ЮЛИЯНОВА ЕКЕР","target":"company:tr:000868931","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valeri-georgiev-simeonov-fcad9b",
+  "nodes": [
+    {
+      "id": "official:valeri-georgiev-simeonov-fcad9b",
+      "type": "official",
+      "slug": "valeri-georgiev-simeonov-fcad9b",
+      "label": "Валери Георгиев Симеонов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000868931",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;УСПЕХ-1921&quot;",
+      "slug": null,
+      "uic": "000868931",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОНКА ИЛИЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Бонка Илиева Петкова"
+    },
+    {
+      "id": "person:ЖЕНЯ АНТОНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Женя Антонова Николова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ДИМИТРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Виолета Димитрова Георгиева"
+    },
+    {
+      "id": "person:АНТОН ДИМИТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Антон Димитров Петров"
+    },
+    {
+      "id": "person:АЛБЕНА ИВАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Албена Иванова Тодорова"
+    },
+    {
+      "id": "person:КИРИЛ МАРКОВ КОЛЕВ",
+      "type": "person",
+      "label": "Кирил Марков Колев"
+    },
+    {
+      "id": "person:ТЕОДОР КОЛЕВ ГЯУРОВ",
+      "type": "person",
+      "label": "Теодор Колев Гяуров"
+    },
+    {
+      "id": "person:РУМЕН СИМЕОНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Румен Симеонов Стоянов"
+    },
+    {
+      "id": "person:ПЕТЯ СТОЯНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Петя Стоянова Колева"
+    },
+    {
+      "id": "person:МАРИЯНА ИВАНОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Марияна Иванова Кръстева"
+    },
+    {
+      "id": "person:ВАНЯ ЮЛИЯНОВА ЕКЕР",
+      "type": "person",
+      "label": "Ваня Юлиянова Екер"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeri-georgiev-simeonov-fcad9b",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОНКА ИЛИЕВА ПЕТКОВА",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕНЯ АНТОНОВА НИКОЛОВА",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОНКА ИЛИЕВА ПЕТКОВА",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ДИМИТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ДИМИТРОВ ПЕТРОВ",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ МАРКОВ КОЛЕВ",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР КОЛЕВ ГЯУРОВ",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН СИМЕОНОВ СТОЯНОВ",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ СТОЯНОВА КОЛЕВА",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ИВАНОВА КРЪСТЕВА",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ЮЛИЯНОВА ЕКЕР",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ЮЛИЯНОВА ЕКЕР",
+      "target": "company:tr:000868931",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

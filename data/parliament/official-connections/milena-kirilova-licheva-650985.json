@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milena-kirilova-licheva-650985","nodes":[{"id":"official:milena-kirilova-licheva-650985","type":"official","slug":"milena-kirilova-licheva-650985","label":"Милена Кирилова Личева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000125751","type":"company","label":"СВЕТЛИНА - ЦАРЕВЕЦ 1927","slug":null,"uic":"000125751","legalForm":null,"status":null,"seat":null},{"id":"person:ТОДОРКА ИВАНОВА ДИМИТРОВА","type":"person","label":"Тодорка Иванова Димитрова"},{"id":"person:ДАНИЕЛ ТОДОРОВ МАРИНОВ","type":"person","label":"Даниел Тодоров Маринов"},{"id":"person:ВЕРА КРЪСТЕВА БЛАЖЕВА","type":"person","label":"Вера Кръстева Блажева"},{"id":"person:ДИМИТЪР БОРИСОВ БОРИСОВ","type":"person","label":"Димитър Борисов Борисов"},{"id":"person:АТАНАСКА ПЕТРОВА БЛАЖИНОВА","type":"person","label":"Атанаска Петрова Блажинова"}],"edges":[{"source":"official:milena-kirilova-licheva-650985","target":"company:tr:000125751","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ТОДОРКА ИВАНОВА ДИМИТРОВА","target":"company:tr:000125751","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ ТОДОРОВ МАРИНОВ","target":"company:tr:000125751","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРА КРЪСТЕВА БЛАЖЕВА","target":"company:tr:000125751","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР БОРИСОВ БОРИСОВ","target":"company:tr:000125751","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАСКА ПЕТРОВА БЛАЖИНОВА","target":"company:tr:000125751","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milena-kirilova-licheva-650985",
+  "nodes": [
+    {
+      "id": "official:milena-kirilova-licheva-650985",
+      "type": "official",
+      "slug": "milena-kirilova-licheva-650985",
+      "label": "Милена Кирилова Личева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000125751",
+      "type": "company",
+      "label": "СВЕТЛИНА - ЦАРЕВЕЦ 1927",
+      "slug": null,
+      "uic": "000125751",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОРКА ИВАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Тодорка Иванова Димитрова"
+    },
+    {
+      "id": "person:ДАНИЕЛ ТОДОРОВ МАРИНОВ",
+      "type": "person",
+      "label": "Даниел Тодоров Маринов"
+    },
+    {
+      "id": "person:ВЕРА КРЪСТЕВА БЛАЖЕВА",
+      "type": "person",
+      "label": "Вера Кръстева Блажева"
+    },
+    {
+      "id": "person:ДИМИТЪР БОРИСОВ БОРИСОВ",
+      "type": "person",
+      "label": "Димитър Борисов Борисов"
+    },
+    {
+      "id": "person:АТАНАСКА ПЕТРОВА БЛАЖИНОВА",
+      "type": "person",
+      "label": "Атанаска Петрова Блажинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-kirilova-licheva-650985",
+      "target": "company:tr:000125751",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОРКА ИВАНОВА ДИМИТРОВА",
+      "target": "company:tr:000125751",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ТОДОРОВ МАРИНОВ",
+      "target": "company:tr:000125751",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРА КРЪСТЕВА БЛАЖЕВА",
+      "target": "company:tr:000125751",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР БОРИСОВ БОРИСОВ",
+      "target": "company:tr:000125751",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ПЕТРОВА БЛАЖИНОВА",
+      "target": "company:tr:000125751",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

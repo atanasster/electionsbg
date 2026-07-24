@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-dimitrova-grozdanova-3f7742","nodes":[{"id":"official:mariya-dimitrova-grozdanova-3f7742","type":"official","slug":"mariya-dimitrova-grozdanova-3f7742","label":"Мария Димитрова Грозданова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:208694404","type":"company","label":"ДИАГ ИМПОРТ","slug":null,"uic":"208694404","legalForm":null,"status":null,"seat":null},{"id":"person:РИКАРДО ЕСПОЗИТО","type":"person","label":"Рикардо  Еспозито"}],"edges":[{"source":"official:mariya-dimitrova-grozdanova-3f7742","target":"company:tr:208694404","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mariya-dimitrova-grozdanova-3f7742","target":"company:tr:208694404","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:РИКАРДО ЕСПОЗИТО","target":"company:tr:208694404","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РИКАРДО ЕСПОЗИТО","target":"company:tr:208694404","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-dimitrova-grozdanova-3f7742",
+  "nodes": [
+    {
+      "id": "official:mariya-dimitrova-grozdanova-3f7742",
+      "type": "official",
+      "slug": "mariya-dimitrova-grozdanova-3f7742",
+      "label": "Мария Димитрова Грозданова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208694404",
+      "type": "company",
+      "label": "ДИАГ ИМПОРТ",
+      "slug": null,
+      "uic": "208694404",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РИКАРДО ЕСПОЗИТО",
+      "type": "person",
+      "label": "Рикардо  Еспозито"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-dimitrova-grozdanova-3f7742",
+      "target": "company:tr:208694404",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-dimitrova-grozdanova-3f7742",
+      "target": "company:tr:208694404",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РИКАРДО ЕСПОЗИТО",
+      "target": "company:tr:208694404",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РИКАРДО ЕСПОЗИТО",
+      "target": "company:tr:208694404",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

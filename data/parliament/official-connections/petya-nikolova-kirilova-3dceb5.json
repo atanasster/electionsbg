@@ -1,1 +1,103 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petya-nikolova-kirilova-3dceb5","nodes":[{"id":"official:petya-nikolova-kirilova-3dceb5","type":"official","slug":"petya-nikolova-kirilova-3dceb5","label":"Петя Николова Кирилова","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:201134919","type":"company","label":"САТПРО ООД","slug":null,"uic":"201134919","legalForm":null,"status":null,"seat":null},{"id":"person:АНГЕЛ ИВАНОВ АНГЕЛОВ","type":"person","label":"Ангел Иванов Ангелов"},{"id":"person:МАРТИН ГЕОРГИЕВ МИНЧЕВ","type":"person","label":"Мартин Георгиев Минчев"},{"id":"person:КРАСИМИР ЛАЗАРОВ КИРИЛОВ","type":"person","label":"Красимир Лазаров Кирилов"},{"id":"person:МЕСРУН ШУАИБ МЮМЮН","type":"person","label":"Месрун Шуаиб Мюмюн"}],"edges":[{"source":"official:petya-nikolova-kirilova-3dceb5","target":"company:tr:201134919","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ИВАНОВ АНГЕЛОВ","target":"company:tr:201134919","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ИВАНОВ АНГЕЛОВ","target":"company:tr:201134919","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ГЕОРГИЕВ МИНЧЕВ","target":"company:tr:201134919","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ЛАЗАРОВ КИРИЛОВ","target":"company:tr:201134919","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МЕСРУН ШУАИБ МЮМЮН","target":"company:tr:201134919","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МЕСРУН ШУАИБ МЮМЮН","target":"company:tr:201134919","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petya-nikolova-kirilova-3dceb5",
+  "nodes": [
+    {
+      "id": "official:petya-nikolova-kirilova-3dceb5",
+      "type": "official",
+      "slug": "petya-nikolova-kirilova-3dceb5",
+      "label": "Петя Николова Кирилова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201134919",
+      "type": "company",
+      "label": "САТПРО ООД",
+      "slug": null,
+      "uic": "201134919",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ ИВАНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Иванов Ангелов"
+    },
+    {
+      "id": "person:МАРТИН ГЕОРГИЕВ МИНЧЕВ",
+      "type": "person",
+      "label": "Мартин Георгиев Минчев"
+    },
+    {
+      "id": "person:КРАСИМИР ЛАЗАРОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Красимир Лазаров Кирилов"
+    },
+    {
+      "id": "person:МЕСРУН ШУАИБ МЮМЮН",
+      "type": "person",
+      "label": "Месрун Шуаиб Мюмюн"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-nikolova-kirilova-3dceb5",
+      "target": "company:tr:201134919",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ИВАНОВ АНГЕЛОВ",
+      "target": "company:tr:201134919",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ИВАНОВ АНГЕЛОВ",
+      "target": "company:tr:201134919",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ГЕОРГИЕВ МИНЧЕВ",
+      "target": "company:tr:201134919",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ЛАЗАРОВ КИРИЛОВ",
+      "target": "company:tr:201134919",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕСРУН ШУАИБ МЮМЮН",
+      "target": "company:tr:201134919",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕСРУН ШУАИБ МЮМЮН",
+      "target": "company:tr:201134919",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

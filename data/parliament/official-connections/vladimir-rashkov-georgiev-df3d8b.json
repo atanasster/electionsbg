@@ -1,1 +1,111 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-rashkov-georgiev-df3d8b","nodes":[{"id":"official:vladimir-rashkov-georgiev-df3d8b","type":"official","slug":"vladimir-rashkov-georgiev-df3d8b","label":"Владимир Рашков Георгиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:200817666","type":"company","label":"Дебтнет ЕАД","slug":null,"uic":"200817666","legalForm":null,"status":null,"seat":null},{"id":"person:ЛЕНИН НИКОЛОВ ИЛИЕВ","type":"person","label":"Ленин Николов Илиев"},{"id":"person:МИЛЕНА САВОВА БАНКОВА","type":"person","label":"Милена Савова Банкова"},{"id":"person:РАДМИЛА СЪБЧЕВА АЛЕКСАНДРОВА","type":"person","label":"Радмила Събчева Александрова"},{"id":"person:ЕКАТЕРИНА ПЕТРОВА ГЕОРГИЕВА","type":"person","label":"Екатерина Петрова Георгиева"}],"edges":[{"source":"official:vladimir-rashkov-georgiev-df3d8b","target":"company:tr:200817666","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ЛЕНИН НИКОЛОВ ИЛИЕВ","target":"company:tr:200817666","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА САВОВА БАНКОВА","target":"company:tr:200817666","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЕНИН НИКОЛОВ ИЛИЕВ","target":"company:tr:200817666","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАДМИЛА СЪБЧЕВА АЛЕКСАНДРОВА","target":"company:tr:200817666","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕКАТЕРИНА ПЕТРОВА ГЕОРГИЕВА","target":"company:tr:200817666","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕКАТЕРИНА ПЕТРОВА ГЕОРГИЕВА","target":"company:tr:200817666","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕКАТЕРИНА ПЕТРОВА ГЕОРГИЕВА","target":"company:tr:200817666","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-rashkov-georgiev-df3d8b",
+  "nodes": [
+    {
+      "id": "official:vladimir-rashkov-georgiev-df3d8b",
+      "type": "official",
+      "slug": "vladimir-rashkov-georgiev-df3d8b",
+      "label": "Владимир Рашков Георгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200817666",
+      "type": "company",
+      "label": "Дебтнет ЕАД",
+      "slug": null,
+      "uic": "200817666",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЕНИН НИКОЛОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Ленин Николов Илиев"
+    },
+    {
+      "id": "person:МИЛЕНА САВОВА БАНКОВА",
+      "type": "person",
+      "label": "Милена Савова Банкова"
+    },
+    {
+      "id": "person:РАДМИЛА СЪБЧЕВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Радмила Събчева Александрова"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ПЕТРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Екатерина Петрова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-rashkov-georgiev-df3d8b",
+      "target": "company:tr:200817666",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕНИН НИКОЛОВ ИЛИЕВ",
+      "target": "company:tr:200817666",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА САВОВА БАНКОВА",
+      "target": "company:tr:200817666",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕНИН НИКОЛОВ ИЛИЕВ",
+      "target": "company:tr:200817666",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДМИЛА СЪБЧЕВА АЛЕКСАНДРОВА",
+      "target": "company:tr:200817666",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ПЕТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:200817666",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ПЕТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:200817666",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ПЕТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:200817666",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

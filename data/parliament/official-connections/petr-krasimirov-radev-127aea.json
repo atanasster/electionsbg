@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-krasimirov-radev-127aea","nodes":[{"id":"official:petr-krasimirov-radev-127aea","type":"official","slug":"petr-krasimirov-radev-127aea","label":"Петър Красимиров Радев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:103747763","type":"company","label":"ХИРОН-МЕД","slug":null,"uic":"103747763","legalForm":null,"status":null,"seat":null},{"id":"person:ВАСИЛ ИВАНОВ ГОШЕВ","type":"person","label":"Васил Иванов Гошев"}],"edges":[{"source":"official:petr-krasimirov-radev-127aea","target":"company:tr:103747763","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:ВАСИЛ ИВАНОВ ГОШЕВ","target":"company:tr:103747763","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-krasimirov-radev-127aea",
+  "nodes": [
+    {
+      "id": "official:petr-krasimirov-radev-127aea",
+      "type": "official",
+      "slug": "petr-krasimirov-radev-127aea",
+      "label": "Петър Красимиров Радев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103747763",
+      "type": "company",
+      "label": "ХИРОН-МЕД",
+      "slug": null,
+      "uic": "103747763",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСИЛ ИВАНОВ ГОШЕВ",
+      "type": "person",
+      "label": "Васил Иванов Гошев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-krasimirov-radev-127aea",
+      "target": "company:tr:103747763",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАНОВ ГОШЕВ",
+      "target": "company:tr:103747763",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,113 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsanka-petkova-nencheva-2cab0c","nodes":[{"id":"official:tsanka-petkova-nencheva-2cab0c","type":"official","slug":"tsanka-petkova-nencheva-2cab0c","label":"Цанка Петкова Ненчева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130859499","type":"company","label":"СДРУЖЕНИЕ НА ДИРЕКТОРИТЕ В СРЕДНОТО ОБРАЗОВАНИЕ В РЕПУБЛИКА БЪЛГАРИЯ","slug":null,"uic":"130859499","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАНКА ПЕТРОВА ХАРБАЛИЕВА","type":"person","label":"Иванка Петрова Харбалиева"},{"id":"person:СВЕЖИНА КИРИЛОВА ДИМИТРОВА","type":"person","label":"Свежина Кирилова Димитрова"},{"id":"person:ВЕСЕЛИН ВАСИЛЕВ СТЕФАНОВ","type":"person","label":"Веселин Василев Стефанов"},{"id":"person:ГЕОРГИ ПАВЛОВ ГЕОРГИЕВ","type":"person","label":"Георги Павлов Георгиев"},{"id":"person:АНЕТА РУМЕНОВА ВЪЛЕВА","type":"person","label":"Анета Руменова Вълева"},{"id":"person:АСЕН ИВАНОВ АЛЕКСАНДРОВ","type":"person","label":"Асен Иванов Александров"}],"edges":[{"source":"official:tsanka-petkova-nencheva-2cab0c","target":"company:tr:130859499","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАНКА ПЕТРОВА ХАРБАЛИЕВА","target":"company:tr:130859499","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕЖИНА КИРИЛОВА ДИМИТРОВА","target":"company:tr:130859499","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ВАСИЛЕВ СТЕФАНОВ","target":"company:tr:130859499","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПАВЛОВ ГЕОРГИЕВ","target":"company:tr:130859499","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЕТА РУМЕНОВА ВЪЛЕВА","target":"company:tr:130859499","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН ИВАНОВ АЛЕКСАНДРОВ","target":"company:tr:130859499","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsanka-petkova-nencheva-2cab0c",
+  "nodes": [
+    {
+      "id": "official:tsanka-petkova-nencheva-2cab0c",
+      "type": "official",
+      "slug": "tsanka-petkova-nencheva-2cab0c",
+      "label": "Цанка Петкова Ненчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130859499",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ДИРЕКТОРИТЕ В СРЕДНОТО ОБРАЗОВАНИЕ В РЕПУБЛИКА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "130859499",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА ПЕТРОВА ХАРБАЛИЕВА",
+      "type": "person",
+      "label": "Иванка Петрова Харбалиева"
+    },
+    {
+      "id": "person:СВЕЖИНА КИРИЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Свежина Кирилова Димитрова"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ВАСИЛЕВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Веселин Василев Стефанов"
+    },
+    {
+      "id": "person:ГЕОРГИ ПАВЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Павлов Георгиев"
+    },
+    {
+      "id": "person:АНЕТА РУМЕНОВА ВЪЛЕВА",
+      "type": "person",
+      "label": "Анета Руменова Вълева"
+    },
+    {
+      "id": "person:АСЕН ИВАНОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Асен Иванов Александров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsanka-petkova-nencheva-2cab0c",
+      "target": "company:tr:130859499",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА ПЕТРОВА ХАРБАЛИЕВА",
+      "target": "company:tr:130859499",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕЖИНА КИРИЛОВА ДИМИТРОВА",
+      "target": "company:tr:130859499",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ВАСИЛЕВ СТЕФАНОВ",
+      "target": "company:tr:130859499",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПАВЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:130859499",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА РУМЕНОВА ВЪЛЕВА",
+      "target": "company:tr:130859499",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ИВАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:130859499",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

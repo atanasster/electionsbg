@@ -1,1 +1,169 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:krasimira-kostadinova-iovkova-0f8651","nodes":[{"id":"official:krasimira-kostadinova-iovkova-0f8651","type":"official","slug":"krasimira-kostadinova-iovkova-0f8651","label":"Красимира Костадинова Йовкова","tier":"municipal","role":"councillor","municipality":"Асеновград"},{"id":"company:tr:205916472","type":"company","label":"ДАЙ ЛАПА","slug":null,"uic":"205916472","legalForm":null,"status":null,"seat":null},{"id":"person:МЛАДЕН МИЛЧЕВ ГОРАНОВ","type":"person","label":"Младен Милчев Горанов"},{"id":"person:ВЕСЕЛИНА ЙОРДАНОВА ЙОВКОВА","type":"person","label":"Веселина Йорданова Йовкова"},{"id":"person:ДЕМИТА ЙОРДАНОВА ЧЕРНЕВА","type":"person","label":"Демита Йорданова Чернева"},{"id":"person:ЛИДИЯ ЕМИЛОВА ЧУКОВА","type":"person","label":"Лидия Емилова Чукова"},{"id":"person:КОСТАДИН ДИМИТРОВ ХАДЖИКИНОВ","type":"person","label":"Костадин Димитров Хаджикинов"},{"id":"person:ЖАКЛИНА ПЛАНИЧ","type":"person","label":"Жаклина Планич"}],"edges":[{"source":"official:krasimira-kostadinova-iovkova-0f8651","target":"company:tr:205916472","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:krasimira-kostadinova-iovkova-0f8651","target":"company:tr:205916472","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МЛАДЕН МИЛЧЕВ ГОРАНОВ","target":"company:tr:205916472","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА ЙОРДАНОВА ЙОВКОВА","target":"company:tr:205916472","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕМИТА ЙОРДАНОВА ЧЕРНЕВА","target":"company:tr:205916472","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛИДИЯ ЕМИЛОВА ЧУКОВА","target":"company:tr:205916472","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МЛАДЕН МИЛЧЕВ ГОРАНОВ","target":"company:tr:205916472","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА ЙОРДАНОВА ЙОВКОВА","target":"company:tr:205916472","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕМИТА ЙОРДАНОВА ЧЕРНЕВА","target":"company:tr:205916472","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛИДИЯ ЕМИЛОВА ЧУКОВА","target":"company:tr:205916472","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ДИМИТРОВ ХАДЖИКИНОВ","target":"company:tr:205916472","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ДИМИТРОВ ХАДЖИКИНОВ","target":"company:tr:205916472","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖАКЛИНА ПЛАНИЧ","target":"company:tr:205916472","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЖАКЛИНА ПЛАНИЧ","target":"company:tr:205916472","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:krasimira-kostadinova-iovkova-0f8651",
+  "nodes": [
+    {
+      "id": "official:krasimira-kostadinova-iovkova-0f8651",
+      "type": "official",
+      "slug": "krasimira-kostadinova-iovkova-0f8651",
+      "label": "Красимира Костадинова Йовкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Асеновград"
+    },
+    {
+      "id": "company:tr:205916472",
+      "type": "company",
+      "label": "ДАЙ ЛАПА",
+      "slug": null,
+      "uic": "205916472",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЛАДЕН МИЛЧЕВ ГОРАНОВ",
+      "type": "person",
+      "label": "Младен Милчев Горанов"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ЙОРДАНОВА ЙОВКОВА",
+      "type": "person",
+      "label": "Веселина Йорданова Йовкова"
+    },
+    {
+      "id": "person:ДЕМИТА ЙОРДАНОВА ЧЕРНЕВА",
+      "type": "person",
+      "label": "Демита Йорданова Чернева"
+    },
+    {
+      "id": "person:ЛИДИЯ ЕМИЛОВА ЧУКОВА",
+      "type": "person",
+      "label": "Лидия Емилова Чукова"
+    },
+    {
+      "id": "person:КОСТАДИН ДИМИТРОВ ХАДЖИКИНОВ",
+      "type": "person",
+      "label": "Костадин Димитров Хаджикинов"
+    },
+    {
+      "id": "person:ЖАКЛИНА ПЛАНИЧ",
+      "type": "person",
+      "label": "Жаклина Планич"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimira-kostadinova-iovkova-0f8651",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krasimira-kostadinova-iovkova-0f8651",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЛАДЕН МИЛЧЕВ ГОРАНОВ",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЙОРДАНОВА ЙОВКОВА",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕМИТА ЙОРДАНОВА ЧЕРНЕВА",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ ЕМИЛОВА ЧУКОВА",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕН МИЛЧЕВ ГОРАНОВ",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЙОРДАНОВА ЙОВКОВА",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕМИТА ЙОРДАНОВА ЧЕРНЕВА",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ ЕМИЛОВА ЧУКОВА",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ДИМИТРОВ ХАДЖИКИНОВ",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ДИМИТРОВ ХАДЖИКИНОВ",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАКЛИНА ПЛАНИЧ",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАКЛИНА ПЛАНИЧ",
+      "target": "company:tr:205916472",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

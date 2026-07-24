@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mitko-filipov-kolev-bcdf22","nodes":[{"id":"official:mitko-filipov-kolev-bcdf22","type":"official","slug":"mitko-filipov-kolev-bcdf22","label":"Митко Филипов Колев","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:204259380","type":"company","label":"\"Кантора Еврофинанс БГ\"","slug":null,"uic":"204259380","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:mitko-filipov-kolev-bcdf22","target":"company:tr:204259380","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:mitko-filipov-kolev-bcdf22","target":"company:tr:204259380","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mitko-filipov-kolev-bcdf22",
+  "nodes": [
+    {
+      "id": "official:mitko-filipov-kolev-bcdf22",
+      "type": "official",
+      "slug": "mitko-filipov-kolev-bcdf22",
+      "label": "Митко Филипов Колев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204259380",
+      "type": "company",
+      "label": "\"Кантора Еврофинанс БГ\"",
+      "slug": null,
+      "uic": "204259380",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mitko-filipov-kolev-bcdf22",
+      "target": "company:tr:204259380",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mitko-filipov-kolev-bcdf22",
+      "target": "company:tr:204259380",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

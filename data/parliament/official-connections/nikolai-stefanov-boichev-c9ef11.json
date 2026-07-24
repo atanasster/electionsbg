@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-stefanov-boichev-c9ef11","nodes":[{"id":"official:nikolai-stefanov-boichev-c9ef11","type":"official","slug":"nikolai-stefanov-boichev-c9ef11","label":"Николай Стефанов Бойчев","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:203261687","type":"company","label":"НИКИ БОЙ ТРАНС","slug":null,"uic":"203261687","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:nikolai-stefanov-boichev-c9ef11","target":"company:tr:203261687","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-stefanov-boichev-c9ef11","target":"company:tr:203261687","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-stefanov-boichev-c9ef11",
+  "nodes": [
+    {
+      "id": "official:nikolai-stefanov-boichev-c9ef11",
+      "type": "official",
+      "slug": "nikolai-stefanov-boichev-c9ef11",
+      "label": "Николай Стефанов Бойчев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203261687",
+      "type": "company",
+      "label": "НИКИ БОЙ ТРАНС",
+      "slug": null,
+      "uic": "203261687",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-stefanov-boichev-c9ef11",
+      "target": "company:tr:203261687",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-stefanov-boichev-c9ef11",
+      "target": "company:tr:203261687",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

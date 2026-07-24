@@ -1,1 +1,194 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tanya-tsvyatkova-dimitrova-2def57","nodes":[{"id":"official:tanya-tsvyatkova-dimitrova-2def57","type":"official","slug":"tanya-tsvyatkova-dimitrova-2def57","label":"Таня Цвяткова Димитрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:125548781","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ВИДЕЛИНА-1963&quot;","slug":null,"uic":"125548781","legalForm":null,"status":null,"seat":null},{"id":"person:ЦВЕТЕЛИНА ДИМИТРОВА СТОЯНОВА","type":"person","label":"Цветелина Димитрова Стоянова"},{"id":"person:СТОЯНКА ВЪЛЧЕВА ПЕТРОВА","type":"person","label":"Стоянка Вълчева Петрова"},{"id":"person:НЕНКО ЦОНЕВ ДИМИТРОВ","type":"person","label":"Ненко Цонев Димитров"},{"id":"person:ГАНКА ВЕСЕЛИНОВА НЕДЕЛЧЕВА","type":"person","label":"Ганка Веселинова Неделчева"},{"id":"person:МАРИЙКА ЛАЛОВА КОСТОВА","type":"person","label":"Марийка Лалова Костова"},{"id":"person:КАТЯ СТЕФАНОВА ЦОНЕВА-НЕЙКОВА","type":"person","label":"Катя Стефанова Цонева-Нейкова"},{"id":"person:НАДЕЖДА ЗЛАТЕВА ЛАЛОВА","type":"person","label":"Надежда Златева Лалова"},{"id":"person:ИЛИЯН ИЛИЕВ МАРИНОВ","type":"person","label":"Илиян Илиев Маринов"},{"id":"person:ТОДОР ТОДОРОВ ТОДОРОВ","type":"person","label":"Тодор Тодоров Тодоров"},{"id":"person:МАРИЯ ВЛАДЕВА ДОБРЕВА","type":"person","label":"Мария Владева Добрева"},{"id":"person:ГЕОРГИ ЙОРДАНОВ СТОЯНОВ","type":"person","label":"Георги Йорданов Стоянов"}],"edges":[{"source":"official:tanya-tsvyatkova-dimitrova-2def57","target":"company:tr:125548781","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:tanya-tsvyatkova-dimitrova-2def57","target":"company:tr:125548781","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТЕЛИНА ДИМИТРОВА СТОЯНОВА","target":"company:tr:125548781","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯНКА ВЪЛЧЕВА ПЕТРОВА","target":"company:tr:125548781","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕНКО ЦОНЕВ ДИМИТРОВ","target":"company:tr:125548781","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГАНКА ВЕСЕЛИНОВА НЕДЕЛЧЕВА","target":"company:tr:125548781","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЙКА ЛАЛОВА КОСТОВА","target":"company:tr:125548781","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ СТЕФАНОВА ЦОНЕВА-НЕЙКОВА","target":"company:tr:125548781","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ СТЕФАНОВА ЦОНЕВА-НЕЙКОВА","target":"company:tr:125548781","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА ЗЛАТЕВА ЛАЛОВА","target":"company:tr:125548781","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯН ИЛИЕВ МАРИНОВ","target":"company:tr:125548781","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ТОДОРОВ ТОДОРОВ","target":"company:tr:125548781","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ВЛАДЕВА ДОБРЕВА","target":"company:tr:125548781","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЙОРДАНОВ СТОЯНОВ","target":"company:tr:125548781","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tanya-tsvyatkova-dimitrova-2def57",
+  "nodes": [
+    {
+      "id": "official:tanya-tsvyatkova-dimitrova-2def57",
+      "type": "official",
+      "slug": "tanya-tsvyatkova-dimitrova-2def57",
+      "label": "Таня Цвяткова Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:125548781",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ВИДЕЛИНА-1963&quot;",
+      "slug": null,
+      "uic": "125548781",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ДИМИТРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Цветелина Димитрова Стоянова"
+    },
+    {
+      "id": "person:СТОЯНКА ВЪЛЧЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Стоянка Вълчева Петрова"
+    },
+    {
+      "id": "person:НЕНКО ЦОНЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Ненко Цонев Димитров"
+    },
+    {
+      "id": "person:ГАНКА ВЕСЕЛИНОВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Ганка Веселинова Неделчева"
+    },
+    {
+      "id": "person:МАРИЙКА ЛАЛОВА КОСТОВА",
+      "type": "person",
+      "label": "Марийка Лалова Костова"
+    },
+    {
+      "id": "person:КАТЯ СТЕФАНОВА ЦОНЕВА-НЕЙКОВА",
+      "type": "person",
+      "label": "Катя Стефанова Цонева-Нейкова"
+    },
+    {
+      "id": "person:НАДЕЖДА ЗЛАТЕВА ЛАЛОВА",
+      "type": "person",
+      "label": "Надежда Златева Лалова"
+    },
+    {
+      "id": "person:ИЛИЯН ИЛИЕВ МАРИНОВ",
+      "type": "person",
+      "label": "Илиян Илиев Маринов"
+    },
+    {
+      "id": "person:ТОДОР ТОДОРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Тодоров Тодоров"
+    },
+    {
+      "id": "person:МАРИЯ ВЛАДЕВА ДОБРЕВА",
+      "type": "person",
+      "label": "Мария Владева Добрева"
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Георги Йорданов Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-tsvyatkova-dimitrova-2def57",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tanya-tsvyatkova-dimitrova-2def57",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ДИМИТРОВА СТОЯНОВА",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ВЪЛЧЕВА ПЕТРОВА",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕНКО ЦОНЕВ ДИМИТРОВ",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА ВЕСЕЛИНОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ЛАЛОВА КОСТОВА",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ СТЕФАНОВА ЦОНЕВА-НЕЙКОВА",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ СТЕФАНОВА ЦОНЕВА-НЕЙКОВА",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ЗЛАТЕВА ЛАЛОВА",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ИЛИЕВ МАРИНОВ",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ТОДОРОВ ТОДОРОВ",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВЛАДЕВА ДОБРЕВА",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ СТОЯНОВ",
+      "target": "company:tr:125548781",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

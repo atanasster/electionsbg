@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:shefket-ismailov-ismailov-d7464b","nodes":[{"id":"official:shefket-ismailov-ismailov-d7464b","type":"official","slug":"shefket-ismailov-ismailov-d7464b","label":"Шефкет Исмаилов Исмаилов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:201708328","type":"company","label":"Язошефи ООД","slug":null,"uic":"201708328","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:shefket-ismailov-ismailov-d7464b","target":"company:tr:201708328","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:shefket-ismailov-ismailov-d7464b",
+  "nodes": [
+    {
+      "id": "official:shefket-ismailov-ismailov-d7464b",
+      "type": "official",
+      "slug": "shefket-ismailov-ismailov-d7464b",
+      "label": "Шефкет Исмаилов Исмаилов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201708328",
+      "type": "company",
+      "label": "Язошефи ООД",
+      "slug": null,
+      "uic": "201708328",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shefket-ismailov-ismailov-d7464b",
+      "target": "company:tr:201708328",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

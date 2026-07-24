@@ -1,1 +1,194 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valentina-peneva-dimitrova-e429cc","nodes":[{"id":"official:valentina-peneva-dimitrova-e429cc","type":"official","slug":"valentina-peneva-dimitrova-e429cc","label":"Валентина Пенева Димитрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:121111930","type":"company","label":"СДРУЖЕНИЕ &quot;НАУЧНО-ТЕХНИЧЕСКИ СЪЮЗ ПО ТЕКСТИЛ, ОБЛЕКЛО И КОЖИ&quot;","slug":null,"uic":"121111930","legalForm":null,"status":null,"seat":null},{"id":"person:АДЕЛИНА СТАНЧЕВА ПОПНЕДЕЛЕВА","type":"person","label":"Аделина Станчева Попнеделева"},{"id":"person:ДЕСИСЛАВА СТАНЕВА ГРАБЧЕВА","type":"person","label":"Десислава Станева Грабчева"},{"id":"person:ПЕТРОСЛАВ ХРИСТОВ ГЕРЕНСКИ","type":"person","label":"Петрослав Христов Геренски"},{"id":"person:КРАСА КОЧЕВА КОСТОВА","type":"person","label":"Краса Кочева Костова"},{"id":"person:ЙОРДАН КОСТАДИНОВ КЬОСЕВ","type":"person","label":"Йордан Костадинов Кьосев"},{"id":"person:СНЕЖИНА АНГЕЛОВА АНДОНОВА","type":"person","label":"Снежина Ангелова Андонова"},{"id":"person:ИВЕЛИН РАХНЕВ РАХНЕВ","type":"person","label":"Ивелин Рахнев Рахнев"},{"id":"person:НИКОЛИНА ПЕТРОВА ГЕНЧЕВА","type":"person","label":"Николина Петрова Генчева"},{"id":"person:МАРИН РАШЕВ МАРИНОВ","type":"person","label":"Марин Рашев Маринов"},{"id":"person:МАРИЯ ГЕОРГИЕВА СПАСОВА-ТОДОРОВА","type":"person","label":"Мария Георгиева Спасова-Тодорова"},{"id":"person:МАРТИН БОЖИДАРОВ КИРОВ","type":"person","label":"Мартин Божидаров Киров"}],"edges":[{"source":"official:valentina-peneva-dimitrova-e429cc","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АДЕЛИНА СТАНЧЕВА ПОПНЕДЕЛЕВА","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА СТАНЕВА ГРАБЧЕВА","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРОСЛАВ ХРИСТОВ ГЕРЕНСКИ","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСА КОЧЕВА КОСТОВА","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН КОСТАДИНОВ КЬОСЕВ","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖИНА АНГЕЛОВА АНДОНОВА","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИН РАХНЕВ РАХНЕВ","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНА ПЕТРОВА ГЕНЧЕВА","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН РАШЕВ МАРИНОВ","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕОРГИЕВА СПАСОВА-ТОДОРОВА","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН БОЖИДАРОВ КИРОВ","target":"company:tr:121111930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИН РАХНЕВ РАХНЕВ","target":"company:tr:121111930","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕОРГИЕВА СПАСОВА-ТОДОРОВА","target":"company:tr:121111930","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valentina-peneva-dimitrova-e429cc",
+  "nodes": [
+    {
+      "id": "official:valentina-peneva-dimitrova-e429cc",
+      "type": "official",
+      "slug": "valentina-peneva-dimitrova-e429cc",
+      "label": "Валентина Пенева Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121111930",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;НАУЧНО-ТЕХНИЧЕСКИ СЪЮЗ ПО ТЕКСТИЛ, ОБЛЕКЛО И КОЖИ&quot;",
+      "slug": null,
+      "uic": "121111930",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АДЕЛИНА СТАНЧЕВА ПОПНЕДЕЛЕВА",
+      "type": "person",
+      "label": "Аделина Станчева Попнеделева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА СТАНЕВА ГРАБЧЕВА",
+      "type": "person",
+      "label": "Десислава Станева Грабчева"
+    },
+    {
+      "id": "person:ПЕТРОСЛАВ ХРИСТОВ ГЕРЕНСКИ",
+      "type": "person",
+      "label": "Петрослав Христов Геренски"
+    },
+    {
+      "id": "person:КРАСА КОЧЕВА КОСТОВА",
+      "type": "person",
+      "label": "Краса Кочева Костова"
+    },
+    {
+      "id": "person:ЙОРДАН КОСТАДИНОВ КЬОСЕВ",
+      "type": "person",
+      "label": "Йордан Костадинов Кьосев"
+    },
+    {
+      "id": "person:СНЕЖИНА АНГЕЛОВА АНДОНОВА",
+      "type": "person",
+      "label": "Снежина Ангелова Андонова"
+    },
+    {
+      "id": "person:ИВЕЛИН РАХНЕВ РАХНЕВ",
+      "type": "person",
+      "label": "Ивелин Рахнев Рахнев"
+    },
+    {
+      "id": "person:НИКОЛИНА ПЕТРОВА ГЕНЧЕВА",
+      "type": "person",
+      "label": "Николина Петрова Генчева"
+    },
+    {
+      "id": "person:МАРИН РАШЕВ МАРИНОВ",
+      "type": "person",
+      "label": "Марин Рашев Маринов"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА СПАСОВА-ТОДОРОВА",
+      "type": "person",
+      "label": "Мария Георгиева Спасова-Тодорова"
+    },
+    {
+      "id": "person:МАРТИН БОЖИДАРОВ КИРОВ",
+      "type": "person",
+      "label": "Мартин Божидаров Киров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentina-peneva-dimitrova-e429cc",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АДЕЛИНА СТАНЧЕВА ПОПНЕДЕЛЕВА",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА СТАНЕВА ГРАБЧЕВА",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРОСЛАВ ХРИСТОВ ГЕРЕНСКИ",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСА КОЧЕВА КОСТОВА",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН КОСТАДИНОВ КЬОСЕВ",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖИНА АНГЕЛОВА АНДОНОВА",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН РАХНЕВ РАХНЕВ",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА ПЕТРОВА ГЕНЧЕВА",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН РАШЕВ МАРИНОВ",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА СПАСОВА-ТОДОРОВА",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН БОЖИДАРОВ КИРОВ",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН РАХНЕВ РАХНЕВ",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА СПАСОВА-ТОДОРОВА",
+      "target": "company:tr:121111930",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

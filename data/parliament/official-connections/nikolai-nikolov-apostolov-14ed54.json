@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-nikolov-apostolov-14ed54","nodes":[{"id":"official:nikolai-nikolov-apostolov-14ed54","type":"official","slug":"nikolai-nikolov-apostolov-14ed54","label":"Николай Николов Апостолов","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:103013300","type":"company","label":"\"АПОТРОН\" ЕООД","slug":null,"uic":"103013300","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:nikolai-nikolov-apostolov-14ed54","target":"company:tr:103013300","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-nikolov-apostolov-14ed54",
+  "nodes": [
+    {
+      "id": "official:nikolai-nikolov-apostolov-14ed54",
+      "type": "official",
+      "slug": "nikolai-nikolov-apostolov-14ed54",
+      "label": "Николай Николов Апостолов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103013300",
+      "type": "company",
+      "label": "\"АПОТРОН\" ЕООД",
+      "slug": null,
+      "uic": "103013300",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-nikolov-apostolov-14ed54",
+      "target": "company:tr:103013300",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

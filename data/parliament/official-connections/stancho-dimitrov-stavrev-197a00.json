@@ -1,1 +1,257 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stancho-dimitrov-stavrev-197a00","nodes":[{"id":"official:stancho-dimitrov-stavrev-197a00","type":"official","slug":"stancho-dimitrov-stavrev-197a00","label":"Станчо Димитров Ставрев","tier":"municipal","role":"mayor","municipality":"Тунджа"},{"id":"company:tr:175850212","type":"company","label":"МЕСТНА ИНИЦИАТИВНА ГРУПА ТУНДЖА - СЛИВЕН - Долината на Тунджа","slug":null,"uic":"175850212","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, с. Генерал Инзово, 8670"},{"id":"mp:3080","type":"mp","mpId":3080,"label":"Станчо Димитров Ставрев","partyGroupShort":"ПП ИСБ","isCurrent":false,"nsFolders":[]},{"id":"person:НИКОЛА МИНЧЕВ КОЛЕВ","type":"person","label":"Никола Минчев Колев"},{"id":"person:НЕЛИ ПЕТРОВА РОЙДЕВА-ПРЕДСТАВИТЕЛ НА СДРУЖЕНИЕ \"ЧИТАЛИЩА С БЪДЕЩЕ 2012\"","type":"person","label":"Нели Петрова Ройдева-Представител На Сдружение \"читалища С Бъдеще 2012\""},{"id":"person:ДАНАИЛ МЛАДЕНОВ МЛАДЕНОВ- ПРЕДСТАВИТЕЛ НА ЗП \"ДАНАИЛ МЛАДЕНОВ МЛАДЕНОВ\"","type":"person","label":"Данаил Младенов Младенов- Представител На Зп \"данаил Младенов Младенов\""},{"id":"person:НИКОЛА МИНЧЕВ КОЛЕВ - ПРЕДСТАВИТЕЛ НА БАЛАР АД-С.СКАЛИЦА","type":"person","label":"Никола Минчев Колев - Представител На Балар Ад-С.скалица"},{"id":"person:СТАНЧО ДИМИТРОВ СТАВРЕВ, ПРЕДСТАВИТЕЛ НА ОБЩИНА ТУНДЖА","type":"person","label":"Станчо Димитров Ставрев, Представител На Община Тунджа"},{"id":"person:ДОРА ГРОЗДЕВА ДЯКОВА, ПРЕДСТАВИТЕЛ НА НАРОДНО ЧИТАЛИЩЕ \"ЗОРА -1928 С. ХАНОВО\"","type":"person","label":"Дора Гроздева Дякова, Представител На Народно Читалище \"зора -1928 С. Ханово\""},{"id":"person:СВЕТОЗАР СТОЙЧЕВ ГРОЗЕВ","type":"person","label":"Светозар Стойчев Грозев"},{"id":"person:СВЕТОЗАР СТОЙЧЕВ ГРОЗЕВ- ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"","type":"person","label":"Светозар Стойчев Грозев- Представител На Община \"тунджа\""},{"id":"company:name:ГЕОРГИ ДИНКОВ ЧАЛЪКОВ- ПРЕДСТАВИТЕЛ НА ВИЛА МЕДЕН , ЕООД, ЕИК128544382","type":"company","label":"Георги Динков Чалъков- представител на \"ВИЛА МЕДЕН\", ЕООД, ЕИК128544382","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЗП СТОЯН ЖЕЧЕВ ЛЮЦКАНОВ","type":"person","label":"Зп Стоян Жечев Люцканов"},{"id":"person:СТАНЧО ДИМИТРОВ СТАВРЕВ - ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"","type":"person","label":"Станчо Димитров Ставрев  - Представител На Община \"тунджа\""},{"id":"person:СТАНЧО ДИМИТРОВ СТАВРЕВ- ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"","type":"person","label":"Станчо Димитров Ставрев- Представител На Община \"тунджа\""},{"id":"person:ЯНА ИВАНОВА ДОЙЧЕВА","type":"person","label":"Яна Иванова Дойчева"},{"id":"person:СТАНЧО ДИМИТРОВ СТАВРЕВ - ПРЕДСТАВИТЕЛ НА ОБЩИНА ТУНДЖА","type":"person","label":"Станчо Димитров Ставрев  - Представител На Община Тунджа"},{"id":"company:name:ЯНА ИВАНОВА ДОЙЧЕВА - ПРЕДСТАВИТЕЛ НА ЯНИЦА 2020","type":"company","label":"Яна Иванова Дойчева - представител на Яница 2020 ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:stancho-dimitrov-stavrev-197a00","target":"company:tr:175850212","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3080","target":"company:tr:175850212","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛА МИНЧЕВ КОЛЕВ","target":"company:tr:175850212","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ ПЕТРОВА РОЙДЕВА-ПРЕДСТАВИТЕЛ НА СДРУЖЕНИЕ \"ЧИТАЛИЩА С БЪДЕЩЕ 2012\"","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНАИЛ МЛАДЕНОВ МЛАДЕНОВ- ПРЕДСТАВИТЕЛ НА ЗП \"ДАНАИЛ МЛАДЕНОВ МЛАДЕНОВ\"","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА МИНЧЕВ КОЛЕВ - ПРЕДСТАВИТЕЛ НА БАЛАР АД-С.СКАЛИЦА","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНЧО ДИМИТРОВ СТАВРЕВ, ПРЕДСТАВИТЕЛ НА ОБЩИНА ТУНДЖА","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОРА ГРОЗДЕВА ДЯКОВА, ПРЕДСТАВИТЕЛ НА НАРОДНО ЧИТАЛИЩЕ \"ЗОРА -1928 С. ХАНОВО\"","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАР СТОЙЧЕВ ГРОЗЕВ","target":"company:tr:175850212","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАР СТОЙЧЕВ ГРОЗЕВ- ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ГЕОРГИ ДИНКОВ ЧАЛЪКОВ- ПРЕДСТАВИТЕЛ НА ВИЛА МЕДЕН , ЕООД, ЕИК128544382","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗП СТОЯН ЖЕЧЕВ ЛЮЦКАНОВ","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНЧО ДИМИТРОВ СТАВРЕВ - ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"","target":"company:tr:175850212","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТАНЧО ДИМИТРОВ СТАВРЕВ- ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ИВАНОВА ДОЙЧЕВА","target":"company:tr:175850212","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТАНЧО ДИМИТРОВ СТАВРЕВ - ПРЕДСТАВИТЕЛ НА ОБЩИНА ТУНДЖА","target":"company:tr:175850212","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"company:name:ЯНА ИВАНОВА ДОЙЧЕВА - ПРЕДСТАВИТЕЛ НА ЯНИЦА 2020","target":"company:tr:175850212","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stancho-dimitrov-stavrev-197a00",
+  "nodes": [
+    {
+      "id": "official:stancho-dimitrov-stavrev-197a00",
+      "type": "official",
+      "slug": "stancho-dimitrov-stavrev-197a00",
+      "label": "Станчо Димитров Ставрев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Тунджа"
+    },
+    {
+      "id": "company:tr:175850212",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА ТУНДЖА - СЛИВЕН - Долината на Тунджа",
+      "slug": null,
+      "uic": "175850212",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Генерал Инзово, 8670"
+    },
+    {
+      "id": "mp:3080",
+      "type": "mp",
+      "mpId": 3080,
+      "label": "Станчо Димитров Ставрев",
+      "partyGroupShort": "ПП ИСБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:НИКОЛА МИНЧЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Никола Минчев Колев"
+    },
+    {
+      "id": "person:НЕЛИ ПЕТРОВА РОЙДЕВА-ПРЕДСТАВИТЕЛ НА СДРУЖЕНИЕ \"ЧИТАЛИЩА С БЪДЕЩЕ 2012\"",
+      "type": "person",
+      "label": "Нели Петрова Ройдева-Представител На Сдружение \"читалища С Бъдеще 2012\""
+    },
+    {
+      "id": "person:ДАНАИЛ МЛАДЕНОВ МЛАДЕНОВ- ПРЕДСТАВИТЕЛ НА ЗП \"ДАНАИЛ МЛАДЕНОВ МЛАДЕНОВ\"",
+      "type": "person",
+      "label": "Данаил Младенов Младенов- Представител На Зп \"данаил Младенов Младенов\""
+    },
+    {
+      "id": "person:НИКОЛА МИНЧЕВ КОЛЕВ - ПРЕДСТАВИТЕЛ НА БАЛАР АД-С.СКАЛИЦА",
+      "type": "person",
+      "label": "Никола Минчев Колев - Представител На Балар Ад-С.скалица"
+    },
+    {
+      "id": "person:СТАНЧО ДИМИТРОВ СТАВРЕВ, ПРЕДСТАВИТЕЛ НА ОБЩИНА ТУНДЖА",
+      "type": "person",
+      "label": "Станчо Димитров Ставрев, Представител На Община Тунджа"
+    },
+    {
+      "id": "person:ДОРА ГРОЗДЕВА ДЯКОВА, ПРЕДСТАВИТЕЛ НА НАРОДНО ЧИТАЛИЩЕ \"ЗОРА -1928 С. ХАНОВО\"",
+      "type": "person",
+      "label": "Дора Гроздева Дякова, Представител На Народно Читалище \"зора -1928 С. Ханово\""
+    },
+    {
+      "id": "person:СВЕТОЗАР СТОЙЧЕВ ГРОЗЕВ",
+      "type": "person",
+      "label": "Светозар Стойчев Грозев"
+    },
+    {
+      "id": "person:СВЕТОЗАР СТОЙЧЕВ ГРОЗЕВ- ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"",
+      "type": "person",
+      "label": "Светозар Стойчев Грозев- Представител На Община \"тунджа\""
+    },
+    {
+      "id": "company:name:ГЕОРГИ ДИНКОВ ЧАЛЪКОВ- ПРЕДСТАВИТЕЛ НА ВИЛА МЕДЕН , ЕООД, ЕИК128544382",
+      "type": "company",
+      "label": "Георги Динков Чалъков- представител на \"ВИЛА МЕДЕН\", ЕООД, ЕИК128544382",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗП СТОЯН ЖЕЧЕВ ЛЮЦКАНОВ",
+      "type": "person",
+      "label": "Зп Стоян Жечев Люцканов"
+    },
+    {
+      "id": "person:СТАНЧО ДИМИТРОВ СТАВРЕВ - ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"",
+      "type": "person",
+      "label": "Станчо Димитров Ставрев  - Представител На Община \"тунджа\""
+    },
+    {
+      "id": "person:СТАНЧО ДИМИТРОВ СТАВРЕВ- ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"",
+      "type": "person",
+      "label": "Станчо Димитров Ставрев- Представител На Община \"тунджа\""
+    },
+    {
+      "id": "person:ЯНА ИВАНОВА ДОЙЧЕВА",
+      "type": "person",
+      "label": "Яна Иванова Дойчева"
+    },
+    {
+      "id": "person:СТАНЧО ДИМИТРОВ СТАВРЕВ - ПРЕДСТАВИТЕЛ НА ОБЩИНА ТУНДЖА",
+      "type": "person",
+      "label": "Станчо Димитров Ставрев  - Представител На Община Тунджа"
+    },
+    {
+      "id": "company:name:ЯНА ИВАНОВА ДОЙЧЕВА - ПРЕДСТАВИТЕЛ НА ЯНИЦА 2020",
+      "type": "company",
+      "label": "Яна Иванова Дойчева - представител на Яница 2020 ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stancho-dimitrov-stavrev-197a00",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3080",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА МИНЧЕВ КОЛЕВ",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ПЕТРОВА РОЙДЕВА-ПРЕДСТАВИТЕЛ НА СДРУЖЕНИЕ \"ЧИТАЛИЩА С БЪДЕЩЕ 2012\"",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ МЛАДЕНОВ МЛАДЕНОВ- ПРЕДСТАВИТЕЛ НА ЗП \"ДАНАИЛ МЛАДЕНОВ МЛАДЕНОВ\"",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА МИНЧЕВ КОЛЕВ - ПРЕДСТАВИТЕЛ НА БАЛАР АД-С.СКАЛИЦА",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНЧО ДИМИТРОВ СТАВРЕВ, ПРЕДСТАВИТЕЛ НА ОБЩИНА ТУНДЖА",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА ГРОЗДЕВА ДЯКОВА, ПРЕДСТАВИТЕЛ НА НАРОДНО ЧИТАЛИЩЕ \"ЗОРА -1928 С. ХАНОВО\"",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР СТОЙЧЕВ ГРОЗЕВ",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР СТОЙЧЕВ ГРОЗЕВ- ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ГЕОРГИ ДИНКОВ ЧАЛЪКОВ- ПРЕДСТАВИТЕЛ НА ВИЛА МЕДЕН , ЕООД, ЕИК128544382",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗП СТОЯН ЖЕЧЕВ ЛЮЦКАНОВ",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНЧО ДИМИТРОВ СТАВРЕВ - ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНЧО ДИМИТРОВ СТАВРЕВ- ПРЕДСТАВИТЕЛ НА ОБЩИНА \"ТУНДЖА\"",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ИВАНОВА ДОЙЧЕВА",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНЧО ДИМИТРОВ СТАВРЕВ - ПРЕДСТАВИТЕЛ НА ОБЩИНА ТУНДЖА",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЯНА ИВАНОВА ДОЙЧЕВА - ПРЕДСТАВИТЕЛ НА ЯНИЦА 2020",
+      "target": "company:tr:175850212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

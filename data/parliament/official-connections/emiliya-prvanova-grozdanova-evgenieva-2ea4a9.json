@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emiliya-prvanova-grozdanova-evgenieva-2ea4a9","nodes":[{"id":"official:emiliya-prvanova-grozdanova-evgenieva-2ea4a9","type":"official","slug":"emiliya-prvanova-grozdanova-evgenieva-2ea4a9","label":"Емилия Първанова Грозданова-Евгениева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:113563633","type":"company","label":"СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ХРИСТО СМИРНЕНСКИ ПРИ ПМГ ХРИСТО СМИРНЕНСКИ&quot;","slug":null,"uic":"113563633","legalForm":null,"status":null,"seat":null},{"id":"person:ИВО САВОВ ИВАНОВ","type":"person","label":"Иво Савов Иванов"},{"id":"person:ТЕОДОРА ПЕТРОВА АТАНАСОВА","type":"person","label":"Теодора Петрова Атанасова"}],"edges":[{"source":"official:emiliya-prvanova-grozdanova-evgenieva-2ea4a9","target":"company:tr:113563633","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВО САВОВ ИВАНОВ","target":"company:tr:113563633","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ПЕТРОВА АТАНАСОВА","target":"company:tr:113563633","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВО САВОВ ИВАНОВ","target":"company:tr:113563633","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emiliya-prvanova-grozdanova-evgenieva-2ea4a9",
+  "nodes": [
+    {
+      "id": "official:emiliya-prvanova-grozdanova-evgenieva-2ea4a9",
+      "type": "official",
+      "slug": "emiliya-prvanova-grozdanova-evgenieva-2ea4a9",
+      "label": "Емилия Първанова Грозданова-Евгениева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:113563633",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ХРИСТО СМИРНЕНСКИ ПРИ ПМГ ХРИСТО СМИРНЕНСКИ&quot;",
+      "slug": null,
+      "uic": "113563633",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВО САВОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иво Савов Иванов"
+    },
+    {
+      "id": "person:ТЕОДОРА ПЕТРОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Теодора Петрова Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-prvanova-grozdanova-evgenieva-2ea4a9",
+      "target": "company:tr:113563633",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО САВОВ ИВАНОВ",
+      "target": "company:tr:113563633",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ПЕТРОВА АТАНАСОВА",
+      "target": "company:tr:113563633",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО САВОВ ИВАНОВ",
+      "target": "company:tr:113563633",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

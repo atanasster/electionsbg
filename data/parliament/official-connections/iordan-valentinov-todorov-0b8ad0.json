@@ -1,1 +1,179 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iordan-valentinov-todorov-0b8ad0","nodes":[{"id":"official:iordan-valentinov-todorov-0b8ad0","type":"official","slug":"iordan-valentinov-todorov-0b8ad0","label":"Йордан Валентинов Тодоров","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:tr:200248777","type":"company","label":"Ктима консулт","slug":null,"uic":"200248777","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201341921","type":"company","label":"АЙТИ ПЛЮС","slug":null,"uic":"201341921","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205370240","type":"company","label":"ФЕН СИ","slug":null,"uic":"205370240","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206562863","type":"company","label":"ФЕНСИ ХОУМ","slug":null,"uic":"206562863","legalForm":null,"status":null,"seat":null},{"id":"person:МИЛКО СЕРГЕЕВ ГЕОРГИЕВ","type":"person","label":"Милко Сергеев Георгиев"},{"id":"person:ДИАНА АНГЕЛОВА ТОДОРОВА","type":"person","label":"Диана Ангелова Тодорова"}],"edges":[{"source":"official:iordan-valentinov-todorov-0b8ad0","target":"company:tr:200248777","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:iordan-valentinov-todorov-0b8ad0","target":"company:tr:201341921","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:iordan-valentinov-todorov-0b8ad0","target":"company:tr:205370240","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:iordan-valentinov-todorov-0b8ad0","target":"company:tr:206562863","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:iordan-valentinov-todorov-0b8ad0","target":"company:tr:205370240","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:iordan-valentinov-todorov-0b8ad0","target":"company:tr:206562863","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛКО СЕРГЕЕВ ГЕОРГИЕВ","target":"company:tr:201341921","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА АНГЕЛОВА ТОДОРОВА","target":"company:tr:201341921","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА АНГЕЛОВА ТОДОРОВА","target":"company:tr:201341921","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКО СЕРГЕЕВ ГЕОРГИЕВ","target":"company:tr:201341921","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА АНГЕЛОВА ТОДОРОВА","target":"company:tr:205370240","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА АНГЕЛОВА ТОДОРОВА","target":"company:tr:205370240","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА АНГЕЛОВА ТОДОРОВА","target":"company:tr:206562863","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА АНГЕЛОВА ТОДОРОВА","target":"company:tr:206562863","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iordan-valentinov-todorov-0b8ad0",
+  "nodes": [
+    {
+      "id": "official:iordan-valentinov-todorov-0b8ad0",
+      "type": "official",
+      "slug": "iordan-valentinov-todorov-0b8ad0",
+      "label": "Йордан Валентинов Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:200248777",
+      "type": "company",
+      "label": "Ктима консулт",
+      "slug": null,
+      "uic": "200248777",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201341921",
+      "type": "company",
+      "label": "АЙТИ ПЛЮС",
+      "slug": null,
+      "uic": "201341921",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205370240",
+      "type": "company",
+      "label": "ФЕН СИ",
+      "slug": null,
+      "uic": "205370240",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206562863",
+      "type": "company",
+      "label": "ФЕНСИ ХОУМ",
+      "slug": null,
+      "uic": "206562863",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛКО СЕРГЕЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Милко Сергеев Георгиев"
+    },
+    {
+      "id": "person:ДИАНА АНГЕЛОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Диана Ангелова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-valentinov-todorov-0b8ad0",
+      "target": "company:tr:200248777",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordan-valentinov-todorov-0b8ad0",
+      "target": "company:tr:201341921",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordan-valentinov-todorov-0b8ad0",
+      "target": "company:tr:205370240",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordan-valentinov-todorov-0b8ad0",
+      "target": "company:tr:206562863",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordan-valentinov-todorov-0b8ad0",
+      "target": "company:tr:205370240",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-valentinov-todorov-0b8ad0",
+      "target": "company:tr:206562863",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛКО СЕРГЕЕВ ГЕОРГИЕВ",
+      "target": "company:tr:201341921",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА АНГЕЛОВА ТОДОРОВА",
+      "target": "company:tr:201341921",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА АНГЕЛОВА ТОДОРОВА",
+      "target": "company:tr:201341921",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО СЕРГЕЕВ ГЕОРГИЕВ",
+      "target": "company:tr:201341921",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА АНГЕЛОВА ТОДОРОВА",
+      "target": "company:tr:205370240",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА АНГЕЛОВА ТОДОРОВА",
+      "target": "company:tr:205370240",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА АНГЕЛОВА ТОДОРОВА",
+      "target": "company:tr:206562863",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА АНГЕЛОВА ТОДОРОВА",
+      "target": "company:tr:206562863",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

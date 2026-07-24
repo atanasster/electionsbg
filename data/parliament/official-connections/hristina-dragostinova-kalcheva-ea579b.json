@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristina-dragostinova-kalcheva-ea579b","nodes":[{"id":"official:hristina-dragostinova-kalcheva-ea579b","type":"official","slug":"hristina-dragostinova-kalcheva-ea579b","label":"Христина Драгостинова Калчева","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:000455708","type":"company","label":"Народно читалище 20 АПРИЛ 1876г. - Основано 1854г.-гр.КЛИСУРА","slug":null,"uic":"000455708","legalForm":null,"status":null,"seat":null},{"id":"person:ЛАЛКА БРАЙКОВА КАНТИМИРОВА","type":"person","label":"Лалка Брайкова Кантимирова"},{"id":"person:АНЕЛИЯ СТОЯНОВА АТАНАСОВА","type":"person","label":"Анелия Стоянова Атанасова"},{"id":"person:НЕЛИТА СТОЯНОВА ТОДОРОВА","type":"person","label":"Нелита Стоянова Тодорова"},{"id":"person:СТАНИСЛАВА СТОЯНОВА НЕШЕВА","type":"person","label":"Станислава Стоянова Нешева"},{"id":"person:ДЕНИЦА ЕМИЛОВА АЛЕКСАНДРОВА","type":"person","label":"Деница Емилова Александрова"},{"id":"person:ВАНЯ ПЕТРОВА ФИЛЧЕВА","type":"person","label":"Ваня Петрова Филчева"}],"edges":[{"source":"official:hristina-dragostinova-kalcheva-ea579b","target":"company:tr:000455708","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:hristina-dragostinova-kalcheva-ea579b","target":"company:tr:000455708","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЛАЛКА БРАЙКОВА КАНТИМИРОВА","target":"company:tr:000455708","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ СТОЯНОВА АТАНАСОВА","target":"company:tr:000455708","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИТА СТОЯНОВА ТОДОРОВА","target":"company:tr:000455708","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВА СТОЯНОВА НЕШЕВА","target":"company:tr:000455708","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА ЕМИЛОВА АЛЕКСАНДРОВА","target":"company:tr:000455708","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ПЕТРОВА ФИЛЧЕВА","target":"company:tr:000455708","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristina-dragostinova-kalcheva-ea579b",
+  "nodes": [
+    {
+      "id": "official:hristina-dragostinova-kalcheva-ea579b",
+      "type": "official",
+      "slug": "hristina-dragostinova-kalcheva-ea579b",
+      "label": "Христина Драгостинова Калчева",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000455708",
+      "type": "company",
+      "label": "Народно читалище 20 АПРИЛ 1876г. - Основано 1854г.-гр.КЛИСУРА",
+      "slug": null,
+      "uic": "000455708",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛАЛКА БРАЙКОВА КАНТИМИРОВА",
+      "type": "person",
+      "label": "Лалка Брайкова Кантимирова"
+    },
+    {
+      "id": "person:АНЕЛИЯ СТОЯНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Анелия Стоянова Атанасова"
+    },
+    {
+      "id": "person:НЕЛИТА СТОЯНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Нелита Стоянова Тодорова"
+    },
+    {
+      "id": "person:СТАНИСЛАВА СТОЯНОВА НЕШЕВА",
+      "type": "person",
+      "label": "Станислава Стоянова Нешева"
+    },
+    {
+      "id": "person:ДЕНИЦА ЕМИЛОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Деница Емилова Александрова"
+    },
+    {
+      "id": "person:ВАНЯ ПЕТРОВА ФИЛЧЕВА",
+      "type": "person",
+      "label": "Ваня Петрова Филчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-dragostinova-kalcheva-ea579b",
+      "target": "company:tr:000455708",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristina-dragostinova-kalcheva-ea579b",
+      "target": "company:tr:000455708",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛАЛКА БРАЙКОВА КАНТИМИРОВА",
+      "target": "company:tr:000455708",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ СТОЯНОВА АТАНАСОВА",
+      "target": "company:tr:000455708",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИТА СТОЯНОВА ТОДОРОВА",
+      "target": "company:tr:000455708",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА СТОЯНОВА НЕШЕВА",
+      "target": "company:tr:000455708",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ЕМИЛОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:000455708",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ПЕТРОВА ФИЛЧЕВА",
+      "target": "company:tr:000455708",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

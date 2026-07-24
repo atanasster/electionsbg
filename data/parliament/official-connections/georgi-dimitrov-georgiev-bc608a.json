@@ -1,1 +1,89 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-dimitrov-georgiev-bc608a","nodes":[{"id":"official:georgi-dimitrov-georgiev-bc608a","type":"official","slug":"georgi-dimitrov-georgiev-bc608a","label":"Георги Димитров Георгиев","tier":"municipal","role":"councillor","municipality":"Несебър"},{"id":"company:tr:102267782","type":"company","label":"ЕНЕРГИЯ ТЕХНОИНВЕСТ ЕООД","slug":null,"uic":"102267782","legalForm":null,"status":null,"seat":null},{"id":"company:tr:102657797","type":"company","label":"ИМПЕРИАЛ БУЛ ТРЪСТ ООД","slug":null,"uic":"102657797","legalForm":null,"status":null,"seat":null},{"id":"company:tr:147016382","type":"company","label":"ЯФЕТ ООД","slug":null,"uic":"147016382","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205656081","type":"company","label":"АНГАРА ИНВЕСТ ЕООД","slug":null,"uic":"205656081","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:georgi-dimitrov-georgiev-bc608a","target":"company:tr:102267782","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-dimitrov-georgiev-bc608a","target":"company:tr:102657797","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-dimitrov-georgiev-bc608a","target":"company:tr:147016382","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-dimitrov-georgiev-bc608a","target":"company:tr:205656081","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-dimitrov-georgiev-bc608a",
+  "nodes": [
+    {
+      "id": "official:georgi-dimitrov-georgiev-bc608a",
+      "type": "official",
+      "slug": "georgi-dimitrov-georgiev-bc608a",
+      "label": "Георги Димитров Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "company:tr:102267782",
+      "type": "company",
+      "label": "ЕНЕРГИЯ ТЕХНОИНВЕСТ ЕООД",
+      "slug": null,
+      "uic": "102267782",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:102657797",
+      "type": "company",
+      "label": "ИМПЕРИАЛ БУЛ ТРЪСТ ООД",
+      "slug": null,
+      "uic": "102657797",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:147016382",
+      "type": "company",
+      "label": "ЯФЕТ ООД",
+      "slug": null,
+      "uic": "147016382",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205656081",
+      "type": "company",
+      "label": "АНГАРА ИНВЕСТ ЕООД",
+      "slug": null,
+      "uic": "205656081",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-dimitrov-georgiev-bc608a",
+      "target": "company:tr:102267782",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-dimitrov-georgiev-bc608a",
+      "target": "company:tr:102657797",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-dimitrov-georgiev-bc608a",
+      "target": "company:tr:147016382",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-dimitrov-georgiev-bc608a",
+      "target": "company:tr:205656081",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

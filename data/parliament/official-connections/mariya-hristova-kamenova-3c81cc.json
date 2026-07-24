@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-hristova-kamenova-3c81cc","nodes":[{"id":"official:mariya-hristova-kamenova-3c81cc","type":"official","slug":"mariya-hristova-kamenova-3c81cc","label":"Мария Христова Каменова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:204394847","type":"company","label":"БЮТИ КОНСУЛТ КАРЛОВО","slug":null,"uic":"204394847","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТО ПЕТРОВ КАРАИВАНОВ","type":"person","label":"Христо Петров Караиванов"}],"edges":[{"source":"official:mariya-hristova-kamenova-3c81cc","target":"company:tr:204394847","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mariya-hristova-kamenova-3c81cc","target":"company:tr:204394847","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО ПЕТРОВ КАРАИВАНОВ","target":"company:tr:204394847","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-hristova-kamenova-3c81cc",
+  "nodes": [
+    {
+      "id": "official:mariya-hristova-kamenova-3c81cc",
+      "type": "official",
+      "slug": "mariya-hristova-kamenova-3c81cc",
+      "label": "Мария Христова Каменова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204394847",
+      "type": "company",
+      "label": "БЮТИ КОНСУЛТ КАРЛОВО",
+      "slug": null,
+      "uic": "204394847",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ПЕТРОВ КАРАИВАНОВ",
+      "type": "person",
+      "label": "Христо Петров Караиванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-hristova-kamenova-3c81cc",
+      "target": "company:tr:204394847",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-hristova-kamenova-3c81cc",
+      "target": "company:tr:204394847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ПЕТРОВ КАРАИВАНОВ",
+      "target": "company:tr:204394847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

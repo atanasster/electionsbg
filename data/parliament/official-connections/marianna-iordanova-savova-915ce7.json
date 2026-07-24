@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:marianna-iordanova-savova-915ce7","nodes":[{"id":"official:marianna-iordanova-savova-915ce7","type":"official","slug":"marianna-iordanova-savova-915ce7","label":"Марианна Йорданова Савова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:205077764","type":"company","label":"ВЕГА АРТ ЦЕНТЪР","slug":null,"uic":"205077764","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТРОСЛАВА НИКОЛАЕВА СТАМАТОВА","type":"person","label":"Петрослава Николаева Стаматова"},{"id":"person:МАРИАНА ГИНЧЕВА СТОЯНОВА","type":"person","label":"Мариана Гинчева Стоянова"}],"edges":[{"source":"official:marianna-iordanova-savova-915ce7","target":"company:tr:205077764","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТРОСЛАВА НИКОЛАЕВА СТАМАТОВА","target":"company:tr:205077764","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ГИНЧЕВА СТОЯНОВА","target":"company:tr:205077764","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:marianna-iordanova-savova-915ce7",
+  "nodes": [
+    {
+      "id": "official:marianna-iordanova-savova-915ce7",
+      "type": "official",
+      "slug": "marianna-iordanova-savova-915ce7",
+      "label": "Марианна Йорданова Савова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205077764",
+      "type": "company",
+      "label": "ВЕГА АРТ ЦЕНТЪР",
+      "slug": null,
+      "uic": "205077764",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТРОСЛАВА НИКОЛАЕВА СТАМАТОВА",
+      "type": "person",
+      "label": "Петрослава Николаева Стаматова"
+    },
+    {
+      "id": "person:МАРИАНА ГИНЧЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Мариана Гинчева Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marianna-iordanova-savova-915ce7",
+      "target": "company:tr:205077764",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТРОСЛАВА НИКОЛАЕВА СТАМАТОВА",
+      "target": "company:tr:205077764",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ГИНЧЕВА СТОЯНОВА",
+      "target": "company:tr:205077764",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

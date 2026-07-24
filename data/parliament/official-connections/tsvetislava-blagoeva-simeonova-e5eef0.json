@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetislava-blagoeva-simeonova-e5eef0","nodes":[{"id":"official:tsvetislava-blagoeva-simeonova-e5eef0","type":"official","slug":"tsvetislava-blagoeva-simeonova-e5eef0","label":"Цветислава Благоева Симеонова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000404644","type":"company","label":"Народно читалище &quot;ПРОБУДА 1927 - с. МЕЧКА&quot;","slug":null,"uic":"000404644","legalForm":null,"status":null,"seat":null},{"id":"person:ВАЛЕРИЯ АНГЕЛОВА ГЕОРГИЕВА","type":"person","label":"Валерия Ангелова Георгиева"},{"id":"person:ХРИСТО ЕВГЕНИЕВ ХРИСТОВ","type":"person","label":"Христо Евгениев Христов"},{"id":"person:ТОТКА КУНЕВА ИВАНОВА","type":"person","label":"Тотка Кунева Иванова"},{"id":"person:ДОЧКА АНГЕЛОВА СТОЯНОВА","type":"person","label":"Дочка Ангелова Стоянова"},{"id":"person:ТОЛЯ ДИМИТРОВА ПЪРВАНОВА","type":"person","label":"Толя Димитрова Първанова"}],"edges":[{"source":"official:tsvetislava-blagoeva-simeonova-e5eef0","target":"company:tr:000404644","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕРИЯ АНГЕЛОВА ГЕОРГИЕВА","target":"company:tr:000404644","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ЕВГЕНИЕВ ХРИСТОВ","target":"company:tr:000404644","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТОТКА КУНЕВА ИВАНОВА","target":"company:tr:000404644","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДОЧКА АНГЕЛОВА СТОЯНОВА","target":"company:tr:000404644","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТОЛЯ ДИМИТРОВА ПЪРВАНОВА","target":"company:tr:000404644","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetislava-blagoeva-simeonova-e5eef0",
+  "nodes": [
+    {
+      "id": "official:tsvetislava-blagoeva-simeonova-e5eef0",
+      "type": "official",
+      "slug": "tsvetislava-blagoeva-simeonova-e5eef0",
+      "label": "Цветислава Благоева Симеонова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000404644",
+      "type": "company",
+      "label": "Народно читалище &quot;ПРОБУДА 1927 - с. МЕЧКА&quot;",
+      "slug": null,
+      "uic": "000404644",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕРИЯ АНГЕЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Валерия Ангелова Георгиева"
+    },
+    {
+      "id": "person:ХРИСТО ЕВГЕНИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Евгениев Христов"
+    },
+    {
+      "id": "person:ТОТКА КУНЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Тотка Кунева Иванова"
+    },
+    {
+      "id": "person:ДОЧКА АНГЕЛОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Дочка Ангелова Стоянова"
+    },
+    {
+      "id": "person:ТОЛЯ ДИМИТРОВА ПЪРВАНОВА",
+      "type": "person",
+      "label": "Толя Димитрова Първанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetislava-blagoeva-simeonova-e5eef0",
+      "target": "company:tr:000404644",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕРИЯ АНГЕЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:000404644",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЕВГЕНИЕВ ХРИСТОВ",
+      "target": "company:tr:000404644",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОТКА КУНЕВА ИВАНОВА",
+      "target": "company:tr:000404644",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОЧКА АНГЕЛОВА СТОЯНОВА",
+      "target": "company:tr:000404644",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОЛЯ ДИМИТРОВА ПЪРВАНОВА",
+      "target": "company:tr:000404644",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

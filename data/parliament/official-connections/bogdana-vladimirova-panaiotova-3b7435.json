@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:bogdana-vladimirova-panaiotova-3b7435","nodes":[{"id":"official:bogdana-vladimirova-panaiotova-3b7435","type":"official","slug":"bogdana-vladimirova-panaiotova-3b7435","label":"Богдана Владимирова Панайотова","tier":"municipal","role":"chief_architect","municipality":"Столична община"},{"id":"company:tr:126720807","type":"company","label":"ЕН АР КОНСУЛТ","slug":null,"uic":"126720807","legalForm":null,"status":null,"seat":null},{"id":"person:РАДКО ВЕСЕЛИНОВ ТОДОРОВ","type":"person","label":"Радко Веселинов Тодоров"}],"edges":[{"source":"official:bogdana-vladimirova-panaiotova-3b7435","target":"company:tr:126720807","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:bogdana-vladimirova-panaiotova-3b7435","target":"company:tr:126720807","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:РАДКО ВЕСЕЛИНОВ ТОДОРОВ","target":"company:tr:126720807","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:bogdana-vladimirova-panaiotova-3b7435",
+  "nodes": [
+    {
+      "id": "official:bogdana-vladimirova-panaiotova-3b7435",
+      "type": "official",
+      "slug": "bogdana-vladimirova-panaiotova-3b7435",
+      "label": "Богдана Владимирова Панайотова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:126720807",
+      "type": "company",
+      "label": "ЕН АР КОНСУЛТ",
+      "slug": null,
+      "uic": "126720807",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДКО ВЕСЕЛИНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Радко Веселинов Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bogdana-vladimirova-panaiotova-3b7435",
+      "target": "company:tr:126720807",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bogdana-vladimirova-panaiotova-3b7435",
+      "target": "company:tr:126720807",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДКО ВЕСЕЛИНОВ ТОДОРОВ",
+      "target": "company:tr:126720807",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

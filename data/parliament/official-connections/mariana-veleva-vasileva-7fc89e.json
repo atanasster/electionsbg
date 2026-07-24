@@ -1,1 +1,168 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariana-veleva-vasileva-7fc89e","nodes":[{"id":"official:mariana-veleva-vasileva-7fc89e","type":"official","slug":"mariana-veleva-vasileva-7fc89e","label":"Мариана Велева Василева","tier":"municipal","role":"councillor","municipality":"Карлово"},{"id":"company:tr:176967614","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ СВЕТЛИНА - 2013  С. БЕГУНЦИ","slug":null,"uic":"176967614","legalForm":null,"status":null,"seat":null},{"id":"person:НИНА ДОНКОВА ГАНЧЕВА","type":"person","label":"Нина Донкова Ганчева"},{"id":"person:МАРИЯ НЕНКОВА ТАСЛАКОВА","type":"person","label":"Мария Ненкова Таслакова"},{"id":"person:ВИДКА АНГЕЛОВА БОШНАКОВА","type":"person","label":"Видка Ангелова Бошнакова"},{"id":"person:МАРИЯН НИКОЛОВ БОШНАКОВ","type":"person","label":"Мариян Николов Бошнаков"},{"id":"person:НАДКА ИВАНОВА ХРИСТОВА","type":"person","label":"Надка Иванова Христова"},{"id":"person:КОСТАДИН МАРИНОВ МАТОВ","type":"person","label":"Костадин Маринов Матов"},{"id":"person:ЛАЛКА ТОДОРОВА ГЕОРГИЕВА","type":"person","label":"Лалка Тодорова Георгиева"},{"id":"person:СТАНИСЛАВА АНГЕЛОВА АНГЕЛОВА","type":"person","label":"Станислава Ангелова Ангелова"},{"id":"person:СВЕТОСЛАВА АНГЕЛОВА АНГЕЛОВА","type":"person","label":"Светослава Ангелова Ангелова"}],"edges":[{"source":"official:mariana-veleva-vasileva-7fc89e","target":"company:tr:176967614","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:НИНА ДОНКОВА ГАНЧЕВА","target":"company:tr:176967614","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ НЕНКОВА ТАСЛАКОВА","target":"company:tr:176967614","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИДКА АНГЕЛОВА БОШНАКОВА","target":"company:tr:176967614","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ДОНКОВА ГАНЧЕВА","target":"company:tr:176967614","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ НЕНКОВА ТАСЛАКОВА","target":"company:tr:176967614","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯН НИКОЛОВ БОШНАКОВ","target":"company:tr:176967614","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАДКА ИВАНОВА ХРИСТОВА","target":"company:tr:176967614","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН МАРИНОВ МАТОВ","target":"company:tr:176967614","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЛКА ТОДОРОВА ГЕОРГИЕВА","target":"company:tr:176967614","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВА АНГЕЛОВА АНГЕЛОВА","target":"company:tr:176967614","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВА АНГЕЛОВА АНГЕЛОВА","target":"company:tr:176967614","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariana-veleva-vasileva-7fc89e",
+  "nodes": [
+    {
+      "id": "official:mariana-veleva-vasileva-7fc89e",
+      "type": "official",
+      "slug": "mariana-veleva-vasileva-7fc89e",
+      "label": "Мариана Велева Василева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово"
+    },
+    {
+      "id": "company:tr:176967614",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ СВЕТЛИНА - 2013  С. БЕГУНЦИ",
+      "slug": null,
+      "uic": "176967614",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИНА ДОНКОВА ГАНЧЕВА",
+      "type": "person",
+      "label": "Нина Донкова Ганчева"
+    },
+    {
+      "id": "person:МАРИЯ НЕНКОВА ТАСЛАКОВА",
+      "type": "person",
+      "label": "Мария Ненкова Таслакова"
+    },
+    {
+      "id": "person:ВИДКА АНГЕЛОВА БОШНАКОВА",
+      "type": "person",
+      "label": "Видка Ангелова Бошнакова"
+    },
+    {
+      "id": "person:МАРИЯН НИКОЛОВ БОШНАКОВ",
+      "type": "person",
+      "label": "Мариян Николов Бошнаков"
+    },
+    {
+      "id": "person:НАДКА ИВАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Надка Иванова Христова"
+    },
+    {
+      "id": "person:КОСТАДИН МАРИНОВ МАТОВ",
+      "type": "person",
+      "label": "Костадин Маринов Матов"
+    },
+    {
+      "id": "person:ЛАЛКА ТОДОРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Лалка Тодорова Георгиева"
+    },
+    {
+      "id": "person:СТАНИСЛАВА АНГЕЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Станислава Ангелова Ангелова"
+    },
+    {
+      "id": "person:СВЕТОСЛАВА АНГЕЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Светослава Ангелова Ангелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariana-veleva-vasileva-7fc89e",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИНА ДОНКОВА ГАНЧЕВА",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НЕНКОВА ТАСЛАКОВА",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИДКА АНГЕЛОВА БОШНАКОВА",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ДОНКОВА ГАНЧЕВА",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НЕНКОВА ТАСЛАКОВА",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯН НИКОЛОВ БОШНАКОВ",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДКА ИВАНОВА ХРИСТОВА",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН МАРИНОВ МАТОВ",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЛКА ТОДОРОВА ГЕОРГИЕВА",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА АНГЕЛОВА АНГЕЛОВА",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВА АНГЕЛОВА АНГЕЛОВА",
+      "target": "company:tr:176967614",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

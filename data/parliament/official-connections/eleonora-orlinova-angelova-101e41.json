@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:eleonora-orlinova-angelova-101e41","nodes":[{"id":"official:eleonora-orlinova-angelova-101e41","type":"official","slug":"eleonora-orlinova-angelova-101e41","label":"Елеонора Орлинова Ангелова","tier":"municipal","role":"councillor","municipality":"Червен бряг"},{"id":"company:tr:114085830","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ - 1925&quot;","slug":null,"uic":"114085830","legalForm":null,"status":null,"seat":null},{"id":"person:МИМА ДИМИТРОВА МИНКОВА","type":"person","label":"Мима Димитрова Минкова"},{"id":"person:ВАЛЕНТИНА СТЕФАНОВА ВАСИЛЕВА","type":"person","label":"Валентина Стефанова Василева"},{"id":"person:ЕМИЛИЯ ПЕТРОВА ВАСИЛЕВА","type":"person","label":"Емилия Петрова Василева"},{"id":"person:БОРИСЛАВА ТАНКОВА ГЕОРГИЕВА","type":"person","label":"Борислава Танкова Георгиева"},{"id":"person:ЦЕЦКА ГЕОРГИЕВА ВАСИЛЕВА","type":"person","label":"Цецка Георгиева Василева"},{"id":"person:ПЕТЯ МАРИНОВА ТОДОРОВА","type":"person","label":"Петя Маринова Тодорова"},{"id":"person:ТИХОМИР БУДИСЛАВОВ ИВАНОВ","type":"person","label":"Тихомир Будиславов Иванов"}],"edges":[{"source":"official:eleonora-orlinova-angelova-101e41","target":"company:tr:114085830","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МИМА ДИМИТРОВА МИНКОВА","target":"company:tr:114085830","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА СТЕФАНОВА ВАСИЛЕВА","target":"company:tr:114085830","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ ПЕТРОВА ВАСИЛЕВА","target":"company:tr:114085830","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА СТЕФАНОВА ВАСИЛЕВА","target":"company:tr:114085830","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИМА ДИМИТРОВА МИНКОВА","target":"company:tr:114085830","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВА ТАНКОВА ГЕОРГИЕВА","target":"company:tr:114085830","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦКА ГЕОРГИЕВА ВАСИЛЕВА","target":"company:tr:114085830","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ МАРИНОВА ТОДОРОВА","target":"company:tr:114085830","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР БУДИСЛАВОВ ИВАНОВ","target":"company:tr:114085830","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:eleonora-orlinova-angelova-101e41",
+  "nodes": [
+    {
+      "id": "official:eleonora-orlinova-angelova-101e41",
+      "type": "official",
+      "slug": "eleonora-orlinova-angelova-101e41",
+      "label": "Елеонора Орлинова Ангелова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Червен бряг"
+    },
+    {
+      "id": "company:tr:114085830",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ - 1925&quot;",
+      "slug": null,
+      "uic": "114085830",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИМА ДИМИТРОВА МИНКОВА",
+      "type": "person",
+      "label": "Мима Димитрова Минкова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА СТЕФАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Валентина Стефанова Василева"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ПЕТРОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Емилия Петрова Василева"
+    },
+    {
+      "id": "person:БОРИСЛАВА ТАНКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Борислава Танкова Георгиева"
+    },
+    {
+      "id": "person:ЦЕЦКА ГЕОРГИЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Цецка Георгиева Василева"
+    },
+    {
+      "id": "person:ПЕТЯ МАРИНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Петя Маринова Тодорова"
+    },
+    {
+      "id": "person:ТИХОМИР БУДИСЛАВОВ ИВАНОВ",
+      "type": "person",
+      "label": "Тихомир Будиславов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:eleonora-orlinova-angelova-101e41",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИМА ДИМИТРОВА МИНКОВА",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА СТЕФАНОВА ВАСИЛЕВА",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ПЕТРОВА ВАСИЛЕВА",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА СТЕФАНОВА ВАСИЛЕВА",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИМА ДИМИТРОВА МИНКОВА",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВА ТАНКОВА ГЕОРГИЕВА",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦКА ГЕОРГИЕВА ВАСИЛЕВА",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ МАРИНОВА ТОДОРОВА",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР БУДИСЛАВОВ ИВАНОВ",
+      "target": "company:tr:114085830",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

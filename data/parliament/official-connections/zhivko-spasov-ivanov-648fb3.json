@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zhivko-spasov-ivanov-648fb3","nodes":[{"id":"official:zhivko-spasov-ivanov-648fb3","type":"official","slug":"zhivko-spasov-ivanov-648fb3","label":"Живко Спасов Иванов","tier":"municipal","role":"councillor","municipality":"Шабла"},{"id":"company:tr:205226539","type":"company","label":"НОРТ БЕЙ  ООД","slug":null,"uic":"205226539","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯН СПАСОВ ИВАНОВ","type":"person","label":"Мариян Спасов Иванов"}],"edges":[{"source":"official:zhivko-spasov-ivanov-648fb3","target":"company:tr:205226539","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:zhivko-spasov-ivanov-648fb3","target":"company:tr:205226539","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯН СПАСОВ ИВАНОВ","target":"company:tr:205226539","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zhivko-spasov-ivanov-648fb3",
+  "nodes": [
+    {
+      "id": "official:zhivko-spasov-ivanov-648fb3",
+      "type": "official",
+      "slug": "zhivko-spasov-ivanov-648fb3",
+      "label": "Живко Спасов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шабла"
+    },
+    {
+      "id": "company:tr:205226539",
+      "type": "company",
+      "label": "НОРТ БЕЙ  ООД",
+      "slug": null,
+      "uic": "205226539",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯН СПАСОВ ИВАНОВ",
+      "type": "person",
+      "label": "Мариян Спасов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-spasov-ivanov-648fb3",
+      "target": "company:tr:205226539",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhivko-spasov-ivanov-648fb3",
+      "target": "company:tr:205226539",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯН СПАСОВ ИВАНОВ",
+      "target": "company:tr:205226539",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

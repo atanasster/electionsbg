@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:radoi-rumenov-stoev-88f7c4","nodes":[{"id":"official:radoi-rumenov-stoev-88f7c4","type":"official","slug":"radoi-rumenov-stoev-88f7c4","label":"Радой Руменов Стоев","tier":"municipal","role":"councillor","municipality":"Петрич"},{"id":"company:tr:101770478","type":"company","label":"Вю Пойнт Билдинг","slug":null,"uic":"101770478","legalForm":null,"status":null,"seat":null},{"id":"person:КРАСИМИРА ХРИСТОВА СТОЕВА","type":"person","label":"Красимира Христова Стоева"}],"edges":[{"source":"official:radoi-rumenov-stoev-88f7c4","target":"company:tr:101770478","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КРАСИМИРА ХРИСТОВА СТОЕВА","target":"company:tr:101770478","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ХРИСТОВА СТОЕВА","target":"company:tr:101770478","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:radoi-rumenov-stoev-88f7c4",
+  "nodes": [
+    {
+      "id": "official:radoi-rumenov-stoev-88f7c4",
+      "type": "official",
+      "slug": "radoi-rumenov-stoev-88f7c4",
+      "label": "Радой Руменов Стоев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Петрич"
+    },
+    {
+      "id": "company:tr:101770478",
+      "type": "company",
+      "label": "Вю Пойнт Билдинг",
+      "slug": null,
+      "uic": "101770478",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИРА ХРИСТОВА СТОЕВА",
+      "type": "person",
+      "label": "Красимира Христова Стоева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoi-rumenov-stoev-88f7c4",
+      "target": "company:tr:101770478",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИРА ХРИСТОВА СТОЕВА",
+      "target": "company:tr:101770478",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ХРИСТОВА СТОЕВА",
+      "target": "company:tr:101770478",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,110 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:galina-ivancheva-dimitrova-c8b0e2","nodes":[{"id":"official:galina-ivancheva-dimitrova-c8b0e2","type":"official","slug":"galina-ivancheva-dimitrova-c8b0e2","label":"Галина Иванчева Димитрова","tier":"municipal","role":"councillor","municipality":"Варна"},{"id":"company:tr:176792531","type":"company","label":"АСОЦИАЦИЯ ЗА ДЕЦА И ЛИЦА С УВРЕЖДАНИЯ СВ.ЙОАН ЗЛАТОУСТ","slug":null,"uic":"176792531","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"mp:3308","type":"mp","mpId":3308,"label":"Галина Иванчева Димитрова","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":[]},{"id":"person:МАРИЯНА ВЕЛИКОВА ХРИСТОВА","type":"person","label":"Марияна Великова Христова"},{"id":"person:РАДКА ИВАНОВА ТОДОРОВА","type":"person","label":"Радка Иванова Тодорова"}],"edges":[{"source":"official:galina-ivancheva-dimitrova-c8b0e2","target":"company:tr:176792531","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:galina-ivancheva-dimitrova-c8b0e2","target":"company:tr:176792531","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3308","target":"company:tr:176792531","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3308","target":"company:tr:176792531","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯНА ВЕЛИКОВА ХРИСТОВА","target":"company:tr:176792531","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ИВАНОВА ТОДОРОВА","target":"company:tr:176792531","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА ВЕЛИКОВА ХРИСТОВА","target":"company:tr:176792531","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ИВАНОВА ТОДОРОВА","target":"company:tr:176792531","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:galina-ivancheva-dimitrova-c8b0e2",
+  "nodes": [
+    {
+      "id": "official:galina-ivancheva-dimitrova-c8b0e2",
+      "type": "official",
+      "slug": "galina-ivancheva-dimitrova-c8b0e2",
+      "label": "Галина Иванчева Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:176792531",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ ЗА ДЕЦА И ЛИЦА С УВРЕЖДАНИЯ СВ.ЙОАН ЗЛАТОУСТ",
+      "slug": null,
+      "uic": "176792531",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "mp:3308",
+      "type": "mp",
+      "mpId": 3308,
+      "label": "Галина Иванчева Димитрова",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:МАРИЯНА ВЕЛИКОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Марияна Великова Христова"
+    },
+    {
+      "id": "person:РАДКА ИВАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Радка Иванова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-ivancheva-dimitrova-c8b0e2",
+      "target": "company:tr:176792531",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-ivancheva-dimitrova-c8b0e2",
+      "target": "company:tr:176792531",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3308",
+      "target": "company:tr:176792531",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3308",
+      "target": "company:tr:176792531",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯНА ВЕЛИКОВА ХРИСТОВА",
+      "target": "company:tr:176792531",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:176792531",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ВЕЛИКОВА ХРИСТОВА",
+      "target": "company:tr:176792531",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:176792531",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

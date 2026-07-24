@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-dimitrov-baryakov-d804b0","nodes":[{"id":"official:ivan-dimitrov-baryakov-d804b0","type":"official","slug":"ivan-dimitrov-baryakov-d804b0","label":"Иван Димитров Баряков","tier":"municipal","role":"councillor","municipality":"Банско"},{"id":"company:tr:207096180","type":"company","label":"Пирин 74","slug":null,"uic":"207096180","legalForm":null,"status":null,"seat":null},{"id":"person:КОСТАДИН ДИМИТРОВ БАРЯКОВ","type":"person","label":"Костадин Димитров Баряков"}],"edges":[{"source":"official:ivan-dimitrov-baryakov-d804b0","target":"company:tr:207096180","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КОСТАДИН ДИМИТРОВ БАРЯКОВ","target":"company:tr:207096180","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ДИМИТРОВ БАРЯКОВ","target":"company:tr:207096180","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-dimitrov-baryakov-d804b0",
+  "nodes": [
+    {
+      "id": "official:ivan-dimitrov-baryakov-d804b0",
+      "type": "official",
+      "slug": "ivan-dimitrov-baryakov-d804b0",
+      "label": "Иван Димитров Баряков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Банско"
+    },
+    {
+      "id": "company:tr:207096180",
+      "type": "company",
+      "label": "Пирин 74",
+      "slug": null,
+      "uic": "207096180",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТАДИН ДИМИТРОВ БАРЯКОВ",
+      "type": "person",
+      "label": "Костадин Димитров Баряков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-dimitrov-baryakov-d804b0",
+      "target": "company:tr:207096180",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОСТАДИН ДИМИТРОВ БАРЯКОВ",
+      "target": "company:tr:207096180",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ДИМИТРОВ БАРЯКОВ",
+      "target": "company:tr:207096180",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

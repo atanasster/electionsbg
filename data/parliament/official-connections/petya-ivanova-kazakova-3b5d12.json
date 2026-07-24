@@ -1,1 +1,156 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petya-ivanova-kazakova-3b5d12","nodes":[{"id":"official:petya-ivanova-kazakova-3b5d12","type":"official","slug":"petya-ivanova-kazakova-3b5d12","label":"Петя Иванова Казакова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000044744","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕТА 1888&quot;","slug":null,"uic":"000044744","legalForm":null,"status":null,"seat":null},{"id":"official:milcho-ganchev-talev-7850d1","type":"official","slug":"milcho-ganchev-talev-7850d1","label":"Милчо Ганчев Талев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ПЕТЯ КОСТАДИНОВА КАЗАКОВА-ЙОРДАНОВА","type":"person","label":"Петя Костадинова Казакова-Йорданова"},{"id":"person:АННА ВАСИЛЕВА МАДЕВОВА","type":"person","label":"Анна Василева Мадевова"},{"id":"person:КАМЕН ДОЧЕВ ШИПКОВ","type":"person","label":"Камен Дочев Шипков"},{"id":"person:СОФИЯ АНДРЕЕВА ТОДОРОВА","type":"person","label":"София Андреева Тодорова"},{"id":"person:ИЛИЯ СТОЙЧЕВ ЛАСИН","type":"person","label":"Илия Стойчев Ласин"},{"id":"person:НИКОЛАЙ СТОЯНОВ ЙОВЧЕВ","type":"person","label":"Николай Стоянов Йовчев"},{"id":"person:СЛАВКА БОЙКОВА ТОМОВА","type":"person","label":"Славка Бойкова Томова"},{"id":"person:ВЕСЕЛА ЖЕЛЯЗКОВА ГУДЖУКОВА","type":"person","label":"Весела Желязкова Гуджукова"}],"edges":[{"source":"official:petya-ivanova-kazakova-3b5d12","target":"company:tr:000044744","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:milcho-ganchev-talev-7850d1","target":"company:tr:000044744","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЯ КОСТАДИНОВА КАЗАКОВА-ЙОРДАНОВА","target":"company:tr:000044744","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АННА ВАСИЛЕВА МАДЕВОВА","target":"company:tr:000044744","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕН ДОЧЕВ ШИПКОВ","target":"company:tr:000044744","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СОФИЯ АНДРЕЕВА ТОДОРОВА","target":"company:tr:000044744","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ СТОЙЧЕВ ЛАСИН","target":"company:tr:000044744","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ СТОЯНОВ ЙОВЧЕВ","target":"company:tr:000044744","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВКА БОЙКОВА ТОМОВА","target":"company:tr:000044744","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛА ЖЕЛЯЗКОВА ГУДЖУКОВА","target":"company:tr:000044744","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petya-ivanova-kazakova-3b5d12",
+  "nodes": [
+    {
+      "id": "official:petya-ivanova-kazakova-3b5d12",
+      "type": "official",
+      "slug": "petya-ivanova-kazakova-3b5d12",
+      "label": "Петя Иванова Казакова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000044744",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕТА 1888&quot;",
+      "slug": null,
+      "uic": "000044744",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:milcho-ganchev-talev-7850d1",
+      "type": "official",
+      "slug": "milcho-ganchev-talev-7850d1",
+      "label": "Милчо Ганчев Талев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЕТЯ КОСТАДИНОВА КАЗАКОВА-ЙОРДАНОВА",
+      "type": "person",
+      "label": "Петя Костадинова Казакова-Йорданова"
+    },
+    {
+      "id": "person:АННА ВАСИЛЕВА МАДЕВОВА",
+      "type": "person",
+      "label": "Анна Василева Мадевова"
+    },
+    {
+      "id": "person:КАМЕН ДОЧЕВ ШИПКОВ",
+      "type": "person",
+      "label": "Камен Дочев Шипков"
+    },
+    {
+      "id": "person:СОФИЯ АНДРЕЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "София Андреева Тодорова"
+    },
+    {
+      "id": "person:ИЛИЯ СТОЙЧЕВ ЛАСИН",
+      "type": "person",
+      "label": "Илия Стойчев Ласин"
+    },
+    {
+      "id": "person:НИКОЛАЙ СТОЯНОВ ЙОВЧЕВ",
+      "type": "person",
+      "label": "Николай Стоянов Йовчев"
+    },
+    {
+      "id": "person:СЛАВКА БОЙКОВА ТОМОВА",
+      "type": "person",
+      "label": "Славка Бойкова Томова"
+    },
+    {
+      "id": "person:ВЕСЕЛА ЖЕЛЯЗКОВА ГУДЖУКОВА",
+      "type": "person",
+      "label": "Весела Желязкова Гуджукова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-ivanova-kazakova-3b5d12",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milcho-ganchev-talev-7850d1",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ КОСТАДИНОВА КАЗАКОВА-ЙОРДАНОВА",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ВАСИЛЕВА МАДЕВОВА",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕН ДОЧЕВ ШИПКОВ",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ АНДРЕЕВА ТОДОРОВА",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ СТОЙЧЕВ ЛАСИН",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТОЯНОВ ЙОВЧЕВ",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА БОЙКОВА ТОМОВА",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ЖЕЛЯЗКОВА ГУДЖУКОВА",
+      "target": "company:tr:000044744",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

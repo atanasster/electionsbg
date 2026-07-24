@@ -1,1 +1,178 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetoslav-atanasov-stoikov-9b3d71","nodes":[{"id":"official:svetoslav-atanasov-stoikov-9b3d71","type":"official","slug":"svetoslav-atanasov-stoikov-9b3d71","label":"Светослав Атанасов Стойков","tier":"municipal","role":"deputy_mayor","municipality":"Димитровград"},{"id":"company:tr:126550002","type":"company","label":"СДРУЖЕНИЕ НА ЛОВЦИТЕ И РИБОЛОВЦИТЕ","slug":null,"uic":"126550002","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛАЙ ИВАНОВ ЗЛАТЕВ","type":"person","label":"Николай Иванов Златев"},{"id":"person:ТЕНЧО ИЛИЕВ ТЕНЕВ","type":"person","label":"Тенчо Илиев Тенев"},{"id":"person:АНТОНИО ДИМОВ КОЛЕВ","type":"person","label":"Антонио Димов Колев"},{"id":"person:ГЕОРГИ АТАНАСОВ ТЕНЧЕВ","type":"person","label":"Георги Атанасов Тенчев"},{"id":"person:ДАНАИЛ ХРИСТОЗОВ ДАНЕВ","type":"person","label":"Данаил Христозов Данев"},{"id":"person:АТАНАС ИВАНОВ СТЕФАНОВ","type":"person","label":"Атанас Иванов Стефанов"},{"id":"person:МИХО ТОДОРОВ МИХОВ","type":"person","label":"Михо Тодоров Михов"},{"id":"person:ИВАН МАРИНОВ ИВАНОВ","type":"person","label":"Иван Маринов Иванов"},{"id":"person:ДАНИЕЛ ТОШКОВ ГОСПОДИНОВ","type":"person","label":"Даниел Тошков Господинов"},{"id":"person:ВАНЧО ПАНЧЕВ ИВАНОВ","type":"person","label":"Ванчо Панчев Иванов"},{"id":"person:НИКОЛАЙ ЯНКОВ ЯНЕВ","type":"person","label":"Николай Янков Янев"}],"edges":[{"source":"official:svetoslav-atanasov-stoikov-9b3d71","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ ИВАНОВ ЗЛАТЕВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕНЧО ИЛИЕВ ТЕНЕВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИО ДИМОВ КОЛЕВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ АТАНАСОВ ТЕНЧЕВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНАИЛ ХРИСТОЗОВ ДАНЕВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ИВАНОВ СТЕФАНОВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИХО ТОДОРОВ МИХОВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МАРИНОВ ИВАНОВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ ТОШКОВ ГОСПОДИНОВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЧО ПАНЧЕВ ИВАНОВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЯНКОВ ЯНЕВ","target":"company:tr:126550002","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetoslav-atanasov-stoikov-9b3d71",
+  "nodes": [
+    {
+      "id": "official:svetoslav-atanasov-stoikov-9b3d71",
+      "type": "official",
+      "slug": "svetoslav-atanasov-stoikov-9b3d71",
+      "label": "Светослав Атанасов Стойков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:126550002",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ЛОВЦИТЕ И РИБОЛОВЦИТЕ",
+      "slug": null,
+      "uic": "126550002",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Николай Иванов Златев"
+    },
+    {
+      "id": "person:ТЕНЧО ИЛИЕВ ТЕНЕВ",
+      "type": "person",
+      "label": "Тенчо Илиев Тенев"
+    },
+    {
+      "id": "person:АНТОНИО ДИМОВ КОЛЕВ",
+      "type": "person",
+      "label": "Антонио Димов Колев"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ ТЕНЧЕВ",
+      "type": "person",
+      "label": "Георги Атанасов Тенчев"
+    },
+    {
+      "id": "person:ДАНАИЛ ХРИСТОЗОВ ДАНЕВ",
+      "type": "person",
+      "label": "Данаил Христозов Данев"
+    },
+    {
+      "id": "person:АТАНАС ИВАНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Атанас Иванов Стефанов"
+    },
+    {
+      "id": "person:МИХО ТОДОРОВ МИХОВ",
+      "type": "person",
+      "label": "Михо Тодоров Михов"
+    },
+    {
+      "id": "person:ИВАН МАРИНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Маринов Иванов"
+    },
+    {
+      "id": "person:ДАНИЕЛ ТОШКОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Даниел Тошков Господинов"
+    },
+    {
+      "id": "person:ВАНЧО ПАНЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Ванчо Панчев Иванов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЯНКОВ ЯНЕВ",
+      "type": "person",
+      "label": "Николай Янков Янев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-atanasov-stoikov-9b3d71",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ЗЛАТЕВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕНЧО ИЛИЕВ ТЕНЕВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИО ДИМОВ КОЛЕВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ТЕНЧЕВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ ХРИСТОЗОВ ДАНЕВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ИВАНОВ СТЕФАНОВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХО ТОДОРОВ МИХОВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МАРИНОВ ИВАНОВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ТОШКОВ ГОСПОДИНОВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЧО ПАНЧЕВ ИВАНОВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЯНКОВ ЯНЕВ",
+      "target": "company:tr:126550002",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

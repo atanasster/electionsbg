@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-georgiev-petrov-3207f1","nodes":[{"id":"official:vladimir-georgiev-petrov-3207f1","type":"official","slug":"vladimir-georgiev-petrov-3207f1","label":"Владимир Георгиев Петров","tier":"municipal","role":"councillor","municipality":"Ново село"},{"id":"company:tr:105566945","type":"company","label":"БЕН ХЪН АГРО ООД","slug":null,"uic":"105566945","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vladimir-georgiev-petrov-3207f1","target":"company:tr:105566945","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-georgiev-petrov-3207f1",
+  "nodes": [
+    {
+      "id": "official:vladimir-georgiev-petrov-3207f1",
+      "type": "official",
+      "slug": "vladimir-georgiev-petrov-3207f1",
+      "label": "Владимир Георгиев Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ново село"
+    },
+    {
+      "id": "company:tr:105566945",
+      "type": "company",
+      "label": "БЕН ХЪН АГРО ООД",
+      "slug": null,
+      "uic": "105566945",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-georgiev-petrov-3207f1",
+      "target": "company:tr:105566945",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

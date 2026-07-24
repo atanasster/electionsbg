@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zlatina-kirova-ivanova-68ca6f","nodes":[{"id":"official:zlatina-kirova-ivanova-68ca6f","type":"official","slug":"zlatina-kirova-ivanova-68ca6f","label":"Златина Кирова Иванова","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:102613775","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - АЙТОС","slug":null,"uic":"102613775","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:zlatina-kirova-ivanova-68ca6f","target":"company:tr:102613775","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zlatina-kirova-ivanova-68ca6f",
+  "nodes": [
+    {
+      "id": "official:zlatina-kirova-ivanova-68ca6f",
+      "type": "official",
+      "slug": "zlatina-kirova-ivanova-68ca6f",
+      "label": "Златина Кирова Иванова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102613775",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - АЙТОС",
+      "slug": null,
+      "uic": "102613775",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatina-kirova-ivanova-68ca6f",
+      "target": "company:tr:102613775",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,1 +1,106 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:velina-georgieva-georgieva-d6aaa2","nodes":[{"id":"official:velina-georgieva-georgieva-d6aaa2","type":"official","slug":"velina-georgieva-georgieva-d6aaa2","label":"Велина Георгиева Георгиева","tier":"executive","role":"eu_funds_controller","municipality":null},{"id":"company:tr:207064751","type":"company","label":"АКВА ДРИЙМ 2022","slug":null,"uic":"207064751","legalForm":null,"status":null,"seat":null},{"id":"person:ВЛАДИСЛАВ АТАНАСОВ ХАРАЛАМБИЕВ","type":"person","label":"Владислав Атанасов Хараламбиев"},{"id":"person:МАТА ТАШЕВА ХАРАЛАМБИЕВА","type":"person","label":"Мата Ташева Хараламбиева"},{"id":"person:ПЕТЪР АТАНАСОВ ХАРАЛАМПИЕВ","type":"person","label":"Петър Атанасов Харалампиев"}],"edges":[{"source":"official:velina-georgieva-georgieva-d6aaa2","target":"company:tr:207064751","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:velina-georgieva-georgieva-d6aaa2","target":"company:tr:207064751","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЛАДИСЛАВ АТАНАСОВ ХАРАЛАМБИЕВ","target":"company:tr:207064751","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ АТАНАСОВ ХАРАЛАМБИЕВ","target":"company:tr:207064751","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:МАТА ТАШЕВА ХАРАЛАМБИЕВА","target":"company:tr:207064751","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАТА ТАШЕВА ХАРАЛАМБИЕВА","target":"company:tr:207064751","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР АТАНАСОВ ХАРАЛАМПИЕВ","target":"company:tr:207064751","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР АТАНАСОВ ХАРАЛАМПИЕВ","target":"company:tr:207064751","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:velina-georgieva-georgieva-d6aaa2",
+  "nodes": [
+    {
+      "id": "official:velina-georgieva-georgieva-d6aaa2",
+      "type": "official",
+      "slug": "velina-georgieva-georgieva-d6aaa2",
+      "label": "Велина Георгиева Георгиева",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207064751",
+      "type": "company",
+      "label": "АКВА ДРИЙМ 2022",
+      "slug": null,
+      "uic": "207064751",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ АТАНАСОВ ХАРАЛАМБИЕВ",
+      "type": "person",
+      "label": "Владислав Атанасов Хараламбиев"
+    },
+    {
+      "id": "person:МАТА ТАШЕВА ХАРАЛАМБИЕВА",
+      "type": "person",
+      "label": "Мата Ташева Хараламбиева"
+    },
+    {
+      "id": "person:ПЕТЪР АТАНАСОВ ХАРАЛАМПИЕВ",
+      "type": "person",
+      "label": "Петър Атанасов Харалампиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velina-georgieva-georgieva-d6aaa2",
+      "target": "company:tr:207064751",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velina-georgieva-georgieva-d6aaa2",
+      "target": "company:tr:207064751",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ АТАНАСОВ ХАРАЛАМБИЕВ",
+      "target": "company:tr:207064751",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ АТАНАСОВ ХАРАЛАМБИЕВ",
+      "target": "company:tr:207064751",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТА ТАШЕВА ХАРАЛАМБИЕВА",
+      "target": "company:tr:207064751",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТА ТАШЕВА ХАРАЛАМБИЕВА",
+      "target": "company:tr:207064751",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР АТАНАСОВ ХАРАЛАМПИЕВ",
+      "target": "company:tr:207064751",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР АТАНАСОВ ХАРАЛАМПИЕВ",
+      "target": "company:tr:207064751",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

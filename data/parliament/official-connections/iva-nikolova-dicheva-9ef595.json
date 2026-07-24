@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iva-nikolova-dicheva-9ef595","nodes":[{"id":"official:iva-nikolova-dicheva-9ef595","type":"official","slug":"iva-nikolova-dicheva-9ef595","label":"Ива Николова Дичева","tier":"municipal","role":"council_chair","municipality":"Куклен"},{"id":"company:tr:160140036","type":"company","label":"&quot;Училищно настоятелство “Отец Паисий” гр. Куклен&quot;","slug":null,"uic":"160140036","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИАНА ХРИСТОВА ЕЛЕНОВА","type":"person","label":"Мариана Христова Еленова"},{"id":"person:КАТЯ ИВАНОВА МАДЖАРОВА-АТАНАСОВА","type":"person","label":"Катя Иванова Маджарова-Атанасова"},{"id":"person:ХРИСТО ЯНКОВ ЗГУРОВ","type":"person","label":"Христо Янков Згуров"},{"id":"person:ЙОРДАНКА ТРИФОНОВА ТЮФЕКЧИЕВА","type":"person","label":"Йорданка Трифонова Тюфекчиева"},{"id":"person:ВИОЛЕТА ГЕОРГИЕВА ТЯГОВА","type":"person","label":"Виолета Георгиева Тягова"},{"id":"person:ГЮЛБАХАР МЕХМЕДОВА ЧАУШ","type":"person","label":"Гюлбахар Мехмедова Чауш"}],"edges":[{"source":"official:iva-nikolova-dicheva-9ef595","target":"company:tr:160140036","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:iva-nikolova-dicheva-9ef595","target":"company:tr:160140036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИАНА ХРИСТОВА ЕЛЕНОВА","target":"company:tr:160140036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ИВАНОВА МАДЖАРОВА-АТАНАСОВА","target":"company:tr:160140036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ЯНКОВ ЗГУРОВ","target":"company:tr:160140036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ТРИФОНОВА ТЮФЕКЧИЕВА","target":"company:tr:160140036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ГЕОРГИЕВА ТЯГОВА","target":"company:tr:160140036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЮЛБАХАР МЕХМЕДОВА ЧАУШ","target":"company:tr:160140036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iva-nikolova-dicheva-9ef595",
+  "nodes": [
+    {
+      "id": "official:iva-nikolova-dicheva-9ef595",
+      "type": "official",
+      "slug": "iva-nikolova-dicheva-9ef595",
+      "label": "Ива Николова Дичева",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Куклен"
+    },
+    {
+      "id": "company:tr:160140036",
+      "type": "company",
+      "label": "&quot;Училищно настоятелство “Отец Паисий” гр. Куклен&quot;",
+      "slug": null,
+      "uic": "160140036",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАНА ХРИСТОВА ЕЛЕНОВА",
+      "type": "person",
+      "label": "Мариана Христова Еленова"
+    },
+    {
+      "id": "person:КАТЯ ИВАНОВА МАДЖАРОВА-АТАНАСОВА",
+      "type": "person",
+      "label": "Катя Иванова Маджарова-Атанасова"
+    },
+    {
+      "id": "person:ХРИСТО ЯНКОВ ЗГУРОВ",
+      "type": "person",
+      "label": "Христо Янков Згуров"
+    },
+    {
+      "id": "person:ЙОРДАНКА ТРИФОНОВА ТЮФЕКЧИЕВА",
+      "type": "person",
+      "label": "Йорданка Трифонова Тюфекчиева"
+    },
+    {
+      "id": "person:ВИОЛЕТА ГЕОРГИЕВА ТЯГОВА",
+      "type": "person",
+      "label": "Виолета Георгиева Тягова"
+    },
+    {
+      "id": "person:ГЮЛБАХАР МЕХМЕДОВА ЧАУШ",
+      "type": "person",
+      "label": "Гюлбахар Мехмедова Чауш"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iva-nikolova-dicheva-9ef595",
+      "target": "company:tr:160140036",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iva-nikolova-dicheva-9ef595",
+      "target": "company:tr:160140036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАНА ХРИСТОВА ЕЛЕНОВА",
+      "target": "company:tr:160140036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ИВАНОВА МАДЖАРОВА-АТАНАСОВА",
+      "target": "company:tr:160140036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЯНКОВ ЗГУРОВ",
+      "target": "company:tr:160140036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ТРИФОНОВА ТЮФЕКЧИЕВА",
+      "target": "company:tr:160140036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ГЕОРГИЕВА ТЯГОВА",
+      "target": "company:tr:160140036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛБАХАР МЕХМЕДОВА ЧАУШ",
+      "target": "company:tr:160140036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

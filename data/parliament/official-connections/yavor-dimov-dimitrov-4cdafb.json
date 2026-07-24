@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:yavor-dimov-dimitrov-4cdafb","nodes":[{"id":"official:yavor-dimov-dimitrov-4cdafb","type":"official","slug":"yavor-dimov-dimitrov-4cdafb","label":"Явор Димов Димитров","tier":"executive","role":"security_service","municipality":null},{"id":"company:tr:200802835","type":"company","label":"ЕВОЛЮТА","slug":null,"uic":"200802835","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМАНА ЯВОРОВА ДИМОВА","type":"person","label":"Димана Яворова Димова"},{"id":"person:СТИЛИЯНА ЯВОРОВА ДИМОВА","type":"person","label":"Стилияна Яворова Димова"}],"edges":[{"source":"official:yavor-dimov-dimitrov-4cdafb","target":"company:tr:200802835","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМАНА ЯВОРОВА ДИМОВА","target":"company:tr:200802835","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТИЛИЯНА ЯВОРОВА ДИМОВА","target":"company:tr:200802835","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:yavor-dimov-dimitrov-4cdafb",
+  "nodes": [
+    {
+      "id": "official:yavor-dimov-dimitrov-4cdafb",
+      "type": "official",
+      "slug": "yavor-dimov-dimitrov-4cdafb",
+      "label": "Явор Димов Димитров",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200802835",
+      "type": "company",
+      "label": "ЕВОЛЮТА",
+      "slug": null,
+      "uic": "200802835",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМАНА ЯВОРОВА ДИМОВА",
+      "type": "person",
+      "label": "Димана Яворова Димова"
+    },
+    {
+      "id": "person:СТИЛИЯНА ЯВОРОВА ДИМОВА",
+      "type": "person",
+      "label": "Стилияна Яворова Димова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-dimov-dimitrov-4cdafb",
+      "target": "company:tr:200802835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМАНА ЯВОРОВА ДИМОВА",
+      "target": "company:tr:200802835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИЛИЯНА ЯВОРОВА ДИМОВА",
+      "target": "company:tr:200802835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

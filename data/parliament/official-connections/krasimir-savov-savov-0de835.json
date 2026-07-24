@@ -1,1 +1,66 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:krasimir-savov-savov-0de835","nodes":[{"id":"official:krasimir-savov-savov-0de835","type":"official","slug":"krasimir-savov-savov-0de835","label":"Красимир Савов Савов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:126735638","type":"company","label":"Трибали ООД","slug":null,"uic":"126735638","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204700646","type":"company","label":"ТРИБАЛИ ТРЕЙД","slug":null,"uic":"204700646","legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКСАНДЪР КРАСИМИРОВ САВОВ","type":"person","label":"Александър Красимиров Савов"}],"edges":[{"source":"official:krasimir-savov-savov-0de835","target":"company:tr:126735638","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:krasimir-savov-savov-0de835","target":"company:tr:204700646","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АЛЕКСАНДЪР КРАСИМИРОВ САВОВ","target":"company:tr:204700646","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:krasimir-savov-savov-0de835",
+  "nodes": [
+    {
+      "id": "official:krasimir-savov-savov-0de835",
+      "type": "official",
+      "slug": "krasimir-savov-savov-0de835",
+      "label": "Красимир Савов Савов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126735638",
+      "type": "company",
+      "label": "Трибали ООД",
+      "slug": null,
+      "uic": "126735638",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204700646",
+      "type": "company",
+      "label": "ТРИБАЛИ ТРЕЙД",
+      "slug": null,
+      "uic": "204700646",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР КРАСИМИРОВ САВОВ",
+      "type": "person",
+      "label": "Александър Красимиров Савов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-savov-savov-0de835",
+      "target": "company:tr:126735638",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:krasimir-savov-savov-0de835",
+      "target": "company:tr:204700646",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР КРАСИМИРОВ САВОВ",
+      "target": "company:tr:204700646",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

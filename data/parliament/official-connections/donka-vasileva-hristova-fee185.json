@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:donka-vasileva-hristova-fee185","nodes":[{"id":"official:donka-vasileva-hristova-fee185","type":"official","slug":"donka-vasileva-hristova-fee185","label":"Донка Василева Христова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:102657921","type":"company","label":"БУРГАСКИ ПАЗАРИ","slug":null,"uic":"102657921","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:donka-vasileva-hristova-fee185","target":"company:tr:102657921","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:donka-vasileva-hristova-fee185",
+  "nodes": [
+    {
+      "id": "official:donka-vasileva-hristova-fee185",
+      "type": "official",
+      "slug": "donka-vasileva-hristova-fee185",
+      "label": "Донка Василева Христова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102657921",
+      "type": "company",
+      "label": "БУРГАСКИ ПАЗАРИ",
+      "slug": null,
+      "uic": "102657921",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:donka-vasileva-hristova-fee185",
+      "target": "company:tr:102657921",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

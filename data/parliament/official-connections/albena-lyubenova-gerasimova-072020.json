@@ -1,1 +1,163 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:albena-lyubenova-gerasimova-072020","nodes":[{"id":"official:albena-lyubenova-gerasimova-072020","type":"official","slug":"albena-lyubenova-gerasimova-072020","label":"Албена Любенова Герасимова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000153366","type":"company","label":"ИЗГРЕВ 1925","slug":null,"uic":"000153366","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕСИСЛАВА СЛАВОМИРОВА МАРИНОВА","type":"person","label":"Десислава Славомирова Маринова"},{"id":"person:ТЕМЕНУЖКА ГЕОРГИЕВА ПЕТКОВА","type":"person","label":"Теменужка Георгиева Петкова"},{"id":"person:АНТОН ВЪРБАНОВ ФЛОРОВ","type":"person","label":"Антон Върбанов Флоров"},{"id":"person:ИСКРА КРУМОВА ЙОНОВА","type":"person","label":"Искра Крумова Йонова"},{"id":"person:НАДКА НИКОЛОВА КРЪСТЕВА","type":"person","label":"Надка Николова Кръстева"},{"id":"person:ВЕРМОЗИЯ ПЕТРОВА СТАНКОВА","type":"person","label":"Вермозия Петрова Станкова"},{"id":"person:СВЕТОЗАРА АРИСТОТЕЛОВА ФИЛИПОВА","type":"person","label":"Светозара Аристотелова Филипова"},{"id":"person:ПАВЛИНА ПАВЛОВА ГАРЕВА","type":"person","label":"Павлина Павлова Гарева"}],"edges":[{"source":"official:albena-lyubenova-gerasimova-072020","target":"company:tr:000153366","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕСИСЛАВА СЛАВОМИРОВА МАРИНОВА","target":"company:tr:000153366","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТЕМЕНУЖКА ГЕОРГИЕВА ПЕТКОВА","target":"company:tr:000153366","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ВЪРБАНОВ ФЛОРОВ","target":"company:tr:000153366","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИСКРА КРУМОВА ЙОНОВА","target":"company:tr:000153366","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАДКА НИКОЛОВА КРЪСТЕВА","target":"company:tr:000153366","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРМОЗИЯ ПЕТРОВА СТАНКОВА","target":"company:tr:000153366","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАРА АРИСТОТЕЛОВА ФИЛИПОВА","target":"company:tr:000153366","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА ПАВЛОВА ГАРЕВА","target":"company:tr:000153366","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НАДКА НИКОЛОВА КРЪСТЕВА","target":"company:tr:000153366","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА СЛАВОМИРОВА МАРИНОВА","target":"company:tr:000153366","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИСКРА КРУМОВА ЙОНОВА","target":"company:tr:000153366","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:albena-lyubenova-gerasimova-072020",
+  "nodes": [
+    {
+      "id": "official:albena-lyubenova-gerasimova-072020",
+      "type": "official",
+      "slug": "albena-lyubenova-gerasimova-072020",
+      "label": "Албена Любенова Герасимова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000153366",
+      "type": "company",
+      "label": "ИЗГРЕВ 1925",
+      "slug": null,
+      "uic": "000153366",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕСИСЛАВА СЛАВОМИРОВА МАРИНОВА",
+      "type": "person",
+      "label": "Десислава Славомирова Маринова"
+    },
+    {
+      "id": "person:ТЕМЕНУЖКА ГЕОРГИЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Теменужка Георгиева Петкова"
+    },
+    {
+      "id": "person:АНТОН ВЪРБАНОВ ФЛОРОВ",
+      "type": "person",
+      "label": "Антон Върбанов Флоров"
+    },
+    {
+      "id": "person:ИСКРА КРУМОВА ЙОНОВА",
+      "type": "person",
+      "label": "Искра Крумова Йонова"
+    },
+    {
+      "id": "person:НАДКА НИКОЛОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Надка Николова Кръстева"
+    },
+    {
+      "id": "person:ВЕРМОЗИЯ ПЕТРОВА СТАНКОВА",
+      "type": "person",
+      "label": "Вермозия Петрова Станкова"
+    },
+    {
+      "id": "person:СВЕТОЗАРА АРИСТОТЕЛОВА ФИЛИПОВА",
+      "type": "person",
+      "label": "Светозара Аристотелова Филипова"
+    },
+    {
+      "id": "person:ПАВЛИНА ПАВЛОВА ГАРЕВА",
+      "type": "person",
+      "label": "Павлина Павлова Гарева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:albena-lyubenova-gerasimova-072020",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА СЛАВОМИРОВА МАРИНОВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕМЕНУЖКА ГЕОРГИЕВА ПЕТКОВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ВЪРБАНОВ ФЛОРОВ",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСКРА КРУМОВА ЙОНОВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДКА НИКОЛОВА КРЪСТЕВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРМОЗИЯ ПЕТРОВА СТАНКОВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАРА АРИСТОТЕЛОВА ФИЛИПОВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ПАВЛОВА ГАРЕВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДКА НИКОЛОВА КРЪСТЕВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА СЛАВОМИРОВА МАРИНОВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСКРА КРУМОВА ЙОНОВА",
+      "target": "company:tr:000153366",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

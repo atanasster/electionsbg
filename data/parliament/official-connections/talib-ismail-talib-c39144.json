@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:talib-ismail-talib-c39144","nodes":[{"id":"official:talib-ismail-talib-c39144","type":"official","slug":"talib-ismail-talib-c39144","label":"Талиб Исмаил Талиб","tier":"municipal","role":"councillor","municipality":"Нови пазар"},{"id":"company:tr:203722166","type":"company","label":"Нери Консулт ЕООД","slug":null,"uic":"203722166","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:talib-ismail-talib-c39144","target":"company:tr:203722166","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:talib-ismail-talib-c39144",
+  "nodes": [
+    {
+      "id": "official:talib-ismail-talib-c39144",
+      "type": "official",
+      "slug": "talib-ismail-talib-c39144",
+      "label": "Талиб Исмаил Талиб",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нови пазар"
+    },
+    {
+      "id": "company:tr:203722166",
+      "type": "company",
+      "label": "Нери Консулт ЕООД",
+      "slug": null,
+      "uic": "203722166",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:talib-ismail-talib-c39144",
+      "target": "company:tr:203722166",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

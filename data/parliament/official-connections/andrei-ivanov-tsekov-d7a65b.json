@@ -1,1 +1,230 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:andrei-ivanov-tsekov-d7a65b","nodes":[{"id":"official:andrei-ivanov-tsekov-d7a65b","type":"official","slug":"andrei-ivanov-tsekov-d7a65b","label":"Андрей Иванов Цеков","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:Пропърти-Тръст-ЕООД","type":"company","label":"\"Пропърти Тръст\" ЕООД","slug":"Пропърти-Тръст-ЕООД","uic":"175299699","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"company:Веридея-ООД","type":"company","label":"\"Веридея\" ООД","slug":"Веридея-ООД","uic":"205763496","legalForm":"OOD","status":"active","seat":"Плевен"},{"id":"company:Инфинитус-ЕООД","type":"company","label":"\"Инфинитус\" ЕООД","slug":"Инфинитус-ЕООД","uic":"203105962","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:4707","type":"mp","mpId":4707,"label":"Андрей Иванов Цеков","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["48","49","50","51"]},{"id":"person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА","type":"person","label":"Деница Благоева Цекова"},{"id":"official:andrei-ivanov-tsekov-bf4781","type":"official","slug":"andrei-ivanov-tsekov-bf4781","label":"Андрей Иванов Цеков","tier":"executive","role":"cabinet","municipality":null},{"id":"person:СТЕФАН АТАНАСОВ АТАНАСОВ","type":"person","label":"Стефан Атанасов Атанасов"},{"id":"person:ЛЮБИМКА ИВАНОВА ЛЮБОМИРОВА-ГЕОРГИЕВА","type":"person","label":"Любимка Иванова Любомирова-Георгиева"},{"id":"official:aleksandr-georgiev-georgiev-721ae9","type":"official","slug":"aleksandr-georgiev-georgiev-721ae9","label":"Александър Георгиев Георгиев","tier":"executive","role":"agency_head","municipality":null}],"edges":[{"source":"official:andrei-ivanov-tsekov-d7a65b","target":"company:Пропърти-Тръст-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:andrei-ivanov-tsekov-d7a65b","target":"company:Веридея-ООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:andrei-ivanov-tsekov-d7a65b","target":"company:Инфинитус-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:4707","target":"company:Пропърти-Тръст-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА","target":"company:Пропърти-Тръст-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА","target":"company:Пропърти-Тръст-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"official:andrei-ivanov-tsekov-bf4781","target":"company:Пропърти-Тръст-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:4707","target":"company:Веридея-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА","target":"company:Веридея-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АТАНАСОВ АТАНАСОВ","target":"company:Веридея-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА","target":"company:Веридея-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБИМКА ИВАНОВА ЛЮБОМИРОВА-ГЕОРГИЕВА","target":"company:Веридея-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"official:aleksandr-georgiev-georgiev-721ae9","target":"company:Веридея-ООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:andrei-ivanov-tsekov-bf4781","target":"company:Веридея-ООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:4707","target":"company:Инфинитус-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА","target":"company:Инфинитус-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"official:andrei-ivanov-tsekov-bf4781","target":"company:Инфинитус-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:andrei-ivanov-tsekov-d7a65b",
+  "nodes": [
+    {
+      "id": "official:andrei-ivanov-tsekov-d7a65b",
+      "type": "official",
+      "slug": "andrei-ivanov-tsekov-d7a65b",
+      "label": "Андрей Иванов Цеков",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:Пропърти-Тръст-ЕООД",
+      "type": "company",
+      "label": "\"Пропърти Тръст\" ЕООД",
+      "slug": "Пропърти-Тръст-ЕООД",
+      "uic": "175299699",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Веридея-ООД",
+      "type": "company",
+      "label": "\"Веридея\" ООД",
+      "slug": "Веридея-ООД",
+      "uic": "205763496",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Плевен"
+    },
+    {
+      "id": "company:Инфинитус-ЕООД",
+      "type": "company",
+      "label": "\"Инфинитус\" ЕООД",
+      "slug": "Инфинитус-ЕООД",
+      "uic": "203105962",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:4707",
+      "type": "mp",
+      "mpId": 4707,
+      "label": "Андрей Иванов Цеков",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА",
+      "type": "person",
+      "label": "Деница Благоева Цекова"
+    },
+    {
+      "id": "official:andrei-ivanov-tsekov-bf4781",
+      "type": "official",
+      "slug": "andrei-ivanov-tsekov-bf4781",
+      "label": "Андрей Иванов Цеков",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "person:СТЕФАН АТАНАСОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Стефан Атанасов Атанасов"
+    },
+    {
+      "id": "person:ЛЮБИМКА ИВАНОВА ЛЮБОМИРОВА-ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Любимка Иванова Любомирова-Георгиева"
+    },
+    {
+      "id": "official:aleksandr-georgiev-georgiev-721ae9",
+      "type": "official",
+      "slug": "aleksandr-georgiev-georgiev-721ae9",
+      "label": "Александър Георгиев Георгиев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:andrei-ivanov-tsekov-d7a65b",
+      "target": "company:Пропърти-Тръст-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:andrei-ivanov-tsekov-d7a65b",
+      "target": "company:Веридея-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:andrei-ivanov-tsekov-d7a65b",
+      "target": "company:Инфинитус-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4707",
+      "target": "company:Пропърти-Тръст-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА",
+      "target": "company:Пропърти-Тръст-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА",
+      "target": "company:Пропърти-Тръст-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:andrei-ivanov-tsekov-bf4781",
+      "target": "company:Пропърти-Тръст-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4707",
+      "target": "company:Веридея-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА",
+      "target": "company:Веридея-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АТАНАСОВ АТАНАСОВ",
+      "target": "company:Веридея-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА",
+      "target": "company:Веридея-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБИМКА ИВАНОВА ЛЮБОМИРОВА-ГЕОРГИЕВА",
+      "target": "company:Веридея-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleksandr-georgiev-georgiev-721ae9",
+      "target": "company:Веридея-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:andrei-ivanov-tsekov-bf4781",
+      "target": "company:Веридея-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4707",
+      "target": "company:Инфинитус-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА БЛАГОЕВА ЦЕКОВА",
+      "target": "company:Инфинитус-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:andrei-ivanov-tsekov-bf4781",
+      "target": "company:Инфинитус-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

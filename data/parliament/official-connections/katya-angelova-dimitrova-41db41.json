@@ -1,1 +1,251 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:katya-angelova-dimitrova-41db41","nodes":[{"id":"official:katya-angelova-dimitrova-41db41","type":"official","slug":"katya-angelova-dimitrova-41db41","label":"Катя Ангелова Димитрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000404637","type":"company","label":"Народно читалище &quot;Пробуда - 1928&quot;","slug":null,"uic":"000404637","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФКА ИВАНОВА КУНЕВА","type":"person","label":"Стефка Иванова Кунева"},{"id":"person:ВЯРКА ВЕЛЧЕВА ПАЛАЩУРОВА","type":"person","label":"Вярка Велчева Палащурова"},{"id":"person:КАТЯ ДОБРЕВА ГАНЧЕВА","type":"person","label":"Катя Добрева Ганчева"},{"id":"person:ЕМИЛ НИКОЛАЕВ ПАЛАЩУРОВ","type":"person","label":"Емил Николаев Палащуров"},{"id":"person:ИВАЙЛО ИВАНОВ ПЕТРОВ","type":"person","label":"Ивайло Иванов Петров"},{"id":"person:КАТЯ ЯКОВА ИВАНОВА","type":"person","label":"Катя Якова Иванова"},{"id":"person:АНЕТА ПЕТКОВА ГЕШЕВА","type":"person","label":"Анета Петкова Гешева"},{"id":"person:ЙОАНА ЙОНКОВА БАНЧЕВА","type":"person","label":"Йоана Йонкова Банчева"},{"id":"person:ВАЛЕНТИНА ДИМИТРОВА ЙОРДАНОВА","type":"person","label":"Валентина Димитрова Йорданова"},{"id":"person:ИВЕТ ЛЪЧЕЗАРОВА КОЕВА","type":"person","label":"Ивет Лъчезарова Коева"},{"id":"person:ГЕОРГИ ИВАНОВ ПЕНГЕЗОВ","type":"person","label":"Георги Иванов Пенгезов"},{"id":"person:СИЛВИО ИВАЙЛОВ БАНЧЕВ","type":"person","label":"Силвио Ивайлов Банчев"},{"id":"person:ПЕТЯ ИВАНОВА ПЕТРОВА","type":"person","label":"Петя Иванова Петрова"},{"id":"person:ЦВЕТОМИРА ИВАНОВА ИВАНОВА","type":"person","label":"Цветомира Иванова Иванова"},{"id":"person:БОРЯНА БОРИСОВА ПАНТЕЛЕЕВА-СИСТОВА","type":"person","label":"Боряна Борисова Пантелеева-Систова"},{"id":"person:БОРИСЛАВА ЗАХАРИЕВА АНТОНОВА","type":"person","label":"Борислава Захариева Антонова"}],"edges":[{"source":"official:katya-angelova-dimitrova-41db41","target":"company:tr:000404637","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФКА ИВАНОВА КУНЕВА","target":"company:tr:000404637","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЯРКА ВЕЛЧЕВА ПАЛАЩУРОВА","target":"company:tr:000404637","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ДОБРЕВА ГАНЧЕВА","target":"company:tr:000404637","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ НИКОЛАЕВ ПАЛАЩУРОВ","target":"company:tr:000404637","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ИВАНОВ ПЕТРОВ","target":"company:tr:000404637","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ЯКОВА ИВАНОВА","target":"company:tr:000404637","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНЕТА ПЕТКОВА ГЕШЕВА","target":"company:tr:000404637","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАНА ЙОНКОВА БАНЧЕВА","target":"company:tr:000404637","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ДИМИТРОВА ЙОРДАНОВА","target":"company:tr:000404637","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАНА ЙОНКОВА БАНЧЕВА","target":"company:tr:000404637","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕТ ЛЪЧЕЗАРОВА КОЕВА","target":"company:tr:000404637","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ ПЕНГЕЗОВ","target":"company:tr:000404637","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИО ИВАЙЛОВ БАНЧЕВ","target":"company:tr:000404637","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ИВАНОВА ПЕТРОВА","target":"company:tr:000404637","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОМИРА ИВАНОВА ИВАНОВА","target":"company:tr:000404637","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯНА БОРИСОВА ПАНТЕЛЕЕВА-СИСТОВА","target":"company:tr:000404637","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВА ЗАХАРИЕВА АНТОНОВА","target":"company:tr:000404637","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:katya-angelova-dimitrova-41db41",
+  "nodes": [
+    {
+      "id": "official:katya-angelova-dimitrova-41db41",
+      "type": "official",
+      "slug": "katya-angelova-dimitrova-41db41",
+      "label": "Катя Ангелова Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000404637",
+      "type": "company",
+      "label": "Народно читалище &quot;Пробуда - 1928&quot;",
+      "slug": null,
+      "uic": "000404637",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФКА ИВАНОВА КУНЕВА",
+      "type": "person",
+      "label": "Стефка Иванова Кунева"
+    },
+    {
+      "id": "person:ВЯРКА ВЕЛЧЕВА ПАЛАЩУРОВА",
+      "type": "person",
+      "label": "Вярка Велчева Палащурова"
+    },
+    {
+      "id": "person:КАТЯ ДОБРЕВА ГАНЧЕВА",
+      "type": "person",
+      "label": "Катя Добрева Ганчева"
+    },
+    {
+      "id": "person:ЕМИЛ НИКОЛАЕВ ПАЛАЩУРОВ",
+      "type": "person",
+      "label": "Емил Николаев Палащуров"
+    },
+    {
+      "id": "person:ИВАЙЛО ИВАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Ивайло Иванов Петров"
+    },
+    {
+      "id": "person:КАТЯ ЯКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Катя Якова Иванова"
+    },
+    {
+      "id": "person:АНЕТА ПЕТКОВА ГЕШЕВА",
+      "type": "person",
+      "label": "Анета Петкова Гешева"
+    },
+    {
+      "id": "person:ЙОАНА ЙОНКОВА БАНЧЕВА",
+      "type": "person",
+      "label": "Йоана Йонкова Банчева"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ДИМИТРОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Валентина Димитрова Йорданова"
+    },
+    {
+      "id": "person:ИВЕТ ЛЪЧЕЗАРОВА КОЕВА",
+      "type": "person",
+      "label": "Ивет Лъчезарова Коева"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ПЕНГЕЗОВ",
+      "type": "person",
+      "label": "Георги Иванов Пенгезов"
+    },
+    {
+      "id": "person:СИЛВИО ИВАЙЛОВ БАНЧЕВ",
+      "type": "person",
+      "label": "Силвио Ивайлов Банчев"
+    },
+    {
+      "id": "person:ПЕТЯ ИВАНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Петя Иванова Петрова"
+    },
+    {
+      "id": "person:ЦВЕТОМИРА ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Цветомира Иванова Иванова"
+    },
+    {
+      "id": "person:БОРЯНА БОРИСОВА ПАНТЕЛЕЕВА-СИСТОВА",
+      "type": "person",
+      "label": "Боряна Борисова Пантелеева-Систова"
+    },
+    {
+      "id": "person:БОРИСЛАВА ЗАХАРИЕВА АНТОНОВА",
+      "type": "person",
+      "label": "Борислава Захариева Антонова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katya-angelova-dimitrova-41db41",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФКА ИВАНОВА КУНЕВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРКА ВЕЛЧЕВА ПАЛАЩУРОВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ДОБРЕВА ГАНЧЕВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ НИКОЛАЕВ ПАЛАЩУРОВ",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ЯКОВА ИВАНОВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ПЕТКОВА ГЕШЕВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ЙОНКОВА БАНЧЕВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ДИМИТРОВА ЙОРДАНОВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ЙОНКОВА БАНЧЕВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕТ ЛЪЧЕЗАРОВА КОЕВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ПЕНГЕЗОВ",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИО ИВАЙЛОВ БАНЧЕВ",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ИВАНОВА ПЕТРОВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИРА ИВАНОВА ИВАНОВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА БОРИСОВА ПАНТЕЛЕЕВА-СИСТОВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВА ЗАХАРИЕВА АНТОНОВА",
+      "target": "company:tr:000404637",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

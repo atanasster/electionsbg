@@ -1,1 +1,179 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:velizar-krumov-krumov-1b852b","nodes":[{"id":"official:velizar-krumov-krumov-1b852b","type":"official","slug":"velizar-krumov-krumov-1b852b","label":"Велизар Крумов Крумов","tier":"municipal","role":"councillor","municipality":"Своге"},{"id":"company:tr:201202932","type":"company","label":"Сокър Дриймс ООД","slug":null,"uic":"201202932","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207685231","type":"company","label":"ДВК 2021 ЕООД","slug":null,"uic":"207685231","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206585559","type":"company","label":"Сдружение футболен клуб сините орли","slug":null,"uic":"206585559","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФАН СТЕФАНОВ СПАСОВ","type":"person","label":"Стефан Стефанов Спасов"},{"id":"person:МИЛЕН ИВАНОВ ПЕТКОВ","type":"person","label":"Милен Иванов Петков"},{"id":"person:ДЕЯН ВАЛЕНТИНОВ БОРИСОВ","type":"person","label":"Деян Валентинов Борисов"},{"id":"person:ДАРИО ВАСИЛЕВ СТОИЧКОВ","type":"person","label":"Дарио Василев Стоичков"}],"edges":[{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:201202932","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:207685231","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:206585559","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:201202932","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:207685231","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:207685231","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:206585559","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:206585559","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН СТЕФАНОВ СПАСОВ","target":"company:tr:201202932","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ИВАНОВ ПЕТКОВ","target":"company:tr:201202932","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН СТЕФАНОВ СПАСОВ","target":"company:tr:201202932","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ИВАНОВ ПЕТКОВ","target":"company:tr:201202932","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН ВАЛЕНТИНОВ БОРИСОВ","target":"company:tr:206585559","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИО ВАСИЛЕВ СТОИЧКОВ","target":"company:tr:206585559","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:velizar-krumov-krumov-1b852b",
+  "nodes": [
+    {
+      "id": "official:velizar-krumov-krumov-1b852b",
+      "type": "official",
+      "slug": "velizar-krumov-krumov-1b852b",
+      "label": "Велизар Крумов Крумов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Своге"
+    },
+    {
+      "id": "company:tr:201202932",
+      "type": "company",
+      "label": "Сокър Дриймс ООД",
+      "slug": null,
+      "uic": "201202932",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207685231",
+      "type": "company",
+      "label": "ДВК 2021 ЕООД",
+      "slug": null,
+      "uic": "207685231",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206585559",
+      "type": "company",
+      "label": "Сдружение футболен клуб сините орли",
+      "slug": null,
+      "uic": "206585559",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН СТЕФАНОВ СПАСОВ",
+      "type": "person",
+      "label": "Стефан Стефанов Спасов"
+    },
+    {
+      "id": "person:МИЛЕН ИВАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Милен Иванов Петков"
+    },
+    {
+      "id": "person:ДЕЯН ВАЛЕНТИНОВ БОРИСОВ",
+      "type": "person",
+      "label": "Деян Валентинов Борисов"
+    },
+    {
+      "id": "person:ДАРИО ВАСИЛЕВ СТОИЧКОВ",
+      "type": "person",
+      "label": "Дарио Василев Стоичков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:201202932",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:207685231",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:206585559",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:201202932",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:207685231",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:207685231",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:206585559",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:206585559",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН СТЕФАНОВ СПАСОВ",
+      "target": "company:tr:201202932",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:201202932",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН СТЕФАНОВ СПАСОВ",
+      "target": "company:tr:201202932",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:201202932",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ВАЛЕНТИНОВ БОРИСОВ",
+      "target": "company:tr:206585559",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИО ВАСИЛЕВ СТОИЧКОВ",
+      "target": "company:tr:206585559",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

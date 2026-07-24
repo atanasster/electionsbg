@@ -1,1 +1,191 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-iordanov-andonov-ebccad","nodes":[{"id":"official:georgi-iordanov-andonov-ebccad","type":"official","slug":"georgi-iordanov-andonov-ebccad","label":"Георги Йорданов Андонов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:177157677","type":"company","label":"ПАИСИЙ ХИЛЕНДАРСКИ 2017","slug":null,"uic":"177157677","legalForm":null,"status":null,"seat":null},{"id":"person:МЕТОДИ ОГНЯНОВ НИКОЛОВ","type":"person","label":"Методи Огнянов Николов"},{"id":"person:АНТОНИЙ КОЛЕВ ГЕОРГИЕВ","type":"person","label":"Антоний Колев Георгиев"},{"id":"person:АНТОН ТОДОРОВ ПАРЧЕВ","type":"person","label":"Антон Тодоров Парчев"},{"id":"person:ВАЛЕРИ ТИМОТЕЕВ РАДЛЕВ","type":"person","label":"Валери Тимотеев Радлев"},{"id":"person:БОЙКО НИКОЛОВ ПЪРВАНОВ","type":"person","label":"Бойко Николов Първанов"},{"id":"person:РАДОСТИНА ЙОРДАНОВА КИРИЛОВА","type":"person","label":"Радостина Йорданова Кирилова"},{"id":"person:ВИОЛИНА КОСТАДИНОВА СТОИЛКОВА","type":"person","label":"Виолина Костадинова Стоилкова"},{"id":"person:КАТЯ РАДОСЛАВОВА ГРУЙЧЕВА","type":"person","label":"Катя Радославова Груйчева"},{"id":"person:ЛЮДМИЛ ЛЮБЕНОВ КОСТАДИНОВ","type":"person","label":"Людмил Любенов Костадинов"},{"id":"person:ИЛИАНА ИЛИЕВА БАЙРАКТАРОВА-МИРЧЕВА","type":"person","label":"Илиана Илиева Байрактарова-Мирчева"},{"id":"person:АСЕН СВИЛЕНОВ АСЕНОВ","type":"person","label":"Асен Свиленов Асенов"},{"id":"person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ","type":"person","label":"Ивайло Георгиев Иванов"}],"edges":[{"source":"official:georgi-iordanov-andonov-ebccad","target":"company:tr:177157677","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МЕТОДИ ОГНЯНОВ НИКОЛОВ","target":"company:tr:177157677","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЙ КОЛЕВ ГЕОРГИЕВ","target":"company:tr:177157677","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ТОДОРОВ ПАРЧЕВ","target":"company:tr:177157677","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ ТИМОТЕЕВ РАДЛЕВ","target":"company:tr:177157677","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКО НИКОЛОВ ПЪРВАНОВ","target":"company:tr:177157677","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА ЙОРДАНОВА КИРИЛОВА","target":"company:tr:177157677","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛИНА КОСТАДИНОВА СТОИЛКОВА","target":"company:tr:177157677","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ РАДОСЛАВОВА ГРУЙЧЕВА","target":"company:tr:177157677","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ ЛЮБЕНОВ КОСТАДИНОВ","target":"company:tr:177157677","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИАНА ИЛИЕВА БАЙРАКТАРОВА-МИРЧЕВА","target":"company:tr:177157677","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН СВИЛЕНОВ АСЕНОВ","target":"company:tr:177157677","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ","target":"company:tr:177157677","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-iordanov-andonov-ebccad",
+  "nodes": [
+    {
+      "id": "official:georgi-iordanov-andonov-ebccad",
+      "type": "official",
+      "slug": "georgi-iordanov-andonov-ebccad",
+      "label": "Георги Йорданов Андонов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177157677",
+      "type": "company",
+      "label": "ПАИСИЙ ХИЛЕНДАРСКИ 2017",
+      "slug": null,
+      "uic": "177157677",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЕТОДИ ОГНЯНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Методи Огнянов Николов"
+    },
+    {
+      "id": "person:АНТОНИЙ КОЛЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Антоний Колев Георгиев"
+    },
+    {
+      "id": "person:АНТОН ТОДОРОВ ПАРЧЕВ",
+      "type": "person",
+      "label": "Антон Тодоров Парчев"
+    },
+    {
+      "id": "person:ВАЛЕРИ ТИМОТЕЕВ РАДЛЕВ",
+      "type": "person",
+      "label": "Валери Тимотеев Радлев"
+    },
+    {
+      "id": "person:БОЙКО НИКОЛОВ ПЪРВАНОВ",
+      "type": "person",
+      "label": "Бойко Николов Първанов"
+    },
+    {
+      "id": "person:РАДОСТИНА ЙОРДАНОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Радостина Йорданова Кирилова"
+    },
+    {
+      "id": "person:ВИОЛИНА КОСТАДИНОВА СТОИЛКОВА",
+      "type": "person",
+      "label": "Виолина Костадинова Стоилкова"
+    },
+    {
+      "id": "person:КАТЯ РАДОСЛАВОВА ГРУЙЧЕВА",
+      "type": "person",
+      "label": "Катя Радославова Груйчева"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ЛЮБЕНОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Людмил Любенов Костадинов"
+    },
+    {
+      "id": "person:ИЛИАНА ИЛИЕВА БАЙРАКТАРОВА-МИРЧЕВА",
+      "type": "person",
+      "label": "Илиана Илиева Байрактарова-Мирчева"
+    },
+    {
+      "id": "person:АСЕН СВИЛЕНОВ АСЕНОВ",
+      "type": "person",
+      "label": "Асен Свиленов Асенов"
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Георгиев Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-iordanov-andonov-ebccad",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕТОДИ ОГНЯНОВ НИКОЛОВ",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЙ КОЛЕВ ГЕОРГИЕВ",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ТОДОРОВ ПАРЧЕВ",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ТИМОТЕЕВ РАДЛЕВ",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО НИКОЛОВ ПЪРВАНОВ",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ЙОРДАНОВА КИРИЛОВА",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛИНА КОСТАДИНОВА СТОИЛКОВА",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ РАДОСЛАВОВА ГРУЙЧЕВА",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ЛЮБЕНОВ КОСТАДИНОВ",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАНА ИЛИЕВА БАЙРАКТАРОВА-МИРЧЕВА",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН СВИЛЕНОВ АСЕНОВ",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:177157677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

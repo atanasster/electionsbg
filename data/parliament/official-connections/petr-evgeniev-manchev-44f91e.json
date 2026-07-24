@@ -1,1 +1,120 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-evgeniev-manchev-44f91e","nodes":[{"id":"official:petr-evgeniev-manchev-44f91e","type":"official","slug":"petr-evgeniev-manchev-44f91e","label":"Петър Евгениев Манчев","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:148089508","type":"company","label":"ПАЗАРИ","slug":null,"uic":"148089508","legalForm":null,"status":null,"seat":null},{"id":"official:nedko-nikolaev-radev-90afa6","type":"official","slug":"nedko-nikolaev-radev-90afa6","label":"Недко Николаев Радев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ПЕТЪР ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Петър Димитров Димитров"},{"id":"person:МИГЛЕНА СТЕФАНОВА ГЕОРГИЕВА","type":"person","label":"Миглена Стефанова Георгиева"},{"id":"person:ВАНЯ ИЛИЕВА СТОЕВА","type":"person","label":"Ваня Илиева Стоева"},{"id":"person:ПЕТЪР НИКОЛАЕВ ЛИПЧЕВ","type":"person","label":"Петър Николаев Липчев"}],"edges":[{"source":"official:petr-evgeniev-manchev-44f91e","target":"company:tr:148089508","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:nedko-nikolaev-radev-90afa6","target":"company:tr:148089508","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:nedko-nikolaev-radev-90afa6","target":"company:tr:148089508","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЪР ДИМИТРОВ ДИМИТРОВ","target":"company:tr:148089508","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА СТЕФАНОВА ГЕОРГИЕВА","target":"company:tr:148089508","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ИЛИЕВА СТОЕВА","target":"company:tr:148089508","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ИЛИЕВА СТОЕВА","target":"company:tr:148089508","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР НИКОЛАЕВ ЛИПЧЕВ","target":"company:tr:148089508","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-evgeniev-manchev-44f91e",
+  "nodes": [
+    {
+      "id": "official:petr-evgeniev-manchev-44f91e",
+      "type": "official",
+      "slug": "petr-evgeniev-manchev-44f91e",
+      "label": "Петър Евгениев Манчев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:148089508",
+      "type": "company",
+      "label": "ПАЗАРИ",
+      "slug": null,
+      "uic": "148089508",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nedko-nikolaev-radev-90afa6",
+      "type": "official",
+      "slug": "nedko-nikolaev-radev-90afa6",
+      "label": "Недко Николаев Радев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЕТЪР ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Петър Димитров Димитров"
+    },
+    {
+      "id": "person:МИГЛЕНА СТЕФАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Миглена Стефанова Георгиева"
+    },
+    {
+      "id": "person:ВАНЯ ИЛИЕВА СТОЕВА",
+      "type": "person",
+      "label": "Ваня Илиева Стоева"
+    },
+    {
+      "id": "person:ПЕТЪР НИКОЛАЕВ ЛИПЧЕВ",
+      "type": "person",
+      "label": "Петър Николаев Липчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-evgeniev-manchev-44f91e",
+      "target": "company:tr:148089508",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nedko-nikolaev-radev-90afa6",
+      "target": "company:tr:148089508",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nedko-nikolaev-radev-90afa6",
+      "target": "company:tr:148089508",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:148089508",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА СТЕФАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:148089508",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ИЛИЕВА СТОЕВА",
+      "target": "company:tr:148089508",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ИЛИЕВА СТОЕВА",
+      "target": "company:tr:148089508",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР НИКОЛАЕВ ЛИПЧЕВ",
+      "target": "company:tr:148089508",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

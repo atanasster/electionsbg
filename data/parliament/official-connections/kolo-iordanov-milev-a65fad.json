@@ -1,1 +1,270 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kolo-iordanov-milev-a65fad","nodes":[{"id":"official:kolo-iordanov-milev-a65fad","type":"official","slug":"kolo-iordanov-milev-a65fad","label":"Кольо Йорданов Милев","tier":"municipal","role":"councillor","municipality":"Сливен"},{"id":"company:tr:121071877","type":"company","label":"СЪЮЗ НА ОФИЦЕРИТЕ И СЕРЖАНТИТЕ ОТ ЗАПАСА И РЕЗЕРВА","slug":null,"uic":"121071877","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:3060","type":"mp","mpId":3060,"label":"Кольо Йорданов Милев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["44"]},{"id":"person:ЗЛАТАН КИРИЛОВ СТОЙКОВ","type":"person","label":"Златан Кирилов Стойков"},{"id":"person:ПЛАМЕН АСЕНОВ АТАНАСОВ","type":"person","label":"Пламен Асенов Атанасов"},{"id":"person:ОГНЯН ГЕРГОВ МАРИНОВ","type":"person","label":"Огнян Гергов Маринов"},{"id":"person:ИВАН ЕВТИМОВ ПЕТРОВ","type":"person","label":"Иван Евтимов Петров"},{"id":"person:ХРИСТО СИМЕОНОВ ПЕТКОВ","type":"person","label":"Христо Симеонов Петков"},{"id":"person:ГЕОРГИ ЦВЕТАНОВ МОТЕВ","type":"person","label":"Георги Цветанов Мотев"},{"id":"person:МЕТОДИ АЛЕКСАНДРОВ СЛИШКОВ","type":"person","label":"Методи Александров Слишков"},{"id":"person:КОЛЬО ДИМОВ КОЛЕВ","type":"person","label":"Кольо Димов Колев"},{"id":"person:КИРИЛ ПЕТРОВ ЙОРДАНОВ","type":"person","label":"Кирил Петров Йорданов"},{"id":"person:ВАСИЛ ВАСИЛЕВ ВЪРБАНОВ","type":"person","label":"Васил Василев Върбанов"},{"id":"person:ПАВЕЛ ПЕТРОВ СТАНЕВ","type":"person","label":"Павел Петров Станев"},{"id":"person:МЛАДЕН МИХАЙЛОВ МЛАДЕНОВ","type":"person","label":"Младен Михайлов Младенов"},{"id":"person:ЧАВДАР КИРИЛОВ ПЕТРОВ","type":"person","label":"Чавдар Кирилов Петров"},{"id":"person:СТЕФАН ДЯНКОВ СТЕФАНОВ","type":"person","label":"Стефан Дянков Стефанов"},{"id":"person:ЦВЯТКО ТОДОРОВ ДОНЧЕВ","type":"person","label":"Цвятко Тодоров Дончев"},{"id":"person:ЯНКО КАНЕВ ЯНЕВ","type":"person","label":"Янко Канев Янев"}],"edges":[{"source":"official:kolo-iordanov-milev-a65fad","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3060","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЗЛАТАН КИРИЛОВ СТОЙКОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН АСЕНОВ АТАНАСОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯН ГЕРГОВ МАРИНОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЕВТИМОВ ПЕТРОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО СИМЕОНОВ ПЕТКОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЦВЕТАНОВ МОТЕВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МЕТОДИ АЛЕКСАНДРОВ СЛИШКОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОЛЬО ДИМОВ КОЛЕВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ПЕТРОВ ЙОРДАНОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ВАСИЛЕВ ВЪРБАНОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ПЕТРОВ СТАНЕВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МЛАДЕН МИХАЙЛОВ МЛАДЕНОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР КИРИЛОВ ПЕТРОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ДЯНКОВ СТЕФАНОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТАН КИРИЛОВ СТОЙКОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЯТКО ТОДОРОВ ДОНЧЕВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКО КАНЕВ ЯНЕВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kolo-iordanov-milev-a65fad",
+  "nodes": [
+    {
+      "id": "official:kolo-iordanov-milev-a65fad",
+      "type": "official",
+      "slug": "kolo-iordanov-milev-a65fad",
+      "label": "Кольо Йорданов Милев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен"
+    },
+    {
+      "id": "company:tr:121071877",
+      "type": "company",
+      "label": "СЪЮЗ НА ОФИЦЕРИТЕ И СЕРЖАНТИТЕ ОТ ЗАПАСА И РЕЗЕРВА",
+      "slug": null,
+      "uic": "121071877",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:3060",
+      "type": "mp",
+      "mpId": 3060,
+      "label": "Кольо Йорданов Милев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44"
+      ]
+    },
+    {
+      "id": "person:ЗЛАТАН КИРИЛОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Златан Кирилов Стойков"
+    },
+    {
+      "id": "person:ПЛАМЕН АСЕНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Пламен Асенов Атанасов"
+    },
+    {
+      "id": "person:ОГНЯН ГЕРГОВ МАРИНОВ",
+      "type": "person",
+      "label": "Огнян Гергов Маринов"
+    },
+    {
+      "id": "person:ИВАН ЕВТИМОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Иван Евтимов Петров"
+    },
+    {
+      "id": "person:ХРИСТО СИМЕОНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Христо Симеонов Петков"
+    },
+    {
+      "id": "person:ГЕОРГИ ЦВЕТАНОВ МОТЕВ",
+      "type": "person",
+      "label": "Георги Цветанов Мотев"
+    },
+    {
+      "id": "person:МЕТОДИ АЛЕКСАНДРОВ СЛИШКОВ",
+      "type": "person",
+      "label": "Методи Александров Слишков"
+    },
+    {
+      "id": "person:КОЛЬО ДИМОВ КОЛЕВ",
+      "type": "person",
+      "label": "Кольо Димов Колев"
+    },
+    {
+      "id": "person:КИРИЛ ПЕТРОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Кирил Петров Йорданов"
+    },
+    {
+      "id": "person:ВАСИЛ ВАСИЛЕВ ВЪРБАНОВ",
+      "type": "person",
+      "label": "Васил Василев Върбанов"
+    },
+    {
+      "id": "person:ПАВЕЛ ПЕТРОВ СТАНЕВ",
+      "type": "person",
+      "label": "Павел Петров Станев"
+    },
+    {
+      "id": "person:МЛАДЕН МИХАЙЛОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Младен Михайлов Младенов"
+    },
+    {
+      "id": "person:ЧАВДАР КИРИЛОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Чавдар Кирилов Петров"
+    },
+    {
+      "id": "person:СТЕФАН ДЯНКОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Дянков Стефанов"
+    },
+    {
+      "id": "person:ЦВЯТКО ТОДОРОВ ДОНЧЕВ",
+      "type": "person",
+      "label": "Цвятко Тодоров Дончев"
+    },
+    {
+      "id": "person:ЯНКО КАНЕВ ЯНЕВ",
+      "type": "person",
+      "label": "Янко Канев Янев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kolo-iordanov-milev-a65fad",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3060",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЛАТАН КИРИЛОВ СТОЙКОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН АСЕНОВ АТАНАСОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН ГЕРГОВ МАРИНОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЕВТИМОВ ПЕТРОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СИМЕОНОВ ПЕТКОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЦВЕТАНОВ МОТЕВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ АЛЕКСАНДРОВ СЛИШКОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО ДИМОВ КОЛЕВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ПЕТРОВ ЙОРДАНОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВАСИЛЕВ ВЪРБАНОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ПЕТРОВ СТАНЕВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕН МИХАЙЛОВ МЛАДЕНОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР КИРИЛОВ ПЕТРОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДЯНКОВ СТЕФАНОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТАН КИРИЛОВ СТОЙКОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЯТКО ТОДОРОВ ДОНЧЕВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО КАНЕВ ЯНЕВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

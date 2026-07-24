@@ -1,1 +1,299 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:karamfil-smilenov-dzhembazki-966a49","nodes":[{"id":"official:karamfil-smilenov-dzhembazki-966a49","type":"official","slug":"karamfil-smilenov-dzhembazki-966a49","label":"Карамфил Смиленов Джембазки","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:101518491","type":"company","label":"СДРУЖЕНИЕ &quot;ЛОВНО-РИБАРСКО ДРУЖЕСТВО-РАЗЛОГ&quot;","slug":null,"uic":"101518491","legalForm":null,"status":null,"seat":null},{"id":"official:ahmed-mustafa-dungov-bff5a8","type":"official","slug":"ahmed-mustafa-dungov-bff5a8","label":"Ахмед Мустафа Дунгьов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:БОРИСЛАВ ИВАНОВ БОДЕНОВ","type":"person","label":"Борислав Иванов Боденов"},{"id":"person:ЙОРДАН ПЕТРОВ БАНГЕЕВ","type":"person","label":"Йордан Петров Бангеев"},{"id":"person:АХМЕД АЛИ ВЪЗГОВ","type":"person","label":"Ахмед Али Възгов"},{"id":"person:ВЛАДКО БОРИСОВ БАНГЕЕВ","type":"person","label":"Владко Борисов Бангеев"},{"id":"person:АЛИШ ИСМАИЛОВ КУНЬОВ","type":"person","label":"Алиш Исмаилов Куньов"},{"id":"person:ГЕОРГИ ПЕТРОВ АТАНАСОВ","type":"person","label":"Георги Петров Атанасов"},{"id":"person:НИКОЛА ДИМИТРОВ КОЛЧЕВ","type":"person","label":"Никола Димитров Колчев"},{"id":"person:ЮСЕИН КАДРИ ТУТАЛЪ","type":"person","label":"Юсеин Кадри Туталъ"},{"id":"person:КОСТАДИН ИВАНОВ ЗАГОРЧИН","type":"person","label":"Костадин Иванов Загорчин"},{"id":"person:РУМЕН НИКОЛОВ КАРАДЖОВ","type":"person","label":"Румен Николов Караджов"},{"id":"person:МАРИН НИКОЛОВ СЛАНЧЕВ","type":"person","label":"Марин Николов Сланчев"},{"id":"person:ИВАН СЛАВЧОВ ЛИПЕВ","type":"person","label":"Иван Славчов Липев"},{"id":"person:ГЕОРГИ НИКОЛОВ ЦЕКЛЕОВ","type":"person","label":"Георги Николов Цеклеов"},{"id":"person:РУМЕН ТОДОРОВ ТОПУЗОВ","type":"person","label":"Румен Тодоров Топузов"},{"id":"person:РАДОСЛАВ САБИНОВ РЕВАНСКИ","type":"person","label":"Радослав Сабинов Ревански"},{"id":"person:ЛЪЧЕЗАР РАДОСЛАВОВ ГЕОРГИЕВ","type":"person","label":"Лъчезар Радославов Георгиев"},{"id":"person:КОСТАДИН ЦВЕТАНОВ КАЛАЙДЖИЕВ","type":"person","label":"Костадин Цветанов Калайджиев"},{"id":"person:НИКОЛА ДИВИЗИЕВ ДИВИЗИЕВ","type":"person","label":"Никола Дивизиев Дивизиев"},{"id":"person:ДИМИТЪР ПЕТРОВ ЦУКОВ","type":"person","label":"Димитър Петров Цуков"}],"edges":[{"source":"official:karamfil-smilenov-dzhembazki-966a49","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:ahmed-mustafa-dungov-bff5a8","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:БОРИСЛАВ ИВАНОВ БОДЕНОВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ПЕТРОВ БАНГЕЕВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АХМЕД АЛИ ВЪЗГОВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДКО БОРИСОВ БАНГЕЕВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛИШ ИСМАИЛОВ КУНЬОВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПЕТРОВ АТАНАСОВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ДИМИТРОВ КОЛЧЕВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮСЕИН КАДРИ ТУТАЛЪ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ИВАНОВ ЗАГОРЧИН","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН НИКОЛОВ КАРАДЖОВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН НИКОЛОВ СЛАНЧЕВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СЛАВЧОВ ЛИПЕВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛОВ ЦЕКЛЕОВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ТОДОРОВ ТОПУЗОВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ САБИНОВ РЕВАНСКИ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР РАДОСЛАВОВ ГЕОРГИЕВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ЦВЕТАНОВ КАЛАЙДЖИЕВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ДИВИЗИЕВ ДИВИЗИЕВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТРОВ ЦУКОВ","target":"company:tr:101518491","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:karamfil-smilenov-dzhembazki-966a49",
+  "nodes": [
+    {
+      "id": "official:karamfil-smilenov-dzhembazki-966a49",
+      "type": "official",
+      "slug": "karamfil-smilenov-dzhembazki-966a49",
+      "label": "Карамфил Смиленов Джембазки",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101518491",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ЛОВНО-РИБАРСКО ДРУЖЕСТВО-РАЗЛОГ&quot;",
+      "slug": null,
+      "uic": "101518491",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ahmed-mustafa-dungov-bff5a8",
+      "type": "official",
+      "slug": "ahmed-mustafa-dungov-bff5a8",
+      "label": "Ахмед Мустафа Дунгьов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:БОРИСЛАВ ИВАНОВ БОДЕНОВ",
+      "type": "person",
+      "label": "Борислав Иванов Боденов"
+    },
+    {
+      "id": "person:ЙОРДАН ПЕТРОВ БАНГЕЕВ",
+      "type": "person",
+      "label": "Йордан Петров Бангеев"
+    },
+    {
+      "id": "person:АХМЕД АЛИ ВЪЗГОВ",
+      "type": "person",
+      "label": "Ахмед Али Възгов"
+    },
+    {
+      "id": "person:ВЛАДКО БОРИСОВ БАНГЕЕВ",
+      "type": "person",
+      "label": "Владко Борисов Бангеев"
+    },
+    {
+      "id": "person:АЛИШ ИСМАИЛОВ КУНЬОВ",
+      "type": "person",
+      "label": "Алиш Исмаилов Куньов"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Георги Петров Атанасов"
+    },
+    {
+      "id": "person:НИКОЛА ДИМИТРОВ КОЛЧЕВ",
+      "type": "person",
+      "label": "Никола Димитров Колчев"
+    },
+    {
+      "id": "person:ЮСЕИН КАДРИ ТУТАЛЪ",
+      "type": "person",
+      "label": "Юсеин Кадри Туталъ"
+    },
+    {
+      "id": "person:КОСТАДИН ИВАНОВ ЗАГОРЧИН",
+      "type": "person",
+      "label": "Костадин Иванов Загорчин"
+    },
+    {
+      "id": "person:РУМЕН НИКОЛОВ КАРАДЖОВ",
+      "type": "person",
+      "label": "Румен Николов Караджов"
+    },
+    {
+      "id": "person:МАРИН НИКОЛОВ СЛАНЧЕВ",
+      "type": "person",
+      "label": "Марин Николов Сланчев"
+    },
+    {
+      "id": "person:ИВАН СЛАВЧОВ ЛИПЕВ",
+      "type": "person",
+      "label": "Иван Славчов Липев"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛОВ ЦЕКЛЕОВ",
+      "type": "person",
+      "label": "Георги Николов Цеклеов"
+    },
+    {
+      "id": "person:РУМЕН ТОДОРОВ ТОПУЗОВ",
+      "type": "person",
+      "label": "Румен Тодоров Топузов"
+    },
+    {
+      "id": "person:РАДОСЛАВ САБИНОВ РЕВАНСКИ",
+      "type": "person",
+      "label": "Радослав Сабинов Ревански"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР РАДОСЛАВОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Лъчезар Радославов Георгиев"
+    },
+    {
+      "id": "person:КОСТАДИН ЦВЕТАНОВ КАЛАЙДЖИЕВ",
+      "type": "person",
+      "label": "Костадин Цветанов Калайджиев"
+    },
+    {
+      "id": "person:НИКОЛА ДИВИЗИЕВ ДИВИЗИЕВ",
+      "type": "person",
+      "label": "Никола Дивизиев Дивизиев"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ ЦУКОВ",
+      "type": "person",
+      "label": "Димитър Петров Цуков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:karamfil-smilenov-dzhembazki-966a49",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ahmed-mustafa-dungov-bff5a8",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИСЛАВ ИВАНОВ БОДЕНОВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ПЕТРОВ БАНГЕЕВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД АЛИ ВЪЗГОВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДКО БОРИСОВ БАНГЕЕВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИШ ИСМАИЛОВ КУНЬОВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ АТАНАСОВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ДИМИТРОВ КОЛЧЕВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮСЕИН КАДРИ ТУТАЛЪ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ИВАНОВ ЗАГОРЧИН",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН НИКОЛОВ КАРАДЖОВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН НИКОЛОВ СЛАНЧЕВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СЛАВЧОВ ЛИПЕВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛОВ ЦЕКЛЕОВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ТОДОРОВ ТОПУЗОВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ САБИНОВ РЕВАНСКИ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР РАДОСЛАВОВ ГЕОРГИЕВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ЦВЕТАНОВ КАЛАЙДЖИЕВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ДИВИЗИЕВ ДИВИЗИЕВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ЦУКОВ",
+      "target": "company:tr:101518491",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

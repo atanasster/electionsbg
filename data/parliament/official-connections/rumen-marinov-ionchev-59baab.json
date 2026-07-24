@@ -1,1 +1,58 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rumen-marinov-ionchev-59baab","nodes":[{"id":"official:rumen-marinov-ionchev-59baab","type":"official","slug":"rumen-marinov-ionchev-59baab","label":"Румен Маринов Йончев","tier":"executive","role":"party_leader","municipality":null},{"id":"company:Смарт-бизнес-солушънс-ЕООД","type":"company","label":"Смарт бизнес солушънс ЕООД","slug":"Смарт-бизнес-солушънс-ЕООД","uic":"130855718","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"mp:3949","type":"mp","mpId":3949,"label":"Румен Маринов Йончев","partyGroupShort":"БВ","isCurrent":false,"nsFolders":["42","43","45","46","48"]}],"edges":[{"source":"official:rumen-marinov-ionchev-59baab","target":"company:Смарт-бизнес-солушънс-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:3949","target":"company:Смарт-бизнес-солушънс-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rumen-marinov-ionchev-59baab",
+  "nodes": [
+    {
+      "id": "official:rumen-marinov-ionchev-59baab",
+      "type": "official",
+      "slug": "rumen-marinov-ionchev-59baab",
+      "label": "Румен Маринов Йончев",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:Смарт-бизнес-солушънс-ЕООД",
+      "type": "company",
+      "label": "Смарт бизнес солушънс ЕООД",
+      "slug": "Смарт-бизнес-солушънс-ЕООД",
+      "uic": "130855718",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "mp:3949",
+      "type": "mp",
+      "mpId": 3949,
+      "label": "Румен Маринов Йончев",
+      "partyGroupShort": "БВ",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "45",
+        "46",
+        "48"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-marinov-ionchev-59baab",
+      "target": "company:Смарт-бизнес-солушънс-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3949",
+      "target": "company:Смарт-бизнес-солушънс-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

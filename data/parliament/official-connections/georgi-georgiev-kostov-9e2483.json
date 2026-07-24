@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-georgiev-kostov-9e2483","nodes":[{"id":"official:georgi-georgiev-kostov-9e2483","type":"official","slug":"georgi-georgiev-kostov-9e2483","label":"Георги Георгиев Костов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:201922563","type":"company","label":"\"Лесактив\" ЕООД","slug":null,"uic":"201922563","legalForm":null,"status":null,"seat":null},{"id":"person:БИСТРА АНГЕЛИНОВА КОСТОВА","type":"person","label":"Бистра Ангелинова Костова"}],"edges":[{"source":"official:georgi-georgiev-kostov-9e2483","target":"company:tr:201922563","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-georgiev-kostov-9e2483","target":"company:tr:201922563","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:БИСТРА АНГЕЛИНОВА КОСТОВА","target":"company:tr:201922563","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:БИСТРА АНГЕЛИНОВА КОСТОВА","target":"company:tr:201922563","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-georgiev-kostov-9e2483",
+  "nodes": [
+    {
+      "id": "official:georgi-georgiev-kostov-9e2483",
+      "type": "official",
+      "slug": "georgi-georgiev-kostov-9e2483",
+      "label": "Георги Георгиев Костов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201922563",
+      "type": "company",
+      "label": "\"Лесактив\" ЕООД",
+      "slug": null,
+      "uic": "201922563",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БИСТРА АНГЕЛИНОВА КОСТОВА",
+      "type": "person",
+      "label": "Бистра Ангелинова Костова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-georgiev-kostov-9e2483",
+      "target": "company:tr:201922563",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-georgiev-kostov-9e2483",
+      "target": "company:tr:201922563",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИСТРА АНГЕЛИНОВА КОСТОВА",
+      "target": "company:tr:201922563",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСТРА АНГЕЛИНОВА КОСТОВА",
+      "target": "company:tr:201922563",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

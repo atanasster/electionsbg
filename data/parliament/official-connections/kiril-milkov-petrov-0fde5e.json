@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kiril-milkov-petrov-0fde5e","nodes":[{"id":"official:kiril-milkov-petrov-0fde5e","type":"official","slug":"kiril-milkov-petrov-0fde5e","label":"Кирил Милков Петров","tier":"municipal","role":"councillor","municipality":"Раковски"},{"id":"company:tr:115606154","type":"company","label":"ФУТБОЛЕН КЛУБ ВИХЪР","slug":null,"uic":"115606154","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОСИФ ФРАНЦ БАХЧЕВАНСКИ","type":"person","label":"Йосиф Франц Бахчевански"},{"id":"person:ПЕТЪР ВЕНКОВ ЧОНКОВ","type":"person","label":"Петър Венков Чонков"},{"id":"person:ГИНКА ТОДОРОВА КИСЬОВА","type":"person","label":"Гинка Тодорова Кисьова"},{"id":"person:ГЕНО СТОЕВ СТОЕВ","type":"person","label":"Гено Стоев Стоев"},{"id":"person:КИРИЛ ПЕТКОВ КАЗАКОВ","type":"person","label":"Кирил Петков Казаков"},{"id":"person:КОСТАДИН АЛЕКСАНДРОВ АЛЕКСАНДРОВ","type":"person","label":"Костадин Александров Александров"},{"id":"person:ИВАН ЙОСИФОВ ПЕНЧЕВ","type":"person","label":"Иван Йосифов Пенчев"}],"edges":[{"source":"official:kiril-milkov-petrov-0fde5e","target":"company:tr:115606154","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:kiril-milkov-petrov-0fde5e","target":"company:tr:115606154","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОСИФ ФРАНЦ БАХЧЕВАНСКИ","target":"company:tr:115606154","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ВЕНКОВ ЧОНКОВ","target":"company:tr:115606154","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОСИФ ФРАНЦ БАХЧЕВАНСКИ","target":"company:tr:115606154","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА ТОДОРОВА КИСЬОВА","target":"company:tr:115606154","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕНО СТОЕВ СТОЕВ","target":"company:tr:115606154","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ПЕТКОВ КАЗАКОВ","target":"company:tr:115606154","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН АЛЕКСАНДРОВ АЛЕКСАНДРОВ","target":"company:tr:115606154","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЙОСИФОВ ПЕНЧЕВ","target":"company:tr:115606154","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kiril-milkov-petrov-0fde5e",
+  "nodes": [
+    {
+      "id": "official:kiril-milkov-petrov-0fde5e",
+      "type": "official",
+      "slug": "kiril-milkov-petrov-0fde5e",
+      "label": "Кирил Милков Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Раковски"
+    },
+    {
+      "id": "company:tr:115606154",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ ВИХЪР",
+      "slug": null,
+      "uic": "115606154",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОСИФ ФРАНЦ БАХЧЕВАНСКИ",
+      "type": "person",
+      "label": "Йосиф Франц Бахчевански"
+    },
+    {
+      "id": "person:ПЕТЪР ВЕНКОВ ЧОНКОВ",
+      "type": "person",
+      "label": "Петър Венков Чонков"
+    },
+    {
+      "id": "person:ГИНКА ТОДОРОВА КИСЬОВА",
+      "type": "person",
+      "label": "Гинка Тодорова Кисьова"
+    },
+    {
+      "id": "person:ГЕНО СТОЕВ СТОЕВ",
+      "type": "person",
+      "label": "Гено Стоев Стоев"
+    },
+    {
+      "id": "person:КИРИЛ ПЕТКОВ КАЗАКОВ",
+      "type": "person",
+      "label": "Кирил Петков Казаков"
+    },
+    {
+      "id": "person:КОСТАДИН АЛЕКСАНДРОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Костадин Александров Александров"
+    },
+    {
+      "id": "person:ИВАН ЙОСИФОВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Иван Йосифов Пенчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-milkov-petrov-0fde5e",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kiril-milkov-petrov-0fde5e",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОСИФ ФРАНЦ БАХЧЕВАНСКИ",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВЕНКОВ ЧОНКОВ",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОСИФ ФРАНЦ БАХЧЕВАНСКИ",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА ТОДОРОВА КИСЬОВА",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНО СТОЕВ СТОЕВ",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ПЕТКОВ КАЗАКОВ",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН АЛЕКСАНДРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЙОСИФОВ ПЕНЧЕВ",
+      "target": "company:tr:115606154",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

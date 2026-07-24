@@ -1,1 +1,207 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stoyanka-borisova-nikolova-b574e1","nodes":[{"id":"official:stoyanka-borisova-nikolova-b574e1","type":"official","slug":"stoyanka-borisova-nikolova-b574e1","label":"Стоянка Борисова Николова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000671889","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТЛИНА КРЕМИКОВЦИ - 1906&quot;","slug":null,"uic":"000671889","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОРДАНКА БОЖИНОВА КИРИЛОВА","type":"person","label":"Йорданка Божинова Кирилова"},{"id":"person:ДАНИЕЛА ИВАНОВА ЙОРДАНОВА","type":"person","label":"Даниела Иванова Йорданова"},{"id":"person:КОСТАДИН АТАНАСОВ МИХАЙЛОВ","type":"person","label":"Костадин Атанасов Михайлов"},{"id":"person:ВЕСЕЛИНА СТЕФАНОВА ГЬОШЕВА","type":"person","label":"Веселина Стефанова Гьошева"},{"id":"person:ДЕСИСЛАВА ДОБРЕВА ВАСИЛЕВА","type":"person","label":"Десислава Добрева Василева"},{"id":"person:НИКОЛАЙ КИРИЛОВ ГЕОРГИЕВ","type":"person","label":"Николай Кирилов Георгиев"},{"id":"person:РАДКА ХРИСТОВА ГЕНЧОВА","type":"person","label":"Радка Христова Генчова"},{"id":"person:ЛИДИЯ ТРАЯНОВА ИЛИЕВА","type":"person","label":"Лидия Траянова Илиева"},{"id":"person:ЕВГЕНИЯ СЛАВЧОВА ИЛИЕВА","type":"person","label":"Евгения Славчова Илиева"},{"id":"person:ПЕТРАНКА ГЕОРГИЕВА СТОЯНОВА","type":"person","label":"Петранка Георгиева Стоянова"},{"id":"person:МИХАЕЛА МИХАЙЛОВА ТОШКОВА СТОЯНОВА","type":"person","label":"Михаела Михайлова Тошкова Стоянова"},{"id":"person:МАРТИН ЗДРАВКОВ КАРКЕЛЕВ","type":"person","label":"Мартин Здравков Каркелев"}],"edges":[{"source":"official:stoyanka-borisova-nikolova-b574e1","target":"company:tr:000671889","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОРДАНКА БОЖИНОВА КИРИЛОВА","target":"company:tr:000671889","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ИВАНОВА ЙОРДАНОВА","target":"company:tr:000671889","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН АТАНАСОВ МИХАЙЛОВ","target":"company:tr:000671889","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА СТЕФАНОВА ГЬОШЕВА","target":"company:tr:000671889","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ИВАНОВА ЙОРДАНОВА","target":"company:tr:000671889","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ДОБРЕВА ВАСИЛЕВА","target":"company:tr:000671889","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КИРИЛОВ ГЕОРГИЕВ","target":"company:tr:000671889","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ХРИСТОВА ГЕНЧОВА","target":"company:tr:000671889","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛИДИЯ ТРАЯНОВА ИЛИЕВА","target":"company:tr:000671889","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИЯ СЛАВЧОВА ИЛИЕВА","target":"company:tr:000671889","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРАНКА ГЕОРГИЕВА СТОЯНОВА","target":"company:tr:000671889","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ХРИСТОВА ГЕНЧОВА","target":"company:tr:000671889","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИХАЕЛА МИХАЙЛОВА ТОШКОВА СТОЯНОВА","target":"company:tr:000671889","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ЗДРАВКОВ КАРКЕЛЕВ","target":"company:tr:000671889","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stoyanka-borisova-nikolova-b574e1",
+  "nodes": [
+    {
+      "id": "official:stoyanka-borisova-nikolova-b574e1",
+      "type": "official",
+      "slug": "stoyanka-borisova-nikolova-b574e1",
+      "label": "Стоянка Борисова Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000671889",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТЛИНА КРЕМИКОВЦИ - 1906&quot;",
+      "slug": null,
+      "uic": "000671889",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАНКА БОЖИНОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Йорданка Божинова Кирилова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ИВАНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Даниела Иванова Йорданова"
+    },
+    {
+      "id": "person:КОСТАДИН АТАНАСОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Костадин Атанасов Михайлов"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА СТЕФАНОВА ГЬОШЕВА",
+      "type": "person",
+      "label": "Веселина Стефанова Гьошева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ДОБРЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Десислава Добрева Василева"
+    },
+    {
+      "id": "person:НИКОЛАЙ КИРИЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Николай Кирилов Георгиев"
+    },
+    {
+      "id": "person:РАДКА ХРИСТОВА ГЕНЧОВА",
+      "type": "person",
+      "label": "Радка Христова Генчова"
+    },
+    {
+      "id": "person:ЛИДИЯ ТРАЯНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Лидия Траянова Илиева"
+    },
+    {
+      "id": "person:ЕВГЕНИЯ СЛАВЧОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Евгения Славчова Илиева"
+    },
+    {
+      "id": "person:ПЕТРАНКА ГЕОРГИЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Петранка Георгиева Стоянова"
+    },
+    {
+      "id": "person:МИХАЕЛА МИХАЙЛОВА ТОШКОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Михаела Михайлова Тошкова Стоянова"
+    },
+    {
+      "id": "person:МАРТИН ЗДРАВКОВ КАРКЕЛЕВ",
+      "type": "person",
+      "label": "Мартин Здравков Каркелев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyanka-borisova-nikolova-b574e1",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАНКА БОЖИНОВА КИРИЛОВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАНОВА ЙОРДАНОВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН АТАНАСОВ МИХАЙЛОВ",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА СТЕФАНОВА ГЬОШЕВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАНОВА ЙОРДАНОВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ДОБРЕВА ВАСИЛЕВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КИРИЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ХРИСТОВА ГЕНЧОВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ ТРАЯНОВА ИЛИЕВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЯ СЛАВЧОВА ИЛИЕВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНКА ГЕОРГИЕВА СТОЯНОВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ХРИСТОВА ГЕНЧОВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА МИХАЙЛОВА ТОШКОВА СТОЯНОВА",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ЗДРАВКОВ КАРКЕЛЕВ",
+      "target": "company:tr:000671889",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

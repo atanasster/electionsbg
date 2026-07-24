@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stefan-georgiev-chaikov-d7c425","nodes":[{"id":"official:stefan-georgiev-chaikov-d7c425","type":"official","slug":"stefan-georgiev-chaikov-d7c425","label":"Стефан Георгиев Чайков","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130197330","type":"company","label":"АБАК ДС ЕООД","slug":null,"uic":"130197330","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202912668","type":"company","label":"БГ Инженеринг 2014 ООД","slug":null,"uic":"202912668","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТО ИЛИЕВ ЙОТОВ","type":"person","label":"Христо Илиев Йотов"}],"edges":[{"source":"official:stefan-georgiev-chaikov-d7c425","target":"company:tr:130197330","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stefan-georgiev-chaikov-d7c425","target":"company:tr:202912668","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИЛИЕВ ЙОТОВ","target":"company:tr:202912668","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИЛИЕВ ЙОТОВ","target":"company:tr:202912668","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stefan-georgiev-chaikov-d7c425",
+  "nodes": [
+    {
+      "id": "official:stefan-georgiev-chaikov-d7c425",
+      "type": "official",
+      "slug": "stefan-georgiev-chaikov-d7c425",
+      "label": "Стефан Георгиев Чайков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130197330",
+      "type": "company",
+      "label": "АБАК ДС ЕООД",
+      "slug": null,
+      "uic": "130197330",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202912668",
+      "type": "company",
+      "label": "БГ Инженеринг 2014 ООД",
+      "slug": null,
+      "uic": "202912668",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ИЛИЕВ ЙОТОВ",
+      "type": "person",
+      "label": "Христо Илиев Йотов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-georgiev-chaikov-d7c425",
+      "target": "company:tr:130197330",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-georgiev-chaikov-d7c425",
+      "target": "company:tr:202912668",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИЛИЕВ ЙОТОВ",
+      "target": "company:tr:202912668",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИЛИЕВ ЙОТОВ",
+      "target": "company:tr:202912668",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rumyana-serafimova-stoyanova-39fc97","nodes":[{"id":"official:rumyana-serafimova-stoyanova-39fc97","type":"official","slug":"rumyana-serafimova-stoyanova-39fc97","label":"Румяна Серафимова Стоянова","tier":"municipal","role":"councillor","municipality":"Бойница"},{"id":"company:tr:105003364","type":"company","label":"ПРОСВЕТА - 1928","slug":null,"uic":"105003364","legalForm":null,"status":null,"seat":null},{"id":"person:ГАЛИНА ИВАНОВА ВАКАРИЦОВА","type":"person","label":"Галина Иванова Вакарицова"},{"id":"person:АЛБЕНА КИРИЛОВА ГЕОРГИЕВА","type":"person","label":"Албена Кирилова Георгиева"},{"id":"person:АКСИНИЯ СИМЕОНОВА ВЕЛКОВА","type":"person","label":"Аксиния Симеонова Велкова"},{"id":"person:ВАЛЕНТИН АТАНАСОВ ТОТОМИРОВ","type":"person","label":"Валентин Атанасов Тотомиров"},{"id":"person:НАТАША РАДУЛОВА МИХАЙЛОВА","type":"person","label":"Наташа Радулова Михайлова"},{"id":"person:ПАСКУЦА ВАНКОВА ПЪРВУЛОВА","type":"person","label":"Паскуца Ванкова Първулова"},{"id":"person:ЕВЕЛИНА НИКОЛОВА МИТРОВА","type":"person","label":"Евелина Николова Митрова"}],"edges":[{"source":"official:rumyana-serafimova-stoyanova-39fc97","target":"company:tr:105003364","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ГАЛИНА ИВАНОВА ВАКАРИЦОВА","target":"company:tr:105003364","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА КИРИЛОВА ГЕОРГИЕВА","target":"company:tr:105003364","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АКСИНИЯ СИМЕОНОВА ВЕЛКОВА","target":"company:tr:105003364","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН АТАНАСОВ ТОТОМИРОВ","target":"company:tr:105003364","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАТАША РАДУЛОВА МИХАЙЛОВА","target":"company:tr:105003364","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПАСКУЦА ВАНКОВА ПЪРВУЛОВА","target":"company:tr:105003364","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕВЕЛИНА НИКОЛОВА МИТРОВА","target":"company:tr:105003364","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rumyana-serafimova-stoyanova-39fc97",
+  "nodes": [
+    {
+      "id": "official:rumyana-serafimova-stoyanova-39fc97",
+      "type": "official",
+      "slug": "rumyana-serafimova-stoyanova-39fc97",
+      "label": "Румяна Серафимова Стоянова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бойница"
+    },
+    {
+      "id": "company:tr:105003364",
+      "type": "company",
+      "label": "ПРОСВЕТА - 1928",
+      "slug": null,
+      "uic": "105003364",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛИНА ИВАНОВА ВАКАРИЦОВА",
+      "type": "person",
+      "label": "Галина Иванова Вакарицова"
+    },
+    {
+      "id": "person:АЛБЕНА КИРИЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Албена Кирилова Георгиева"
+    },
+    {
+      "id": "person:АКСИНИЯ СИМЕОНОВА ВЕЛКОВА",
+      "type": "person",
+      "label": "Аксиния Симеонова Велкова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН АТАНАСОВ ТОТОМИРОВ",
+      "type": "person",
+      "label": "Валентин Атанасов Тотомиров"
+    },
+    {
+      "id": "person:НАТАША РАДУЛОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Наташа Радулова Михайлова"
+    },
+    {
+      "id": "person:ПАСКУЦА ВАНКОВА ПЪРВУЛОВА",
+      "type": "person",
+      "label": "Паскуца Ванкова Първулова"
+    },
+    {
+      "id": "person:ЕВЕЛИНА НИКОЛОВА МИТРОВА",
+      "type": "person",
+      "label": "Евелина Николова Митрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumyana-serafimova-stoyanova-39fc97",
+      "target": "company:tr:105003364",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛИНА ИВАНОВА ВАКАРИЦОВА",
+      "target": "company:tr:105003364",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА КИРИЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:105003364",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АКСИНИЯ СИМЕОНОВА ВЕЛКОВА",
+      "target": "company:tr:105003364",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АТАНАСОВ ТОТОМИРОВ",
+      "target": "company:tr:105003364",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАША РАДУЛОВА МИХАЙЛОВА",
+      "target": "company:tr:105003364",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАСКУЦА ВАНКОВА ПЪРВУЛОВА",
+      "target": "company:tr:105003364",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА НИКОЛОВА МИТРОВА",
+      "target": "company:tr:105003364",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

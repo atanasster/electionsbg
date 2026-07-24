@@ -1,1 +1,204 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:antoaneta-aleksandrova-stavreva-6c8700","nodes":[{"id":"official:antoaneta-aleksandrova-stavreva-6c8700","type":"official","slug":"antoaneta-aleksandrova-stavreva-6c8700","label":"Антоанета Александрова Ставрева","tier":"municipal","role":"councillor","municipality":"Дряново"},{"id":"company:tr:000210493","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;РАЗВИТИЕ-1869&quot;","slug":null,"uic":"000210493","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТЯ ТОДОРОВА ТОДОРОВА-МИТЕВА","type":"person","label":"Петя Тодорова Тодорова-Митева"},{"id":"person:НИКОЛАЙ ДОНЧЕВ ПЕНЧЕВ","type":"person","label":"Николай Дончев Пенчев"},{"id":"person:СТЕФАН НИКОЛАЕВ СЪБЕВ","type":"person","label":"Стефан Николаев Събев"},{"id":"person:ДАРИНА РУСКОВА ГАНЧЕВА-МАРИНОВА","type":"person","label":"Дарина Рускова Ганчева-Маринова"},{"id":"person:ДАНИЕЛА СТЕФАНОВА ВАСИЛЕВА-ЛИСИЧКОВА","type":"person","label":"Даниела Стефанова Василева-Лисичкова"},{"id":"person:ЕМИЛ КОЛЕВ КИСЕЛКОВ","type":"person","label":"Емил Колев Киселков"},{"id":"person:МИРОСЛАВА ИЛИЕВА ЛИЛОВА","type":"person","label":"Мирослава Илиева Лилова"},{"id":"person:СТЕФАНКА ДОНЧЕВА ШИПКАЛИЕВА","type":"person","label":"Стефанка Дончева Шипкалиева"},{"id":"person:ЕВГЕНИЯ НИКОЛОВА СТОЯНОВА","type":"person","label":"Евгения Николова Стоянова"},{"id":"person:ПЕТКА МАРИНОВА ДЕНЕВА","type":"person","label":"Петка Маринова Денева"},{"id":"person:ГАЛИНА ДИМИТРОВА РАЕВА","type":"person","label":"Галина Димитрова Раева"},{"id":"person:АНДРЕЙ МИХАЙЛОВ ГАНЧЕВ","type":"person","label":"Андрей Михайлов Ганчев"},{"id":"person:ПЛАМЕН НИКОЛАЕВ ОБРЕШКОВ","type":"person","label":"Пламен Николаев Обрешков"}],"edges":[{"source":"official:antoaneta-aleksandrova-stavreva-6c8700","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЯ ТОДОРОВА ТОДОРОВА-МИТЕВА","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДОНЧЕВ ПЕНЧЕВ","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН НИКОЛАЕВ СЪБЕВ","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИНА РУСКОВА ГАНЧЕВА-МАРИНОВА","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА СТЕФАНОВА ВАСИЛЕВА-ЛИСИЧКОВА","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ КОЛЕВ КИСЕЛКОВ","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВА ИЛИЕВА ЛИЛОВА","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАНКА ДОНЧЕВА ШИПКАЛИЕВА","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИЯ НИКОЛОВА СТОЯНОВА","target":"company:tr:000210493","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКА МАРИНОВА ДЕНЕВА","target":"company:tr:000210493","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ДИМИТРОВА РАЕВА","target":"company:tr:000210493","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕЙ МИХАЙЛОВ ГАНЧЕВ","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН НИКОЛАЕВ ОБРЕШКОВ","target":"company:tr:000210493","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:antoaneta-aleksandrova-stavreva-6c8700",
+  "nodes": [
+    {
+      "id": "official:antoaneta-aleksandrova-stavreva-6c8700",
+      "type": "official",
+      "slug": "antoaneta-aleksandrova-stavreva-6c8700",
+      "label": "Антоанета Александрова Ставрева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дряново"
+    },
+    {
+      "id": "company:tr:000210493",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;РАЗВИТИЕ-1869&quot;",
+      "slug": null,
+      "uic": "000210493",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЯ ТОДОРОВА ТОДОРОВА-МИТЕВА",
+      "type": "person",
+      "label": "Петя Тодорова Тодорова-Митева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДОНЧЕВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Николай Дончев Пенчев"
+    },
+    {
+      "id": "person:СТЕФАН НИКОЛАЕВ СЪБЕВ",
+      "type": "person",
+      "label": "Стефан Николаев Събев"
+    },
+    {
+      "id": "person:ДАРИНА РУСКОВА ГАНЧЕВА-МАРИНОВА",
+      "type": "person",
+      "label": "Дарина Рускова Ганчева-Маринова"
+    },
+    {
+      "id": "person:ДАНИЕЛА СТЕФАНОВА ВАСИЛЕВА-ЛИСИЧКОВА",
+      "type": "person",
+      "label": "Даниела Стефанова Василева-Лисичкова"
+    },
+    {
+      "id": "person:ЕМИЛ КОЛЕВ КИСЕЛКОВ",
+      "type": "person",
+      "label": "Емил Колев Киселков"
+    },
+    {
+      "id": "person:МИРОСЛАВА ИЛИЕВА ЛИЛОВА",
+      "type": "person",
+      "label": "Мирослава Илиева Лилова"
+    },
+    {
+      "id": "person:СТЕФАНКА ДОНЧЕВА ШИПКАЛИЕВА",
+      "type": "person",
+      "label": "Стефанка Дончева Шипкалиева"
+    },
+    {
+      "id": "person:ЕВГЕНИЯ НИКОЛОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Евгения Николова Стоянова"
+    },
+    {
+      "id": "person:ПЕТКА МАРИНОВА ДЕНЕВА",
+      "type": "person",
+      "label": "Петка Маринова Денева"
+    },
+    {
+      "id": "person:ГАЛИНА ДИМИТРОВА РАЕВА",
+      "type": "person",
+      "label": "Галина Димитрова Раева"
+    },
+    {
+      "id": "person:АНДРЕЙ МИХАЙЛОВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Андрей Михайлов Ганчев"
+    },
+    {
+      "id": "person:ПЛАМЕН НИКОЛАЕВ ОБРЕШКОВ",
+      "type": "person",
+      "label": "Пламен Николаев Обрешков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:antoaneta-aleksandrova-stavreva-6c8700",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ ТОДОРОВА ТОДОРОВА-МИТЕВА",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДОНЧЕВ ПЕНЧЕВ",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН НИКОЛАЕВ СЪБЕВ",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА РУСКОВА ГАНЧЕВА-МАРИНОВА",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТЕФАНОВА ВАСИЛЕВА-ЛИСИЧКОВА",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ КОЛЕВ КИСЕЛКОВ",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА ИЛИЕВА ЛИЛОВА",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАНКА ДОНЧЕВА ШИПКАЛИЕВА",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЯ НИКОЛОВА СТОЯНОВА",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКА МАРИНОВА ДЕНЕВА",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ДИМИТРОВА РАЕВА",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ МИХАЙЛОВ ГАНЧЕВ",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН НИКОЛАЕВ ОБРЕШКОВ",
+      "target": "company:tr:000210493",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

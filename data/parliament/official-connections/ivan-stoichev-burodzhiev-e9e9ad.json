@@ -1,1 +1,92 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-stoichev-burodzhiev-e9e9ad","nodes":[{"id":"official:ivan-stoichev-burodzhiev-e9e9ad","type":"official","slug":"ivan-stoichev-burodzhiev-e9e9ad","label":"Иван Стойчев Буроджиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:200068626","type":"company","label":"Електромонтажи Варна ООД","slug":null,"uic":"200068626","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202164947","type":"company","label":"Български пчелни продукти ООД","slug":null,"uic":"202164947","legalForm":null,"status":null,"seat":null},{"id":"person:СТОЙЧО МОНЕВ БУРОДЖИЕВ","type":"person","label":"Стойчо Монев Буроджиев"},{"id":"person:ИВАН СТОЙЧЕВ БУРОДЖИЕВ","type":"person","label":"Иван Стойчев Буроджиев"},{"id":"person:СИМЕОН СТОЙЧЕВ БУРОДЖИЕВ","type":"person","label":"Симеон Стойчев Буроджиев"}],"edges":[{"source":"official:ivan-stoichev-burodzhiev-e9e9ad","target":"company:tr:200068626","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivan-stoichev-burodzhiev-e9e9ad","target":"company:tr:202164947","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:СТОЙЧО МОНЕВ БУРОДЖИЕВ","target":"company:tr:200068626","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТОЙЧЕВ БУРОДЖИЕВ","target":"company:tr:200068626","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН СТОЙЧЕВ БУРОДЖИЕВ","target":"company:tr:200068626","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-stoichev-burodzhiev-e9e9ad",
+  "nodes": [
+    {
+      "id": "official:ivan-stoichev-burodzhiev-e9e9ad",
+      "type": "official",
+      "slug": "ivan-stoichev-burodzhiev-e9e9ad",
+      "label": "Иван Стойчев Буроджиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200068626",
+      "type": "company",
+      "label": "Електромонтажи Варна ООД",
+      "slug": null,
+      "uic": "200068626",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202164947",
+      "type": "company",
+      "label": "Български пчелни продукти ООД",
+      "slug": null,
+      "uic": "202164947",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЙЧО МОНЕВ БУРОДЖИЕВ",
+      "type": "person",
+      "label": "Стойчо Монев Буроджиев"
+    },
+    {
+      "id": "person:ИВАН СТОЙЧЕВ БУРОДЖИЕВ",
+      "type": "person",
+      "label": "Иван Стойчев Буроджиев"
+    },
+    {
+      "id": "person:СИМЕОН СТОЙЧЕВ БУРОДЖИЕВ",
+      "type": "person",
+      "label": "Симеон Стойчев Буроджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-stoichev-burodzhiev-e9e9ad",
+      "target": "company:tr:200068626",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-stoichev-burodzhiev-e9e9ad",
+      "target": "company:tr:202164947",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙЧО МОНЕВ БУРОДЖИЕВ",
+      "target": "company:tr:200068626",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОЙЧЕВ БУРОДЖИЕВ",
+      "target": "company:tr:200068626",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СТОЙЧЕВ БУРОДЖИЕВ",
+      "target": "company:tr:200068626",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

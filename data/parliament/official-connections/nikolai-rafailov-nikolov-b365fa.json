@@ -1,1 +1,129 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-rafailov-nikolov-b365fa","nodes":[{"id":"official:nikolai-rafailov-nikolov-b365fa","type":"official","slug":"nikolai-rafailov-nikolov-b365fa","label":"Николай Рафаилов Николов","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:205528224","type":"company","label":"НАУЧНО ДРУЖЕСТВО ПО ТРАНСФУЗИОННА ХЕМАТОЛОГИЯ","slug":null,"uic":"205528224","legalForm":null,"status":null,"seat":null},{"id":"official:zhanina-iordanova-ivanova-83a027","type":"official","slug":"zhanina-iordanova-ivanova-83a027","label":"Жанина Йорданова Иванова","tier":"executive","role":"agency_head","municipality":null},{"id":"official:nikolai-lyudmilov-andreev-d034e5","type":"official","slug":"nikolai-lyudmilov-andreev-d034e5","label":"Николай Людмилов Андреев","tier":"executive","role":"agency_head","municipality":null},{"id":"official:petya-panaiotova-mateeva-16aeb8","type":"official","slug":"petya-panaiotova-mateeva-16aeb8","label":"Петя Панайотова Матеева","tier":"executive","role":"agency_head","municipality":null},{"id":"official:rumen-stoikov-popov-21861b","type":"official","slug":"rumen-stoikov-popov-21861b","label":"РУМЕН СТОЙКОВ ПОПОВ","tier":"executive","role":"procurement_officer","municipality":null},{"id":"person:НЕЛИ СТЕФАНОВА ДОСЕВА","type":"person","label":"Нели Стефанова Досева"},{"id":"person:СОНЯ СТЕФАНОВА ДЖЕВИЗОВА - АМАЛИЕВА","type":"person","label":"Соня Стефанова Джевизова - Амалиева"}],"edges":[{"source":"official:nikolai-rafailov-nikolov-b365fa","target":"company:tr:205528224","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:zhanina-iordanova-ivanova-83a027","target":"company:tr:205528224","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-lyudmilov-andreev-d034e5","target":"company:tr:205528224","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:petya-panaiotova-mateeva-16aeb8","target":"company:tr:205528224","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:rumen-stoikov-popov-21861b","target":"company:tr:205528224","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НЕЛИ СТЕФАНОВА ДОСЕВА","target":"company:tr:205528224","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ СТЕФАНОВА ДЖЕВИЗОВА - АМАЛИЕВА","target":"company:tr:205528224","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-rafailov-nikolov-b365fa",
+  "nodes": [
+    {
+      "id": "official:nikolai-rafailov-nikolov-b365fa",
+      "type": "official",
+      "slug": "nikolai-rafailov-nikolov-b365fa",
+      "label": "Николай Рафаилов Николов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205528224",
+      "type": "company",
+      "label": "НАУЧНО ДРУЖЕСТВО ПО ТРАНСФУЗИОННА ХЕМАТОЛОГИЯ",
+      "slug": null,
+      "uic": "205528224",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:zhanina-iordanova-ivanova-83a027",
+      "type": "official",
+      "slug": "zhanina-iordanova-ivanova-83a027",
+      "label": "Жанина Йорданова Иванова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "official:nikolai-lyudmilov-andreev-d034e5",
+      "type": "official",
+      "slug": "nikolai-lyudmilov-andreev-d034e5",
+      "label": "Николай Людмилов Андреев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "official:petya-panaiotova-mateeva-16aeb8",
+      "type": "official",
+      "slug": "petya-panaiotova-mateeva-16aeb8",
+      "label": "Петя Панайотова Матеева",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "official:rumen-stoikov-popov-21861b",
+      "type": "official",
+      "slug": "rumen-stoikov-popov-21861b",
+      "label": "РУМЕН СТОЙКОВ ПОПОВ",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "person:НЕЛИ СТЕФАНОВА ДОСЕВА",
+      "type": "person",
+      "label": "Нели Стефанова Досева"
+    },
+    {
+      "id": "person:СОНЯ СТЕФАНОВА ДЖЕВИЗОВА - АМАЛИЕВА",
+      "type": "person",
+      "label": "Соня Стефанова Джевизова - Амалиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-rafailov-nikolov-b365fa",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhanina-iordanova-ivanova-83a027",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-lyudmilov-andreev-d034e5",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petya-panaiotova-mateeva-16aeb8",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-stoikov-popov-21861b",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЛИ СТЕФАНОВА ДОСЕВА",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ СТЕФАНОВА ДЖЕВИЗОВА - АМАЛИЕВА",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

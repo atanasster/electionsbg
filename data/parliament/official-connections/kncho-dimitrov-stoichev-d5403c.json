@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kncho-dimitrov-stoichev-d5403c","nodes":[{"id":"official:kncho-dimitrov-stoichev-d5403c","type":"official","slug":"kncho-dimitrov-stoichev-d5403c","label":"Кънчо Димитров Стойчев","tier":"municipal","role":"councillor","municipality":"Перущица"},{"id":"company:tr:207141087","type":"company","label":"КИТТЕХ","slug":null,"uic":"207141087","legalForm":null,"status":null,"seat":null},{"id":"person:ТОДОР ВЕСЕЛИНОВ КАМБУРОВ","type":"person","label":"Тодор Веселинов Камбуров"}],"edges":[{"source":"official:kncho-dimitrov-stoichev-d5403c","target":"company:tr:207141087","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:kncho-dimitrov-stoichev-d5403c","target":"company:tr:207141087","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ТОДОР ВЕСЕЛИНОВ КАМБУРОВ","target":"company:tr:207141087","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ВЕСЕЛИНОВ КАМБУРОВ","target":"company:tr:207141087","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kncho-dimitrov-stoichev-d5403c",
+  "nodes": [
+    {
+      "id": "official:kncho-dimitrov-stoichev-d5403c",
+      "type": "official",
+      "slug": "kncho-dimitrov-stoichev-d5403c",
+      "label": "Кънчо Димитров Стойчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Перущица"
+    },
+    {
+      "id": "company:tr:207141087",
+      "type": "company",
+      "label": "КИТТЕХ",
+      "slug": null,
+      "uic": "207141087",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ВЕСЕЛИНОВ КАМБУРОВ",
+      "type": "person",
+      "label": "Тодор Веселинов Камбуров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kncho-dimitrov-stoichev-d5403c",
+      "target": "company:tr:207141087",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kncho-dimitrov-stoichev-d5403c",
+      "target": "company:tr:207141087",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ВЕСЕЛИНОВ КАМБУРОВ",
+      "target": "company:tr:207141087",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ВЕСЕЛИНОВ КАМБУРОВ",
+      "target": "company:tr:207141087",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

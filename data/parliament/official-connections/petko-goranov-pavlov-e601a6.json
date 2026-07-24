@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petko-goranov-pavlov-e601a6","nodes":[{"id":"official:petko-goranov-pavlov-e601a6","type":"official","slug":"petko-goranov-pavlov-e601a6","label":"Петко Горанов Павлов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176432184","type":"company","label":"ЕЛИТА","slug":null,"uic":"176432184","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЕТА ВЕСЕЛИНОВА ВЪРБАНОВА","type":"person","label":"Мариета Веселинова Върбанова"},{"id":"person:ПЕТЯ ДИМИТРОВА ВАСИЛЕВА","type":"person","label":"Петя Димитрова Василева"},{"id":"person:ЮЛИАНА ПАВЛОВА ГЪРБОВА","type":"person","label":"Юлиана Павлова Гърбова"}],"edges":[{"source":"official:petko-goranov-pavlov-e601a6","target":"company:tr:176432184","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЕТА ВЕСЕЛИНОВА ВЪРБАНОВА","target":"company:tr:176432184","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ДИМИТРОВА ВАСИЛЕВА","target":"company:tr:176432184","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИАНА ПАВЛОВА ГЪРБОВА","target":"company:tr:176432184","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petko-goranov-pavlov-e601a6",
+  "nodes": [
+    {
+      "id": "official:petko-goranov-pavlov-e601a6",
+      "type": "official",
+      "slug": "petko-goranov-pavlov-e601a6",
+      "label": "Петко Горанов Павлов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176432184",
+      "type": "company",
+      "label": "ЕЛИТА",
+      "slug": null,
+      "uic": "176432184",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЕТА ВЕСЕЛИНОВА ВЪРБАНОВА",
+      "type": "person",
+      "label": "Мариета Веселинова Върбанова"
+    },
+    {
+      "id": "person:ПЕТЯ ДИМИТРОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Петя Димитрова Василева"
+    },
+    {
+      "id": "person:ЮЛИАНА ПАВЛОВА ГЪРБОВА",
+      "type": "person",
+      "label": "Юлиана Павлова Гърбова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petko-goranov-pavlov-e601a6",
+      "target": "company:tr:176432184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЕТА ВЕСЕЛИНОВА ВЪРБАНОВА",
+      "target": "company:tr:176432184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ДИМИТРОВА ВАСИЛЕВА",
+      "target": "company:tr:176432184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАНА ПАВЛОВА ГЪРБОВА",
+      "target": "company:tr:176432184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

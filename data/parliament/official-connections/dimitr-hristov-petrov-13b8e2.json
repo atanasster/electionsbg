@@ -1,1 +1,108 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-hristov-petrov-13b8e2","nodes":[{"id":"official:dimitr-hristov-petrov-13b8e2","type":"official","slug":"dimitr-hristov-petrov-13b8e2","label":"Димитър Христов Петров","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:tr:207909035","type":"company","label":"Ракамакафон ООД","slug":null,"uic":"207909035","legalForm":null,"status":null,"seat":null},{"id":"person:ЯНЕ ЛЮБОМИРОВ ВАСИЛЕВ","type":"person","label":"Яне Любомиров Василев"},{"id":"person:ИЛИЯ СЛАВОВ ГРИГОРОВ","type":"person","label":"Илия Славов Григоров"},{"id":"person:КОСТА БИСЕРОВ ХАНТОВ","type":"person","label":"Коста Бисеров Хантов"},{"id":"person:ГЕОРГИ ЙОРДАНОВ ГЕОРГИЕВ","type":"person","label":"Георги Йорданов Георгиев"},{"id":"person:МАРИАНА ДИМИТРОВА ВЪРБАНОВА","type":"person","label":"Мариана Димитрова Върбанова"}],"edges":[{"source":"official:dimitr-hristov-petrov-13b8e2","target":"company:tr:207909035","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ЯНЕ ЛЮБОМИРОВ ВАСИЛЕВ","target":"company:tr:207909035","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЯНЕ ЛЮБОМИРОВ ВАСИЛЕВ","target":"company:tr:207909035","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ СЛАВОВ ГРИГОРОВ","target":"company:tr:207909035","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КОСТА БИСЕРОВ ХАНТОВ","target":"company:tr:207909035","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЙОРДАНОВ ГЕОРГИЕВ","target":"company:tr:207909035","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ДИМИТРОВА ВЪРБАНОВА","target":"company:tr:207909035","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-hristov-petrov-13b8e2",
+  "nodes": [
+    {
+      "id": "official:dimitr-hristov-petrov-13b8e2",
+      "type": "official",
+      "slug": "dimitr-hristov-petrov-13b8e2",
+      "label": "Димитър Христов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:207909035",
+      "type": "company",
+      "label": "Ракамакафон ООД",
+      "slug": null,
+      "uic": "207909035",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯНЕ ЛЮБОМИРОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Яне Любомиров Василев"
+    },
+    {
+      "id": "person:ИЛИЯ СЛАВОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Илия Славов Григоров"
+    },
+    {
+      "id": "person:КОСТА БИСЕРОВ ХАНТОВ",
+      "type": "person",
+      "label": "Коста Бисеров Хантов"
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Йорданов Георгиев"
+    },
+    {
+      "id": "person:МАРИАНА ДИМИТРОВА ВЪРБАНОВА",
+      "type": "person",
+      "label": "Мариана Димитрова Върбанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-hristov-petrov-13b8e2",
+      "target": "company:tr:207909035",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНЕ ЛЮБОМИРОВ ВАСИЛЕВ",
+      "target": "company:tr:207909035",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНЕ ЛЮБОМИРОВ ВАСИЛЕВ",
+      "target": "company:tr:207909035",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ СЛАВОВ ГРИГОРОВ",
+      "target": "company:tr:207909035",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТА БИСЕРОВ ХАНТОВ",
+      "target": "company:tr:207909035",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:207909035",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ДИМИТРОВА ВЪРБАНОВА",
+      "target": "company:tr:207909035",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,90 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aneliya-sokolova-grozdanova-hristova-45af4e","nodes":[{"id":"official:aneliya-sokolova-grozdanova-hristova-45af4e","type":"official","slug":"aneliya-sokolova-grozdanova-hristova-45af4e","label":"Анелия Соколова Грозданова-Христова","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:206852250","type":"company","label":"Ей Ай Бизнес Консулт","slug":null,"uic":"206852250","legalForm":null,"status":null,"seat":null},{"id":"company:tr:200730706","type":"company","label":"Ей Ай Консулт","slug":null,"uic":"200730706","legalForm":null,"status":null,"seat":null},{"id":"person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА","type":"person","label":"Анелия Соколова Грозданова - Христова"}],"edges":[{"source":"official:aneliya-sokolova-grozdanova-hristova-45af4e","target":"company:tr:206852250","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:aneliya-sokolova-grozdanova-hristova-45af4e","target":"company:tr:200730706","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА","target":"company:tr:206852250","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА","target":"company:tr:206852250","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА","target":"company:tr:200730706","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА","target":"company:tr:200730706","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aneliya-sokolova-grozdanova-hristova-45af4e",
+  "nodes": [
+    {
+      "id": "official:aneliya-sokolova-grozdanova-hristova-45af4e",
+      "type": "official",
+      "slug": "aneliya-sokolova-grozdanova-hristova-45af4e",
+      "label": "Анелия Соколова Грозданова-Христова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206852250",
+      "type": "company",
+      "label": "Ей Ай Бизнес Консулт",
+      "slug": null,
+      "uic": "206852250",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200730706",
+      "type": "company",
+      "label": "Ей Ай Консулт",
+      "slug": null,
+      "uic": "200730706",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА",
+      "type": "person",
+      "label": "Анелия Соколова Грозданова - Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-sokolova-grozdanova-hristova-45af4e",
+      "target": "company:tr:206852250",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aneliya-sokolova-grozdanova-hristova-45af4e",
+      "target": "company:tr:200730706",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА",
+      "target": "company:tr:206852250",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА",
+      "target": "company:tr:206852250",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА",
+      "target": "company:tr:200730706",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ СОКОЛОВА ГРОЗДАНОВА - ХРИСТОВА",
+      "target": "company:tr:200730706",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

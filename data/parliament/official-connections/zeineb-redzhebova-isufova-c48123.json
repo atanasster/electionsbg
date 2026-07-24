@@ -1,1 +1,134 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zeineb-redzhebova-isufova-c48123","nodes":[{"id":"official:zeineb-redzhebova-isufova-c48123","type":"official","slug":"zeineb-redzhebova-isufova-c48123","label":"Зейнеб Реджебова Исуфова","tier":"municipal","role":"councillor","municipality":"Котел"},{"id":"company:tr:000583815","type":"company","label":"ВАСИЛ ЛЕВСКИ - 1973г.","slug":null,"uic":"000583815","legalForm":null,"status":null,"seat":null},{"id":"person:ХАТЧЕ ХЮСЕИНОВА РАИМОВА","type":"person","label":"Хатче Хюсеинова Раимова"},{"id":"person:СЕЛИМЕ СЕЛИМОВА МУСТАФОВА","type":"person","label":"Селиме Селимова Мустафова"},{"id":"person:ЗИЙНЕБ ИБРЯМОВА САИДОВА","type":"person","label":"Зийнеб Ибрямова Саидова"},{"id":"person:ФИКРИЕ ИСУФОВА ХАСАНОВА","type":"person","label":"Фикрие Исуфова Хасанова"},{"id":"person:ВЕЙСЕЛЕ ХАЛИЛОВА ДЖЕЛИЛОВА","type":"person","label":"Вейселе Халилова Джелилова"},{"id":"person:ХЮЛИЯ ШАБАНОВА ТОПАЛОВА","type":"person","label":"Хюлия Шабанова Топалова"},{"id":"person:САБРИЕ ЮСУФОВА ЮМЕРОВА","type":"person","label":"Сабрие Юсуфова Юмерова"}],"edges":[{"source":"official:zeineb-redzhebova-isufova-c48123","target":"company:tr:000583815","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ХАТЧЕ ХЮСЕИНОВА РАИМОВА","target":"company:tr:000583815","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СЕЛИМЕ СЕЛИМОВА МУСТАФОВА","target":"company:tr:000583815","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЗИЙНЕБ ИБРЯМОВА САИДОВА","target":"company:tr:000583815","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФИКРИЕ ИСУФОВА ХАСАНОВА","target":"company:tr:000583815","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЕЛИМЕ СЕЛИМОВА МУСТАФОВА","target":"company:tr:000583815","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЙСЕЛЕ ХАЛИЛОВА ДЖЕЛИЛОВА","target":"company:tr:000583815","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ХЮЛИЯ ШАБАНОВА ТОПАЛОВА","target":"company:tr:000583815","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:САБРИЕ ЮСУФОВА ЮМЕРОВА","target":"company:tr:000583815","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zeineb-redzhebova-isufova-c48123",
+  "nodes": [
+    {
+      "id": "official:zeineb-redzhebova-isufova-c48123",
+      "type": "official",
+      "slug": "zeineb-redzhebova-isufova-c48123",
+      "label": "Зейнеб Реджебова Исуфова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Котел"
+    },
+    {
+      "id": "company:tr:000583815",
+      "type": "company",
+      "label": "ВАСИЛ ЛЕВСКИ - 1973г.",
+      "slug": null,
+      "uic": "000583815",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХАТЧЕ ХЮСЕИНОВА РАИМОВА",
+      "type": "person",
+      "label": "Хатче Хюсеинова Раимова"
+    },
+    {
+      "id": "person:СЕЛИМЕ СЕЛИМОВА МУСТАФОВА",
+      "type": "person",
+      "label": "Селиме Селимова Мустафова"
+    },
+    {
+      "id": "person:ЗИЙНЕБ ИБРЯМОВА САИДОВА",
+      "type": "person",
+      "label": "Зийнеб Ибрямова Саидова"
+    },
+    {
+      "id": "person:ФИКРИЕ ИСУФОВА ХАСАНОВА",
+      "type": "person",
+      "label": "Фикрие Исуфова Хасанова"
+    },
+    {
+      "id": "person:ВЕЙСЕЛЕ ХАЛИЛОВА ДЖЕЛИЛОВА",
+      "type": "person",
+      "label": "Вейселе Халилова Джелилова"
+    },
+    {
+      "id": "person:ХЮЛИЯ ШАБАНОВА ТОПАЛОВА",
+      "type": "person",
+      "label": "Хюлия Шабанова Топалова"
+    },
+    {
+      "id": "person:САБРИЕ ЮСУФОВА ЮМЕРОВА",
+      "type": "person",
+      "label": "Сабрие Юсуфова Юмерова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zeineb-redzhebova-isufova-c48123",
+      "target": "company:tr:000583815",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХАТЧЕ ХЮСЕИНОВА РАИМОВА",
+      "target": "company:tr:000583815",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЛИМЕ СЕЛИМОВА МУСТАФОВА",
+      "target": "company:tr:000583815",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗИЙНЕБ ИБРЯМОВА САИДОВА",
+      "target": "company:tr:000583815",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИКРИЕ ИСУФОВА ХАСАНОВА",
+      "target": "company:tr:000583815",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЛИМЕ СЕЛИМОВА МУСТАФОВА",
+      "target": "company:tr:000583815",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЙСЕЛЕ ХАЛИЛОВА ДЖЕЛИЛОВА",
+      "target": "company:tr:000583815",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЮЛИЯ ШАБАНОВА ТОПАЛОВА",
+      "target": "company:tr:000583815",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САБРИЕ ЮСУФОВА ЮМЕРОВА",
+      "target": "company:tr:000583815",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

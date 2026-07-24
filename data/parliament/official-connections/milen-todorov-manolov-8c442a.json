@@ -1,1 +1,94 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milen-todorov-manolov-8c442a","nodes":[{"id":"official:milen-todorov-manolov-8c442a","type":"official","slug":"milen-todorov-manolov-8c442a","label":"Милен Тодоров Манолов","tier":"municipal","role":"councillor","municipality":"Поморие"},{"id":"company:tr:207215235","type":"company","label":"Болнично  настоятелство при МБАЛ ПОМОРИЕ ЕООД","slug":null,"uic":"207215235","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Поморие, 8200"},{"id":"mp:2308","type":"mp","mpId":2308,"label":"Ива Димитрова Кусева","partyGroupShort":"БСП-ОЛ","isCurrent":false,"nsFolders":[]},{"id":"official:iva-dimitrova-kuseva-a71c5c","type":"official","slug":"iva-dimitrova-kuseva-a71c5c","label":"Ива Димитрова Кусева","tier":"municipal","role":"councillor","municipality":"Поморие"},{"id":"official:naiden-shterionov-pulakev-c84a22","type":"official","slug":"naiden-shterionov-pulakev-c84a22","label":"Найден Щерионов Пулакев","tier":"municipal","role":"councillor","municipality":"Поморие"}],"edges":[{"source":"official:milen-todorov-manolov-8c442a","target":"company:tr:207215235","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2308","target":"company:tr:207215235","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:iva-dimitrova-kuseva-a71c5c","target":"company:tr:207215235","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:naiden-shterionov-pulakev-c84a22","target":"company:tr:207215235","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:naiden-shterionov-pulakev-c84a22","target":"company:tr:207215235","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milen-todorov-manolov-8c442a",
+  "nodes": [
+    {
+      "id": "official:milen-todorov-manolov-8c442a",
+      "type": "official",
+      "slug": "milen-todorov-manolov-8c442a",
+      "label": "Милен Тодоров Манолов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Поморие"
+    },
+    {
+      "id": "company:tr:207215235",
+      "type": "company",
+      "label": "Болнично  настоятелство при МБАЛ ПОМОРИЕ ЕООД",
+      "slug": null,
+      "uic": "207215235",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Поморие, 8200"
+    },
+    {
+      "id": "mp:2308",
+      "type": "mp",
+      "mpId": 2308,
+      "label": "Ива Димитрова Кусева",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:iva-dimitrova-kuseva-a71c5c",
+      "type": "official",
+      "slug": "iva-dimitrova-kuseva-a71c5c",
+      "label": "Ива Димитрова Кусева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Поморие"
+    },
+    {
+      "id": "official:naiden-shterionov-pulakev-c84a22",
+      "type": "official",
+      "slug": "naiden-shterionov-pulakev-c84a22",
+      "label": "Найден Щерионов Пулакев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Поморие"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-todorov-manolov-8c442a",
+      "target": "company:tr:207215235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2308",
+      "target": "company:tr:207215235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iva-dimitrova-kuseva-a71c5c",
+      "target": "company:tr:207215235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:naiden-shterionov-pulakev-c84a22",
+      "target": "company:tr:207215235",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:naiden-shterionov-pulakev-c84a22",
+      "target": "company:tr:207215235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tanya-stoyanova-mihailova-03271b","nodes":[{"id":"official:tanya-stoyanova-mihailova-03271b","type":"official","slug":"tanya-stoyanova-mihailova-03271b","label":"Таня Стоянова Михайлова","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:202087657","type":"company","label":"ВЕТАМИ ЕООД","slug":null,"uic":"202087657","legalForm":null,"status":null,"seat":null},{"id":"person:ТОДОР ДИМИТРОВ ВЕЛИКОВ","type":"person","label":"Тодор Димитров Великов"}],"edges":[{"source":"official:tanya-stoyanova-mihailova-03271b","target":"company:tr:202087657","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ДИМИТРОВ ВЕЛИКОВ","target":"company:tr:202087657","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ДИМИТРОВ ВЕЛИКОВ","target":"company:tr:202087657","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tanya-stoyanova-mihailova-03271b",
+  "nodes": [
+    {
+      "id": "official:tanya-stoyanova-mihailova-03271b",
+      "type": "official",
+      "slug": "tanya-stoyanova-mihailova-03271b",
+      "label": "Таня Стоянова Михайлова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202087657",
+      "type": "company",
+      "label": "ВЕТАМИ ЕООД",
+      "slug": null,
+      "uic": "202087657",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ДИМИТРОВ ВЕЛИКОВ",
+      "type": "person",
+      "label": "Тодор Димитров Великов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-stoyanova-mihailova-03271b",
+      "target": "company:tr:202087657",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ДИМИТРОВ ВЕЛИКОВ",
+      "target": "company:tr:202087657",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ДИМИТРОВ ВЕЛИКОВ",
+      "target": "company:tr:202087657",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

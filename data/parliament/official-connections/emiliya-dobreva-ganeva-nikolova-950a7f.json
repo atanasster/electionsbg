@@ -1,1 +1,52 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emiliya-dobreva-ganeva-nikolova-950a7f","nodes":[{"id":"official:emiliya-dobreva-ganeva-nikolova-950a7f","type":"official","slug":"emiliya-dobreva-ganeva-nikolova-950a7f","label":"Емилия Добрева Ганева-Николова","tier":"municipal","role":"councillor","municipality":"Добрич"},{"id":"company:tr:834025616","type":"company","label":"\"Добричпроект\" ООД","slug":null,"uic":"834025616","legalForm":null,"status":null,"seat":null},{"id":"official:emiliya-dobreva-ganeva-nikolova-4b4c8c","type":"official","slug":"emiliya-dobreva-ganeva-nikolova-4b4c8c","label":"Емилия Добрева Ганева-Николова","tier":"municipal","role":"chief_architect","municipality":"Тервел"}],"edges":[{"source":"official:emiliya-dobreva-ganeva-nikolova-950a7f","target":"company:tr:834025616","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emiliya-dobreva-ganeva-nikolova-4b4c8c","target":"company:tr:834025616","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emiliya-dobreva-ganeva-nikolova-950a7f",
+  "nodes": [
+    {
+      "id": "official:emiliya-dobreva-ganeva-nikolova-950a7f",
+      "type": "official",
+      "slug": "emiliya-dobreva-ganeva-nikolova-950a7f",
+      "label": "Емилия Добрева Ганева-Николова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:834025616",
+      "type": "company",
+      "label": "\"Добричпроект\" ООД",
+      "slug": null,
+      "uic": "834025616",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:emiliya-dobreva-ganeva-nikolova-4b4c8c",
+      "type": "official",
+      "slug": "emiliya-dobreva-ganeva-nikolova-4b4c8c",
+      "label": "Емилия Добрева Ганева-Николова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Тервел"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-dobreva-ganeva-nikolova-950a7f",
+      "target": "company:tr:834025616",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emiliya-dobreva-ganeva-nikolova-4b4c8c",
+      "target": "company:tr:834025616",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

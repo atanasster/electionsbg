@@ -1,1 +1,190 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:angelina-emilova-nikolova-7da4f1","nodes":[{"id":"official:angelina-emilova-nikolova-7da4f1","type":"official","slug":"angelina-emilova-nikolova-7da4f1","label":"Ангелина Емилова Николова","tier":"municipal","role":"councillor","municipality":"Берковица"},{"id":"company:tr:000312808","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ИВАН ВАЗОВ - 1872&quot;","slug":null,"uic":"000312808","legalForm":null,"status":null,"seat":null},{"id":"official:tanya-petrova-ionova-dd4ff2","type":"official","slug":"tanya-petrova-ionova-dd4ff2","label":"Таня Петрова Йонова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ИВАН ПАВЛОВ ГАВРИЛОВ","type":"person","label":"Иван Павлов Гаврилов"},{"id":"person:ПЕТЯ БОРИСОВА ГЕНОВА","type":"person","label":"Петя Борисова Генова"},{"id":"person:СВЕТЛАНА НИКОЛОВА АНГЕЛОВА","type":"person","label":"Светлана Николова Ангелова"},{"id":"person:РОСЕН КРАСИМИРОВ ГЕОРГИЕВ","type":"person","label":"Росен Красимиров Георгиев"},{"id":"person:НАДЯ ИСАЕВА ТИМЧЕВА","type":"person","label":"Надя Исаева Тимчева"},{"id":"person:ЙОРДАНКА НИКОЛОВА БРАТАНОВА","type":"person","label":"Йорданка Николова Братанова"},{"id":"person:ДИМИТЪР ХРИСТОВ ДИМИТРОВ","type":"person","label":"Димитър Христов Димитров"},{"id":"person:АНТОАНЕТА ЦВЕТАНОВА КИРОВА","type":"person","label":"Антоанета Цветанова Кирова"},{"id":"person:ЗОЯ ИВАНОВА ИВАНОВА","type":"person","label":"Зоя Иванова Иванова"},{"id":"person:АНИТА ФИЛИПОВА ВАСИЛЕВА","type":"person","label":"Анита Филипова Василева"}],"edges":[{"source":"official:angelina-emilova-nikolova-7da4f1","target":"company:tr:000312808","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:tanya-petrova-ionova-dd4ff2","target":"company:tr:000312808","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ПАВЛОВ ГАВРИЛОВ","target":"company:tr:000312808","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ БОРИСОВА ГЕНОВА","target":"company:tr:000312808","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ БОРИСОВА ГЕНОВА","target":"company:tr:000312808","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА НИКОЛОВА АНГЕЛОВА","target":"company:tr:000312808","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН КРАСИМИРОВ ГЕОРГИЕВ","target":"company:tr:000312808","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ИСАЕВА ТИМЧЕВА","target":"company:tr:000312808","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА НИКОЛОВА БРАТАНОВА","target":"company:tr:000312808","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ХРИСТОВ ДИМИТРОВ","target":"company:tr:000312808","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАНЕТА ЦВЕТАНОВА КИРОВА","target":"company:tr:000312808","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗОЯ ИВАНОВА ИВАНОВА","target":"company:tr:000312808","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНИТА ФИЛИПОВА ВАСИЛЕВА","target":"company:tr:000312808","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:angelina-emilova-nikolova-7da4f1",
+  "nodes": [
+    {
+      "id": "official:angelina-emilova-nikolova-7da4f1",
+      "type": "official",
+      "slug": "angelina-emilova-nikolova-7da4f1",
+      "label": "Ангелина Емилова Николова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Берковица"
+    },
+    {
+      "id": "company:tr:000312808",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ИВАН ВАЗОВ - 1872&quot;",
+      "slug": null,
+      "uic": "000312808",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:tanya-petrova-ionova-dd4ff2",
+      "type": "official",
+      "slug": "tanya-petrova-ionova-dd4ff2",
+      "label": "Таня Петрова Йонова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ИВАН ПАВЛОВ ГАВРИЛОВ",
+      "type": "person",
+      "label": "Иван Павлов Гаврилов"
+    },
+    {
+      "id": "person:ПЕТЯ БОРИСОВА ГЕНОВА",
+      "type": "person",
+      "label": "Петя Борисова Генова"
+    },
+    {
+      "id": "person:СВЕТЛАНА НИКОЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Светлана Николова Ангелова"
+    },
+    {
+      "id": "person:РОСЕН КРАСИМИРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Росен Красимиров Георгиев"
+    },
+    {
+      "id": "person:НАДЯ ИСАЕВА ТИМЧЕВА",
+      "type": "person",
+      "label": "Надя Исаева Тимчева"
+    },
+    {
+      "id": "person:ЙОРДАНКА НИКОЛОВА БРАТАНОВА",
+      "type": "person",
+      "label": "Йорданка Николова Братанова"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Христов Димитров"
+    },
+    {
+      "id": "person:АНТОАНЕТА ЦВЕТАНОВА КИРОВА",
+      "type": "person",
+      "label": "Антоанета Цветанова Кирова"
+    },
+    {
+      "id": "person:ЗОЯ ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Зоя Иванова Иванова"
+    },
+    {
+      "id": "person:АНИТА ФИЛИПОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Анита Филипова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angelina-emilova-nikolova-7da4f1",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tanya-petrova-ionova-dd4ff2",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ПАВЛОВ ГАВРИЛОВ",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ БОРИСОВА ГЕНОВА",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ БОРИСОВА ГЕНОВА",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА НИКОЛОВА АНГЕЛОВА",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН КРАСИМИРОВ ГЕОРГИЕВ",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ИСАЕВА ТИМЧЕВА",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА НИКОЛОВА БРАТАНОВА",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ ДИМИТРОВ",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ЦВЕТАНОВА КИРОВА",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОЯ ИВАНОВА ИВАНОВА",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИТА ФИЛИПОВА ВАСИЛЕВА",
+      "target": "company:tr:000312808",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

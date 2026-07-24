@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:martin-georgiev-draganov-2e2254","nodes":[{"id":"official:martin-georgiev-draganov-2e2254","type":"official","slug":"martin-georgiev-draganov-2e2254","label":"Мартин Георгиев Драганов","tier":"municipal","role":"councillor","municipality":"Своге"},{"id":"company:tr:205588463","type":"company","label":"ДС СПОРТ","slug":null,"uic":"205588463","legalForm":null,"status":null,"seat":null},{"id":"person:ЖЕНИ ИЛКОВА ГРОЗДЕВА","type":"person","label":"Жени Илкова Гроздева"}],"edges":[{"source":"official:martin-georgiev-draganov-2e2254","target":"company:tr:205588463","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЖЕНИ ИЛКОВА ГРОЗДЕВА","target":"company:tr:205588463","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:martin-georgiev-draganov-2e2254",
+  "nodes": [
+    {
+      "id": "official:martin-georgiev-draganov-2e2254",
+      "type": "official",
+      "slug": "martin-georgiev-draganov-2e2254",
+      "label": "Мартин Георгиев Драганов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Своге"
+    },
+    {
+      "id": "company:tr:205588463",
+      "type": "company",
+      "label": "ДС СПОРТ",
+      "slug": null,
+      "uic": "205588463",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖЕНИ ИЛКОВА ГРОЗДЕВА",
+      "type": "person",
+      "label": "Жени Илкова Гроздева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-georgiev-draganov-2e2254",
+      "target": "company:tr:205588463",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕНИ ИЛКОВА ГРОЗДЕВА",
+      "target": "company:tr:205588463",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

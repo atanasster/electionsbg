@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:boryana-iordanova-radoilova-e04c9e","nodes":[{"id":"official:boryana-iordanova-radoilova-e04c9e","type":"official","slug":"boryana-iordanova-radoilova-e04c9e","label":"Боряна Йорданова Радоилова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207382636","type":"company","label":"ОПЪН КИЧЕН","slug":null,"uic":"207382636","legalForm":null,"status":null,"seat":null},{"id":"person:КРИСТИН ЯВОРОВА РАДОИЛОВА","type":"person","label":"Кристин Яворова Радоилова"},{"id":"person:ВАСИЛ СТОЯНОВ ПЕТРАКОВ","type":"person","label":"Васил Стоянов Петраков"},{"id":"person:ЙОРДАН ТОНЧЕВ ЖЕЧЕВ","type":"person","label":"Йордан Тончев Жечев"},{"id":"person:ЯВОР ЙОРДАНОВ РАДОИЛОВ","type":"person","label":"Явор Йорданов Радоилов"}],"edges":[{"source":"official:boryana-iordanova-radoilova-e04c9e","target":"company:tr:207382636","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:КРИСТИН ЯВОРОВА РАДОИЛОВА","target":"company:tr:207382636","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИН ЯВОРОВА РАДОИЛОВА","target":"company:tr:207382636","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ СТОЯНОВ ПЕТРАКОВ","target":"company:tr:207382636","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ТОНЧЕВ ЖЕЧЕВ","target":"company:tr:207382636","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР ЙОРДАНОВ РАДОИЛОВ","target":"company:tr:207382636","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:boryana-iordanova-radoilova-e04c9e",
+  "nodes": [
+    {
+      "id": "official:boryana-iordanova-radoilova-e04c9e",
+      "type": "official",
+      "slug": "boryana-iordanova-radoilova-e04c9e",
+      "label": "Боряна Йорданова Радоилова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207382636",
+      "type": "company",
+      "label": "ОПЪН КИЧЕН",
+      "slug": null,
+      "uic": "207382636",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРИСТИН ЯВОРОВА РАДОИЛОВА",
+      "type": "person",
+      "label": "Кристин Яворова Радоилова"
+    },
+    {
+      "id": "person:ВАСИЛ СТОЯНОВ ПЕТРАКОВ",
+      "type": "person",
+      "label": "Васил Стоянов Петраков"
+    },
+    {
+      "id": "person:ЙОРДАН ТОНЧЕВ ЖЕЧЕВ",
+      "type": "person",
+      "label": "Йордан Тончев Жечев"
+    },
+    {
+      "id": "person:ЯВОР ЙОРДАНОВ РАДОИЛОВ",
+      "type": "person",
+      "label": "Явор Йорданов Радоилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boryana-iordanova-radoilova-e04c9e",
+      "target": "company:tr:207382636",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРИСТИН ЯВОРОВА РАДОИЛОВА",
+      "target": "company:tr:207382636",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИН ЯВОРОВА РАДОИЛОВА",
+      "target": "company:tr:207382636",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СТОЯНОВ ПЕТРАКОВ",
+      "target": "company:tr:207382636",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ТОНЧЕВ ЖЕЧЕВ",
+      "target": "company:tr:207382636",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ЙОРДАНОВ РАДОИЛОВ",
+      "target": "company:tr:207382636",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,194 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:bozhidar-rumenov-ivanov-60af48","nodes":[{"id":"official:bozhidar-rumenov-ivanov-60af48","type":"official","slug":"bozhidar-rumenov-ivanov-60af48","label":"Божидар Руменов Иванов","tier":"executive","role":"international","municipality":null},{"id":"company:tr:103796781","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО НА МАТЕМАТИЧЕСКА ГИМНАЗИЯ &quot;Д-Р ПЕТЪР БЕРОН&quot; -  ГР. ВАРНА","slug":null,"uic":"103796781","legalForm":null,"status":null,"seat":null},{"id":"person:ВАНЯ ДОБРЕВА ВЪЛКОВА","type":"person","label":"Ваня Добрева Вълкова"},{"id":"person:ДЕНИЦА РАДЕВА МИНЕВА","type":"person","label":"Деница Радева Минева"},{"id":"person:МАРИЯ СЕРЬОЖЕВА ДЖЕЛЕПОВА","type":"person","label":"Мария Серьожева Джелепова"},{"id":"person:ЗОРНИЦА ЗДРАВКОВА ГЕОРГИЕВА","type":"person","label":"Зорница Здравкова Георгиева"},{"id":"person:ДОБРИН БОЖИДАРОВ КАИШЕВ","type":"person","label":"Добрин Божидаров Каишев"},{"id":"person:ДОБРИ ЖИВКОВ ДОБРЕВ","type":"person","label":"Добри Живков Добрев"},{"id":"person:ТЕОДОРА АТАНАСОВА ДОНЕВА","type":"person","label":"Теодора Атанасова Донева"},{"id":"person:ДИМИТЪР ЩЕРИОНОВ ДРАГНЕВ","type":"person","label":"Димитър Щерионов Драгнев"},{"id":"person:СВИЛЕН СТОЙЧЕВ АНДОНОВ","type":"person","label":"Свилен Стойчев Андонов"},{"id":"person:АННА ПРОДАНОВА ВАСИЛЕВА","type":"person","label":"Анна Проданова Василева"},{"id":"person:СТЕФАН МИХАЙЛОВ СТОЯНОВ","type":"person","label":"Стефан Михайлов Стоянов"}],"edges":[{"source":"official:bozhidar-rumenov-ivanov-60af48","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВАНЯ ДОБРЕВА ВЪЛКОВА","target":"company:tr:103796781","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ДОБРЕВА ВЪЛКОВА","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА РАДЕВА МИНЕВА","target":"company:tr:103796781","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА РАДЕВА МИНЕВА","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ СЕРЬОЖЕВА ДЖЕЛЕПОВА","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗОРНИЦА ЗДРАВКОВА ГЕОРГИЕВА","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИН БОЖИДАРОВ КАИШЕВ","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИ ЖИВКОВ ДОБРЕВ","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА АТАНАСОВА ДОНЕВА","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЩЕРИОНОВ ДРАГНЕВ","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВИЛЕН СТОЙЧЕВ АНДОНОВ","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АННА ПРОДАНОВА ВАСИЛЕВА","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН МИХАЙЛОВ СТОЯНОВ","target":"company:tr:103796781","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:bozhidar-rumenov-ivanov-60af48",
+  "nodes": [
+    {
+      "id": "official:bozhidar-rumenov-ivanov-60af48",
+      "type": "official",
+      "slug": "bozhidar-rumenov-ivanov-60af48",
+      "label": "Божидар Руменов Иванов",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103796781",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА МАТЕМАТИЧЕСКА ГИМНАЗИЯ &quot;Д-Р ПЕТЪР БЕРОН&quot; -  ГР. ВАРНА",
+      "slug": null,
+      "uic": "103796781",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАНЯ ДОБРЕВА ВЪЛКОВА",
+      "type": "person",
+      "label": "Ваня Добрева Вълкова"
+    },
+    {
+      "id": "person:ДЕНИЦА РАДЕВА МИНЕВА",
+      "type": "person",
+      "label": "Деница Радева Минева"
+    },
+    {
+      "id": "person:МАРИЯ СЕРЬОЖЕВА ДЖЕЛЕПОВА",
+      "type": "person",
+      "label": "Мария Серьожева Джелепова"
+    },
+    {
+      "id": "person:ЗОРНИЦА ЗДРАВКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Зорница Здравкова Георгиева"
+    },
+    {
+      "id": "person:ДОБРИН БОЖИДАРОВ КАИШЕВ",
+      "type": "person",
+      "label": "Добрин Божидаров Каишев"
+    },
+    {
+      "id": "person:ДОБРИ ЖИВКОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Добри Живков Добрев"
+    },
+    {
+      "id": "person:ТЕОДОРА АТАНАСОВА ДОНЕВА",
+      "type": "person",
+      "label": "Теодора Атанасова Донева"
+    },
+    {
+      "id": "person:ДИМИТЪР ЩЕРИОНОВ ДРАГНЕВ",
+      "type": "person",
+      "label": "Димитър Щерионов Драгнев"
+    },
+    {
+      "id": "person:СВИЛЕН СТОЙЧЕВ АНДОНОВ",
+      "type": "person",
+      "label": "Свилен Стойчев Андонов"
+    },
+    {
+      "id": "person:АННА ПРОДАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Анна Проданова Василева"
+    },
+    {
+      "id": "person:СТЕФАН МИХАЙЛОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стефан Михайлов Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bozhidar-rumenov-ivanov-60af48",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАНЯ ДОБРЕВА ВЪЛКОВА",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ДОБРЕВА ВЪЛКОВА",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА РАДЕВА МИНЕВА",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА РАДЕВА МИНЕВА",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СЕРЬОЖЕВА ДЖЕЛЕПОВА",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРНИЦА ЗДРАВКОВА ГЕОРГИЕВА",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИН БОЖИДАРОВ КАИШЕВ",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ЖИВКОВ ДОБРЕВ",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА АТАНАСОВА ДОНЕВА",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЩЕРИОНОВ ДРАГНЕВ",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕН СТОЙЧЕВ АНДОНОВ",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ПРОДАНОВА ВАСИЛЕВА",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МИХАЙЛОВ СТОЯНОВ",
+      "target": "company:tr:103796781",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

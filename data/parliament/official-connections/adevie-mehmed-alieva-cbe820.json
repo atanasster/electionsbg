@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:adevie-mehmed-alieva-cbe820","nodes":[{"id":"official:adevie-mehmed-alieva-cbe820","type":"official","slug":"adevie-mehmed-alieva-cbe820","label":"Адевие Мехмед Алиева","tier":"municipal","role":"councillor","municipality":"Разград"},{"id":"company:tr:000500030","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТЛИНА 1928&quot;","slug":null,"uic":"000500030","legalForm":null,"status":null,"seat":null},{"id":"person:ШИРИН МЕХМЕДОВА НАИМОВА","type":"person","label":"Ширин Мехмедова Наимова"},{"id":"person:АЙШЕ АХМЕД КЬОСЕ","type":"person","label":"Айше Ахмед Кьосе"},{"id":"person:ХАФИЗЕ БЕХЧЕТОВА ХАМДИ","type":"person","label":"Хафизе Бехчетова Хамди"},{"id":"person:ШИРИН НИЯЗИ ИСМАИЛ","type":"person","label":"Ширин Ниязи Исмаил"},{"id":"person:АЙШЕ САЛИ ХАМДИЕВА","type":"person","label":"Айше Сали Хамдиева"}],"edges":[{"source":"official:adevie-mehmed-alieva-cbe820","target":"company:tr:000500030","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ШИРИН МЕХМЕДОВА НАИМОВА","target":"company:tr:000500030","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АЙШЕ АХМЕД КЬОСЕ","target":"company:tr:000500030","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХАФИЗЕ БЕХЧЕТОВА ХАМДИ","target":"company:tr:000500030","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ШИРИН НИЯЗИ ИСМАИЛ","target":"company:tr:000500030","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АЙШЕ САЛИ ХАМДИЕВА","target":"company:tr:000500030","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:adevie-mehmed-alieva-cbe820",
+  "nodes": [
+    {
+      "id": "official:adevie-mehmed-alieva-cbe820",
+      "type": "official",
+      "slug": "adevie-mehmed-alieva-cbe820",
+      "label": "Адевие Мехмед Алиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разград"
+    },
+    {
+      "id": "company:tr:000500030",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТЛИНА 1928&quot;",
+      "slug": null,
+      "uic": "000500030",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ШИРИН МЕХМЕДОВА НАИМОВА",
+      "type": "person",
+      "label": "Ширин Мехмедова Наимова"
+    },
+    {
+      "id": "person:АЙШЕ АХМЕД КЬОСЕ",
+      "type": "person",
+      "label": "Айше Ахмед Кьосе"
+    },
+    {
+      "id": "person:ХАФИЗЕ БЕХЧЕТОВА ХАМДИ",
+      "type": "person",
+      "label": "Хафизе Бехчетова Хамди"
+    },
+    {
+      "id": "person:ШИРИН НИЯЗИ ИСМАИЛ",
+      "type": "person",
+      "label": "Ширин Ниязи Исмаил"
+    },
+    {
+      "id": "person:АЙШЕ САЛИ ХАМДИЕВА",
+      "type": "person",
+      "label": "Айше Сали Хамдиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:adevie-mehmed-alieva-cbe820",
+      "target": "company:tr:000500030",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ШИРИН МЕХМЕДОВА НАИМОВА",
+      "target": "company:tr:000500030",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ АХМЕД КЬОСЕ",
+      "target": "company:tr:000500030",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАФИЗЕ БЕХЧЕТОВА ХАМДИ",
+      "target": "company:tr:000500030",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШИРИН НИЯЗИ ИСМАИЛ",
+      "target": "company:tr:000500030",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ САЛИ ХАМДИЕВА",
+      "target": "company:tr:000500030",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

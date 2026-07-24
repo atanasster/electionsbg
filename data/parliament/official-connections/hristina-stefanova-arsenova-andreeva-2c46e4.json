@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristina-stefanova-arsenova-andreeva-2c46e4","nodes":[{"id":"official:hristina-stefanova-arsenova-andreeva-2c46e4","type":"official","slug":"hristina-stefanova-arsenova-andreeva-2c46e4","label":"Христина Стефанова Арсенова-Андреева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:208740855","type":"company","label":"ДНИ НА КУКЛИТЕ","slug":null,"uic":"208740855","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТИНА СТЕФАНОВА АРСЕНОВА - АНДРЕЕВА","type":"person","label":"Христина Стефанова Арсенова - Андреева"}],"edges":[{"source":"official:hristina-stefanova-arsenova-andreeva-2c46e4","target":"company:tr:208740855","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:hristina-stefanova-arsenova-andreeva-2c46e4","target":"company:tr:208740855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТИНА СТЕФАНОВА АРСЕНОВА - АНДРЕЕВА","target":"company:tr:208740855","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА СТЕФАНОВА АРСЕНОВА - АНДРЕЕВА","target":"company:tr:208740855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristina-stefanova-arsenova-andreeva-2c46e4",
+  "nodes": [
+    {
+      "id": "official:hristina-stefanova-arsenova-andreeva-2c46e4",
+      "type": "official",
+      "slug": "hristina-stefanova-arsenova-andreeva-2c46e4",
+      "label": "Христина Стефанова Арсенова-Андреева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208740855",
+      "type": "company",
+      "label": "ДНИ НА КУКЛИТЕ",
+      "slug": null,
+      "uic": "208740855",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТИНА СТЕФАНОВА АРСЕНОВА - АНДРЕЕВА",
+      "type": "person",
+      "label": "Христина Стефанова Арсенова - Андреева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-stefanova-arsenova-andreeva-2c46e4",
+      "target": "company:tr:208740855",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristina-stefanova-arsenova-andreeva-2c46e4",
+      "target": "company:tr:208740855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИНА СТЕФАНОВА АРСЕНОВА - АНДРЕЕВА",
+      "target": "company:tr:208740855",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА СТЕФАНОВА АРСЕНОВА - АНДРЕЕВА",
+      "target": "company:tr:208740855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

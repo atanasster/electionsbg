@@ -1,1 +1,195 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-stoilov-pavlov-f1f0cb","nodes":[{"id":"official:ivan-stoilov-pavlov-f1f0cb","type":"official","slug":"ivan-stoilov-pavlov-f1f0cb","label":"Иван Стоилов Павлов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:114084963","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;НАПРЕДЪК 1871&quot;","slug":null,"uic":"114084963","legalForm":null,"status":null,"seat":null},{"id":"official:aneliya-kirilova-dimitrova-a39fce","type":"official","slug":"aneliya-kirilova-dimitrova-a39fce","label":"Анелия Кирилова Димитрова","tier":"municipal","role":"deputy_mayor","municipality":"Никопол"},{"id":"person:ЕМИЛ ДИМИТРОВ ФИЛИПОВ","type":"person","label":"Емил Димитров Филипов"},{"id":"person:СВЕТЛАНА РОЗЕНОВА ДАНКОВА","type":"person","label":"Светлана Розенова Данкова"},{"id":"person:ИСКРА ЗДРАВКОВА АНГЕЛОВА","type":"person","label":"Искра Здравкова Ангелова"},{"id":"person:НЕРГИС НЕХАДОВА БОШНАКОВА","type":"person","label":"Нергис Нехадова Бошнакова"},{"id":"person:МАРГАРИТКА ПЕПОВА ПЕТРОВА","type":"person","label":"Маргаритка Пепова Петрова"},{"id":"person:НИКОЛАЙ ДИМИТРОВ ИЛИЕВ","type":"person","label":"Николай Димитров Илиев"},{"id":"person:АЛИ СЕЛАЙДИНОВ КЮЧУКОВ","type":"person","label":"Али Селайдинов Кючуков"},{"id":"person:ИННА ЦВЕТАНОВА ПАЛА","type":"person","label":"Инна Цветанова Пала"},{"id":"person:АТИДЖЕ ЮСЕЙНОВА БИНБАШИЕВА","type":"person","label":"Атидже Юсейнова Бинбашиева"},{"id":"person:РАЛИЦА ПАВЛОВА АЛЕКСАНДРОВА","type":"person","label":"Ралица Павлова Александрова"},{"id":"person:ЕМО ПЕТРОВ ШУМОВ","type":"person","label":"Емо Петров Шумов"}],"edges":[{"source":"official:ivan-stoilov-pavlov-f1f0cb","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:aneliya-kirilova-dimitrova-a39fce","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЕМИЛ ДИМИТРОВ ФИЛИПОВ","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА РОЗЕНОВА ДАНКОВА","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИСКРА ЗДРАВКОВА АНГЕЛОВА","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕРГИС НЕХАДОВА БОШНАКОВА","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТКА ПЕПОВА ПЕТРОВА","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДИМИТРОВ ИЛИЕВ","target":"company:tr:114084963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АЛИ СЕЛАЙДИНОВ КЮЧУКОВ","target":"company:tr:114084963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИННА ЦВЕТАНОВА ПАЛА","target":"company:tr:114084963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АТИДЖЕ ЮСЕЙНОВА БИНБАШИЕВА","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА ПАВЛОВА АЛЕКСАНДРОВА","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕМО ПЕТРОВ ШУМОВ","target":"company:tr:114084963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-stoilov-pavlov-f1f0cb",
+  "nodes": [
+    {
+      "id": "official:ivan-stoilov-pavlov-f1f0cb",
+      "type": "official",
+      "slug": "ivan-stoilov-pavlov-f1f0cb",
+      "label": "Иван Стоилов Павлов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114084963",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НАПРЕДЪК 1871&quot;",
+      "slug": null,
+      "uic": "114084963",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:aneliya-kirilova-dimitrova-a39fce",
+      "type": "official",
+      "slug": "aneliya-kirilova-dimitrova-a39fce",
+      "label": "Анелия Кирилова Димитрова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Никопол"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Емил Димитров Филипов"
+    },
+    {
+      "id": "person:СВЕТЛАНА РОЗЕНОВА ДАНКОВА",
+      "type": "person",
+      "label": "Светлана Розенова Данкова"
+    },
+    {
+      "id": "person:ИСКРА ЗДРАВКОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Искра Здравкова Ангелова"
+    },
+    {
+      "id": "person:НЕРГИС НЕХАДОВА БОШНАКОВА",
+      "type": "person",
+      "label": "Нергис Нехадова Бошнакова"
+    },
+    {
+      "id": "person:МАРГАРИТКА ПЕПОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Маргаритка Пепова Петрова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Николай Димитров Илиев"
+    },
+    {
+      "id": "person:АЛИ СЕЛАЙДИНОВ КЮЧУКОВ",
+      "type": "person",
+      "label": "Али Селайдинов Кючуков"
+    },
+    {
+      "id": "person:ИННА ЦВЕТАНОВА ПАЛА",
+      "type": "person",
+      "label": "Инна Цветанова Пала"
+    },
+    {
+      "id": "person:АТИДЖЕ ЮСЕЙНОВА БИНБАШИЕВА",
+      "type": "person",
+      "label": "Атидже Юсейнова Бинбашиева"
+    },
+    {
+      "id": "person:РАЛИЦА ПАВЛОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Ралица Павлова Александрова"
+    },
+    {
+      "id": "person:ЕМО ПЕТРОВ ШУМОВ",
+      "type": "person",
+      "label": "Емо Петров Шумов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-stoilov-pavlov-f1f0cb",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aneliya-kirilova-dimitrova-a39fce",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ФИЛИПОВ",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА РОЗЕНОВА ДАНКОВА",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСКРА ЗДРАВКОВА АНГЕЛОВА",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕРГИС НЕХАДОВА БОШНАКОВА",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТКА ПЕПОВА ПЕТРОВА",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ИЛИЕВ",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИ СЕЛАЙДИНОВ КЮЧУКОВ",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИННА ЦВЕТАНОВА ПАЛА",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТИДЖЕ ЮСЕЙНОВА БИНБАШИЕВА",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ПАВЛОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМО ПЕТРОВ ШУМОВ",
+      "target": "company:tr:114084963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

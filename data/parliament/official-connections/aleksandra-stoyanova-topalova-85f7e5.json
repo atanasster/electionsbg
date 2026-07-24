@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aleksandra-stoyanova-topalova-85f7e5","nodes":[{"id":"official:aleksandra-stoyanova-topalova-85f7e5","type":"official","slug":"aleksandra-stoyanova-topalova-85f7e5","label":"Александра Стоянова Топалова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:131121474","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО НА 41 ОУ ПАТРИАРХ ЕВТИМИЙ","slug":null,"uic":"131121474","legalForm":null,"status":null,"seat":null},{"id":"person:АНГЕЛ ДИМИТРОВ ЖИЛЕВ","type":"person","label":"Ангел Димитров Жилев"},{"id":"person:МИРЕЛА СИМЕОНОВА МАКЕДОНСКА","type":"person","label":"Мирела Симеонова Македонска"},{"id":"person:ЕЛИЦА ВЛАДИМИРОВА ВИТКОВА","type":"person","label":"Елица Владимирова Виткова"},{"id":"person:ИВЕЛИНА ДАНАИЛОВА ТРИФОНОВА","type":"person","label":"Ивелина Данаилова Трифонова"},{"id":"person:АНГЕЛ ДИМИТРОВ ЖИЛЕВ - ПРЕДСЕДАТЕЛ","type":"person","label":"Ангел Димитров Жилев - Председател"}],"edges":[{"source":"official:aleksandra-stoyanova-topalova-85f7e5","target":"company:tr:131121474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНГЕЛ ДИМИТРОВ ЖИЛЕВ","target":"company:tr:131121474","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИРЕЛА СИМЕОНОВА МАКЕДОНСКА","target":"company:tr:131121474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЦА ВЛАДИМИРОВА ВИТКОВА","target":"company:tr:131121474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИНА ДАНАИЛОВА ТРИФОНОВА","target":"company:tr:131121474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ДИМИТРОВ ЖИЛЕВ - ПРЕДСЕДАТЕЛ","target":"company:tr:131121474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aleksandra-stoyanova-topalova-85f7e5",
+  "nodes": [
+    {
+      "id": "official:aleksandra-stoyanova-topalova-85f7e5",
+      "type": "official",
+      "slug": "aleksandra-stoyanova-topalova-85f7e5",
+      "label": "Александра Стоянова Топалова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131121474",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА 41 ОУ ПАТРИАРХ ЕВТИМИЙ",
+      "slug": null,
+      "uic": "131121474",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ ДИМИТРОВ ЖИЛЕВ",
+      "type": "person",
+      "label": "Ангел Димитров Жилев"
+    },
+    {
+      "id": "person:МИРЕЛА СИМЕОНОВА МАКЕДОНСКА",
+      "type": "person",
+      "label": "Мирела Симеонова Македонска"
+    },
+    {
+      "id": "person:ЕЛИЦА ВЛАДИМИРОВА ВИТКОВА",
+      "type": "person",
+      "label": "Елица Владимирова Виткова"
+    },
+    {
+      "id": "person:ИВЕЛИНА ДАНАИЛОВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Ивелина Данаилова Трифонова"
+    },
+    {
+      "id": "person:АНГЕЛ ДИМИТРОВ ЖИЛЕВ - ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Ангел Димитров Жилев - Председател"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandra-stoyanova-topalova-85f7e5",
+      "target": "company:tr:131121474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ ДИМИТРОВ ЖИЛЕВ",
+      "target": "company:tr:131121474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРЕЛА СИМЕОНОВА МАКЕДОНСКА",
+      "target": "company:tr:131121474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВЛАДИМИРОВА ВИТКОВА",
+      "target": "company:tr:131121474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ДАНАИЛОВА ТРИФОНОВА",
+      "target": "company:tr:131121474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ДИМИТРОВ ЖИЛЕВ - ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:131121474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

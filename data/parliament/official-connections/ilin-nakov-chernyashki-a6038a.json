@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ilin-nakov-chernyashki-a6038a","nodes":[{"id":"official:ilin-nakov-chernyashki-a6038a","type":"official","slug":"ilin-nakov-chernyashki-a6038a","label":"Илин Наков Черняшки","tier":"municipal","role":"council_chair","municipality":"Ботевград"},{"id":"company:tr:204091309","type":"company","label":"МаксИгна","slug":null,"uic":"204091309","legalForm":null,"status":null,"seat":null},{"id":"person:НАЙДЕН ИГНАТОВ НАЙДЕНОВ","type":"person","label":"Найден Игнатов Найденов"}],"edges":[{"source":"official:ilin-nakov-chernyashki-a6038a","target":"company:tr:204091309","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:НАЙДЕН ИГНАТОВ НАЙДЕНОВ","target":"company:tr:204091309","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ilin-nakov-chernyashki-a6038a",
+  "nodes": [
+    {
+      "id": "official:ilin-nakov-chernyashki-a6038a",
+      "type": "official",
+      "slug": "ilin-nakov-chernyashki-a6038a",
+      "label": "Илин Наков Черняшки",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Ботевград"
+    },
+    {
+      "id": "company:tr:204091309",
+      "type": "company",
+      "label": "МаксИгна",
+      "slug": null,
+      "uic": "204091309",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАЙДЕН ИГНАТОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Найден Игнатов Найденов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilin-nakov-chernyashki-a6038a",
+      "target": "company:tr:204091309",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАЙДЕН ИГНАТОВ НАЙДЕНОВ",
+      "target": "company:tr:204091309",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

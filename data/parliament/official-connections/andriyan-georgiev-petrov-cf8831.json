@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:andriyan-georgiev-petrov-cf8831","nodes":[{"id":"official:andriyan-georgiev-petrov-cf8831","type":"official","slug":"andriyan-georgiev-petrov-cf8831","label":"Андриян Георгиев Петров","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:206497187","type":"company","label":"Родопис","slug":null,"uic":"206497187","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТЪР ХРИСТОВ ЯНЕВ","type":"person","label":"Петър Христов Янев"},{"id":"person:ТЕОДОРА ГЕНАДИЕВА ИГНАТОВА","type":"person","label":"Теодора Генадиева Игнатова"}],"edges":[{"source":"official:andriyan-georgiev-petrov-cf8831","target":"company:tr:206497187","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:andriyan-georgiev-petrov-cf8831","target":"company:tr:206497187","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЪР ХРИСТОВ ЯНЕВ","target":"company:tr:206497187","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ГЕНАДИЕВА ИГНАТОВА","target":"company:tr:206497187","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ГЕНАДИЕВА ИГНАТОВА","target":"company:tr:206497187","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:andriyan-georgiev-petrov-cf8831",
+  "nodes": [
+    {
+      "id": "official:andriyan-georgiev-petrov-cf8831",
+      "type": "official",
+      "slug": "andriyan-georgiev-petrov-cf8831",
+      "label": "Андриян Георгиев Петров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206497187",
+      "type": "company",
+      "label": "Родопис",
+      "slug": null,
+      "uic": "206497187",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ХРИСТОВ ЯНЕВ",
+      "type": "person",
+      "label": "Петър Христов Янев"
+    },
+    {
+      "id": "person:ТЕОДОРА ГЕНАДИЕВА ИГНАТОВА",
+      "type": "person",
+      "label": "Теодора Генадиева Игнатова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:andriyan-georgiev-petrov-cf8831",
+      "target": "company:tr:206497187",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:andriyan-georgiev-petrov-cf8831",
+      "target": "company:tr:206497187",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ХРИСТОВ ЯНЕВ",
+      "target": "company:tr:206497187",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ГЕНАДИЕВА ИГНАТОВА",
+      "target": "company:tr:206497187",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ГЕНАДИЕВА ИГНАТОВА",
+      "target": "company:tr:206497187",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

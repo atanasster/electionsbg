@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:slavcho-tomov-tomov-ee6b98","nodes":[{"id":"official:slavcho-tomov-tomov-ee6b98","type":"official","slug":"slavcho-tomov-tomov-ee6b98","label":"СЛАВЧО ТОМОВ ТОМОВ","tier":"executive","role":"academic","municipality":null},{"id":"company:tr:203362362","type":"company","label":"\"АМБУЛАТОРИЯ ЗА ИНДИВИДУАЛНА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ ПО ВЪТРЕШНИ БОЛЕСТИ И КАРДИОЛОГИЯ - Д-Р ВЕСЕЛА ТОМОВА\" ЕООД","slug":null,"uic":"203362362","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:slavcho-tomov-tomov-ee6b98","target":"company:tr:203362362","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:slavcho-tomov-tomov-ee6b98",
+  "nodes": [
+    {
+      "id": "official:slavcho-tomov-tomov-ee6b98",
+      "type": "official",
+      "slug": "slavcho-tomov-tomov-ee6b98",
+      "label": "СЛАВЧО ТОМОВ ТОМОВ",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203362362",
+      "type": "company",
+      "label": "\"АМБУЛАТОРИЯ ЗА ИНДИВИДУАЛНА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ ПО ВЪТРЕШНИ БОЛЕСТИ И КАРДИОЛОГИЯ - Д-Р ВЕСЕЛА ТОМОВА\" ЕООД",
+      "slug": null,
+      "uic": "203362362",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:slavcho-tomov-tomov-ee6b98",
+      "target": "company:tr:203362362",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

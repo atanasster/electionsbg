@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milena-petkova-dimitrova-53c257","nodes":[{"id":"official:milena-petkova-dimitrova-53c257","type":"official","slug":"milena-petkova-dimitrova-53c257","label":"Милена Петкова Димитрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:117688196","type":"company","label":"ДАРЯ","slug":null,"uic":"117688196","legalForm":null,"status":null,"seat":null},{"id":"person:КРАСЕН ПЕТКОВ МИНКОВ","type":"person","label":"Красен Петков Минков"}],"edges":[{"source":"official:milena-petkova-dimitrova-53c257","target":"company:tr:117688196","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КРАСЕН ПЕТКОВ МИНКОВ","target":"company:tr:117688196","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРАСЕН ПЕТКОВ МИНКОВ","target":"company:tr:117688196","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milena-petkova-dimitrova-53c257",
+  "nodes": [
+    {
+      "id": "official:milena-petkova-dimitrova-53c257",
+      "type": "official",
+      "slug": "milena-petkova-dimitrova-53c257",
+      "label": "Милена Петкова Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117688196",
+      "type": "company",
+      "label": "ДАРЯ",
+      "slug": null,
+      "uic": "117688196",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСЕН ПЕТКОВ МИНКОВ",
+      "type": "person",
+      "label": "Красен Петков Минков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-petkova-dimitrova-53c257",
+      "target": "company:tr:117688196",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСЕН ПЕТКОВ МИНКОВ",
+      "target": "company:tr:117688196",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСЕН ПЕТКОВ МИНКОВ",
+      "target": "company:tr:117688196",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

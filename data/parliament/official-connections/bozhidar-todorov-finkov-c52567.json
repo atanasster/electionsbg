@@ -1,1 +1,65 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:bozhidar-todorov-finkov-c52567","nodes":[{"id":"official:bozhidar-todorov-finkov-c52567","type":"official","slug":"bozhidar-todorov-finkov-c52567","label":"Божидар Тодоров Финков","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:130367715","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;СВЕТА АННА&quot; СОФИЯ","slug":null,"uic":"130367715","legalForm":null,"status":null,"seat":null},{"id":"official:slavcho-sotirov-bliznakov-17cb93","type":"official","slug":"slavcho-sotirov-bliznakov-17cb93","label":"Славчо Сотиров Близнаков","tier":"executive","role":"hospital_head","municipality":null},{"id":"person:ГЕОРГИ ИВАНОВ ГЕЛЕВ","type":"person","label":"Георги Иванов Гелев"}],"edges":[{"source":"official:bozhidar-todorov-finkov-c52567","target":"company:tr:130367715","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:slavcho-sotirov-bliznakov-17cb93","target":"company:tr:130367715","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ИВАНОВ ГЕЛЕВ","target":"company:tr:130367715","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:bozhidar-todorov-finkov-c52567",
+  "nodes": [
+    {
+      "id": "official:bozhidar-todorov-finkov-c52567",
+      "type": "official",
+      "slug": "bozhidar-todorov-finkov-c52567",
+      "label": "Божидар Тодоров Финков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130367715",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;СВЕТА АННА&quot; СОФИЯ",
+      "slug": null,
+      "uic": "130367715",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:slavcho-sotirov-bliznakov-17cb93",
+      "type": "official",
+      "slug": "slavcho-sotirov-bliznakov-17cb93",
+      "label": "Славчо Сотиров Близнаков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ГЕЛЕВ",
+      "type": "person",
+      "label": "Георги Иванов Гелев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bozhidar-todorov-finkov-c52567",
+      "target": "company:tr:130367715",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:slavcho-sotirov-bliznakov-17cb93",
+      "target": "company:tr:130367715",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ГЕЛЕВ",
+      "target": "company:tr:130367715",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,108 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:staio-stoyanov-garnoev-fd7d68","nodes":[{"id":"official:staio-stoyanov-garnoev-fd7d68","type":"official","slug":"staio-stoyanov-garnoev-fd7d68","label":"Стайо Стоянов Гарноев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:112105526","type":"company","label":"СДРУЖЕНИЕ ЗА ВЗАИМОПОМОЩ НА УЧИТЕЛИТЕ - ГР.ПАЗАРДЖИК","slug":null,"uic":"112105526","legalForm":null,"status":null,"seat":null},{"id":"person:ЛИЛЯНА ПЕТРОВА ШИКОВА","type":"person","label":"Лиляна Петрова Шикова"},{"id":"person:АТАНАС ГЕОРГИЕВ МИЧЕВ","type":"person","label":"Атанас Георгиев Мичев"},{"id":"person:ТРАЯНКА КИРИЛОВА ТЕРЗИЙСКА","type":"person","label":"Траянка Кирилова Терзийска"},{"id":"person:БОНКА ДИМИТРОВА РАНГЕЛОВА","type":"person","label":"Бонка Димитрова Рангелова"},{"id":"person:ДИАНА ПЕТРОВА ДЖУКЕЛОВА","type":"person","label":"Диана Петрова Джукелова"}],"edges":[{"source":"official:staio-stoyanov-garnoev-fd7d68","target":"company:tr:112105526","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛИЛЯНА ПЕТРОВА ШИКОВА","target":"company:tr:112105526","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ГЕОРГИЕВ МИЧЕВ","target":"company:tr:112105526","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ТРАЯНКА КИРИЛОВА ТЕРЗИЙСКА","target":"company:tr:112105526","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОНКА ДИМИТРОВА РАНГЕЛОВА","target":"company:tr:112105526","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛЯНА ПЕТРОВА ШИКОВА","target":"company:tr:112105526","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА ПЕТРОВА ДЖУКЕЛОВА","target":"company:tr:112105526","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:staio-stoyanov-garnoev-fd7d68",
+  "nodes": [
+    {
+      "id": "official:staio-stoyanov-garnoev-fd7d68",
+      "type": "official",
+      "slug": "staio-stoyanov-garnoev-fd7d68",
+      "label": "Стайо Стоянов Гарноев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112105526",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ЗА ВЗАИМОПОМОЩ НА УЧИТЕЛИТЕ - ГР.ПАЗАРДЖИК",
+      "slug": null,
+      "uic": "112105526",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛЯНА ПЕТРОВА ШИКОВА",
+      "type": "person",
+      "label": "Лиляна Петрова Шикова"
+    },
+    {
+      "id": "person:АТАНАС ГЕОРГИЕВ МИЧЕВ",
+      "type": "person",
+      "label": "Атанас Георгиев Мичев"
+    },
+    {
+      "id": "person:ТРАЯНКА КИРИЛОВА ТЕРЗИЙСКА",
+      "type": "person",
+      "label": "Траянка Кирилова Терзийска"
+    },
+    {
+      "id": "person:БОНКА ДИМИТРОВА РАНГЕЛОВА",
+      "type": "person",
+      "label": "Бонка Димитрова Рангелова"
+    },
+    {
+      "id": "person:ДИАНА ПЕТРОВА ДЖУКЕЛОВА",
+      "type": "person",
+      "label": "Диана Петрова Джукелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:staio-stoyanov-garnoev-fd7d68",
+      "target": "company:tr:112105526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛЯНА ПЕТРОВА ШИКОВА",
+      "target": "company:tr:112105526",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГЕОРГИЕВ МИЧЕВ",
+      "target": "company:tr:112105526",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРАЯНКА КИРИЛОВА ТЕРЗИЙСКА",
+      "target": "company:tr:112105526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОНКА ДИМИТРОВА РАНГЕЛОВА",
+      "target": "company:tr:112105526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ПЕТРОВА ШИКОВА",
+      "target": "company:tr:112105526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ПЕТРОВА ДЖУКЕЛОВА",
+      "target": "company:tr:112105526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

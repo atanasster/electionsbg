@@ -1,1 +1,116 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mitko-ivanov-hanchev-2ae995","nodes":[{"id":"official:mitko-ivanov-hanchev-2ae995","type":"official","slug":"mitko-ivanov-hanchev-2ae995","label":"Митко Иванов Ханчев","tier":"municipal","role":"councillor","municipality":"Разград"},{"id":"company:tr:176005403","type":"company","label":"БЪЛГАРИЯ МОЖЕ","slug":null,"uic":"176005403","legalForm":null,"status":null,"seat":null},{"id":"person:ЧАВДАР ИВАНОВ КЪРМАЗОВ","type":"person","label":"Чавдар Иванов Кърмазов"},{"id":"person:ЕЛЕОНОРА ГЕОРГИЕВА ДИМИТРОВА","type":"person","label":"Елеонора Георгиева Димитрова"},{"id":"person:СВЕТЛА ГЕОРГИЕВА ДИМИТРОВА","type":"person","label":"Светла Георгиева Димитрова"},{"id":"person:ИЛИЯН ИВАНОВ МАРКОВ","type":"person","label":"Илиян Иванов Марков"},{"id":"person:ЛЮБОМИР ГЕОРГИЕВ ДОБРЕВ","type":"person","label":"Любомир Георгиев Добрев"}],"edges":[{"source":"official:mitko-ivanov-hanchev-2ae995","target":"company:tr:176005403","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЧАВДАР ИВАНОВ КЪРМАЗОВ","target":"company:tr:176005403","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР ИВАНОВ КЪРМАЗОВ","target":"company:tr:176005403","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕОНОРА ГЕОРГИЕВА ДИМИТРОВА","target":"company:tr:176005403","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА ГЕОРГИЕВА ДИМИТРОВА","target":"company:tr:176005403","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯН ИВАНОВ МАРКОВ","target":"company:tr:176005403","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯН ИВАНОВ МАРКОВ","target":"company:tr:176005403","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ГЕОРГИЕВ ДОБРЕВ","target":"company:tr:176005403","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mitko-ivanov-hanchev-2ae995",
+  "nodes": [
+    {
+      "id": "official:mitko-ivanov-hanchev-2ae995",
+      "type": "official",
+      "slug": "mitko-ivanov-hanchev-2ae995",
+      "label": "Митко Иванов Ханчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разград"
+    },
+    {
+      "id": "company:tr:176005403",
+      "type": "company",
+      "label": "БЪЛГАРИЯ МОЖЕ",
+      "slug": null,
+      "uic": "176005403",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЧАВДАР ИВАНОВ КЪРМАЗОВ",
+      "type": "person",
+      "label": "Чавдар Иванов Кърмазов"
+    },
+    {
+      "id": "person:ЕЛЕОНОРА ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Елеонора Георгиева Димитрова"
+    },
+    {
+      "id": "person:СВЕТЛА ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Светла Георгиева Димитрова"
+    },
+    {
+      "id": "person:ИЛИЯН ИВАНОВ МАРКОВ",
+      "type": "person",
+      "label": "Илиян Иванов Марков"
+    },
+    {
+      "id": "person:ЛЮБОМИР ГЕОРГИЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Любомир Георгиев Добрев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mitko-ivanov-hanchev-2ae995",
+      "target": "company:tr:176005403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЧАВДАР ИВАНОВ КЪРМАЗОВ",
+      "target": "company:tr:176005403",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР ИВАНОВ КЪРМАЗОВ",
+      "target": "company:tr:176005403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:176005403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:176005403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ИВАНОВ МАРКОВ",
+      "target": "company:tr:176005403",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ИВАНОВ МАРКОВ",
+      "target": "company:tr:176005403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ГЕОРГИЕВ ДОБРЕВ",
+      "target": "company:tr:176005403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

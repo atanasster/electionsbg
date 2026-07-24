@@ -1,1 +1,108 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikola-iordanov-kostadinov-6a8b78","nodes":[{"id":"official:nikola-iordanov-kostadinov-6a8b78","type":"official","slug":"nikola-iordanov-kostadinov-6a8b78","label":"Никола Йорданов Костадинов","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:104590713","type":"company","label":"СДРУЖЕНИЕ &quot;ФОЛКЛОРЕН АНСАМБЪЛ &quot;ТЪРНОВЧЕ&quot;&quot;","slug":null,"uic":"104590713","legalForm":null,"status":null,"seat":null},{"id":"person:АНЕЛИЯ ПЕТРОВА ВАЧЕВА","type":"person","label":"Анелия Петрова Вачева"},{"id":"person:ПАВЛИНА ДИМИТРОВА ПЕТКОВА","type":"person","label":"Павлина Димитрова Петкова"},{"id":"person:МИЛКО АНГЕЛОВ ШИШКОВ","type":"person","label":"Милко Ангелов Шишков"},{"id":"person:ВАНЯ НЕНОВА ГАВРАИЛОВА","type":"person","label":"Ваня Ненова Гавраилова"},{"id":"person:ИВАНКА ТОДОРОВА ХРИСТОВА","type":"person","label":"Иванка Тодорова Христова"}],"edges":[{"source":"official:nikola-iordanov-kostadinov-6a8b78","target":"company:tr:104590713","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНЕЛИЯ ПЕТРОВА ВАЧЕВА","target":"company:tr:104590713","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА ДИМИТРОВА ПЕТКОВА","target":"company:tr:104590713","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ ПЕТРОВА ВАЧЕВА","target":"company:tr:104590713","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКО АНГЕЛОВ ШИШКОВ","target":"company:tr:104590713","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ НЕНОВА ГАВРАИЛОВА","target":"company:tr:104590713","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ТОДОРОВА ХРИСТОВА","target":"company:tr:104590713","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikola-iordanov-kostadinov-6a8b78",
+  "nodes": [
+    {
+      "id": "official:nikola-iordanov-kostadinov-6a8b78",
+      "type": "official",
+      "slug": "nikola-iordanov-kostadinov-6a8b78",
+      "label": "Никола Йорданов Костадинов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104590713",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ФОЛКЛОРЕН АНСАМБЪЛ &quot;ТЪРНОВЧЕ&quot;&quot;",
+      "slug": null,
+      "uic": "104590713",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНЕЛИЯ ПЕТРОВА ВАЧЕВА",
+      "type": "person",
+      "label": "Анелия Петрова Вачева"
+    },
+    {
+      "id": "person:ПАВЛИНА ДИМИТРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Павлина Димитрова Петкова"
+    },
+    {
+      "id": "person:МИЛКО АНГЕЛОВ ШИШКОВ",
+      "type": "person",
+      "label": "Милко Ангелов Шишков"
+    },
+    {
+      "id": "person:ВАНЯ НЕНОВА ГАВРАИЛОВА",
+      "type": "person",
+      "label": "Ваня Ненова Гавраилова"
+    },
+    {
+      "id": "person:ИВАНКА ТОДОРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Иванка Тодорова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-iordanov-kostadinov-6a8b78",
+      "target": "company:tr:104590713",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНЕЛИЯ ПЕТРОВА ВАЧЕВА",
+      "target": "company:tr:104590713",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ДИМИТРОВА ПЕТКОВА",
+      "target": "company:tr:104590713",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ПЕТРОВА ВАЧЕВА",
+      "target": "company:tr:104590713",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО АНГЕЛОВ ШИШКОВ",
+      "target": "company:tr:104590713",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ НЕНОВА ГАВРАИЛОВА",
+      "target": "company:tr:104590713",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ТОДОРОВА ХРИСТОВА",
+      "target": "company:tr:104590713",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

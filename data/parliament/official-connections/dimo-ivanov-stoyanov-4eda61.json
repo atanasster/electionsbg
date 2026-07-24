@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimo-ivanov-stoyanov-4eda61","nodes":[{"id":"official:dimo-ivanov-stoyanov-4eda61","type":"official","slug":"dimo-ivanov-stoyanov-4eda61","label":"Димо Иванов Стоянов","tier":"municipal","role":"councillor","municipality":"Твърдица"},{"id":"company:tr:207143056","type":"company","label":"ВИКСТАР 13","slug":null,"uic":"207143056","legalForm":null,"status":null,"seat":null},{"id":"person:ФЕДЯ АНГЕЛОВА ДЕРМЕНДЖИЕВА","type":"person","label":"Федя Ангелова Дерменджиева"}],"edges":[{"source":"official:dimo-ivanov-stoyanov-4eda61","target":"company:tr:207143056","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ФЕДЯ АНГЕЛОВА ДЕРМЕНДЖИЕВА","target":"company:tr:207143056","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ФЕДЯ АНГЕЛОВА ДЕРМЕНДЖИЕВА","target":"company:tr:207143056","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimo-ivanov-stoyanov-4eda61",
+  "nodes": [
+    {
+      "id": "official:dimo-ivanov-stoyanov-4eda61",
+      "type": "official",
+      "slug": "dimo-ivanov-stoyanov-4eda61",
+      "label": "Димо Иванов Стоянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Твърдица"
+    },
+    {
+      "id": "company:tr:207143056",
+      "type": "company",
+      "label": "ВИКСТАР 13",
+      "slug": null,
+      "uic": "207143056",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФЕДЯ АНГЕЛОВА ДЕРМЕНДЖИЕВА",
+      "type": "person",
+      "label": "Федя Ангелова Дерменджиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimo-ivanov-stoyanov-4eda61",
+      "target": "company:tr:207143056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФЕДЯ АНГЕЛОВА ДЕРМЕНДЖИЕВА",
+      "target": "company:tr:207143056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕДЯ АНГЕЛОВА ДЕРМЕНДЖИЕВА",
+      "target": "company:tr:207143056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

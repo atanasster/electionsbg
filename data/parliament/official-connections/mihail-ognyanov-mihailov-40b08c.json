@@ -1,1 +1,176 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mihail-ognyanov-mihailov-40b08c","nodes":[{"id":"official:mihail-ognyanov-mihailov-40b08c","type":"official","slug":"mihail-ognyanov-mihailov-40b08c","label":"Михаил Огнянов Михайлов","tier":"municipal","role":"councillor","municipality":"Лом"},{"id":"company:tr:206922802","type":"company","label":"\"КЕНДИ ДОЛС\" ООД","slug":null,"uic":"206922802","legalForm":null,"status":null,"seat":null},{"id":"company:tr:000379696","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ХРИСТО БОТЕВ - 1928 С. ГАБРОВ ДОЛ","slug":null,"uic":"000379696","legalForm":null,"status":null,"seat":null},{"id":"person:ЦВЕТЕЛИНА ВИЛХЕМОВА МИХАЙЛОВА","type":"person","label":"Цветелина Вилхемова Михайлова"},{"id":"person:ВИОЛЕТА ПАНАЙОТОВА ПЪРВАНОВА","type":"person","label":"Виолета Панайотова Първанова"},{"id":"person:КИРИЛ ВЕЛИНОВ СТОЕВ","type":"person","label":"Кирил Велинов Стоев"},{"id":"person:ЙОРДАН ПЕТРОВ ГРИГОРОВ","type":"person","label":"Йордан Петров Григоров"},{"id":"person:СПАС КИРИЛОВ МИХАЛКОВ","type":"person","label":"Спас Кирилов Михалков"},{"id":"person:ВЛАДИМИР МИЛЕТКОВ СТОЕВ","type":"person","label":"Владимир Милетков Стоев"},{"id":"person:СТОЯН СОТИРОВ АНЕСТИЕВ","type":"person","label":"Стоян Сотиров Анестиев"}],"edges":[{"source":"official:mihail-ognyanov-mihailov-40b08c","target":"company:tr:206922802","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:mihail-ognyanov-mihailov-40b08c","target":"company:tr:000379696","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:mihail-ognyanov-mihailov-40b08c","target":"company:tr:000379696","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТЕЛИНА ВИЛХЕМОВА МИХАЙЛОВА","target":"company:tr:206922802","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ПАНАЙОТОВА ПЪРВАНОВА","target":"company:tr:206922802","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА ВИЛХЕМОВА МИХАЙЛОВА","target":"company:tr:206922802","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ПАНАЙОТОВА ПЪРВАНОВА","target":"company:tr:206922802","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ВЕЛИНОВ СТОЕВ","target":"company:tr:000379696","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ПЕТРОВ ГРИГОРОВ","target":"company:tr:000379696","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СПАС КИРИЛОВ МИХАЛКОВ","target":"company:tr:000379696","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР МИЛЕТКОВ СТОЕВ","target":"company:tr:000379696","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН СОТИРОВ АНЕСТИЕВ","target":"company:tr:000379696","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ПЕТРОВ ГРИГОРОВ","target":"company:tr:000379696","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mihail-ognyanov-mihailov-40b08c",
+  "nodes": [
+    {
+      "id": "official:mihail-ognyanov-mihailov-40b08c",
+      "type": "official",
+      "slug": "mihail-ognyanov-mihailov-40b08c",
+      "label": "Михаил Огнянов Михайлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лом"
+    },
+    {
+      "id": "company:tr:206922802",
+      "type": "company",
+      "label": "\"КЕНДИ ДОЛС\" ООД",
+      "slug": null,
+      "uic": "206922802",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:000379696",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ХРИСТО БОТЕВ - 1928 С. ГАБРОВ ДОЛ",
+      "slug": null,
+      "uic": "000379696",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ВИЛХЕМОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Цветелина Вилхемова Михайлова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ПАНАЙОТОВА ПЪРВАНОВА",
+      "type": "person",
+      "label": "Виолета Панайотова Първанова"
+    },
+    {
+      "id": "person:КИРИЛ ВЕЛИНОВ СТОЕВ",
+      "type": "person",
+      "label": "Кирил Велинов Стоев"
+    },
+    {
+      "id": "person:ЙОРДАН ПЕТРОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Йордан Петров Григоров"
+    },
+    {
+      "id": "person:СПАС КИРИЛОВ МИХАЛКОВ",
+      "type": "person",
+      "label": "Спас Кирилов Михалков"
+    },
+    {
+      "id": "person:ВЛАДИМИР МИЛЕТКОВ СТОЕВ",
+      "type": "person",
+      "label": "Владимир Милетков Стоев"
+    },
+    {
+      "id": "person:СТОЯН СОТИРОВ АНЕСТИЕВ",
+      "type": "person",
+      "label": "Стоян Сотиров Анестиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-ognyanov-mihailov-40b08c",
+      "target": "company:tr:206922802",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mihail-ognyanov-mihailov-40b08c",
+      "target": "company:tr:000379696",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-ognyanov-mihailov-40b08c",
+      "target": "company:tr:000379696",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ВИЛХЕМОВА МИХАЙЛОВА",
+      "target": "company:tr:206922802",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ПАНАЙОТОВА ПЪРВАНОВА",
+      "target": "company:tr:206922802",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ВИЛХЕМОВА МИХАЙЛОВА",
+      "target": "company:tr:206922802",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ПАНАЙОТОВА ПЪРВАНОВА",
+      "target": "company:tr:206922802",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ВЕЛИНОВ СТОЕВ",
+      "target": "company:tr:000379696",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ПЕТРОВ ГРИГОРОВ",
+      "target": "company:tr:000379696",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС КИРИЛОВ МИХАЛКОВ",
+      "target": "company:tr:000379696",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР МИЛЕТКОВ СТОЕВ",
+      "target": "company:tr:000379696",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН СОТИРОВ АНЕСТИЕВ",
+      "target": "company:tr:000379696",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ПЕТРОВ ГРИГОРОВ",
+      "target": "company:tr:000379696",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

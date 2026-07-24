@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:veselina-petrova-manolova-102605","nodes":[{"id":"official:veselina-petrova-manolova-102605","type":"official","slug":"veselina-petrova-manolova-102605","label":"Веселина Петрова Манолова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:201475258","type":"company","label":"Скул Стандарт ООД","slug":null,"uic":"201475258","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:veselina-petrova-manolova-102605","target":"company:tr:201475258","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:veselina-petrova-manolova-102605",
+  "nodes": [
+    {
+      "id": "official:veselina-petrova-manolova-102605",
+      "type": "official",
+      "slug": "veselina-petrova-manolova-102605",
+      "label": "Веселина Петрова Манолова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201475258",
+      "type": "company",
+      "label": "Скул Стандарт ООД",
+      "slug": null,
+      "uic": "201475258",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselina-petrova-manolova-102605",
+      "target": "company:tr:201475258",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

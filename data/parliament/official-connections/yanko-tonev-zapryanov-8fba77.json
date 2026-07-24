@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:yanko-tonev-zapryanov-8fba77","nodes":[{"id":"official:yanko-tonev-zapryanov-8fba77","type":"official","slug":"yanko-tonev-zapryanov-8fba77","label":"Янко Тонев Запрянов","tier":"municipal","role":"councillor","municipality":"Казанлък"},{"id":"company:tr:208730619","type":"company","label":"МПМ-М","slug":null,"uic":"208730619","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ ПАВЛОВА ЗАПРЯНОВА","type":"person","label":"Мария Павлова Запрянова"}],"edges":[{"source":"official:yanko-tonev-zapryanov-8fba77","target":"company:tr:208730619","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:yanko-tonev-zapryanov-8fba77","target":"company:tr:208730619","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯ ПАВЛОВА ЗАПРЯНОВА","target":"company:tr:208730619","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:yanko-tonev-zapryanov-8fba77",
+  "nodes": [
+    {
+      "id": "official:yanko-tonev-zapryanov-8fba77",
+      "type": "official",
+      "slug": "yanko-tonev-zapryanov-8fba77",
+      "label": "Янко Тонев Запрянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Казанлък"
+    },
+    {
+      "id": "company:tr:208730619",
+      "type": "company",
+      "label": "МПМ-М",
+      "slug": null,
+      "uic": "208730619",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ПАВЛОВА ЗАПРЯНОВА",
+      "type": "person",
+      "label": "Мария Павлова Запрянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yanko-tonev-zapryanov-8fba77",
+      "target": "company:tr:208730619",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yanko-tonev-zapryanov-8fba77",
+      "target": "company:tr:208730619",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ПАВЛОВА ЗАПРЯНОВА",
+      "target": "company:tr:208730619",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

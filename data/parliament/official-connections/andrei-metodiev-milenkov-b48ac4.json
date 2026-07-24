@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:andrei-metodiev-milenkov-b48ac4","nodes":[{"id":"official:andrei-metodiev-milenkov-b48ac4","type":"official","slug":"andrei-metodiev-milenkov-b48ac4","label":"Андрей Методиев Миленков","tier":"municipal","role":"councillor","municipality":"Кюстендил"},{"id":"company:tr:109610721","type":"company","label":"ЕКОЛЕС-07","slug":null,"uic":"109610721","legalForm":null,"status":null,"seat":null},{"id":"person:СТОЯНКА ЦВЕТАНОВА МИЛЕНКОВА","type":"person","label":"Стоянка Цветанова Миленкова"}],"edges":[{"source":"official:andrei-metodiev-milenkov-b48ac4","target":"company:tr:109610721","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯНКА ЦВЕТАНОВА МИЛЕНКОВА","target":"company:tr:109610721","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:andrei-metodiev-milenkov-b48ac4",
+  "nodes": [
+    {
+      "id": "official:andrei-metodiev-milenkov-b48ac4",
+      "type": "official",
+      "slug": "andrei-metodiev-milenkov-b48ac4",
+      "label": "Андрей Методиев Миленков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кюстендил"
+    },
+    {
+      "id": "company:tr:109610721",
+      "type": "company",
+      "label": "ЕКОЛЕС-07",
+      "slug": null,
+      "uic": "109610721",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯНКА ЦВЕТАНОВА МИЛЕНКОВА",
+      "type": "person",
+      "label": "Стоянка Цветанова Миленкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:andrei-metodiev-milenkov-b48ac4",
+      "target": "company:tr:109610721",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯНКА ЦВЕТАНОВА МИЛЕНКОВА",
+      "target": "company:tr:109610721",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

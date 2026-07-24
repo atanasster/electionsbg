@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:shakir-ibryam-kartal-8ae305","nodes":[{"id":"official:shakir-ibryam-kartal-8ae305","type":"official","slug":"shakir-ibryam-kartal-8ae305","label":"Шакир Ибрям Картал","tier":"municipal","role":"councillor","municipality":"Павел баня"},{"id":"company:tr:208779915","type":"company","label":"ОБЕДИНЕНИЕ БЪЛГАРСКА МАСЛОДАЙНА РОЗА","slug":null,"uic":"208779915","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТИНА НАНЕВА ЧОЛПАНОВА","type":"person","label":"Христина Нанева Чолпанова"},{"id":"person:ВЕНЕЛИН КРАСИМИРОВ ВЕЛИКОВ","type":"person","label":"Венелин Красимиров Великов"},{"id":"person:МАРИЯ ДИМИТРОВА ДИМИТРОВА","type":"person","label":"Мария Димитрова Димитрова"},{"id":"person:НИКОЛАЙ АНГЕЛОВ РАДЕВСКИ","type":"person","label":"Николай Ангелов Радевски"}],"edges":[{"source":"official:shakir-ibryam-kartal-8ae305","target":"company:tr:208779915","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТИНА НАНЕВА ЧОЛПАНОВА","target":"company:tr:208779915","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА НАНЕВА ЧОЛПАНОВА","target":"company:tr:208779915","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИН КРАСИМИРОВ ВЕЛИКОВ","target":"company:tr:208779915","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА ДИМИТРОВА","target":"company:tr:208779915","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ АНГЕЛОВ РАДЕВСКИ","target":"company:tr:208779915","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:shakir-ibryam-kartal-8ae305",
+  "nodes": [
+    {
+      "id": "official:shakir-ibryam-kartal-8ae305",
+      "type": "official",
+      "slug": "shakir-ibryam-kartal-8ae305",
+      "label": "Шакир Ибрям Картал",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Павел баня"
+    },
+    {
+      "id": "company:tr:208779915",
+      "type": "company",
+      "label": "ОБЕДИНЕНИЕ БЪЛГАРСКА МАСЛОДАЙНА РОЗА",
+      "slug": null,
+      "uic": "208779915",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТИНА НАНЕВА ЧОЛПАНОВА",
+      "type": "person",
+      "label": "Христина Нанева Чолпанова"
+    },
+    {
+      "id": "person:ВЕНЕЛИН КРАСИМИРОВ ВЕЛИКОВ",
+      "type": "person",
+      "label": "Венелин Красимиров Великов"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Мария Димитрова Димитрова"
+    },
+    {
+      "id": "person:НИКОЛАЙ АНГЕЛОВ РАДЕВСКИ",
+      "type": "person",
+      "label": "Николай Ангелов Радевски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shakir-ibryam-kartal-8ae305",
+      "target": "company:tr:208779915",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИНА НАНЕВА ЧОЛПАНОВА",
+      "target": "company:tr:208779915",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА НАНЕВА ЧОЛПАНОВА",
+      "target": "company:tr:208779915",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН КРАСИМИРОВ ВЕЛИКОВ",
+      "target": "company:tr:208779915",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:208779915",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АНГЕЛОВ РАДЕВСКИ",
+      "target": "company:tr:208779915",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valya-tsvetanova-marinova-2629c1","nodes":[{"id":"official:valya-tsvetanova-marinova-2629c1","type":"official","slug":"valya-tsvetanova-marinova-2629c1","label":"Валя Цветанова Маринова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:177044722","type":"company","label":"ДЕТСКИ РАЙ - НОРЕ","slug":null,"uic":"177044722","legalForm":null,"status":null,"seat":null},{"id":"person:БИЛЯНА ТЕОДОСИЕВА СТАНЕВА","type":"person","label":"Биляна Теодосиева Станева"},{"id":"person:ЦВЕТЕМИЛА НИКОЛОВА ЯНИНСКА","type":"person","label":"Цветемила Николова Янинска"}],"edges":[{"source":"official:valya-tsvetanova-marinova-2629c1","target":"company:tr:177044722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:БИЛЯНА ТЕОДОСИЕВА СТАНЕВА","target":"company:tr:177044722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕМИЛА НИКОЛОВА ЯНИНСКА","target":"company:tr:177044722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valya-tsvetanova-marinova-2629c1",
+  "nodes": [
+    {
+      "id": "official:valya-tsvetanova-marinova-2629c1",
+      "type": "official",
+      "slug": "valya-tsvetanova-marinova-2629c1",
+      "label": "Валя Цветанова Маринова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177044722",
+      "type": "company",
+      "label": "ДЕТСКИ РАЙ - НОРЕ",
+      "slug": null,
+      "uic": "177044722",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БИЛЯНА ТЕОДОСИЕВА СТАНЕВА",
+      "type": "person",
+      "label": "Биляна Теодосиева Станева"
+    },
+    {
+      "id": "person:ЦВЕТЕМИЛА НИКОЛОВА ЯНИНСКА",
+      "type": "person",
+      "label": "Цветемила Николова Янинска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valya-tsvetanova-marinova-2629c1",
+      "target": "company:tr:177044722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИЛЯНА ТЕОДОСИЕВА СТАНЕВА",
+      "target": "company:tr:177044722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕМИЛА НИКОЛОВА ЯНИНСКА",
+      "target": "company:tr:177044722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

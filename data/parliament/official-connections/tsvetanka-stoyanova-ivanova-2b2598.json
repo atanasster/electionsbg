@@ -1,1 +1,139 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetanka-stoyanova-ivanova-2b2598","nodes":[{"id":"official:tsvetanka-stoyanova-ivanova-2b2598","type":"official","slug":"tsvetanka-stoyanova-ivanova-2b2598","label":"Цветанка Стоянова Иванова","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:000761137","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАНИЕ 1925&quot;","slug":null,"uic":"000761137","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФКА ИВАНОВА МИНЧЕВА","type":"person","label":"Стефка Иванова Минчева"},{"id":"person:ДИМИТЪР ИВАНОВ ЙОТОВ","type":"person","label":"Димитър Иванов Йотов"},{"id":"person:ЮЛИЯ ВИКТОРОВА ЧАЧЕВА","type":"person","label":"Юлия Викторова Чачева"},{"id":"person:ДАНИЕЛА КОСТАДИНОВА ГЕОРГИЕВА","type":"person","label":"Даниела Костадинова Георгиева"},{"id":"person:ХРИСТИНА ЦВЯТКОВА ЦВЕТКОВА","type":"person","label":"Христина Цвяткова Цветкова"},{"id":"person:ЙОРДАНКА СТОЯНОВА БАНОВА","type":"person","label":"Йорданка Стоянова Банова"},{"id":"person:ЦВЕТАН МИХАЙЛОВ МИХАЙЛОВ","type":"person","label":"Цветан Михайлов Михайлов"},{"id":"person:ТЕОДОРА ВАЛЕРИЕВА ВЕСЕЛИНОВА","type":"person","label":"Теодора Валериева Веселинова"}],"edges":[{"source":"official:tsvetanka-stoyanova-ivanova-2b2598","target":"company:tr:000761137","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФКА ИВАНОВА МИНЧЕВА","target":"company:tr:000761137","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ИВАНОВ ЙОТОВ","target":"company:tr:000761137","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЯ ВИКТОРОВА ЧАЧЕВА","target":"company:tr:000761137","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА КОСТАДИНОВА ГЕОРГИЕВА","target":"company:tr:000761137","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА ЦВЯТКОВА ЦВЕТКОВА","target":"company:tr:000761137","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА СТОЯНОВА БАНОВА","target":"company:tr:000761137","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН МИХАЙЛОВ МИХАЙЛОВ","target":"company:tr:000761137","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ВАЛЕРИЕВА ВЕСЕЛИНОВА","target":"company:tr:000761137","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetanka-stoyanova-ivanova-2b2598",
+  "nodes": [
+    {
+      "id": "official:tsvetanka-stoyanova-ivanova-2b2598",
+      "type": "official",
+      "slug": "tsvetanka-stoyanova-ivanova-2b2598",
+      "label": "Цветанка Стоянова Иванова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000761137",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАНИЕ 1925&quot;",
+      "slug": null,
+      "uic": "000761137",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФКА ИВАНОВА МИНЧЕВА",
+      "type": "person",
+      "label": "Стефка Иванова Минчева"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ ЙОТОВ",
+      "type": "person",
+      "label": "Димитър Иванов Йотов"
+    },
+    {
+      "id": "person:ЮЛИЯ ВИКТОРОВА ЧАЧЕВА",
+      "type": "person",
+      "label": "Юлия Викторова Чачева"
+    },
+    {
+      "id": "person:ДАНИЕЛА КОСТАДИНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Даниела Костадинова Георгиева"
+    },
+    {
+      "id": "person:ХРИСТИНА ЦВЯТКОВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Христина Цвяткова Цветкова"
+    },
+    {
+      "id": "person:ЙОРДАНКА СТОЯНОВА БАНОВА",
+      "type": "person",
+      "label": "Йорданка Стоянова Банова"
+    },
+    {
+      "id": "person:ЦВЕТАН МИХАЙЛОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Цветан Михайлов Михайлов"
+    },
+    {
+      "id": "person:ТЕОДОРА ВАЛЕРИЕВА ВЕСЕЛИНОВА",
+      "type": "person",
+      "label": "Теодора Валериева Веселинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetanka-stoyanova-ivanova-2b2598",
+      "target": "company:tr:000761137",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФКА ИВАНОВА МИНЧЕВА",
+      "target": "company:tr:000761137",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ ЙОТОВ",
+      "target": "company:tr:000761137",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ВИКТОРОВА ЧАЧЕВА",
+      "target": "company:tr:000761137",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА КОСТАДИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000761137",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ЦВЯТКОВА ЦВЕТКОВА",
+      "target": "company:tr:000761137",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА СТОЯНОВА БАНОВА",
+      "target": "company:tr:000761137",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН МИХАЙЛОВ МИХАЙЛОВ",
+      "target": "company:tr:000761137",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ВАЛЕРИЕВА ВЕСЕЛИНОВА",
+      "target": "company:tr:000761137",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

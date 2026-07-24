@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tunai-mehmedov-poturliev-0f5521","nodes":[{"id":"official:tunai-mehmedov-poturliev-0f5521","type":"official","slug":"tunai-mehmedov-poturliev-0f5521","label":"Тунай Мехмедов Потурлиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:200787244","type":"company","label":"МЕДЕОН - ПЛЕВЕН 2009","slug":null,"uic":"200787244","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:tunai-mehmedov-poturliev-0f5521","target":"company:tr:200787244","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tunai-mehmedov-poturliev-0f5521",
+  "nodes": [
+    {
+      "id": "official:tunai-mehmedov-poturliev-0f5521",
+      "type": "official",
+      "slug": "tunai-mehmedov-poturliev-0f5521",
+      "label": "Тунай Мехмедов Потурлиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200787244",
+      "type": "company",
+      "label": "МЕДЕОН - ПЛЕВЕН 2009",
+      "slug": null,
+      "uic": "200787244",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tunai-mehmedov-poturliev-0f5521",
+      "target": "company:tr:200787244",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

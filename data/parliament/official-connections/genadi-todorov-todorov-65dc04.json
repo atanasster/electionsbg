@@ -1,1 +1,146 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:genadi-todorov-todorov-65dc04","nodes":[{"id":"official:genadi-todorov-todorov-65dc04","type":"official","slug":"genadi-todorov-todorov-65dc04","label":"Генади Тодоров Тодоров","tier":"municipal","role":"councillor","municipality":"Плевен"},{"id":"company:tr:202324526","type":"company","label":"Полибор ООД","slug":null,"uic":"202324526","legalForm":null,"status":null,"seat":null},{"id":"company:tr:114620902","type":"company","label":"Аполи 09 ЕООД","slug":null,"uic":"114620902","legalForm":null,"status":null,"seat":null},{"id":"company:tr:176388439","type":"company","label":"ГАБРОВО-6008","slug":null,"uic":"176388439","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:5113","type":"mp","mpId":5113,"label":"Георги Иванов Георгиев","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["48","49","50","51","52"]},{"id":"person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ","type":"person","label":"Георги Иванов Георгиев"},{"id":"person:ХРИСТО ГЕОРГИЕВ КОНОВ","type":"person","label":"Христо Георгиев Конов"},{"id":"person:ДОНЧО ДОНЧЕВ СТАНОЕВ","type":"person","label":"Дончо Дончев Станоев"},{"id":"person:ТОНЧО ИВАНОВ ГАРУШЕВ","type":"person","label":"Тончо Иванов Гарушев"}],"edges":[{"source":"official:genadi-todorov-todorov-65dc04","target":"company:tr:202324526","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:genadi-todorov-todorov-65dc04","target":"company:tr:114620902","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:genadi-todorov-todorov-65dc04","target":"company:tr:176388439","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5113","target":"company:tr:176388439","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ","target":"company:tr:176388439","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ГЕОРГИЕВ КОНОВ","target":"company:tr:176388439","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНЧО ДОНЧЕВ СТАНОЕВ","target":"company:tr:176388439","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОНЧО ИВАНОВ ГАРУШЕВ","target":"company:tr:176388439","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:genadi-todorov-todorov-65dc04",
+  "nodes": [
+    {
+      "id": "official:genadi-todorov-todorov-65dc04",
+      "type": "official",
+      "slug": "genadi-todorov-todorov-65dc04",
+      "label": "Генади Тодоров Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:202324526",
+      "type": "company",
+      "label": "Полибор ООД",
+      "slug": null,
+      "uic": "202324526",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:114620902",
+      "type": "company",
+      "label": "Аполи 09 ЕООД",
+      "slug": null,
+      "uic": "114620902",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:176388439",
+      "type": "company",
+      "label": "ГАБРОВО-6008",
+      "slug": null,
+      "uic": "176388439",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:5113",
+      "type": "mp",
+      "mpId": 5113,
+      "label": "Георги Иванов Георгиев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Иванов Георгиев"
+    },
+    {
+      "id": "person:ХРИСТО ГЕОРГИЕВ КОНОВ",
+      "type": "person",
+      "label": "Христо Георгиев Конов"
+    },
+    {
+      "id": "person:ДОНЧО ДОНЧЕВ СТАНОЕВ",
+      "type": "person",
+      "label": "Дончо Дончев Станоев"
+    },
+    {
+      "id": "person:ТОНЧО ИВАНОВ ГАРУШЕВ",
+      "type": "person",
+      "label": "Тончо Иванов Гарушев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:genadi-todorov-todorov-65dc04",
+      "target": "company:tr:202324526",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:genadi-todorov-todorov-65dc04",
+      "target": "company:tr:114620902",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:genadi-todorov-todorov-65dc04",
+      "target": "company:tr:176388439",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5113",
+      "target": "company:tr:176388439",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:176388439",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕОРГИЕВ КОНОВ",
+      "target": "company:tr:176388439",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ДОНЧЕВ СТАНОЕВ",
+      "target": "company:tr:176388439",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЧО ИВАНОВ ГАРУШЕВ",
+      "target": "company:tr:176388439",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

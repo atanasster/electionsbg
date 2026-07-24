@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:krasimir-sokolov-minev-240cd7","nodes":[{"id":"official:krasimir-sokolov-minev-240cd7","type":"official","slug":"krasimir-sokolov-minev-240cd7","label":"Красимир Соколов Минев","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:207801020","type":"company","label":"АРТ КЕЙК ЕООД","slug":null,"uic":"207801020","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:krasimir-sokolov-minev-240cd7","target":"company:tr:207801020","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:krasimir-sokolov-minev-240cd7",
+  "nodes": [
+    {
+      "id": "official:krasimir-sokolov-minev-240cd7",
+      "type": "official",
+      "slug": "krasimir-sokolov-minev-240cd7",
+      "label": "Красимир Соколов Минев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207801020",
+      "type": "company",
+      "label": "АРТ КЕЙК ЕООД",
+      "slug": null,
+      "uic": "207801020",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-sokolov-minev-240cd7",
+      "target": "company:tr:207801020",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

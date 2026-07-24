@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristo-borisov-klimentov-915890","nodes":[{"id":"official:hristo-borisov-klimentov-915890","type":"official","slug":"hristo-borisov-klimentov-915890","label":"Христо Борисов Климентов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:208106897","type":"company","label":"Глобал Хостинг ООД","slug":null,"uic":"208106897","legalForm":null,"status":null,"seat":null},{"id":"person:АНТОН ГЕОРГИЕВ РИБАРСКИ","type":"person","label":"Антон Георгиев Рибарски"}],"edges":[{"source":"official:hristo-borisov-klimentov-915890","target":"company:tr:208106897","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:hristo-borisov-klimentov-915890","target":"company:tr:208106897","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АНТОН ГЕОРГИЕВ РИБАРСКИ","target":"company:tr:208106897","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ГЕОРГИЕВ РИБАРСКИ","target":"company:tr:208106897","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristo-borisov-klimentov-915890",
+  "nodes": [
+    {
+      "id": "official:hristo-borisov-klimentov-915890",
+      "type": "official",
+      "slug": "hristo-borisov-klimentov-915890",
+      "label": "Христо Борисов Климентов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208106897",
+      "type": "company",
+      "label": "Глобал Хостинг ООД",
+      "slug": null,
+      "uic": "208106897",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОН ГЕОРГИЕВ РИБАРСКИ",
+      "type": "person",
+      "label": "Антон Георгиев Рибарски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-borisov-klimentov-915890",
+      "target": "company:tr:208106897",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-borisov-klimentov-915890",
+      "target": "company:tr:208106897",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОН ГЕОРГИЕВ РИБАРСКИ",
+      "target": "company:tr:208106897",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ГЕОРГИЕВ РИБАРСКИ",
+      "target": "company:tr:208106897",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

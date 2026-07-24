@@ -1,1 +1,349 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:veselina-lchezarova-kanatova-buchkova-af4591","nodes":[{"id":"official:veselina-lchezarova-kanatova-buchkova-af4591","type":"official","slug":"veselina-lchezarova-kanatova-buchkova-af4591","label":"Веселина Лъчезарова Канатова-Бучкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:831373560","type":"company","label":"БЪЛГАРСКИ ЕНЕРГИЕН ХОЛДИНГ","slug":null,"uic":"831373560","legalForm":null,"status":null,"seat":null},{"id":"official:vasil-georgiev-stoinov-b9a06d","type":"official","slug":"vasil-georgiev-stoinov-b9a06d","label":"Васил Георгиев Стойнов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:galina-tsvetanova-todorova-67964a","type":"official","slug":"galina-tsvetanova-todorova-67964a","label":"Галина Цветанова Тодорова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:kalin-boyanov-filipov-c9a6ab","type":"official","slug":"kalin-boyanov-filipov-c9a6ab","label":"Калин Боянов Филипов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ","type":"person","label":"Валентин Алексиев Николов"},{"id":"person:ИВАН ТОДОРОВ АНДРЕЕВ","type":"person","label":"Иван Тодоров Андреев"},{"id":"person:ДИЯН СТАНИМИРОВ ДИМИТРОВ","type":"person","label":"Диян Станимиров Димитров"},{"id":"person:АЛЕКСАНДЪР ПЛАМЕНОВ ЦЪРНОРЕЧКИ","type":"person","label":"Александър Пламенов Църноречки"},{"id":"person:СТЕЛИАН ПЕНЧЕВ КОЕВ","type":"person","label":"Стелиан Пенчев Коев"},{"id":"person:АНТОН ГЕОРГИЕВ СИМЕОНОВ","type":"person","label":"Антон Георгиев Симеонов"},{"id":"person:ПЛАМЕН ДИЛКОВ ДИЛКОВ","type":"person","label":"Пламен Дилков Дилков"},{"id":"person:ЖЕКО МИХАЙЛОВ ЖЕКОВ","type":"person","label":"Жеко Михайлов Жеков"},{"id":"person:АНГЕЛ ЕМИЛОВ ЯНКОВ","type":"person","label":"Ангел Емилов Янков"},{"id":"person:АНДРЕЙ СТЕФАНОВ ЖИВКОВ","type":"person","label":"Андрей Стефанов Живков"},{"id":"person:ИВО ИВАНОВ ТОДОРОВ","type":"person","label":"Иво Иванов Тодоров"},{"id":"person:ДИЯН АТАНАСОВ ИВАНОВ","type":"person","label":"Диян Атанасов Иванов"},{"id":"person:ПЕТЪР ВАЛЕРИЕВ АНГЕЛОВ","type":"person","label":"Петър Валериев Ангелов"},{"id":"person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ","type":"person","label":"Васил Василев Василев"},{"id":"person:ИЛЗА МИТКОВА ЧИНКОВА","type":"person","label":"Илза Миткова Чинкова"},{"id":"company:tr:207332060","type":"company","label":"Национален енергиен оператор","slug":null,"uic":"207332060","legalForm":null,"status":null,"seat":null},{"id":"company:tr:831616457","type":"company","label":"МИНПРОЕКТ","slug":null,"uic":"831616457","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:veselina-lchezarova-kanatova-buchkova-af4591","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:vasil-georgiev-stoinov-b9a06d","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:galina-tsvetanova-todorova-67964a","target":"company:tr:831373560","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:galina-tsvetanova-todorova-67964a","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:kalin-boyanov-filipov-c9a6ab","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ","target":"company:tr:831373560","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТОДОРОВ АНДРЕЕВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯН СТАНИМИРОВ ДИМИТРОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ПЛАМЕНОВ ЦЪРНОРЕЧКИ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТЕЛИАН ПЕНЧЕВ КОЕВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТОДОРОВ АНДРЕЕВ","target":"company:tr:831373560","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ГЕОРГИЕВ СИМЕОНОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ДИЛКОВ ДИЛКОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕКО МИХАЙЛОВ ЖЕКОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ЕМИЛОВ ЯНКОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕЙ СТЕФАНОВ ЖИВКОВ","target":"company:tr:831373560","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕЙ СТЕФАНОВ ЖИВКОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ИВАНОВ ТОДОРОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯН АТАНАСОВ ИВАНОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ВАЛЕРИЕВ АНГЕЛОВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИЛЗА МИТКОВА ЧИНКОВА","target":"company:tr:831373560","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:tr:831373560","target":"company:tr:207332060","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"company:tr:831373560","target":"company:tr:831616457","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:veselina-lchezarova-kanatova-buchkova-af4591",
+  "nodes": [
+    {
+      "id": "official:veselina-lchezarova-kanatova-buchkova-af4591",
+      "type": "official",
+      "slug": "veselina-lchezarova-kanatova-buchkova-af4591",
+      "label": "Веселина Лъчезарова Канатова-Бучкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831373560",
+      "type": "company",
+      "label": "БЪЛГАРСКИ ЕНЕРГИЕН ХОЛДИНГ",
+      "slug": null,
+      "uic": "831373560",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vasil-georgiev-stoinov-b9a06d",
+      "type": "official",
+      "slug": "vasil-georgiev-stoinov-b9a06d",
+      "label": "Васил Георгиев Стойнов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:galina-tsvetanova-todorova-67964a",
+      "type": "official",
+      "slug": "galina-tsvetanova-todorova-67964a",
+      "label": "Галина Цветанова Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:kalin-boyanov-filipov-c9a6ab",
+      "type": "official",
+      "slug": "kalin-boyanov-filipov-c9a6ab",
+      "label": "Калин Боянов Филипов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Валентин Алексиев Николов"
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Иван Тодоров Андреев"
+    },
+    {
+      "id": "person:ДИЯН СТАНИМИРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Диян Станимиров Димитров"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ПЛАМЕНОВ ЦЪРНОРЕЧКИ",
+      "type": "person",
+      "label": "Александър Пламенов Църноречки"
+    },
+    {
+      "id": "person:СТЕЛИАН ПЕНЧЕВ КОЕВ",
+      "type": "person",
+      "label": "Стелиан Пенчев Коев"
+    },
+    {
+      "id": "person:АНТОН ГЕОРГИЕВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Антон Георгиев Симеонов"
+    },
+    {
+      "id": "person:ПЛАМЕН ДИЛКОВ ДИЛКОВ",
+      "type": "person",
+      "label": "Пламен Дилков Дилков"
+    },
+    {
+      "id": "person:ЖЕКО МИХАЙЛОВ ЖЕКОВ",
+      "type": "person",
+      "label": "Жеко Михайлов Жеков"
+    },
+    {
+      "id": "person:АНГЕЛ ЕМИЛОВ ЯНКОВ",
+      "type": "person",
+      "label": "Ангел Емилов Янков"
+    },
+    {
+      "id": "person:АНДРЕЙ СТЕФАНОВ ЖИВКОВ",
+      "type": "person",
+      "label": "Андрей Стефанов Живков"
+    },
+    {
+      "id": "person:ИВО ИВАНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Иво Иванов Тодоров"
+    },
+    {
+      "id": "person:ДИЯН АТАНАСОВ ИВАНОВ",
+      "type": "person",
+      "label": "Диян Атанасов Иванов"
+    },
+    {
+      "id": "person:ПЕТЪР ВАЛЕРИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Петър Валериев Ангелов"
+    },
+    {
+      "id": "person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Василев Василев"
+    },
+    {
+      "id": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+      "type": "person",
+      "label": "Илза Миткова Чинкова"
+    },
+    {
+      "id": "company:tr:207332060",
+      "type": "company",
+      "label": "Национален енергиен оператор",
+      "slug": null,
+      "uic": "207332060",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:831616457",
+      "type": "company",
+      "label": "МИНПРОЕКТ",
+      "slug": null,
+      "uic": "831616457",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselina-lchezarova-kanatova-buchkova-af4591",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-georgiev-stoinov-b9a06d",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-tsvetanova-todorova-67964a",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-tsvetanova-todorova-67964a",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kalin-boyanov-filipov-c9a6ab",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ АНДРЕЕВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН СТАНИМИРОВ ДИМИТРОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ПЛАМЕНОВ ЦЪРНОРЕЧКИ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛИАН ПЕНЧЕВ КОЕВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ АНДРЕЕВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ГЕОРГИЕВ СИМЕОНОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИЛКОВ ДИЛКОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕКО МИХАЙЛОВ ЖЕКОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ЕМИЛОВ ЯНКОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ СТЕФАНОВ ЖИВКОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ СТЕФАНОВ ЖИВКОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИВАНОВ ТОДОРОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН АТАНАСОВ ИВАНОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВАЛЕРИЕВ АНГЕЛОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:831373560",
+      "target": "company:tr:207332060",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:831373560",
+      "target": "company:tr:831616457",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:galya-mitkova-dodeva-954cf8","nodes":[{"id":"official:galya-mitkova-dodeva-954cf8","type":"official","slug":"galya-mitkova-dodeva-954cf8","label":"Галя Миткова Додева","tier":"municipal","role":"councillor","municipality":"Две Могили"},{"id":"company:tr:000523602","type":"company","label":"Народно читалище &quot;Светлина - 1927&quot;","slug":null,"uic":"000523602","legalForm":null,"status":null,"seat":null},{"id":"person:АНГЕЛ ГЕОРГИЕВ АНГЕЛОВ","type":"person","label":"Ангел Георгиев Ангелов"},{"id":"person:ЕЛИЦА СТЕФАНОВА АНГЕЛОВА","type":"person","label":"Елица Стефанова Ангелова"},{"id":"person:ФАТМЕ АБИЛОВА АДЕМОВА","type":"person","label":"Фатме Абилова Адемова"},{"id":"person:МАРИАНА АНГЕЛОВА ВЕЛЕВА","type":"person","label":"Мариана Ангелова Велева"},{"id":"person:ЛИЛЯНА ГЕОРГИЕВА ГАНЕВА","type":"person","label":"Лиляна Георгиева Ганева"}],"edges":[{"source":"official:galya-mitkova-dodeva-954cf8","target":"company:tr:000523602","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:АНГЕЛ ГЕОРГИЕВ АНГЕЛОВ","target":"company:tr:000523602","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЦА СТЕФАНОВА АНГЕЛОВА","target":"company:tr:000523602","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФАТМЕ АБИЛОВА АДЕМОВА","target":"company:tr:000523602","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА АНГЕЛОВА ВЕЛЕВА","target":"company:tr:000523602","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛЯНА ГЕОРГИЕВА ГАНЕВА","target":"company:tr:000523602","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:galya-mitkova-dodeva-954cf8",
+  "nodes": [
+    {
+      "id": "official:galya-mitkova-dodeva-954cf8",
+      "type": "official",
+      "slug": "galya-mitkova-dodeva-954cf8",
+      "label": "Галя Миткова Додева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Две Могили"
+    },
+    {
+      "id": "company:tr:000523602",
+      "type": "company",
+      "label": "Народно читалище &quot;Светлина - 1927&quot;",
+      "slug": null,
+      "uic": "000523602",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ ГЕОРГИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Георгиев Ангелов"
+    },
+    {
+      "id": "person:ЕЛИЦА СТЕФАНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Елица Стефанова Ангелова"
+    },
+    {
+      "id": "person:ФАТМЕ АБИЛОВА АДЕМОВА",
+      "type": "person",
+      "label": "Фатме Абилова Адемова"
+    },
+    {
+      "id": "person:МАРИАНА АНГЕЛОВА ВЕЛЕВА",
+      "type": "person",
+      "label": "Мариана Ангелова Велева"
+    },
+    {
+      "id": "person:ЛИЛЯНА ГЕОРГИЕВА ГАНЕВА",
+      "type": "person",
+      "label": "Лиляна Георгиева Ганева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galya-mitkova-dodeva-954cf8",
+      "target": "company:tr:000523602",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ АНГЕЛОВ",
+      "target": "company:tr:000523602",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА СТЕФАНОВА АНГЕЛОВА",
+      "target": "company:tr:000523602",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ АБИЛОВА АДЕМОВА",
+      "target": "company:tr:000523602",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА АНГЕЛОВА ВЕЛЕВА",
+      "target": "company:tr:000523602",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ГЕОРГИЕВА ГАНЕВА",
+      "target": "company:tr:000523602",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

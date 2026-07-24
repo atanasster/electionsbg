@@ -1,1 +1,181 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:katya-nikolaeva-saralieva-3a6d58","nodes":[{"id":"official:katya-nikolaeva-saralieva-3a6d58","type":"official","slug":"katya-nikolaeva-saralieva-3a6d58","label":"Катя Николаева Саралиева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:104073527","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;НАПРЕДЪК 1884&quot;","slug":null,"uic":"104073527","legalForm":null,"status":null,"seat":null},{"id":"person:ТОДОР ВАСИЛЕВ ТОДОРОВ","type":"person","label":"Тодор Василев Тодоров"},{"id":"person:МАРИЯНА МАРИНОВА ИВАНОВА","type":"person","label":"Марияна Маринова Иванова"},{"id":"person:ГАБРИЕЛА ОГНЯНОВА КОЛЕВА","type":"person","label":"Габриела Огнянова Колева"},{"id":"person:МАЙА ПЕТРОВА КАРАСТОЯНОВА - НЕНОВА","type":"person","label":"Майа Петрова Карастоянова - Ненова"},{"id":"person:ПЕНКА МАРИНОВА РАЙКОВА","type":"person","label":"Пенка Маринова Райкова"},{"id":"person:КИЧКА МАРИНОВА КОЛЕВА","type":"person","label":"Кичка Маринова Колева"},{"id":"person:РОСИЦА ПЕНЧЕВА ИВАНОВА","type":"person","label":"Росица Пенчева Иванова"},{"id":"person:СНЕЖАНА КОСЕВА КАРАГЕНОВА","type":"person","label":"Снежана Косева Карагенова"},{"id":"person:НАТАЛИЯ СТЕФАНОВА БИЛЧЕВА","type":"person","label":"Наталия Стефанова Билчева"},{"id":"person:КОНСТАНТИН ТОДОРОВ САРАЛИЕВ","type":"person","label":"Константин Тодоров Саралиев"}],"edges":[{"source":"official:katya-nikolaeva-saralieva-3a6d58","target":"company:tr:104073527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ТОДОР ВАСИЛЕВ ТОДОРОВ","target":"company:tr:104073527","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА МАРИНОВА ИВАНОВА","target":"company:tr:104073527","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ВАСИЛЕВ ТОДОРОВ","target":"company:tr:104073527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАБРИЕЛА ОГНЯНОВА КОЛЕВА","target":"company:tr:104073527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАЙА ПЕТРОВА КАРАСТОЯНОВА - НЕНОВА","target":"company:tr:104073527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА МАРИНОВА РАЙКОВА","target":"company:tr:104073527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КИЧКА МАРИНОВА КОЛЕВА","target":"company:tr:104073527","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ПЕНЧЕВА ИВАНОВА","target":"company:tr:104073527","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА КОСЕВА КАРАГЕНОВА","target":"company:tr:104073527","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ СТЕФАНОВА БИЛЧЕВА","target":"company:tr:104073527","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА МАРИНОВА ИВАНОВА","target":"company:tr:104073527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН ТОДОРОВ САРАЛИЕВ","target":"company:tr:104073527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:katya-nikolaeva-saralieva-3a6d58",
+  "nodes": [
+    {
+      "id": "official:katya-nikolaeva-saralieva-3a6d58",
+      "type": "official",
+      "slug": "katya-nikolaeva-saralieva-3a6d58",
+      "label": "Катя Николаева Саралиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104073527",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НАПРЕДЪК 1884&quot;",
+      "slug": null,
+      "uic": "104073527",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ВАСИЛЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Василев Тодоров"
+    },
+    {
+      "id": "person:МАРИЯНА МАРИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Марияна Маринова Иванова"
+    },
+    {
+      "id": "person:ГАБРИЕЛА ОГНЯНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Габриела Огнянова Колева"
+    },
+    {
+      "id": "person:МАЙА ПЕТРОВА КАРАСТОЯНОВА - НЕНОВА",
+      "type": "person",
+      "label": "Майа Петрова Карастоянова - Ненова"
+    },
+    {
+      "id": "person:ПЕНКА МАРИНОВА РАЙКОВА",
+      "type": "person",
+      "label": "Пенка Маринова Райкова"
+    },
+    {
+      "id": "person:КИЧКА МАРИНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Кичка Маринова Колева"
+    },
+    {
+      "id": "person:РОСИЦА ПЕНЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Росица Пенчева Иванова"
+    },
+    {
+      "id": "person:СНЕЖАНА КОСЕВА КАРАГЕНОВА",
+      "type": "person",
+      "label": "Снежана Косева Карагенова"
+    },
+    {
+      "id": "person:НАТАЛИЯ СТЕФАНОВА БИЛЧЕВА",
+      "type": "person",
+      "label": "Наталия Стефанова Билчева"
+    },
+    {
+      "id": "person:КОНСТАНТИН ТОДОРОВ САРАЛИЕВ",
+      "type": "person",
+      "label": "Константин Тодоров Саралиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katya-nikolaeva-saralieva-3a6d58",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ВАСИЛЕВ ТОДОРОВ",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА МАРИНОВА ИВАНОВА",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ВАСИЛЕВ ТОДОРОВ",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАБРИЕЛА ОГНЯНОВА КОЛЕВА",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЙА ПЕТРОВА КАРАСТОЯНОВА - НЕНОВА",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА МАРИНОВА РАЙКОВА",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИЧКА МАРИНОВА КОЛЕВА",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ПЕНЧЕВА ИВАНОВА",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА КОСЕВА КАРАГЕНОВА",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ СТЕФАНОВА БИЛЧЕВА",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА МАРИНОВА ИВАНОВА",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ТОДОРОВ САРАЛИЕВ",
+      "target": "company:tr:104073527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

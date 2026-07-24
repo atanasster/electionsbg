@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsveta-deneva-koeva-mileva-d2deab","nodes":[{"id":"official:tsveta-deneva-koeva-mileva-d2deab","type":"official","slug":"tsveta-deneva-koeva-mileva-d2deab","label":"Цвета Денева Коева-Милева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:123084930","type":"company","label":"Общински клуб по спортни танци «РОЗА»","slug":null,"uic":"123084930","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТЪР ЛАЛЕВ РАДЕВ","type":"person","label":"Петър Лалев Радев"},{"id":"person:МАРИЯНА ХРИСТОВА ЧОКОВА","type":"person","label":"Марияна Христова Чокова"},{"id":"person:ЦВЕТА ДЕНЕВА КОЕВА - МИЛЕВА","type":"person","label":"Цвета Денева Коева - Милева"}],"edges":[{"source":"official:tsveta-deneva-koeva-mileva-d2deab","target":"company:tr:123084930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЪР ЛАЛЕВ РАДЕВ","target":"company:tr:123084930","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ЛАЛЕВ РАДЕВ","target":"company:tr:123084930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА ХРИСТОВА ЧОКОВА","target":"company:tr:123084930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТА ДЕНЕВА КОЕВА - МИЛЕВА","target":"company:tr:123084930","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsveta-deneva-koeva-mileva-d2deab",
+  "nodes": [
+    {
+      "id": "official:tsveta-deneva-koeva-mileva-d2deab",
+      "type": "official",
+      "slug": "tsveta-deneva-koeva-mileva-d2deab",
+      "label": "Цвета Денева Коева-Милева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123084930",
+      "type": "company",
+      "label": "Общински клуб по спортни танци «РОЗА»",
+      "slug": null,
+      "uic": "123084930",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ЛАЛЕВ РАДЕВ",
+      "type": "person",
+      "label": "Петър Лалев Радев"
+    },
+    {
+      "id": "person:МАРИЯНА ХРИСТОВА ЧОКОВА",
+      "type": "person",
+      "label": "Марияна Христова Чокова"
+    },
+    {
+      "id": "person:ЦВЕТА ДЕНЕВА КОЕВА - МИЛЕВА",
+      "type": "person",
+      "label": "Цвета Денева Коева - Милева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsveta-deneva-koeva-mileva-d2deab",
+      "target": "company:tr:123084930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ЛАЛЕВ РАДЕВ",
+      "target": "company:tr:123084930",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЛАЛЕВ РАДЕВ",
+      "target": "company:tr:123084930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ХРИСТОВА ЧОКОВА",
+      "target": "company:tr:123084930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТА ДЕНЕВА КОЕВА - МИЛЕВА",
+      "target": "company:tr:123084930",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:sadie-sali-fedail-9989f5","nodes":[{"id":"official:sadie-sali-fedail-9989f5","type":"official","slug":"sadie-sali-fedail-9989f5","label":"Садие Сали Федаил","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000499471","type":"company","label":"НЧ &quot;САМОРАЗВИТИЕ 1902&quot;","slug":null,"uic":"000499471","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИО АТАНАСОВ ЛАЗАРОВ","type":"person","label":"Марио Атанасов Лазаров"},{"id":"person:МИТКА КРЪСТЕВА СЛАВЧЕВА","type":"person","label":"Митка Кръстева Славчева"},{"id":"person:ВАСИЛКА МИХАЙЛОВА КЛИМОВА","type":"person","label":"Василка Михайлова Климова"},{"id":"person:СЪБКА СТЕФАНОВА МАКСИМОВА","type":"person","label":"Събка Стефанова Максимова"},{"id":"person:НАДКА МЕТОДИЕВА НАЧЕВА","type":"person","label":"Надка Методиева Начева"},{"id":"person:ЛАЗАРИНКА МИНЧЕВА ЛАЗАРОВА","type":"person","label":"Лазаринка Минчева Лазарова"},{"id":"person:ЕМИНЕ САБРИ МЮМЮН-КИРИЛОВА","type":"person","label":"Емине Сабри Мюмюн-Кирилова"}],"edges":[{"source":"official:sadie-sali-fedail-9989f5","target":"company:tr:000499471","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИО АТАНАСОВ ЛАЗАРОВ","target":"company:tr:000499471","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИТКА КРЪСТЕВА СЛАВЧЕВА","target":"company:tr:000499471","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛКА МИХАЙЛОВА КЛИМОВА","target":"company:tr:000499471","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЪБКА СТЕФАНОВА МАКСИМОВА","target":"company:tr:000499471","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАДКА МЕТОДИЕВА НАЧЕВА","target":"company:tr:000499471","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЗАРИНКА МИНЧЕВА ЛАЗАРОВА","target":"company:tr:000499471","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИНЕ САБРИ МЮМЮН-КИРИЛОВА","target":"company:tr:000499471","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:sadie-sali-fedail-9989f5",
+  "nodes": [
+    {
+      "id": "official:sadie-sali-fedail-9989f5",
+      "type": "official",
+      "slug": "sadie-sali-fedail-9989f5",
+      "label": "Садие Сали Федаил",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000499471",
+      "type": "company",
+      "label": "НЧ &quot;САМОРАЗВИТИЕ 1902&quot;",
+      "slug": null,
+      "uic": "000499471",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИО АТАНАСОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Марио Атанасов Лазаров"
+    },
+    {
+      "id": "person:МИТКА КРЪСТЕВА СЛАВЧЕВА",
+      "type": "person",
+      "label": "Митка Кръстева Славчева"
+    },
+    {
+      "id": "person:ВАСИЛКА МИХАЙЛОВА КЛИМОВА",
+      "type": "person",
+      "label": "Василка Михайлова Климова"
+    },
+    {
+      "id": "person:СЪБКА СТЕФАНОВА МАКСИМОВА",
+      "type": "person",
+      "label": "Събка Стефанова Максимова"
+    },
+    {
+      "id": "person:НАДКА МЕТОДИЕВА НАЧЕВА",
+      "type": "person",
+      "label": "Надка Методиева Начева"
+    },
+    {
+      "id": "person:ЛАЗАРИНКА МИНЧЕВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Лазаринка Минчева Лазарова"
+    },
+    {
+      "id": "person:ЕМИНЕ САБРИ МЮМЮН-КИРИЛОВА",
+      "type": "person",
+      "label": "Емине Сабри Мюмюн-Кирилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sadie-sali-fedail-9989f5",
+      "target": "company:tr:000499471",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИО АТАНАСОВ ЛАЗАРОВ",
+      "target": "company:tr:000499471",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКА КРЪСТЕВА СЛАВЧЕВА",
+      "target": "company:tr:000499471",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА МИХАЙЛОВА КЛИМОВА",
+      "target": "company:tr:000499471",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБКА СТЕФАНОВА МАКСИМОВА",
+      "target": "company:tr:000499471",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДКА МЕТОДИЕВА НАЧЕВА",
+      "target": "company:tr:000499471",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАРИНКА МИНЧЕВА ЛАЗАРОВА",
+      "target": "company:tr:000499471",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ САБРИ МЮМЮН-КИРИЛОВА",
+      "target": "company:tr:000499471",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

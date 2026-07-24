@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aleksandr-zdravkov-mihailov-c7048b","nodes":[{"id":"official:aleksandr-zdravkov-mihailov-c7048b","type":"official","slug":"aleksandr-zdravkov-mihailov-c7048b","label":"Александър Здравков Михайлов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:205973726","type":"company","label":"Интер Комерс Консулт ЕООД","slug":null,"uic":"205973726","legalForm":null,"status":null,"seat":null},{"id":"person:НИНА РАДОСЛАВОВА СИРАКОВА","type":"person","label":"Нина Радославова Сиракова"},{"id":"person:АЛЕКСАНДЪР ЗДРАВКОВ МИХАЙЛОВ","type":"person","label":"Александър Здравков Михайлов"}],"edges":[{"source":"official:aleksandr-zdravkov-mihailov-c7048b","target":"company:tr:205973726","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:НИНА РАДОСЛАВОВА СИРАКОВА","target":"company:tr:205973726","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ЗДРАВКОВ МИХАЙЛОВ","target":"company:tr:205973726","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aleksandr-zdravkov-mihailov-c7048b",
+  "nodes": [
+    {
+      "id": "official:aleksandr-zdravkov-mihailov-c7048b",
+      "type": "official",
+      "slug": "aleksandr-zdravkov-mihailov-c7048b",
+      "label": "Александър Здравков Михайлов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205973726",
+      "type": "company",
+      "label": "Интер Комерс Консулт ЕООД",
+      "slug": null,
+      "uic": "205973726",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИНА РАДОСЛАВОВА СИРАКОВА",
+      "type": "person",
+      "label": "Нина Радославова Сиракова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЗДРАВКОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Александър Здравков Михайлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-zdravkov-mihailov-c7048b",
+      "target": "company:tr:205973726",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА РАДОСЛАВОВА СИРАКОВА",
+      "target": "company:tr:205973726",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЗДРАВКОВ МИХАЙЛОВ",
+      "target": "company:tr:205973726",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

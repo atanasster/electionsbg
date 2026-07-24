@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:azis-tahirov-mollov-62b7f0","nodes":[{"id":"official:azis-tahirov-mollov-62b7f0","type":"official","slug":"azis-tahirov-mollov-62b7f0","label":"Азис Тахиров Моллов","tier":"municipal","role":"councillor","municipality":"Ардино"},{"id":"company:tr:202847380","type":"company","label":"\"Моллов 393\"","slug":null,"uic":"202847380","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:azis-tahirov-mollov-62b7f0","target":"company:tr:202847380","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:azis-tahirov-mollov-62b7f0",
+  "nodes": [
+    {
+      "id": "official:azis-tahirov-mollov-62b7f0",
+      "type": "official",
+      "slug": "azis-tahirov-mollov-62b7f0",
+      "label": "Азис Тахиров Моллов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ардино"
+    },
+    {
+      "id": "company:tr:202847380",
+      "type": "company",
+      "label": "\"Моллов 393\"",
+      "slug": null,
+      "uic": "202847380",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:azis-tahirov-mollov-62b7f0",
+      "target": "company:tr:202847380",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

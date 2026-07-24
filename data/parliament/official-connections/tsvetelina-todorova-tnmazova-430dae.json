@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetelina-todorova-tnmazova-430dae","nodes":[{"id":"official:tsvetelina-todorova-tnmazova-430dae","type":"official","slug":"tsvetelina-todorova-tnmazova-430dae","label":"Цветелина Тодорова Тънмазова","tier":"executive","role":"party_leader","municipality":null},{"id":"company:tr:206723063","type":"company","label":"КШЕМА","slug":null,"uic":"206723063","legalForm":null,"status":null,"seat":null},{"id":"person:ВОЛЕН НИКОЛАЕВ МАРЧЕВ","type":"person","label":"Волен Николаев Марчев"}],"edges":[{"source":"official:tsvetelina-todorova-tnmazova-430dae","target":"company:tr:206723063","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:tsvetelina-todorova-tnmazova-430dae","target":"company:tr:206723063","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВОЛЕН НИКОЛАЕВ МАРЧЕВ","target":"company:tr:206723063","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВОЛЕН НИКОЛАЕВ МАРЧЕВ","target":"company:tr:206723063","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetelina-todorova-tnmazova-430dae",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-todorova-tnmazova-430dae",
+      "type": "official",
+      "slug": "tsvetelina-todorova-tnmazova-430dae",
+      "label": "Цветелина Тодорова Тънмазова",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206723063",
+      "type": "company",
+      "label": "КШЕМА",
+      "slug": null,
+      "uic": "206723063",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВОЛЕН НИКОЛАЕВ МАРЧЕВ",
+      "type": "person",
+      "label": "Волен Николаев Марчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-todorova-tnmazova-430dae",
+      "target": "company:tr:206723063",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetelina-todorova-tnmazova-430dae",
+      "target": "company:tr:206723063",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВОЛЕН НИКОЛАЕВ МАРЧЕВ",
+      "target": "company:tr:206723063",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВОЛЕН НИКОЛАЕВ МАРЧЕВ",
+      "target": "company:tr:206723063",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

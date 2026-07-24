@@ -1,1 +1,405 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:radostina-zhekova-dimitrova-751d66","nodes":[{"id":"official:radostina-zhekova-dimitrova-751d66","type":"official","slug":"radostina-zhekova-dimitrova-751d66","label":"Радостина Жекова Димитрова","tier":"municipal","role":"councillor","municipality":"Добрич"},{"id":"company:tr:123740950","type":"company","label":"НАЦИОНАЛНА АСОЦИАЦИЯ НА ЗЪРНОПРОИЗВОДИТЕЛИТЕ","slug":null,"uic":"123740950","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1606"},{"id":"mp:5204","type":"mp","mpId":5204,"label":"Маломир Василев Власов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"person:ИЛИЯ ЯНЧЕВ ПРОДАНОВ","type":"person","label":"Илия Янчев Проданов"},{"id":"person:КОСТА ИВАНОВ КОСТОВ","type":"person","label":"Коста Иванов Костов"},{"id":"person:ДАНАИЛ ДИМИТРОВ ИВАНОВ","type":"person","label":"Данаил Димитров Иванов"},{"id":"person:ИВАН ЛАЗАРОВ МУШЕВ","type":"person","label":"Иван Лазаров Мушев"},{"id":"person:МИЛЕН РОСЕНОВ КОЕВ","type":"person","label":"Милен Росенов Коев"},{"id":"person:РАДОСЛАВ СТОЙКОВ ХРИСТОВ","type":"person","label":"Радослав Стойков Христов"},{"id":"person:СТОЯН АЛЕКСАНДРОВ СТОЯНОВ","type":"person","label":"Стоян Александров Стоянов"},{"id":"person:СТАНИСЛАВ ЛЮБЕНОВ СТОЯНОВ","type":"person","label":"Станислав Любенов Стоянов"},{"id":"person:ГЕОРГИ РАДЕВ ЙОРДАНОВ","type":"person","label":"Георги Радев Йорданов"},{"id":"person:ДАНИЕЛА ЙОВКОВА ДИМИТРОВА","type":"person","label":"Даниела Йовкова Димитрова"},{"id":"person:ГЕОРГИ ПЕТРОВ ГЕОРГИЕВ","type":"person","label":"Георги Петров Георгиев"},{"id":"person:ЛЮДМИЛ ВЕНКОВ РАБОТОВ","type":"person","label":"Людмил Венков Работов"},{"id":"person:ГЕОРГИ ГЕОРГИЕВ МИЛЕВ","type":"person","label":"Георги Георгиев Милев"},{"id":"person:ВЕСЕЛКА АВРАМОВА ВАСИЛЕВА","type":"person","label":"Веселка Аврамова Василева"},{"id":"person:ЦАНКА ЦВЕТКОВА НАЦЕВА","type":"person","label":"Цанка Цветкова Нацева"},{"id":"person:ЖЕЧКО МИЛЧЕВ АНДРЕЙНСКИ","type":"person","label":"Жечко Милчев Андрейнски"},{"id":"person:НИКОЛАЙ КИРОВ КИРОВ","type":"person","label":"Николай Киров Киров"},{"id":"person:ПЕТЪР ЦВЕТАНОВ ПЕШЕВ","type":"person","label":"Петър Цветанов Пешев"},{"id":"person:ГАЛЯ КРАСИМИРОВА ЧЕШМЕДЖИЕВА","type":"person","label":"Галя Красимирова Чешмеджиева"},{"id":"person:МАРТИН ДОБРОМИРОВ БАЛУЛОВ","type":"person","label":"Мартин Добромиров Балулов"},{"id":"person:СИМЕОН ИВАНОВ СИМЕОНОВ","type":"person","label":"Симеон Иванов Симеонов"},{"id":"person:НИКОЛАЙ ВАСИЛЕВ СИНИГЕРСКИ","type":"person","label":"Николай Василев Синигерски"},{"id":"person:АЛЕКСАНДЪР РАДОСЛАВОВ СОТИРОВ","type":"person","label":"Александър Радославов Сотиров"},{"id":"person:НИКОЛА ВАЛЕНТИНОВ НИКОЛОВ","type":"person","label":"Никола Валентинов Николов"},{"id":"person:Е.Т. „ЛЮДМИЛ РАБОТОВ-2002“","type":"person","label":"Е.т. „людмил Работов-2002“"},{"id":"person:ТРЕНДАФИЛ АНГЕЛОВ ВАСИЛЕВ","type":"person","label":"Трендафил Ангелов Василев"},{"id":"person:НИКОЛАЙ СТЕФАНОВ ТОМАНОВ","type":"person","label":"Николай Стефанов Томанов"}],"edges":[{"source":"official:radostina-zhekova-dimitrova-751d66","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5204","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИЛИЯ ЯНЧЕВ ПРОДАНОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КОСТА ИВАНОВ КОСТОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНАИЛ ДИМИТРОВ ИВАНОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЛАЗАРОВ МУШЕВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН РОСЕНОВ КОЕВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ СТОЙКОВ ХРИСТОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН АЛЕКСАНДРОВ СТОЯНОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ ЛЮБЕНОВ СТОЯНОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ РАДЕВ ЙОРДАНОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ЙОВКОВА ДИМИТРОВА","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПЕТРОВ ГЕОРГИЕВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ ВЕНКОВ РАБОТОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ГЕОРГИЕВ МИЛЕВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА АВРАМОВА ВАСИЛЕВА","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦАНКА ЦВЕТКОВА НАЦЕВА","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЧКО МИЛЧЕВ АНДРЕЙНСКИ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КИРОВ КИРОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ЦВЕТАНОВ ПЕШЕВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛЯ КРАСИМИРОВА ЧЕШМЕДЖИЕВА","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ДОБРОМИРОВ БАЛУЛОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН ИВАНОВ СИМЕОНОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ВАСИЛЕВ СИНИГЕРСКИ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР РАДОСЛАВОВ СОТИРОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ВАЛЕНТИНОВ НИКОЛОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:Е.Т. „ЛЮДМИЛ РАБОТОВ-2002“","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТРЕНДАФИЛ АНГЕЛОВ ВАСИЛЕВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ СТЕФАНОВ ТОМАНОВ","target":"company:tr:123740950","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:radostina-zhekova-dimitrova-751d66",
+  "nodes": [
+    {
+      "id": "official:radostina-zhekova-dimitrova-751d66",
+      "type": "official",
+      "slug": "radostina-zhekova-dimitrova-751d66",
+      "label": "Радостина Жекова Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:123740950",
+      "type": "company",
+      "label": "НАЦИОНАЛНА АСОЦИАЦИЯ НА ЗЪРНОПРОИЗВОДИТЕЛИТЕ",
+      "slug": null,
+      "uic": "123740950",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1606"
+    },
+    {
+      "id": "mp:5204",
+      "type": "mp",
+      "mpId": 5204,
+      "label": "Маломир Василев Власов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:ИЛИЯ ЯНЧЕВ ПРОДАНОВ",
+      "type": "person",
+      "label": "Илия Янчев Проданов"
+    },
+    {
+      "id": "person:КОСТА ИВАНОВ КОСТОВ",
+      "type": "person",
+      "label": "Коста Иванов Костов"
+    },
+    {
+      "id": "person:ДАНАИЛ ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Данаил Димитров Иванов"
+    },
+    {
+      "id": "person:ИВАН ЛАЗАРОВ МУШЕВ",
+      "type": "person",
+      "label": "Иван Лазаров Мушев"
+    },
+    {
+      "id": "person:МИЛЕН РОСЕНОВ КОЕВ",
+      "type": "person",
+      "label": "Милен Росенов Коев"
+    },
+    {
+      "id": "person:РАДОСЛАВ СТОЙКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Радослав Стойков Христов"
+    },
+    {
+      "id": "person:СТОЯН АЛЕКСАНДРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Александров Стоянов"
+    },
+    {
+      "id": "person:СТАНИСЛАВ ЛЮБЕНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Станислав Любенов Стоянов"
+    },
+    {
+      "id": "person:ГЕОРГИ РАДЕВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Георги Радев Йорданов"
+    },
+    {
+      "id": "person:ДАНИЕЛА ЙОВКОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Даниела Йовкова Димитрова"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Петров Георгиев"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ВЕНКОВ РАБОТОВ",
+      "type": "person",
+      "label": "Людмил Венков Работов"
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕОРГИЕВ МИЛЕВ",
+      "type": "person",
+      "label": "Георги Георгиев Милев"
+    },
+    {
+      "id": "person:ВЕСЕЛКА АВРАМОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Веселка Аврамова Василева"
+    },
+    {
+      "id": "person:ЦАНКА ЦВЕТКОВА НАЦЕВА",
+      "type": "person",
+      "label": "Цанка Цветкова Нацева"
+    },
+    {
+      "id": "person:ЖЕЧКО МИЛЧЕВ АНДРЕЙНСКИ",
+      "type": "person",
+      "label": "Жечко Милчев Андрейнски"
+    },
+    {
+      "id": "person:НИКОЛАЙ КИРОВ КИРОВ",
+      "type": "person",
+      "label": "Николай Киров Киров"
+    },
+    {
+      "id": "person:ПЕТЪР ЦВЕТАНОВ ПЕШЕВ",
+      "type": "person",
+      "label": "Петър Цветанов Пешев"
+    },
+    {
+      "id": "person:ГАЛЯ КРАСИМИРОВА ЧЕШМЕДЖИЕВА",
+      "type": "person",
+      "label": "Галя Красимирова Чешмеджиева"
+    },
+    {
+      "id": "person:МАРТИН ДОБРОМИРОВ БАЛУЛОВ",
+      "type": "person",
+      "label": "Мартин Добромиров Балулов"
+    },
+    {
+      "id": "person:СИМЕОН ИВАНОВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Симеон Иванов Симеонов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВАСИЛЕВ СИНИГЕРСКИ",
+      "type": "person",
+      "label": "Николай Василев Синигерски"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР РАДОСЛАВОВ СОТИРОВ",
+      "type": "person",
+      "label": "Александър Радославов Сотиров"
+    },
+    {
+      "id": "person:НИКОЛА ВАЛЕНТИНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Валентинов Николов"
+    },
+    {
+      "id": "person:Е.Т. „ЛЮДМИЛ РАБОТОВ-2002“",
+      "type": "person",
+      "label": "Е.т. „людмил Работов-2002“"
+    },
+    {
+      "id": "person:ТРЕНДАФИЛ АНГЕЛОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Трендафил Ангелов Василев"
+    },
+    {
+      "id": "person:НИКОЛАЙ СТЕФАНОВ ТОМАНОВ",
+      "type": "person",
+      "label": "Николай Стефанов Томанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radostina-zhekova-dimitrova-751d66",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5204",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ ЯНЧЕВ ПРОДАНОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТА ИВАНОВ КОСТОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЛАЗАРОВ МУШЕВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН РОСЕНОВ КОЕВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ СТОЙКОВ ХРИСТОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН АЛЕКСАНДРОВ СТОЯНОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ЛЮБЕНОВ СТОЯНОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ РАДЕВ ЙОРДАНОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ЙОВКОВА ДИМИТРОВА",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ВЕНКОВ РАБОТОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ МИЛЕВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА АВРАМОВА ВАСИЛЕВА",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦАНКА ЦВЕТКОВА НАЦЕВА",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЧКО МИЛЧЕВ АНДРЕЙНСКИ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КИРОВ КИРОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЦВЕТАНОВ ПЕШЕВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ КРАСИМИРОВА ЧЕШМЕДЖИЕВА",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ДОБРОМИРОВ БАЛУЛОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ИВАНОВ СИМЕОНОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАСИЛЕВ СИНИГЕРСКИ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР РАДОСЛАВОВ СОТИРОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ВАЛЕНТИНОВ НИКОЛОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:Е.Т. „ЛЮДМИЛ РАБОТОВ-2002“",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРЕНДАФИЛ АНГЕЛОВ ВАСИЛЕВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТЕФАНОВ ТОМАНОВ",
+      "target": "company:tr:123740950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

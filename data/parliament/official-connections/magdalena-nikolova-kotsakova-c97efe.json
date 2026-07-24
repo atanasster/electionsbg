@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:magdalena-nikolova-kotsakova-c97efe","nodes":[{"id":"official:magdalena-nikolova-kotsakova-c97efe","type":"official","slug":"magdalena-nikolova-kotsakova-c97efe","label":"Магдалена Николова Коцакова","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:000022044","type":"company","label":"&quot;МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р АСЕН ВЕЛЕВ&quot; ЕООД","slug":null,"uic":"000022044","legalForm":null,"status":null,"seat":null},{"id":"person:РАДКА ВЛАДИМИРОВА БОЖИКОВА","type":"person","label":"Радка Владимирова Божикова"}],"edges":[{"source":"official:magdalena-nikolova-kotsakova-c97efe","target":"company:tr:000022044","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:РАДКА ВЛАДИМИРОВА БОЖИКОВА","target":"company:tr:000022044","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:magdalena-nikolova-kotsakova-c97efe",
+  "nodes": [
+    {
+      "id": "official:magdalena-nikolova-kotsakova-c97efe",
+      "type": "official",
+      "slug": "magdalena-nikolova-kotsakova-c97efe",
+      "label": "Магдалена Николова Коцакова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000022044",
+      "type": "company",
+      "label": "&quot;МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р АСЕН ВЕЛЕВ&quot; ЕООД",
+      "slug": null,
+      "uic": "000022044",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДКА ВЛАДИМИРОВА БОЖИКОВА",
+      "type": "person",
+      "label": "Радка Владимирова Божикова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:magdalena-nikolova-kotsakova-c97efe",
+      "target": "company:tr:000022044",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДКА ВЛАДИМИРОВА БОЖИКОВА",
+      "target": "company:tr:000022044",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

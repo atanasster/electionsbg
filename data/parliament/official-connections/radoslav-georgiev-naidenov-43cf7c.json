@@ -1,1 +1,245 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:radoslav-georgiev-naidenov-43cf7c","nodes":[{"id":"official:radoslav-georgiev-naidenov-43cf7c","type":"official","slug":"radoslav-georgiev-naidenov-43cf7c","label":"Радослав Георгиев Найденов","tier":"municipal","role":"mayor","municipality":"Берковица"},{"id":"company:tr:207476908","type":"company","label":"МЕСТНА ИНИЦИАТИВНА ГРУПА - БЕРКОВИЦА, ГОДЕЧ, ДРАГОМАН","slug":null,"uic":"207476908","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМИТРАНКА ЗАМФИРОВА КАМЕНОВА","type":"person","label":"Димитранка Замфирова Каменова"},{"id":"person:ОБЩИНА БЕРКОВИЦА","type":"person","label":"Община Берковица"},{"id":"person:ОБЩИНА ГОДЕЧ","type":"person","label":"Община Годеч"},{"id":"company:name:ШИШКОВА КЪЩА","type":"company","label":"\"ШИШКОВА КЪЩА\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:СТРАМИЛ ТРЕЙД","type":"company","label":"\"СТРАМИЛ ТРЕЙД\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:ВАСИ 92 - ВЕНЕТА АСЕНОВА","type":"company","label":"ЕТ \"ВАСИ 92 - ВЕНЕТА АСЕНОВА\"","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:\"САМООБРАЗОВАНИЕ 1919\" НЧ","type":"person","label":"\"самообразование 1919\" Нч"},{"id":"person:КИРИЛ ГЕОРГИЕВ ИВАНОВ","type":"person","label":"Кирил Георгиев Иванов"},{"id":"person:ЕВСТАТИЕВ СТРОЙ","type":"person","label":"Евстатиев Строй"},{"id":"person:ОБЩИНА БЕРКОВИЦА-ПРЕДСТАВИТЕЛ РАДОСЛАВ ГЕОРГИЕВ НАЙДЕНОВ","type":"person","label":"Община Берковица-Представител Радослав Георгиев Найденов"},{"id":"person:\"АГРОКОНСУЛТ 92\" ЕООД-ПРЕДСТ. НЕЛИ ДИМИТРОВА НИКОЛАЕВА","type":"person","label":"\"агроконсулт 92\" Еоод-Предст. Нели Димитрова Николаева"},{"id":"person:ГЕОРГИ ПЕТРОВ КОЛАРОВ","type":"person","label":"Георги Петров Коларов"},{"id":"person:СДРУЖЕНИЕ СПОРТЕН КЛУБ ТОНИ СПОРТ - ТОДОР КРАСИМИРОВ ИЛИЕВ","type":"person","label":"Сдружение Спортен Клуб Тони Спорт - Тодор Красимиров Илиев"},{"id":"person:СЛРД \"СОКОЛ\" БЕРКОВИЦА - СТОЯН АНГЕЛОВ АНГЕЛОВ","type":"person","label":"Слрд \"сокол\" Берковица - Стоян Ангелов Ангелов"},{"id":"person:АНЖЕЛА ТРИФОНОВА СТАНОЕВА","type":"person","label":"Анжела Трифонова Станоева"}],"edges":[{"source":"official:radoslav-georgiev-naidenov-43cf7c","target":"company:tr:207476908","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТРАНКА ЗАМФИРОВА КАМЕНОВА","target":"company:tr:207476908","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА БЕРКОВИЦА","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ГОДЕЧ","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ШИШКОВА КЪЩА","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:СТРАМИЛ ТРЕЙД","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ВАСИ 92 - ВЕНЕТА АСЕНОВА","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:\"САМООБРАЗОВАНИЕ 1919\" НЧ","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ГЕОРГИЕВ ИВАНОВ","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВСТАТИЕВ СТРОЙ","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА БЕРКОВИЦА-ПРЕДСТАВИТЕЛ РАДОСЛАВ ГЕОРГИЕВ НАЙДЕНОВ","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:\"АГРОКОНСУЛТ 92\" ЕООД-ПРЕДСТ. НЕЛИ ДИМИТРОВА НИКОЛАЕВА","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПЕТРОВ КОЛАРОВ","target":"company:tr:207476908","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СДРУЖЕНИЕ СПОРТЕН КЛУБ ТОНИ СПОРТ - ТОДОР КРАСИМИРОВ ИЛИЕВ","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЛРД \"СОКОЛ\" БЕРКОВИЦА - СТОЯН АНГЕЛОВ АНГЕЛОВ","target":"company:tr:207476908","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЖЕЛА ТРИФОНОВА СТАНОЕВА","target":"company:tr:207476908","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:radoslav-georgiev-naidenov-43cf7c",
+  "nodes": [
+    {
+      "id": "official:radoslav-georgiev-naidenov-43cf7c",
+      "type": "official",
+      "slug": "radoslav-georgiev-naidenov-43cf7c",
+      "label": "Радослав Георгиев Найденов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Берковица"
+    },
+    {
+      "id": "company:tr:207476908",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА - БЕРКОВИЦА, ГОДЕЧ, ДРАГОМАН",
+      "slug": null,
+      "uic": "207476908",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТРАНКА ЗАМФИРОВА КАМЕНОВА",
+      "type": "person",
+      "label": "Димитранка Замфирова Каменова"
+    },
+    {
+      "id": "person:ОБЩИНА БЕРКОВИЦА",
+      "type": "person",
+      "label": "Община Берковица"
+    },
+    {
+      "id": "person:ОБЩИНА ГОДЕЧ",
+      "type": "person",
+      "label": "Община Годеч"
+    },
+    {
+      "id": "company:name:ШИШКОВА КЪЩА",
+      "type": "company",
+      "label": "\"ШИШКОВА КЪЩА\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:СТРАМИЛ ТРЕЙД",
+      "type": "company",
+      "label": "\"СТРАМИЛ ТРЕЙД\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ВАСИ 92 - ВЕНЕТА АСЕНОВА",
+      "type": "company",
+      "label": "ЕТ \"ВАСИ 92 - ВЕНЕТА АСЕНОВА\"",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:\"САМООБРАЗОВАНИЕ 1919\" НЧ",
+      "type": "person",
+      "label": "\"самообразование 1919\" Нч"
+    },
+    {
+      "id": "person:КИРИЛ ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Кирил Георгиев Иванов"
+    },
+    {
+      "id": "person:ЕВСТАТИЕВ СТРОЙ",
+      "type": "person",
+      "label": "Евстатиев Строй"
+    },
+    {
+      "id": "person:ОБЩИНА БЕРКОВИЦА-ПРЕДСТАВИТЕЛ РАДОСЛАВ ГЕОРГИЕВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Община Берковица-Представител Радослав Георгиев Найденов"
+    },
+    {
+      "id": "person:\"АГРОКОНСУЛТ 92\" ЕООД-ПРЕДСТ. НЕЛИ ДИМИТРОВА НИКОЛАЕВА",
+      "type": "person",
+      "label": "\"агроконсулт 92\" Еоод-Предст. Нели Димитрова Николаева"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ КОЛАРОВ",
+      "type": "person",
+      "label": "Георги Петров Коларов"
+    },
+    {
+      "id": "person:СДРУЖЕНИЕ СПОРТЕН КЛУБ ТОНИ СПОРТ - ТОДОР КРАСИМИРОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Сдружение Спортен Клуб Тони Спорт - Тодор Красимиров Илиев"
+    },
+    {
+      "id": "person:СЛРД \"СОКОЛ\" БЕРКОВИЦА - СТОЯН АНГЕЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Слрд \"сокол\" Берковица - Стоян Ангелов Ангелов"
+    },
+    {
+      "id": "person:АНЖЕЛА ТРИФОНОВА СТАНОЕВА",
+      "type": "person",
+      "label": "Анжела Трифонова Станоева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-georgiev-naidenov-43cf7c",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТРАНКА ЗАМФИРОВА КАМЕНОВА",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА БЕРКОВИЦА",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ГОДЕЧ",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ШИШКОВА КЪЩА",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СТРАМИЛ ТРЕЙД",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВАСИ 92 - ВЕНЕТА АСЕНОВА",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"САМООБРАЗОВАНИЕ 1919\" НЧ",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВСТАТИЕВ СТРОЙ",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА БЕРКОВИЦА-ПРЕДСТАВИТЕЛ РАДОСЛАВ ГЕОРГИЕВ НАЙДЕНОВ",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"АГРОКОНСУЛТ 92\" ЕООД-ПРЕДСТ. НЕЛИ ДИМИТРОВА НИКОЛАЕВА",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ КОЛАРОВ",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СДРУЖЕНИЕ СПОРТЕН КЛУБ ТОНИ СПОРТ - ТОДОР КРАСИМИРОВ ИЛИЕВ",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛРД \"СОКОЛ\" БЕРКОВИЦА - СТОЯН АНГЕЛОВ АНГЕЛОВ",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЖЕЛА ТРИФОНОВА СТАНОЕВА",
+      "target": "company:tr:207476908",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

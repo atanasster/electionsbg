@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:yancho-stoyanov-stoichev-57436e","nodes":[{"id":"official:yancho-stoyanov-stoichev-57436e","type":"official","slug":"yancho-stoyanov-stoichev-57436e","label":"Янчо Стоянов Стойчев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176441596","type":"company","label":"СДРУЖЕНИЕ &quot;БЪЛГАРСКА АСОЦИАЦИЯ НА ТРЕНЬОРИТЕ&quot;,","slug":null,"uic":"176441596","legalForm":null,"status":null,"seat":null},{"id":"person:КАМЕЛИЯ ВЛАДИМИРОВА ДУНАВСКА","type":"person","label":"Камелия Владимирова Дунавска"},{"id":"person:ИВАН КРАСИМИРОВ КУТУЕВ","type":"person","label":"Иван Красимиров Кутуев"},{"id":"person:ГЕОРГИ АТАНАСОВ СРЕДКОВ","type":"person","label":"Георги Атанасов Средков"},{"id":"person:ИВАН ХРИСТОВ КОВАЧЕВСКИ","type":"person","label":"Иван Христов Ковачевски"},{"id":"person:ХРИСТО ЦАНКОВ СТОЯНОВ","type":"person","label":"Христо Цанков Стоянов"}],"edges":[{"source":"official:yancho-stoyanov-stoichev-57436e","target":"company:tr:176441596","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:КАМЕЛИЯ ВЛАДИМИРОВА ДУНАВСКА","target":"company:tr:176441596","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КРАСИМИРОВ КУТУЕВ","target":"company:tr:176441596","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ АТАНАСОВ СРЕДКОВ","target":"company:tr:176441596","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ХРИСТОВ КОВАЧЕВСКИ","target":"company:tr:176441596","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ЦАНКОВ СТОЯНОВ","target":"company:tr:176441596","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:yancho-stoyanov-stoichev-57436e",
+  "nodes": [
+    {
+      "id": "official:yancho-stoyanov-stoichev-57436e",
+      "type": "official",
+      "slug": "yancho-stoyanov-stoichev-57436e",
+      "label": "Янчо Стоянов Стойчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176441596",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;БЪЛГАРСКА АСОЦИАЦИЯ НА ТРЕНЬОРИТЕ&quot;,",
+      "slug": null,
+      "uic": "176441596",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАМЕЛИЯ ВЛАДИМИРОВА ДУНАВСКА",
+      "type": "person",
+      "label": "Камелия Владимирова Дунавска"
+    },
+    {
+      "id": "person:ИВАН КРАСИМИРОВ КУТУЕВ",
+      "type": "person",
+      "label": "Иван Красимиров Кутуев"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ СРЕДКОВ",
+      "type": "person",
+      "label": "Георги Атанасов Средков"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ КОВАЧЕВСКИ",
+      "type": "person",
+      "label": "Иван Христов Ковачевски"
+    },
+    {
+      "id": "person:ХРИСТО ЦАНКОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Христо Цанков Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yancho-stoyanov-stoichev-57436e",
+      "target": "company:tr:176441596",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАМЕЛИЯ ВЛАДИМИРОВА ДУНАВСКА",
+      "target": "company:tr:176441596",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ КУТУЕВ",
+      "target": "company:tr:176441596",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ СРЕДКОВ",
+      "target": "company:tr:176441596",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ КОВАЧЕВСКИ",
+      "target": "company:tr:176441596",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЦАНКОВ СТОЯНОВ",
+      "target": "company:tr:176441596",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

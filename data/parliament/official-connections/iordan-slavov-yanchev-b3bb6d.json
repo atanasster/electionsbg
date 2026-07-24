@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iordan-slavov-yanchev-b3bb6d","nodes":[{"id":"official:iordan-slavov-yanchev-b3bb6d","type":"official","slug":"iordan-slavov-yanchev-b3bb6d","label":"Йордан Славов Янчев","tier":"municipal","role":"councillor","municipality":"Вълчидол"},{"id":"company:tr:206465944","type":"company","label":"2Д ИНВЕСТ","slug":null,"uic":"206465944","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМЧО СЯРКОВ СЯРОВ","type":"person","label":"Димчо Сярков Сяров"},{"id":"person:ЯНЧО СЛАВОВ ЯНЧЕВ","type":"person","label":"Янчо Славов Янчев"}],"edges":[{"source":"official:iordan-slavov-yanchev-b3bb6d","target":"company:tr:206465944","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМЧО СЯРКОВ СЯРОВ","target":"company:tr:206465944","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЯНЧО СЛАВОВ ЯНЧЕВ","target":"company:tr:206465944","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЯНЧО СЛАВОВ ЯНЧЕВ","target":"company:tr:206465944","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iordan-slavov-yanchev-b3bb6d",
+  "nodes": [
+    {
+      "id": "official:iordan-slavov-yanchev-b3bb6d",
+      "type": "official",
+      "slug": "iordan-slavov-yanchev-b3bb6d",
+      "label": "Йордан Славов Янчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Вълчидол"
+    },
+    {
+      "id": "company:tr:206465944",
+      "type": "company",
+      "label": "2Д ИНВЕСТ",
+      "slug": null,
+      "uic": "206465944",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМЧО СЯРКОВ СЯРОВ",
+      "type": "person",
+      "label": "Димчо Сярков Сяров"
+    },
+    {
+      "id": "person:ЯНЧО СЛАВОВ ЯНЧЕВ",
+      "type": "person",
+      "label": "Янчо Славов Янчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-slavov-yanchev-b3bb6d",
+      "target": "company:tr:206465944",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМЧО СЯРКОВ СЯРОВ",
+      "target": "company:tr:206465944",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНЧО СЛАВОВ ЯНЧЕВ",
+      "target": "company:tr:206465944",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНЧО СЛАВОВ ЯНЧЕВ",
+      "target": "company:tr:206465944",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

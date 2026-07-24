@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:angel-milev-angelov-eca051","nodes":[{"id":"official:angel-milev-angelov-eca051","type":"official","slug":"angel-milev-angelov-eca051","label":"Ангел Милев Ангелов","tier":"executive","role":"diplomat","municipality":null},{"id":"company:tr:206952051","type":"company","label":"СКАРА АЛИ БАБА 7172","slug":null,"uic":"206952051","legalForm":null,"status":null,"seat":null},{"id":"person:ВИЛДАН МУСТАФОВА АХМЕДОВА","type":"person","label":"Вилдан Мустафова Ахмедова"}],"edges":[{"source":"official:angel-milev-angelov-eca051","target":"company:tr:206952051","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:angel-milev-angelov-eca051","target":"company:tr:206952051","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВИЛДАН МУСТАФОВА АХМЕДОВА","target":"company:tr:206952051","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВИЛДАН МУСТАФОВА АХМЕДОВА","target":"company:tr:206952051","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:angel-milev-angelov-eca051",
+  "nodes": [
+    {
+      "id": "official:angel-milev-angelov-eca051",
+      "type": "official",
+      "slug": "angel-milev-angelov-eca051",
+      "label": "Ангел Милев Ангелов",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206952051",
+      "type": "company",
+      "label": "СКАРА АЛИ БАБА 7172",
+      "slug": null,
+      "uic": "206952051",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИЛДАН МУСТАФОВА АХМЕДОВА",
+      "type": "person",
+      "label": "Вилдан Мустафова Ахмедова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-milev-angelov-eca051",
+      "target": "company:tr:206952051",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-milev-angelov-eca051",
+      "target": "company:tr:206952051",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИЛДАН МУСТАФОВА АХМЕДОВА",
+      "target": "company:tr:206952051",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИЛДАН МУСТАФОВА АХМЕДОВА",
+      "target": "company:tr:206952051",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

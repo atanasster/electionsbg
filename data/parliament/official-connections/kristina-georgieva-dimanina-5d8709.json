@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kristina-georgieva-dimanina-5d8709","nodes":[{"id":"official:kristina-georgieva-dimanina-5d8709","type":"official","slug":"kristina-georgieva-dimanina-5d8709","label":"Кристина Георгиева Диманина","tier":"municipal","role":"councillor","municipality":"Пещера"},{"id":"company:tr:030420686","type":"company","label":"ТЪРГОВСКА КЪЩА &quot;ВИКТОРИЯ&quot;","slug":null,"uic":"030420686","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАНКА ГЕОРГИЕВА КОЗАРЕВА","type":"person","label":"Иванка Георгиева Козарева"}],"edges":[{"source":"official:kristina-georgieva-dimanina-5d8709","target":"company:tr:030420686","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:kristina-georgieva-dimanina-5d8709","target":"company:tr:030420686","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАНКА ГЕОРГИЕВА КОЗАРЕВА","target":"company:tr:030420686","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ГЕОРГИЕВА КОЗАРЕВА","target":"company:tr:030420686","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kristina-georgieva-dimanina-5d8709",
+  "nodes": [
+    {
+      "id": "official:kristina-georgieva-dimanina-5d8709",
+      "type": "official",
+      "slug": "kristina-georgieva-dimanina-5d8709",
+      "label": "Кристина Георгиева Диманина",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пещера"
+    },
+    {
+      "id": "company:tr:030420686",
+      "type": "company",
+      "label": "ТЪРГОВСКА КЪЩА &quot;ВИКТОРИЯ&quot;",
+      "slug": null,
+      "uic": "030420686",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА ГЕОРГИЕВА КОЗАРЕВА",
+      "type": "person",
+      "label": "Иванка Георгиева Козарева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristina-georgieva-dimanina-5d8709",
+      "target": "company:tr:030420686",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristina-georgieva-dimanina-5d8709",
+      "target": "company:tr:030420686",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА ГЕОРГИЕВА КОЗАРЕВА",
+      "target": "company:tr:030420686",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ГЕОРГИЕВА КОЗАРЕВА",
+      "target": "company:tr:030420686",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

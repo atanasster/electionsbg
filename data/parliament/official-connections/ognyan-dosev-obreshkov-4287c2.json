@@ -1,1 +1,129 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ognyan-dosev-obreshkov-4287c2","nodes":[{"id":"official:ognyan-dosev-obreshkov-4287c2","type":"official","slug":"ognyan-dosev-obreshkov-4287c2","label":"Огнян Досев Обрешков","tier":"municipal","role":"councillor","municipality":"Разград"},{"id":"company:tr:202431688","type":"company","label":"ОРТЕХ","slug":null,"uic":"202431688","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206536327","type":"company","label":"АСЕМБЛИ","slug":null,"uic":"206536327","legalForm":null,"status":null,"seat":null},{"id":"person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА","type":"person","label":"Наталия Недялкова Обрешкова"},{"id":"person:РУМЕН ДОСЕВ ОБРЕШКОВ","type":"person","label":"Румен Досев Обрешков"},{"id":"person:РЕФЕТ ШЕФКЕТ ЧЕТЕ","type":"person","label":"Рефет Шефкет Чете"},{"id":"person:ХРИСТО ГЕОРГИЕВ ХРИСТОВ","type":"person","label":"Христо Георгиев Христов"}],"edges":[{"source":"official:ognyan-dosev-obreshkov-4287c2","target":"company:tr:202431688","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ognyan-dosev-obreshkov-4287c2","target":"company:tr:206536327","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ognyan-dosev-obreshkov-4287c2","target":"company:tr:206536327","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА","target":"company:tr:202431688","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ДОСЕВ ОБРЕШКОВ","target":"company:tr:202431688","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РЕФЕТ ШЕФКЕТ ЧЕТЕ","target":"company:tr:206536327","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ГЕОРГИЕВ ХРИСТОВ","target":"company:tr:206536327","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА","target":"company:tr:206536327","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА","target":"company:tr:206536327","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ognyan-dosev-obreshkov-4287c2",
+  "nodes": [
+    {
+      "id": "official:ognyan-dosev-obreshkov-4287c2",
+      "type": "official",
+      "slug": "ognyan-dosev-obreshkov-4287c2",
+      "label": "Огнян Досев Обрешков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разград"
+    },
+    {
+      "id": "company:tr:202431688",
+      "type": "company",
+      "label": "ОРТЕХ",
+      "slug": null,
+      "uic": "202431688",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206536327",
+      "type": "company",
+      "label": "АСЕМБЛИ",
+      "slug": null,
+      "uic": "206536327",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА",
+      "type": "person",
+      "label": "Наталия Недялкова Обрешкова"
+    },
+    {
+      "id": "person:РУМЕН ДОСЕВ ОБРЕШКОВ",
+      "type": "person",
+      "label": "Румен Досев Обрешков"
+    },
+    {
+      "id": "person:РЕФЕТ ШЕФКЕТ ЧЕТЕ",
+      "type": "person",
+      "label": "Рефет Шефкет Чете"
+    },
+    {
+      "id": "person:ХРИСТО ГЕОРГИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Георгиев Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ognyan-dosev-obreshkov-4287c2",
+      "target": "company:tr:202431688",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ognyan-dosev-obreshkov-4287c2",
+      "target": "company:tr:206536327",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ognyan-dosev-obreshkov-4287c2",
+      "target": "company:tr:206536327",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА",
+      "target": "company:tr:202431688",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДОСЕВ ОБРЕШКОВ",
+      "target": "company:tr:202431688",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕФЕТ ШЕФКЕТ ЧЕТЕ",
+      "target": "company:tr:206536327",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:206536327",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА",
+      "target": "company:tr:206536327",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА",
+      "target": "company:tr:206536327",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:neda-ivanova-hristova-1046ef","nodes":[{"id":"official:neda-ivanova-hristova-1046ef","type":"official","slug":"neda-ivanova-hristova-1046ef","label":"Неда Иванова Христова","tier":"municipal","role":"councillor","municipality":"Чипровци"},{"id":"company:tr:000313874","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;П. К. ЯВОРОВ - 1926&quot;","slug":null,"uic":"000313874","legalForm":null,"status":null,"seat":null},{"id":"person:РАДКА ЙОРДАНОВА ДИМИТРОВА","type":"person","label":"Радка Йорданова Димитрова"},{"id":"person:ЙОРДАНКА ИВАНОВА ТОДОРОВА","type":"person","label":"Йорданка Иванова Тодорова"},{"id":"person:МИЛКАНА СТЕФАНОВА КАМЕНОВА","type":"person","label":"Милкана Стефанова Каменова"},{"id":"person:ЦВЕТКА ДИМИТРОВА СТАЙКОВА","type":"person","label":"Цветка Димитрова Стайкова"},{"id":"person:АДРИАНА ИЛИЕВА ТОДОРОВА","type":"person","label":"Адриана Илиева Тодорова"},{"id":"person:БИЛЯНА ЕВГЕНИЕВА БОРИСОВА","type":"person","label":"Биляна Евгениева Борисова"},{"id":"person:ВЕЛИКА ПЕТРОВА МИТОВА","type":"person","label":"Велика Петрова Митова"}],"edges":[{"source":"official:neda-ivanova-hristova-1046ef","target":"company:tr:000313874","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:РАДКА ЙОРДАНОВА ДИМИТРОВА","target":"company:tr:000313874","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ИВАНОВА ТОДОРОВА","target":"company:tr:000313874","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКАНА СТЕФАНОВА КАМЕНОВА","target":"company:tr:000313874","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТКА ДИМИТРОВА СТАЙКОВА","target":"company:tr:000313874","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АДРИАНА ИЛИЕВА ТОДОРОВА","target":"company:tr:000313874","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯНА ЕВГЕНИЕВА БОРИСОВА","target":"company:tr:000313874","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИКА ПЕТРОВА МИТОВА","target":"company:tr:000313874","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:neda-ivanova-hristova-1046ef",
+  "nodes": [
+    {
+      "id": "official:neda-ivanova-hristova-1046ef",
+      "type": "official",
+      "slug": "neda-ivanova-hristova-1046ef",
+      "label": "Неда Иванова Христова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чипровци"
+    },
+    {
+      "id": "company:tr:000313874",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;П. К. ЯВОРОВ - 1926&quot;",
+      "slug": null,
+      "uic": "000313874",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДКА ЙОРДАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Радка Йорданова Димитрова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ИВАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Йорданка Иванова Тодорова"
+    },
+    {
+      "id": "person:МИЛКАНА СТЕФАНОВА КАМЕНОВА",
+      "type": "person",
+      "label": "Милкана Стефанова Каменова"
+    },
+    {
+      "id": "person:ЦВЕТКА ДИМИТРОВА СТАЙКОВА",
+      "type": "person",
+      "label": "Цветка Димитрова Стайкова"
+    },
+    {
+      "id": "person:АДРИАНА ИЛИЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Адриана Илиева Тодорова"
+    },
+    {
+      "id": "person:БИЛЯНА ЕВГЕНИЕВА БОРИСОВА",
+      "type": "person",
+      "label": "Биляна Евгениева Борисова"
+    },
+    {
+      "id": "person:ВЕЛИКА ПЕТРОВА МИТОВА",
+      "type": "person",
+      "label": "Велика Петрова Митова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neda-ivanova-hristova-1046ef",
+      "target": "company:tr:000313874",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДКА ЙОРДАНОВА ДИМИТРОВА",
+      "target": "company:tr:000313874",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:000313874",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКАНА СТЕФАНОВА КАМЕНОВА",
+      "target": "company:tr:000313874",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТКА ДИМИТРОВА СТАЙКОВА",
+      "target": "company:tr:000313874",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДРИАНА ИЛИЕВА ТОДОРОВА",
+      "target": "company:tr:000313874",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ЕВГЕНИЕВА БОРИСОВА",
+      "target": "company:tr:000313874",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИКА ПЕТРОВА МИТОВА",
+      "target": "company:tr:000313874",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stoyan-ivanov-ivanov-591e98","nodes":[{"id":"official:stoyan-ivanov-ivanov-591e98","type":"official","slug":"stoyan-ivanov-ivanov-591e98","label":"Стоян Иванов Иванов","tier":"municipal","role":"councillor","municipality":"Гурково"},{"id":"company:tr:205317316","type":"company","label":"Дъбчето ЕООД","slug":null,"uic":"205317316","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:stoyan-ivanov-ivanov-591e98","target":"company:tr:205317316","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stoyan-ivanov-ivanov-591e98",
+  "nodes": [
+    {
+      "id": "official:stoyan-ivanov-ivanov-591e98",
+      "type": "official",
+      "slug": "stoyan-ivanov-ivanov-591e98",
+      "label": "Стоян Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гурково"
+    },
+    {
+      "id": "company:tr:205317316",
+      "type": "company",
+      "label": "Дъбчето ЕООД",
+      "slug": null,
+      "uic": "205317316",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-ivanov-ivanov-591e98",
+      "target": "company:tr:205317316",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

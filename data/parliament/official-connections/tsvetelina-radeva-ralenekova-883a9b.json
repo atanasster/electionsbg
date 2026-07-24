@@ -1,1 +1,53 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetelina-radeva-ralenekova-883a9b","nodes":[{"id":"official:tsvetelina-radeva-ralenekova-883a9b","type":"official","slug":"tsvetelina-radeva-ralenekova-883a9b","label":"Цветелина Радева Раленекова","tier":"municipal","role":"councillor","municipality":"Карлово"},{"id":"company:tr:205138726","type":"company","label":"ФЛАШ ЕЛЕКТРИК ИНВЕСТМЪНТС ООД","slug":null,"uic":"205138726","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202747857","type":"company","label":"Пралин ЕООД","slug":null,"uic":"202747857","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:tsvetelina-radeva-ralenekova-883a9b","target":"company:tr:205138726","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:tsvetelina-radeva-ralenekova-883a9b","target":"company:tr:202747857","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetelina-radeva-ralenekova-883a9b",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-radeva-ralenekova-883a9b",
+      "type": "official",
+      "slug": "tsvetelina-radeva-ralenekova-883a9b",
+      "label": "Цветелина Радева Раленекова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово"
+    },
+    {
+      "id": "company:tr:205138726",
+      "type": "company",
+      "label": "ФЛАШ ЕЛЕКТРИК ИНВЕСТМЪНТС ООД",
+      "slug": null,
+      "uic": "205138726",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202747857",
+      "type": "company",
+      "label": "Пралин ЕООД",
+      "slug": null,
+      "uic": "202747857",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-radeva-ralenekova-883a9b",
+      "target": "company:tr:205138726",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tsvetelina-radeva-ralenekova-883a9b",
+      "target": "company:tr:202747857",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

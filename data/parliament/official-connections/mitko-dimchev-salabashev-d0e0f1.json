@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mitko-dimchev-salabashev-d0e0f1","nodes":[{"id":"official:mitko-dimchev-salabashev-d0e0f1","type":"official","slug":"mitko-dimchev-salabashev-d0e0f1","label":"Митко Димчев Салабашев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:115515822","type":"company","label":"МЕДИЦИНСКИ ЦЕНТЪР 1 - ПЪРВОМАЙ","slug":null,"uic":"115515822","legalForm":null,"status":null,"seat":null},{"id":"person:ЕЛЕНА ПЕТРОВА КОЛАРОВА","type":"person","label":"Елена Петрова Коларова"},{"id":"person:ДИМИТЪР САВОВ КЕРТИКОВ","type":"person","label":"Димитър Савов Кертиков"}],"edges":[{"source":"official:mitko-dimchev-salabashev-d0e0f1","target":"company:tr:115515822","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЕЛЕНА ПЕТРОВА КОЛАРОВА","target":"company:tr:115515822","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР САВОВ КЕРТИКОВ","target":"company:tr:115515822","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mitko-dimchev-salabashev-d0e0f1",
+  "nodes": [
+    {
+      "id": "official:mitko-dimchev-salabashev-d0e0f1",
+      "type": "official",
+      "slug": "mitko-dimchev-salabashev-d0e0f1",
+      "label": "Митко Димчев Салабашев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115515822",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР 1 - ПЪРВОМАЙ",
+      "slug": null,
+      "uic": "115515822",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ПЕТРОВА КОЛАРОВА",
+      "type": "person",
+      "label": "Елена Петрова Коларова"
+    },
+    {
+      "id": "person:ДИМИТЪР САВОВ КЕРТИКОВ",
+      "type": "person",
+      "label": "Димитър Савов Кертиков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mitko-dimchev-salabashev-d0e0f1",
+      "target": "company:tr:115515822",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА ПЕТРОВА КОЛАРОВА",
+      "target": "company:tr:115515822",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР САВОВ КЕРТИКОВ",
+      "target": "company:tr:115515822",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

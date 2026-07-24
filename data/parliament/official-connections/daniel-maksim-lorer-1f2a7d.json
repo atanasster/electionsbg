@@ -1,1 +1,92 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:daniel-maksim-lorer-1f2a7d","nodes":[{"id":"official:daniel-maksim-lorer-1f2a7d","type":"official","slug":"daniel-maksim-lorer-1f2a7d","label":"Даниел Максим Лорер","tier":"executive","role":"cabinet","municipality":null},{"id":"company:Лоза-БГ","type":"company","label":"Лоза БГ","slug":"Лоза-БГ","uic":"202322596","legalForm":"EOOD","status":"active","seat":"Варна"},{"id":"mp:4732","type":"mp","mpId":4732,"label":"Даниел Максим Лорер","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48","49","50","51"]},{"id":"person:ВИОЛЕТА АНТОНИЕВА ЛОРЕР","type":"person","label":"Виолета Антониева Лорер"},{"id":"person:МАРИН АНТОНИЕВ КЪСАБОНЕВ","type":"person","label":"Марин Антониев Късабонев"}],"edges":[{"source":"official:daniel-maksim-lorer-1f2a7d","target":"company:Лоза-БГ","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:4732","target":"company:Лоза-БГ","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА АНТОНИЕВА ЛОРЕР","target":"company:Лоза-БГ","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН АНТОНИЕВ КЪСАБОНЕВ","target":"company:Лоза-БГ","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4732","target":"company:Лоза-БГ","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:daniel-maksim-lorer-1f2a7d",
+  "nodes": [
+    {
+      "id": "official:daniel-maksim-lorer-1f2a7d",
+      "type": "official",
+      "slug": "daniel-maksim-lorer-1f2a7d",
+      "label": "Даниел Максим Лорер",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:Лоза-БГ",
+      "type": "company",
+      "label": "Лоза БГ",
+      "slug": "Лоза-БГ",
+      "uic": "202322596",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "mp:4732",
+      "type": "mp",
+      "mpId": 4732,
+      "label": "Даниел Максим Лорер",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "person:ВИОЛЕТА АНТОНИЕВА ЛОРЕР",
+      "type": "person",
+      "label": "Виолета Антониева Лорер"
+    },
+    {
+      "id": "person:МАРИН АНТОНИЕВ КЪСАБОНЕВ",
+      "type": "person",
+      "label": "Марин Антониев Късабонев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-maksim-lorer-1f2a7d",
+      "target": "company:Лоза-БГ",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4732",
+      "target": "company:Лоза-БГ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА АНТОНИЕВА ЛОРЕР",
+      "target": "company:Лоза-БГ",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН АНТОНИЕВ КЪСАБОНЕВ",
+      "target": "company:Лоза-БГ",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4732",
+      "target": "company:Лоза-БГ",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

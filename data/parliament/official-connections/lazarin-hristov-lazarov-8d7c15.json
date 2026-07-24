@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:lazarin-hristov-lazarov-8d7c15","nodes":[{"id":"official:lazarin-hristov-lazarov-8d7c15","type":"official","slug":"lazarin-hristov-lazarov-8d7c15","label":"Лазарин Христов Лазаров","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:207517874","type":"company","label":"КАРТИНГ КЛУБ &quot;БЕКОВ В1 РЕЙСИНГ ТИМ&quot;","slug":null,"uic":"207517874","legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКСАНДЪР ЦЕКОВ БЕКОВ","type":"person","label":"Александър Цеков Беков"},{"id":"person:ЕМИЛ КИТОВ БОРИСОВ","type":"person","label":"Емил Китов Борисов"}],"edges":[{"source":"official:lazarin-hristov-lazarov-8d7c15","target":"company:tr:207517874","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АЛЕКСАНДЪР ЦЕКОВ БЕКОВ","target":"company:tr:207517874","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ЦЕКОВ БЕКОВ","target":"company:tr:207517874","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ КИТОВ БОРИСОВ","target":"company:tr:207517874","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:lazarin-hristov-lazarov-8d7c15",
+  "nodes": [
+    {
+      "id": "official:lazarin-hristov-lazarov-8d7c15",
+      "type": "official",
+      "slug": "lazarin-hristov-lazarov-8d7c15",
+      "label": "Лазарин Христов Лазаров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207517874",
+      "type": "company",
+      "label": "КАРТИНГ КЛУБ &quot;БЕКОВ В1 РЕЙСИНГ ТИМ&quot;",
+      "slug": null,
+      "uic": "207517874",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЦЕКОВ БЕКОВ",
+      "type": "person",
+      "label": "Александър Цеков Беков"
+    },
+    {
+      "id": "person:ЕМИЛ КИТОВ БОРИСОВ",
+      "type": "person",
+      "label": "Емил Китов Борисов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lazarin-hristov-lazarov-8d7c15",
+      "target": "company:tr:207517874",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЦЕКОВ БЕКОВ",
+      "target": "company:tr:207517874",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЦЕКОВ БЕКОВ",
+      "target": "company:tr:207517874",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ КИТОВ БОРИСОВ",
+      "target": "company:tr:207517874",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,298 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mila-spasova-gerdzhikova-2a4abf","nodes":[{"id":"official:mila-spasova-gerdzhikova-2a4abf","type":"official","slug":"mila-spasova-gerdzhikova-2a4abf","label":"Мила Спасова Герджикова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000282852","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СЪГЛАСИЕ - 1869&quot;","slug":null,"uic":"000282852","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН РОМАНОВ ЦВЕТКОВ","type":"person","label":"Иван Романов Цветков"},{"id":"person:СТЕФИ АЛЕКСИЕВА РАШКОВА-КРЪСТЕВА","type":"person","label":"Стефи Алексиева Рашкова-Кръстева"},{"id":"person:СНЕЖАНКА ХРИСТОВА ЯКИМОВА","type":"person","label":"Снежанка Христова Якимова"},{"id":"person:ПЕПА ХРИСТОВА КУНИНЧАНСКА","type":"person","label":"Пепа Христова Кунинчанска"},{"id":"person:ПЕПА ВУТЕВА ДИВЧЕВА","type":"person","label":"Пепа Вутева Дивчева"},{"id":"person:КРАСИМИРА ТОДОРОВА МАРИНОВА","type":"person","label":"Красимира Тодорова Маринова"},{"id":"person:НАЙДЕН ВАСКОВ НАЙДЕНОВ","type":"person","label":"Найден Васков Найденов"},{"id":"person:ДИМЧО НИКОЛОВ ДИКОВ","type":"person","label":"Димчо Николов Диков"},{"id":"person:КАМЕЛИЯ ДИМИТРОВА КЪНЧЕВА","type":"person","label":"Камелия Димитрова Кънчева"},{"id":"person:ИВАН ЦЕЦОВ ИВАНОВ","type":"person","label":"Иван Цецов Иванов"},{"id":"person:РОСИЦА ДРАГАНОВА ПАСКОВА","type":"person","label":"Росица Драганова Паскова"},{"id":"person:ТАТЯНА ИВАНОВА МИНДЕВСКА","type":"person","label":"Татяна Иванова Миндевска"},{"id":"person:ВЕСЕЛА ИВАНОВА ПОЕВА","type":"person","label":"Весела Иванова Поева"},{"id":"person:ТОНИ НИКОЛАЕВ СТОЕВ","type":"person","label":"Тони Николаев Стоев"},{"id":"person:ГАЛИНА НАНОВА НАЙДЕНОВА","type":"person","label":"Галина Нанова Найденова"},{"id":"person:ИРЕНА МАРКОВА ИВАНОВА","type":"person","label":"Ирена Маркова Иванова"},{"id":"person:БОРЯНА МИЛЧЕВА МИРЯНОВА","type":"person","label":"Боряна Милчева Мирянова"},{"id":"person:ВАЛЕНТИНА ИВАНОВА НОЖАРОВА","type":"person","label":"Валентина Иванова Ножарова"},{"id":"person:БРИГИТА ЦАНЕВА ЗЛАТАРЕВА-МАРИНОВА","type":"person","label":"Бригита Цанева Златарева-Маринова"}],"edges":[{"source":"official:mila-spasova-gerdzhikova-2a4abf","target":"company:tr:000282852","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН РОМАНОВ ЦВЕТКОВ","target":"company:tr:000282852","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФИ АЛЕКСИЕВА РАШКОВА-КРЪСТЕВА","target":"company:tr:000282852","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНКА ХРИСТОВА ЯКИМОВА","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕПА ХРИСТОВА КУНИНЧАНСКА","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕПА ВУТЕВА ДИВЧЕВА","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ТОДОРОВА МАРИНОВА","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАЙДЕН ВАСКОВ НАЙДЕНОВ","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН РОМАНОВ ЦВЕТКОВ","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМЧО НИКОЛОВ ДИКОВ","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ ДИМИТРОВА КЪНЧЕВА","target":"company:tr:000282852","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЦЕЦОВ ИВАНОВ","target":"company:tr:000282852","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ДРАГАНОВА ПАСКОВА","target":"company:tr:000282852","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА ИВАНОВА МИНДЕВСКА","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛА ИВАНОВА ПОЕВА","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ДРАГАНОВА ПАСКОВА","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОНИ НИКОЛАЕВ СТОЕВ","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА НАНОВА НАЙДЕНОВА","target":"company:tr:000282852","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА МАРКОВА ИВАНОВА","target":"company:tr:000282852","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯНА МИЛЧЕВА МИРЯНОВА","target":"company:tr:000282852","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ИВАНОВА НОЖАРОВА","target":"company:tr:000282852","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БРИГИТА ЦАНЕВА ЗЛАТАРЕВА-МАРИНОВА","target":"company:tr:000282852","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mila-spasova-gerdzhikova-2a4abf",
+  "nodes": [
+    {
+      "id": "official:mila-spasova-gerdzhikova-2a4abf",
+      "type": "official",
+      "slug": "mila-spasova-gerdzhikova-2a4abf",
+      "label": "Мила Спасова Герджикова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000282852",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪГЛАСИЕ - 1869&quot;",
+      "slug": null,
+      "uic": "000282852",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН РОМАНОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Иван Романов Цветков"
+    },
+    {
+      "id": "person:СТЕФИ АЛЕКСИЕВА РАШКОВА-КРЪСТЕВА",
+      "type": "person",
+      "label": "Стефи Алексиева Рашкова-Кръстева"
+    },
+    {
+      "id": "person:СНЕЖАНКА ХРИСТОВА ЯКИМОВА",
+      "type": "person",
+      "label": "Снежанка Христова Якимова"
+    },
+    {
+      "id": "person:ПЕПА ХРИСТОВА КУНИНЧАНСКА",
+      "type": "person",
+      "label": "Пепа Христова Кунинчанска"
+    },
+    {
+      "id": "person:ПЕПА ВУТЕВА ДИВЧЕВА",
+      "type": "person",
+      "label": "Пепа Вутева Дивчева"
+    },
+    {
+      "id": "person:КРАСИМИРА ТОДОРОВА МАРИНОВА",
+      "type": "person",
+      "label": "Красимира Тодорова Маринова"
+    },
+    {
+      "id": "person:НАЙДЕН ВАСКОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Найден Васков Найденов"
+    },
+    {
+      "id": "person:ДИМЧО НИКОЛОВ ДИКОВ",
+      "type": "person",
+      "label": "Димчо Николов Диков"
+    },
+    {
+      "id": "person:КАМЕЛИЯ ДИМИТРОВА КЪНЧЕВА",
+      "type": "person",
+      "label": "Камелия Димитрова Кънчева"
+    },
+    {
+      "id": "person:ИВАН ЦЕЦОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Цецов Иванов"
+    },
+    {
+      "id": "person:РОСИЦА ДРАГАНОВА ПАСКОВА",
+      "type": "person",
+      "label": "Росица Драганова Паскова"
+    },
+    {
+      "id": "person:ТАТЯНА ИВАНОВА МИНДЕВСКА",
+      "type": "person",
+      "label": "Татяна Иванова Миндевска"
+    },
+    {
+      "id": "person:ВЕСЕЛА ИВАНОВА ПОЕВА",
+      "type": "person",
+      "label": "Весела Иванова Поева"
+    },
+    {
+      "id": "person:ТОНИ НИКОЛАЕВ СТОЕВ",
+      "type": "person",
+      "label": "Тони Николаев Стоев"
+    },
+    {
+      "id": "person:ГАЛИНА НАНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Галина Нанова Найденова"
+    },
+    {
+      "id": "person:ИРЕНА МАРКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ирена Маркова Иванова"
+    },
+    {
+      "id": "person:БОРЯНА МИЛЧЕВА МИРЯНОВА",
+      "type": "person",
+      "label": "Боряна Милчева Мирянова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ИВАНОВА НОЖАРОВА",
+      "type": "person",
+      "label": "Валентина Иванова Ножарова"
+    },
+    {
+      "id": "person:БРИГИТА ЦАНЕВА ЗЛАТАРЕВА-МАРИНОВА",
+      "type": "person",
+      "label": "Бригита Цанева Златарева-Маринова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mila-spasova-gerdzhikova-2a4abf",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН РОМАНОВ ЦВЕТКОВ",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФИ АЛЕКСИЕВА РАШКОВА-КРЪСТЕВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ХРИСТОВА ЯКИМОВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПА ХРИСТОВА КУНИНЧАНСКА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПА ВУТЕВА ДИВЧЕВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ТОДОРОВА МАРИНОВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЙДЕН ВАСКОВ НАЙДЕНОВ",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН РОМАНОВ ЦВЕТКОВ",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО НИКОЛОВ ДИКОВ",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ ДИМИТРОВА КЪНЧЕВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЦЕЦОВ ИВАНОВ",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ДРАГАНОВА ПАСКОВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ИВАНОВА МИНДЕВСКА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ИВАНОВА ПОЕВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ДРАГАНОВА ПАСКОВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНИ НИКОЛАЕВ СТОЕВ",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА НАНОВА НАЙДЕНОВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА МАРКОВА ИВАНОВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА МИЛЧЕВА МИРЯНОВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ИВАНОВА НОЖАРОВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БРИГИТА ЦАНЕВА ЗЛАТАРЕВА-МАРИНОВА",
+      "target": "company:tr:000282852",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

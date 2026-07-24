@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivalin-stanchev-stefanov-9e3e73","nodes":[{"id":"official:ivalin-stanchev-stefanov-9e3e73","type":"official","slug":"ivalin-stanchev-stefanov-9e3e73","label":"Ивалин Станчев Стефанов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:202835668","type":"company","label":"Разсадника","slug":null,"uic":"202835668","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ivalin-stanchev-stefanov-9e3e73","target":"company:tr:202835668","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivalin-stanchev-stefanov-9e3e73",
+  "nodes": [
+    {
+      "id": "official:ivalin-stanchev-stefanov-9e3e73",
+      "type": "official",
+      "slug": "ivalin-stanchev-stefanov-9e3e73",
+      "label": "Ивалин Станчев Стефанов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202835668",
+      "type": "company",
+      "label": "Разсадника",
+      "slug": null,
+      "uic": "202835668",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivalin-stanchev-stefanov-9e3e73",
+      "target": "company:tr:202835668",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

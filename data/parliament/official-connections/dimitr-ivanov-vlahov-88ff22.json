@@ -1,1 +1,147 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-ivanov-vlahov-88ff22","nodes":[{"id":"official:dimitr-ivanov-vlahov-88ff22","type":"official","slug":"dimitr-ivanov-vlahov-88ff22","label":"Димитър Иванов Влахов","tier":"municipal","role":"councillor","municipality":"Лесичево"},{"id":"company:tr:112076470","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ГЕОРГИ БЕНКОВСКИ-1900 Г&quot; С.ЦЕРОВО","slug":null,"uic":"112076470","legalForm":null,"status":null,"seat":null},{"id":"official:dima-georgieva-pencheva-63aead","type":"official","slug":"dima-georgieva-pencheva-63aead","label":"Дима Георгиева Пенчева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:hristo-borisov-mateev-6545a9","type":"official","slug":"hristo-borisov-mateev-6545a9","label":"Христо Борисов Матеев","tier":"municipal","role":"councillor","municipality":"Лесичево"},{"id":"person:ЙОРДАНА СПАСОВА БОСАКОВА","type":"person","label":"Йордана Спасова Босакова"},{"id":"person:КИРИЛ ЙОРДАНОВ ПОПОВ","type":"person","label":"Кирил Йорданов Попов"},{"id":"person:НИКОЛАЙ ИЛИЕВ ВУЛЯНОВ","type":"person","label":"Николай Илиев Вулянов"},{"id":"person:СТОЯНКА ПЕТРОВА ЧИШИРОВА","type":"person","label":"Стоянка Петрова Чиширова"},{"id":"person:ГАЛЯ ГАНЧЕВА НИКОЛОВА","type":"person","label":"Галя Ганчева Николова"},{"id":"person:ЛАЗАРИНКА СТОЯНОВА КУСЕРОВА","type":"person","label":"Лазаринка Стоянова Кусерова"}],"edges":[{"source":"official:dimitr-ivanov-vlahov-88ff22","target":"company:tr:112076470","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:dima-georgieva-pencheva-63aead","target":"company:tr:112076470","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-borisov-mateev-6545a9","target":"company:tr:112076470","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОРДАНА СПАСОВА БОСАКОВА","target":"company:tr:112076470","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ЙОРДАНОВ ПОПОВ","target":"company:tr:112076470","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ИЛИЕВ ВУЛЯНОВ","target":"company:tr:112076470","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯНКА ПЕТРОВА ЧИШИРОВА","target":"company:tr:112076470","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛЯ ГАНЧЕВА НИКОЛОВА","target":"company:tr:112076470","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЗАРИНКА СТОЯНОВА КУСЕРОВА","target":"company:tr:112076470","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-ivanov-vlahov-88ff22",
+  "nodes": [
+    {
+      "id": "official:dimitr-ivanov-vlahov-88ff22",
+      "type": "official",
+      "slug": "dimitr-ivanov-vlahov-88ff22",
+      "label": "Димитър Иванов Влахов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лесичево"
+    },
+    {
+      "id": "company:tr:112076470",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ГЕОРГИ БЕНКОВСКИ-1900 Г&quot; С.ЦЕРОВО",
+      "slug": null,
+      "uic": "112076470",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dima-georgieva-pencheva-63aead",
+      "type": "official",
+      "slug": "dima-georgieva-pencheva-63aead",
+      "label": "Дима Георгиева Пенчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:hristo-borisov-mateev-6545a9",
+      "type": "official",
+      "slug": "hristo-borisov-mateev-6545a9",
+      "label": "Христо Борисов Матеев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лесичево"
+    },
+    {
+      "id": "person:ЙОРДАНА СПАСОВА БОСАКОВА",
+      "type": "person",
+      "label": "Йордана Спасова Босакова"
+    },
+    {
+      "id": "person:КИРИЛ ЙОРДАНОВ ПОПОВ",
+      "type": "person",
+      "label": "Кирил Йорданов Попов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИЛИЕВ ВУЛЯНОВ",
+      "type": "person",
+      "label": "Николай Илиев Вулянов"
+    },
+    {
+      "id": "person:СТОЯНКА ПЕТРОВА ЧИШИРОВА",
+      "type": "person",
+      "label": "Стоянка Петрова Чиширова"
+    },
+    {
+      "id": "person:ГАЛЯ ГАНЧЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Галя Ганчева Николова"
+    },
+    {
+      "id": "person:ЛАЗАРИНКА СТОЯНОВА КУСЕРОВА",
+      "type": "person",
+      "label": "Лазаринка Стоянова Кусерова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-ivanov-vlahov-88ff22",
+      "target": "company:tr:112076470",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dima-georgieva-pencheva-63aead",
+      "target": "company:tr:112076470",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-borisov-mateev-6545a9",
+      "target": "company:tr:112076470",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАНА СПАСОВА БОСАКОВА",
+      "target": "company:tr:112076470",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ЙОРДАНОВ ПОПОВ",
+      "target": "company:tr:112076470",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИЛИЕВ ВУЛЯНОВ",
+      "target": "company:tr:112076470",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ПЕТРОВА ЧИШИРОВА",
+      "target": "company:tr:112076470",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ГАНЧЕВА НИКОЛОВА",
+      "target": "company:tr:112076470",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАРИНКА СТОЯНОВА КУСЕРОВА",
+      "target": "company:tr:112076470",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

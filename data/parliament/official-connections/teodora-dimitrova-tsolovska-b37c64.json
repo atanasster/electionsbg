@@ -1,1 +1,238 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:teodora-dimitrova-tsolovska-b37c64","nodes":[{"id":"official:teodora-dimitrova-tsolovska-b37c64","type":"official","slug":"teodora-dimitrova-tsolovska-b37c64","label":"Теодора Димитрова Цоловска","tier":"municipal","role":"councillor","municipality":"Копривщица"},{"id":"company:tr:000762164","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ХАДЖИ НЕНЧО ДОНЧЕВ ПАЛАВЕЕВ&quot; - 1869","slug":null,"uic":"000762164","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕНКА НИКОЛОВА ЛИТОВА-КУНЧЕВА","type":"person","label":"Пенка Николова Литова-Кунчева"},{"id":"person:ИВАНКА ВЪЛКОВА ЛИЧЕВА","type":"person","label":"Иванка Вълкова Личева"},{"id":"person:МАРИЯ ПАВЛОВА МУХОВА","type":"person","label":"Мария Павлова Мухова"},{"id":"person:ДИМИТРИНА АТАНАСОВА ОРАШЪКОВА","type":"person","label":"Димитрина Атанасова Орашъкова"},{"id":"person:СТОЯН ДИНЧЕВ ПАВЛОВ","type":"person","label":"Стоян Динчев Павлов"},{"id":"person:РАЙНА НЕДКОВА ПАЧЕВА","type":"person","label":"Райна Недкова Пачева"},{"id":"person:КУНКА НЕШОВА ЮРУКОВА","type":"person","label":"Кунка Нешова Юрукова"},{"id":"person:ТЕОДОРА ХРИСТОВА КЕЛЧЕВА","type":"person","label":"Теодора Христова Келчева"},{"id":"person:МИЛЕНА ГЕОРГИЕВА ПАРАЛЕЕВА","type":"person","label":"Милена Георгиева Паралеева"},{"id":"person:МАРИЯ НЕДЕЛЬОВА ДОЙЧЕВА","type":"person","label":"Мария Недельова Дойчева"},{"id":"person:АНГЕЛ КОСТАДИНОВ АНГЕЛОВ","type":"person","label":"Ангел Костадинов Ангелов"},{"id":"person:МАРИЯ АТАНАСОВА БОЕВА","type":"person","label":"Мария Атанасова Боева"},{"id":"person:ВАСИЛЕНА ВЛАДИМИРОВА КЕРЕМИДЧИЕВА","type":"person","label":"Василена Владимирова Керемидчиева"},{"id":"person:СТОЯН ДИМИТРОВ ЦОЛОВСКИ","type":"person","label":"Стоян Димитров Цоловски"},{"id":"person:ТЕОДОРА ИВАНОВА НЕЙЧЕВА","type":"person","label":"Теодора Иванова Нейчева"}],"edges":[{"source":"official:teodora-dimitrova-tsolovska-b37c64","target":"company:tr:000762164","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕНКА НИКОЛОВА ЛИТОВА-КУНЧЕВА","target":"company:tr:000762164","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ВЪЛКОВА ЛИЧЕВА","target":"company:tr:000762164","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ПАВЛОВА МУХОВА","target":"company:tr:000762164","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА АТАНАСОВА ОРАШЪКОВА","target":"company:tr:000762164","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИНЧЕВ ПАВЛОВ","target":"company:tr:000762164","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАЙНА НЕДКОВА ПАЧЕВА","target":"company:tr:000762164","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КУНКА НЕШОВА ЮРУКОВА","target":"company:tr:000762164","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ХРИСТОВА КЕЛЧЕВА","target":"company:tr:000762164","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ГЕОРГИЕВА ПАРАЛЕЕВА","target":"company:tr:000762164","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИНЧЕВ ПАВЛОВ","target":"company:tr:000762164","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ НЕДЕЛЬОВА ДОЙЧЕВА","target":"company:tr:000762164","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ КОСТАДИНОВ АНГЕЛОВ","target":"company:tr:000762164","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ АТАНАСОВА БОЕВА","target":"company:tr:000762164","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛЕНА ВЛАДИМИРОВА КЕРЕМИДЧИЕВА","target":"company:tr:000762164","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИМИТРОВ ЦОЛОВСКИ","target":"company:tr:000762164","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ИВАНОВА НЕЙЧЕВА","target":"company:tr:000762164","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:teodora-dimitrova-tsolovska-b37c64",
+  "nodes": [
+    {
+      "id": "official:teodora-dimitrova-tsolovska-b37c64",
+      "type": "official",
+      "slug": "teodora-dimitrova-tsolovska-b37c64",
+      "label": "Теодора Димитрова Цоловска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Копривщица"
+    },
+    {
+      "id": "company:tr:000762164",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ХАДЖИ НЕНЧО ДОНЧЕВ ПАЛАВЕЕВ&quot; - 1869",
+      "slug": null,
+      "uic": "000762164",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕНКА НИКОЛОВА ЛИТОВА-КУНЧЕВА",
+      "type": "person",
+      "label": "Пенка Николова Литова-Кунчева"
+    },
+    {
+      "id": "person:ИВАНКА ВЪЛКОВА ЛИЧЕВА",
+      "type": "person",
+      "label": "Иванка Вълкова Личева"
+    },
+    {
+      "id": "person:МАРИЯ ПАВЛОВА МУХОВА",
+      "type": "person",
+      "label": "Мария Павлова Мухова"
+    },
+    {
+      "id": "person:ДИМИТРИНА АТАНАСОВА ОРАШЪКОВА",
+      "type": "person",
+      "label": "Димитрина Атанасова Орашъкова"
+    },
+    {
+      "id": "person:СТОЯН ДИНЧЕВ ПАВЛОВ",
+      "type": "person",
+      "label": "Стоян Динчев Павлов"
+    },
+    {
+      "id": "person:РАЙНА НЕДКОВА ПАЧЕВА",
+      "type": "person",
+      "label": "Райна Недкова Пачева"
+    },
+    {
+      "id": "person:КУНКА НЕШОВА ЮРУКОВА",
+      "type": "person",
+      "label": "Кунка Нешова Юрукова"
+    },
+    {
+      "id": "person:ТЕОДОРА ХРИСТОВА КЕЛЧЕВА",
+      "type": "person",
+      "label": "Теодора Христова Келчева"
+    },
+    {
+      "id": "person:МИЛЕНА ГЕОРГИЕВА ПАРАЛЕЕВА",
+      "type": "person",
+      "label": "Милена Георгиева Паралеева"
+    },
+    {
+      "id": "person:МАРИЯ НЕДЕЛЬОВА ДОЙЧЕВА",
+      "type": "person",
+      "label": "Мария Недельова Дойчева"
+    },
+    {
+      "id": "person:АНГЕЛ КОСТАДИНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Костадинов Ангелов"
+    },
+    {
+      "id": "person:МАРИЯ АТАНАСОВА БОЕВА",
+      "type": "person",
+      "label": "Мария Атанасова Боева"
+    },
+    {
+      "id": "person:ВАСИЛЕНА ВЛАДИМИРОВА КЕРЕМИДЧИЕВА",
+      "type": "person",
+      "label": "Василена Владимирова Керемидчиева"
+    },
+    {
+      "id": "person:СТОЯН ДИМИТРОВ ЦОЛОВСКИ",
+      "type": "person",
+      "label": "Стоян Димитров Цоловски"
+    },
+    {
+      "id": "person:ТЕОДОРА ИВАНОВА НЕЙЧЕВА",
+      "type": "person",
+      "label": "Теодора Иванова Нейчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodora-dimitrova-tsolovska-b37c64",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНКА НИКОЛОВА ЛИТОВА-КУНЧЕВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ВЪЛКОВА ЛИЧЕВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПАВЛОВА МУХОВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА АТАНАСОВА ОРАШЪКОВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИНЧЕВ ПАВЛОВ",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА НЕДКОВА ПАЧЕВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КУНКА НЕШОВА ЮРУКОВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ХРИСТОВА КЕЛЧЕВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ГЕОРГИЕВА ПАРАЛЕЕВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИНЧЕВ ПАВЛОВ",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НЕДЕЛЬОВА ДОЙЧЕВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ КОСТАДИНОВ АНГЕЛОВ",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АТАНАСОВА БОЕВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛЕНА ВЛАДИМИРОВА КЕРЕМИДЧИЕВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ ЦОЛОВСКИ",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ИВАНОВА НЕЙЧЕВА",
+      "target": "company:tr:000762164",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

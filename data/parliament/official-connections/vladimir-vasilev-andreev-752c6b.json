@@ -1,1 +1,68 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-vasilev-andreev-752c6b","nodes":[{"id":"official:vladimir-vasilev-andreev-752c6b","type":"official","slug":"vladimir-vasilev-andreev-752c6b","label":"ВЛАДИМИР ВАСИЛЕВ АНДРЕЕВ","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:206830720","type":"company","label":"АВИС ЕСТЕЙД","slug":null,"uic":"206830720","legalForm":null,"status":null,"seat":null},{"id":"official:simona-petkova-andreeva-52a6cd","type":"official","slug":"simona-petkova-andreeva-52a6cd","label":"СИМОНА ПЕТКОВА АНДРЕЕВА","tier":"executive","role":"hospital_head","municipality":null}],"edges":[{"source":"official:vladimir-vasilev-andreev-752c6b","target":"company:tr:206830720","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:vladimir-vasilev-andreev-752c6b","target":"company:tr:206830720","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:simona-petkova-andreeva-52a6cd","target":"company:tr:206830720","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:simona-petkova-andreeva-52a6cd","target":"company:tr:206830720","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-vasilev-andreev-752c6b",
+  "nodes": [
+    {
+      "id": "official:vladimir-vasilev-andreev-752c6b",
+      "type": "official",
+      "slug": "vladimir-vasilev-andreev-752c6b",
+      "label": "ВЛАДИМИР ВАСИЛЕВ АНДРЕЕВ",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206830720",
+      "type": "company",
+      "label": "АВИС ЕСТЕЙД",
+      "slug": null,
+      "uic": "206830720",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:simona-petkova-andreeva-52a6cd",
+      "type": "official",
+      "slug": "simona-petkova-andreeva-52a6cd",
+      "label": "СИМОНА ПЕТКОВА АНДРЕЕВА",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-vasilev-andreev-752c6b",
+      "target": "company:tr:206830720",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-vasilev-andreev-752c6b",
+      "target": "company:tr:206830720",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:simona-petkova-andreeva-52a6cd",
+      "target": "company:tr:206830720",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:simona-petkova-andreeva-52a6cd",
+      "target": "company:tr:206830720",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

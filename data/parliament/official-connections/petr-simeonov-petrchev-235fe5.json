@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-simeonov-petrchev-235fe5","nodes":[{"id":"official:petr-simeonov-petrchev-235fe5","type":"official","slug":"petr-simeonov-petrchev-235fe5","label":"Петър Симеонов Петърчев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:104067645","type":"company","label":"КУЛТУРНО СДРУЖЕНИЕ - ЗОТИК","slug":null,"uic":"104067645","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ДИМИТРОВ НЯГОЛОВ","type":"person","label":"Георги Димитров Няголов"},{"id":"person:КАТЯ ПЕТКОВА МИЛЕВА","type":"person","label":"Катя Петкова Милева"}],"edges":[{"source":"official:petr-simeonov-petrchev-235fe5","target":"company:tr:104067645","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ДИМИТРОВ НЯГОЛОВ","target":"company:tr:104067645","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ПЕТКОВА МИЛЕВА","target":"company:tr:104067645","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ДИМИТРОВ НЯГОЛОВ","target":"company:tr:104067645","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-simeonov-petrchev-235fe5",
+  "nodes": [
+    {
+      "id": "official:petr-simeonov-petrchev-235fe5",
+      "type": "official",
+      "slug": "petr-simeonov-petrchev-235fe5",
+      "label": "Петър Симеонов Петърчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104067645",
+      "type": "company",
+      "label": "КУЛТУРНО СДРУЖЕНИЕ - ЗОТИК",
+      "slug": null,
+      "uic": "104067645",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ НЯГОЛОВ",
+      "type": "person",
+      "label": "Георги Димитров Няголов"
+    },
+    {
+      "id": "person:КАТЯ ПЕТКОВА МИЛЕВА",
+      "type": "person",
+      "label": "Катя Петкова Милева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-simeonov-petrchev-235fe5",
+      "target": "company:tr:104067645",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ НЯГОЛОВ",
+      "target": "company:tr:104067645",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ПЕТКОВА МИЛЕВА",
+      "target": "company:tr:104067645",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ НЯГОЛОВ",
+      "target": "company:tr:104067645",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

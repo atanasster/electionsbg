@@ -1,1 +1,89 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:danail-krasimirov-sbevski-84c37d","nodes":[{"id":"official:danail-krasimirov-sbevski-84c37d","type":"official","slug":"danail-krasimirov-sbevski-84c37d","label":"Данаил Красимиров Събевски","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:110549443","type":"company","label":"В И К","slug":null,"uic":"110549443","legalForm":null,"status":null,"seat":null},{"id":"official:ivan-dimitrov-chulev-b50649","type":"official","slug":"ivan-dimitrov-chulev-b50649","label":"Иван Димитров Чулев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ЙОРДАН ДОНИСЛАВОВ ДОСЕВ","type":"person","label":"Йордан Дониславов Досев"}],"edges":[{"source":"official:danail-krasimirov-sbevski-84c37d","target":"company:tr:110549443","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:danail-krasimirov-sbevski-84c37d","target":"company:tr:110549443","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:danail-krasimirov-sbevski-84c37d","target":"company:tr:110549443","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-dimitrov-chulev-b50649","target":"company:tr:110549443","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОРДАН ДОНИСЛАВОВ ДОСЕВ","target":"company:tr:110549443","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ДОНИСЛАВОВ ДОСЕВ","target":"company:tr:110549443","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:danail-krasimirov-sbevski-84c37d",
+  "nodes": [
+    {
+      "id": "official:danail-krasimirov-sbevski-84c37d",
+      "type": "official",
+      "slug": "danail-krasimirov-sbevski-84c37d",
+      "label": "Данаил Красимиров Събевски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:110549443",
+      "type": "company",
+      "label": "В И К",
+      "slug": null,
+      "uic": "110549443",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivan-dimitrov-chulev-b50649",
+      "type": "official",
+      "slug": "ivan-dimitrov-chulev-b50649",
+      "label": "Иван Димитров Чулев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЙОРДАН ДОНИСЛАВОВ ДОСЕВ",
+      "type": "person",
+      "label": "Йордан Дониславов Досев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:danail-krasimirov-sbevski-84c37d",
+      "target": "company:tr:110549443",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:danail-krasimirov-sbevski-84c37d",
+      "target": "company:tr:110549443",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:danail-krasimirov-sbevski-84c37d",
+      "target": "company:tr:110549443",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-dimitrov-chulev-b50649",
+      "target": "company:tr:110549443",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ДОНИСЛАВОВ ДОСЕВ",
+      "target": "company:tr:110549443",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ДОНИСЛАВОВ ДОСЕВ",
+      "target": "company:tr:110549443",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

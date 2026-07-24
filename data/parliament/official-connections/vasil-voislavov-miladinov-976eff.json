@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vasil-voislavov-miladinov-976eff","nodes":[{"id":"official:vasil-voislavov-miladinov-976eff","type":"official","slug":"vasil-voislavov-miladinov-976eff","label":"ВАСИЛ ВОИСЛАВОВ МИЛАДИНОВ","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:121519184","type":"company","label":"ГЕООХРАНА","slug":null,"uic":"121519184","legalForm":null,"status":null,"seat":null},{"id":"person:СТОЯН ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Стоян Георгиев Георгиев"}],"edges":[{"source":"official:vasil-voislavov-miladinov-976eff","target":"company:tr:121519184","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯН ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:121519184","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vasil-voislavov-miladinov-976eff",
+  "nodes": [
+    {
+      "id": "official:vasil-voislavov-miladinov-976eff",
+      "type": "official",
+      "slug": "vasil-voislavov-miladinov-976eff",
+      "label": "ВАСИЛ ВОИСЛАВОВ МИЛАДИНОВ",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121519184",
+      "type": "company",
+      "label": "ГЕООХРАНА",
+      "slug": null,
+      "uic": "121519184",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Стоян Георгиев Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-voislavov-miladinov-976eff",
+      "target": "company:tr:121519184",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:121519184",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

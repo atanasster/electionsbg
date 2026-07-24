@@ -1,1 +1,238 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:salih-mehmed-boshnakov-b0a66e","nodes":[{"id":"official:salih-mehmed-boshnakov-b0a66e","type":"official","slug":"salih-mehmed-boshnakov-b0a66e","label":"Салих Мехмед Бошнаков","tier":"municipal","role":"councillor","municipality":"Велинград"},{"id":"company:tr:112076163","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ВИДЕЛИНА- 1946","slug":null,"uic":"112076163","legalForm":null,"status":null,"seat":null},{"id":"person:ФАТМА БИСЕРОВА МЕЧЕВА","type":"person","label":"Фатма Бисерова Мечева"},{"id":"person:ВАЛЕНТИН ПЛАМЕНОВ РУСИНОВ","type":"person","label":"Валентин Пламенов Русинов"},{"id":"person:КАПКА СЕРГИЕВА ДОСПАТСКА","type":"person","label":"Капка Сергиева Доспатска"},{"id":"person:АЙША АЛИШ ДЕРМЕНСКА","type":"person","label":"Айша Алиш Дерменска"},{"id":"person:САЛИХА ИСУФ МАСТЕВА","type":"person","label":"Салиха Исуф Мастева"},{"id":"person:СНЕЖАНА ЯСЕНОВА АЛКЕЕВА","type":"person","label":"Снежана Ясенова Алкеева"},{"id":"person:ДАНИЕЛА ДИМИТРОВА КЕЛЧЕВА","type":"person","label":"Даниела Димитрова Келчева"},{"id":"person:ХАТИДЖЕ МУСТАФА ЕЮБ","type":"person","label":"Хатидже Мустафа Еюб"},{"id":"person:ЯСЕН МОЙСЕЕВ АЛКЕЕВ","type":"person","label":"Ясен Мойсеев Алкеев"},{"id":"person:ВЕНЦИСЛАВ МАРИНОВ БАБУЧЕВ","type":"person","label":"Венцислав Маринов Бабучев"},{"id":"person:АТИДЖЕ АЛЕНОВА ДОСПАТСКА","type":"person","label":"Атидже Аленова Доспатска"},{"id":"person:ЯСЕН СВЕТЛАНОВ МАСТЕВ","type":"person","label":"Ясен Светланов Мастев"},{"id":"person:ЕМИЛ НИКОЛАЕВ ТРОНЧЕВ","type":"person","label":"Емил Николаев Трончев"},{"id":"person:НИКОЛАЙ МАЛИНОВ СИНАПОВ","type":"person","label":"Николай Малинов Синапов"},{"id":"person:ДЖАМАЛ АЛИ КАМЕНАРСКИ","type":"person","label":"Джамал Али Каменарски"}],"edges":[{"source":"official:salih-mehmed-boshnakov-b0a66e","target":"company:tr:112076163","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ФАТМА БИСЕРОВА МЕЧЕВА","target":"company:tr:112076163","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ПЛАМЕНОВ РУСИНОВ","target":"company:tr:112076163","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАПКА СЕРГИЕВА ДОСПАТСКА","target":"company:tr:112076163","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АЙША АЛИШ ДЕРМЕНСКА","target":"company:tr:112076163","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:САЛИХА ИСУФ МАСТЕВА","target":"company:tr:112076163","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ПЛАМЕНОВ РУСИНОВ","target":"company:tr:112076163","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА ЯСЕНОВА АЛКЕЕВА","target":"company:tr:112076163","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ДИМИТРОВА КЕЛЧЕВА","target":"company:tr:112076163","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ХАТИДЖЕ МУСТАФА ЕЮБ","target":"company:tr:112076163","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЯСЕН МОЙСЕЕВ АЛКЕЕВ","target":"company:tr:112076163","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ МАРИНОВ БАБУЧЕВ","target":"company:tr:112076163","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АТИДЖЕ АЛЕНОВА ДОСПАТСКА","target":"company:tr:112076163","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЯСЕН СВЕТЛАНОВ МАСТЕВ","target":"company:tr:112076163","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ НИКОЛАЕВ ТРОНЧЕВ","target":"company:tr:112076163","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ МАЛИНОВ СИНАПОВ","target":"company:tr:112076163","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЖАМАЛ АЛИ КАМЕНАРСКИ","target":"company:tr:112076163","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:salih-mehmed-boshnakov-b0a66e",
+  "nodes": [
+    {
+      "id": "official:salih-mehmed-boshnakov-b0a66e",
+      "type": "official",
+      "slug": "salih-mehmed-boshnakov-b0a66e",
+      "label": "Салих Мехмед Бошнаков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велинград"
+    },
+    {
+      "id": "company:tr:112076163",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ВИДЕЛИНА- 1946",
+      "slug": null,
+      "uic": "112076163",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФАТМА БИСЕРОВА МЕЧЕВА",
+      "type": "person",
+      "label": "Фатма Бисерова Мечева"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ПЛАМЕНОВ РУСИНОВ",
+      "type": "person",
+      "label": "Валентин Пламенов Русинов"
+    },
+    {
+      "id": "person:КАПКА СЕРГИЕВА ДОСПАТСКА",
+      "type": "person",
+      "label": "Капка Сергиева Доспатска"
+    },
+    {
+      "id": "person:АЙША АЛИШ ДЕРМЕНСКА",
+      "type": "person",
+      "label": "Айша Алиш Дерменска"
+    },
+    {
+      "id": "person:САЛИХА ИСУФ МАСТЕВА",
+      "type": "person",
+      "label": "Салиха Исуф Мастева"
+    },
+    {
+      "id": "person:СНЕЖАНА ЯСЕНОВА АЛКЕЕВА",
+      "type": "person",
+      "label": "Снежана Ясенова Алкеева"
+    },
+    {
+      "id": "person:ДАНИЕЛА ДИМИТРОВА КЕЛЧЕВА",
+      "type": "person",
+      "label": "Даниела Димитрова Келчева"
+    },
+    {
+      "id": "person:ХАТИДЖЕ МУСТАФА ЕЮБ",
+      "type": "person",
+      "label": "Хатидже Мустафа Еюб"
+    },
+    {
+      "id": "person:ЯСЕН МОЙСЕЕВ АЛКЕЕВ",
+      "type": "person",
+      "label": "Ясен Мойсеев Алкеев"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ МАРИНОВ БАБУЧЕВ",
+      "type": "person",
+      "label": "Венцислав Маринов Бабучев"
+    },
+    {
+      "id": "person:АТИДЖЕ АЛЕНОВА ДОСПАТСКА",
+      "type": "person",
+      "label": "Атидже Аленова Доспатска"
+    },
+    {
+      "id": "person:ЯСЕН СВЕТЛАНОВ МАСТЕВ",
+      "type": "person",
+      "label": "Ясен Светланов Мастев"
+    },
+    {
+      "id": "person:ЕМИЛ НИКОЛАЕВ ТРОНЧЕВ",
+      "type": "person",
+      "label": "Емил Николаев Трончев"
+    },
+    {
+      "id": "person:НИКОЛАЙ МАЛИНОВ СИНАПОВ",
+      "type": "person",
+      "label": "Николай Малинов Синапов"
+    },
+    {
+      "id": "person:ДЖАМАЛ АЛИ КАМЕНАРСКИ",
+      "type": "person",
+      "label": "Джамал Али Каменарски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:salih-mehmed-boshnakov-b0a66e",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФАТМА БИСЕРОВА МЕЧЕВА",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЛАМЕНОВ РУСИНОВ",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАПКА СЕРГИЕВА ДОСПАТСКА",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙША АЛИШ ДЕРМЕНСКА",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САЛИХА ИСУФ МАСТЕВА",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЛАМЕНОВ РУСИНОВ",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ЯСЕНОВА АЛКЕЕВА",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ДИМИТРОВА КЕЛЧЕВА",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАТИДЖЕ МУСТАФА ЕЮБ",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН МОЙСЕЕВ АЛКЕЕВ",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ МАРИНОВ БАБУЧЕВ",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТИДЖЕ АЛЕНОВА ДОСПАТСКА",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН СВЕТЛАНОВ МАСТЕВ",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ НИКОЛАЕВ ТРОНЧЕВ",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МАЛИНОВ СИНАПОВ",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖАМАЛ АЛИ КАМЕНАРСКИ",
+      "target": "company:tr:112076163",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

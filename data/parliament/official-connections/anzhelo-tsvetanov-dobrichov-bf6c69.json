@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:anzhelo-tsvetanov-dobrichov-bf6c69","nodes":[{"id":"official:anzhelo-tsvetanov-dobrichov-bf6c69","type":"official","slug":"anzhelo-tsvetanov-dobrichov-bf6c69","label":"Анжело Цветанов Добричов","tier":"municipal","role":"councillor","municipality":"Чупрене"},{"id":"company:tr:111520416","type":"company","label":"РЕГИОНАЛНО СДРУЖЕНИЕ ЗА РАЗВИТИЕ НА ТУРИЗМА &quot;СЕВЕРОЗАПАДЕН БАЛКАН&quot;","slug":null,"uic":"111520416","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕЯН РАНГЕЛОВ ДАВИДОВ","type":"person","label":"Деян Рангелов Давидов"},{"id":"person:ИВАН МИХАЙЛОВ ЛАЗАРОВ","type":"person","label":"Иван Михайлов Лазаров"},{"id":"person:ДИМИТРАНКА ЗАМФИРОВА КАМЕНОВА","type":"person","label":"Димитранка Замфирова Каменова"}],"edges":[{"source":"official:anzhelo-tsvetanov-dobrichov-bf6c69","target":"company:tr:111520416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕЯН РАНГЕЛОВ ДАВИДОВ","target":"company:tr:111520416","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МИХАЙЛОВ ЛАЗАРОВ","target":"company:tr:111520416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРАНКА ЗАМФИРОВА КАМЕНОВА","target":"company:tr:111520416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:anzhelo-tsvetanov-dobrichov-bf6c69",
+  "nodes": [
+    {
+      "id": "official:anzhelo-tsvetanov-dobrichov-bf6c69",
+      "type": "official",
+      "slug": "anzhelo-tsvetanov-dobrichov-bf6c69",
+      "label": "Анжело Цветанов Добричов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чупрене"
+    },
+    {
+      "id": "company:tr:111520416",
+      "type": "company",
+      "label": "РЕГИОНАЛНО СДРУЖЕНИЕ ЗА РАЗВИТИЕ НА ТУРИЗМА &quot;СЕВЕРОЗАПАДЕН БАЛКАН&quot;",
+      "slug": null,
+      "uic": "111520416",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕЯН РАНГЕЛОВ ДАВИДОВ",
+      "type": "person",
+      "label": "Деян Рангелов Давидов"
+    },
+    {
+      "id": "person:ИВАН МИХАЙЛОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Иван Михайлов Лазаров"
+    },
+    {
+      "id": "person:ДИМИТРАНКА ЗАМФИРОВА КАМЕНОВА",
+      "type": "person",
+      "label": "Димитранка Замфирова Каменова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anzhelo-tsvetanov-dobrichov-bf6c69",
+      "target": "company:tr:111520416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕЯН РАНГЕЛОВ ДАВИДОВ",
+      "target": "company:tr:111520416",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИХАЙЛОВ ЛАЗАРОВ",
+      "target": "company:tr:111520416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРАНКА ЗАМФИРОВА КАМЕНОВА",
+      "target": "company:tr:111520416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

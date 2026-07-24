@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:yuliya-emilova-kovacheva-1c0073","nodes":[{"id":"official:yuliya-emilova-kovacheva-1c0073","type":"official","slug":"yuliya-emilova-kovacheva-1c0073","label":"Юлия Емилова Ковачева","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:200111839","type":"company","label":"Агропропъл","slug":null,"uic":"200111839","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:yuliya-emilova-kovacheva-1c0073","target":"company:tr:200111839","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:yuliya-emilova-kovacheva-1c0073",
+  "nodes": [
+    {
+      "id": "official:yuliya-emilova-kovacheva-1c0073",
+      "type": "official",
+      "slug": "yuliya-emilova-kovacheva-1c0073",
+      "label": "Юлия Емилова Ковачева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200111839",
+      "type": "company",
+      "label": "Агропропъл",
+      "slug": null,
+      "uic": "200111839",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliya-emilova-kovacheva-1c0073",
+      "target": "company:tr:200111839",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

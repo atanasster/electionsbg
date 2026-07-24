@@ -1,1 +1,155 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milena-angelova-tsankova-47f749","nodes":[{"id":"official:milena-angelova-tsankova-47f749","type":"official","slug":"milena-angelova-tsankova-47f749","label":"Милена Ангелова Цанкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000522800","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ГЕОРГИ БЕНКОВСКИ - 1937&quot;","slug":null,"uic":"000522800","legalForm":null,"status":null,"seat":null},{"id":"person:АЗНИВ СЕРОП НИШАНЯН","type":"person","label":"Азнив Сероп Нишанян"},{"id":"person:ЯНИЧКА ЙОРДАНОВА ПЕНЕВА","type":"person","label":"Яничка Йорданова Пенева"},{"id":"person:ЙОРДАНКА ВЕЛИЧКОВА ТОДОРОВА","type":"person","label":"Йорданка Величкова Тодорова"},{"id":"person:ТОТКА ДЕНЕВА ВЪРБАНОВА","type":"person","label":"Тотка Денева Върбанова"},{"id":"person:ИВАНИЧКА ИВАНОВА ГЕОРГИЕВА","type":"person","label":"Иваничка Иванова Георгиева"},{"id":"person:НИЯ ФИЛИПОВА БУЛАТОВА","type":"person","label":"Ния Филипова Булатова"},{"id":"person:ЕВЕЛИНА БОЙЧИНОВА АРСОВА","type":"person","label":"Евелина Бойчинова Арсова"},{"id":"person:РОСИЦА ПЕТРОВА МИЛЕВА","type":"person","label":"Росица Петрова Милева"}],"edges":[{"source":"official:milena-angelova-tsankova-47f749","target":"company:tr:000522800","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:АЗНИВ СЕРОП НИШАНЯН","target":"company:tr:000522800","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЯНИЧКА ЙОРДАНОВА ПЕНЕВА","target":"company:tr:000522800","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АЗНИВ СЕРОП НИШАНЯН","target":"company:tr:000522800","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ВЕЛИЧКОВА ТОДОРОВА","target":"company:tr:000522800","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЯНИЧКА ЙОРДАНОВА ПЕНЕВА","target":"company:tr:000522800","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОТКА ДЕНЕВА ВЪРБАНОВА","target":"company:tr:000522800","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНИЧКА ИВАНОВА ГЕОРГИЕВА","target":"company:tr:000522800","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИЯ ФИЛИПОВА БУЛАТОВА","target":"company:tr:000522800","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕВЕЛИНА БОЙЧИНОВА АРСОВА","target":"company:tr:000522800","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ПЕТРОВА МИЛЕВА","target":"company:tr:000522800","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milena-angelova-tsankova-47f749",
+  "nodes": [
+    {
+      "id": "official:milena-angelova-tsankova-47f749",
+      "type": "official",
+      "slug": "milena-angelova-tsankova-47f749",
+      "label": "Милена Ангелова Цанкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000522800",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ГЕОРГИ БЕНКОВСКИ - 1937&quot;",
+      "slug": null,
+      "uic": "000522800",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЗНИВ СЕРОП НИШАНЯН",
+      "type": "person",
+      "label": "Азнив Сероп Нишанян"
+    },
+    {
+      "id": "person:ЯНИЧКА ЙОРДАНОВА ПЕНЕВА",
+      "type": "person",
+      "label": "Яничка Йорданова Пенева"
+    },
+    {
+      "id": "person:ЙОРДАНКА ВЕЛИЧКОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Йорданка Величкова Тодорова"
+    },
+    {
+      "id": "person:ТОТКА ДЕНЕВА ВЪРБАНОВА",
+      "type": "person",
+      "label": "Тотка Денева Върбанова"
+    },
+    {
+      "id": "person:ИВАНИЧКА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Иваничка Иванова Георгиева"
+    },
+    {
+      "id": "person:НИЯ ФИЛИПОВА БУЛАТОВА",
+      "type": "person",
+      "label": "Ния Филипова Булатова"
+    },
+    {
+      "id": "person:ЕВЕЛИНА БОЙЧИНОВА АРСОВА",
+      "type": "person",
+      "label": "Евелина Бойчинова Арсова"
+    },
+    {
+      "id": "person:РОСИЦА ПЕТРОВА МИЛЕВА",
+      "type": "person",
+      "label": "Росица Петрова Милева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-angelova-tsankova-47f749",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЗНИВ СЕРОП НИШАНЯН",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИЧКА ЙОРДАНОВА ПЕНЕВА",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЗНИВ СЕРОП НИШАНЯН",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ВЕЛИЧКОВА ТОДОРОВА",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИЧКА ЙОРДАНОВА ПЕНЕВА",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОТКА ДЕНЕВА ВЪРБАНОВА",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНИЧКА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИЯ ФИЛИПОВА БУЛАТОВА",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА БОЙЧИНОВА АРСОВА",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ПЕТРОВА МИЛЕВА",
+      "target": "company:tr:000522800",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

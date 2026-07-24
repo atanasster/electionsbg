@@ -1,1 +1,103 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:steliyan-slavov-slavov-dfb701","nodes":[{"id":"official:steliyan-slavov-slavov-dfb701","type":"official","slug":"steliyan-slavov-slavov-dfb701","label":"Стелиян Славов Славов","tier":"municipal","role":"councillor","municipality":"Тунджа"},{"id":"company:tr:123119228","type":"company","label":"АЛИАНС ФРАНСЕЗ КАЗАНЛЪК - СЕНТ ЕРБЛЕН","slug":null,"uic":"123119228","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ СТЕФАНОВ ГРИГОРОВ","type":"person","label":"Георги Стефанов Григоров"},{"id":"person:СТАНИСЛАВ ДОНЧЕВ ПЕТКАНОВ","type":"person","label":"Станислав Дончев Петканов"},{"id":"person:СТАНИСЛАВА КОЛЕВА СТОЙНОВА - БАЛКАНСКА","type":"person","label":"Станислава Колева Стойнова - Балканска"},{"id":"person:ВАНИНА ДЕЯНОВА КОЛЕВА","type":"person","label":"Ванина Деянова Колева"}],"edges":[{"source":"official:steliyan-slavov-slavov-dfb701","target":"company:tr:123119228","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:steliyan-slavov-slavov-dfb701","target":"company:tr:123119228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ СТЕФАНОВ ГРИГОРОВ","target":"company:tr:123119228","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ ДОНЧЕВ ПЕТКАНОВ","target":"company:tr:123119228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СТЕФАНОВ ГРИГОРОВ","target":"company:tr:123119228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВА КОЛЕВА СТОЙНОВА - БАЛКАНСКА","target":"company:tr:123119228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНИНА ДЕЯНОВА КОЛЕВА","target":"company:tr:123119228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:steliyan-slavov-slavov-dfb701",
+  "nodes": [
+    {
+      "id": "official:steliyan-slavov-slavov-dfb701",
+      "type": "official",
+      "slug": "steliyan-slavov-slavov-dfb701",
+      "label": "Стелиян Славов Славов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тунджа"
+    },
+    {
+      "id": "company:tr:123119228",
+      "type": "company",
+      "label": "АЛИАНС ФРАНСЕЗ КАЗАНЛЪК - СЕНТ ЕРБЛЕН",
+      "slug": null,
+      "uic": "123119228",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ СТЕФАНОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Георги Стефанов Григоров"
+    },
+    {
+      "id": "person:СТАНИСЛАВ ДОНЧЕВ ПЕТКАНОВ",
+      "type": "person",
+      "label": "Станислав Дончев Петканов"
+    },
+    {
+      "id": "person:СТАНИСЛАВА КОЛЕВА СТОЙНОВА - БАЛКАНСКА",
+      "type": "person",
+      "label": "Станислава Колева Стойнова - Балканска"
+    },
+    {
+      "id": "person:ВАНИНА ДЕЯНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Ванина Деянова Колева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:steliyan-slavov-slavov-dfb701",
+      "target": "company:tr:123119228",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:steliyan-slavov-slavov-dfb701",
+      "target": "company:tr:123119228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ СТЕФАНОВ ГРИГОРОВ",
+      "target": "company:tr:123119228",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ДОНЧЕВ ПЕТКАНОВ",
+      "target": "company:tr:123119228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТЕФАНОВ ГРИГОРОВ",
+      "target": "company:tr:123119228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА КОЛЕВА СТОЙНОВА - БАЛКАНСКА",
+      "target": "company:tr:123119228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНИНА ДЕЯНОВА КОЛЕВА",
+      "target": "company:tr:123119228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

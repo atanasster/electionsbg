@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ruzhdi-yakub-mustafa-fde710","nodes":[{"id":"official:ruzhdi-yakub-mustafa-fde710","type":"official","slug":"ruzhdi-yakub-mustafa-fde710","label":"Ружди Якуб Мустафа","tier":"municipal","role":"councillor","municipality":"Созопол"},{"id":"company:tr:201595695","type":"company","label":"МОРСКО ОКО 2011","slug":null,"uic":"201595695","legalForm":null,"status":null,"seat":null},{"id":"person:МИХАИЛ СТОЯНОВ МИХАЙЛОВ","type":"person","label":"Михаил Стоянов Михайлов"}],"edges":[{"source":"official:ruzhdi-yakub-mustafa-fde710","target":"company:tr:201595695","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:МИХАИЛ СТОЯНОВ МИХАЙЛОВ","target":"company:tr:201595695","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИХАИЛ СТОЯНОВ МИХАЙЛОВ","target":"company:tr:201595695","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ruzhdi-yakub-mustafa-fde710",
+  "nodes": [
+    {
+      "id": "official:ruzhdi-yakub-mustafa-fde710",
+      "type": "official",
+      "slug": "ruzhdi-yakub-mustafa-fde710",
+      "label": "Ружди Якуб Мустафа",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Созопол"
+    },
+    {
+      "id": "company:tr:201595695",
+      "type": "company",
+      "label": "МОРСКО ОКО 2011",
+      "slug": null,
+      "uic": "201595695",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИХАИЛ СТОЯНОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Михаил Стоянов Михайлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ruzhdi-yakub-mustafa-fde710",
+      "target": "company:tr:201595695",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИХАИЛ СТОЯНОВ МИХАЙЛОВ",
+      "target": "company:tr:201595695",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ СТОЯНОВ МИХАЙЛОВ",
+      "target": "company:tr:201595695",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

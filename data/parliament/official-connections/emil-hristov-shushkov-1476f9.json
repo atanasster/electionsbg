@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-hristov-shushkov-1476f9","nodes":[{"id":"official:emil-hristov-shushkov-1476f9","type":"official","slug":"emil-hristov-shushkov-1476f9","label":"Емил Христов Шушков","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:205816109","type":"company","label":"ТОТАЛ СЕКЮРИТИ","slug":null,"uic":"205816109","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ЕМИЛОВ БОЖИЛОВ","type":"person","label":"Георги Емилов Божилов"}],"edges":[{"source":"official:emil-hristov-shushkov-1476f9","target":"company:tr:205816109","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:emil-hristov-shushkov-1476f9","target":"company:tr:205816109","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ЕМИЛОВ БОЖИЛОВ","target":"company:tr:205816109","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-hristov-shushkov-1476f9",
+  "nodes": [
+    {
+      "id": "official:emil-hristov-shushkov-1476f9",
+      "type": "official",
+      "slug": "emil-hristov-shushkov-1476f9",
+      "label": "Емил Христов Шушков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205816109",
+      "type": "company",
+      "label": "ТОТАЛ СЕКЮРИТИ",
+      "slug": null,
+      "uic": "205816109",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ЕМИЛОВ БОЖИЛОВ",
+      "type": "person",
+      "label": "Георги Емилов Божилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-hristov-shushkov-1476f9",
+      "target": "company:tr:205816109",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-hristov-shushkov-1476f9",
+      "target": "company:tr:205816109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ЕМИЛОВ БОЖИЛОВ",
+      "target": "company:tr:205816109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

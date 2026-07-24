@@ -1,1 +1,165 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-georgiev-andonov-a5b0dd","nodes":[{"id":"official:emil-georgiev-andonov-a5b0dd","type":"official","slug":"emil-georgiev-andonov-a5b0dd","label":"Емил Георгиев Андонов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:124516955","type":"company","label":"ЛОВНО-РИБАРСКО ДРУЖЕСТВО - КАЛИАКРА","slug":null,"uic":"124516955","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ","type":"person","label":"Георги Димитров Тодоров"},{"id":"person:ВЕНЦИСЛАВ ДОНЧЕВ РАЧЕВ","type":"person","label":"Венцислав Дончев Рачев"},{"id":"person:ОШНУТ ВЕЛИЕВ АЛИЕВ","type":"person","label":"Ошнут Велиев Алиев"},{"id":"person:ИВАН ДИМИТРОВ ИВАНОВ","type":"person","label":"Иван Димитров Иванов"},{"id":"person:РАДОСТИН СЪБЕВ АТАНАСОВ","type":"person","label":"Радостин Събев Атанасов"},{"id":"person:ВЛАДИМИР ГЕОРГИЕВ БОНЕВ","type":"person","label":"Владимир Георгиев Бонев"},{"id":"person:СТЕФАН ВАСИЛЕВ ЛЕФТЕРОВ","type":"person","label":"Стефан Василев Лефтеров"},{"id":"person:ВЕЛКО МАРЧЕВ МАРЕВ","type":"person","label":"Велко Марчев Марев"},{"id":"person:ГЕОРГИ ХРИСТОВ СТАНЕВ","type":"person","label":"Георги Христов Станев"},{"id":"person:АНГЕЛ ДИМИТРОВ НЕЙЧЕВ","type":"person","label":"Ангел Димитров Нейчев"}],"edges":[{"source":"official:emil-georgiev-andonov-a5b0dd","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ДОНЧЕВ РАЧЕВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОШНУТ ВЕЛИЕВ АЛИЕВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ ИВАНОВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИН СЪБЕВ АТАНАСОВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГЕОРГИЕВ БОНЕВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ВАСИЛЕВ ЛЕФТЕРОВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛКО МАРЧЕВ МАРЕВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХРИСТОВ СТАНЕВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ДИМИТРОВ НЕЙЧЕВ","target":"company:tr:124516955","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-georgiev-andonov-a5b0dd",
+  "nodes": [
+    {
+      "id": "official:emil-georgiev-andonov-a5b0dd",
+      "type": "official",
+      "slug": "emil-georgiev-andonov-a5b0dd",
+      "label": "Емил Георгиев Андонов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124516955",
+      "type": "company",
+      "label": "ЛОВНО-РИБАРСКО ДРУЖЕСТВО - КАЛИАКРА",
+      "slug": null,
+      "uic": "124516955",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Георги Димитров Тодоров"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ДОНЧЕВ РАЧЕВ",
+      "type": "person",
+      "label": "Венцислав Дончев Рачев"
+    },
+    {
+      "id": "person:ОШНУТ ВЕЛИЕВ АЛИЕВ",
+      "type": "person",
+      "label": "Ошнут Велиев Алиев"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Димитров Иванов"
+    },
+    {
+      "id": "person:РАДОСТИН СЪБЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Радостин Събев Атанасов"
+    },
+    {
+      "id": "person:ВЛАДИМИР ГЕОРГИЕВ БОНЕВ",
+      "type": "person",
+      "label": "Владимир Георгиев Бонев"
+    },
+    {
+      "id": "person:СТЕФАН ВАСИЛЕВ ЛЕФТЕРОВ",
+      "type": "person",
+      "label": "Стефан Василев Лефтеров"
+    },
+    {
+      "id": "person:ВЕЛКО МАРЧЕВ МАРЕВ",
+      "type": "person",
+      "label": "Велко Марчев Марев"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ СТАНЕВ",
+      "type": "person",
+      "label": "Георги Христов Станев"
+    },
+    {
+      "id": "person:АНГЕЛ ДИМИТРОВ НЕЙЧЕВ",
+      "type": "person",
+      "label": "Ангел Димитров Нейчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-georgiev-andonov-a5b0dd",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ДОНЧЕВ РАЧЕВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОШНУТ ВЕЛИЕВ АЛИЕВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИН СЪБЕВ АТАНАСОВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГЕОРГИЕВ БОНЕВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ВАСИЛЕВ ЛЕФТЕРОВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛКО МАРЧЕВ МАРЕВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ СТАНЕВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ДИМИТРОВ НЕЙЧЕВ",
+      "target": "company:tr:124516955",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,153 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:borislav-krstev-inchev-55f44e","nodes":[{"id":"official:borislav-krstev-inchev-55f44e","type":"official","slug":"borislav-krstev-inchev-55f44e","label":"Борислав Кръстев Инчев","tier":"municipal","role":"councillor","municipality":"Пловдив"},{"id":"company:tr:115819106","type":"company","label":"Ен Ем Ер ООД","slug":null,"uic":"115819106","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206321627","type":"company","label":"Козлек 1906 ООД","slug":null,"uic":"206321627","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207380596","type":"company","label":"Национална агенция за пазарни изследвания - НАПИ ЕООД","slug":null,"uic":"207380596","legalForm":null,"status":null,"seat":null},{"id":"person:КИРИЛ ИВАНОВ АТАНАСОВ","type":"person","label":"Кирил Иванов Атанасов"},{"id":"person:ПЕТКО КРУМОВ АТАНАСОВ","type":"person","label":"Петко Крумов Атанасов"}],"edges":[{"source":"official:borislav-krstev-inchev-55f44e","target":"company:tr:115819106","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:borislav-krstev-inchev-55f44e","target":"company:tr:206321627","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:borislav-krstev-inchev-55f44e","target":"company:tr:207380596","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:borislav-krstev-inchev-55f44e","target":"company:tr:115819106","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:borislav-krstev-inchev-55f44e","target":"company:tr:206321627","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:borislav-krstev-inchev-55f44e","target":"company:tr:207380596","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:КИРИЛ ИВАНОВ АТАНАСОВ","target":"company:tr:115819106","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ АТАНАСОВ","target":"company:tr:115819106","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ АТАНАСОВ","target":"company:tr:206321627","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО КРУМОВ АТАНАСОВ","target":"company:tr:206321627","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ АТАНАСОВ","target":"company:tr:206321627","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ АТАНАСОВ","target":"company:tr:207380596","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:borislav-krstev-inchev-55f44e",
+  "nodes": [
+    {
+      "id": "official:borislav-krstev-inchev-55f44e",
+      "type": "official",
+      "slug": "borislav-krstev-inchev-55f44e",
+      "label": "Борислав Кръстев Инчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "company:tr:115819106",
+      "type": "company",
+      "label": "Ен Ем Ер ООД",
+      "slug": null,
+      "uic": "115819106",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206321627",
+      "type": "company",
+      "label": "Козлек 1906 ООД",
+      "slug": null,
+      "uic": "206321627",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207380596",
+      "type": "company",
+      "label": "Национална агенция за пазарни изследвания - НАПИ ЕООД",
+      "slug": null,
+      "uic": "207380596",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Кирил Иванов Атанасов"
+    },
+    {
+      "id": "person:ПЕТКО КРУМОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Петко Крумов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislav-krstev-inchev-55f44e",
+      "target": "company:tr:115819106",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-krstev-inchev-55f44e",
+      "target": "company:tr:206321627",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-krstev-inchev-55f44e",
+      "target": "company:tr:207380596",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-krstev-inchev-55f44e",
+      "target": "company:tr:115819106",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-krstev-inchev-55f44e",
+      "target": "company:tr:206321627",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-krstev-inchev-55f44e",
+      "target": "company:tr:207380596",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ АТАНАСОВ",
+      "target": "company:tr:115819106",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ АТАНАСОВ",
+      "target": "company:tr:115819106",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ АТАНАСОВ",
+      "target": "company:tr:206321627",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО КРУМОВ АТАНАСОВ",
+      "target": "company:tr:206321627",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ АТАНАСОВ",
+      "target": "company:tr:206321627",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ АТАНАСОВ",
+      "target": "company:tr:207380596",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

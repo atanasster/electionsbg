@@ -1,1 +1,120 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vanya-stoyanova-stoineva-b2ac4a","nodes":[{"id":"official:vanya-stoyanova-stoineva-b2ac4a","type":"official","slug":"vanya-stoyanova-stoineva-b2ac4a","label":"Ваня Стоянова Стойнева","tier":"executive","role":"eu_funds_controller","municipality":null},{"id":"company:tr:175054785","type":"company","label":"\"Болкан Боутс\" ООД","slug":null,"uic":"175054785","legalForm":null,"status":null,"seat":null},{"id":"company:tr:130829709","type":"company","label":"\"Стойнев Аутдорс\" ЕООД","slug":null,"uic":"130829709","legalForm":null,"status":null,"seat":null},{"id":"official:vanya-stoyanova-stoineva-967434","type":"official","slug":"vanya-stoyanova-stoineva-967434","label":"Ваня Стоянова Стойнева","tier":"executive","role":"political_cabinet","municipality":null},{"id":"official:vanya-stoyanova-stoineva-f801c0","type":"official","slug":"vanya-stoyanova-stoineva-f801c0","label":"Ваня Стоянова Стойнева","tier":"executive","role":"secretary_general","municipality":null},{"id":"official:vanya-stoyanova-stoineva-e9b086","type":"official","slug":"vanya-stoyanova-stoineva-e9b086","label":"Ваня Стоянова Стойнева","tier":"executive","role":"deputy_minister","municipality":null}],"edges":[{"source":"official:vanya-stoyanova-stoineva-b2ac4a","target":"company:tr:175054785","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vanya-stoyanova-stoineva-b2ac4a","target":"company:tr:130829709","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vanya-stoyanova-stoineva-967434","target":"company:tr:175054785","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vanya-stoyanova-stoineva-f801c0","target":"company:tr:175054785","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vanya-stoyanova-stoineva-e9b086","target":"company:tr:130829709","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vanya-stoyanova-stoineva-967434","target":"company:tr:130829709","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vanya-stoyanova-stoineva-f801c0","target":"company:tr:130829709","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vanya-stoyanova-stoineva-b2ac4a",
+  "nodes": [
+    {
+      "id": "official:vanya-stoyanova-stoineva-b2ac4a",
+      "type": "official",
+      "slug": "vanya-stoyanova-stoineva-b2ac4a",
+      "label": "Ваня Стоянова Стойнева",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175054785",
+      "type": "company",
+      "label": "\"Болкан Боутс\" ООД",
+      "slug": null,
+      "uic": "175054785",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130829709",
+      "type": "company",
+      "label": "\"Стойнев Аутдорс\" ЕООД",
+      "slug": null,
+      "uic": "130829709",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vanya-stoyanova-stoineva-967434",
+      "type": "official",
+      "slug": "vanya-stoyanova-stoineva-967434",
+      "label": "Ваня Стоянова Стойнева",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "official:vanya-stoyanova-stoineva-f801c0",
+      "type": "official",
+      "slug": "vanya-stoyanova-stoineva-f801c0",
+      "label": "Ваня Стоянова Стойнева",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "official:vanya-stoyanova-stoineva-e9b086",
+      "type": "official",
+      "slug": "vanya-stoyanova-stoineva-e9b086",
+      "label": "Ваня Стоянова Стойнева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-stoyanova-stoineva-b2ac4a",
+      "target": "company:tr:175054785",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-b2ac4a",
+      "target": "company:tr:130829709",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-967434",
+      "target": "company:tr:175054785",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-f801c0",
+      "target": "company:tr:175054785",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-e9b086",
+      "target": "company:tr:130829709",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-967434",
+      "target": "company:tr:130829709",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-f801c0",
+      "target": "company:tr:130829709",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

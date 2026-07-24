@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:margarita-ivanova-trifonova-d8c930","nodes":[{"id":"official:margarita-ivanova-trifonova-d8c930","type":"official","slug":"margarita-ivanova-trifonova-d8c930","label":"Маргарита Иванова Трифонова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:119547647","type":"company","label":"ОБЩИНСКА ОХРАНА И СОТ-СЛИВЕН","slug":null,"uic":"119547647","legalForm":null,"status":null,"seat":null},{"id":"person:АНТОНИЙ НИКОЛАЕВ АНДОНОВ","type":"person","label":"Антоний Николаев Андонов"}],"edges":[{"source":"official:margarita-ivanova-trifonova-d8c930","target":"company:tr:119547647","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:АНТОНИЙ НИКОЛАЕВ АНДОНОВ","target":"company:tr:119547647","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:margarita-ivanova-trifonova-d8c930",
+  "nodes": [
+    {
+      "id": "official:margarita-ivanova-trifonova-d8c930",
+      "type": "official",
+      "slug": "margarita-ivanova-trifonova-d8c930",
+      "label": "Маргарита Иванова Трифонова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119547647",
+      "type": "company",
+      "label": "ОБЩИНСКА ОХРАНА И СОТ-СЛИВЕН",
+      "slug": null,
+      "uic": "119547647",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОНИЙ НИКОЛАЕВ АНДОНОВ",
+      "type": "person",
+      "label": "Антоний Николаев Андонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:margarita-ivanova-trifonova-d8c930",
+      "target": "company:tr:119547647",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОНИЙ НИКОЛАЕВ АНДОНОВ",
+      "target": "company:tr:119547647",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

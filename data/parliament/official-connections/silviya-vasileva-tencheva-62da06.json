@@ -1,1 +1,220 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:silviya-vasileva-tencheva-62da06","nodes":[{"id":"official:silviya-vasileva-tencheva-62da06","type":"official","slug":"silviya-vasileva-tencheva-62da06","label":"Силвия Василева Тенчева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176884271","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;АСПАРУХ ЛЕШНИКОВ - 2015&quot;","slug":null,"uic":"176884271","legalForm":null,"status":null,"seat":null},{"id":"person:СТИЛИЯНА НЕДЕЛЧЕВА АНГЕЛОВА","type":"person","label":"Стилияна Неделчева Ангелова"},{"id":"person:ДИМИТРИЙКА ЖЕЛЕВА ГРОЗЕВА","type":"person","label":"Димитрийка Желева Грозева"},{"id":"person:СТЕФКА ХРИСТОВА КИРЕВА","type":"person","label":"Стефка Христова Кирева"},{"id":"person:КРАСИМИРА НЕЙКОВА ТОПУЗАКОВА","type":"person","label":"Красимира Нейкова Топузакова"},{"id":"person:ИВАН БОЕВ ГЕОРГИЕВ","type":"person","label":"Иван Боев Георгиев"},{"id":"person:МАРИЯ ПЕТРОВА ИВАНОВА","type":"person","label":"Мария Петрова Иванова"},{"id":"person:НЕДЯЛКО АНАСТАСОВ ДИЕВ","type":"person","label":"Недялко Анастасов Диев"},{"id":"person:РАЙНА СЛАВЧЕВА ПЕНЕВА","type":"person","label":"Райна Славчева Пенева"},{"id":"person:МАГДА АНГЕЛОВА ЙОРДАНОВА","type":"person","label":"Магда Ангелова Йорданова"},{"id":"person:ЖИВКА ДОБРЕВА ГЕНЕВА","type":"person","label":"Живка Добрева Генева"},{"id":"person:ВИОЛЕТА НИКОЛАЕВА КОСТАДИНОВА","type":"person","label":"Виолета Николаева Костадинова"},{"id":"person:МАРИЯ ТОДЕВА ТОДОРОВА","type":"person","label":"Мария Тодева Тодорова"},{"id":"person:АНГЕЛИНА ХРИСТОВА ГЕОРГИЕВА","type":"person","label":"Ангелина Христова Георгиева"}],"edges":[{"source":"official:silviya-vasileva-tencheva-62da06","target":"company:tr:176884271","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:silviya-vasileva-tencheva-62da06","target":"company:tr:176884271","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:СТИЛИЯНА НЕДЕЛЧЕВА АНГЕЛОВА","target":"company:tr:176884271","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИЙКА ЖЕЛЕВА ГРОЗЕВА","target":"company:tr:176884271","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ХРИСТОВА КИРЕВА","target":"company:tr:176884271","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА НЕЙКОВА ТОПУЗАКОВА","target":"company:tr:176884271","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН БОЕВ ГЕОРГИЕВ","target":"company:tr:176884271","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ПЕТРОВА ИВАНОВА","target":"company:tr:176884271","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКО АНАСТАСОВ ДИЕВ","target":"company:tr:176884271","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАЙНА СЛАВЧЕВА ПЕНЕВА","target":"company:tr:176884271","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАГДА АНГЕЛОВА ЙОРДАНОВА","target":"company:tr:176884271","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКА ДОБРЕВА ГЕНЕВА","target":"company:tr:176884271","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАГДА АНГЕЛОВА ЙОРДАНОВА","target":"company:tr:176884271","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА НИКОЛАЕВА КОСТАДИНОВА","target":"company:tr:176884271","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ТОДЕВА ТОДОРОВА","target":"company:tr:176884271","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛИНА ХРИСТОВА ГЕОРГИЕВА","target":"company:tr:176884271","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:silviya-vasileva-tencheva-62da06",
+  "nodes": [
+    {
+      "id": "official:silviya-vasileva-tencheva-62da06",
+      "type": "official",
+      "slug": "silviya-vasileva-tencheva-62da06",
+      "label": "Силвия Василева Тенчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176884271",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;АСПАРУХ ЛЕШНИКОВ - 2015&quot;",
+      "slug": null,
+      "uic": "176884271",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТИЛИЯНА НЕДЕЛЧЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Стилияна Неделчева Ангелова"
+    },
+    {
+      "id": "person:ДИМИТРИЙКА ЖЕЛЕВА ГРОЗЕВА",
+      "type": "person",
+      "label": "Димитрийка Желева Грозева"
+    },
+    {
+      "id": "person:СТЕФКА ХРИСТОВА КИРЕВА",
+      "type": "person",
+      "label": "Стефка Христова Кирева"
+    },
+    {
+      "id": "person:КРАСИМИРА НЕЙКОВА ТОПУЗАКОВА",
+      "type": "person",
+      "label": "Красимира Нейкова Топузакова"
+    },
+    {
+      "id": "person:ИВАН БОЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Иван Боев Георгиев"
+    },
+    {
+      "id": "person:МАРИЯ ПЕТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Мария Петрова Иванова"
+    },
+    {
+      "id": "person:НЕДЯЛКО АНАСТАСОВ ДИЕВ",
+      "type": "person",
+      "label": "Недялко Анастасов Диев"
+    },
+    {
+      "id": "person:РАЙНА СЛАВЧЕВА ПЕНЕВА",
+      "type": "person",
+      "label": "Райна Славчева Пенева"
+    },
+    {
+      "id": "person:МАГДА АНГЕЛОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Магда Ангелова Йорданова"
+    },
+    {
+      "id": "person:ЖИВКА ДОБРЕВА ГЕНЕВА",
+      "type": "person",
+      "label": "Живка Добрева Генева"
+    },
+    {
+      "id": "person:ВИОЛЕТА НИКОЛАЕВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Виолета Николаева Костадинова"
+    },
+    {
+      "id": "person:МАРИЯ ТОДЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Мария Тодева Тодорова"
+    },
+    {
+      "id": "person:АНГЕЛИНА ХРИСТОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Ангелина Христова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-vasileva-tencheva-62da06",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:silviya-vasileva-tencheva-62da06",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТИЛИЯНА НЕДЕЛЧЕВА АНГЕЛОВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЙКА ЖЕЛЕВА ГРОЗЕВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ХРИСТОВА КИРЕВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА НЕЙКОВА ТОПУЗАКОВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОЕВ ГЕОРГИЕВ",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПЕТРОВА ИВАНОВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКО АНАСТАСОВ ДИЕВ",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА СЛАВЧЕВА ПЕНЕВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДА АНГЕЛОВА ЙОРДАНОВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ДОБРЕВА ГЕНЕВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДА АНГЕЛОВА ЙОРДАНОВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА НИКОЛАЕВА КОСТАДИНОВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТОДЕВА ТОДОРОВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА ХРИСТОВА ГЕОРГИЕВА",
+      "target": "company:tr:176884271",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

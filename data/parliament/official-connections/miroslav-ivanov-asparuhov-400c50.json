@@ -1,1 +1,70 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:miroslav-ivanov-asparuhov-400c50","nodes":[{"id":"official:miroslav-ivanov-asparuhov-400c50","type":"official","slug":"miroslav-ivanov-asparuhov-400c50","label":"Мирослав Иванов Аспарухов","tier":"municipal","role":"councillor","municipality":"Мездра"},{"id":"company:ФОЛКЛОР-М-ЕООД","type":"company","label":"ФОЛКЛОР-М ЕООД","slug":"ФОЛКЛОР-М-ЕООД","uic":"200856982","legalForm":"EOOD","status":"active","seat":"Враца"},{"id":"company:tr:205298912","type":"company","label":"А.С.П. Фолк дизайн ЕООД","slug":null,"uic":"205298912","legalForm":null,"status":null,"seat":null},{"id":"mp:3235","type":"mp","mpId":3235,"label":"Мирослав Иванов Аспарухов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"official:miroslav-ivanov-asparuhov-400c50","target":"company:ФОЛКЛОР-М-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:miroslav-ivanov-asparuhov-400c50","target":"company:tr:205298912","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:3235","target":"company:ФОЛКЛОР-М-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:miroslav-ivanov-asparuhov-400c50",
+  "nodes": [
+    {
+      "id": "official:miroslav-ivanov-asparuhov-400c50",
+      "type": "official",
+      "slug": "miroslav-ivanov-asparuhov-400c50",
+      "label": "Мирослав Иванов Аспарухов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "company:ФОЛКЛОР-М-ЕООД",
+      "type": "company",
+      "label": "ФОЛКЛОР-М ЕООД",
+      "slug": "ФОЛКЛОР-М-ЕООД",
+      "uic": "200856982",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Враца"
+    },
+    {
+      "id": "company:tr:205298912",
+      "type": "company",
+      "label": "А.С.П. Фолк дизайн ЕООД",
+      "slug": null,
+      "uic": "205298912",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "mp:3235",
+      "type": "mp",
+      "mpId": 3235,
+      "label": "Мирослав Иванов Аспарухов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-ivanov-asparuhov-400c50",
+      "target": "company:ФОЛКЛОР-М-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:miroslav-ivanov-asparuhov-400c50",
+      "target": "company:tr:205298912",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3235",
+      "target": "company:ФОЛКЛОР-М-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

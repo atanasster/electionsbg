@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:eduard-hubanov-hubanov-222eaa","nodes":[{"id":"official:eduard-hubanov-hubanov-222eaa","type":"official","slug":"eduard-hubanov-hubanov-222eaa","label":"Едуард Хубанов Хубанов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:117690845","type":"company","label":"ОБЩИНСКИ ТРАНСПОРТ РУСЕ","slug":null,"uic":"117690845","legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКСАНДЪР ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Александър Георгиев Георгиев"},{"id":"person:ВЕЛИЗАРА ИВАНОВА ПЕНЧЕВА","type":"person","label":"Велизара Иванова Пенчева"},{"id":"person:АЙДЪН МУСТАФОВ ДЕМИРДЖИЕВ","type":"person","label":"Айдън Мустафов Демирджиев"}],"edges":[{"source":"official:eduard-hubanov-hubanov-222eaa","target":"company:tr:117690845","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:АЛЕКСАНДЪР ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:117690845","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:117690845","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЗАРА ИВАНОВА ПЕНЧЕВА","target":"company:tr:117690845","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЙДЪН МУСТАФОВ ДЕМИРДЖИЕВ","target":"company:tr:117690845","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:eduard-hubanov-hubanov-222eaa",
+  "nodes": [
+    {
+      "id": "official:eduard-hubanov-hubanov-222eaa",
+      "type": "official",
+      "slug": "eduard-hubanov-hubanov-222eaa",
+      "label": "Едуард Хубанов Хубанов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117690845",
+      "type": "company",
+      "label": "ОБЩИНСКИ ТРАНСПОРТ РУСЕ",
+      "slug": null,
+      "uic": "117690845",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Александър Георгиев Георгиев"
+    },
+    {
+      "id": "person:ВЕЛИЗАРА ИВАНОВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Велизара Иванова Пенчева"
+    },
+    {
+      "id": "person:АЙДЪН МУСТАФОВ ДЕМИРДЖИЕВ",
+      "type": "person",
+      "label": "Айдън Мустафов Демирджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:eduard-hubanov-hubanov-222eaa",
+      "target": "company:tr:117690845",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:117690845",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:117690845",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЗАРА ИВАНОВА ПЕНЧЕВА",
+      "target": "company:tr:117690845",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙДЪН МУСТАФОВ ДЕМИРДЖИЕВ",
+      "target": "company:tr:117690845",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

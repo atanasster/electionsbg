@@ -1,1 +1,250 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zhelyazko-bonev-bogdanov-496401","nodes":[{"id":"official:zhelyazko-bonev-bogdanov-496401","type":"official","slug":"zhelyazko-bonev-bogdanov-496401","label":"Желязко Бонев Богданов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:123643425","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СУ МАКСИМ ГОРКИ","slug":null,"uic":"123643425","legalForm":null,"status":null,"seat":null},{"id":"official:stefka-georgieva-todorova-c6a62c","type":"official","slug":"stefka-georgieva-todorova-c6a62c","label":"Стефка Георгиева Тодорова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:КРАСЕН ВЕЧЯСЛАВОВ БАНЧЕВ","type":"person","label":"Красен Вечяславов Банчев"},{"id":"person:ЙОРДАНКА КИРИЛОВА РАДЕНКОВА","type":"person","label":"Йорданка Кирилова Раденкова"},{"id":"person:АНЖЕЛИНА ИВАНОВА ВЕЛЧЕВА","type":"person","label":"Анжелина Иванова Велчева"},{"id":"person:ИВАНКА АЛЕКСАНДРОВА АЛЕКСИЕВА","type":"person","label":"Иванка Александрова Алексиева"},{"id":"person:ВИКТОР ДАНЧЕВ КЮЧУКОВ","type":"person","label":"Виктор Данчев Кючуков"},{"id":"person:РУСЛАНА ЖЕЛЯЗКОВА НЯГОЛОВА – ГЕОРГИЕВА","type":"person","label":"Руслана Желязкова Няголова – Георгиева"},{"id":"person:ЕВА ПЕЙКОВА КАСАЛОВА – МИХАЙЛОВА","type":"person","label":"Ева Пейкова Касалова – Михайлова"},{"id":"person:БИЛЯНА НИКОЛАЕВА ВАДИНСКА","type":"person","label":"Биляна Николаева Вадинска"},{"id":"person:МИЛЕН ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Милен Димитров Димитров"},{"id":"person:КАМЕЛИЯ МИРОСЛАВОВА ЙОРДАНОВА","type":"person","label":"Камелия Мирославова Йорданова"},{"id":"person:ДОНИКА ГЕОРГИЕВА ИВАНОВА","type":"person","label":"Доника Георгиева Иванова"},{"id":"person:ПЕТЯ ПЕТРОВА ИЛИЕВА","type":"person","label":"Петя Петрова Илиева"},{"id":"person:СТАНИМИРА ИВАНОВА ЛАТЕВА","type":"person","label":"Станимира Иванова Латева"},{"id":"person:КРАСИМИРА СТОИЛОВА ИЛИЕВА","type":"person","label":"Красимира Стоилова Илиева"}],"edges":[{"source":"official:zhelyazko-bonev-bogdanov-496401","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:stefka-georgieva-todorova-c6a62c","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:КРАСЕН ВЕЧЯСЛАВОВ БАНЧЕВ","target":"company:tr:123643425","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСЕН ВЕЧЯСЛАВОВ БАНЧЕВ","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА КИРИЛОВА РАДЕНКОВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЖЕЛИНА ИВАНОВА ВЕЛЧЕВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА АЛЕКСАНДРОВА АЛЕКСИЕВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР ДАНЧЕВ КЮЧУКОВ","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУСЛАНА ЖЕЛЯЗКОВА НЯГОЛОВА – ГЕОРГИЕВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВА ПЕЙКОВА КАСАЛОВА – МИХАЙЛОВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯНА НИКОЛАЕВА ВАДИНСКА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:123643425","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ МИРОСЛАВОВА ЙОРДАНОВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНИКА ГЕОРГИЕВА ИВАНОВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ПЕТРОВА ИЛИЕВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИРА ИВАНОВА ЛАТЕВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА СТОИЛОВА ИЛИЕВА","target":"company:tr:123643425","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zhelyazko-bonev-bogdanov-496401",
+  "nodes": [
+    {
+      "id": "official:zhelyazko-bonev-bogdanov-496401",
+      "type": "official",
+      "slug": "zhelyazko-bonev-bogdanov-496401",
+      "label": "Желязко Бонев Богданов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123643425",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СУ МАКСИМ ГОРКИ",
+      "slug": null,
+      "uic": "123643425",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:stefka-georgieva-todorova-c6a62c",
+      "type": "official",
+      "slug": "stefka-georgieva-todorova-c6a62c",
+      "label": "Стефка Георгиева Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:КРАСЕН ВЕЧЯСЛАВОВ БАНЧЕВ",
+      "type": "person",
+      "label": "Красен Вечяславов Банчев"
+    },
+    {
+      "id": "person:ЙОРДАНКА КИРИЛОВА РАДЕНКОВА",
+      "type": "person",
+      "label": "Йорданка Кирилова Раденкова"
+    },
+    {
+      "id": "person:АНЖЕЛИНА ИВАНОВА ВЕЛЧЕВА",
+      "type": "person",
+      "label": "Анжелина Иванова Велчева"
+    },
+    {
+      "id": "person:ИВАНКА АЛЕКСАНДРОВА АЛЕКСИЕВА",
+      "type": "person",
+      "label": "Иванка Александрова Алексиева"
+    },
+    {
+      "id": "person:ВИКТОР ДАНЧЕВ КЮЧУКОВ",
+      "type": "person",
+      "label": "Виктор Данчев Кючуков"
+    },
+    {
+      "id": "person:РУСЛАНА ЖЕЛЯЗКОВА НЯГОЛОВА – ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Руслана Желязкова Няголова – Георгиева"
+    },
+    {
+      "id": "person:ЕВА ПЕЙКОВА КАСАЛОВА – МИХАЙЛОВА",
+      "type": "person",
+      "label": "Ева Пейкова Касалова – Михайлова"
+    },
+    {
+      "id": "person:БИЛЯНА НИКОЛАЕВА ВАДИНСКА",
+      "type": "person",
+      "label": "Биляна Николаева Вадинска"
+    },
+    {
+      "id": "person:МИЛЕН ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Милен Димитров Димитров"
+    },
+    {
+      "id": "person:КАМЕЛИЯ МИРОСЛАВОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Камелия Мирославова Йорданова"
+    },
+    {
+      "id": "person:ДОНИКА ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Доника Георгиева Иванова"
+    },
+    {
+      "id": "person:ПЕТЯ ПЕТРОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Петя Петрова Илиева"
+    },
+    {
+      "id": "person:СТАНИМИРА ИВАНОВА ЛАТЕВА",
+      "type": "person",
+      "label": "Станимира Иванова Латева"
+    },
+    {
+      "id": "person:КРАСИМИРА СТОИЛОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Красимира Стоилова Илиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhelyazko-bonev-bogdanov-496401",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefka-georgieva-todorova-c6a62c",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСЕН ВЕЧЯСЛАВОВ БАНЧЕВ",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСЕН ВЕЧЯСЛАВОВ БАНЧЕВ",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА КИРИЛОВА РАДЕНКОВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЖЕЛИНА ИВАНОВА ВЕЛЧЕВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА АЛЕКСАНДРОВА АЛЕКСИЕВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР ДАНЧЕВ КЮЧУКОВ",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСЛАНА ЖЕЛЯЗКОВА НЯГОЛОВА – ГЕОРГИЕВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВА ПЕЙКОВА КАСАЛОВА – МИХАЙЛОВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА НИКОЛАЕВА ВАДИНСКА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ МИРОСЛАВОВА ЙОРДАНОВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНИКА ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ПЕТРОВА ИЛИЕВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИРА ИВАНОВА ЛАТЕВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СТОИЛОВА ИЛИЕВА",
+      "target": "company:tr:123643425",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

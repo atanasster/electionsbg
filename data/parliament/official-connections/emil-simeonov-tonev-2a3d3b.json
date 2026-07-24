@@ -1,1 +1,129 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-simeonov-tonev-2a3d3b","nodes":[{"id":"official:emil-simeonov-tonev-2a3d3b","type":"official","slug":"emil-simeonov-tonev-2a3d3b","label":"Емил Симеонов Тонев","tier":"executive","role":"security_service","municipality":null},{"id":"company:tr:131353214","type":"company","label":"СПОРТЕН КЛУБ-НАЦИОНАЛНА СЛУЖБА ЗА ОХРАНА","slug":null,"uic":"131353214","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФАН АСЕНОВ СТЕФАНОВ","type":"person","label":"Стефан Асенов Стефанов"},{"id":"person:МИХАИЛ ВЕСЕЛИНОВ ВИТАНОВ","type":"person","label":"Михаил Веселинов Витанов"},{"id":"person:МЕТОДИ БОГОМИЛОВ АТАНАСОВ","type":"person","label":"Методи Богомилов Атанасов"},{"id":"person:КАЛИН ГЕОРГИЕВ ЗДРАВКОВ","type":"person","label":"Калин Георгиев Здравков"},{"id":"person:ИРЕНА СВЕТЛОЗАРОВА ТАНОВА","type":"person","label":"Ирена Светлозарова Танова"},{"id":"person:МАРИЯ НИКОЛАЕВА ГЕОРГИЕВА","type":"person","label":"Мария Николаева Георгиева"}],"edges":[{"source":"official:emil-simeonov-tonev-2a3d3b","target":"company:tr:131353214","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:emil-simeonov-tonev-2a3d3b","target":"company:tr:131353214","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН АСЕНОВ СТЕФАНОВ","target":"company:tr:131353214","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИХАИЛ ВЕСЕЛИНОВ ВИТАНОВ","target":"company:tr:131353214","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МЕТОДИ БОГОМИЛОВ АТАНАСОВ","target":"company:tr:131353214","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МЕТОДИ БОГОМИЛОВ АТАНАСОВ","target":"company:tr:131353214","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ГЕОРГИЕВ ЗДРАВКОВ","target":"company:tr:131353214","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА СВЕТЛОЗАРОВА ТАНОВА","target":"company:tr:131353214","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ НИКОЛАЕВА ГЕОРГИЕВА","target":"company:tr:131353214","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-simeonov-tonev-2a3d3b",
+  "nodes": [
+    {
+      "id": "official:emil-simeonov-tonev-2a3d3b",
+      "type": "official",
+      "slug": "emil-simeonov-tonev-2a3d3b",
+      "label": "Емил Симеонов Тонев",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131353214",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ-НАЦИОНАЛНА СЛУЖБА ЗА ОХРАНА",
+      "slug": null,
+      "uic": "131353214",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН АСЕНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Асенов Стефанов"
+    },
+    {
+      "id": "person:МИХАИЛ ВЕСЕЛИНОВ ВИТАНОВ",
+      "type": "person",
+      "label": "Михаил Веселинов Витанов"
+    },
+    {
+      "id": "person:МЕТОДИ БОГОМИЛОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Методи Богомилов Атанасов"
+    },
+    {
+      "id": "person:КАЛИН ГЕОРГИЕВ ЗДРАВКОВ",
+      "type": "person",
+      "label": "Калин Георгиев Здравков"
+    },
+    {
+      "id": "person:ИРЕНА СВЕТЛОЗАРОВА ТАНОВА",
+      "type": "person",
+      "label": "Ирена Светлозарова Танова"
+    },
+    {
+      "id": "person:МАРИЯ НИКОЛАЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Мария Николаева Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-simeonov-tonev-2a3d3b",
+      "target": "company:tr:131353214",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-simeonov-tonev-2a3d3b",
+      "target": "company:tr:131353214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН АСЕНОВ СТЕФАНОВ",
+      "target": "company:tr:131353214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ВЕСЕЛИНОВ ВИТАНОВ",
+      "target": "company:tr:131353214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ БОГОМИЛОВ АТАНАСОВ",
+      "target": "company:tr:131353214",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ БОГОМИЛОВ АТАНАСОВ",
+      "target": "company:tr:131353214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ГЕОРГИЕВ ЗДРАВКОВ",
+      "target": "company:tr:131353214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА СВЕТЛОЗАРОВА ТАНОВА",
+      "target": "company:tr:131353214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НИКОЛАЕВА ГЕОРГИЕВА",
+      "target": "company:tr:131353214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

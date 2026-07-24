@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-nedyalkova-donska-a85897","nodes":[{"id":"official:mariya-nedyalkova-donska-a85897","type":"official","slug":"mariya-nedyalkova-donska-a85897","label":"Мария Недялкова Донска","tier":"executive","role":"diplomat","municipality":null},{"id":"company:tr:200713062","type":"company","label":"\"Лепанто\"ЕООД","slug":null,"uic":"200713062","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:mariya-nedyalkova-donska-a85897","target":"company:tr:200713062","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-nedyalkova-donska-a85897",
+  "nodes": [
+    {
+      "id": "official:mariya-nedyalkova-donska-a85897",
+      "type": "official",
+      "slug": "mariya-nedyalkova-donska-a85897",
+      "label": "Мария Недялкова Донска",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200713062",
+      "type": "company",
+      "label": "\"Лепанто\"ЕООД",
+      "slug": null,
+      "uic": "200713062",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-nedyalkova-donska-a85897",
+      "target": "company:tr:200713062",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

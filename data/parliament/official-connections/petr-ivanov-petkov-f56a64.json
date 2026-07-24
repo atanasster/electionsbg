@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-ivanov-petkov-f56a64","nodes":[{"id":"official:petr-ivanov-petkov-f56a64","type":"official","slug":"petr-ivanov-petkov-f56a64","label":"Петър Иванов Петков","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:202764172","type":"company","label":"МАНЧИК","slug":null,"uic":"202764172","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:petr-ivanov-petkov-f56a64","target":"company:tr:202764172","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:petr-ivanov-petkov-f56a64","target":"company:tr:202764172","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-ivanov-petkov-f56a64",
+  "nodes": [
+    {
+      "id": "official:petr-ivanov-petkov-f56a64",
+      "type": "official",
+      "slug": "petr-ivanov-petkov-f56a64",
+      "label": "Петър Иванов Петков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202764172",
+      "type": "company",
+      "label": "МАНЧИК",
+      "slug": null,
+      "uic": "202764172",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-ivanov-petkov-f56a64",
+      "target": "company:tr:202764172",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-ivanov-petkov-f56a64",
+      "target": "company:tr:202764172",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:galina-vidolova-balabanova-d47fdb","nodes":[{"id":"official:galina-vidolova-balabanova-d47fdb","type":"official","slug":"galina-vidolova-balabanova-d47fdb","label":"Галина Видолова Балабанова","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:203822348","type":"company","label":"Алития Медика ООД","slug":null,"uic":"203822348","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207002080","type":"company","label":"Галианто Медикъл","slug":null,"uic":"207002080","legalForm":null,"status":null,"seat":null},{"id":"person:АНТОН МИХАЙЛОВ РУСЕВ","type":"person","label":"Антон Михайлов Русев"}],"edges":[{"source":"official:galina-vidolova-balabanova-d47fdb","target":"company:tr:203822348","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:galina-vidolova-balabanova-d47fdb","target":"company:tr:207002080","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:galina-vidolova-balabanova-d47fdb","target":"company:tr:207002080","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АНТОН МИХАЙЛОВ РУСЕВ","target":"company:tr:207002080","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:galina-vidolova-balabanova-d47fdb",
+  "nodes": [
+    {
+      "id": "official:galina-vidolova-balabanova-d47fdb",
+      "type": "official",
+      "slug": "galina-vidolova-balabanova-d47fdb",
+      "label": "Галина Видолова Балабанова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203822348",
+      "type": "company",
+      "label": "Алития Медика ООД",
+      "slug": null,
+      "uic": "203822348",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207002080",
+      "type": "company",
+      "label": "Галианто Медикъл",
+      "slug": null,
+      "uic": "207002080",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОН МИХАЙЛОВ РУСЕВ",
+      "type": "person",
+      "label": "Антон Михайлов Русев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-vidolova-balabanova-d47fdb",
+      "target": "company:tr:203822348",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:galina-vidolova-balabanova-d47fdb",
+      "target": "company:tr:207002080",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-vidolova-balabanova-d47fdb",
+      "target": "company:tr:207002080",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОН МИХАЙЛОВ РУСЕВ",
+      "target": "company:tr:207002080",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kremena-stefanova-georgieva-c08743","nodes":[{"id":"official:kremena-stefanova-georgieva-c08743","type":"official","slug":"kremena-stefanova-georgieva-c08743","label":"Кремена Стефанова Георгиева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000046478","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ СВЕТЛИНА - 1934 г.","slug":null,"uic":"000046478","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Иван Георгиев Георгиев"},{"id":"person:ЛИЛЯНА КОСТАДИНОВА ГЕОРГИЕВА","type":"person","label":"Лиляна Костадинова Георгиева"},{"id":"person:ИРИНА ТОДОРОВА БЕНЧЕВА","type":"person","label":"Ирина Тодорова Бенчева"},{"id":"person:ПРОЛЕТИНА ПЕТКОВА ВЕЛИКОВА-СЪРХОШЕВА","type":"person","label":"Пролетина Петкова Великова-Сърхошева"},{"id":"person:ДОБРОМИР ВЕСЕЛИНОВ ГЕОРГИЕВ","type":"person","label":"Добромир Веселинов Георгиев"},{"id":"person:ЯНКА ИВАНОВА ДИМИТРОВА","type":"person","label":"Янка Иванова Димитрова"},{"id":"person:НЕДКА ВЪЛКОВА ВЪЛКОВА","type":"person","label":"Недка Вълкова Вълкова"}],"edges":[{"source":"official:kremena-stefanova-georgieva-c08743","target":"company:tr:000046478","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:000046478","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛЯНА КОСТАДИНОВА ГЕОРГИЕВА","target":"company:tr:000046478","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ТОДОРОВА БЕНЧЕВА","target":"company:tr:000046478","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПРОЛЕТИНА ПЕТКОВА ВЕЛИКОВА-СЪРХОШЕВА","target":"company:tr:000046478","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР ВЕСЕЛИНОВ ГЕОРГИЕВ","target":"company:tr:000046478","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКА ИВАНОВА ДИМИТРОВА","target":"company:tr:000046478","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКА ВЪЛКОВА ВЪЛКОВА","target":"company:tr:000046478","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kremena-stefanova-georgieva-c08743",
+  "nodes": [
+    {
+      "id": "official:kremena-stefanova-georgieva-c08743",
+      "type": "official",
+      "slug": "kremena-stefanova-georgieva-c08743",
+      "label": "Кремена Стефанова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000046478",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ СВЕТЛИНА - 1934 г.",
+      "slug": null,
+      "uic": "000046478",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Иван Георгиев Георгиев"
+    },
+    {
+      "id": "person:ЛИЛЯНА КОСТАДИНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Лиляна Костадинова Георгиева"
+    },
+    {
+      "id": "person:ИРИНА ТОДОРОВА БЕНЧЕВА",
+      "type": "person",
+      "label": "Ирина Тодорова Бенчева"
+    },
+    {
+      "id": "person:ПРОЛЕТИНА ПЕТКОВА ВЕЛИКОВА-СЪРХОШЕВА",
+      "type": "person",
+      "label": "Пролетина Петкова Великова-Сърхошева"
+    },
+    {
+      "id": "person:ДОБРОМИР ВЕСЕЛИНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Добромир Веселинов Георгиев"
+    },
+    {
+      "id": "person:ЯНКА ИВАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Янка Иванова Димитрова"
+    },
+    {
+      "id": "person:НЕДКА ВЪЛКОВА ВЪЛКОВА",
+      "type": "person",
+      "label": "Недка Вълкова Вълкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kremena-stefanova-georgieva-c08743",
+      "target": "company:tr:000046478",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:000046478",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА КОСТАДИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000046478",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ТОДОРОВА БЕНЧЕВА",
+      "target": "company:tr:000046478",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПРОЛЕТИНА ПЕТКОВА ВЕЛИКОВА-СЪРХОШЕВА",
+      "target": "company:tr:000046478",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ВЕСЕЛИНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000046478",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА ИВАНОВА ДИМИТРОВА",
+      "target": "company:tr:000046478",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКА ВЪЛКОВА ВЪЛКОВА",
+      "target": "company:tr:000046478",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

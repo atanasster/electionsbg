@@ -1,1 +1,124 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-georgiev-zlatkov-3824b1","nodes":[{"id":"official:vladimir-georgiev-zlatkov-3824b1","type":"official","slug":"vladimir-georgiev-zlatkov-3824b1","label":"Владимир Георгиев Златков","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206404701","type":"company","label":"Констракс ЕООД","slug":null,"uic":"206404701","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207423916","type":"company","label":"Хоумоун ЕООД","slug":null,"uic":"207423916","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207424509","type":"company","label":"Хоумоун Пропърти ЕООД","slug":null,"uic":"207424509","legalForm":null,"status":null,"seat":null},{"id":"person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ","type":"person","label":"Владимир Георгиев Златков"}],"edges":[{"source":"official:vladimir-georgiev-zlatkov-3824b1","target":"company:tr:206404701","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vladimir-georgiev-zlatkov-3824b1","target":"company:tr:207423916","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vladimir-georgiev-zlatkov-3824b1","target":"company:tr:207424509","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ","target":"company:tr:206404701","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ","target":"company:tr:206404701","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ","target":"company:tr:207423916","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ","target":"company:tr:207423916","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ","target":"company:tr:207424509","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ","target":"company:tr:207424509","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-georgiev-zlatkov-3824b1",
+  "nodes": [
+    {
+      "id": "official:vladimir-georgiev-zlatkov-3824b1",
+      "type": "official",
+      "slug": "vladimir-georgiev-zlatkov-3824b1",
+      "label": "Владимир Георгиев Златков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206404701",
+      "type": "company",
+      "label": "Констракс ЕООД",
+      "slug": null,
+      "uic": "206404701",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207423916",
+      "type": "company",
+      "label": "Хоумоун ЕООД",
+      "slug": null,
+      "uic": "207423916",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207424509",
+      "type": "company",
+      "label": "Хоумоун Пропърти ЕООД",
+      "slug": null,
+      "uic": "207424509",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ",
+      "type": "person",
+      "label": "Владимир Георгиев Златков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-georgiev-zlatkov-3824b1",
+      "target": "company:tr:206404701",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-georgiev-zlatkov-3824b1",
+      "target": "company:tr:207423916",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-georgiev-zlatkov-3824b1",
+      "target": "company:tr:207424509",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ",
+      "target": "company:tr:206404701",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ",
+      "target": "company:tr:206404701",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ",
+      "target": "company:tr:207423916",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ",
+      "target": "company:tr:207423916",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ",
+      "target": "company:tr:207424509",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГЕОРГИЕВ ЗЛАТКОВ",
+      "target": "company:tr:207424509",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

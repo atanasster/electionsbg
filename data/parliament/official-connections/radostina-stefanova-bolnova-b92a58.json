@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:radostina-stefanova-bolnova-b92a58","nodes":[{"id":"official:radostina-stefanova-bolnova-b92a58","type":"official","slug":"radostina-stefanova-bolnova-b92a58","label":"Радостина Стефанова Болнова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207685053","type":"company","label":"ЦЪРКОВНО НАСТОЯТЕЛСТВО ПРИ ПРАВОСЛАВЕН ХРАМ \"СВЕТИ НИКОЛАЙ\" - ГР. СЛАВЯНОВО","slug":null,"uic":"207685053","legalForm":null,"status":null,"seat":null},{"id":"person:БОЙКО КИРИЛОВ ГАРГОВ","type":"person","label":"Бойко Кирилов Гаргов"},{"id":"person:ЛИЛИЯ ПЕТРОВА КЪРЧЕВА","type":"person","label":"Лилия Петрова Кърчева"},{"id":"person:БОРИСЛАВ РАНГЕЛОВ ЧОЧЕВ","type":"person","label":"Борислав Рангелов Чочев"},{"id":"person:СВЕТЛАНА АСЕНОВА КЛАТУРОВА","type":"person","label":"Светлана Асенова Клатурова"}],"edges":[{"source":"official:radostina-stefanova-bolnova-b92a58","target":"company:tr:207685053","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:БОЙКО КИРИЛОВ ГАРГОВ","target":"company:tr:207685053","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКО КИРИЛОВ ГАРГОВ","target":"company:tr:207685053","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛИЯ ПЕТРОВА КЪРЧЕВА","target":"company:tr:207685053","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ РАНГЕЛОВ ЧОЧЕВ","target":"company:tr:207685053","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА АСЕНОВА КЛАТУРОВА","target":"company:tr:207685053","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:radostina-stefanova-bolnova-b92a58",
+  "nodes": [
+    {
+      "id": "official:radostina-stefanova-bolnova-b92a58",
+      "type": "official",
+      "slug": "radostina-stefanova-bolnova-b92a58",
+      "label": "Радостина Стефанова Болнова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207685053",
+      "type": "company",
+      "label": "ЦЪРКОВНО НАСТОЯТЕЛСТВО ПРИ ПРАВОСЛАВЕН ХРАМ \"СВЕТИ НИКОЛАЙ\" - ГР. СЛАВЯНОВО",
+      "slug": null,
+      "uic": "207685053",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОЙКО КИРИЛОВ ГАРГОВ",
+      "type": "person",
+      "label": "Бойко Кирилов Гаргов"
+    },
+    {
+      "id": "person:ЛИЛИЯ ПЕТРОВА КЪРЧЕВА",
+      "type": "person",
+      "label": "Лилия Петрова Кърчева"
+    },
+    {
+      "id": "person:БОРИСЛАВ РАНГЕЛОВ ЧОЧЕВ",
+      "type": "person",
+      "label": "Борислав Рангелов Чочев"
+    },
+    {
+      "id": "person:СВЕТЛАНА АСЕНОВА КЛАТУРОВА",
+      "type": "person",
+      "label": "Светлана Асенова Клатурова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radostina-stefanova-bolnova-b92a58",
+      "target": "company:tr:207685053",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЙКО КИРИЛОВ ГАРГОВ",
+      "target": "company:tr:207685053",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО КИРИЛОВ ГАРГОВ",
+      "target": "company:tr:207685053",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ПЕТРОВА КЪРЧЕВА",
+      "target": "company:tr:207685053",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ РАНГЕЛОВ ЧОЧЕВ",
+      "target": "company:tr:207685053",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА АСЕНОВА КЛАТУРОВА",
+      "target": "company:tr:207685053",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

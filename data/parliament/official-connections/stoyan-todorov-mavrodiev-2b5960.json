@@ -1,1 +1,99 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stoyan-todorov-mavrodiev-2b5960","nodes":[{"id":"official:stoyan-todorov-mavrodiev-2b5960","type":"official","slug":"stoyan-todorov-mavrodiev-2b5960","label":"Стоян Тодоров Мавродиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:131160908","type":"company","label":"Рийл Естейт Венчърс ЕООД","slug":null,"uic":"131160908","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207260102","type":"company","label":"Рийду","slug":null,"uic":"207260102","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1164"},{"id":"person:МАРУСИЯ ХРИСТОВА ВЕЛЧЕВА","type":"person","label":"Марусия Христова Велчева"},{"id":"mp:1020","type":"mp","mpId":1020,"label":"Стоян Тодоров Мавродиев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"official:stoyan-todorov-mavrodiev-2b5960","target":"company:tr:131160908","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stoyan-todorov-mavrodiev-2b5960","target":"company:tr:207260102","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:stoyan-todorov-mavrodiev-2b5960","target":"company:tr:207260102","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:МАРУСИЯ ХРИСТОВА ВЕЛЧЕВА","target":"company:tr:131160908","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"mp:1020","target":"company:tr:207260102","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1020","target":"company:tr:207260102","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stoyan-todorov-mavrodiev-2b5960",
+  "nodes": [
+    {
+      "id": "official:stoyan-todorov-mavrodiev-2b5960",
+      "type": "official",
+      "slug": "stoyan-todorov-mavrodiev-2b5960",
+      "label": "Стоян Тодоров Мавродиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131160908",
+      "type": "company",
+      "label": "Рийл Естейт Венчърс ЕООД",
+      "slug": null,
+      "uic": "131160908",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207260102",
+      "type": "company",
+      "label": "Рийду",
+      "slug": null,
+      "uic": "207260102",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1164"
+    },
+    {
+      "id": "person:МАРУСИЯ ХРИСТОВА ВЕЛЧЕВА",
+      "type": "person",
+      "label": "Марусия Христова Велчева"
+    },
+    {
+      "id": "mp:1020",
+      "type": "mp",
+      "mpId": 1020,
+      "label": "Стоян Тодоров Мавродиев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-todorov-mavrodiev-2b5960",
+      "target": "company:tr:131160908",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stoyan-todorov-mavrodiev-2b5960",
+      "target": "company:tr:207260102",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-todorov-mavrodiev-2b5960",
+      "target": "company:tr:207260102",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРУСИЯ ХРИСТОВА ВЕЛЧЕВА",
+      "target": "company:tr:131160908",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1020",
+      "target": "company:tr:207260102",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1020",
+      "target": "company:tr:207260102",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

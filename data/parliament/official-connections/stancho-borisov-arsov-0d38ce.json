@@ -1,1 +1,160 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stancho-borisov-arsov-0d38ce","nodes":[{"id":"official:stancho-borisov-arsov-0d38ce","type":"official","slug":"stancho-borisov-arsov-0d38ce","label":"Станчо Борисов Арсов","tier":"municipal","role":"councillor","municipality":"Ситово"},{"id":"company:tr:177186814","type":"company","label":"ВЪЗРАЖДАНЕ - 2017","slug":null,"uic":"177186814","legalForm":null,"status":null,"seat":null},{"id":"person:МИРОСЛАВА КОЛЕВА ТОДОРОВА","type":"person","label":"Мирослава Колева Тодорова"},{"id":"person:РОСИЦА ХАРАЛАМБИЕВА ГЕОРГИЕВА","type":"person","label":"Росица Хараламбиева Георгиева"},{"id":"person:ВАНЯ ЙОРДАНОВА ДРАГОЕВА","type":"person","label":"Ваня Йорданова Драгоева"},{"id":"person:МАРИАНА ПЕТРОВА ПАНОВА","type":"person","label":"Мариана Петрова Панова"},{"id":"person:ХРИЗАНТЕМА ХРИСТОВА ЙОРДАНОВА","type":"person","label":"Хризантема Христова Йорданова"},{"id":"person:ДЕТЕЛИНА КРЪСТЕВА ИВАНОВА","type":"person","label":"Детелина Кръстева Иванова"},{"id":"person:БОРЯНА ИВАНОВА ВЕЛИКОВА","type":"person","label":"Боряна Иванова Великова"},{"id":"person:РАДКА ЗДРАВКОВА КАРАРАДОВА","type":"person","label":"Радка Здравкова Карарадова"},{"id":"person:МАРИАНА ПЕТРОВА ИВАНОВА-ЙОНКОВА","type":"person","label":"Мариана Петрова Иванова-Йонкова"}],"edges":[{"source":"official:stancho-borisov-arsov-0d38ce","target":"company:tr:177186814","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:stancho-borisov-arsov-0d38ce","target":"company:tr:177186814","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:МИРОСЛАВА КОЛЕВА ТОДОРОВА","target":"company:tr:177186814","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ХАРАЛАМБИЕВА ГЕОРГИЕВА","target":"company:tr:177186814","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ЙОРДАНОВА ДРАГОЕВА","target":"company:tr:177186814","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ПЕТРОВА ПАНОВА","target":"company:tr:177186814","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИЗАНТЕМА ХРИСТОВА ЙОРДАНОВА","target":"company:tr:177186814","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕТЕЛИНА КРЪСТЕВА ИВАНОВА","target":"company:tr:177186814","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯНА ИВАНОВА ВЕЛИКОВА","target":"company:tr:177186814","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ЗДРАВКОВА КАРАРАДОВА","target":"company:tr:177186814","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ПЕТРОВА ИВАНОВА-ЙОНКОВА","target":"company:tr:177186814","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stancho-borisov-arsov-0d38ce",
+  "nodes": [
+    {
+      "id": "official:stancho-borisov-arsov-0d38ce",
+      "type": "official",
+      "slug": "stancho-borisov-arsov-0d38ce",
+      "label": "Станчо Борисов Арсов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ситово"
+    },
+    {
+      "id": "company:tr:177186814",
+      "type": "company",
+      "label": "ВЪЗРАЖДАНЕ - 2017",
+      "slug": null,
+      "uic": "177186814",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВА КОЛЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Мирослава Колева Тодорова"
+    },
+    {
+      "id": "person:РОСИЦА ХАРАЛАМБИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Росица Хараламбиева Георгиева"
+    },
+    {
+      "id": "person:ВАНЯ ЙОРДАНОВА ДРАГОЕВА",
+      "type": "person",
+      "label": "Ваня Йорданова Драгоева"
+    },
+    {
+      "id": "person:МАРИАНА ПЕТРОВА ПАНОВА",
+      "type": "person",
+      "label": "Мариана Петрова Панова"
+    },
+    {
+      "id": "person:ХРИЗАНТЕМА ХРИСТОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Хризантема Христова Йорданова"
+    },
+    {
+      "id": "person:ДЕТЕЛИНА КРЪСТЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Детелина Кръстева Иванова"
+    },
+    {
+      "id": "person:БОРЯНА ИВАНОВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Боряна Иванова Великова"
+    },
+    {
+      "id": "person:РАДКА ЗДРАВКОВА КАРАРАДОВА",
+      "type": "person",
+      "label": "Радка Здравкова Карарадова"
+    },
+    {
+      "id": "person:МАРИАНА ПЕТРОВА ИВАНОВА-ЙОНКОВА",
+      "type": "person",
+      "label": "Мариана Петрова Иванова-Йонкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stancho-borisov-arsov-0d38ce",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stancho-borisov-arsov-0d38ce",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВА КОЛЕВА ТОДОРОВА",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ХАРАЛАМБИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ЙОРДАНОВА ДРАГОЕВА",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ПЕТРОВА ПАНОВА",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИЗАНТЕМА ХРИСТОВА ЙОРДАНОВА",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИНА КРЪСТЕВА ИВАНОВА",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ИВАНОВА ВЕЛИКОВА",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ЗДРАВКОВА КАРАРАДОВА",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ПЕТРОВА ИВАНОВА-ЙОНКОВА",
+      "target": "company:tr:177186814",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

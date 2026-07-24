@@ -1,1 +1,185 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valeri-borisov-iordanov-3410ec","nodes":[{"id":"official:valeri-borisov-iordanov-3410ec","type":"official","slug":"valeri-borisov-iordanov-3410ec","label":"Валери Борисов Йорданов","tier":"executive","role":"secretary_general","municipality":null},{"id":"company:tr:130004532","type":"company","label":"Фондация &quot;ДОВЕРИЕ И ЗАКРИЛА&quot;","slug":null,"uic":"130004532","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:163","type":"mp","mpId":163,"label":"Васил Минчев Иванов-Лучано","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"person:ВАСИЛ ТЕОФИЛОВ ВАСИЛЕВ","type":"person","label":"Васил Теофилов Василев"},{"id":"person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ","type":"person","label":"Емил Димитров Панчев"},{"id":"person:КАМЕН ПЕНКОВ ПЕНКОВ","type":"person","label":"Камен Пенков Пенков"},{"id":"person:МАЯ АЛЕКСАНДРОВА АНТОВА","type":"person","label":"Мая Александрова Антова"},{"id":"person:ДЕСИСЛАВА ЕМИЛОВА ПАНЧЕВА","type":"person","label":"Десислава Емилова Панчева"},{"id":"person:МИЛЧО ИВАНОВ ЕНЕВ","type":"person","label":"Милчо Иванов Енев"},{"id":"person:КАЛОЯН ИВАНОВ МИЛТЕНОВ","type":"person","label":"Калоян Иванов Милтенов"},{"id":"person:ЕЛИ ЙОРДАНОВА МЛАДЕНОВА","type":"person","label":"Ели Йорданова Младенова"},{"id":"person:ВЕНЕЛИН КРАСИМИРОВ МЛАДЕНОВ","type":"person","label":"Венелин Красимиров Младенов"}],"edges":[{"source":"official:valeri-borisov-iordanov-3410ec","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:163","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВАСИЛ ТЕОФИЛОВ ВАСИЛЕВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕН ПЕНКОВ ПЕНКОВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАЯ АЛЕКСАНДРОВА АНТОВА","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ЕМИЛОВА ПАНЧЕВА","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЧО ИВАНОВ ЕНЕВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ТЕОФИЛОВ ВАСИЛЕВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН ИВАНОВ МИЛТЕНОВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИ ЙОРДАНОВА МЛАДЕНОВА","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИН КРАСИМИРОВ МЛАДЕНОВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valeri-borisov-iordanov-3410ec",
+  "nodes": [
+    {
+      "id": "official:valeri-borisov-iordanov-3410ec",
+      "type": "official",
+      "slug": "valeri-borisov-iordanov-3410ec",
+      "label": "Валери Борисов Йорданов",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130004532",
+      "type": "company",
+      "label": "Фондация &quot;ДОВЕРИЕ И ЗАКРИЛА&quot;",
+      "slug": null,
+      "uic": "130004532",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:163",
+      "type": "mp",
+      "mpId": 163,
+      "label": "Васил Минчев Иванов-Лучано",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ВАСИЛ ТЕОФИЛОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Теофилов Василев"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ",
+      "type": "person",
+      "label": "Емил Димитров Панчев"
+    },
+    {
+      "id": "person:КАМЕН ПЕНКОВ ПЕНКОВ",
+      "type": "person",
+      "label": "Камен Пенков Пенков"
+    },
+    {
+      "id": "person:МАЯ АЛЕКСАНДРОВА АНТОВА",
+      "type": "person",
+      "label": "Мая Александрова Антова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЕМИЛОВА ПАНЧЕВА",
+      "type": "person",
+      "label": "Десислава Емилова Панчева"
+    },
+    {
+      "id": "person:МИЛЧО ИВАНОВ ЕНЕВ",
+      "type": "person",
+      "label": "Милчо Иванов Енев"
+    },
+    {
+      "id": "person:КАЛОЯН ИВАНОВ МИЛТЕНОВ",
+      "type": "person",
+      "label": "Калоян Иванов Милтенов"
+    },
+    {
+      "id": "person:ЕЛИ ЙОРДАНОВА МЛАДЕНОВА",
+      "type": "person",
+      "label": "Ели Йорданова Младенова"
+    },
+    {
+      "id": "person:ВЕНЕЛИН КРАСИМИРОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Венелин Красимиров Младенов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeri-borisov-iordanov-3410ec",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:163",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ТЕОФИЛОВ ВАСИЛЕВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕН ПЕНКОВ ПЕНКОВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ АЛЕКСАНДРОВА АНТОВА",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕМИЛОВА ПАНЧЕВА",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЧО ИВАНОВ ЕНЕВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ТЕОФИЛОВ ВАСИЛЕВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ИВАНОВ МИЛТЕНОВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИ ЙОРДАНОВА МЛАДЕНОВА",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН КРАСИМИРОВ МЛАДЕНОВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

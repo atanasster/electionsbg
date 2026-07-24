@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:desislava-stefanova-dimitrova-75ae17","nodes":[{"id":"official:desislava-stefanova-dimitrova-75ae17","type":"official","slug":"desislava-stefanova-dimitrova-75ae17","label":"Десислава Стефанова Димитрова","tier":"municipal","role":"councillor","municipality":"Мездра"},{"id":"company:tr:000183719","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА-1929-ОСЕЛНА","slug":null,"uic":"000183719","legalForm":null,"status":null,"seat":null},{"id":"person:ИВЕТА МИЛОВА ТОДОРОВА","type":"person","label":"Ивета Милова Тодорова"},{"id":"person:ПЕТЯ АНТОНОВА ИЛИЕВА","type":"person","label":"Петя Антонова Илиева"},{"id":"person:ЮЛИЯН ЯКИМОВ ИВАНОВ","type":"person","label":"Юлиян Якимов Иванов"},{"id":"person:ПЕНКА ГЕОРГИЕВА СТОЯНОВА","type":"person","label":"Пенка Георгиева Стоянова"},{"id":"person:АНЕЛИЯ БОРИСЛАВОВА ИЛИЕВА","type":"person","label":"Анелия Бориславова Илиева"},{"id":"person:ЦВЕТА ПАВЛОВА МАРКОВА","type":"person","label":"Цвета Павлова Маркова"},{"id":"person:КАМЕЛИЯ БОГОМИЛОВА ИЛИЕВА","type":"person","label":"Камелия Богомилова Илиева"}],"edges":[{"source":"official:desislava-stefanova-dimitrova-75ae17","target":"company:tr:000183719","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:desislava-stefanova-dimitrova-75ae17","target":"company:tr:000183719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ИВЕТА МИЛОВА ТОДОРОВА","target":"company:tr:000183719","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕТА МИЛОВА ТОДОРОВА","target":"company:tr:000183719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ АНТОНОВА ИЛИЕВА","target":"company:tr:000183719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЯН ЯКИМОВ ИВАНОВ","target":"company:tr:000183719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА ГЕОРГИЕВА СТОЯНОВА","target":"company:tr:000183719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ БОРИСЛАВОВА ИЛИЕВА","target":"company:tr:000183719","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТА ПАВЛОВА МАРКОВА","target":"company:tr:000183719","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ БОГОМИЛОВА ИЛИЕВА","target":"company:tr:000183719","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:desislava-stefanova-dimitrova-75ae17",
+  "nodes": [
+    {
+      "id": "official:desislava-stefanova-dimitrova-75ae17",
+      "type": "official",
+      "slug": "desislava-stefanova-dimitrova-75ae17",
+      "label": "Десислава Стефанова Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "company:tr:000183719",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА-1929-ОСЕЛНА",
+      "slug": null,
+      "uic": "000183719",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕТА МИЛОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Ивета Милова Тодорова"
+    },
+    {
+      "id": "person:ПЕТЯ АНТОНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Петя Антонова Илиева"
+    },
+    {
+      "id": "person:ЮЛИЯН ЯКИМОВ ИВАНОВ",
+      "type": "person",
+      "label": "Юлиян Якимов Иванов"
+    },
+    {
+      "id": "person:ПЕНКА ГЕОРГИЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Пенка Георгиева Стоянова"
+    },
+    {
+      "id": "person:АНЕЛИЯ БОРИСЛАВОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Анелия Бориславова Илиева"
+    },
+    {
+      "id": "person:ЦВЕТА ПАВЛОВА МАРКОВА",
+      "type": "person",
+      "label": "Цвета Павлова Маркова"
+    },
+    {
+      "id": "person:КАМЕЛИЯ БОГОМИЛОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Камелия Богомилова Илиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:desislava-stefanova-dimitrova-75ae17",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:desislava-stefanova-dimitrova-75ae17",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕТА МИЛОВА ТОДОРОВА",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕТА МИЛОВА ТОДОРОВА",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ АНТОНОВА ИЛИЕВА",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯН ЯКИМОВ ИВАНОВ",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ГЕОРГИЕВА СТОЯНОВА",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ БОРИСЛАВОВА ИЛИЕВА",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТА ПАВЛОВА МАРКОВА",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ БОГОМИЛОВА ИЛИЕВА",
+      "target": "company:tr:000183719",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

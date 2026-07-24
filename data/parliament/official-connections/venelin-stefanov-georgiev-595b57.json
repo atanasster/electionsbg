@@ -1,1 +1,362 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:venelin-stefanov-georgiev-595b57","nodes":[{"id":"official:venelin-stefanov-georgiev-595b57","type":"official","slug":"venelin-stefanov-georgiev-595b57","label":"Венелин Стефанов Георгиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:129007111","type":"company","label":"ВАЗОВСКИ МАШИНОСТРОИТЕЛНИ ЗАВОДИ","slug":null,"uic":"129007111","legalForm":null,"status":null,"seat":null},{"id":"official:ivailo-stefanov-knev-6ed409","type":"official","slug":"ivailo-stefanov-knev-6ed409","label":"Ивайло Стефанов Кънев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ТИХОМИР ДИМОВ ИВАНОВ","type":"person","label":"Тихомир Димов Иванов"},{"id":"person:ГЕОРГИ ДИМИТРОВ ВЪЛЧАНОВ","type":"person","label":"Георги Димитров Вълчанов"},{"id":"person:ИВАН ДИМИТРОВ КАРАБАТАКОВ","type":"person","label":"Иван Димитров Карабатаков"},{"id":"person:КРИСТИНА ВЪЛКОВА СТОЯНОВА","type":"person","label":"Кристина Вълкова Стоянова"},{"id":"person:ИВАН ЙОРДАНОВ ГЕЦОВ","type":"person","label":"Иван Йорданов Гецов"},{"id":"person:НИКОЛА РУМЕНОВ СТОЯНОВ","type":"person","label":"Никола Руменов Стоянов"},{"id":"person:МАРТИН ДОЧЕВ ДОЧЕВ","type":"person","label":"Мартин Дочев Дочев"},{"id":"person:НИКОЛАЙ АЛЕКСАНДРОВ НИКОЛОВ","type":"person","label":"Николай Александров Николов"},{"id":"person:ИВАН ДЕЛЕВ АНГЕЛОВ","type":"person","label":"Иван Делев Ангелов"},{"id":"person:ИВАН АТАНАСОВ СТОЕНЧЕВ","type":"person","label":"Иван Атанасов Стоенчев"},{"id":"person:ИВАН ВАСИЛЕВ ИВАНОВ","type":"person","label":"Иван Василев Иванов"},{"id":"person:КАМЕН НИКОЛОВ ШАРАЛИЕВ","type":"person","label":"Камен Николов Шаралиев"},{"id":"person:МАРИЯН КЪНЧЕВ ЙОВЧЕВ","type":"person","label":"Мариян Кънчев Йовчев"},{"id":"person:ТОМА ХРИСТОВ ЦИЛЕВ","type":"person","label":"Тома Христов Цилев"},{"id":"person:СТЕЛА ЛЮБЧЕВА КОСТОВА","type":"person","label":"Стела Любчева Костова"},{"id":"person:СТАНИСЛАВА НИКОЛОВА ГЕОРГИЕВА","type":"person","label":"Станислава Николова Георгиева"},{"id":"person:АНАСТАСИЯ ДИМИТРОВА МИРЧЕВА- НИКОЛОВА","type":"person","label":"Анастасия Димитрова Мирчева- Николова"},{"id":"person:ЛЪЧЕЗАР ИВАНОВ ЧОТОВ","type":"person","label":"Лъчезар Иванов Чотов"},{"id":"person:АСЕН НИКОЛАЕВ НЕНЧЕВ","type":"person","label":"Асен Николаев Ненчев"},{"id":"person:ТЕОДОРА ВЛАДИМИРОВА СТОЯНОВА","type":"person","label":"Теодора Владимирова Стоянова"},{"id":"person:ХРИСТИЯН ПЛАМЕНОВ СУЛТАНОВ","type":"person","label":"Християн Пламенов Султанов"},{"id":"person:ИВАН ПЕТКОВ СЕМЕРДЖИЕВ","type":"person","label":"Иван Петков Семерджиев"}],"edges":[{"source":"official:venelin-stefanov-georgiev-595b57","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:ivailo-stefanov-knev-6ed409","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ТИХОМИР ДИМОВ ИВАНОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ДИМИТРОВ ВЪЛЧАНОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ КАРАБАТАКОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА ВЪЛКОВА СТОЯНОВА","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЙОРДАНОВ ГЕЦОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА РУМЕНОВ СТОЯНОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ДОЧЕВ ДОЧЕВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ АЛЕКСАНДРОВ НИКОЛОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДЕЛЕВ АНГЕЛОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ СТОЕНЧЕВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ СТОЕНЧЕВ","target":"company:tr:129007111","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВАСИЛЕВ ИВАНОВ","target":"company:tr:129007111","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВАСИЛЕВ ИВАНОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕН НИКОЛОВ ШАРАЛИЕВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯН КЪНЧЕВ ЙОВЧЕВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТОМА ХРИСТОВ ЦИЛЕВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТЕЛА ЛЮБЧЕВА КОСТОВА","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЙОРДАНОВ ГЕЦОВ","target":"company:tr:129007111","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВА НИКОЛОВА ГЕОРГИЕВА","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНАСТАСИЯ ДИМИТРОВА МИРЧЕВА- НИКОЛОВА","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР ИВАНОВ ЧОТОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН НИКОЛАЕВ НЕНЧЕВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ВЛАДИМИРОВА СТОЯНОВА","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИЯН ПЛАМЕНОВ СУЛТАНОВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ПЕТКОВ СЕМЕРДЖИЕВ","target":"company:tr:129007111","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:venelin-stefanov-georgiev-595b57",
+  "nodes": [
+    {
+      "id": "official:venelin-stefanov-georgiev-595b57",
+      "type": "official",
+      "slug": "venelin-stefanov-georgiev-595b57",
+      "label": "Венелин Стефанов Георгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:129007111",
+      "type": "company",
+      "label": "ВАЗОВСКИ МАШИНОСТРОИТЕЛНИ ЗАВОДИ",
+      "slug": null,
+      "uic": "129007111",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivailo-stefanov-knev-6ed409",
+      "type": "official",
+      "slug": "ivailo-stefanov-knev-6ed409",
+      "label": "Ивайло Стефанов Кънев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ТИХОМИР ДИМОВ ИВАНОВ",
+      "type": "person",
+      "label": "Тихомир Димов Иванов"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ ВЪЛЧАНОВ",
+      "type": "person",
+      "label": "Георги Димитров Вълчанов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ КАРАБАТАКОВ",
+      "type": "person",
+      "label": "Иван Димитров Карабатаков"
+    },
+    {
+      "id": "person:КРИСТИНА ВЪЛКОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Кристина Вълкова Стоянова"
+    },
+    {
+      "id": "person:ИВАН ЙОРДАНОВ ГЕЦОВ",
+      "type": "person",
+      "label": "Иван Йорданов Гецов"
+    },
+    {
+      "id": "person:НИКОЛА РУМЕНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Никола Руменов Стоянов"
+    },
+    {
+      "id": "person:МАРТИН ДОЧЕВ ДОЧЕВ",
+      "type": "person",
+      "label": "Мартин Дочев Дочев"
+    },
+    {
+      "id": "person:НИКОЛАЙ АЛЕКСАНДРОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Александров Николов"
+    },
+    {
+      "id": "person:ИВАН ДЕЛЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Иван Делев Ангелов"
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ СТОЕНЧЕВ",
+      "type": "person",
+      "label": "Иван Атанасов Стоенчев"
+    },
+    {
+      "id": "person:ИВАН ВАСИЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Василев Иванов"
+    },
+    {
+      "id": "person:КАМЕН НИКОЛОВ ШАРАЛИЕВ",
+      "type": "person",
+      "label": "Камен Николов Шаралиев"
+    },
+    {
+      "id": "person:МАРИЯН КЪНЧЕВ ЙОВЧЕВ",
+      "type": "person",
+      "label": "Мариян Кънчев Йовчев"
+    },
+    {
+      "id": "person:ТОМА ХРИСТОВ ЦИЛЕВ",
+      "type": "person",
+      "label": "Тома Христов Цилев"
+    },
+    {
+      "id": "person:СТЕЛА ЛЮБЧЕВА КОСТОВА",
+      "type": "person",
+      "label": "Стела Любчева Костова"
+    },
+    {
+      "id": "person:СТАНИСЛАВА НИКОЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Станислава Николова Георгиева"
+    },
+    {
+      "id": "person:АНАСТАСИЯ ДИМИТРОВА МИРЧЕВА- НИКОЛОВА",
+      "type": "person",
+      "label": "Анастасия Димитрова Мирчева- Николова"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ИВАНОВ ЧОТОВ",
+      "type": "person",
+      "label": "Лъчезар Иванов Чотов"
+    },
+    {
+      "id": "person:АСЕН НИКОЛАЕВ НЕНЧЕВ",
+      "type": "person",
+      "label": "Асен Николаев Ненчев"
+    },
+    {
+      "id": "person:ТЕОДОРА ВЛАДИМИРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Теодора Владимирова Стоянова"
+    },
+    {
+      "id": "person:ХРИСТИЯН ПЛАМЕНОВ СУЛТАНОВ",
+      "type": "person",
+      "label": "Християн Пламенов Султанов"
+    },
+    {
+      "id": "person:ИВАН ПЕТКОВ СЕМЕРДЖИЕВ",
+      "type": "person",
+      "label": "Иван Петков Семерджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:venelin-stefanov-georgiev-595b57",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-stefanov-knev-6ed409",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТИХОМИР ДИМОВ ИВАНОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ ВЪЛЧАНОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ КАРАБАТАКОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ВЪЛКОВА СТОЯНОВА",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЙОРДАНОВ ГЕЦОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА РУМЕНОВ СТОЯНОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ДОЧЕВ ДОЧЕВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АЛЕКСАНДРОВ НИКОЛОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДЕЛЕВ АНГЕЛОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ СТОЕНЧЕВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ СТОЕНЧЕВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕН НИКОЛОВ ШАРАЛИЕВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯН КЪНЧЕВ ЙОВЧЕВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМА ХРИСТОВ ЦИЛЕВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА ЛЮБЧЕВА КОСТОВА",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЙОРДАНОВ ГЕЦОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА НИКОЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАСТАСИЯ ДИМИТРОВА МИРЧЕВА- НИКОЛОВА",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ИВАНОВ ЧОТОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН НИКОЛАЕВ НЕНЧЕВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ВЛАДИМИРОВА СТОЯНОВА",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИЯН ПЛАМЕНОВ СУЛТАНОВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТКОВ СЕМЕРДЖИЕВ",
+      "target": "company:tr:129007111",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

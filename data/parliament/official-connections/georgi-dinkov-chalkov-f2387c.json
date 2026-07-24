@@ -1,1 +1,72 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-dinkov-chalkov-f2387c","nodes":[{"id":"official:georgi-dinkov-chalkov-f2387c","type":"official","slug":"georgi-dinkov-chalkov-f2387c","label":"Георги Динков Чалъков","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:204686919","type":"company","label":"Фрий Ланд Фарм ООД","slug":null,"uic":"204686919","legalForm":null,"status":null,"seat":null},{"id":"person:АХМЕД АЛИЕВ АХМЕДОВ","type":"person","label":"Ахмед Алиев Ахмедов"}],"edges":[{"source":"official:georgi-dinkov-chalkov-f2387c","target":"company:tr:204686919","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-dinkov-chalkov-f2387c","target":"company:tr:204686919","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-dinkov-chalkov-f2387c","target":"company:tr:204686919","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:АХМЕД АЛИЕВ АХМЕДОВ","target":"company:tr:204686919","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АХМЕД АЛИЕВ АХМЕДОВ","target":"company:tr:204686919","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-dinkov-chalkov-f2387c",
+  "nodes": [
+    {
+      "id": "official:georgi-dinkov-chalkov-f2387c",
+      "type": "official",
+      "slug": "georgi-dinkov-chalkov-f2387c",
+      "label": "Георги Динков Чалъков",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204686919",
+      "type": "company",
+      "label": "Фрий Ланд Фарм ООД",
+      "slug": null,
+      "uic": "204686919",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АХМЕД АЛИЕВ АХМЕДОВ",
+      "type": "person",
+      "label": "Ахмед Алиев Ахмедов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-dinkov-chalkov-f2387c",
+      "target": "company:tr:204686919",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-dinkov-chalkov-f2387c",
+      "target": "company:tr:204686919",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-dinkov-chalkov-f2387c",
+      "target": "company:tr:204686919",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АХМЕД АЛИЕВ АХМЕДОВ",
+      "target": "company:tr:204686919",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД АЛИЕВ АХМЕДОВ",
+      "target": "company:tr:204686919",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

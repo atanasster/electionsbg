@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:veselina-nikolova-mincheva-7fde13","nodes":[{"id":"official:veselina-nikolova-mincheva-7fde13","type":"official","slug":"veselina-nikolova-mincheva-7fde13","label":"Веселина Николова Минчева","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:131237831","type":"company","label":"МИДБОЛКАН ИНФРАСТРАКЧУРАЛ ПРОДЖЕКТС","slug":null,"uic":"131237831","legalForm":null,"status":null,"seat":null},{"id":"person:ОФЕЛИЯ ГАНЧЕВА ЛОЗАНОВА","type":"person","label":"Офелия Ганчева Лозанова"}],"edges":[{"source":"official:veselina-nikolova-mincheva-7fde13","target":"company:tr:131237831","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ОФЕЛИЯ ГАНЧЕВА ЛОЗАНОВА","target":"company:tr:131237831","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:veselina-nikolova-mincheva-7fde13",
+  "nodes": [
+    {
+      "id": "official:veselina-nikolova-mincheva-7fde13",
+      "type": "official",
+      "slug": "veselina-nikolova-mincheva-7fde13",
+      "label": "Веселина Николова Минчева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131237831",
+      "type": "company",
+      "label": "МИДБОЛКАН ИНФРАСТРАКЧУРАЛ ПРОДЖЕКТС",
+      "slug": null,
+      "uic": "131237831",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОФЕЛИЯ ГАНЧЕВА ЛОЗАНОВА",
+      "type": "person",
+      "label": "Офелия Ганчева Лозанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselina-nikolova-mincheva-7fde13",
+      "target": "company:tr:131237831",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОФЕЛИЯ ГАНЧЕВА ЛОЗАНОВА",
+      "target": "company:tr:131237831",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

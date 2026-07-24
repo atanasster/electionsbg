@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ekaterina-markova-karakoleva-a060ac","nodes":[{"id":"official:ekaterina-markova-karakoleva-a060ac","type":"official","slug":"ekaterina-markova-karakoleva-a060ac","label":"Екатерина Маркова Караколева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:107027467","type":"company","label":"ОБЩИНСКИ ПЪТНИЧЕСКИ ТРАНСПОРТ","slug":null,"uic":"107027467","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕТЕЛИН ЦВЕТАНОВ ЦВЕТКОВ","type":"person","label":"Детелин Цветанов Цветков"}],"edges":[{"source":"official:ekaterina-markova-karakoleva-a060ac","target":"company:tr:107027467","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕТЕЛИН ЦВЕТАНОВ ЦВЕТКОВ","target":"company:tr:107027467","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ekaterina-markova-karakoleva-a060ac",
+  "nodes": [
+    {
+      "id": "official:ekaterina-markova-karakoleva-a060ac",
+      "type": "official",
+      "slug": "ekaterina-markova-karakoleva-a060ac",
+      "label": "Екатерина Маркова Караколева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107027467",
+      "type": "company",
+      "label": "ОБЩИНСКИ ПЪТНИЧЕСКИ ТРАНСПОРТ",
+      "slug": null,
+      "uic": "107027467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕТЕЛИН ЦВЕТАНОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Детелин Цветанов Цветков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ekaterina-markova-karakoleva-a060ac",
+      "target": "company:tr:107027467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕТЕЛИН ЦВЕТАНОВ ЦВЕТКОВ",
+      "target": "company:tr:107027467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,212 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:sasho-radoslavov-filev-5a23a2","nodes":[{"id":"official:sasho-radoslavov-filev-5a23a2","type":"official","slug":"sasho-radoslavov-filev-5a23a2","label":"Сашо Радославов Филев","tier":"municipal","role":"councillor","municipality":"Лъки"},{"id":"company:tr:175719007","type":"company","label":"СДРУЖЕНИЕ НА ЛОВЦИТЕ И РИБОЛОВЦИТЕ &quot;ЧЕРНА ТИЦА&quot;","slug":null,"uic":"175719007","legalForm":null,"status":null,"seat":null},{"id":"person:БОРИС ИЛИЕВ КЪДРИНСКИ","type":"person","label":"Борис Илиев Къдрински"},{"id":"person:КРАСИМИР РАДКОВ ЖИВКОВ","type":"person","label":"Красимир Радков Живков"},{"id":"person:КОСТАДИН ПЕТРОВ ПЕТКОВ","type":"person","label":"Костадин Петров Петков"},{"id":"person:ИГНАТ СТОЕВ ДАНЧЕВ","type":"person","label":"Игнат Стоев Данчев"},{"id":"person:ЛАЗАР ИЛИЕВ ДАНЧЕВ","type":"person","label":"Лазар Илиев Данчев"},{"id":"person:АСЕН БОЯНОВ СТАМБОЛОВ","type":"person","label":"Асен Боянов Стамболов"},{"id":"person:СТОЯН ДИМИТРОВ ЗЛАТКОВ","type":"person","label":"Стоян Димитров Златков"},{"id":"person:АТАНАС ГЕОРГИЕВ ЧИНОВ","type":"person","label":"Атанас Георгиев Чинов"},{"id":"person:АТАНАС ГЕОРГИЕВ МАРИНСКИ","type":"person","label":"Атанас Георгиев Марински"},{"id":"person:АСЕН ВАСИЛЕВ КУШЕВ","type":"person","label":"Асен Василев Кушев"},{"id":"person:ИВАН ВЛАШЕВ АНАСТАСОВ","type":"person","label":"Иван Влашев Анастасов"},{"id":"person:ГЕОРГИ ДИМИТРОВ БИКОВ","type":"person","label":"Георги Димитров Биков"},{"id":"person:ВАСИЛ НИКОЛОВ РУСИНОВ","type":"person","label":"Васил Николов Русинов"}],"edges":[{"source":"official:sasho-radoslavov-filev-5a23a2","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:БОРИС ИЛИЕВ КЪДРИНСКИ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР РАДКОВ ЖИВКОВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ПЕТРОВ ПЕТКОВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИГНАТ СТОЕВ ДАНЧЕВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЗАР ИЛИЕВ ДАНЧЕВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН БОЯНОВ СТАМБОЛОВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИМИТРОВ ЗЛАТКОВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ГЕОРГИЕВ ЧИНОВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ГЕОРГИЕВ МАРИНСКИ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН ВАСИЛЕВ КУШЕВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИС ИЛИЕВ КЪДРИНСКИ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВЛАШЕВ АНАСТАСОВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ДИМИТРОВ БИКОВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ НИКОЛОВ РУСИНОВ","target":"company:tr:175719007","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:sasho-radoslavov-filev-5a23a2",
+  "nodes": [
+    {
+      "id": "official:sasho-radoslavov-filev-5a23a2",
+      "type": "official",
+      "slug": "sasho-radoslavov-filev-5a23a2",
+      "label": "Сашо Радославов Филев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лъки"
+    },
+    {
+      "id": "company:tr:175719007",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ЛОВЦИТЕ И РИБОЛОВЦИТЕ &quot;ЧЕРНА ТИЦА&quot;",
+      "slug": null,
+      "uic": "175719007",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИС ИЛИЕВ КЪДРИНСКИ",
+      "type": "person",
+      "label": "Борис Илиев Къдрински"
+    },
+    {
+      "id": "person:КРАСИМИР РАДКОВ ЖИВКОВ",
+      "type": "person",
+      "label": "Красимир Радков Живков"
+    },
+    {
+      "id": "person:КОСТАДИН ПЕТРОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Костадин Петров Петков"
+    },
+    {
+      "id": "person:ИГНАТ СТОЕВ ДАНЧЕВ",
+      "type": "person",
+      "label": "Игнат Стоев Данчев"
+    },
+    {
+      "id": "person:ЛАЗАР ИЛИЕВ ДАНЧЕВ",
+      "type": "person",
+      "label": "Лазар Илиев Данчев"
+    },
+    {
+      "id": "person:АСЕН БОЯНОВ СТАМБОЛОВ",
+      "type": "person",
+      "label": "Асен Боянов Стамболов"
+    },
+    {
+      "id": "person:СТОЯН ДИМИТРОВ ЗЛАТКОВ",
+      "type": "person",
+      "label": "Стоян Димитров Златков"
+    },
+    {
+      "id": "person:АТАНАС ГЕОРГИЕВ ЧИНОВ",
+      "type": "person",
+      "label": "Атанас Георгиев Чинов"
+    },
+    {
+      "id": "person:АТАНАС ГЕОРГИЕВ МАРИНСКИ",
+      "type": "person",
+      "label": "Атанас Георгиев Марински"
+    },
+    {
+      "id": "person:АСЕН ВАСИЛЕВ КУШЕВ",
+      "type": "person",
+      "label": "Асен Василев Кушев"
+    },
+    {
+      "id": "person:ИВАН ВЛАШЕВ АНАСТАСОВ",
+      "type": "person",
+      "label": "Иван Влашев Анастасов"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ БИКОВ",
+      "type": "person",
+      "label": "Георги Димитров Биков"
+    },
+    {
+      "id": "person:ВАСИЛ НИКОЛОВ РУСИНОВ",
+      "type": "person",
+      "label": "Васил Николов Русинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sasho-radoslavov-filev-5a23a2",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИС ИЛИЕВ КЪДРИНСКИ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР РАДКОВ ЖИВКОВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ПЕТРОВ ПЕТКОВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИГНАТ СТОЕВ ДАНЧЕВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАР ИЛИЕВ ДАНЧЕВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН БОЯНОВ СТАМБОЛОВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ ЗЛАТКОВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГЕОРГИЕВ ЧИНОВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГЕОРГИЕВ МАРИНСКИ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ВАСИЛЕВ КУШЕВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ИЛИЕВ КЪДРИНСКИ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВЛАШЕВ АНАСТАСОВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ БИКОВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ НИКОЛОВ РУСИНОВ",
+      "target": "company:tr:175719007",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

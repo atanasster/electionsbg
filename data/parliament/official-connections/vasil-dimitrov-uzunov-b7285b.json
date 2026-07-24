@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vasil-dimitrov-uzunov-b7285b","nodes":[{"id":"official:vasil-dimitrov-uzunov-b7285b","type":"official","slug":"vasil-dimitrov-uzunov-b7285b","label":"Васил Димитров Узунов","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:206032188","type":"company","label":"КИОБА","slug":null,"uic":"206032188","legalForm":null,"status":null,"seat":null},{"id":"person:РЕНЕТА БОЖИДАРОВА БОЖИКОВА - УЗУНОВА","type":"person","label":"Ренета Божидарова Божикова - Узунова"},{"id":"person:РЕНАТА БОЖИДАРОВА БОЖИКОВА- УЗУНОВА","type":"person","label":"Рената Божидарова Божикова- Узунова"},{"id":"person:РЕНАТА БОЖИДАРОВА БОЖИКОВА-УЗУНОВА","type":"person","label":"Рената Божидарова Божикова-Узунова"}],"edges":[{"source":"official:vasil-dimitrov-uzunov-b7285b","target":"company:tr:206032188","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:vasil-dimitrov-uzunov-b7285b","target":"company:tr:206032188","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:РЕНЕТА БОЖИДАРОВА БОЖИКОВА - УЗУНОВА","target":"company:tr:206032188","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РЕНАТА БОЖИДАРОВА БОЖИКОВА- УЗУНОВА","target":"company:tr:206032188","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РЕНАТА БОЖИДАРОВА БОЖИКОВА-УЗУНОВА","target":"company:tr:206032188","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vasil-dimitrov-uzunov-b7285b",
+  "nodes": [
+    {
+      "id": "official:vasil-dimitrov-uzunov-b7285b",
+      "type": "official",
+      "slug": "vasil-dimitrov-uzunov-b7285b",
+      "label": "Васил Димитров Узунов",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206032188",
+      "type": "company",
+      "label": "КИОБА",
+      "slug": null,
+      "uic": "206032188",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РЕНЕТА БОЖИДАРОВА БОЖИКОВА - УЗУНОВА",
+      "type": "person",
+      "label": "Ренета Божидарова Божикова - Узунова"
+    },
+    {
+      "id": "person:РЕНАТА БОЖИДАРОВА БОЖИКОВА- УЗУНОВА",
+      "type": "person",
+      "label": "Рената Божидарова Божикова- Узунова"
+    },
+    {
+      "id": "person:РЕНАТА БОЖИДАРОВА БОЖИКОВА-УЗУНОВА",
+      "type": "person",
+      "label": "Рената Божидарова Божикова-Узунова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-dimitrov-uzunov-b7285b",
+      "target": "company:tr:206032188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-dimitrov-uzunov-b7285b",
+      "target": "company:tr:206032188",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РЕНЕТА БОЖИДАРОВА БОЖИКОВА - УЗУНОВА",
+      "target": "company:tr:206032188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНАТА БОЖИДАРОВА БОЖИКОВА- УЗУНОВА",
+      "target": "company:tr:206032188",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНАТА БОЖИДАРОВА БОЖИКОВА-УЗУНОВА",
+      "target": "company:tr:206032188",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

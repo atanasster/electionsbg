@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kliment-borisov-petrov-d0dd23","nodes":[{"id":"official:kliment-borisov-petrov-d0dd23","type":"official","slug":"kliment-borisov-petrov-d0dd23","label":"Климент Борисов Петров","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:201906242","type":"company","label":"Булгап","slug":null,"uic":"201906242","legalForm":null,"status":null,"seat":null},{"id":"person:НИЯ КЛИМЕНТ ПЕТРОВА","type":"person","label":"Ния Климент Петрова"}],"edges":[{"source":"official:kliment-borisov-petrov-d0dd23","target":"company:tr:201906242","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:НИЯ КЛИМЕНТ ПЕТРОВА","target":"company:tr:201906242","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИЯ КЛИМЕНТ ПЕТРОВА","target":"company:tr:201906242","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kliment-borisov-petrov-d0dd23",
+  "nodes": [
+    {
+      "id": "official:kliment-borisov-petrov-d0dd23",
+      "type": "official",
+      "slug": "kliment-borisov-petrov-d0dd23",
+      "label": "Климент Борисов Петров",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201906242",
+      "type": "company",
+      "label": "Булгап",
+      "slug": null,
+      "uic": "201906242",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИЯ КЛИМЕНТ ПЕТРОВА",
+      "type": "person",
+      "label": "Ния Климент Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kliment-borisov-petrov-d0dd23",
+      "target": "company:tr:201906242",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИЯ КЛИМЕНТ ПЕТРОВА",
+      "target": "company:tr:201906242",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИЯ КЛИМЕНТ ПЕТРОВА",
+      "target": "company:tr:201906242",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

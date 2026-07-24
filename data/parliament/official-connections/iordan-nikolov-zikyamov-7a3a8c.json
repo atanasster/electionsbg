@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iordan-nikolov-zikyamov-7a3a8c","nodes":[{"id":"official:iordan-nikolov-zikyamov-7a3a8c","type":"official","slug":"iordan-nikolov-zikyamov-7a3a8c","label":"Йордан Николов Зикямов","tier":"municipal","role":"councillor","municipality":"Марица"},{"id":"company:tr:206740835","type":"company","label":"Спортен карате клуб Феникс","slug":null,"uic":"206740835","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:iordan-nikolov-zikyamov-7a3a8c","target":"company:tr:206740835","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:iordan-nikolov-zikyamov-7a3a8c","target":"company:tr:206740835","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iordan-nikolov-zikyamov-7a3a8c",
+  "nodes": [
+    {
+      "id": "official:iordan-nikolov-zikyamov-7a3a8c",
+      "type": "official",
+      "slug": "iordan-nikolov-zikyamov-7a3a8c",
+      "label": "Йордан Николов Зикямов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Марица"
+    },
+    {
+      "id": "company:tr:206740835",
+      "type": "company",
+      "label": "Спортен карате клуб Феникс",
+      "slug": null,
+      "uic": "206740835",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-nikolov-zikyamov-7a3a8c",
+      "target": "company:tr:206740835",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-nikolov-zikyamov-7a3a8c",
+      "target": "company:tr:206740835",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

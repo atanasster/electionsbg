@@ -1,1 +1,242 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zhivko-ivanov-tabakov-a5d690","nodes":[{"id":"official:zhivko-ivanov-tabakov-a5d690","type":"official","slug":"zhivko-ivanov-tabakov-a5d690","label":"Живко Иванов Табаков","tier":"municipal","role":"councillor","municipality":"Бургас"},{"id":"company:tr:147037316","type":"company","label":"ВЕНИД МЕНИДЖМЪНТ ГРУП","slug":null,"uic":"147037316","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:203122036","type":"company","label":"ВЕНИД ХОУМ","slug":null,"uic":"203122036","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:203039291","type":"company","label":"Венид Айс ООД","slug":null,"uic":"203039291","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205710401","type":"company","label":"ДЕЛИЖАНС С","slug":null,"uic":"205710401","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Свети Влас"},{"id":"mp:3282","type":"mp","mpId":3282,"label":"Живко Иванов Табаков","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["45"]},{"id":"person:ЖИВКО ИВАНОВ ТАБАКОВ","type":"person","label":"Живко Иванов Табаков"},{"id":"company:name:ВЕНИД","type":"company","label":"\"ВЕНИД\" ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:АЙС ЛАЙН А.М.","type":"company","label":"\"АЙС ЛАЙН А.М.\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:КОСТАДИН ИЛИЕВ ВЪЛЧЕВ","type":"person","label":"Костадин Илиев Вълчев"}],"edges":[{"source":"official:zhivko-ivanov-tabakov-a5d690","target":"company:tr:147037316","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:zhivko-ivanov-tabakov-a5d690","target":"company:tr:203122036","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:zhivko-ivanov-tabakov-a5d690","target":"company:tr:203039291","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:zhivko-ivanov-tabakov-a5d690","target":"company:tr:205710401","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:3282","target":"company:tr:147037316","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3282","target":"company:tr:147037316","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"company:tr:147037316","target":"company:tr:203122036","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ИВАНОВ ТАБАКОВ","target":"company:tr:147037316","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:ВЕНИД","target":"company:tr:147037316","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ИВАНОВ ТАБАКОВ","target":"company:tr:147037316","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3282","target":"company:tr:203122036","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЖИВКО ИВАНОВ ТАБАКОВ","target":"company:tr:203122036","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:АЙС ЛАЙН А.М.","target":"company:tr:203039291","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ИЛИЕВ ВЪЛЧЕВ","target":"company:tr:203039291","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3282","target":"company:tr:205710401","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3282","target":"company:tr:205710401","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ЖИВКО ИВАНОВ ТАБАКОВ","target":"company:tr:205710401","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ИВАНОВ ТАБАКОВ","target":"company:tr:205710401","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zhivko-ivanov-tabakov-a5d690",
+  "nodes": [
+    {
+      "id": "official:zhivko-ivanov-tabakov-a5d690",
+      "type": "official",
+      "slug": "zhivko-ivanov-tabakov-a5d690",
+      "label": "Живко Иванов Табаков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:147037316",
+      "type": "company",
+      "label": "ВЕНИД МЕНИДЖМЪНТ ГРУП",
+      "slug": null,
+      "uic": "147037316",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:203122036",
+      "type": "company",
+      "label": "ВЕНИД ХОУМ",
+      "slug": null,
+      "uic": "203122036",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:203039291",
+      "type": "company",
+      "label": "Венид Айс ООД",
+      "slug": null,
+      "uic": "203039291",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205710401",
+      "type": "company",
+      "label": "ДЕЛИЖАНС С",
+      "slug": null,
+      "uic": "205710401",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Свети Влас"
+    },
+    {
+      "id": "mp:3282",
+      "type": "mp",
+      "mpId": 3282,
+      "label": "Живко Иванов Табаков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "person:ЖИВКО ИВАНОВ ТАБАКОВ",
+      "type": "person",
+      "label": "Живко Иванов Табаков"
+    },
+    {
+      "id": "company:name:ВЕНИД",
+      "type": "company",
+      "label": "\"ВЕНИД\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:АЙС ЛАЙН А.М.",
+      "type": "company",
+      "label": "\"АЙС ЛАЙН А.М.\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТАДИН ИЛИЕВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Костадин Илиев Вълчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-ivanov-tabakov-a5d690",
+      "target": "company:tr:147037316",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhivko-ivanov-tabakov-a5d690",
+      "target": "company:tr:203122036",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhivko-ivanov-tabakov-a5d690",
+      "target": "company:tr:203039291",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhivko-ivanov-tabakov-a5d690",
+      "target": "company:tr:205710401",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3282",
+      "target": "company:tr:147037316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3282",
+      "target": "company:tr:147037316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:tr:147037316",
+      "target": "company:tr:203122036",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ТАБАКОВ",
+      "target": "company:tr:147037316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВЕНИД",
+      "target": "company:tr:147037316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ТАБАКОВ",
+      "target": "company:tr:147037316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3282",
+      "target": "company:tr:203122036",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ТАБАКОВ",
+      "target": "company:tr:203122036",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АЙС ЛАЙН А.М.",
+      "target": "company:tr:203039291",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ИЛИЕВ ВЪЛЧЕВ",
+      "target": "company:tr:203039291",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3282",
+      "target": "company:tr:205710401",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3282",
+      "target": "company:tr:205710401",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ТАБАКОВ",
+      "target": "company:tr:205710401",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ТАБАКОВ",
+      "target": "company:tr:205710401",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

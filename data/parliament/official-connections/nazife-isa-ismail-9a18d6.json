@@ -1,1 +1,152 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nazife-isa-ismail-9a18d6","nodes":[{"id":"official:nazife-isa-ismail-9a18d6","type":"official","slug":"nazife-isa-ismail-9a18d6","label":"Назифе Иса Исмаил","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000499521","type":"company","label":"ВАСИЛ ЛЕВСКИ - 1937 г.","slug":null,"uic":"000499521","legalForm":null,"status":null,"seat":null},{"id":"person:ГЮСЮМ МУСТАФОВА МУСТАФОВА","type":"person","label":"Гюсюм Мустафова Мустафова"},{"id":"person:НАЙМЕ ХЮСМЕН ХАЛИЛ","type":"person","label":"Найме Хюсмен Халил"},{"id":"person:ЮКСЕЛ АЛИЕВ ФЕИМОВ","type":"person","label":"Юксел Алиев Феимов"},{"id":"person:АХМЕД ИСМАИЛОВ РЕДЖЕБОВ","type":"person","label":"Ахмед Исмаилов Реджебов"},{"id":"person:РАХМИ АХМЕД ХАЛИЛ","type":"person","label":"Рахми Ахмед Халил"},{"id":"person:ИБРАХИМ АХМЕДОВ АЛИЕВ","type":"person","label":"Ибрахим Ахмедов Алиев"},{"id":"person:СЕВДЖИХАН ХАСАН ЗЕКЕРИЕ","type":"person","label":"Севджихан Хасан Зекерие"},{"id":"person:НАЙМЕ ХЮСМЕН САДЪК","type":"person","label":"Найме Хюсмен Садък"},{"id":"person:ФАТМЕ ХЮСЕИНОВА МЕХМЕДОВА","type":"person","label":"Фатме Хюсеинова Мехмедова"}],"edges":[{"source":"official:nazife-isa-ismail-9a18d6","target":"company:tr:000499521","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ГЮСЮМ МУСТАФОВА МУСТАФОВА","target":"company:tr:000499521","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАЙМЕ ХЮСМЕН ХАЛИЛ","target":"company:tr:000499521","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЮКСЕЛ АЛИЕВ ФЕИМОВ","target":"company:tr:000499521","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АХМЕД ИСМАИЛОВ РЕДЖЕБОВ","target":"company:tr:000499521","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАХМИ АХМЕД ХАЛИЛ","target":"company:tr:000499521","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИБРАХИМ АХМЕДОВ АЛИЕВ","target":"company:tr:000499521","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СЕВДЖИХАН ХАСАН ЗЕКЕРИЕ","target":"company:tr:000499521","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НАЙМЕ ХЮСМЕН САДЪК","target":"company:tr:000499521","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФАТМЕ ХЮСЕИНОВА МЕХМЕДОВА","target":"company:tr:000499521","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nazife-isa-ismail-9a18d6",
+  "nodes": [
+    {
+      "id": "official:nazife-isa-ismail-9a18d6",
+      "type": "official",
+      "slug": "nazife-isa-ismail-9a18d6",
+      "label": "Назифе Иса Исмаил",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000499521",
+      "type": "company",
+      "label": "ВАСИЛ ЛЕВСКИ - 1937 г.",
+      "slug": null,
+      "uic": "000499521",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЮСЮМ МУСТАФОВА МУСТАФОВА",
+      "type": "person",
+      "label": "Гюсюм Мустафова Мустафова"
+    },
+    {
+      "id": "person:НАЙМЕ ХЮСМЕН ХАЛИЛ",
+      "type": "person",
+      "label": "Найме Хюсмен Халил"
+    },
+    {
+      "id": "person:ЮКСЕЛ АЛИЕВ ФЕИМОВ",
+      "type": "person",
+      "label": "Юксел Алиев Феимов"
+    },
+    {
+      "id": "person:АХМЕД ИСМАИЛОВ РЕДЖЕБОВ",
+      "type": "person",
+      "label": "Ахмед Исмаилов Реджебов"
+    },
+    {
+      "id": "person:РАХМИ АХМЕД ХАЛИЛ",
+      "type": "person",
+      "label": "Рахми Ахмед Халил"
+    },
+    {
+      "id": "person:ИБРАХИМ АХМЕДОВ АЛИЕВ",
+      "type": "person",
+      "label": "Ибрахим Ахмедов Алиев"
+    },
+    {
+      "id": "person:СЕВДЖИХАН ХАСАН ЗЕКЕРИЕ",
+      "type": "person",
+      "label": "Севджихан Хасан Зекерие"
+    },
+    {
+      "id": "person:НАЙМЕ ХЮСМЕН САДЪК",
+      "type": "person",
+      "label": "Найме Хюсмен Садък"
+    },
+    {
+      "id": "person:ФАТМЕ ХЮСЕИНОВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Фатме Хюсеинова Мехмедова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nazife-isa-ismail-9a18d6",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЮСЮМ МУСТАФОВА МУСТАФОВА",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЙМЕ ХЮСМЕН ХАЛИЛ",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮКСЕЛ АЛИЕВ ФЕИМОВ",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД ИСМАИЛОВ РЕДЖЕБОВ",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАХМИ АХМЕД ХАЛИЛ",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИБРАХИМ АХМЕДОВ АЛИЕВ",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДЖИХАН ХАСАН ЗЕКЕРИЕ",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЙМЕ ХЮСМЕН САДЪК",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ ХЮСЕИНОВА МЕХМЕДОВА",
+      "target": "company:tr:000499521",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,87 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:roza-dragomirova-aneva-38f587","nodes":[{"id":"official:roza-dragomirova-aneva-38f587","type":"official","slug":"roza-dragomirova-aneva-38f587","label":"Роза Драгомирова Анева","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:831605813","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО НЕВРОЛОГИЯ И ПСИХИАТРИЯ &quot;СВ.НАУМ&quot;","slug":null,"uic":"831605813","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФКА ПЕТРОВА ЦАНКОВА","type":"person","label":"Стефка Петрова Цанкова"},{"id":"person:ИВАН ГОСПОДИНОВ МИЛАНОВ","type":"person","label":"Иван Господинов Миланов"},{"id":"person:ЕМИЛИЯ СЛАВЧЕВА СЛАВОВА-ПЪРВАНОВА","type":"person","label":"Емилия Славчева Славова-Първанова"},{"id":"person:МАРИЕТА РАЙКОВА ЙОТИНСКА","type":"person","label":"Мариета Райкова Йотинска"}],"edges":[{"source":"official:roza-dragomirova-aneva-38f587","target":"company:tr:831605813","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФКА ПЕТРОВА ЦАНКОВА","target":"company:tr:831605813","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГОСПОДИНОВ МИЛАНОВ","target":"company:tr:831605813","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ СЛАВЧЕВА СЛАВОВА-ПЪРВАНОВА","target":"company:tr:831605813","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЕТА РАЙКОВА ЙОТИНСКА","target":"company:tr:831605813","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:roza-dragomirova-aneva-38f587",
+  "nodes": [
+    {
+      "id": "official:roza-dragomirova-aneva-38f587",
+      "type": "official",
+      "slug": "roza-dragomirova-aneva-38f587",
+      "label": "Роза Драгомирова Анева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831605813",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО НЕВРОЛОГИЯ И ПСИХИАТРИЯ &quot;СВ.НАУМ&quot;",
+      "slug": null,
+      "uic": "831605813",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФКА ПЕТРОВА ЦАНКОВА",
+      "type": "person",
+      "label": "Стефка Петрова Цанкова"
+    },
+    {
+      "id": "person:ИВАН ГОСПОДИНОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Иван Господинов Миланов"
+    },
+    {
+      "id": "person:ЕМИЛИЯ СЛАВЧЕВА СЛАВОВА-ПЪРВАНОВА",
+      "type": "person",
+      "label": "Емилия Славчева Славова-Първанова"
+    },
+    {
+      "id": "person:МАРИЕТА РАЙКОВА ЙОТИНСКА",
+      "type": "person",
+      "label": "Мариета Райкова Йотинска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:roza-dragomirova-aneva-38f587",
+      "target": "company:tr:831605813",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФКА ПЕТРОВА ЦАНКОВА",
+      "target": "company:tr:831605813",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГОСПОДИНОВ МИЛАНОВ",
+      "target": "company:tr:831605813",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ СЛАВЧЕВА СЛАВОВА-ПЪРВАНОВА",
+      "target": "company:tr:831605813",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕТА РАЙКОВА ЙОТИНСКА",
+      "target": "company:tr:831605813",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

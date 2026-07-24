@@ -1,1 +1,53 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:damyan-mikov-mikov-e3ebbd","nodes":[{"id":"official:damyan-mikov-mikov-e3ebbd","type":"official","slug":"damyan-mikov-mikov-e3ebbd","label":"Дамян Миков Миков","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:160118118","type":"company","label":"Рос-Мари ЕООД","slug":null,"uic":"160118118","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203246144","type":"company","label":"Микова ЕООД","slug":null,"uic":"203246144","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:damyan-mikov-mikov-e3ebbd","target":"company:tr:160118118","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:damyan-mikov-mikov-e3ebbd","target":"company:tr:203246144","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:damyan-mikov-mikov-e3ebbd",
+  "nodes": [
+    {
+      "id": "official:damyan-mikov-mikov-e3ebbd",
+      "type": "official",
+      "slug": "damyan-mikov-mikov-e3ebbd",
+      "label": "Дамян Миков Миков",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:160118118",
+      "type": "company",
+      "label": "Рос-Мари ЕООД",
+      "slug": null,
+      "uic": "160118118",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203246144",
+      "type": "company",
+      "label": "Микова ЕООД",
+      "slug": null,
+      "uic": "203246144",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:damyan-mikov-mikov-e3ebbd",
+      "target": "company:tr:160118118",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:damyan-mikov-mikov-e3ebbd",
+      "target": "company:tr:203246144",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

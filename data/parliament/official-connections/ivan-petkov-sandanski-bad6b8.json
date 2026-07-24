@@ -1,1 +1,156 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-petkov-sandanski-bad6b8","nodes":[{"id":"official:ivan-petkov-sandanski-bad6b8","type":"official","slug":"ivan-petkov-sandanski-bad6b8","label":"Иван Петков Сандански","tier":"executive","role":"eu_funds_controller","municipality":null},{"id":"company:tr:121858722","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ХОКЕЙ НА ТРЕВА","slug":null,"uic":"121858722","legalForm":null,"status":null,"seat":null},{"id":"official:pavlin-milenov-belchev-cdbff1","type":"official","slug":"pavlin-milenov-belchev-cdbff1","label":"Павлин Миленов Белчев","tier":"municipal","role":"mayor","municipality":"Баните"},{"id":"person:АНТОНИО ДАЧКОВ АНТОНОВ","type":"person","label":"Антонио Дачков Антонов"},{"id":"person:ЙОРГ ШЕНК","type":"person","label":"Йорг Шенк"},{"id":"person:ГАЛИН ВЪЛЧЕВ КАРАГЬОЗОВ","type":"person","label":"Галин Вълчев Карагьозов"},{"id":"person:ВЕСЕЛИН АЛЕКСАНДРОВ ЗАХАРИЕВ","type":"person","label":"Веселин Александров Захариев"},{"id":"person:ЕМИЛИЯ ВЕЛИЧКОВА ВИТАНОВА","type":"person","label":"Емилия Величкова Витанова"},{"id":"person:ЙОРДАН АНГЕЛОВ ПЕНЕВ","type":"person","label":"Йордан Ангелов Пенев"},{"id":"person:НИКОЛАЙ ЦВЕТАНОВ МАРКОВ","type":"person","label":"Николай Цветанов Марков"},{"id":"person:КАТЯ СТАЙКОВА СТОИЛОВА","type":"person","label":"Катя Стайкова Стоилова"}],"edges":[{"source":"official:ivan-petkov-sandanski-bad6b8","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:pavlin-milenov-belchev-cdbff1","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНТОНИО ДАЧКОВ АНТОНОВ","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРГ ШЕНК","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИН ВЪЛЧЕВ КАРАГЬОЗОВ","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН АЛЕКСАНДРОВ ЗАХАРИЕВ","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ ВЕЛИЧКОВА ВИТАНОВА","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН АНГЕЛОВ ПЕНЕВ","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЦВЕТАНОВ МАРКОВ","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ СТАЙКОВА СТОИЛОВА","target":"company:tr:121858722","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-petkov-sandanski-bad6b8",
+  "nodes": [
+    {
+      "id": "official:ivan-petkov-sandanski-bad6b8",
+      "type": "official",
+      "slug": "ivan-petkov-sandanski-bad6b8",
+      "label": "Иван Петков Сандански",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121858722",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ХОКЕЙ НА ТРЕВА",
+      "slug": null,
+      "uic": "121858722",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:pavlin-milenov-belchev-cdbff1",
+      "type": "official",
+      "slug": "pavlin-milenov-belchev-cdbff1",
+      "label": "Павлин Миленов Белчев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Баните"
+    },
+    {
+      "id": "person:АНТОНИО ДАЧКОВ АНТОНОВ",
+      "type": "person",
+      "label": "Антонио Дачков Антонов"
+    },
+    {
+      "id": "person:ЙОРГ ШЕНК",
+      "type": "person",
+      "label": "Йорг Шенк"
+    },
+    {
+      "id": "person:ГАЛИН ВЪЛЧЕВ КАРАГЬОЗОВ",
+      "type": "person",
+      "label": "Галин Вълчев Карагьозов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН АЛЕКСАНДРОВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Веселин Александров Захариев"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ВЕЛИЧКОВА ВИТАНОВА",
+      "type": "person",
+      "label": "Емилия Величкова Витанова"
+    },
+    {
+      "id": "person:ЙОРДАН АНГЕЛОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Йордан Ангелов Пенев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЦВЕТАНОВ МАРКОВ",
+      "type": "person",
+      "label": "Николай Цветанов Марков"
+    },
+    {
+      "id": "person:КАТЯ СТАЙКОВА СТОИЛОВА",
+      "type": "person",
+      "label": "Катя Стайкова Стоилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-petkov-sandanski-bad6b8",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:pavlin-milenov-belchev-cdbff1",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОНИО ДАЧКОВ АНТОНОВ",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРГ ШЕНК",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН ВЪЛЧЕВ КАРАГЬОЗОВ",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН АЛЕКСАНДРОВ ЗАХАРИЕВ",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ВЕЛИЧКОВА ВИТАНОВА",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АНГЕЛОВ ПЕНЕВ",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЦВЕТАНОВ МАРКОВ",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ СТАЙКОВА СТОИЛОВА",
+      "target": "company:tr:121858722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

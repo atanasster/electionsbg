@@ -1,1 +1,240 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kiril-vasilev-karagozov-cb6e33","nodes":[{"id":"official:kiril-vasilev-karagozov-cb6e33","type":"official","slug":"kiril-vasilev-karagozov-cb6e33","label":"Кирил Василев Карагьозов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:103061301","type":"company","label":"ПРИСТАНИЩЕ ВАРНА","slug":null,"uic":"103061301","legalForm":"EAD","status":"active","seat":null},{"id":"mp:860","type":"mp","mpId":860,"label":"Димитър Йорданов Атанасов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"official:aleksandr-miladinov-aleksandrov-331a89","type":"official","slug":"aleksandr-miladinov-aleksandrov-331a89","label":"Александър Миладинов Александров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:ivan-hristov-dipchikov-d76c42","type":"official","slug":"ivan-hristov-dipchikov-d76c42","label":"Иван Христов Дипчиков","tier":"executive","role":"procurement_officer","municipality":null},{"id":"official:stefan-todorov-semov-9a92b3","type":"official","slug":"stefan-todorov-semov-9a92b3","label":"Стефан Тодоров Семов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:tihomir-iliev-todorov-f053cf","type":"official","slug":"tihomir-iliev-todorov-f053cf","label":"Тихомир Илиев Тодоров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ПЕТЪР ИВОВ СЕФЕРОВ","type":"person","label":"Петър Ивов Сеферов"},{"id":"person:ИВАЙЛО СЛАВОВ ГАВРАИЛОВ","type":"person","label":"Ивайло Славов Гавраилов"},{"id":"person:ЯВОР ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Явор Димитров Димитров"},{"id":"person:ФРИДРИХ ГЕОРГИЕВ КАТЦЕР","type":"person","label":"Фридрих Георгиев Катцер"},{"id":"person:ЛЮБОМИР РУСЕВ ДОБРЕВ","type":"person","label":"Любомир Русев Добрев"},{"id":"person:СНЕЖИНА ЛЮБОМИРОВА КОВАЧЕВА","type":"person","label":"Снежина Любомирова Ковачева"},{"id":"person:ЕВГЕНИЙ РАДОСЛАВОВ МАВРОДИЕВ","type":"person","label":"Евгений Радославов Мавродиев"},{"id":"person:АНАТОЛИ СТОЯНОВ ЧАУШЕВ","type":"person","label":"Анатоли Стоянов Чаушев"}],"edges":[{"source":"official:kiril-vasilev-karagozov-cb6e33","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:860","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandr-miladinov-aleksandrov-331a89","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-hristov-dipchikov-d76c42","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:stefan-todorov-semov-9a92b3","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:tihomir-iliev-todorov-f053cf","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЪР ИВОВ СЕФЕРОВ","target":"company:tr:103061301","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ИВОВ СЕФЕРОВ","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО СЛАВОВ ГАВРАИЛОВ","target":"company:tr:103061301","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО СЛАВОВ ГАВРАИЛОВ","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР ДИМИТРОВ ДИМИТРОВ","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ФРИДРИХ ГЕОРГИЕВ КАТЦЕР","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР РУСЕВ ДОБРЕВ","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖИНА ЛЮБОМИРОВА КОВАЧЕВА","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИЙ РАДОСЛАВОВ МАВРОДИЕВ","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНАТОЛИ СТОЯНОВ ЧАУШЕВ","target":"company:tr:103061301","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kiril-vasilev-karagozov-cb6e33",
+  "nodes": [
+    {
+      "id": "official:kiril-vasilev-karagozov-cb6e33",
+      "type": "official",
+      "slug": "kiril-vasilev-karagozov-cb6e33",
+      "label": "Кирил Василев Карагьозов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103061301",
+      "type": "company",
+      "label": "ПРИСТАНИЩЕ ВАРНА",
+      "slug": null,
+      "uic": "103061301",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:860",
+      "type": "mp",
+      "mpId": 860,
+      "label": "Димитър Йорданов Атанасов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:aleksandr-miladinov-aleksandrov-331a89",
+      "type": "official",
+      "slug": "aleksandr-miladinov-aleksandrov-331a89",
+      "label": "Александър Миладинов Александров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ivan-hristov-dipchikov-d76c42",
+      "type": "official",
+      "slug": "ivan-hristov-dipchikov-d76c42",
+      "label": "Иван Христов Дипчиков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "official:stefan-todorov-semov-9a92b3",
+      "type": "official",
+      "slug": "stefan-todorov-semov-9a92b3",
+      "label": "Стефан Тодоров Семов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:tihomir-iliev-todorov-f053cf",
+      "type": "official",
+      "slug": "tihomir-iliev-todorov-f053cf",
+      "label": "Тихомир Илиев Тодоров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЕТЪР ИВОВ СЕФЕРОВ",
+      "type": "person",
+      "label": "Петър Ивов Сеферов"
+    },
+    {
+      "id": "person:ИВАЙЛО СЛАВОВ ГАВРАИЛОВ",
+      "type": "person",
+      "label": "Ивайло Славов Гавраилов"
+    },
+    {
+      "id": "person:ЯВОР ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Явор Димитров Димитров"
+    },
+    {
+      "id": "person:ФРИДРИХ ГЕОРГИЕВ КАТЦЕР",
+      "type": "person",
+      "label": "Фридрих Георгиев Катцер"
+    },
+    {
+      "id": "person:ЛЮБОМИР РУСЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Любомир Русев Добрев"
+    },
+    {
+      "id": "person:СНЕЖИНА ЛЮБОМИРОВА КОВАЧЕВА",
+      "type": "person",
+      "label": "Снежина Любомирова Ковачева"
+    },
+    {
+      "id": "person:ЕВГЕНИЙ РАДОСЛАВОВ МАВРОДИЕВ",
+      "type": "person",
+      "label": "Евгений Радославов Мавродиев"
+    },
+    {
+      "id": "person:АНАТОЛИ СТОЯНОВ ЧАУШЕВ",
+      "type": "person",
+      "label": "Анатоли Стоянов Чаушев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-vasilev-karagozov-cb6e33",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:860",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-miladinov-aleksandrov-331a89",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-hristov-dipchikov-d76c42",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-todorov-semov-9a92b3",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tihomir-iliev-todorov-f053cf",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ИВОВ СЕФЕРОВ",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВОВ СЕФЕРОВ",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СЛАВОВ ГАВРАИЛОВ",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СЛАВОВ ГАВРАИЛОВ",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФРИДРИХ ГЕОРГИЕВ КАТЦЕР",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР РУСЕВ ДОБРЕВ",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖИНА ЛЮБОМИРОВА КОВАЧЕВА",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЙ РАДОСЛАВОВ МАВРОДИЕВ",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАТОЛИ СТОЯНОВ ЧАУШЕВ",
+      "target": "company:tr:103061301",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

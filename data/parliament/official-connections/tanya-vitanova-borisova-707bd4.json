@@ -1,1 +1,207 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tanya-vitanova-borisova-707bd4","nodes":[{"id":"official:tanya-vitanova-borisova-707bd4","type":"official","slug":"tanya-vitanova-borisova-707bd4","label":"Таня Витанова Борисова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:175618385","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ОТЕЦ ПАИСИЙ - 2008","slug":null,"uic":"175618385","legalForm":null,"status":null,"seat":null},{"id":"person:ЛЮБОМИР ГЕОРГИЕВ АНГЕЛОВ","type":"person","label":"Любомир Георгиев Ангелов"},{"id":"person:ЙОРДАН КИРИЛОВ ХРИСТОВ","type":"person","label":"Йордан Кирилов Христов"},{"id":"person:РУМЯНА ИВАНОВА ДИМИТРОВА","type":"person","label":"Румяна Иванова Димитрова"},{"id":"person:ПЕТЪР АНТОНОВ ГРИГОРОВ","type":"person","label":"Петър Антонов Григоров"},{"id":"person:СТРАХИЛ НИКОЛОВ МИХАЙЛОВ","type":"person","label":"Страхил Николов Михайлов"},{"id":"person:ЙОВКА ПЕТРОВА БАКАЛОВА","type":"person","label":"Йовка Петрова Бакалова"},{"id":"person:ТОДОРИНКА ТОШКОВА ЗАРКОВА","type":"person","label":"Тодоринка Тошкова Заркова"},{"id":"person:ЗЛАТКА ЦВЕТКОВА НИКОЛОВА","type":"person","label":"Златка Цветкова Николова"},{"id":"person:АНТОАНЕТА ПЕТРОВА КАМЕНОВА","type":"person","label":"Антоанета Петрова Каменова"},{"id":"person:ТОДОРКА ИЛИЕВА СИМЕОНОВА","type":"person","label":"Тодорка Илиева Симеонова"},{"id":"person:ТОДОРКА МИНКОВА ГЕОРГИЕВА","type":"person","label":"Тодорка Минкова Георгиева"},{"id":"person:АНЕТА АНГЕЛОВА ПЕТРОВА","type":"person","label":"Анета Ангелова Петрова"}],"edges":[{"source":"official:tanya-vitanova-borisova-707bd4","target":"company:tr:175618385","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР ГЕОРГИЕВ АНГЕЛОВ","target":"company:tr:175618385","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН КИРИЛОВ ХРИСТОВ","target":"company:tr:175618385","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ИВАНОВА ДИМИТРОВА","target":"company:tr:175618385","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ГЕОРГИЕВ АНГЕЛОВ","target":"company:tr:175618385","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР АНТОНОВ ГРИГОРОВ","target":"company:tr:175618385","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТРАХИЛ НИКОЛОВ МИХАЙЛОВ","target":"company:tr:175618385","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВКА ПЕТРОВА БАКАЛОВА","target":"company:tr:175618385","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРИНКА ТОШКОВА ЗАРКОВА","target":"company:tr:175618385","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКА ЦВЕТКОВА НИКОЛОВА","target":"company:tr:175618385","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАНЕТА ПЕТРОВА КАМЕНОВА","target":"company:tr:175618385","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВКА ПЕТРОВА БАКАЛОВА","target":"company:tr:175618385","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРКА ИЛИЕВА СИМЕОНОВА","target":"company:tr:175618385","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРКА МИНКОВА ГЕОРГИЕВА","target":"company:tr:175618385","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНЕТА АНГЕЛОВА ПЕТРОВА","target":"company:tr:175618385","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tanya-vitanova-borisova-707bd4",
+  "nodes": [
+    {
+      "id": "official:tanya-vitanova-borisova-707bd4",
+      "type": "official",
+      "slug": "tanya-vitanova-borisova-707bd4",
+      "label": "Таня Витанова Борисова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175618385",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ОТЕЦ ПАИСИЙ - 2008",
+      "slug": null,
+      "uic": "175618385",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОМИР ГЕОРГИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Любомир Георгиев Ангелов"
+    },
+    {
+      "id": "person:ЙОРДАН КИРИЛОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Йордан Кирилов Христов"
+    },
+    {
+      "id": "person:РУМЯНА ИВАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Румяна Иванова Димитрова"
+    },
+    {
+      "id": "person:ПЕТЪР АНТОНОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Петър Антонов Григоров"
+    },
+    {
+      "id": "person:СТРАХИЛ НИКОЛОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Страхил Николов Михайлов"
+    },
+    {
+      "id": "person:ЙОВКА ПЕТРОВА БАКАЛОВА",
+      "type": "person",
+      "label": "Йовка Петрова Бакалова"
+    },
+    {
+      "id": "person:ТОДОРИНКА ТОШКОВА ЗАРКОВА",
+      "type": "person",
+      "label": "Тодоринка Тошкова Заркова"
+    },
+    {
+      "id": "person:ЗЛАТКА ЦВЕТКОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Златка Цветкова Николова"
+    },
+    {
+      "id": "person:АНТОАНЕТА ПЕТРОВА КАМЕНОВА",
+      "type": "person",
+      "label": "Антоанета Петрова Каменова"
+    },
+    {
+      "id": "person:ТОДОРКА ИЛИЕВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Тодорка Илиева Симеонова"
+    },
+    {
+      "id": "person:ТОДОРКА МИНКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Тодорка Минкова Георгиева"
+    },
+    {
+      "id": "person:АНЕТА АНГЕЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Анета Ангелова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-vitanova-borisova-707bd4",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР ГЕОРГИЕВ АНГЕЛОВ",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН КИРИЛОВ ХРИСТОВ",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ИВАНОВА ДИМИТРОВА",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ГЕОРГИЕВ АНГЕЛОВ",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР АНТОНОВ ГРИГОРОВ",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТРАХИЛ НИКОЛОВ МИХАЙЛОВ",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ПЕТРОВА БАКАЛОВА",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРИНКА ТОШКОВА ЗАРКОВА",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ЦВЕТКОВА НИКОЛОВА",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ПЕТРОВА КАМЕНОВА",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ПЕТРОВА БАКАЛОВА",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ИЛИЕВА СИМЕОНОВА",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА МИНКОВА ГЕОРГИЕВА",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА АНГЕЛОВА ПЕТРОВА",
+      "target": "company:tr:175618385",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

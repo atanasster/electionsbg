@@ -1,1 +1,160 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valentina-vasileva-venkova-ivanova-96e29e","nodes":[{"id":"official:valentina-vasileva-venkova-ivanova-96e29e","type":"official","slug":"valentina-vasileva-venkova-ivanova-96e29e","label":"Валентина Василева Венкова-Иванова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176278380","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;НЕВЕНА КОКАНОВА-2011&quot;","slug":null,"uic":"176278380","legalForm":null,"status":null,"seat":null},{"id":"person:ВЕСЕЛИНА БОНЕВА ДИМОВА","type":"person","label":"Веселина Бонева Димова"},{"id":"person:ТОТКА СТОЙНОВА ГЕЧЕВА","type":"person","label":"Тотка Стойнова Гечева"},{"id":"person:ЛЮБОМИР ВАСИЛЕВ СТАНЕВ","type":"person","label":"Любомир Василев Станев"},{"id":"person:МАРИЯ ТАШКОВА ДЕНЧЕВА","type":"person","label":"Мария Ташкова Денчева"},{"id":"person:НИКОЛИНА ГРОЗЕВА КЪНЧЕВА","type":"person","label":"Николина Грозева Кънчева"},{"id":"person:КИРИЛ ЙОРДАНОВ АНДРЕЕВ","type":"person","label":"Кирил Йорданов Андреев"},{"id":"person:РАДКА ИВАНОВА ДОСЕВА","type":"person","label":"Радка Иванова Досева"},{"id":"person:АНТОНИЯ ГАНЧЕВА ДРАГАНОВА","type":"person","label":"Антония Ганчева Драганова"},{"id":"person:ХРИСТИНА ГЕОРГИЕВА КУЦАРОВА","type":"person","label":"Христина Георгиева Куцарова"}],"edges":[{"source":"official:valentina-vasileva-venkova-ivanova-96e29e","target":"company:tr:176278380","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕСЕЛИНА БОНЕВА ДИМОВА","target":"company:tr:176278380","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТОТКА СТОЙНОВА ГЕЧЕВА","target":"company:tr:176278380","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА БОНЕВА ДИМОВА","target":"company:tr:176278380","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ВАСИЛЕВ СТАНЕВ","target":"company:tr:176278380","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ТАШКОВА ДЕНЧЕВА","target":"company:tr:176278380","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНА ГРОЗЕВА КЪНЧЕВА","target":"company:tr:176278380","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ЙОРДАНОВ АНДРЕЕВ","target":"company:tr:176278380","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ИВАНОВА ДОСЕВА","target":"company:tr:176278380","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ГАНЧЕВА ДРАГАНОВА","target":"company:tr:176278380","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА ГЕОРГИЕВА КУЦАРОВА","target":"company:tr:176278380","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valentina-vasileva-venkova-ivanova-96e29e",
+  "nodes": [
+    {
+      "id": "official:valentina-vasileva-venkova-ivanova-96e29e",
+      "type": "official",
+      "slug": "valentina-vasileva-venkova-ivanova-96e29e",
+      "label": "Валентина Василева Венкова-Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176278380",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НЕВЕНА КОКАНОВА-2011&quot;",
+      "slug": null,
+      "uic": "176278380",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИНА БОНЕВА ДИМОВА",
+      "type": "person",
+      "label": "Веселина Бонева Димова"
+    },
+    {
+      "id": "person:ТОТКА СТОЙНОВА ГЕЧЕВА",
+      "type": "person",
+      "label": "Тотка Стойнова Гечева"
+    },
+    {
+      "id": "person:ЛЮБОМИР ВАСИЛЕВ СТАНЕВ",
+      "type": "person",
+      "label": "Любомир Василев Станев"
+    },
+    {
+      "id": "person:МАРИЯ ТАШКОВА ДЕНЧЕВА",
+      "type": "person",
+      "label": "Мария Ташкова Денчева"
+    },
+    {
+      "id": "person:НИКОЛИНА ГРОЗЕВА КЪНЧЕВА",
+      "type": "person",
+      "label": "Николина Грозева Кънчева"
+    },
+    {
+      "id": "person:КИРИЛ ЙОРДАНОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Кирил Йорданов Андреев"
+    },
+    {
+      "id": "person:РАДКА ИВАНОВА ДОСЕВА",
+      "type": "person",
+      "label": "Радка Иванова Досева"
+    },
+    {
+      "id": "person:АНТОНИЯ ГАНЧЕВА ДРАГАНОВА",
+      "type": "person",
+      "label": "Антония Ганчева Драганова"
+    },
+    {
+      "id": "person:ХРИСТИНА ГЕОРГИЕВА КУЦАРОВА",
+      "type": "person",
+      "label": "Христина Георгиева Куцарова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentina-vasileva-venkova-ivanova-96e29e",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА БОНЕВА ДИМОВА",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОТКА СТОЙНОВА ГЕЧЕВА",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА БОНЕВА ДИМОВА",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ВАСИЛЕВ СТАНЕВ",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАШКОВА ДЕНЧЕВА",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА ГРОЗЕВА КЪНЧЕВА",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ЙОРДАНОВ АНДРЕЕВ",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ИВАНОВА ДОСЕВА",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ГАНЧЕВА ДРАГАНОВА",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ГЕОРГИЕВА КУЦАРОВА",
+      "target": "company:tr:176278380",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetoslav-ventsislavov-slavchev-2adb71","nodes":[{"id":"official:svetoslav-ventsislavov-slavchev-2adb71","type":"official","slug":"svetoslav-ventsislavov-slavchev-2adb71","label":"Светослав Венциславов Славчев","tier":"municipal","role":"mayor","municipality":"Димово"},{"id":"company:tr:208092497","type":"company","label":"Местна инициативна рибарска група &quot;Монтана - Ружинци - Димово&quot;","slug":null,"uic":"208092497","legalForm":null,"status":null,"seat":null},{"id":"person:ЗЛАТКО СОФРОНИЕВ ЖИВКОВ","type":"person","label":"Златко Софрониев Живков"},{"id":"person:БОЖИДАР ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Божидар Георгиев Георгиев"},{"id":"person:АЛЕКСАНДЪР ИВАНОВ АЛЕКСАНДРОВ","type":"person","label":"Александър Иванов Александров"},{"id":"person:МИРОСЛАВА ИЛИЕВА ПЕТРОВА","type":"person","label":"Мирослава Илиева Петрова"},{"id":"person:РАЛИЦА ЕМИЛОВА ЗАМФИРОВА","type":"person","label":"Ралица Емилова Замфирова"},{"id":"person:ТОМАС МАРИУС КОНОВ","type":"person","label":"Томас Мариус Конов"},{"id":"person:СТЕФАН АЛЕКСАНДРОВ СТЕФАНОВ","type":"person","label":"Стефан Александров Стефанов"}],"edges":[{"source":"official:svetoslav-ventsislavov-slavchev-2adb71","target":"company:tr:208092497","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЗЛАТКО СОФРОНИЕВ ЖИВКОВ","target":"company:tr:208092497","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАР ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:208092497","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКО СОФРОНИЕВ ЖИВКОВ","target":"company:tr:208092497","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ИВАНОВ АЛЕКСАНДРОВ","target":"company:tr:208092497","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВА ИЛИЕВА ПЕТРОВА","target":"company:tr:208092497","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАР ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:208092497","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА ЕМИЛОВА ЗАМФИРОВА","target":"company:tr:208092497","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОМАС МАРИУС КОНОВ","target":"company:tr:208092497","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АЛЕКСАНДРОВ СТЕФАНОВ","target":"company:tr:208092497","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetoslav-ventsislavov-slavchev-2adb71",
+  "nodes": [
+    {
+      "id": "official:svetoslav-ventsislavov-slavchev-2adb71",
+      "type": "official",
+      "slug": "svetoslav-ventsislavov-slavchev-2adb71",
+      "label": "Светослав Венциславов Славчев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Димово"
+    },
+    {
+      "id": "company:tr:208092497",
+      "type": "company",
+      "label": "Местна инициативна рибарска група &quot;Монтана - Ружинци - Димово&quot;",
+      "slug": null,
+      "uic": "208092497",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗЛАТКО СОФРОНИЕВ ЖИВКОВ",
+      "type": "person",
+      "label": "Златко Софрониев Живков"
+    },
+    {
+      "id": "person:БОЖИДАР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Божидар Георгиев Георгиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ИВАНОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Иванов Александров"
+    },
+    {
+      "id": "person:МИРОСЛАВА ИЛИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Мирослава Илиева Петрова"
+    },
+    {
+      "id": "person:РАЛИЦА ЕМИЛОВА ЗАМФИРОВА",
+      "type": "person",
+      "label": "Ралица Емилова Замфирова"
+    },
+    {
+      "id": "person:ТОМАС МАРИУС КОНОВ",
+      "type": "person",
+      "label": "Томас Мариус Конов"
+    },
+    {
+      "id": "person:СТЕФАН АЛЕКСАНДРОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Александров Стефанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-ventsislavov-slavchev-2adb71",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЛАТКО СОФРОНИЕВ ЖИВКОВ",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКО СОФРОНИЕВ ЖИВКОВ",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ИВАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА ИЛИЕВА ПЕТРОВА",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ЕМИЛОВА ЗАМФИРОВА",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМАС МАРИУС КОНОВ",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АЛЕКСАНДРОВ СТЕФАНОВ",
+      "target": "company:tr:208092497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

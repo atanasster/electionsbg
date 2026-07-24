@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tina-mihova-pisarova-9497b4","nodes":[{"id":"official:tina-mihova-pisarova-9497b4","type":"official","slug":"tina-mihova-pisarova-9497b4","label":"Тина Михова Писарова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:102717189","type":"company","label":"&quot;Училищно настоятелство &quot;Христо Ботев&quot; при ОУ &quot;Христо Ботев&quot;&quot;-кв.Ветрен","slug":null,"uic":"102717189","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН АТАНАСОВ БАШОВ ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ","type":"person","label":"Иван Атанасов Башов Председател На Съвета На Настоятелите"},{"id":"person:АНЕТА ИЛИЕВА СИМЕОНОВА ЧЛЕН НА СЪВЕТА НА НАСТОЯТЕЛИТЕ","type":"person","label":"Анета Илиева Симеонова Член На Съвета На Настоятелите"},{"id":"person:ИВЕЛИНА СТЕФАНОВА ДРАГОВА","type":"person","label":"Ивелина Стефанова Драгова"},{"id":"person:СЕВДЖАН ХАЛИТИН АХМЕД","type":"person","label":"Севджан Халитин Ахмед"}],"edges":[{"source":"official:tina-mihova-pisarova-9497b4","target":"company:tr:102717189","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:tina-mihova-pisarova-9497b4","target":"company:tr:102717189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН АТАНАСОВ БАШОВ ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ","target":"company:tr:102717189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЕТА ИЛИЕВА СИМЕОНОВА ЧЛЕН НА СЪВЕТА НА НАСТОЯТЕЛИТЕ","target":"company:tr:102717189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИНА СТЕФАНОВА ДРАГОВА","target":"company:tr:102717189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕВДЖАН ХАЛИТИН АХМЕД","target":"company:tr:102717189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tina-mihova-pisarova-9497b4",
+  "nodes": [
+    {
+      "id": "official:tina-mihova-pisarova-9497b4",
+      "type": "official",
+      "slug": "tina-mihova-pisarova-9497b4",
+      "label": "Тина Михова Писарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102717189",
+      "type": "company",
+      "label": "&quot;Училищно настоятелство &quot;Христо Ботев&quot; при ОУ &quot;Христо Ботев&quot;&quot;-кв.Ветрен",
+      "slug": null,
+      "uic": "102717189",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ БАШОВ ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "type": "person",
+      "label": "Иван Атанасов Башов Председател На Съвета На Настоятелите"
+    },
+    {
+      "id": "person:АНЕТА ИЛИЕВА СИМЕОНОВА ЧЛЕН НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "type": "person",
+      "label": "Анета Илиева Симеонова Член На Съвета На Настоятелите"
+    },
+    {
+      "id": "person:ИВЕЛИНА СТЕФАНОВА ДРАГОВА",
+      "type": "person",
+      "label": "Ивелина Стефанова Драгова"
+    },
+    {
+      "id": "person:СЕВДЖАН ХАЛИТИН АХМЕД",
+      "type": "person",
+      "label": "Севджан Халитин Ахмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tina-mihova-pisarova-9497b4",
+      "target": "company:tr:102717189",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tina-mihova-pisarova-9497b4",
+      "target": "company:tr:102717189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ БАШОВ ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "target": "company:tr:102717189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ИЛИЕВА СИМЕОНОВА ЧЛЕН НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "target": "company:tr:102717189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА СТЕФАНОВА ДРАГОВА",
+      "target": "company:tr:102717189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДЖАН ХАЛИТИН АХМЕД",
+      "target": "company:tr:102717189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

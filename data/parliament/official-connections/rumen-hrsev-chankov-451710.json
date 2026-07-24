@@ -1,1 +1,262 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rumen-hrsev-chankov-451710","nodes":[{"id":"official:rumen-hrsev-chankov-451710","type":"official","slug":"rumen-hrsev-chankov-451710","label":"Румен Хърсев Чанков","tier":"municipal","role":"councillor","municipality":"Средец"},{"id":"company:tr:207288411","type":"company","label":"ДЪБРАВА","slug":null,"uic":"207288411","legalForm":null,"status":null,"seat":null},{"id":"person:АНГЕЛ НИКОЛОВ ГЪБОВ","type":"person","label":"Ангел Николов Гъбов"},{"id":"person:МИТКО ИВАНОВ ГУДОВ","type":"person","label":"Митко Иванов Гудов"},{"id":"person:СПАС ДИМИТРОВ СТОЯНОВ","type":"person","label":"Спас Димитров Стоянов"},{"id":"person:ПЕТЪР ДИМИТРОВ АТАНАСОВ","type":"person","label":"Петър Димитров Атанасов"},{"id":"person:КАЛИНКА ПЕЕВА САРОВА","type":"person","label":"Калинка Пеева Сарова"},{"id":"person:ЯСЕН ДИМИТРОВ САРОВ","type":"person","label":"Ясен Димитров Саров"},{"id":"person:ВЕСЕЛИН ИВАНОВ РАЙЧЕВ","type":"person","label":"Веселин Иванов Райчев"},{"id":"person:ИРЕНА ИВАНОВА ВОДЕВА","type":"person","label":"Ирена Иванова Водева"},{"id":"person:ИВАН ДИМОВ ТОДОРОВ","type":"person","label":"Иван Димов Тодоров"},{"id":"person:ИВАН ГЕОРГИЕВ ЦЪЦАРОВ","type":"person","label":"Иван Георгиев Цъцаров"},{"id":"person:ЛАЛЮ ХРИСТОВ ЛАЛЕВ","type":"person","label":"Лалю Христов Лалев"},{"id":"person:ДИМИТРИНКА ЙОНЕВА СТЕФАНОВА","type":"person","label":"Димитринка Йонева Стефанова"},{"id":"person:ДИАНА ГЕОРГИЕВА ИЛИЕВА","type":"person","label":"Диана Георгиева Илиева"},{"id":"person:НИКОЛАЙ АНТОНОВ МАРКИН","type":"person","label":"Николай Антонов Маркин"},{"id":"person:СТЕФКА ДЕМИРЕВА ПОПОВА","type":"person","label":"Стефка Демирева Попова"}],"edges":[{"source":"official:rumen-hrsev-chankov-451710","target":"company:tr:207288411","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"medium"},{"source":"official:rumen-hrsev-chankov-451710","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АНГЕЛ НИКОЛОВ ГЪБОВ","target":"company:tr:207288411","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО ИВАНОВ ГУДОВ","target":"company:tr:207288411","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:СПАС ДИМИТРОВ СТОЯНОВ","target":"company:tr:207288411","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ НИКОЛОВ ГЪБОВ","target":"company:tr:207288411","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ НИКОЛОВ ГЪБОВ","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ДИМИТРОВ АТАНАСОВ","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНКА ПЕЕВА САРОВА","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЯСЕН ДИМИТРОВ САРОВ","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ИВАНОВ РАЙЧЕВ","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА ИВАНОВА ВОДЕВА","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМОВ ТОДОРОВ","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГЕОРГИЕВ ЦЪЦАРОВ","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЛЮ ХРИСТОВ ЛАЛЕВ","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО ИВАНОВ ГУДОВ","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНКА ЙОНЕВА СТЕФАНОВА","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА ГЕОРГИЕВА ИЛИЕВА","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ АНТОНОВ МАРКИН","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ДЕМИРЕВА ПОПОВА","target":"company:tr:207288411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rumen-hrsev-chankov-451710",
+  "nodes": [
+    {
+      "id": "official:rumen-hrsev-chankov-451710",
+      "type": "official",
+      "slug": "rumen-hrsev-chankov-451710",
+      "label": "Румен Хърсев Чанков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Средец"
+    },
+    {
+      "id": "company:tr:207288411",
+      "type": "company",
+      "label": "ДЪБРАВА",
+      "slug": null,
+      "uic": "207288411",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ НИКОЛОВ ГЪБОВ",
+      "type": "person",
+      "label": "Ангел Николов Гъбов"
+    },
+    {
+      "id": "person:МИТКО ИВАНОВ ГУДОВ",
+      "type": "person",
+      "label": "Митко Иванов Гудов"
+    },
+    {
+      "id": "person:СПАС ДИМИТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Спас Димитров Стоянов"
+    },
+    {
+      "id": "person:ПЕТЪР ДИМИТРОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Петър Димитров Атанасов"
+    },
+    {
+      "id": "person:КАЛИНКА ПЕЕВА САРОВА",
+      "type": "person",
+      "label": "Калинка Пеева Сарова"
+    },
+    {
+      "id": "person:ЯСЕН ДИМИТРОВ САРОВ",
+      "type": "person",
+      "label": "Ясен Димитров Саров"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ИВАНОВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Веселин Иванов Райчев"
+    },
+    {
+      "id": "person:ИРЕНА ИВАНОВА ВОДЕВА",
+      "type": "person",
+      "label": "Ирена Иванова Водева"
+    },
+    {
+      "id": "person:ИВАН ДИМОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Иван Димов Тодоров"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ЦЪЦАРОВ",
+      "type": "person",
+      "label": "Иван Георгиев Цъцаров"
+    },
+    {
+      "id": "person:ЛАЛЮ ХРИСТОВ ЛАЛЕВ",
+      "type": "person",
+      "label": "Лалю Христов Лалев"
+    },
+    {
+      "id": "person:ДИМИТРИНКА ЙОНЕВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Димитринка Йонева Стефанова"
+    },
+    {
+      "id": "person:ДИАНА ГЕОРГИЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Диана Георгиева Илиева"
+    },
+    {
+      "id": "person:НИКОЛАЙ АНТОНОВ МАРКИН",
+      "type": "person",
+      "label": "Николай Антонов Маркин"
+    },
+    {
+      "id": "person:СТЕФКА ДЕМИРЕВА ПОПОВА",
+      "type": "person",
+      "label": "Стефка Демирева Попова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-hrsev-chankov-451710",
+      "target": "company:tr:207288411",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-hrsev-chankov-451710",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ НИКОЛОВ ГЪБОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ИВАНОВ ГУДОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ НИКОЛОВ ГЪБОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ НИКОЛОВ ГЪБОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ДИМИТРОВ АТАНАСОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ПЕЕВА САРОВА",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН ДИМИТРОВ САРОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ИВАНОВ РАЙЧЕВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ИВАНОВА ВОДЕВА",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМОВ ТОДОРОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ЦЪЦАРОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЛЮ ХРИСТОВ ЛАЛЕВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ИВАНОВ ГУДОВ",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНКА ЙОНЕВА СТЕФАНОВА",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ГЕОРГИЕВА ИЛИЕВА",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АНТОНОВ МАРКИН",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ДЕМИРЕВА ПОПОВА",
+      "target": "company:tr:207288411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

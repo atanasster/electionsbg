@@ -1,1 +1,129 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-ivanov-slavov-0f6a8b","nodes":[{"id":"official:georgi-ivanov-slavov-0f6a8b","type":"official","slug":"georgi-ivanov-slavov-0f6a8b","label":"Георги Иванов Славов","tier":"executive","role":"eu_funds_controller","municipality":null},{"id":"company:tr:128587374","type":"company","label":"ТЕКРИС ЕООД","slug":null,"uic":"128587374","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201549089","type":"company","label":"Баланс Консулт ООД","slug":null,"uic":"201549089","legalForm":null,"status":null,"seat":null},{"id":"company:tr:128528360","type":"company","label":"Агроинвест Тунджа","slug":null,"uic":"128528360","legalForm":null,"status":null,"seat":null},{"id":"official:georgi-ivanov-slavov-db51c8","type":"official","slug":"georgi-ivanov-slavov-db51c8","label":"Георги Иванов Славов","tier":"executive","role":"procurement_officer","municipality":null},{"id":"official:georgi-ivanov-slavov-4d76ba","type":"official","slug":"georgi-ivanov-slavov-4d76ba","label":"Георги Иванов Славов","tier":"municipal","role":"councillor","municipality":"Ямбол"}],"edges":[{"source":"official:georgi-ivanov-slavov-0f6a8b","target":"company:tr:128587374","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-ivanov-slavov-0f6a8b","target":"company:tr:201549089","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-ivanov-slavov-0f6a8b","target":"company:tr:128528360","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-ivanov-slavov-db51c8","target":"company:tr:128587374","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-ivanov-slavov-4d76ba","target":"company:tr:128587374","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-ivanov-slavov-db51c8","target":"company:tr:201549089","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-ivanov-slavov-4d76ba","target":"company:tr:201549089","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:georgi-ivanov-slavov-db51c8","target":"company:tr:128528360","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-ivanov-slavov-0f6a8b",
+  "nodes": [
+    {
+      "id": "official:georgi-ivanov-slavov-0f6a8b",
+      "type": "official",
+      "slug": "georgi-ivanov-slavov-0f6a8b",
+      "label": "Георги Иванов Славов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:128587374",
+      "type": "company",
+      "label": "ТЕКРИС ЕООД",
+      "slug": null,
+      "uic": "128587374",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201549089",
+      "type": "company",
+      "label": "Баланс Консулт ООД",
+      "slug": null,
+      "uic": "201549089",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:128528360",
+      "type": "company",
+      "label": "Агроинвест Тунджа",
+      "slug": null,
+      "uic": "128528360",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:georgi-ivanov-slavov-db51c8",
+      "type": "official",
+      "slug": "georgi-ivanov-slavov-db51c8",
+      "label": "Георги Иванов Славов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "official:georgi-ivanov-slavov-4d76ba",
+      "type": "official",
+      "slug": "georgi-ivanov-slavov-4d76ba",
+      "label": "Георги Иванов Славов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ivanov-slavov-0f6a8b",
+      "target": "company:tr:128587374",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-0f6a8b",
+      "target": "company:tr:201549089",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-0f6a8b",
+      "target": "company:tr:128528360",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-db51c8",
+      "target": "company:tr:128587374",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-4d76ba",
+      "target": "company:tr:128587374",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-db51c8",
+      "target": "company:tr:201549089",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-4d76ba",
+      "target": "company:tr:201549089",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-db51c8",
+      "target": "company:tr:128528360",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

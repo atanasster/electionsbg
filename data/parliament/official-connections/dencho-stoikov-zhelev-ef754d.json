@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dencho-stoikov-zhelev-ef754d","nodes":[{"id":"official:dencho-stoikov-zhelev-ef754d","type":"official","slug":"dencho-stoikov-zhelev-ef754d","label":"Денчо Стойков Желев","tier":"municipal","role":"councillor","municipality":"Каспичан"},{"id":"company:tr:127637816","type":"company","label":"ФУТБОЛЕН КЛУБ ЛОКОМОТИВ-КАСПИЧАН гр. КАСПИЧАН","slug":null,"uic":"127637816","legalForm":null,"status":null,"seat":null},{"id":"person:МИТКО ДРАГОМИРОВ МИТКОВ","type":"person","label":"Митко Драгомиров Митков"},{"id":"person:МАРТИН БОРИСОВ ЛЕКОВ","type":"person","label":"Мартин Борисов Леков"}],"edges":[{"source":"official:dencho-stoikov-zhelev-ef754d","target":"company:tr:127637816","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МИТКО ДРАГОМИРОВ МИТКОВ","target":"company:tr:127637816","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН БОРИСОВ ЛЕКОВ","target":"company:tr:127637816","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО ДРАГОМИРОВ МИТКОВ","target":"company:tr:127637816","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dencho-stoikov-zhelev-ef754d",
+  "nodes": [
+    {
+      "id": "official:dencho-stoikov-zhelev-ef754d",
+      "type": "official",
+      "slug": "dencho-stoikov-zhelev-ef754d",
+      "label": "Денчо Стойков Желев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Каспичан"
+    },
+    {
+      "id": "company:tr:127637816",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ ЛОКОМОТИВ-КАСПИЧАН гр. КАСПИЧАН",
+      "slug": null,
+      "uic": "127637816",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИТКО ДРАГОМИРОВ МИТКОВ",
+      "type": "person",
+      "label": "Митко Драгомиров Митков"
+    },
+    {
+      "id": "person:МАРТИН БОРИСОВ ЛЕКОВ",
+      "type": "person",
+      "label": "Мартин Борисов Леков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dencho-stoikov-zhelev-ef754d",
+      "target": "company:tr:127637816",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИТКО ДРАГОМИРОВ МИТКОВ",
+      "target": "company:tr:127637816",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН БОРИСОВ ЛЕКОВ",
+      "target": "company:tr:127637816",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ДРАГОМИРОВ МИТКОВ",
+      "target": "company:tr:127637816",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

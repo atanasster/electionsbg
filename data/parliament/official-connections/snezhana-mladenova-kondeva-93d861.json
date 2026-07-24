@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:snezhana-mladenova-kondeva-93d861","nodes":[{"id":"official:snezhana-mladenova-kondeva-93d861","type":"official","slug":"snezhana-mladenova-kondeva-93d861","label":"Снежана Младенова Кондева","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:000689022","type":"company","label":"ВТОРА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-СОФИЯ","slug":null,"uic":"000689022","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФАН НИКОЛАЕВ УЗУНОВ","type":"person","label":"Стефан Николаев Узунов"},{"id":"person:КРАСИМИР СТОЯНОВ ПАНДЕВ","type":"person","label":"Красимир Стоянов Пандев"}],"edges":[{"source":"official:snezhana-mladenova-kondeva-93d861","target":"company:tr:000689022","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН НИКОЛАЕВ УЗУНОВ","target":"company:tr:000689022","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР СТОЯНОВ ПАНДЕВ","target":"company:tr:000689022","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:snezhana-mladenova-kondeva-93d861",
+  "nodes": [
+    {
+      "id": "official:snezhana-mladenova-kondeva-93d861",
+      "type": "official",
+      "slug": "snezhana-mladenova-kondeva-93d861",
+      "label": "Снежана Младенова Кондева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000689022",
+      "type": "company",
+      "label": "ВТОРА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-СОФИЯ",
+      "slug": null,
+      "uic": "000689022",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН НИКОЛАЕВ УЗУНОВ",
+      "type": "person",
+      "label": "Стефан Николаев Узунов"
+    },
+    {
+      "id": "person:КРАСИМИР СТОЯНОВ ПАНДЕВ",
+      "type": "person",
+      "label": "Красимир Стоянов Пандев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:snezhana-mladenova-kondeva-93d861",
+      "target": "company:tr:000689022",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН НИКОЛАЕВ УЗУНОВ",
+      "target": "company:tr:000689022",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР СТОЯНОВ ПАНДЕВ",
+      "target": "company:tr:000689022",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

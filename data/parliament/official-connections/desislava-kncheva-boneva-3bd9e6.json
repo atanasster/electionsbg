@@ -1,1 +1,165 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:desislava-kncheva-boneva-3bd9e6","nodes":[{"id":"official:desislava-kncheva-boneva-3bd9e6","type":"official","slug":"desislava-kncheva-boneva-3bd9e6","label":"Десислава Кънчева Бонева","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:130527486","type":"company","label":"БЪЛГАРСКА СИ ЕФ ЕЙ АСОЦИАЦИЯ","slug":null,"uic":"130527486","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛАЙ ВАСИЛЕВ ВАСИЛЕВ","type":"person","label":"Николай Василев Василев"},{"id":"person:ПЛАМЕН НЕНКОВ ПАВЛОВ","type":"person","label":"Пламен Ненков Павлов"},{"id":"person:КАЛИН КРАСИМИРОВ МЕТОДИЕВ","type":"person","label":"Калин Красимиров Методиев"},{"id":"person:АЛЕКСАНДЪР АНТОНОВ АЛЕКСАНДРОВ","type":"person","label":"Александър Антонов Александров"},{"id":"person:ВЕНЕТА ПАРАСКЕВОВА ИЛИЕВА","type":"person","label":"Венета Параскевова Илиева"},{"id":"person:НИКОЛАЙ МАРЬОВ ВАНЬОВ","type":"person","label":"Николай Марьов Ваньов"},{"id":"person:ЦВЕТОМИР СТЕФАНОВ УЗУНОВ","type":"person","label":"Цветомир Стефанов Узунов"},{"id":"person:ИВАЙЛО ПЕНЧЕВ ПЕНЕВ","type":"person","label":"Ивайло Пенчев Пенев"},{"id":"person:ВАЛЕНТИН ТОДОРОВ МАНЕВ","type":"person","label":"Валентин Тодоров Манев"},{"id":"person:ИВАЙЛО ИВАНОВ ДЕЛИЙСКИ","type":"person","label":"Ивайло Иванов Делийски"}],"edges":[{"source":"official:desislava-kncheva-boneva-3bd9e6","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ ВАСИЛЕВ ВАСИЛЕВ","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН НЕНКОВ ПАВЛОВ","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН КРАСИМИРОВ МЕТОДИЕВ","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР АНТОНОВ АЛЕКСАНДРОВ","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕТА ПАРАСКЕВОВА ИЛИЕВА","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ МАРЬОВ ВАНЬОВ","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОМИР СТЕФАНОВ УЗУНОВ","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ПЕНЧЕВ ПЕНЕВ","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ТОДОРОВ МАНЕВ","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ИВАНОВ ДЕЛИЙСКИ","target":"company:tr:130527486","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:desislava-kncheva-boneva-3bd9e6",
+  "nodes": [
+    {
+      "id": "official:desislava-kncheva-boneva-3bd9e6",
+      "type": "official",
+      "slug": "desislava-kncheva-boneva-3bd9e6",
+      "label": "Десислава Кънчева Бонева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130527486",
+      "type": "company",
+      "label": "БЪЛГАРСКА СИ ЕФ ЕЙ АСОЦИАЦИЯ",
+      "slug": null,
+      "uic": "130527486",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ВАСИЛЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Николай Василев Василев"
+    },
+    {
+      "id": "person:ПЛАМЕН НЕНКОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Пламен Ненков Павлов"
+    },
+    {
+      "id": "person:КАЛИН КРАСИМИРОВ МЕТОДИЕВ",
+      "type": "person",
+      "label": "Калин Красимиров Методиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР АНТОНОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Антонов Александров"
+    },
+    {
+      "id": "person:ВЕНЕТА ПАРАСКЕВОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Венета Параскевова Илиева"
+    },
+    {
+      "id": "person:НИКОЛАЙ МАРЬОВ ВАНЬОВ",
+      "type": "person",
+      "label": "Николай Марьов Ваньов"
+    },
+    {
+      "id": "person:ЦВЕТОМИР СТЕФАНОВ УЗУНОВ",
+      "type": "person",
+      "label": "Цветомир Стефанов Узунов"
+    },
+    {
+      "id": "person:ИВАЙЛО ПЕНЧЕВ ПЕНЕВ",
+      "type": "person",
+      "label": "Ивайло Пенчев Пенев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ТОДОРОВ МАНЕВ",
+      "type": "person",
+      "label": "Валентин Тодоров Манев"
+    },
+    {
+      "id": "person:ИВАЙЛО ИВАНОВ ДЕЛИЙСКИ",
+      "type": "person",
+      "label": "Ивайло Иванов Делийски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:desislava-kncheva-boneva-3bd9e6",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН НЕНКОВ ПАВЛОВ",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН КРАСИМИРОВ МЕТОДИЕВ",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АНТОНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА ПАРАСКЕВОВА ИЛИЕВА",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МАРЬОВ ВАНЬОВ",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР СТЕФАНОВ УЗУНОВ",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ПЕНЧЕВ ПЕНЕВ",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ТОДОРОВ МАНЕВ",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ИВАНОВ ДЕЛИЙСКИ",
+      "target": "company:tr:130527486",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

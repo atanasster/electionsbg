@@ -1,1 +1,168 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stefan-todorov-petkov-809f1a","nodes":[{"id":"official:stefan-todorov-petkov-809f1a","type":"official","slug":"stefan-todorov-petkov-809f1a","label":"Стефан Тодоров Петков","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000923151","type":"company","label":"Народно читалище &quot; Пробуда - 1928 &quot; гр. Каспичан","slug":null,"uic":"000923151","legalForm":null,"status":null,"seat":null},{"id":"person:ИСКРА АЛЕКСАНДРОВА РАДЕВА","type":"person","label":"Искра Александрова Радева"},{"id":"person:ВАЛЕНТИН ТОНЕВ АТАНАСОВ","type":"person","label":"Валентин Тонев Атанасов"},{"id":"person:ВАЛЕНТИНА ВЕСКОВА НЕДЕЛЧЕВА","type":"person","label":"Валентина Вескова Неделчева"},{"id":"person:КРАСИМИР НИКОЛАЕВ МИЛАНОВ","type":"person","label":"Красимир Николаев Миланов"},{"id":"person:НИНА ЛАЗАРОВА ИЛИЕВА","type":"person","label":"Нина Лазарова Илиева"},{"id":"person:ИВАНКА СТОЙНОВА НАЙДЕНОВА","type":"person","label":"Иванка Стойнова Найденова"},{"id":"person:ВАЛЕНТИНА ИВАНОВА СТОИЛОВА","type":"person","label":"Валентина Иванова Стоилова"},{"id":"person:ЖЕНИ СТОЯНОВА ВЪЛЧЕВА","type":"person","label":"Жени Стоянова Вълчева"},{"id":"person:МИЛЕН АНГЕЛОВ МИНЧЕВ","type":"person","label":"Милен Ангелов Минчев"}],"edges":[{"source":"official:stefan-todorov-petkov-809f1a","target":"company:tr:000923151","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:stefan-todorov-petkov-809f1a","target":"company:tr:000923151","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ИСКРА АЛЕКСАНДРОВА РАДЕВА","target":"company:tr:000923151","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ТОНЕВ АТАНАСОВ","target":"company:tr:000923151","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ВЕСКОВА НЕДЕЛЧЕВА","target":"company:tr:000923151","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР НИКОЛАЕВ МИЛАНОВ","target":"company:tr:000923151","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ЛАЗАРОВА ИЛИЕВА","target":"company:tr:000923151","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА СТОЙНОВА НАЙДЕНОВА","target":"company:tr:000923151","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ИВАНОВА СТОИЛОВА","target":"company:tr:000923151","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕНИ СТОЯНОВА ВЪЛЧЕВА","target":"company:tr:000923151","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ВЕСКОВА НЕДЕЛЧЕВА","target":"company:tr:000923151","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН АНГЕЛОВ МИНЧЕВ","target":"company:tr:000923151","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stefan-todorov-petkov-809f1a",
+  "nodes": [
+    {
+      "id": "official:stefan-todorov-petkov-809f1a",
+      "type": "official",
+      "slug": "stefan-todorov-petkov-809f1a",
+      "label": "Стефан Тодоров Петков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000923151",
+      "type": "company",
+      "label": "Народно читалище &quot; Пробуда - 1928 &quot; гр. Каспичан",
+      "slug": null,
+      "uic": "000923151",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИСКРА АЛЕКСАНДРОВА РАДЕВА",
+      "type": "person",
+      "label": "Искра Александрова Радева"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ТОНЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Валентин Тонев Атанасов"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ВЕСКОВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Валентина Вескова Неделчева"
+    },
+    {
+      "id": "person:КРАСИМИР НИКОЛАЕВ МИЛАНОВ",
+      "type": "person",
+      "label": "Красимир Николаев Миланов"
+    },
+    {
+      "id": "person:НИНА ЛАЗАРОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Нина Лазарова Илиева"
+    },
+    {
+      "id": "person:ИВАНКА СТОЙНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Иванка Стойнова Найденова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ИВАНОВА СТОИЛОВА",
+      "type": "person",
+      "label": "Валентина Иванова Стоилова"
+    },
+    {
+      "id": "person:ЖЕНИ СТОЯНОВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Жени Стоянова Вълчева"
+    },
+    {
+      "id": "person:МИЛЕН АНГЕЛОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Милен Ангелов Минчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-todorov-petkov-809f1a",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-todorov-petkov-809f1a",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИСКРА АЛЕКСАНДРОВА РАДЕВА",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ТОНЕВ АТАНАСОВ",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ВЕСКОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР НИКОЛАЕВ МИЛАНОВ",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ЛАЗАРОВА ИЛИЕВА",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА СТОЙНОВА НАЙДЕНОВА",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ИВАНОВА СТОИЛОВА",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕНИ СТОЯНОВА ВЪЛЧЕВА",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ВЕСКОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН АНГЕЛОВ МИНЧЕВ",
+      "target": "company:tr:000923151",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

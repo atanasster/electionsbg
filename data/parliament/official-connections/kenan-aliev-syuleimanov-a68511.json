@@ -1,1 +1,321 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kenan-aliev-syuleimanov-a68511","nodes":[{"id":"official:kenan-aliev-syuleimanov-a68511","type":"official","slug":"kenan-aliev-syuleimanov-a68511","label":"Кенан Алиев Сюлейманов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176021311","type":"company","label":"МЕСТНА ИНИЦИАТИВНА ГРУПА ЗАВЕТ - КУБРАТ","slug":null,"uic":"176021311","legalForm":null,"status":null,"seat":null},{"id":"person:САДУЛЛА ДЖЕФЕР МЕХМЕД","type":"person","label":"Садулла Джефер Мехмед"},{"id":"person:ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН","type":"person","label":"Халиме Мехмедова Добруджан"},{"id":"company:name:ФАТОШ-11 - САДУЛЛА МЕХМЕД , ПРЕДСТАВЛЯВАНО ОТ САДУЛЛА ДЖЕФЕР МЕХМЕД","type":"company","label":"ЕТ \"ФАТОШ-11 - САДУЛЛА МЕХМЕД\", представлявано от САДУЛЛА ДЖЕФЕР МЕХМЕД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ОБЩИНА КУБРАТ, ПРЕДСТАВЛЯВАНА ОТ МИРОСЛАВ ПЕТКОВ ЙОРДАНОВ","type":"person","label":"Община Кубрат, Представлявана От Мирослав Петков Йорданов"},{"id":"person:ОБЩИНА ЗАВЕТ, ПРЕДСТАВЛЯВАНА ОТ ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН","type":"person","label":"Община Завет, Представлявана От Халиме Мехмедова Добруджан"},{"id":"person:ДАХИЛ ОСМАН ДАИЛ","type":"person","label":"Дахил Осман Даил"},{"id":"person:МЕЙХАД МАХМУДОВА АДИЛОВА","type":"person","label":"Мейхад Махмудова Адилова"},{"id":"person:СТИЛИЯНА МИНЕВА ИЛИЕВА","type":"person","label":"Стилияна Минева Илиева"},{"id":"company:name:АГРО СТОКА ЕООД, ПРЕДСТАВЛЯВАНО ОТ АЛЕКСЕЙ РАДОСЛАВОВ СТОЕВ","type":"company","label":"\"АГРО СТОКА\" ЕООД, представлявано от АЛЕКСЕЙ РАДОСЛАВОВ СТОЕВ","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ОБЩИНА ЗАВЕТ, ЕИК 000505814, ПРЕДСТАВЛЯВАНА ОТ ЕРСИН СЮЛЕЙМАН ИСМАИЛ","type":"person","label":"Община Завет, Еик 000505814, Представлявана От Ерсин Сюлейман Исмаил"},{"id":"person:ОБЩИНА КУБРАТ, ЕИК 000505846, ПРЕДСТАВЛЯВАНА ОТ КЕНАН АЛИЕВ СЮЛЕЙМАНОВ","type":"person","label":"Община Кубрат, Еик 000505846, Представлявана От Кенан Алиев Сюлейманов"},{"id":"company:name:ГЮЛЕЙХАН СЮЛЕЙМАН ШАБАНОВА, КАТО ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА , ЕИК 204014476","type":"company","label":"ГЮЛЕЙХАН СЮЛЕЙМАН ШАБАНОВА, като ЕТ \"ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА\", ЕИК 204014476","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:\"СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ ХРИСТО БОТЕВ С. ОСТРОВО\"\" СДРУЖЕНИЕ","type":"person","label":"\"сдружение \"училищно Настоятелство При Оу Христо Ботев С. Острово\"\" Сдружение"},{"id":"person:СЕЗЕР СЕЗГИН ИСМАИЛ","type":"person","label":"Сезер Сезгин Исмаил"},{"id":"person:ОБЩИНА КУБРАТ","type":"person","label":"Община Кубрат"},{"id":"person:ФАТОШ-11 - САДУЛЛА МЕХМЕД","type":"person","label":"Фатош-11 - Садулла Мехмед"},{"id":"person:ЗАВЕТ","type":"person","label":"Завет"},{"id":"person:ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА","type":"person","label":"Гюлчи - Гюлейхан Шабанова"},{"id":"person:СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ ХРИСТО БОТЕВ С. ОСТРОВО\"","type":"person","label":"Сдружение \"училищно Настоятелство При Оу Христо Ботев С. Острово\""}],"edges":[{"source":"official:kenan-aliev-syuleimanov-a68511","target":"company:tr:176021311","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:kenan-aliev-syuleimanov-a68511","target":"company:tr:176021311","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"person:САДУЛЛА ДЖЕФЕР МЕХМЕД","target":"company:tr:176021311","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН","target":"company:tr:176021311","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"company:name:ФАТОШ-11 - САДУЛЛА МЕХМЕД , ПРЕДСТАВЛЯВАНО ОТ САДУЛЛА ДЖЕФЕР МЕХМЕД","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА КУБРАТ, ПРЕДСТАВЛЯВАНА ОТ МИРОСЛАВ ПЕТКОВ ЙОРДАНОВ","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ЗАВЕТ, ПРЕДСТАВЛЯВАНА ОТ ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАХИЛ ОСМАН ДАИЛ","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МЕЙХАД МАХМУДОВА АДИЛОВА","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТИЛИЯНА МИНЕВА ИЛИЕВА","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:АГРО СТОКА ЕООД, ПРЕДСТАВЛЯВАНО ОТ АЛЕКСЕЙ РАДОСЛАВОВ СТОЕВ","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ЗАВЕТ, ЕИК 000505814, ПРЕДСТАВЛЯВАНА ОТ ЕРСИН СЮЛЕЙМАН ИСМАИЛ","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА КУБРАТ, ЕИК 000505846, ПРЕДСТАВЛЯВАНА ОТ КЕНАН АЛИЕВ СЮЛЕЙМАНОВ","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН","target":"company:tr:176021311","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"company:name:ГЮЛЕЙХАН СЮЛЕЙМАН ШАБАНОВА, КАТО ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА , ЕИК 204014476","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:\"СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ ХРИСТО БОТЕВ С. ОСТРОВО\"\" СДРУЖЕНИЕ","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕЗЕР СЕЗГИН ИСМАИЛ","target":"company:tr:176021311","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА КУБРАТ","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ФАТОШ-11 - САДУЛЛА МЕХМЕД","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗАВЕТ","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ ХРИСТО БОТЕВ С. ОСТРОВО\"","target":"company:tr:176021311","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕЗЕР СЕЗГИН ИСМАИЛ","target":"company:tr:176021311","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kenan-aliev-syuleimanov-a68511",
+  "nodes": [
+    {
+      "id": "official:kenan-aliev-syuleimanov-a68511",
+      "type": "official",
+      "slug": "kenan-aliev-syuleimanov-a68511",
+      "label": "Кенан Алиев Сюлейманов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176021311",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА ЗАВЕТ - КУБРАТ",
+      "slug": null,
+      "uic": "176021311",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:САДУЛЛА ДЖЕФЕР МЕХМЕД",
+      "type": "person",
+      "label": "Садулла Джефер Мехмед"
+    },
+    {
+      "id": "person:ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН",
+      "type": "person",
+      "label": "Халиме Мехмедова Добруджан"
+    },
+    {
+      "id": "company:name:ФАТОШ-11 - САДУЛЛА МЕХМЕД , ПРЕДСТАВЛЯВАНО ОТ САДУЛЛА ДЖЕФЕР МЕХМЕД",
+      "type": "company",
+      "label": "ЕТ \"ФАТОШ-11 - САДУЛЛА МЕХМЕД\", представлявано от САДУЛЛА ДЖЕФЕР МЕХМЕД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА КУБРАТ, ПРЕДСТАВЛЯВАНА ОТ МИРОСЛАВ ПЕТКОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Община Кубрат, Представлявана От Мирослав Петков Йорданов"
+    },
+    {
+      "id": "person:ОБЩИНА ЗАВЕТ, ПРЕДСТАВЛЯВАНА ОТ ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН",
+      "type": "person",
+      "label": "Община Завет, Представлявана От Халиме Мехмедова Добруджан"
+    },
+    {
+      "id": "person:ДАХИЛ ОСМАН ДАИЛ",
+      "type": "person",
+      "label": "Дахил Осман Даил"
+    },
+    {
+      "id": "person:МЕЙХАД МАХМУДОВА АДИЛОВА",
+      "type": "person",
+      "label": "Мейхад Махмудова Адилова"
+    },
+    {
+      "id": "person:СТИЛИЯНА МИНЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Стилияна Минева Илиева"
+    },
+    {
+      "id": "company:name:АГРО СТОКА ЕООД, ПРЕДСТАВЛЯВАНО ОТ АЛЕКСЕЙ РАДОСЛАВОВ СТОЕВ",
+      "type": "company",
+      "label": "\"АГРО СТОКА\" ЕООД, представлявано от АЛЕКСЕЙ РАДОСЛАВОВ СТОЕВ",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА ЗАВЕТ, ЕИК 000505814, ПРЕДСТАВЛЯВАНА ОТ ЕРСИН СЮЛЕЙМАН ИСМАИЛ",
+      "type": "person",
+      "label": "Община Завет, Еик 000505814, Представлявана От Ерсин Сюлейман Исмаил"
+    },
+    {
+      "id": "person:ОБЩИНА КУБРАТ, ЕИК 000505846, ПРЕДСТАВЛЯВАНА ОТ КЕНАН АЛИЕВ СЮЛЕЙМАНОВ",
+      "type": "person",
+      "label": "Община Кубрат, Еик 000505846, Представлявана От Кенан Алиев Сюлейманов"
+    },
+    {
+      "id": "company:name:ГЮЛЕЙХАН СЮЛЕЙМАН ШАБАНОВА, КАТО ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА , ЕИК 204014476",
+      "type": "company",
+      "label": "ГЮЛЕЙХАН СЮЛЕЙМАН ШАБАНОВА, като ЕТ \"ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА\", ЕИК 204014476",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:\"СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ ХРИСТО БОТЕВ С. ОСТРОВО\"\" СДРУЖЕНИЕ",
+      "type": "person",
+      "label": "\"сдружение \"училищно Настоятелство При Оу Христо Ботев С. Острово\"\" Сдружение"
+    },
+    {
+      "id": "person:СЕЗЕР СЕЗГИН ИСМАИЛ",
+      "type": "person",
+      "label": "Сезер Сезгин Исмаил"
+    },
+    {
+      "id": "person:ОБЩИНА КУБРАТ",
+      "type": "person",
+      "label": "Община Кубрат"
+    },
+    {
+      "id": "person:ФАТОШ-11 - САДУЛЛА МЕХМЕД",
+      "type": "person",
+      "label": "Фатош-11 - Садулла Мехмед"
+    },
+    {
+      "id": "person:ЗАВЕТ",
+      "type": "person",
+      "label": "Завет"
+    },
+    {
+      "id": "person:ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА",
+      "type": "person",
+      "label": "Гюлчи - Гюлейхан Шабанова"
+    },
+    {
+      "id": "person:СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ ХРИСТО БОТЕВ С. ОСТРОВО\"",
+      "type": "person",
+      "label": "Сдружение \"училищно Настоятелство При Оу Христо Ботев С. Острово\""
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kenan-aliev-syuleimanov-a68511",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kenan-aliev-syuleimanov-a68511",
+      "target": "company:tr:176021311",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:САДУЛЛА ДЖЕФЕР МЕХМЕД",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ФАТОШ-11 - САДУЛЛА МЕХМЕД , ПРЕДСТАВЛЯВАНО ОТ САДУЛЛА ДЖЕФЕР МЕХМЕД",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КУБРАТ, ПРЕДСТАВЛЯВАНА ОТ МИРОСЛАВ ПЕТКОВ ЙОРДАНОВ",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ЗАВЕТ, ПРЕДСТАВЛЯВАНА ОТ ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАХИЛ ОСМАН ДАИЛ",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕЙХАД МАХМУДОВА АДИЛОВА",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИЛИЯНА МИНЕВА ИЛИЕВА",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АГРО СТОКА ЕООД, ПРЕДСТАВЛЯВАНО ОТ АЛЕКСЕЙ РАДОСЛАВОВ СТОЕВ",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ЗАВЕТ, ЕИК 000505814, ПРЕДСТАВЛЯВАНА ОТ ЕРСИН СЮЛЕЙМАН ИСМАИЛ",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КУБРАТ, ЕИК 000505846, ПРЕДСТАВЛЯВАНА ОТ КЕНАН АЛИЕВ СЮЛЕЙМАНОВ",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЛИМЕ МЕХМЕДОВА ДОБРУДЖАН",
+      "target": "company:tr:176021311",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ГЮЛЕЙХАН СЮЛЕЙМАН ШАБАНОВА, КАТО ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА , ЕИК 204014476",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ ХРИСТО БОТЕВ С. ОСТРОВО\"\" СДРУЖЕНИЕ",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЗЕР СЕЗГИН ИСМАИЛ",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КУБРАТ",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТОШ-11 - САДУЛЛА МЕХМЕД",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАВЕТ",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛЧИ - ГЮЛЕЙХАН ШАБАНОВА",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ ХРИСТО БОТЕВ С. ОСТРОВО\"",
+      "target": "company:tr:176021311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЗЕР СЕЗГИН ИСМАИЛ",
+      "target": "company:tr:176021311",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

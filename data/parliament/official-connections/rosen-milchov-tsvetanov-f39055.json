@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rosen-milchov-tsvetanov-f39055","nodes":[{"id":"official:rosen-milchov-tsvetanov-f39055","type":"official","slug":"rosen-milchov-tsvetanov-f39055","label":"Росен Милчов Цветанов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:831902001","type":"company","label":"НЧ ХАРМОНИЯ 1990","slug":null,"uic":"831902001","legalForm":null,"status":null,"seat":null},{"id":"person:ОЛГА НИКОЛОВА СОТЕВА","type":"person","label":"Олга Николова Сотева"},{"id":"person:СИЛВИЯ КОСТАДИНОВА ИЛКОВА","type":"person","label":"Силвия Костадинова Илкова"},{"id":"person:ДИМИТРИНА СТОЙНЕВА АНГЕЛОВА","type":"person","label":"Димитрина Стойнева Ангелова"},{"id":"person:СВЕТОСЛАВ ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Светослав Димитров Димитров"},{"id":"person:ВЕНЦИСЛАВ СЛАВЧЕВ ИГНАТОВ","type":"person","label":"Венцислав Славчев Игнатов"},{"id":"person:ТЕОДОРА ИВАНОВА АПОСТОЛОВА","type":"person","label":"Теодора Иванова Апостолова"},{"id":"person:МАРИЯ СТОЯНОВА АНГЕЛСКА-РАНГЕЛОВА","type":"person","label":"Мария Стоянова Ангелска-Рангелова"}],"edges":[{"source":"official:rosen-milchov-tsvetanov-f39055","target":"company:tr:831902001","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ОЛГА НИКОЛОВА СОТЕВА","target":"company:tr:831902001","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ КОСТАДИНОВА ИЛКОВА","target":"company:tr:831902001","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА СТОЙНЕВА АНГЕЛОВА","target":"company:tr:831902001","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ДИМИТРОВ ДИМИТРОВ","target":"company:tr:831902001","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ СЛАВЧЕВ ИГНАТОВ","target":"company:tr:831902001","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ИВАНОВА АПОСТОЛОВА","target":"company:tr:831902001","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ СТОЯНОВА АНГЕЛСКА-РАНГЕЛОВА","target":"company:tr:831902001","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rosen-milchov-tsvetanov-f39055",
+  "nodes": [
+    {
+      "id": "official:rosen-milchov-tsvetanov-f39055",
+      "type": "official",
+      "slug": "rosen-milchov-tsvetanov-f39055",
+      "label": "Росен Милчов Цветанов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831902001",
+      "type": "company",
+      "label": "НЧ ХАРМОНИЯ 1990",
+      "slug": null,
+      "uic": "831902001",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОЛГА НИКОЛОВА СОТЕВА",
+      "type": "person",
+      "label": "Олга Николова Сотева"
+    },
+    {
+      "id": "person:СИЛВИЯ КОСТАДИНОВА ИЛКОВА",
+      "type": "person",
+      "label": "Силвия Костадинова Илкова"
+    },
+    {
+      "id": "person:ДИМИТРИНА СТОЙНЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Димитрина Стойнева Ангелова"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Светослав Димитров Димитров"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ СЛАВЧЕВ ИГНАТОВ",
+      "type": "person",
+      "label": "Венцислав Славчев Игнатов"
+    },
+    {
+      "id": "person:ТЕОДОРА ИВАНОВА АПОСТОЛОВА",
+      "type": "person",
+      "label": "Теодора Иванова Апостолова"
+    },
+    {
+      "id": "person:МАРИЯ СТОЯНОВА АНГЕЛСКА-РАНГЕЛОВА",
+      "type": "person",
+      "label": "Мария Стоянова Ангелска-Рангелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-milchov-tsvetanov-f39055",
+      "target": "company:tr:831902001",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОЛГА НИКОЛОВА СОТЕВА",
+      "target": "company:tr:831902001",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ КОСТАДИНОВА ИЛКОВА",
+      "target": "company:tr:831902001",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА СТОЙНЕВА АНГЕЛОВА",
+      "target": "company:tr:831902001",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:831902001",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ СЛАВЧЕВ ИГНАТОВ",
+      "target": "company:tr:831902001",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ИВАНОВА АПОСТОЛОВА",
+      "target": "company:tr:831902001",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТОЯНОВА АНГЕЛСКА-РАНГЕЛОВА",
+      "target": "company:tr:831902001",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

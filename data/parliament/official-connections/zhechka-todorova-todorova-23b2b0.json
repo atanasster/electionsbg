@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zhechka-todorova-todorova-23b2b0","nodes":[{"id":"official:zhechka-todorova-todorova-23b2b0","type":"official","slug":"zhechka-todorova-todorova-23b2b0","label":"Жечка Тодорова Тодорова","tier":"municipal","role":"councillor","municipality":"Камено"},{"id":"company:tr:000044801","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕТА - 1927&quot;","slug":null,"uic":"000044801","legalForm":null,"status":null,"seat":null},{"id":"person:НЕЛИ КОСТАДИНОВА НЕДЕЛЧЕВА","type":"person","label":"Нели Костадинова Неделчева"},{"id":"person:МАРИЯ МАРИНОВА ДОБРЕВА","type":"person","label":"Мария Маринова Добрева"},{"id":"person:РАДОСВЕТА ИВАНОВА ДАНЕВА - КРЪСТЕВА","type":"person","label":"Радосвета Иванова Данева - Кръстева"},{"id":"person:ДИМИТРИНКА КОСТОВА ВЕЛИКОВА","type":"person","label":"Димитринка Костова Великова"},{"id":"person:РАДКА ЛЮБОМИРОВА МИНЕВА","type":"person","label":"Радка Любомирова Минева"},{"id":"person:ТАТЯНА СТЕФАНОВА ЙОЛДОВА","type":"person","label":"Татяна Стефанова Йолдова"},{"id":"person:ДОНИКА РУМЕНОВА КАРАИВАНОВА","type":"person","label":"Доника Руменова Караиванова"}],"edges":[{"source":"official:zhechka-todorova-todorova-23b2b0","target":"company:tr:000044801","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:НЕЛИ КОСТАДИНОВА НЕДЕЛЧЕВА","target":"company:tr:000044801","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ МАРИНОВА ДОБРЕВА","target":"company:tr:000044801","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСВЕТА ИВАНОВА ДАНЕВА - КРЪСТЕВА","target":"company:tr:000044801","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНКА КОСТОВА ВЕЛИКОВА","target":"company:tr:000044801","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ЛЮБОМИРОВА МИНЕВА","target":"company:tr:000044801","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА СТЕФАНОВА ЙОЛДОВА","target":"company:tr:000044801","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДОНИКА РУМЕНОВА КАРАИВАНОВА","target":"company:tr:000044801","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zhechka-todorova-todorova-23b2b0",
+  "nodes": [
+    {
+      "id": "official:zhechka-todorova-todorova-23b2b0",
+      "type": "official",
+      "slug": "zhechka-todorova-todorova-23b2b0",
+      "label": "Жечка Тодорова Тодорова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Камено"
+    },
+    {
+      "id": "company:tr:000044801",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕТА - 1927&quot;",
+      "slug": null,
+      "uic": "000044801",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕЛИ КОСТАДИНОВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Нели Костадинова Неделчева"
+    },
+    {
+      "id": "person:МАРИЯ МАРИНОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Мария Маринова Добрева"
+    },
+    {
+      "id": "person:РАДОСВЕТА ИВАНОВА ДАНЕВА - КРЪСТЕВА",
+      "type": "person",
+      "label": "Радосвета Иванова Данева - Кръстева"
+    },
+    {
+      "id": "person:ДИМИТРИНКА КОСТОВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Димитринка Костова Великова"
+    },
+    {
+      "id": "person:РАДКА ЛЮБОМИРОВА МИНЕВА",
+      "type": "person",
+      "label": "Радка Любомирова Минева"
+    },
+    {
+      "id": "person:ТАТЯНА СТЕФАНОВА ЙОЛДОВА",
+      "type": "person",
+      "label": "Татяна Стефанова Йолдова"
+    },
+    {
+      "id": "person:ДОНИКА РУМЕНОВА КАРАИВАНОВА",
+      "type": "person",
+      "label": "Доника Руменова Караиванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhechka-todorova-todorova-23b2b0",
+      "target": "company:tr:000044801",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЛИ КОСТАДИНОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:000044801",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МАРИНОВА ДОБРЕВА",
+      "target": "company:tr:000044801",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСВЕТА ИВАНОВА ДАНЕВА - КРЪСТЕВА",
+      "target": "company:tr:000044801",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНКА КОСТОВА ВЕЛИКОВА",
+      "target": "company:tr:000044801",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ЛЮБОМИРОВА МИНЕВА",
+      "target": "company:tr:000044801",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА СТЕФАНОВА ЙОЛДОВА",
+      "target": "company:tr:000044801",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНИКА РУМЕНОВА КАРАИВАНОВА",
+      "target": "company:tr:000044801",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

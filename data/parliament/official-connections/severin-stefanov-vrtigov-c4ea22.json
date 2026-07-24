@@ -1,1 +1,52 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:severin-stefanov-vrtigov-c4ea22","nodes":[{"id":"official:severin-stefanov-vrtigov-c4ea22","type":"official","slug":"severin-stefanov-vrtigov-c4ea22","label":"Северин Стефанов Въртигов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130961269","type":"company","label":"Би ен Ей Консулт ООД","slug":null,"uic":"130961269","legalForm":null,"status":null,"seat":null},{"id":"official:severin-stefanov-vrtigov-2d744b","type":"official","slug":"severin-stefanov-vrtigov-2d744b","label":"Северин Стефанов Въртигов","tier":"executive","role":"state_enterprise","municipality":null}],"edges":[{"source":"official:severin-stefanov-vrtigov-c4ea22","target":"company:tr:130961269","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:severin-stefanov-vrtigov-2d744b","target":"company:tr:130961269","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:severin-stefanov-vrtigov-c4ea22",
+  "nodes": [
+    {
+      "id": "official:severin-stefanov-vrtigov-c4ea22",
+      "type": "official",
+      "slug": "severin-stefanov-vrtigov-c4ea22",
+      "label": "Северин Стефанов Въртигов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130961269",
+      "type": "company",
+      "label": "Би ен Ей Консулт ООД",
+      "slug": null,
+      "uic": "130961269",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:severin-stefanov-vrtigov-2d744b",
+      "type": "official",
+      "slug": "severin-stefanov-vrtigov-2d744b",
+      "label": "Северин Стефанов Въртигов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:severin-stefanov-vrtigov-c4ea22",
+      "target": "company:tr:130961269",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:severin-stefanov-vrtigov-2d744b",
+      "target": "company:tr:130961269",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

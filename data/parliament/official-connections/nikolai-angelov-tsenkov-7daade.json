@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-angelov-tsenkov-7daade","nodes":[{"id":"official:nikolai-angelov-tsenkov-7daade","type":"official","slug":"nikolai-angelov-tsenkov-7daade","label":"Николай Ангелов Ценков","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207413078","type":"company","label":"ИНДУСТРИАЛНИ ЗОНИ - ВРАЦА","slug":null,"uic":"207413078","legalForm":null,"status":null,"seat":null},{"id":"person:ОБЩИНА ВРАЦА","type":"person","label":"Община Враца"}],"edges":[{"source":"official:nikolai-angelov-tsenkov-7daade","target":"company:tr:207413078","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ОБЩИНА ВРАЦА","target":"company:tr:207413078","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-angelov-tsenkov-7daade",
+  "nodes": [
+    {
+      "id": "official:nikolai-angelov-tsenkov-7daade",
+      "type": "official",
+      "slug": "nikolai-angelov-tsenkov-7daade",
+      "label": "Николай Ангелов Ценков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207413078",
+      "type": "company",
+      "label": "ИНДУСТРИАЛНИ ЗОНИ - ВРАЦА",
+      "slug": null,
+      "uic": "207413078",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА ВРАЦА",
+      "type": "person",
+      "label": "Община Враца"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-angelov-tsenkov-7daade",
+      "target": "company:tr:207413078",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА ВРАЦА",
+      "target": "company:tr:207413078",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

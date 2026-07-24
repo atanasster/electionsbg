@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-veselinov-baltov-dfbf03","nodes":[{"id":"official:petr-veselinov-baltov-dfbf03","type":"official","slug":"petr-veselinov-baltov-dfbf03","label":"Петър Веселинов Балтов","tier":"municipal","role":"councillor","municipality":"Сливен"},{"id":"company:tr:208388432","type":"company","label":"Капсио БГ","slug":null,"uic":"208388432","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОАННА ЗЛАТКОВА ВЕЛИЧКОВА","type":"person","label":"Йоанна Златкова Величкова"}],"edges":[{"source":"official:petr-veselinov-baltov-dfbf03","target":"company:tr:208388432","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:petr-veselinov-baltov-dfbf03","target":"company:tr:208388432","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОАННА ЗЛАТКОВА ВЕЛИЧКОВА","target":"company:tr:208388432","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАННА ЗЛАТКОВА ВЕЛИЧКОВА","target":"company:tr:208388432","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-veselinov-baltov-dfbf03",
+  "nodes": [
+    {
+      "id": "official:petr-veselinov-baltov-dfbf03",
+      "type": "official",
+      "slug": "petr-veselinov-baltov-dfbf03",
+      "label": "Петър Веселинов Балтов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен"
+    },
+    {
+      "id": "company:tr:208388432",
+      "type": "company",
+      "label": "Капсио БГ",
+      "slug": null,
+      "uic": "208388432",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОАННА ЗЛАТКОВА ВЕЛИЧКОВА",
+      "type": "person",
+      "label": "Йоанна Златкова Величкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-veselinov-baltov-dfbf03",
+      "target": "company:tr:208388432",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-veselinov-baltov-dfbf03",
+      "target": "company:tr:208388432",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОАННА ЗЛАТКОВА ВЕЛИЧКОВА",
+      "target": "company:tr:208388432",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАННА ЗЛАТКОВА ВЕЛИЧКОВА",
+      "target": "company:tr:208388432",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

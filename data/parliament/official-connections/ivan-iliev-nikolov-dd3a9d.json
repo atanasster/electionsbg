@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-iliev-nikolov-dd3a9d","nodes":[{"id":"official:ivan-iliev-nikolov-dd3a9d","type":"official","slug":"ivan-iliev-nikolov-dd3a9d","label":"Иван Илиев Николов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:104524994","type":"company","label":"КОМПЛЕКСЕН ОНКОЛОГИЧЕН ЦЕНТЪР-ВЕЛИКО ТЪРНОВО","slug":null,"uic":"104524994","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ivan-iliev-nikolov-dd3a9d","target":"company:tr:104524994","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-iliev-nikolov-dd3a9d",
+  "nodes": [
+    {
+      "id": "official:ivan-iliev-nikolov-dd3a9d",
+      "type": "official",
+      "slug": "ivan-iliev-nikolov-dd3a9d",
+      "label": "Иван Илиев Николов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104524994",
+      "type": "company",
+      "label": "КОМПЛЕКСЕН ОНКОЛОГИЧЕН ЦЕНТЪР-ВЕЛИКО ТЪРНОВО",
+      "slug": null,
+      "uic": "104524994",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-iliev-nikolov-dd3a9d",
+      "target": "company:tr:104524994",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

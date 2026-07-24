@@ -1,1 +1,65 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:lidiya-mladenova-georgieva-d868eb","nodes":[{"id":"official:lidiya-mladenova-georgieva-d868eb","type":"official","slug":"lidiya-mladenova-georgieva-d868eb","label":"Лидия Младенова Георгиева","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:127521092","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ШУМЕН","slug":null,"uic":"127521092","legalForm":null,"status":null,"seat":null},{"id":"official:hatidzhe-doanova-stizharlieva-21eff3","type":"official","slug":"hatidzhe-doanova-stizharlieva-21eff3","label":"Хатидже Доанова Стижарлиева","tier":"executive","role":"hospital_head","municipality":null},{"id":"person:ДИМИТЪР ГЕОРГИЕВ КОСТОВ","type":"person","label":"Димитър Георгиев Костов"}],"edges":[{"source":"official:lidiya-mladenova-georgieva-d868eb","target":"company:tr:127521092","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:hatidzhe-doanova-stizharlieva-21eff3","target":"company:tr:127521092","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТЪР ГЕОРГИЕВ КОСТОВ","target":"company:tr:127521092","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:lidiya-mladenova-georgieva-d868eb",
+  "nodes": [
+    {
+      "id": "official:lidiya-mladenova-georgieva-d868eb",
+      "type": "official",
+      "slug": "lidiya-mladenova-georgieva-d868eb",
+      "label": "Лидия Младенова Георгиева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:127521092",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ШУМЕН",
+      "slug": null,
+      "uic": "127521092",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:hatidzhe-doanova-stizharlieva-21eff3",
+      "type": "official",
+      "slug": "hatidzhe-doanova-stizharlieva-21eff3",
+      "label": "Хатидже Доанова Стижарлиева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ КОСТОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Костов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lidiya-mladenova-georgieva-d868eb",
+      "target": "company:tr:127521092",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hatidzhe-doanova-stizharlieva-21eff3",
+      "target": "company:tr:127521092",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ КОСТОВ",
+      "target": "company:tr:127521092",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

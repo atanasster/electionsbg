@@ -1,1 +1,105 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:konstantin-dimitrov-raikov-3233e6","nodes":[{"id":"official:konstantin-dimitrov-raikov-3233e6","type":"official","slug":"konstantin-dimitrov-raikov-3233e6","label":"Константин Димитров Райков","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:102237216","type":"company","label":"Легаконсулт ЕООД","slug":null,"uic":"102237216","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203949491","type":"company","label":"Битълсите ООД","slug":null,"uic":"203949491","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204614581","type":"company","label":"Битълсите 1 ООД","slug":null,"uic":"204614581","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТКО СТОЯНОВ ДЖЕДЖЕВ","type":"person","label":"Петко Стоянов Джеджев"},{"id":"person:КАЛОЯН ПЕТКОВ ДЖЕДЖЕВ","type":"person","label":"Калоян Петков Джеджев"}],"edges":[{"source":"official:konstantin-dimitrov-raikov-3233e6","target":"company:tr:102237216","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:konstantin-dimitrov-raikov-3233e6","target":"company:tr:203949491","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:konstantin-dimitrov-raikov-3233e6","target":"company:tr:204614581","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО СТОЯНОВ ДЖЕДЖЕВ","target":"company:tr:203949491","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН ПЕТКОВ ДЖЕДЖЕВ","target":"company:tr:203949491","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН ПЕТКОВ ДЖЕДЖЕВ","target":"company:tr:204614581","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:konstantin-dimitrov-raikov-3233e6",
+  "nodes": [
+    {
+      "id": "official:konstantin-dimitrov-raikov-3233e6",
+      "type": "official",
+      "slug": "konstantin-dimitrov-raikov-3233e6",
+      "label": "Константин Димитров Райков",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102237216",
+      "type": "company",
+      "label": "Легаконсулт ЕООД",
+      "slug": null,
+      "uic": "102237216",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203949491",
+      "type": "company",
+      "label": "Битълсите ООД",
+      "slug": null,
+      "uic": "203949491",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204614581",
+      "type": "company",
+      "label": "Битълсите 1 ООД",
+      "slug": null,
+      "uic": "204614581",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТКО СТОЯНОВ ДЖЕДЖЕВ",
+      "type": "person",
+      "label": "Петко Стоянов Джеджев"
+    },
+    {
+      "id": "person:КАЛОЯН ПЕТКОВ ДЖЕДЖЕВ",
+      "type": "person",
+      "label": "Калоян Петков Джеджев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:konstantin-dimitrov-raikov-3233e6",
+      "target": "company:tr:102237216",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:konstantin-dimitrov-raikov-3233e6",
+      "target": "company:tr:203949491",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:konstantin-dimitrov-raikov-3233e6",
+      "target": "company:tr:204614581",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО СТОЯНОВ ДЖЕДЖЕВ",
+      "target": "company:tr:203949491",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ПЕТКОВ ДЖЕДЖЕВ",
+      "target": "company:tr:203949491",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ПЕТКОВ ДЖЕДЖЕВ",
+      "target": "company:tr:204614581",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

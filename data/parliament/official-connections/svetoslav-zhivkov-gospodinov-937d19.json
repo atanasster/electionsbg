@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetoslav-zhivkov-gospodinov-937d19","nodes":[{"id":"official:svetoslav-zhivkov-gospodinov-937d19","type":"official","slug":"svetoslav-zhivkov-gospodinov-937d19","label":"Светослав Живков Господинов","tier":"municipal","role":"councillor","municipality":"Димитровград"},{"id":"company:tr:205796119","type":"company","label":"Д-Р Ж.РУСЕВ ООД","slug":null,"uic":"205796119","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:svetoslav-zhivkov-gospodinov-937d19","target":"company:tr:205796119","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetoslav-zhivkov-gospodinov-937d19",
+  "nodes": [
+    {
+      "id": "official:svetoslav-zhivkov-gospodinov-937d19",
+      "type": "official",
+      "slug": "svetoslav-zhivkov-gospodinov-937d19",
+      "label": "Светослав Живков Господинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:205796119",
+      "type": "company",
+      "label": "Д-Р Ж.РУСЕВ ООД",
+      "slug": null,
+      "uic": "205796119",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-zhivkov-gospodinov-937d19",
+      "target": "company:tr:205796119",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

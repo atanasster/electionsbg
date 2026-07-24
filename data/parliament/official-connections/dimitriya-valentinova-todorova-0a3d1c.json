@@ -1,1 +1,90 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitriya-valentinova-todorova-0a3d1c","nodes":[{"id":"official:dimitriya-valentinova-todorova-0a3d1c","type":"official","slug":"dimitriya-valentinova-todorova-0a3d1c","label":"Димитрия Валентинова Тодорова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207381328","type":"company","label":"Градина на познанието","slug":null,"uic":"207381328","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛАЙ АТАНАСОВ НИКОЛОВ","type":"person","label":"Николай Атанасов Николов"},{"id":"person:МАРИЯ ИВАНОВА АНГЕЛОВА","type":"person","label":"Мария Иванова Ангелова"},{"id":"person:ВЕСЕЛА КОСТАДИНОВА СТОЯНОВА","type":"person","label":"Весела Костадинова Стоянова"}],"edges":[{"source":"official:dimitriya-valentinova-todorova-0a3d1c","target":"company:tr:207381328","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ АТАНАСОВ НИКОЛОВ","target":"company:tr:207381328","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ АТАНАСОВ НИКОЛОВ","target":"company:tr:207381328","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИВАНОВА АНГЕЛОВА","target":"company:tr:207381328","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛА КОСТАДИНОВА СТОЯНОВА","target":"company:tr:207381328","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛА КОСТАДИНОВА СТОЯНОВА","target":"company:tr:207381328","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitriya-valentinova-todorova-0a3d1c",
+  "nodes": [
+    {
+      "id": "official:dimitriya-valentinova-todorova-0a3d1c",
+      "type": "official",
+      "slug": "dimitriya-valentinova-todorova-0a3d1c",
+      "label": "Димитрия Валентинова Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207381328",
+      "type": "company",
+      "label": "Градина на познанието",
+      "slug": null,
+      "uic": "207381328",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ АТАНАСОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Атанасов Николов"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Мария Иванова Ангелова"
+    },
+    {
+      "id": "person:ВЕСЕЛА КОСТАДИНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Весела Костадинова Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitriya-valentinova-todorova-0a3d1c",
+      "target": "company:tr:207381328",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ АТАНАСОВ НИКОЛОВ",
+      "target": "company:tr:207381328",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АТАНАСОВ НИКОЛОВ",
+      "target": "company:tr:207381328",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА АНГЕЛОВА",
+      "target": "company:tr:207381328",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА КОСТАДИНОВА СТОЯНОВА",
+      "target": "company:tr:207381328",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА КОСТАДИНОВА СТОЯНОВА",
+      "target": "company:tr:207381328",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

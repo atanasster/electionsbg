@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:biser-emilov-borisov-4f614a","nodes":[{"id":"official:biser-emilov-borisov-4f614a","type":"official","slug":"biser-emilov-borisov-4f614a","label":"Бисер Емилов Борисов","tier":"municipal","role":"councillor","municipality":"Берковица"},{"id":"company:tr:208140771","type":"company","label":"ЕМ И ИВ БОРИСОВИ","slug":null,"uic":"208140771","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:biser-emilov-borisov-4f614a","target":"company:tr:208140771","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:biser-emilov-borisov-4f614a","target":"company:tr:208140771","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:biser-emilov-borisov-4f614a",
+  "nodes": [
+    {
+      "id": "official:biser-emilov-borisov-4f614a",
+      "type": "official",
+      "slug": "biser-emilov-borisov-4f614a",
+      "label": "Бисер Емилов Борисов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Берковица"
+    },
+    {
+      "id": "company:tr:208140771",
+      "type": "company",
+      "label": "ЕМ И ИВ БОРИСОВИ",
+      "slug": null,
+      "uic": "208140771",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:biser-emilov-borisov-4f614a",
+      "target": "company:tr:208140771",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:biser-emilov-borisov-4f614a",
+      "target": "company:tr:208140771",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

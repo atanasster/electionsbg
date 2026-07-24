@@ -1,1 +1,238 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristo-nikolov-georgiev-0e2630","nodes":[{"id":"official:hristo-nikolov-georgiev-0e2630","type":"official","slug":"hristo-nikolov-georgiev-0e2630","label":"Христо Николов Георгиев","tier":"municipal","role":"councillor","municipality":"Долни Чифлик"},{"id":"company:tr:103500218","type":"company","label":"СДРУЖЕНИЕ &quot;ЛОВНО РИБАРСКО ДРУЖЕСТВО БАЛКАН&quot;","slug":null,"uic":"103500218","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН КРАСИМИРОВ НЕНОВ","type":"person","label":"Иван Красимиров Ненов"},{"id":"person:РАДИ ЕНЕВ РАДЕВ","type":"person","label":"Ради Енев Радев"},{"id":"person:ВЪЛКО КОНДОВ КАТЕЛИЕВ","type":"person","label":"Вълко Кондов Кателиев"},{"id":"person:ИВАН СТАМЕНОВ СТАМЕНОВ","type":"person","label":"Иван Стаменов Стаменов"},{"id":"person:МАРИН ДАМЯНОВ ТОДОРОВ","type":"person","label":"Марин Дамянов Тодоров"},{"id":"person:ДЕЯН НЕДЕЛЧЕВ ДОЙЧЕВ","type":"person","label":"Деян Неделчев Дойчев"},{"id":"person:ИЛИЯ КАРАМФИЛОВ ДИМИТРОВ","type":"person","label":"Илия Карамфилов Димитров"},{"id":"person:ЯНИ ТОМОВ ХРИСТОВ","type":"person","label":"Яни Томов Христов"},{"id":"person:КРАСИМИР ИВАНОВ КИРЯКОВ","type":"person","label":"Красимир Иванов Киряков"},{"id":"person:ТРИФОН ЙОРГАКИЕВ ТРИФОНОВ","type":"person","label":"Трифон Йоргакиев Трифонов"},{"id":"person:МИХАИЛ ИЛЧЕВ ГЕОРГИЕВ","type":"person","label":"Михаил Илчев Георгиев"},{"id":"person:СТЕФАН ХРИСТОВ СТЕФАНОВ","type":"person","label":"Стефан Христов Стефанов"},{"id":"person:ДИМИТЪР ВАСИЛЕВ ФЕТВАДЖИЕВ","type":"person","label":"Димитър Василев Фетваджиев"},{"id":"person:ГЕОРГИ ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Георги Георгиев Георгиев"},{"id":"person:ЖЕЛЯЗКО АНГЕЛОВ СТЕФАНОВ","type":"person","label":"Желязко Ангелов Стефанов"}],"edges":[{"source":"official:hristo-nikolov-georgiev-0e2630","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН КРАСИМИРОВ НЕНОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДИ ЕНЕВ РАДЕВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЪЛКО КОНДОВ КАТЕЛИЕВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТАМЕНОВ СТАМЕНОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КРАСИМИРОВ НЕНОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН ДАМЯНОВ ТОДОРОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН НЕДЕЛЧЕВ ДОЙЧЕВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ КАРАМФИЛОВ ДИМИТРОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНИ ТОМОВ ХРИСТОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ИВАНОВ КИРЯКОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТРИФОН ЙОРГАКИЕВ ТРИФОНОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИХАИЛ ИЛЧЕВ ГЕОРГИЕВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ХРИСТОВ СТЕФАНОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВАСИЛЕВ ФЕТВАДЖИЕВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛЯЗКО АНГЕЛОВ СТЕФАНОВ","target":"company:tr:103500218","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristo-nikolov-georgiev-0e2630",
+  "nodes": [
+    {
+      "id": "official:hristo-nikolov-georgiev-0e2630",
+      "type": "official",
+      "slug": "hristo-nikolov-georgiev-0e2630",
+      "label": "Христо Николов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Долни Чифлик"
+    },
+    {
+      "id": "company:tr:103500218",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ЛОВНО РИБАРСКО ДРУЖЕСТВО БАЛКАН&quot;",
+      "slug": null,
+      "uic": "103500218",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН КРАСИМИРОВ НЕНОВ",
+      "type": "person",
+      "label": "Иван Красимиров Ненов"
+    },
+    {
+      "id": "person:РАДИ ЕНЕВ РАДЕВ",
+      "type": "person",
+      "label": "Ради Енев Радев"
+    },
+    {
+      "id": "person:ВЪЛКО КОНДОВ КАТЕЛИЕВ",
+      "type": "person",
+      "label": "Вълко Кондов Кателиев"
+    },
+    {
+      "id": "person:ИВАН СТАМЕНОВ СТАМЕНОВ",
+      "type": "person",
+      "label": "Иван Стаменов Стаменов"
+    },
+    {
+      "id": "person:МАРИН ДАМЯНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Марин Дамянов Тодоров"
+    },
+    {
+      "id": "person:ДЕЯН НЕДЕЛЧЕВ ДОЙЧЕВ",
+      "type": "person",
+      "label": "Деян Неделчев Дойчев"
+    },
+    {
+      "id": "person:ИЛИЯ КАРАМФИЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Илия Карамфилов Димитров"
+    },
+    {
+      "id": "person:ЯНИ ТОМОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Яни Томов Христов"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ КИРЯКОВ",
+      "type": "person",
+      "label": "Красимир Иванов Киряков"
+    },
+    {
+      "id": "person:ТРИФОН ЙОРГАКИЕВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Трифон Йоргакиев Трифонов"
+    },
+    {
+      "id": "person:МИХАИЛ ИЛЧЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Михаил Илчев Георгиев"
+    },
+    {
+      "id": "person:СТЕФАН ХРИСТОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Христов Стефанов"
+    },
+    {
+      "id": "person:ДИМИТЪР ВАСИЛЕВ ФЕТВАДЖИЕВ",
+      "type": "person",
+      "label": "Димитър Василев Фетваджиев"
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Георгиев Георгиев"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКО АНГЕЛОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Желязко Ангелов Стефанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-nikolov-georgiev-0e2630",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ НЕНОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДИ ЕНЕВ РАДЕВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪЛКО КОНДОВ КАТЕЛИЕВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТАМЕНОВ СТАМЕНОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ НЕНОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ДАМЯНОВ ТОДОРОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН НЕДЕЛЧЕВ ДОЙЧЕВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ КАРАМФИЛОВ ДИМИТРОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИ ТОМОВ ХРИСТОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ КИРЯКОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРИФОН ЙОРГАКИЕВ ТРИФОНОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ИЛЧЕВ ГЕОРГИЕВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ХРИСТОВ СТЕФАНОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВАСИЛЕВ ФЕТВАДЖИЕВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО АНГЕЛОВ СТЕФАНОВ",
+      "target": "company:tr:103500218",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

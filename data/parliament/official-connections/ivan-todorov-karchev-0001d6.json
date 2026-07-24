@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-todorov-karchev-0001d6","nodes":[{"id":"official:ivan-todorov-karchev-0001d6","type":"official","slug":"ivan-todorov-karchev-0001d6","label":"Иван Тодоров Карчев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:131313713","type":"company","label":"Кей Си Консултинг ЕООД","slug":null,"uic":"131313713","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ivan-todorov-karchev-0001d6","target":"company:tr:131313713","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-todorov-karchev-0001d6",
+  "nodes": [
+    {
+      "id": "official:ivan-todorov-karchev-0001d6",
+      "type": "official",
+      "slug": "ivan-todorov-karchev-0001d6",
+      "label": "Иван Тодоров Карчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131313713",
+      "type": "company",
+      "label": "Кей Си Консултинг ЕООД",
+      "slug": null,
+      "uic": "131313713",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-todorov-karchev-0001d6",
+      "target": "company:tr:131313713",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

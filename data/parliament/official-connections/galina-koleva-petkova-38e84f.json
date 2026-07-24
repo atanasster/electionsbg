@@ -1,1 +1,254 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:galina-koleva-petkova-38e84f","nodes":[{"id":"official:galina-koleva-petkova-38e84f","type":"official","slug":"galina-koleva-petkova-38e84f","label":"Галина Колева Петкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000804250","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;КОЛЬО ГАНЧЕВ 1940&quot;","slug":null,"uic":"000804250","legalForm":null,"status":null,"seat":null},{"id":"person:ДАРИНА АНГЕЛОВА ПЕРЧЕМЛИЕВА","type":"person","label":"Дарина Ангелова Перчемлиева"},{"id":"person:МИЛЕНА ГАНЧЕВА НИКОЛОВА","type":"person","label":"Милена Ганчева Николова"},{"id":"person:ЗЛАТКА ХРИСТОВА ПЕТРОВА","type":"person","label":"Златка Христова Петрова"},{"id":"person:АНТОНИЯ ИВАНОВА ТОНЧЕВА","type":"person","label":"Антония Иванова Тончева"},{"id":"person:ГЕРГАНА ТОНЧЕВА ТОНЕВА","type":"person","label":"Гергана Тончева Тонева"},{"id":"person:ДЕЛЯНА ЙОРДАНОВА ПЕТРОВА","type":"person","label":"Деляна Йорданова Петрова"},{"id":"person:ГАЛИНА ВЪЛЕВА ЯНКОВА","type":"person","label":"Галина Вълева Янкова"},{"id":"person:ДИАНА МИНЕВА ГРУДЕВА","type":"person","label":"Диана Минева Грудева"},{"id":"person:ЯНКА МАРКОВА КАРАКАШЕВА","type":"person","label":"Янка Маркова Каракашева"},{"id":"person:РАДКА ДИНЕВА ТОДОРОВА","type":"person","label":"Радка Динева Тодорова"},{"id":"person:ДЕНКА ГЕОРГИЕВА КЮЧУКОВА","type":"person","label":"Денка Георгиева Кючукова"},{"id":"person:ГАБРИЕЛА ПЕТРОВА КОЛАРОВА","type":"person","label":"Габриела Петрова Коларова"},{"id":"person:БОЯНКА КОЛЕВА ЯНКОВА","type":"person","label":"Боянка Колева Янкова"},{"id":"person:ГАНКА ДИМИТРОВА ЧЕПИШЕВА","type":"person","label":"Ганка Димитрова Чепишева"},{"id":"person:ЖЕНЕТА ХРИСТАНОВА МИХОВА","type":"person","label":"Женета Христанова Михова"}],"edges":[{"source":"official:galina-koleva-petkova-38e84f","target":"company:tr:000804250","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ДАРИНА АНГЕЛОВА ПЕРЧЕМЛИЕВА","target":"company:tr:000804250","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ГАНЧЕВА НИКОЛОВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКА ХРИСТОВА ПЕТРОВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ИВАНОВА ТОНЧЕВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ТОНЧЕВА ТОНЕВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯНА ЙОРДАНОВА ПЕТРОВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИНА АНГЕЛОВА ПЕРЧЕМЛИЕВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ВЪЛЕВА ЯНКОВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА МИНЕВА ГРУДЕВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКА МАРКОВА КАРАКАШЕВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ДИНЕВА ТОДОРОВА","target":"company:tr:000804250","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНКА ГЕОРГИЕВА КЮЧУКОВА","target":"company:tr:000804250","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНКА ГЕОРГИЕВА КЮЧУКОВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАБРИЕЛА ПЕТРОВА КОЛАРОВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:БОЯНКА КОЛЕВА ЯНКОВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАНКА ДИМИТРОВА ЧЕПИШЕВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕНЕТА ХРИСТАНОВА МИХОВА","target":"company:tr:000804250","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА МИНЕВА ГРУДЕВА","target":"company:tr:000804250","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:galina-koleva-petkova-38e84f",
+  "nodes": [
+    {
+      "id": "official:galina-koleva-petkova-38e84f",
+      "type": "official",
+      "slug": "galina-koleva-petkova-38e84f",
+      "label": "Галина Колева Петкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000804250",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;КОЛЬО ГАНЧЕВ 1940&quot;",
+      "slug": null,
+      "uic": "000804250",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАРИНА АНГЕЛОВА ПЕРЧЕМЛИЕВА",
+      "type": "person",
+      "label": "Дарина Ангелова Перчемлиева"
+    },
+    {
+      "id": "person:МИЛЕНА ГАНЧЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Милена Ганчева Николова"
+    },
+    {
+      "id": "person:ЗЛАТКА ХРИСТОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Златка Христова Петрова"
+    },
+    {
+      "id": "person:АНТОНИЯ ИВАНОВА ТОНЧЕВА",
+      "type": "person",
+      "label": "Антония Иванова Тончева"
+    },
+    {
+      "id": "person:ГЕРГАНА ТОНЧЕВА ТОНЕВА",
+      "type": "person",
+      "label": "Гергана Тончева Тонева"
+    },
+    {
+      "id": "person:ДЕЛЯНА ЙОРДАНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Деляна Йорданова Петрова"
+    },
+    {
+      "id": "person:ГАЛИНА ВЪЛЕВА ЯНКОВА",
+      "type": "person",
+      "label": "Галина Вълева Янкова"
+    },
+    {
+      "id": "person:ДИАНА МИНЕВА ГРУДЕВА",
+      "type": "person",
+      "label": "Диана Минева Грудева"
+    },
+    {
+      "id": "person:ЯНКА МАРКОВА КАРАКАШЕВА",
+      "type": "person",
+      "label": "Янка Маркова Каракашева"
+    },
+    {
+      "id": "person:РАДКА ДИНЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Радка Динева Тодорова"
+    },
+    {
+      "id": "person:ДЕНКА ГЕОРГИЕВА КЮЧУКОВА",
+      "type": "person",
+      "label": "Денка Георгиева Кючукова"
+    },
+    {
+      "id": "person:ГАБРИЕЛА ПЕТРОВА КОЛАРОВА",
+      "type": "person",
+      "label": "Габриела Петрова Коларова"
+    },
+    {
+      "id": "person:БОЯНКА КОЛЕВА ЯНКОВА",
+      "type": "person",
+      "label": "Боянка Колева Янкова"
+    },
+    {
+      "id": "person:ГАНКА ДИМИТРОВА ЧЕПИШЕВА",
+      "type": "person",
+      "label": "Ганка Димитрова Чепишева"
+    },
+    {
+      "id": "person:ЖЕНЕТА ХРИСТАНОВА МИХОВА",
+      "type": "person",
+      "label": "Женета Христанова Михова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-koleva-petkova-38e84f",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАРИНА АНГЕЛОВА ПЕРЧЕМЛИЕВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ГАНЧЕВА НИКОЛОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ХРИСТОВА ПЕТРОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ИВАНОВА ТОНЧЕВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ТОНЧЕВА ТОНЕВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯНА ЙОРДАНОВА ПЕТРОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА АНГЕЛОВА ПЕРЧЕМЛИЕВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ВЪЛЕВА ЯНКОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА МИНЕВА ГРУДЕВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА МАРКОВА КАРАКАШЕВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ДИНЕВА ТОДОРОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНКА ГЕОРГИЕВА КЮЧУКОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНКА ГЕОРГИЕВА КЮЧУКОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАБРИЕЛА ПЕТРОВА КОЛАРОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯНКА КОЛЕВА ЯНКОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА ДИМИТРОВА ЧЕПИШЕВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕНЕТА ХРИСТАНОВА МИХОВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА МИНЕВА ГРУДЕВА",
+      "target": "company:tr:000804250",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

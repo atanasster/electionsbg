@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tanser-basri-ahmed-dbf502","nodes":[{"id":"official:tanser-basri-ahmed-dbf502","type":"official","slug":"tanser-basri-ahmed-dbf502","label":"Тансер Басри Ахмед","tier":"municipal","role":"councillor","municipality":"Дулово"},{"id":"company:tr:208472784","type":"company","label":"ЖОКЕЙ КЛУБ БЪЛГАРИЯ 2025","slug":null,"uic":"208472784","legalForm":null,"status":null,"seat":null},{"id":"person:РОСЕН СТОЯНОВ ХРИСТОВ","type":"person","label":"Росен Стоянов Христов"},{"id":"person:КРАСИМИРА ГЕОРГИЕВА ИВАНОВА","type":"person","label":"Красимира Георгиева Иванова"},{"id":"person:СПАС ДИМИТРОВ СПАСОВ","type":"person","label":"Спас Димитров Спасов"},{"id":"person:ДРАГОМИР ЙОВКОВ ДИМИТРОВ","type":"person","label":"Драгомир Йовков Димитров"}],"edges":[{"source":"official:tanser-basri-ahmed-dbf502","target":"company:tr:208472784","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:РОСЕН СТОЯНОВ ХРИСТОВ","target":"company:tr:208472784","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН СТОЯНОВ ХРИСТОВ","target":"company:tr:208472784","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ГЕОРГИЕВА ИВАНОВА","target":"company:tr:208472784","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СПАС ДИМИТРОВ СПАСОВ","target":"company:tr:208472784","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГОМИР ЙОВКОВ ДИМИТРОВ","target":"company:tr:208472784","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tanser-basri-ahmed-dbf502",
+  "nodes": [
+    {
+      "id": "official:tanser-basri-ahmed-dbf502",
+      "type": "official",
+      "slug": "tanser-basri-ahmed-dbf502",
+      "label": "Тансер Басри Ахмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дулово"
+    },
+    {
+      "id": "company:tr:208472784",
+      "type": "company",
+      "label": "ЖОКЕЙ КЛУБ БЪЛГАРИЯ 2025",
+      "slug": null,
+      "uic": "208472784",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН СТОЯНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Росен Стоянов Христов"
+    },
+    {
+      "id": "person:КРАСИМИРА ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Красимира Георгиева Иванова"
+    },
+    {
+      "id": "person:СПАС ДИМИТРОВ СПАСОВ",
+      "type": "person",
+      "label": "Спас Димитров Спасов"
+    },
+    {
+      "id": "person:ДРАГОМИР ЙОВКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Драгомир Йовков Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanser-basri-ahmed-dbf502",
+      "target": "company:tr:208472784",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН СТОЯНОВ ХРИСТОВ",
+      "target": "company:tr:208472784",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН СТОЯНОВ ХРИСТОВ",
+      "target": "company:tr:208472784",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:208472784",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС ДИМИТРОВ СПАСОВ",
+      "target": "company:tr:208472784",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР ЙОВКОВ ДИМИТРОВ",
+      "target": "company:tr:208472784",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

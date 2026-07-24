@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ventsislav-asenov-angelov-5fe06b","nodes":[{"id":"official:ventsislav-asenov-angelov-5fe06b","type":"official","slug":"ventsislav-asenov-angelov-5fe06b","label":"Венцислав Асенов Ангелов","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:202199236","type":"company","label":"ДГВ ЗЛАТНИ ПЯСЪЦИ","slug":null,"uic":"202199236","legalForm":null,"status":null,"seat":null},{"id":"person:ИВЕЛИНА СТОЯНОВА МАРИНОВА","type":"person","label":"Ивелина Стоянова Маринова"},{"id":"person:АСЕН ФИЛИПОВ ПАРКОВ","type":"person","label":"Асен Филипов Парков"},{"id":"person:ВАЛЯ ВАЛЕНТИНОВА РАШКОВА","type":"person","label":"Валя Валентинова Рашкова"},{"id":"person:ЯВОР ПЕНЕВ ПЕНЕВ","type":"person","label":"Явор Пенев Пенев"}],"edges":[{"source":"official:ventsislav-asenov-angelov-5fe06b","target":"company:tr:202199236","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ИВЕЛИНА СТОЯНОВА МАРИНОВА","target":"company:tr:202199236","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН ФИЛИПОВ ПАРКОВ","target":"company:tr:202199236","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЯ ВАЛЕНТИНОВА РАШКОВА","target":"company:tr:202199236","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР ПЕНЕВ ПЕНЕВ","target":"company:tr:202199236","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЯ ВАЛЕНТИНОВА РАШКОВА","target":"company:tr:202199236","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ventsislav-asenov-angelov-5fe06b",
+  "nodes": [
+    {
+      "id": "official:ventsislav-asenov-angelov-5fe06b",
+      "type": "official",
+      "slug": "ventsislav-asenov-angelov-5fe06b",
+      "label": "Венцислав Асенов Ангелов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202199236",
+      "type": "company",
+      "label": "ДГВ ЗЛАТНИ ПЯСЪЦИ",
+      "slug": null,
+      "uic": "202199236",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕЛИНА СТОЯНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Ивелина Стоянова Маринова"
+    },
+    {
+      "id": "person:АСЕН ФИЛИПОВ ПАРКОВ",
+      "type": "person",
+      "label": "Асен Филипов Парков"
+    },
+    {
+      "id": "person:ВАЛЯ ВАЛЕНТИНОВА РАШКОВА",
+      "type": "person",
+      "label": "Валя Валентинова Рашкова"
+    },
+    {
+      "id": "person:ЯВОР ПЕНЕВ ПЕНЕВ",
+      "type": "person",
+      "label": "Явор Пенев Пенев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ventsislav-asenov-angelov-5fe06b",
+      "target": "company:tr:202199236",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИНА СТОЯНОВА МАРИНОВА",
+      "target": "company:tr:202199236",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ФИЛИПОВ ПАРКОВ",
+      "target": "company:tr:202199236",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ ВАЛЕНТИНОВА РАШКОВА",
+      "target": "company:tr:202199236",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ПЕНЕВ ПЕНЕВ",
+      "target": "company:tr:202199236",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ ВАЛЕНТИНОВА РАШКОВА",
+      "target": "company:tr:202199236",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

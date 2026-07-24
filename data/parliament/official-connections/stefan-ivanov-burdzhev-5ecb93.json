@@ -1,1 +1,81 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stefan-ivanov-burdzhev-5ecb93","nodes":[{"id":"official:stefan-ivanov-burdzhev-5ecb93","type":"official","slug":"stefan-ivanov-burdzhev-5ecb93","label":"СТЕФАН ИВАНОВ БУРДЖЕВ","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:СИД-УЕБ-Груп-ООД","type":"company","label":"СИД УЕБ Груп ООД","slug":"СИД-УЕБ-Груп-ООД","uic":"202907614","legalForm":"OOD","status":"active","seat":"Плевен"},{"id":"mp:4792","type":"mp","mpId":4792,"label":"Стефан Иванов Бурджев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["44","46"]},{"id":"person:ИВАН ИЛИЕВ ХРИСТОВ","type":"person","label":"Иван Илиев Христов"},{"id":"person:ДЕСИСЛАВ САШЕВ ВАСИЛКОВ","type":"person","label":"Десислав Сашев Василков"}],"edges":[{"source":"official:stefan-ivanov-burdzhev-5ecb93","target":"company:СИД-УЕБ-Груп-ООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:4792","target":"company:СИД-УЕБ-Груп-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ИЛИЕВ ХРИСТОВ","target":"company:СИД-УЕБ-Груп-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВ САШЕВ ВАСИЛКОВ","target":"company:СИД-УЕБ-Груп-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stefan-ivanov-burdzhev-5ecb93",
+  "nodes": [
+    {
+      "id": "official:stefan-ivanov-burdzhev-5ecb93",
+      "type": "official",
+      "slug": "stefan-ivanov-burdzhev-5ecb93",
+      "label": "СТЕФАН ИВАНОВ БУРДЖЕВ",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:СИД-УЕБ-Груп-ООД",
+      "type": "company",
+      "label": "СИД УЕБ Груп ООД",
+      "slug": "СИД-УЕБ-Груп-ООД",
+      "uic": "202907614",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Плевен"
+    },
+    {
+      "id": "mp:4792",
+      "type": "mp",
+      "mpId": 4792,
+      "label": "Стефан Иванов Бурджев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "46"
+      ]
+    },
+    {
+      "id": "person:ИВАН ИЛИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Иван Илиев Христов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВ САШЕВ ВАСИЛКОВ",
+      "type": "person",
+      "label": "Десислав Сашев Василков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-ivanov-burdzhev-5ecb93",
+      "target": "company:СИД-УЕБ-Груп-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4792",
+      "target": "company:СИД-УЕБ-Груп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИЛИЕВ ХРИСТОВ",
+      "target": "company:СИД-УЕБ-Груп-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ САШЕВ ВАСИЛКОВ",
+      "target": "company:СИД-УЕБ-Груп-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

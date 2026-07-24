@@ -1,1 +1,138 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zhivko-ivanov-zdravkov-c15529","nodes":[{"id":"official:zhivko-ivanov-zdravkov-c15529","type":"official","slug":"zhivko-ivanov-zdravkov-c15529","label":"Живко Иванов Здравков","tier":"municipal","role":"councillor","municipality":"Калояново"},{"id":"company:tr:207909964","type":"company","label":"Зеленчуците на Тракия ООД","slug":null,"uic":"207909964","legalForm":null,"status":null,"seat":null},{"id":"official:ivanka-bozhkova-abrasheva-bcacff","type":"official","slug":"ivanka-bozhkova-abrasheva-bcacff","label":"Иванка Божкова Абрашева","tier":"municipal","role":"councillor","municipality":"Калояново"},{"id":"person:РОБЕРТ ПЕТРОВ БАКЪРДЖИЙСКИ","type":"person","label":"Роберт Петров Бакърджийски"},{"id":"company:name:НИКО-2021","type":"company","label":"НИКО-2021 ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЯНКО ПЕТРОВ АРАБАДЖИЕВ","type":"person","label":"Янко Петров Арабаджиев"},{"id":"person:НИКОЛА ИЛИЕВ СЕЙМЕНСКИ","type":"person","label":"Никола Илиев Сейменски"},{"id":"person:КРАСИМИР ГЕОРГИЕВ КАРАДАМЯНОВ","type":"person","label":"Красимир Георгиев Карадамянов"}],"edges":[{"source":"official:zhivko-ivanov-zdravkov-c15529","target":"company:tr:207909964","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:zhivko-ivanov-zdravkov-c15529","target":"company:tr:207909964","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:ivanka-bozhkova-abrasheva-bcacff","target":"company:tr:207909964","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:РОБЕРТ ПЕТРОВ БАКЪРДЖИЙСКИ","target":"company:tr:207909964","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:НИКО-2021","target":"company:tr:207909964","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКО ПЕТРОВ АРАБАДЖИЕВ","target":"company:tr:207909964","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РОБЕРТ ПЕТРОВ БАКЪРДЖИЙСКИ","target":"company:tr:207909964","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ИЛИЕВ СЕЙМЕНСКИ","target":"company:tr:207909964","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ГЕОРГИЕВ КАРАДАМЯНОВ","target":"company:tr:207909964","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zhivko-ivanov-zdravkov-c15529",
+  "nodes": [
+    {
+      "id": "official:zhivko-ivanov-zdravkov-c15529",
+      "type": "official",
+      "slug": "zhivko-ivanov-zdravkov-c15529",
+      "label": "Живко Иванов Здравков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Калояново"
+    },
+    {
+      "id": "company:tr:207909964",
+      "type": "company",
+      "label": "Зеленчуците на Тракия ООД",
+      "slug": null,
+      "uic": "207909964",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivanka-bozhkova-abrasheva-bcacff",
+      "type": "official",
+      "slug": "ivanka-bozhkova-abrasheva-bcacff",
+      "label": "Иванка Божкова Абрашева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Калояново"
+    },
+    {
+      "id": "person:РОБЕРТ ПЕТРОВ БАКЪРДЖИЙСКИ",
+      "type": "person",
+      "label": "Роберт Петров Бакърджийски"
+    },
+    {
+      "id": "company:name:НИКО-2021",
+      "type": "company",
+      "label": "НИКО-2021 ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯНКО ПЕТРОВ АРАБАДЖИЕВ",
+      "type": "person",
+      "label": "Янко Петров Арабаджиев"
+    },
+    {
+      "id": "person:НИКОЛА ИЛИЕВ СЕЙМЕНСКИ",
+      "type": "person",
+      "label": "Никола Илиев Сейменски"
+    },
+    {
+      "id": "person:КРАСИМИР ГЕОРГИЕВ КАРАДАМЯНОВ",
+      "type": "person",
+      "label": "Красимир Георгиев Карадамянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-ivanov-zdravkov-c15529",
+      "target": "company:tr:207909964",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhivko-ivanov-zdravkov-c15529",
+      "target": "company:tr:207909964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivanka-bozhkova-abrasheva-bcacff",
+      "target": "company:tr:207909964",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОБЕРТ ПЕТРОВ БАКЪРДЖИЙСКИ",
+      "target": "company:tr:207909964",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:НИКО-2021",
+      "target": "company:tr:207909964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО ПЕТРОВ АРАБАДЖИЕВ",
+      "target": "company:tr:207909964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОБЕРТ ПЕТРОВ БАКЪРДЖИЙСКИ",
+      "target": "company:tr:207909964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ИЛИЕВ СЕЙМЕНСКИ",
+      "target": "company:tr:207909964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ГЕОРГИЕВ КАРАДАМЯНОВ",
+      "target": "company:tr:207909964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,85 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:bocho-petrov-bochev-c592df","nodes":[{"id":"official:bocho-petrov-bochev-c592df","type":"official","slug":"bocho-petrov-bochev-c592df","label":"Бочо Петров Бочев","tier":"municipal","role":"councillor","municipality":"Карлово"},{"id":"company:tr:207652103","type":"company","label":"Комитет Единство","slug":null,"uic":"207652103","legalForm":null,"status":null,"seat":null},{"id":"person:СВЕТЛОЗАР АРГИРОВ ЯНКОВ","type":"person","label":"Светлозар Аргиров Янков"},{"id":"person:ДЕЛЯН МАРИНОВ ДЕЛЧЕВ","type":"person","label":"Делян Маринов Делчев"}],"edges":[{"source":"official:bocho-petrov-bochev-c592df","target":"company:tr:207652103","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:bocho-petrov-bochev-c592df","target":"company:tr:207652103","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СВЕТЛОЗАР АРГИРОВ ЯНКОВ","target":"company:tr:207652103","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯН МАРИНОВ ДЕЛЧЕВ","target":"company:tr:207652103","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛОЗАР АРГИРОВ ЯНКОВ","target":"company:tr:207652103","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯН МАРИНОВ ДЕЛЧЕВ","target":"company:tr:207652103","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:bocho-petrov-bochev-c592df",
+  "nodes": [
+    {
+      "id": "official:bocho-petrov-bochev-c592df",
+      "type": "official",
+      "slug": "bocho-petrov-bochev-c592df",
+      "label": "Бочо Петров Бочев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово"
+    },
+    {
+      "id": "company:tr:207652103",
+      "type": "company",
+      "label": "Комитет Единство",
+      "slug": null,
+      "uic": "207652103",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛОЗАР АРГИРОВ ЯНКОВ",
+      "type": "person",
+      "label": "Светлозар Аргиров Янков"
+    },
+    {
+      "id": "person:ДЕЛЯН МАРИНОВ ДЕЛЧЕВ",
+      "type": "person",
+      "label": "Делян Маринов Делчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bocho-petrov-bochev-c592df",
+      "target": "company:tr:207652103",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bocho-petrov-bochev-c592df",
+      "target": "company:tr:207652103",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛОЗАР АРГИРОВ ЯНКОВ",
+      "target": "company:tr:207652103",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯН МАРИНОВ ДЕЛЧЕВ",
+      "target": "company:tr:207652103",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛОЗАР АРГИРОВ ЯНКОВ",
+      "target": "company:tr:207652103",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯН МАРИНОВ ДЕЛЧЕВ",
+      "target": "company:tr:207652103",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

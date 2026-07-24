@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dzhait-mustafa-chaush-0d65d9","nodes":[{"id":"official:dzhait-mustafa-chaush-0d65d9","type":"official","slug":"dzhait-mustafa-chaush-0d65d9","label":"Джаит Мустафа Чауш","tier":"municipal","role":"councillor","municipality":"Гърмен"},{"id":"company:tr:101717486","type":"company","label":"ОКТАН","slug":null,"uic":"101717486","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:dzhait-mustafa-chaush-0d65d9","target":"company:tr:101717486","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dzhait-mustafa-chaush-0d65d9","target":"company:tr:101717486","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dzhait-mustafa-chaush-0d65d9",
+  "nodes": [
+    {
+      "id": "official:dzhait-mustafa-chaush-0d65d9",
+      "type": "official",
+      "slug": "dzhait-mustafa-chaush-0d65d9",
+      "label": "Джаит Мустафа Чауш",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гърмен"
+    },
+    {
+      "id": "company:tr:101717486",
+      "type": "company",
+      "label": "ОКТАН",
+      "slug": null,
+      "uic": "101717486",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dzhait-mustafa-chaush-0d65d9",
+      "target": "company:tr:101717486",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dzhait-mustafa-chaush-0d65d9",
+      "target": "company:tr:101717486",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

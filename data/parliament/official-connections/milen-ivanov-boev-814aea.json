@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milen-ivanov-boev-814aea","nodes":[{"id":"official:milen-ivanov-boev-814aea","type":"official","slug":"milen-ivanov-boev-814aea","label":"Милен Иванов Боев","tier":"municipal","role":"councillor","municipality":"Русе"},{"id":"company:tr:204963191","type":"company","label":"ТЪНДЪРС 2020","slug":null,"uic":"204963191","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФАН ДОНЧЕВ ТЕРЗИЕВ","type":"person","label":"Стефан Дончев Терзиев"},{"id":"person:НИКОЛАЙ ПЕТРОВ СТЕФАНОВ","type":"person","label":"Николай Петров Стефанов"}],"edges":[{"source":"official:milen-ivanov-boev-814aea","target":"company:tr:204963191","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН ДОНЧЕВ ТЕРЗИЕВ","target":"company:tr:204963191","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ДОНЧЕВ ТЕРЗИЕВ","target":"company:tr:204963191","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ПЕТРОВ СТЕФАНОВ","target":"company:tr:204963191","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milen-ivanov-boev-814aea",
+  "nodes": [
+    {
+      "id": "official:milen-ivanov-boev-814aea",
+      "type": "official",
+      "slug": "milen-ivanov-boev-814aea",
+      "label": "Милен Иванов Боев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "company:tr:204963191",
+      "type": "company",
+      "label": "ТЪНДЪРС 2020",
+      "slug": null,
+      "uic": "204963191",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН ДОНЧЕВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Стефан Дончев Терзиев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЕТРОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Николай Петров Стефанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-ivanov-boev-814aea",
+      "target": "company:tr:204963191",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН ДОНЧЕВ ТЕРЗИЕВ",
+      "target": "company:tr:204963191",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДОНЧЕВ ТЕРЗИЕВ",
+      "target": "company:tr:204963191",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЕТРОВ СТЕФАНОВ",
+      "target": "company:tr:204963191",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

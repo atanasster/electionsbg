@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-petrov-radomirov-567dc0","nodes":[{"id":"official:vladimir-petrov-radomirov-567dc0","type":"official","slug":"vladimir-petrov-radomirov-567dc0","label":"Владимир Петров Радомиров","tier":"municipal","role":"councillor","municipality":"Кула"},{"id":"company:tr:203961732","type":"company","label":"Видин Вест ЕООД","slug":null,"uic":"203961732","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ ВЛАДИМИР ПЕТРОВА","type":"person","label":"Мария Владимир Петрова"}],"edges":[{"source":"official:vladimir-petrov-radomirov-567dc0","target":"company:tr:203961732","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vladimir-petrov-radomirov-567dc0","target":"company:tr:203961732","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:vladimir-petrov-radomirov-567dc0","target":"company:tr:203961732","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯ ВЛАДИМИР ПЕТРОВА","target":"company:tr:203961732","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-petrov-radomirov-567dc0",
+  "nodes": [
+    {
+      "id": "official:vladimir-petrov-radomirov-567dc0",
+      "type": "official",
+      "slug": "vladimir-petrov-radomirov-567dc0",
+      "label": "Владимир Петров Радомиров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кула"
+    },
+    {
+      "id": "company:tr:203961732",
+      "type": "company",
+      "label": "Видин Вест ЕООД",
+      "slug": null,
+      "uic": "203961732",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ВЛАДИМИР ПЕТРОВА",
+      "type": "person",
+      "label": "Мария Владимир Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-petrov-radomirov-567dc0",
+      "target": "company:tr:203961732",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-petrov-radomirov-567dc0",
+      "target": "company:tr:203961732",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-petrov-radomirov-567dc0",
+      "target": "company:tr:203961732",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ВЛАДИМИР ПЕТРОВА",
+      "target": "company:tr:203961732",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

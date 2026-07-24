@@ -1,1 +1,139 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:pepa-hristova-nedkova-urumova-5df462","nodes":[{"id":"official:pepa-hristova-nedkova-urumova-5df462","type":"official","slug":"pepa-hristova-nedkova-urumova-5df462","label":"Пепа Христова Недкова-Урумова","tier":"municipal","role":"councillor","municipality":"Сопот"},{"id":"company:tr:000671145","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;Д-Р ПЕТЪР Х.БЕРОН - 1925&quot;","slug":null,"uic":"000671145","legalForm":null,"status":null,"seat":null},{"id":"person:ЖЕЧКО ГОСПОДИНОВ ПЕТКОВ","type":"person","label":"Жечко Господинов Петков"},{"id":"person:НЕДКА ЙОРДАНОВА ИЛИЕВА","type":"person","label":"Недка Йорданова Илиева"},{"id":"person:ДИАНА СЛАВОВА СРЕТЕНОВА","type":"person","label":"Диана Славова Сретенова"},{"id":"person:НАДЕЖДА ХРИСТОВА ВЕЛЕВА-КИРОВА","type":"person","label":"Надежда Христова Велева-Кирова"},{"id":"person:ЖУЛИЕТА АЛЕКСАНДРОВА КОЙЧЕВА","type":"person","label":"Жулиета Александрова Койчева"},{"id":"person:ПЕНКА ИВАНОВА МАРИНОВА","type":"person","label":"Пенка Иванова Маринова"},{"id":"person:МАРИАНА ДИМИТРОВА ИВАНОВА","type":"person","label":"Мариана Димитрова Иванова"},{"id":"person:ЦВЕТАНКА МИХАЙЛОВА ПАНЧЕВА","type":"person","label":"Цветанка Михайлова Панчева"}],"edges":[{"source":"official:pepa-hristova-nedkova-urumova-5df462","target":"company:tr:000671145","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЖЕЧКО ГОСПОДИНОВ ПЕТКОВ","target":"company:tr:000671145","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКА ЙОРДАНОВА ИЛИЕВА","target":"company:tr:000671145","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА СЛАВОВА СРЕТЕНОВА","target":"company:tr:000671145","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА ХРИСТОВА ВЕЛЕВА-КИРОВА","target":"company:tr:000671145","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЖУЛИЕТА АЛЕКСАНДРОВА КОЙЧЕВА","target":"company:tr:000671145","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА ИВАНОВА МАРИНОВА","target":"company:tr:000671145","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ДИМИТРОВА ИВАНОВА","target":"company:tr:000671145","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА МИХАЙЛОВА ПАНЧЕВА","target":"company:tr:000671145","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:pepa-hristova-nedkova-urumova-5df462",
+  "nodes": [
+    {
+      "id": "official:pepa-hristova-nedkova-urumova-5df462",
+      "type": "official",
+      "slug": "pepa-hristova-nedkova-urumova-5df462",
+      "label": "Пепа Христова Недкова-Урумова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сопот"
+    },
+    {
+      "id": "company:tr:000671145",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;Д-Р ПЕТЪР Х.БЕРОН - 1925&quot;",
+      "slug": null,
+      "uic": "000671145",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖЕЧКО ГОСПОДИНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Жечко Господинов Петков"
+    },
+    {
+      "id": "person:НЕДКА ЙОРДАНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Недка Йорданова Илиева"
+    },
+    {
+      "id": "person:ДИАНА СЛАВОВА СРЕТЕНОВА",
+      "type": "person",
+      "label": "Диана Славова Сретенова"
+    },
+    {
+      "id": "person:НАДЕЖДА ХРИСТОВА ВЕЛЕВА-КИРОВА",
+      "type": "person",
+      "label": "Надежда Христова Велева-Кирова"
+    },
+    {
+      "id": "person:ЖУЛИЕТА АЛЕКСАНДРОВА КОЙЧЕВА",
+      "type": "person",
+      "label": "Жулиета Александрова Койчева"
+    },
+    {
+      "id": "person:ПЕНКА ИВАНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Пенка Иванова Маринова"
+    },
+    {
+      "id": "person:МАРИАНА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Мариана Димитрова Иванова"
+    },
+    {
+      "id": "person:ЦВЕТАНКА МИХАЙЛОВА ПАНЧЕВА",
+      "type": "person",
+      "label": "Цветанка Михайлова Панчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pepa-hristova-nedkova-urumova-5df462",
+      "target": "company:tr:000671145",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕЧКО ГОСПОДИНОВ ПЕТКОВ",
+      "target": "company:tr:000671145",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКА ЙОРДАНОВА ИЛИЕВА",
+      "target": "company:tr:000671145",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА СЛАВОВА СРЕТЕНОВА",
+      "target": "company:tr:000671145",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ХРИСТОВА ВЕЛЕВА-КИРОВА",
+      "target": "company:tr:000671145",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖУЛИЕТА АЛЕКСАНДРОВА КОЙЧЕВА",
+      "target": "company:tr:000671145",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА МАРИНОВА",
+      "target": "company:tr:000671145",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:000671145",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА МИХАЙЛОВА ПАНЧЕВА",
+      "target": "company:tr:000671145",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

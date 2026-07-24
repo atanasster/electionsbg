@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-evgeniev-gunchev-5ac82d","nodes":[{"id":"official:vladimir-evgeniev-gunchev-5ac82d","type":"official","slug":"vladimir-evgeniev-gunchev-5ac82d","label":"Владимир Евгениев Гунчев","tier":"municipal","role":"councillor","municipality":"Карлово"},{"id":"company:tr:207869199","type":"company","label":"НИВЛАРА","slug":null,"uic":"207869199","legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКСАНДЪР МАРИНОВ ЛАПКОВ","type":"person","label":"Александър Маринов Лапков"},{"id":"person:НИКОЛИНА РАЙЧИНОВА ГУНЧЕВА","type":"person","label":"Николина Райчинова Гунчева"}],"edges":[{"source":"official:vladimir-evgeniev-gunchev-5ac82d","target":"company:tr:207869199","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:АЛЕКСАНДЪР МАРИНОВ ЛАПКОВ","target":"company:tr:207869199","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНА РАЙЧИНОВА ГУНЧЕВА","target":"company:tr:207869199","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНА РАЙЧИНОВА ГУНЧЕВА","target":"company:tr:207869199","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-evgeniev-gunchev-5ac82d",
+  "nodes": [
+    {
+      "id": "official:vladimir-evgeniev-gunchev-5ac82d",
+      "type": "official",
+      "slug": "vladimir-evgeniev-gunchev-5ac82d",
+      "label": "Владимир Евгениев Гунчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово"
+    },
+    {
+      "id": "company:tr:207869199",
+      "type": "company",
+      "label": "НИВЛАРА",
+      "slug": null,
+      "uic": "207869199",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР МАРИНОВ ЛАПКОВ",
+      "type": "person",
+      "label": "Александър Маринов Лапков"
+    },
+    {
+      "id": "person:НИКОЛИНА РАЙЧИНОВА ГУНЧЕВА",
+      "type": "person",
+      "label": "Николина Райчинова Гунчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-evgeniev-gunchev-5ac82d",
+      "target": "company:tr:207869199",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МАРИНОВ ЛАПКОВ",
+      "target": "company:tr:207869199",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА РАЙЧИНОВА ГУНЧЕВА",
+      "target": "company:tr:207869199",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА РАЙЧИНОВА ГУНЧЕВА",
+      "target": "company:tr:207869199",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

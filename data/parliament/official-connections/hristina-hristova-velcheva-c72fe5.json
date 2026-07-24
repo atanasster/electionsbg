@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristina-hristova-velcheva-c72fe5","nodes":[{"id":"official:hristina-hristova-velcheva-c72fe5","type":"official","slug":"hristina-hristova-velcheva-c72fe5","label":"Христина Христова Велчева","tier":"executive","role":"political_cabinet","municipality":null},{"id":"company:tr:202182710","type":"company","label":"Аркадия пропърти ООД","slug":null,"uic":"202182710","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:hristina-hristova-velcheva-c72fe5","target":"company:tr:202182710","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristina-hristova-velcheva-c72fe5",
+  "nodes": [
+    {
+      "id": "official:hristina-hristova-velcheva-c72fe5",
+      "type": "official",
+      "slug": "hristina-hristova-velcheva-c72fe5",
+      "label": "Христина Христова Велчева",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202182710",
+      "type": "company",
+      "label": "Аркадия пропърти ООД",
+      "slug": null,
+      "uic": "202182710",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-hristova-velcheva-c72fe5",
+      "target": "company:tr:202182710",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

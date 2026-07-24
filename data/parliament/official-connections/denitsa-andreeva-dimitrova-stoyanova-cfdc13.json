@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:denitsa-andreeva-dimitrova-stoyanova-cfdc13","nodes":[{"id":"official:denitsa-andreeva-dimitrova-stoyanova-cfdc13","type":"official","slug":"denitsa-andreeva-dimitrova-stoyanova-cfdc13","label":"Деница Андреева Димитрова-Стоянова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206172215","type":"company","label":"Д.Д.А.Р. ЕООД","slug":null,"uic":"206172215","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:denitsa-andreeva-dimitrova-stoyanova-cfdc13","target":"company:tr:206172215","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:denitsa-andreeva-dimitrova-stoyanova-cfdc13",
+  "nodes": [
+    {
+      "id": "official:denitsa-andreeva-dimitrova-stoyanova-cfdc13",
+      "type": "official",
+      "slug": "denitsa-andreeva-dimitrova-stoyanova-cfdc13",
+      "label": "Деница Андреева Димитрова-Стоянова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206172215",
+      "type": "company",
+      "label": "Д.Д.А.Р. ЕООД",
+      "slug": null,
+      "uic": "206172215",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:denitsa-andreeva-dimitrova-stoyanova-cfdc13",
+      "target": "company:tr:206172215",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

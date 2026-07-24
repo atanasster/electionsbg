@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ilya-ivanov-genov-546a66","nodes":[{"id":"official:ilya-ivanov-genov-546a66","type":"official","slug":"ilya-ivanov-genov-546a66","label":"Иля Иванов Генов","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:000689015","type":"company","label":"УНИВЕРСИТЕТСКА ПЪРВА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - СОФИЯ  &quot;СВ. ЙОАН КРЪСТИТЕЛ&quot;","slug":null,"uic":"000689015","legalForm":null,"status":null,"seat":null},{"id":"person:ЦВЕТОМИР ИВАНОВ ДИМИТРОВ","type":"person","label":"Цветомир Иванов Димитров"},{"id":"person:АЛЕКСАНДЪР ХУГО ОСКАР","type":"person","label":"Александър Хуго Оскар"}],"edges":[{"source":"official:ilya-ivanov-genov-546a66","target":"company:tr:000689015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТОМИР ИВАНОВ ДИМИТРОВ","target":"company:tr:000689015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ХУГО ОСКАР","target":"company:tr:000689015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ilya-ivanov-genov-546a66",
+  "nodes": [
+    {
+      "id": "official:ilya-ivanov-genov-546a66",
+      "type": "official",
+      "slug": "ilya-ivanov-genov-546a66",
+      "label": "Иля Иванов Генов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000689015",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА ПЪРВА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - СОФИЯ  &quot;СВ. ЙОАН КРЪСТИТЕЛ&quot;",
+      "slug": null,
+      "uic": "000689015",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТОМИР ИВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Цветомир Иванов Димитров"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ХУГО ОСКАР",
+      "type": "person",
+      "label": "Александър Хуго Оскар"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilya-ivanov-genov-546a66",
+      "target": "company:tr:000689015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТОМИР ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:000689015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ХУГО ОСКАР",
+      "target": "company:tr:000689015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

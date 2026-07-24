@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tomi-georgiev-popmarkov-a5ba5e","nodes":[{"id":"official:tomi-georgiev-popmarkov-a5ba5e","type":"official","slug":"tomi-georgiev-popmarkov-a5ba5e","label":"Томи Георгиев Попмарков","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:000689047","type":"company","label":"ЧЕТВЪРТА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-СОФИЯ","slug":null,"uic":"000689047","legalForm":null,"status":null,"seat":null},{"id":"person:АРКАДИ ГЕОРГИЕВ ИВАНОВ","type":"person","label":"Аркади Георгиев Иванов"},{"id":"person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ","type":"person","label":"Георги Стоянов Хорозов"},{"id":"person:СТОЯН ЦВЕТАНОВ МАДЖАРОВ","type":"person","label":"Стоян Цветанов Маджаров"},{"id":"person:ЧАВДАР ЕЛЕНКОВ ГЕОРГИЕВ,","type":"person","label":"Чавдар Еленков Георгиев,"},{"id":"person:НИКОЛАЙ ЦВЕТАНОВ БОЙКОВ","type":"person","label":"Николай Цветанов Бойков"},{"id":"person:ЧАВДАР ЕЛЕНКОВ ГЕОРГИЕВ","type":"person","label":"Чавдар Еленков Георгиев"},{"id":"person:ГАЛИНА ПЕНЧЕВА ПЕНЧЕВА-ГЕОРГИЕВА","type":"person","label":"Галина Пенчева Пенчева-Георгиева"}],"edges":[{"source":"official:tomi-georgiev-popmarkov-a5ba5e","target":"company:tr:000689047","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:АРКАДИ ГЕОРГИЕВ ИВАНОВ","target":"company:tr:000689047","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ","target":"company:tr:000689047","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АРКАДИ ГЕОРГИЕВ ИВАНОВ","target":"company:tr:000689047","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ЦВЕТАНОВ МАДЖАРОВ","target":"company:tr:000689047","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ЦВЕТАНОВ МАДЖАРОВ","target":"company:tr:000689047","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР ЕЛЕНКОВ ГЕОРГИЕВ,","target":"company:tr:000689047","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЦВЕТАНОВ БОЙКОВ","target":"company:tr:000689047","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР ЕЛЕНКОВ ГЕОРГИЕВ","target":"company:tr:000689047","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ПЕНЧЕВА ПЕНЧЕВА-ГЕОРГИЕВА","target":"company:tr:000689047","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tomi-georgiev-popmarkov-a5ba5e",
+  "nodes": [
+    {
+      "id": "official:tomi-georgiev-popmarkov-a5ba5e",
+      "type": "official",
+      "slug": "tomi-georgiev-popmarkov-a5ba5e",
+      "label": "Томи Георгиев Попмарков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000689047",
+      "type": "company",
+      "label": "ЧЕТВЪРТА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-СОФИЯ",
+      "slug": null,
+      "uic": "000689047",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АРКАДИ ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Аркади Георгиев Иванов"
+    },
+    {
+      "id": "person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ",
+      "type": "person",
+      "label": "Георги Стоянов Хорозов"
+    },
+    {
+      "id": "person:СТОЯН ЦВЕТАНОВ МАДЖАРОВ",
+      "type": "person",
+      "label": "Стоян Цветанов Маджаров"
+    },
+    {
+      "id": "person:ЧАВДАР ЕЛЕНКОВ ГЕОРГИЕВ,",
+      "type": "person",
+      "label": "Чавдар Еленков Георгиев,"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЦВЕТАНОВ БОЙКОВ",
+      "type": "person",
+      "label": "Николай Цветанов Бойков"
+    },
+    {
+      "id": "person:ЧАВДАР ЕЛЕНКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Чавдар Еленков Георгиев"
+    },
+    {
+      "id": "person:ГАЛИНА ПЕНЧЕВА ПЕНЧЕВА-ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Галина Пенчева Пенчева-Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tomi-georgiev-popmarkov-a5ba5e",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АРКАДИ ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АРКАДИ ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЦВЕТАНОВ МАДЖАРОВ",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЦВЕТАНОВ МАДЖАРОВ",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР ЕЛЕНКОВ ГЕОРГИЕВ,",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЦВЕТАНОВ БОЙКОВ",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР ЕЛЕНКОВ ГЕОРГИЕВ",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ПЕНЧЕВА ПЕНЧЕВА-ГЕОРГИЕВА",
+      "target": "company:tr:000689047",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

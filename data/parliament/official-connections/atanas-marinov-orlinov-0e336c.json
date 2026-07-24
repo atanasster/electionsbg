@@ -1,1 +1,51 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:atanas-marinov-orlinov-0e336c","nodes":[{"id":"official:atanas-marinov-orlinov-0e336c","type":"official","slug":"atanas-marinov-orlinov-0e336c","label":"Атанас Маринов Орлинов","tier":"municipal","role":"councillor","municipality":"Тетевен"},{"id":"company:tr:206842441","type":"company","label":"АТОМ ИНВЕСТ ЕООД","slug":null,"uic":"206842441","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:atanas-marinov-orlinov-0e336c","target":"company:tr:206842441","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:atanas-marinov-orlinov-0e336c","target":"company:tr:206842441","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:atanas-marinov-orlinov-0e336c","target":"company:tr:206842441","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:atanas-marinov-orlinov-0e336c",
+  "nodes": [
+    {
+      "id": "official:atanas-marinov-orlinov-0e336c",
+      "type": "official",
+      "slug": "atanas-marinov-orlinov-0e336c",
+      "label": "Атанас Маринов Орлинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тетевен"
+    },
+    {
+      "id": "company:tr:206842441",
+      "type": "company",
+      "label": "АТОМ ИНВЕСТ ЕООД",
+      "slug": null,
+      "uic": "206842441",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-marinov-orlinov-0e336c",
+      "target": "company:tr:206842441",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atanas-marinov-orlinov-0e336c",
+      "target": "company:tr:206842441",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-marinov-orlinov-0e336c",
+      "target": "company:tr:206842441",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

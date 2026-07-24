@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:daniel-atanasov-atanaschev-1a3e51","nodes":[{"id":"official:daniel-atanasov-atanaschev-1a3e51","type":"official","slug":"daniel-atanasov-atanaschev-1a3e51","label":"Даниел Атанасов Атанасчев","tier":"municipal","role":"councillor","municipality":"Елхово"},{"id":"company:tr:128629612","type":"company","label":"СДРУЖЕНИЕ &quot;ОБЩИНСКИ ФУТБОЛЕН КЛУБ - ЕЛХОВО&quot;","slug":null,"uic":"128629612","legalForm":null,"status":null,"seat":null},{"id":"person:РОСЕН ИВАНОВ ПЕТРОВ","type":"person","label":"Росен Иванов Петров"},{"id":"person:ВЛАДИСЛАВ ИВАНОВ ЯМУКОВ","type":"person","label":"Владислав Иванов Ямуков"},{"id":"person:ФИЛИП АНДОНОВ ФИЛИПОВ","type":"person","label":"Филип Андонов Филипов"},{"id":"person:ГЕОРГИ СИМЕОНОВ БАЕВ","type":"person","label":"Георги Симеонов Баев"},{"id":"person:ДАНАИЛ ЛЮБОМИРОВ ПОПОВ","type":"person","label":"Данаил Любомиров Попов"},{"id":"person:ПЛАМЕН ГЕОРГИЕВ ТОПАЛОВ","type":"person","label":"Пламен Георгиев Топалов"},{"id":"person:ДИМИТЪР АНГЕЛОВ БАЕВ","type":"person","label":"Димитър Ангелов Баев"}],"edges":[{"source":"official:daniel-atanasov-atanaschev-1a3e51","target":"company:tr:128629612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:РОСЕН ИВАНОВ ПЕТРОВ","target":"company:tr:128629612","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ИВАНОВ ПЕТРОВ","target":"company:tr:128629612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ ИВАНОВ ЯМУКОВ","target":"company:tr:128629612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП АНДОНОВ ФИЛИПОВ","target":"company:tr:128629612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СИМЕОНОВ БАЕВ","target":"company:tr:128629612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНАИЛ ЛЮБОМИРОВ ПОПОВ","target":"company:tr:128629612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ГЕОРГИЕВ ТОПАЛОВ","target":"company:tr:128629612","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ГЕОРГИЕВ ТОПАЛОВ","target":"company:tr:128629612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР АНГЕЛОВ БАЕВ","target":"company:tr:128629612","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:daniel-atanasov-atanaschev-1a3e51",
+  "nodes": [
+    {
+      "id": "official:daniel-atanasov-atanaschev-1a3e51",
+      "type": "official",
+      "slug": "daniel-atanasov-atanaschev-1a3e51",
+      "label": "Даниел Атанасов Атанасчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елхово"
+    },
+    {
+      "id": "company:tr:128629612",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ОБЩИНСКИ ФУТБОЛЕН КЛУБ - ЕЛХОВО&quot;",
+      "slug": null,
+      "uic": "128629612",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН ИВАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Росен Иванов Петров"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ИВАНОВ ЯМУКОВ",
+      "type": "person",
+      "label": "Владислав Иванов Ямуков"
+    },
+    {
+      "id": "person:ФИЛИП АНДОНОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Филип Андонов Филипов"
+    },
+    {
+      "id": "person:ГЕОРГИ СИМЕОНОВ БАЕВ",
+      "type": "person",
+      "label": "Георги Симеонов Баев"
+    },
+    {
+      "id": "person:ДАНАИЛ ЛЮБОМИРОВ ПОПОВ",
+      "type": "person",
+      "label": "Данаил Любомиров Попов"
+    },
+    {
+      "id": "person:ПЛАМЕН ГЕОРГИЕВ ТОПАЛОВ",
+      "type": "person",
+      "label": "Пламен Георгиев Топалов"
+    },
+    {
+      "id": "person:ДИМИТЪР АНГЕЛОВ БАЕВ",
+      "type": "person",
+      "label": "Димитър Ангелов Баев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-atanasov-atanaschev-1a3e51",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ИВАНОВ ЯМУКОВ",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП АНДОНОВ ФИЛИПОВ",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СИМЕОНОВ БАЕВ",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ ЛЮБОМИРОВ ПОПОВ",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ ТОПАЛОВ",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ ТОПАЛОВ",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНГЕЛОВ БАЕВ",
+      "target": "company:tr:128629612",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

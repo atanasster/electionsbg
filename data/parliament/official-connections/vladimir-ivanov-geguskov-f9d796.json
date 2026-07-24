@@ -1,1 +1,198 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-ivanov-geguskov-f9d796","nodes":[{"id":"official:vladimir-ivanov-geguskov-f9d796","type":"official","slug":"vladimir-ivanov-geguskov-f9d796","label":"Владимир Иванов Гегусков","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:112077863","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;НИКОЛА ЙОНКОВ ВАПЦАРОВ-1903 Г.&quot;","slug":null,"uic":"112077863","legalForm":null,"status":null,"seat":null},{"id":"official:vanya-petrova-peeva-0c884b","type":"official","slug":"vanya-petrova-peeva-0c884b","label":"Ваня Петрова Пеева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:СЛАВКА ИВАНОВА ГЕГУСКОВА","type":"person","label":"Славка Иванова Гегускова"},{"id":"person:ДИМИТРИЯ БОРИСОВА ЛАМБРЕВА","type":"person","label":"Димитрия Борисова Ламбрева"},{"id":"person:ВЕНЕЛИНА СТЕФАНОВА КОЛЕВА","type":"person","label":"Венелина Стефанова Колева"},{"id":"person:КАТЯ ПЕТРОВА КРЪСТАНОВА","type":"person","label":"Катя Петрова Кръстанова"},{"id":"person:СТАНИМИРА ГЕОРГИЕВА ИЛИЕВА","type":"person","label":"Станимира Георгиева Илиева"},{"id":"person:ЙОРДАНКА КРЪСТЕВА РАНГЕЛОВА","type":"person","label":"Йорданка Кръстева Рангелова"},{"id":"person:ЕЛЕНА ГЕОРГИЕВА БОЖКОВА","type":"person","label":"Елена Георгиева Божкова"},{"id":"person:ЛЮБКА БЛАГОЕВА ШОПОВА","type":"person","label":"Любка Благоева Шопова"},{"id":"person:МАРИАНА МИТКОВА ДЮДЮКОВА","type":"person","label":"Мариана Миткова Дюдюкова"},{"id":"person:ПЕТЯ ИЛИЕВА ТАСКОВА","type":"person","label":"Петя Илиева Таскова"}],"edges":[{"source":"official:vladimir-ivanov-geguskov-f9d796","target":"company:tr:112077863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:vanya-petrova-peeva-0c884b","target":"company:tr:112077863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:СЛАВКА ИВАНОВА ГЕГУСКОВА","target":"company:tr:112077863","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИЯ БОРИСОВА ЛАМБРЕВА","target":"company:tr:112077863","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИНА СТЕФАНОВА КОЛЕВА","target":"company:tr:112077863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВКА ИВАНОВА ГЕГУСКОВА","target":"company:tr:112077863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ПЕТРОВА КРЪСТАНОВА","target":"company:tr:112077863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИРА ГЕОРГИЕВА ИЛИЕВА","target":"company:tr:112077863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА КРЪСТЕВА РАНГЕЛОВА","target":"company:tr:112077863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ГЕОРГИЕВА БОЖКОВА","target":"company:tr:112077863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБКА БЛАГОЕВА ШОПОВА","target":"company:tr:112077863","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБКА БЛАГОЕВА ШОПОВА","target":"company:tr:112077863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА МИТКОВА ДЮДЮКОВА","target":"company:tr:112077863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ИЛИЕВА ТАСКОВА","target":"company:tr:112077863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-ivanov-geguskov-f9d796",
+  "nodes": [
+    {
+      "id": "official:vladimir-ivanov-geguskov-f9d796",
+      "type": "official",
+      "slug": "vladimir-ivanov-geguskov-f9d796",
+      "label": "Владимир Иванов Гегусков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112077863",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НИКОЛА ЙОНКОВ ВАПЦАРОВ-1903 Г.&quot;",
+      "slug": null,
+      "uic": "112077863",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vanya-petrova-peeva-0c884b",
+      "type": "official",
+      "slug": "vanya-petrova-peeva-0c884b",
+      "label": "Ваня Петрова Пеева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:СЛАВКА ИВАНОВА ГЕГУСКОВА",
+      "type": "person",
+      "label": "Славка Иванова Гегускова"
+    },
+    {
+      "id": "person:ДИМИТРИЯ БОРИСОВА ЛАМБРЕВА",
+      "type": "person",
+      "label": "Димитрия Борисова Ламбрева"
+    },
+    {
+      "id": "person:ВЕНЕЛИНА СТЕФАНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Венелина Стефанова Колева"
+    },
+    {
+      "id": "person:КАТЯ ПЕТРОВА КРЪСТАНОВА",
+      "type": "person",
+      "label": "Катя Петрова Кръстанова"
+    },
+    {
+      "id": "person:СТАНИМИРА ГЕОРГИЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Станимира Георгиева Илиева"
+    },
+    {
+      "id": "person:ЙОРДАНКА КРЪСТЕВА РАНГЕЛОВА",
+      "type": "person",
+      "label": "Йорданка Кръстева Рангелова"
+    },
+    {
+      "id": "person:ЕЛЕНА ГЕОРГИЕВА БОЖКОВА",
+      "type": "person",
+      "label": "Елена Георгиева Божкова"
+    },
+    {
+      "id": "person:ЛЮБКА БЛАГОЕВА ШОПОВА",
+      "type": "person",
+      "label": "Любка Благоева Шопова"
+    },
+    {
+      "id": "person:МАРИАНА МИТКОВА ДЮДЮКОВА",
+      "type": "person",
+      "label": "Мариана Миткова Дюдюкова"
+    },
+    {
+      "id": "person:ПЕТЯ ИЛИЕВА ТАСКОВА",
+      "type": "person",
+      "label": "Петя Илиева Таскова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-ivanov-geguskov-f9d796",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vanya-petrova-peeva-0c884b",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЛАВКА ИВАНОВА ГЕГУСКОВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЯ БОРИСОВА ЛАМБРЕВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИНА СТЕФАНОВА КОЛЕВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА ИВАНОВА ГЕГУСКОВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ПЕТРОВА КРЪСТАНОВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИРА ГЕОРГИЕВА ИЛИЕВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА КРЪСТЕВА РАНГЕЛОВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ГЕОРГИЕВА БОЖКОВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА БЛАГОЕВА ШОПОВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА БЛАГОЕВА ШОПОВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА МИТКОВА ДЮДЮКОВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ИЛИЕВА ТАСКОВА",
+      "target": "company:tr:112077863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

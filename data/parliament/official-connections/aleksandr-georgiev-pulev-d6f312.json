@@ -1,1 +1,73 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aleksandr-georgiev-pulev-d6f312","nodes":[{"id":"official:aleksandr-georgiev-pulev-d6f312","type":"official","slug":"aleksandr-georgiev-pulev-d6f312","label":"Александър Георгиев Пулев","tier":"executive","role":"cabinet","municipality":null},{"id":"company:tr:206867640","type":"company","label":"ХЕРОС КЕПИТЪЛ","slug":null,"uic":"206867640","legalForm":"EOOD","status":"ceased","seat":"БЪЛГАРИЯ, гр. София, 1504"},{"id":"mp:5276","type":"mp","mpId":5276,"label":"Александър Георгиев Пулев","partyGroupShort":"ПрБ","isCurrent":false,"nsFolders":[]},{"id":"person:БЕРТИНА ВАЛЕНТИНОВА ВЛАДИМИРОВА","type":"person","label":"Бертина Валентинова Владимирова"}],"edges":[{"source":"official:aleksandr-georgiev-pulev-d6f312","target":"company:tr:206867640","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5276","target":"company:tr:206867640","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:БЕРТИНА ВАЛЕНТИНОВА ВЛАДИМИРОВА","target":"company:tr:206867640","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:БЕРТИНА ВАЛЕНТИНОВА ВЛАДИМИРОВА","target":"company:tr:206867640","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aleksandr-georgiev-pulev-d6f312",
+  "nodes": [
+    {
+      "id": "official:aleksandr-georgiev-pulev-d6f312",
+      "type": "official",
+      "slug": "aleksandr-georgiev-pulev-d6f312",
+      "label": "Александър Георгиев Пулев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206867640",
+      "type": "company",
+      "label": "ХЕРОС КЕПИТЪЛ",
+      "slug": null,
+      "uic": "206867640",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "mp:5276",
+      "type": "mp",
+      "mpId": 5276,
+      "label": "Александър Георгиев Пулев",
+      "partyGroupShort": "ПрБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:БЕРТИНА ВАЛЕНТИНОВА ВЛАДИМИРОВА",
+      "type": "person",
+      "label": "Бертина Валентинова Владимирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-georgiev-pulev-d6f312",
+      "target": "company:tr:206867640",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5276",
+      "target": "company:tr:206867640",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БЕРТИНА ВАЛЕНТИНОВА ВЛАДИМИРОВА",
+      "target": "company:tr:206867640",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕРТИНА ВАЛЕНТИНОВА ВЛАДИМИРОВА",
+      "target": "company:tr:206867640",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-bozhidarov-stoilov-3e12b7","nodes":[{"id":"official:dimitr-bozhidarov-stoilov-3e12b7","type":"official","slug":"dimitr-bozhidarov-stoilov-3e12b7","label":"Димитър Божидаров Стоилов","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:109080582","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р НИКОЛА ВАСИЛИЕВ","slug":null,"uic":"109080582","legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКСАНДЪР СТЕФАНОВ ВЕЛИЧКОВ","type":"person","label":"Александър Стефанов Величков"},{"id":"person:ЛЮДМИЛ СТОЯНОВ СПАСОВ","type":"person","label":"Людмил Стоянов Спасов"},{"id":"person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ","type":"person","label":"Димитър Йорданов Димитров"},{"id":"person:ЙОАНА ДИМИТРОВА ДИМИТРОВА","type":"person","label":"Йоана Димитрова Димитрова"}],"edges":[{"source":"official:dimitr-bozhidarov-stoilov-3e12b7","target":"company:tr:109080582","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-bozhidarov-stoilov-3e12b7","target":"company:tr:109080582","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:АЛЕКСАНДЪР СТЕФАНОВ ВЕЛИЧКОВ","target":"company:tr:109080582","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ СТОЯНОВ СПАСОВ","target":"company:tr:109080582","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ","target":"company:tr:109080582","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАНА ДИМИТРОВА ДИМИТРОВА","target":"company:tr:109080582","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-bozhidarov-stoilov-3e12b7",
+  "nodes": [
+    {
+      "id": "official:dimitr-bozhidarov-stoilov-3e12b7",
+      "type": "official",
+      "slug": "dimitr-bozhidarov-stoilov-3e12b7",
+      "label": "Димитър Божидаров Стоилов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:109080582",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р НИКОЛА ВАСИЛИЕВ",
+      "slug": null,
+      "uic": "109080582",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР СТЕФАНОВ ВЕЛИЧКОВ",
+      "type": "person",
+      "label": "Александър Стефанов Величков"
+    },
+    {
+      "id": "person:ЛЮДМИЛ СТОЯНОВ СПАСОВ",
+      "type": "person",
+      "label": "Людмил Стоянов Спасов"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Димитров"
+    },
+    {
+      "id": "person:ЙОАНА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Йоана Димитрова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-bozhidarov-stoilov-3e12b7",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-bozhidarov-stoilov-3e12b7",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР СТЕФАНОВ ВЕЛИЧКОВ",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ СТОЯНОВ СПАСОВ",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

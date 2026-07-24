@@ -1,1 +1,155 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:galina-nikolaeva-iordzheva-339b53","nodes":[{"id":"official:galina-nikolaeva-iordzheva-339b53","type":"official","slug":"galina-nikolaeva-iordzheva-339b53","label":"Галина Николаева Йорджева","tier":"municipal","role":"councillor","municipality":"Стралджа"},{"id":"company:tr:128518195","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО НА СУ \"П.К.ЯВОРОВ\"-гр. Стралджа","slug":null,"uic":"128518195","legalForm":null,"status":null,"seat":null},{"id":"person:БОРЯНА КОСТАДИНОВА АТАНАСОВА","type":"person","label":"Боряна Костадинова Атанасова"},{"id":"person:АТАНАСКА АТАНАСОВА КАБАКОВА","type":"person","label":"Атанаска  Атанасова Кабакова"},{"id":"person:ВАЛЕНТИНА ДОБРЕВА МАРИНОВА","type":"person","label":"Валентина Добрева Маринова"},{"id":"person:ДИЧКО ИЛИЕВ ДИЧЕВ","type":"person","label":"Дичко Илиев Дичев"},{"id":"person:НАДЯ СЛАВЧЕВА ЖЕЧЕВА","type":"person","label":"Надя Славчева Жечева"},{"id":"person:МАРИЯ ГЕОРГИЕВА ЦОНЕВА","type":"person","label":"Мария Георгиева Цонева"},{"id":"person:ЙОРДАНКА ДОБРЕВА СТОЯНОВА","type":"person","label":"Йорданка Добрева Стоянова"},{"id":"person:ГЕОРГИ ДОБРЕВ ГЕОРГИЕВ","type":"person","label":"Георги Добрев Георгиев"}],"edges":[{"source":"official:galina-nikolaeva-iordzheva-339b53","target":"company:tr:128518195","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:galina-nikolaeva-iordzheva-339b53","target":"company:tr:128518195","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:БОРЯНА КОСТАДИНОВА АТАНАСОВА","target":"company:tr:128518195","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯНА КОСТАДИНОВА АТАНАСОВА","target":"company:tr:128518195","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАСКА АТАНАСОВА КАБАКОВА","target":"company:tr:128518195","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ДОБРЕВА МАРИНОВА","target":"company:tr:128518195","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИЧКО ИЛИЕВ ДИЧЕВ","target":"company:tr:128518195","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ СЛАВЧЕВА ЖЕЧЕВА","target":"company:tr:128518195","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕОРГИЕВА ЦОНЕВА","target":"company:tr:128518195","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ДОБРЕВА СТОЯНОВА","target":"company:tr:128518195","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ДОБРЕВ ГЕОРГИЕВ","target":"company:tr:128518195","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:galina-nikolaeva-iordzheva-339b53",
+  "nodes": [
+    {
+      "id": "official:galina-nikolaeva-iordzheva-339b53",
+      "type": "official",
+      "slug": "galina-nikolaeva-iordzheva-339b53",
+      "label": "Галина Николаева Йорджева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стралджа"
+    },
+    {
+      "id": "company:tr:128518195",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА СУ \"П.К.ЯВОРОВ\"-гр. Стралджа",
+      "slug": null,
+      "uic": "128518195",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРЯНА КОСТАДИНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Боряна Костадинова Атанасова"
+    },
+    {
+      "id": "person:АТАНАСКА АТАНАСОВА КАБАКОВА",
+      "type": "person",
+      "label": "Атанаска  Атанасова Кабакова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ДОБРЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Валентина Добрева Маринова"
+    },
+    {
+      "id": "person:ДИЧКО ИЛИЕВ ДИЧЕВ",
+      "type": "person",
+      "label": "Дичко Илиев Дичев"
+    },
+    {
+      "id": "person:НАДЯ СЛАВЧЕВА ЖЕЧЕВА",
+      "type": "person",
+      "label": "Надя Славчева Жечева"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ЦОНЕВА",
+      "type": "person",
+      "label": "Мария Георгиева Цонева"
+    },
+    {
+      "id": "person:ЙОРДАНКА ДОБРЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Йорданка Добрева Стоянова"
+    },
+    {
+      "id": "person:ГЕОРГИ ДОБРЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Добрев Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-nikolaeva-iordzheva-339b53",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-nikolaeva-iordzheva-339b53",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРЯНА КОСТАДИНОВА АТАНАСОВА",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА КОСТАДИНОВА АТАНАСОВА",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА АТАНАСОВА КАБАКОВА",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ДОБРЕВА МАРИНОВА",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЧКО ИЛИЕВ ДИЧЕВ",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ СЛАВЧЕВА ЖЕЧЕВА",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ЦОНЕВА",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ДОБРЕВА СТОЯНОВА",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДОБРЕВ ГЕОРГИЕВ",
+      "target": "company:tr:128518195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

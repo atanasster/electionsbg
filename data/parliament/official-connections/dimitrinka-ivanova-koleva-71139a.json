@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitrinka-ivanova-koleva-71139a","nodes":[{"id":"official:dimitrinka-ivanova-koleva-71139a","type":"official","slug":"dimitrinka-ivanova-koleva-71139a","label":"Димитринка Иванова Колева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000805263","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ПРОБУДА - 1921 г.","slug":null,"uic":"000805263","legalForm":null,"status":null,"seat":null},{"id":"person:БОГДАНА ТОДОРОВА ПЕТКОВА","type":"person","label":"Богдана Тодорова Петкова"},{"id":"person:РОСИЦА СЛАВЕЕВА ТОДОРОВА","type":"person","label":"Росица Славеева Тодорова"},{"id":"person:ХРИСТИНКА КОЛЕВА ТАНЕВА","type":"person","label":"Христинка Колева Танева"},{"id":"person:ГАНЧО ПЕТРОВ ДИМОВ","type":"person","label":"Ганчо Петров Димов"},{"id":"person:ДЕНКА ТОДОРОВА МАВРОДИЕВА","type":"person","label":"Денка Тодорова Мавродиева"}],"edges":[{"source":"official:dimitrinka-ivanova-koleva-71139a","target":"company:tr:000805263","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:БОГДАНА ТОДОРОВА ПЕТКОВА","target":"company:tr:000805263","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА СЛАВЕЕВА ТОДОРОВА","target":"company:tr:000805263","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНКА КОЛЕВА ТАНЕВА","target":"company:tr:000805263","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГАНЧО ПЕТРОВ ДИМОВ","target":"company:tr:000805263","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНКА ТОДОРОВА МАВРОДИЕВА","target":"company:tr:000805263","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitrinka-ivanova-koleva-71139a",
+  "nodes": [
+    {
+      "id": "official:dimitrinka-ivanova-koleva-71139a",
+      "type": "official",
+      "slug": "dimitrinka-ivanova-koleva-71139a",
+      "label": "Димитринка Иванова Колева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000805263",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПРОБУДА - 1921 г.",
+      "slug": null,
+      "uic": "000805263",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОГДАНА ТОДОРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Богдана Тодорова Петкова"
+    },
+    {
+      "id": "person:РОСИЦА СЛАВЕЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Росица Славеева Тодорова"
+    },
+    {
+      "id": "person:ХРИСТИНКА КОЛЕВА ТАНЕВА",
+      "type": "person",
+      "label": "Христинка Колева Танева"
+    },
+    {
+      "id": "person:ГАНЧО ПЕТРОВ ДИМОВ",
+      "type": "person",
+      "label": "Ганчо Петров Димов"
+    },
+    {
+      "id": "person:ДЕНКА ТОДОРОВА МАВРОДИЕВА",
+      "type": "person",
+      "label": "Денка Тодорова Мавродиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitrinka-ivanova-koleva-71139a",
+      "target": "company:tr:000805263",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОГДАНА ТОДОРОВА ПЕТКОВА",
+      "target": "company:tr:000805263",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА СЛАВЕЕВА ТОДОРОВА",
+      "target": "company:tr:000805263",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНКА КОЛЕВА ТАНЕВА",
+      "target": "company:tr:000805263",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНЧО ПЕТРОВ ДИМОВ",
+      "target": "company:tr:000805263",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНКА ТОДОРОВА МАВРОДИЕВА",
+      "target": "company:tr:000805263",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

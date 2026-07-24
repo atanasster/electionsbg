@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dragomir-mitkov-monev-77695d","nodes":[{"id":"official:dragomir-mitkov-monev-77695d","type":"official","slug":"dragomir-mitkov-monev-77695d","label":"Драгомир Митков Монев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:202572938","type":"company","label":"Мейдейин ООД","slug":null,"uic":"202572938","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:dragomir-mitkov-monev-77695d","target":"company:tr:202572938","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dragomir-mitkov-monev-77695d",
+  "nodes": [
+    {
+      "id": "official:dragomir-mitkov-monev-77695d",
+      "type": "official",
+      "slug": "dragomir-mitkov-monev-77695d",
+      "label": "Драгомир Митков Монев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202572938",
+      "type": "company",
+      "label": "Мейдейин ООД",
+      "slug": null,
+      "uic": "202572938",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dragomir-mitkov-monev-77695d",
+      "target": "company:tr:202572938",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

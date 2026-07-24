@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e","nodes":[{"id":"official:zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e","type":"official","slug":"zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e","label":"Жечка Емилова Хаджийска-Партаджиева","tier":"municipal","role":"councillor","municipality":"Златоград"},{"id":"company:tr:204325712","type":"company","label":"ДЕ АРТО","slug":null,"uic":"204325712","legalForm":null,"status":null,"seat":null},{"id":"person:ТРЕНДАФИЛ КАМЕНОВ ПАРТАДЖИЕВ","type":"person","label":"Трендафил Каменов Партаджиев"}],"edges":[{"source":"official:zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e","target":"company:tr:204325712","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e","target":"company:tr:204325712","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ТРЕНДАФИЛ КАМЕНОВ ПАРТАДЖИЕВ","target":"company:tr:204325712","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e",
+  "nodes": [
+    {
+      "id": "official:zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e",
+      "type": "official",
+      "slug": "zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e",
+      "label": "Жечка Емилова Хаджийска-Партаджиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златоград"
+    },
+    {
+      "id": "company:tr:204325712",
+      "type": "company",
+      "label": "ДЕ АРТО",
+      "slug": null,
+      "uic": "204325712",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТРЕНДАФИЛ КАМЕНОВ ПАРТАДЖИЕВ",
+      "type": "person",
+      "label": "Трендафил Каменов Партаджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e",
+      "target": "company:tr:204325712",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhechka-emilova-hadzhiiska-partadzhieva-6aeb2e",
+      "target": "company:tr:204325712",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТРЕНДАФИЛ КАМЕНОВ ПАРТАДЖИЕВ",
+      "target": "company:tr:204325712",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:atanas-georgiev-darelov-4fc909","nodes":[{"id":"official:atanas-georgiev-darelov-4fc909","type":"official","slug":"atanas-georgiev-darelov-4fc909","label":"АТАНАС ГЕОРГИЕВ ДАРЕЛОВ","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130175000","type":"company","label":"\"СОФИЙСКА ВОДА\" АД","slug":null,"uic":"130175000","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИАНА ГЕОРГИЕВА ИТЕВА","type":"person","label":"Мариана Георгиева Итева"},{"id":"person:ВАСИЛ БОРИСОВ ТРЕНЕВ","type":"person","label":"Васил Борисов Тренев"},{"id":"person:ФРАНСОА МИШЕЛ ДЕБЕРГ","type":"person","label":"Франсоа Мишел Деберг"},{"id":"person:ГЕОРГИ ИВАНОВ БАНКОВ","type":"person","label":"Георги Иванов Банков"},{"id":"person:ЖЕРОМ ЛУИ-МАРИ ПИЕР ЛЬОМЕР","type":"person","label":"Жером Луи-Мари Пиер Льомер"},{"id":"person:СТЕФАН ИВАНОВ ПАМУКЧИЕВ","type":"person","label":"Стефан Иванов Памукчиев"},{"id":"person:ВЕНЦИСЛАВ ИЛИЕВ МИХАЙЛОВ","type":"person","label":"Венцислав Илиев Михайлов"}],"edges":[{"source":"official:atanas-georgiev-darelov-4fc909","target":"company:tr:130175000","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ГЕОРГИЕВА ИТЕВА","target":"company:tr:130175000","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ БОРИСОВ ТРЕНЕВ","target":"company:tr:130175000","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ФРАНСОА МИШЕЛ ДЕБЕРГ","target":"company:tr:130175000","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ БАНКОВ","target":"company:tr:130175000","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕРОМ ЛУИ-МАРИ ПИЕР ЛЬОМЕР","target":"company:tr:130175000","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ИВАНОВ ПАМУКЧИЕВ","target":"company:tr:130175000","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ИЛИЕВ МИХАЙЛОВ","target":"company:tr:130175000","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:atanas-georgiev-darelov-4fc909",
+  "nodes": [
+    {
+      "id": "official:atanas-georgiev-darelov-4fc909",
+      "type": "official",
+      "slug": "atanas-georgiev-darelov-4fc909",
+      "label": "АТАНАС ГЕОРГИЕВ ДАРЕЛОВ",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130175000",
+      "type": "company",
+      "label": "\"СОФИЙСКА ВОДА\" АД",
+      "slug": null,
+      "uic": "130175000",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАНА ГЕОРГИЕВА ИТЕВА",
+      "type": "person",
+      "label": "Мариана Георгиева Итева"
+    },
+    {
+      "id": "person:ВАСИЛ БОРИСОВ ТРЕНЕВ",
+      "type": "person",
+      "label": "Васил Борисов Тренев"
+    },
+    {
+      "id": "person:ФРАНСОА МИШЕЛ ДЕБЕРГ",
+      "type": "person",
+      "label": "Франсоа Мишел Деберг"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ БАНКОВ",
+      "type": "person",
+      "label": "Георги Иванов Банков"
+    },
+    {
+      "id": "person:ЖЕРОМ ЛУИ-МАРИ ПИЕР ЛЬОМЕР",
+      "type": "person",
+      "label": "Жером Луи-Мари Пиер Льомер"
+    },
+    {
+      "id": "person:СТЕФАН ИВАНОВ ПАМУКЧИЕВ",
+      "type": "person",
+      "label": "Стефан Иванов Памукчиев"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ИЛИЕВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Венцислав Илиев Михайлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-georgiev-darelov-4fc909",
+      "target": "company:tr:130175000",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ГЕОРГИЕВА ИТЕВА",
+      "target": "company:tr:130175000",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ БОРИСОВ ТРЕНЕВ",
+      "target": "company:tr:130175000",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФРАНСОА МИШЕЛ ДЕБЕРГ",
+      "target": "company:tr:130175000",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ БАНКОВ",
+      "target": "company:tr:130175000",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕРОМ ЛУИ-МАРИ ПИЕР ЛЬОМЕР",
+      "target": "company:tr:130175000",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ИВАНОВ ПАМУКЧИЕВ",
+      "target": "company:tr:130175000",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ИЛИЕВ МИХАЙЛОВ",
+      "target": "company:tr:130175000",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

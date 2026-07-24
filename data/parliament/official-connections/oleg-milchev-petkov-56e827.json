@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:oleg-milchev-petkov-56e827","nodes":[{"id":"official:oleg-milchev-petkov-56e827","type":"official","slug":"oleg-milchev-petkov-56e827","label":"Олег Милчев Петков","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:207098216","type":"company","label":"АМЕО КОНСУЛТИНГ","slug":null,"uic":"207098216","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:oleg-milchev-petkov-56e827","target":"company:tr:207098216","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:oleg-milchev-petkov-56e827","target":"company:tr:207098216","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:oleg-milchev-petkov-56e827",
+  "nodes": [
+    {
+      "id": "official:oleg-milchev-petkov-56e827",
+      "type": "official",
+      "slug": "oleg-milchev-petkov-56e827",
+      "label": "Олег Милчев Петков",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207098216",
+      "type": "company",
+      "label": "АМЕО КОНСУЛТИНГ",
+      "slug": null,
+      "uic": "207098216",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:oleg-milchev-petkov-56e827",
+      "target": "company:tr:207098216",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:oleg-milchev-petkov-56e827",
+      "target": "company:tr:207098216",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

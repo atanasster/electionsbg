@@ -1,1 +1,225 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:pavel-petrov-gigov-ffcde3","nodes":[{"id":"official:pavel-petrov-gigov-ffcde3","type":"official","slug":"pavel-petrov-gigov-ffcde3","label":"Павел Петров Гигов","tier":"executive","role":"international","municipality":null},{"id":"company:tr:123759467","type":"company","label":"ВОЕНЕН СПОРТЕН КЛУБ ТРАКИЕЦ 2007","slug":null,"uic":"123759467","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ САШЕВ ЧЕРКЕЗОВ","type":"person","label":"Георги Сашев Черкезов"},{"id":"person:РУМЯНА ЖЕЛЯЗКОВА КАРАДЖОВА","type":"person","label":"Румяна Желязкова Караджова"},{"id":"person:КРАСИМИР МОМЧИЛОВ МЕХОВ","type":"person","label":"Красимир Момчилов Мехов"},{"id":"person:ДЕСИСЛАВ ТИХОМИРОВ ХРИСТОВ","type":"person","label":"Десислав Тихомиров Христов"},{"id":"person:НИКОЛАЙ ВЪЛЧАНОВ ГОСПОДИНОВ","type":"person","label":"Николай Вълчанов Господинов"},{"id":"person:ГЕОРГИ АТАНАСОВ ГЕОРГИЕВ","type":"person","label":"Георги Атанасов Георгиев"},{"id":"person:ЯНКО СТОЯНОВ ЯНЕВ","type":"person","label":"Янко Стоянов Янев"},{"id":"person:ИВАН ХРИСТОВ ОРМАНДЖИЕВ","type":"person","label":"Иван Христов Орманджиев"},{"id":"person:ПЛАМЕН НЕДЯЛКОВ КИРИЛОВ","type":"person","label":"Пламен Недялков Кирилов"},{"id":"person:САВО ИВАНОВ ИВАНОВ","type":"person","label":"Саво Иванов Иванов"},{"id":"person:ДИАН МАНОЛОВ МАНОЛОВ","type":"person","label":"Диан Манолов Манолов"},{"id":"person:МИЛЕНА ИЛКОВА БАЛЕВСКА","type":"person","label":"Милена Илкова Балевска"},{"id":"person:ЙОНКО АНГЕЛОВ ЙОНКОВ","type":"person","label":"Йонко Ангелов Йонков"},{"id":"person:ЙОВО ИВАНОВ НАНКОВ","type":"person","label":"Йово Иванов Нанков"}],"edges":[{"source":"official:pavel-petrov-gigov-ffcde3","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ САШЕВ ЧЕРКЕЗОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ЖЕЛЯЗКОВА КАРАДЖОВА","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР МОМЧИЛОВ МЕХОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВ ТИХОМИРОВ ХРИСТОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ВЪЛЧАНОВ ГОСПОДИНОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ АТАНАСОВ ГЕОРГИЕВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ САШЕВ ЧЕРКЕЗОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКО СТОЯНОВ ЯНЕВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ХРИСТОВ ОРМАНДЖИЕВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН НЕДЯЛКОВ КИРИЛОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:САВО ИВАНОВ ИВАНОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИАН МАНОЛОВ МАНОЛОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ИЛКОВА БАЛЕВСКА","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОНКО АНГЕЛОВ ЙОНКОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВО ИВАНОВ НАНКОВ","target":"company:tr:123759467","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:pavel-petrov-gigov-ffcde3",
+  "nodes": [
+    {
+      "id": "official:pavel-petrov-gigov-ffcde3",
+      "type": "official",
+      "slug": "pavel-petrov-gigov-ffcde3",
+      "label": "Павел Петров Гигов",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123759467",
+      "type": "company",
+      "label": "ВОЕНЕН СПОРТЕН КЛУБ ТРАКИЕЦ 2007",
+      "slug": null,
+      "uic": "123759467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ САШЕВ ЧЕРКЕЗОВ",
+      "type": "person",
+      "label": "Георги Сашев Черкезов"
+    },
+    {
+      "id": "person:РУМЯНА ЖЕЛЯЗКОВА КАРАДЖОВА",
+      "type": "person",
+      "label": "Румяна Желязкова Караджова"
+    },
+    {
+      "id": "person:КРАСИМИР МОМЧИЛОВ МЕХОВ",
+      "type": "person",
+      "label": "Красимир Момчилов Мехов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВ ТИХОМИРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Десислав Тихомиров Христов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВЪЛЧАНОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Николай Вълчанов Господинов"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Атанасов Георгиев"
+    },
+    {
+      "id": "person:ЯНКО СТОЯНОВ ЯНЕВ",
+      "type": "person",
+      "label": "Янко Стоянов Янев"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ ОРМАНДЖИЕВ",
+      "type": "person",
+      "label": "Иван Христов Орманджиев"
+    },
+    {
+      "id": "person:ПЛАМЕН НЕДЯЛКОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Пламен Недялков Кирилов"
+    },
+    {
+      "id": "person:САВО ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Саво Иванов Иванов"
+    },
+    {
+      "id": "person:ДИАН МАНОЛОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Диан Манолов Манолов"
+    },
+    {
+      "id": "person:МИЛЕНА ИЛКОВА БАЛЕВСКА",
+      "type": "person",
+      "label": "Милена Илкова Балевска"
+    },
+    {
+      "id": "person:ЙОНКО АНГЕЛОВ ЙОНКОВ",
+      "type": "person",
+      "label": "Йонко Ангелов Йонков"
+    },
+    {
+      "id": "person:ЙОВО ИВАНОВ НАНКОВ",
+      "type": "person",
+      "label": "Йово Иванов Нанков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavel-petrov-gigov-ffcde3",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ САШЕВ ЧЕРКЕЗОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ЖЕЛЯЗКОВА КАРАДЖОВА",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР МОМЧИЛОВ МЕХОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ ТИХОМИРОВ ХРИСТОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВЪЛЧАНОВ ГОСПОДИНОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ГЕОРГИЕВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ САШЕВ ЧЕРКЕЗОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО СТОЯНОВ ЯНЕВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ ОРМАНДЖИЕВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН НЕДЯЛКОВ КИРИЛОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВО ИВАНОВ ИВАНОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАН МАНОЛОВ МАНОЛОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ИЛКОВА БАЛЕВСКА",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОНКО АНГЕЛОВ ЙОНКОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВО ИВАНОВ НАНКОВ",
+      "target": "company:tr:123759467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

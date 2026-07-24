@@ -1,1 +1,134 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariyana-dimitrova-iordanova-bcb65b","nodes":[{"id":"official:mariyana-dimitrova-iordanova-bcb65b","type":"official","slug":"mariyana-dimitrova-iordanova-bcb65b","label":"Марияна Димитрова Йорданова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:126640866","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;НАРОДЕН БУДИТЕЛ 1928&quot;","slug":null,"uic":"126640866","legalForm":null,"status":null,"seat":null},{"id":"person:БОНКА ИВАНОВА ПЕТКОВА","type":"person","label":"Бонка Иванова Петкова"},{"id":"person:ПАВЛИНА ГЕОРГИЕВА КАСЕВА","type":"person","label":"Павлина Георгиева Касева"},{"id":"person:ЗЛАТКА ИВАНОВА ПАУНОВА","type":"person","label":"Златка Иванова Паунова"},{"id":"person:ТОДОРКА АТАНАСОВА ЯНЧЕВА","type":"person","label":"Тодорка Атанасова Янчева"},{"id":"person:СЛАВКА АТАНАСОВА ГЕОРГИЕВА","type":"person","label":"Славка Атанасова Георгиева"},{"id":"person:ИВАНКА ТОНЕВА ДИМИТРОВА","type":"person","label":"Иванка Тонева Димитрова"},{"id":"person:РАДКА ГАНЕВА КИРИЛОВА","type":"person","label":"Радка Ганева Кирилова"}],"edges":[{"source":"official:mariyana-dimitrova-iordanova-bcb65b","target":"company:tr:126640866","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:БОНКА ИВАНОВА ПЕТКОВА","target":"company:tr:126640866","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА ГЕОРГИЕВА КАСЕВА","target":"company:tr:126640866","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОНКА ИВАНОВА ПЕТКОВА","target":"company:tr:126640866","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКА ИВАНОВА ПАУНОВА","target":"company:tr:126640866","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРКА АТАНАСОВА ЯНЧЕВА","target":"company:tr:126640866","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВКА АТАНАСОВА ГЕОРГИЕВА","target":"company:tr:126640866","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ТОНЕВА ДИМИТРОВА","target":"company:tr:126640866","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ГАНЕВА КИРИЛОВА","target":"company:tr:126640866","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariyana-dimitrova-iordanova-bcb65b",
+  "nodes": [
+    {
+      "id": "official:mariyana-dimitrova-iordanova-bcb65b",
+      "type": "official",
+      "slug": "mariyana-dimitrova-iordanova-bcb65b",
+      "label": "Марияна Димитрова Йорданова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126640866",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НАРОДЕН БУДИТЕЛ 1928&quot;",
+      "slug": null,
+      "uic": "126640866",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОНКА ИВАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Бонка Иванова Петкова"
+    },
+    {
+      "id": "person:ПАВЛИНА ГЕОРГИЕВА КАСЕВА",
+      "type": "person",
+      "label": "Павлина Георгиева Касева"
+    },
+    {
+      "id": "person:ЗЛАТКА ИВАНОВА ПАУНОВА",
+      "type": "person",
+      "label": "Златка Иванова Паунова"
+    },
+    {
+      "id": "person:ТОДОРКА АТАНАСОВА ЯНЧЕВА",
+      "type": "person",
+      "label": "Тодорка Атанасова Янчева"
+    },
+    {
+      "id": "person:СЛАВКА АТАНАСОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Славка Атанасова Георгиева"
+    },
+    {
+      "id": "person:ИВАНКА ТОНЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Иванка Тонева Димитрова"
+    },
+    {
+      "id": "person:РАДКА ГАНЕВА КИРИЛОВА",
+      "type": "person",
+      "label": "Радка Ганева Кирилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-dimitrova-iordanova-bcb65b",
+      "target": "company:tr:126640866",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОНКА ИВАНОВА ПЕТКОВА",
+      "target": "company:tr:126640866",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ГЕОРГИЕВА КАСЕВА",
+      "target": "company:tr:126640866",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОНКА ИВАНОВА ПЕТКОВА",
+      "target": "company:tr:126640866",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ИВАНОВА ПАУНОВА",
+      "target": "company:tr:126640866",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА АТАНАСОВА ЯНЧЕВА",
+      "target": "company:tr:126640866",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА АТАНАСОВА ГЕОРГИЕВА",
+      "target": "company:tr:126640866",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ТОНЕВА ДИМИТРОВА",
+      "target": "company:tr:126640866",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ГАНЕВА КИРИЛОВА",
+      "target": "company:tr:126640866",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

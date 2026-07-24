@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:grigor-todorov-todorov-e72e57","nodes":[{"id":"official:grigor-todorov-todorov-e72e57","type":"official","slug":"grigor-todorov-todorov-e72e57","label":"Григор Тодоров Тодоров","tier":"municipal","role":"councillor","municipality":"Елин Пелин"},{"id":"company:tr:207691847","type":"company","label":"ДЖИ ЕНД ДИ ТРЕЙДИНГС","slug":null,"uic":"207691847","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОРДАН ИВАНОВ ВЕЛИКОВ","type":"person","label":"Йордан Иванов Великов"}],"edges":[{"source":"official:grigor-todorov-todorov-e72e57","target":"company:tr:207691847","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:grigor-todorov-todorov-e72e57","target":"company:tr:207691847","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОРДАН ИВАНОВ ВЕЛИКОВ","target":"company:tr:207691847","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:grigor-todorov-todorov-e72e57",
+  "nodes": [
+    {
+      "id": "official:grigor-todorov-todorov-e72e57",
+      "type": "official",
+      "slug": "grigor-todorov-todorov-e72e57",
+      "label": "Григор Тодоров Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елин Пелин"
+    },
+    {
+      "id": "company:tr:207691847",
+      "type": "company",
+      "label": "ДЖИ ЕНД ДИ ТРЕЙДИНГС",
+      "slug": null,
+      "uic": "207691847",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ИВАНОВ ВЕЛИКОВ",
+      "type": "person",
+      "label": "Йордан Иванов Великов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:grigor-todorov-todorov-e72e57",
+      "target": "company:tr:207691847",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:grigor-todorov-todorov-e72e57",
+      "target": "company:tr:207691847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНОВ ВЕЛИКОВ",
+      "target": "company:tr:207691847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

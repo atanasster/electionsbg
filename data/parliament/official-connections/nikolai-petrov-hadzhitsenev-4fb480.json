@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-petrov-hadzhitsenev-4fb480","nodes":[{"id":"official:nikolai-petrov-hadzhitsenev-4fb480","type":"official","slug":"nikolai-petrov-hadzhitsenev-4fb480","label":"Николай Петров Хаджиценев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130034461","type":"company","label":"СДРУЖЕНИЕ &quot;ТУРИСТИЧЕСКО ДРУЖЕСТВО &quot;ГРЪНЧАР&quot;&quot;","slug":null,"uic":"130034461","legalForm":null,"status":null,"seat":null},{"id":"person:АНГЕЛ КИРИЛОВ АНГЕЛОВ","type":"person","label":"Ангел Кирилов Ангелов"},{"id":"person:ПЕТЪР НИКОЛОВ ТАБАКОВ","type":"person","label":"Петър Николов Табаков"},{"id":"person:ГЕОРГИ АНАНИЕВ РАШКОВ","type":"person","label":"Георги Ананиев Рашков"},{"id":"person:ИЛИЯН АГАПИЕВ БУЧКОВ","type":"person","label":"Илиян Агапиев Бучков"}],"edges":[{"source":"official:nikolai-petrov-hadzhitsenev-4fb480","target":"company:tr:130034461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНГЕЛ КИРИЛОВ АНГЕЛОВ","target":"company:tr:130034461","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ КИРИЛОВ АНГЕЛОВ","target":"company:tr:130034461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР НИКОЛОВ ТАБАКОВ","target":"company:tr:130034461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ АНАНИЕВ РАШКОВ","target":"company:tr:130034461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯН АГАПИЕВ БУЧКОВ","target":"company:tr:130034461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-petrov-hadzhitsenev-4fb480",
+  "nodes": [
+    {
+      "id": "official:nikolai-petrov-hadzhitsenev-4fb480",
+      "type": "official",
+      "slug": "nikolai-petrov-hadzhitsenev-4fb480",
+      "label": "Николай Петров Хаджиценев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130034461",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ТУРИСТИЧЕСКО ДРУЖЕСТВО &quot;ГРЪНЧАР&quot;&quot;",
+      "slug": null,
+      "uic": "130034461",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ КИРИЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Кирилов Ангелов"
+    },
+    {
+      "id": "person:ПЕТЪР НИКОЛОВ ТАБАКОВ",
+      "type": "person",
+      "label": "Петър Николов Табаков"
+    },
+    {
+      "id": "person:ГЕОРГИ АНАНИЕВ РАШКОВ",
+      "type": "person",
+      "label": "Георги Ананиев Рашков"
+    },
+    {
+      "id": "person:ИЛИЯН АГАПИЕВ БУЧКОВ",
+      "type": "person",
+      "label": "Илиян Агапиев Бучков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-petrov-hadzhitsenev-4fb480",
+      "target": "company:tr:130034461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ КИРИЛОВ АНГЕЛОВ",
+      "target": "company:tr:130034461",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ КИРИЛОВ АНГЕЛОВ",
+      "target": "company:tr:130034461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР НИКОЛОВ ТАБАКОВ",
+      "target": "company:tr:130034461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АНАНИЕВ РАШКОВ",
+      "target": "company:tr:130034461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН АГАПИЕВ БУЧКОВ",
+      "target": "company:tr:130034461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

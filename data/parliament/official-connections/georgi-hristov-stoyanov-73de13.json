@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-hristov-stoyanov-73de13","nodes":[{"id":"official:georgi-hristov-stoyanov-73de13","type":"official","slug":"georgi-hristov-stoyanov-73de13","label":"Георги Христов Стоянов","tier":"executive","role":"secretary_general","municipality":null},{"id":"company:tr:204964553","type":"company","label":"Енигма травел ЕООД","slug":null,"uic":"204964553","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:georgi-hristov-stoyanov-73de13","target":"company:tr:204964553","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-hristov-stoyanov-73de13",
+  "nodes": [
+    {
+      "id": "official:georgi-hristov-stoyanov-73de13",
+      "type": "official",
+      "slug": "georgi-hristov-stoyanov-73de13",
+      "label": "Георги Христов Стоянов",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204964553",
+      "type": "company",
+      "label": "Енигма травел ЕООД",
+      "slug": null,
+      "uic": "204964553",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-hristov-stoyanov-73de13",
+      "target": "company:tr:204964553",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

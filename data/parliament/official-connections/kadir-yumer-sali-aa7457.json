@@ -1,1 +1,156 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kadir-yumer-sali-aa7457","nodes":[{"id":"official:kadir-yumer-sali-aa7457","type":"official","slug":"kadir-yumer-sali-aa7457","label":"Кадир Юмер Сали","tier":"municipal","role":"councillor","municipality":"Самуил"},{"id":"company:tr:000500048","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;БЪДЕЩНОСТ 1930&quot;","slug":null,"uic":"000500048","legalForm":null,"status":null,"seat":null},{"id":"official:isak-fikret-hasan-6d920a","type":"official","slug":"isak-fikret-hasan-6d920a","label":"Исак Фикрет Хасан","tier":"municipal","role":"councillor","municipality":"Самуил"},{"id":"person:ЛЕЙЛЯ БАЙРАМ ИБРЯМ","type":"person","label":"Лейля Байрам Ибрям"},{"id":"person:НУРАЙ ЗАКИР САДУЛА","type":"person","label":"Нурай Закир Садула"},{"id":"person:НЕВБЕР АЛИ НИЯЗИ","type":"person","label":"Невбер Али Ниязи"},{"id":"person:ГЮЛШЕН ЮМЕР ОСМАН","type":"person","label":"Гюлшен Юмер Осман"},{"id":"person:ЗЕЙНЕБ АРИФ РАМАДАН","type":"person","label":"Зейнеб Ариф Рамадан"},{"id":"person:ГАФУР МЕХМЕД ГАФУР","type":"person","label":"Гафур Мехмед Гафур"},{"id":"person:ЗЕЙНЕБ САЛИ СЮЛЕЙМАН","type":"person","label":"Зейнеб Сали Сюлейман"},{"id":"person:МЕХНУР ИСМЕТ БИЛЯЛ","type":"person","label":"Мехнур Исмет Билял"}],"edges":[{"source":"official:kadir-yumer-sali-aa7457","target":"company:tr:000500048","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:isak-fikret-hasan-6d920a","target":"company:tr:000500048","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЕЙЛЯ БАЙРАМ ИБРЯМ","target":"company:tr:000500048","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НУРАЙ ЗАКИР САДУЛА","target":"company:tr:000500048","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕВБЕР АЛИ НИЯЗИ","target":"company:tr:000500048","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЮЛШЕН ЮМЕР ОСМАН","target":"company:tr:000500048","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗЕЙНЕБ АРИФ РАМАДАН","target":"company:tr:000500048","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГАФУР МЕХМЕД ГАФУР","target":"company:tr:000500048","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЗЕЙНЕБ САЛИ СЮЛЕЙМАН","target":"company:tr:000500048","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МЕХНУР ИСМЕТ БИЛЯЛ","target":"company:tr:000500048","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kadir-yumer-sali-aa7457",
+  "nodes": [
+    {
+      "id": "official:kadir-yumer-sali-aa7457",
+      "type": "official",
+      "slug": "kadir-yumer-sali-aa7457",
+      "label": "Кадир Юмер Сали",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Самуил"
+    },
+    {
+      "id": "company:tr:000500048",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;БЪДЕЩНОСТ 1930&quot;",
+      "slug": null,
+      "uic": "000500048",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:isak-fikret-hasan-6d920a",
+      "type": "official",
+      "slug": "isak-fikret-hasan-6d920a",
+      "label": "Исак Фикрет Хасан",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Самуил"
+    },
+    {
+      "id": "person:ЛЕЙЛЯ БАЙРАМ ИБРЯМ",
+      "type": "person",
+      "label": "Лейля Байрам Ибрям"
+    },
+    {
+      "id": "person:НУРАЙ ЗАКИР САДУЛА",
+      "type": "person",
+      "label": "Нурай Закир Садула"
+    },
+    {
+      "id": "person:НЕВБЕР АЛИ НИЯЗИ",
+      "type": "person",
+      "label": "Невбер Али Ниязи"
+    },
+    {
+      "id": "person:ГЮЛШЕН ЮМЕР ОСМАН",
+      "type": "person",
+      "label": "Гюлшен Юмер Осман"
+    },
+    {
+      "id": "person:ЗЕЙНЕБ АРИФ РАМАДАН",
+      "type": "person",
+      "label": "Зейнеб Ариф Рамадан"
+    },
+    {
+      "id": "person:ГАФУР МЕХМЕД ГАФУР",
+      "type": "person",
+      "label": "Гафур Мехмед Гафур"
+    },
+    {
+      "id": "person:ЗЕЙНЕБ САЛИ СЮЛЕЙМАН",
+      "type": "person",
+      "label": "Зейнеб Сали Сюлейман"
+    },
+    {
+      "id": "person:МЕХНУР ИСМЕТ БИЛЯЛ",
+      "type": "person",
+      "label": "Мехнур Исмет Билял"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kadir-yumer-sali-aa7457",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:isak-fikret-hasan-6d920a",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЕЙЛЯ БАЙРАМ ИБРЯМ",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРАЙ ЗАКИР САДУЛА",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВБЕР АЛИ НИЯЗИ",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛШЕН ЮМЕР ОСМАН",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕЙНЕБ АРИФ РАМАДАН",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАФУР МЕХМЕД ГАФУР",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕЙНЕБ САЛИ СЮЛЕЙМАН",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХНУР ИСМЕТ БИЛЯЛ",
+      "target": "company:tr:000500048",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

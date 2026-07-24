@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:danail-vasilev-ivanov-548607","nodes":[{"id":"official:danail-vasilev-ivanov-548607","type":"official","slug":"danail-vasilev-ivanov-548607","label":"Данаил Василев Иванов","tier":"municipal","role":"councillor","municipality":"Бяла Слатина"},{"id":"company:tr:175883693","type":"company","label":"ВОЛЕЙБОЛЕН КЛУБ ЧАВДАР 1932","slug":null,"uic":"175883693","legalForm":null,"status":null,"seat":null},{"id":"person:ДРАГОМИР ПЕТРОВ ДРАГАНОВ","type":"person","label":"Драгомир Петров Драганов"},{"id":"person:СЕВИНА КАДРИЕВА МЕХМЕДОВА","type":"person","label":"Севина Кадриева Мехмедова"}],"edges":[{"source":"official:danail-vasilev-ivanov-548607","target":"company:tr:175883693","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДРАГОМИР ПЕТРОВ ДРАГАНОВ","target":"company:tr:175883693","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕВИНА КАДРИЕВА МЕХМЕДОВА","target":"company:tr:175883693","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:danail-vasilev-ivanov-548607",
+  "nodes": [
+    {
+      "id": "official:danail-vasilev-ivanov-548607",
+      "type": "official",
+      "slug": "danail-vasilev-ivanov-548607",
+      "label": "Данаил Василев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла Слатина"
+    },
+    {
+      "id": "company:tr:175883693",
+      "type": "company",
+      "label": "ВОЛЕЙБОЛЕН КЛУБ ЧАВДАР 1932",
+      "slug": null,
+      "uic": "175883693",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДРАГОМИР ПЕТРОВ ДРАГАНОВ",
+      "type": "person",
+      "label": "Драгомир Петров Драганов"
+    },
+    {
+      "id": "person:СЕВИНА КАДРИЕВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Севина Кадриева Мехмедова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:danail-vasilev-ivanov-548607",
+      "target": "company:tr:175883693",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДРАГОМИР ПЕТРОВ ДРАГАНОВ",
+      "target": "company:tr:175883693",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВИНА КАДРИЕВА МЕХМЕДОВА",
+      "target": "company:tr:175883693",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

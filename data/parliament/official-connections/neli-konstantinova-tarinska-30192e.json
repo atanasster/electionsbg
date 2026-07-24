@@ -1,1 +1,127 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:neli-konstantinova-tarinska-30192e","nodes":[{"id":"official:neli-konstantinova-tarinska-30192e","type":"official","slug":"neli-konstantinova-tarinska-30192e","label":"Нели Константинова Таринска","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:000664332","type":"company","label":"УНИВЕРСИТЕТСКА СПЕЦИАЛИЗИРАНА  БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ЕНДОКРИНОЛОГИЯ &quot;АКАД. ИВ. ПЕНЧЕВ&quot;","slug":null,"uic":"000664332","legalForm":"EAD","status":"active","seat":null},{"id":"mp:5239","type":"mp","mpId":5239,"label":"Динко Любомиров Странски","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"person:АТАНАС СТЕФАНОВ ЙОНКОВ","type":"person","label":"Атанас Стефанов Йонков"},{"id":"person:САБИНА ЗАХАРИЕВА ЗАХАРИЕВА","type":"person","label":"Сабина Захариева Захариева"},{"id":"person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ","type":"person","label":"Димитър Вълчинов Димитров"},{"id":"person:МАРИЯ МИТКОВА ОРБЕЦОВА","type":"person","label":"Мария Миткова Орбецова"},{"id":"person:ВЛАДИМИР ВАСЕВ ДАСКАЛОВ","type":"person","label":"Владимир Васев Даскалов"}],"edges":[{"source":"official:neli-konstantinova-tarinska-30192e","target":"company:tr:000664332","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:5239","target":"company:tr:000664332","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:АТАНАС СТЕФАНОВ ЙОНКОВ","target":"company:tr:000664332","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:САБИНА ЗАХАРИЕВА ЗАХАРИЕВА","target":"company:tr:000664332","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ","target":"company:tr:000664332","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ МИТКОВА ОРБЕЦОВА","target":"company:tr:000664332","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ МИТКОВА ОРБЕЦОВА","target":"company:tr:000664332","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ВАСЕВ ДАСКАЛОВ","target":"company:tr:000664332","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:neli-konstantinova-tarinska-30192e",
+  "nodes": [
+    {
+      "id": "official:neli-konstantinova-tarinska-30192e",
+      "type": "official",
+      "slug": "neli-konstantinova-tarinska-30192e",
+      "label": "Нели Константинова Таринска",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000664332",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА СПЕЦИАЛИЗИРАНА  БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ЕНДОКРИНОЛОГИЯ &quot;АКАД. ИВ. ПЕНЧЕВ&quot;",
+      "slug": null,
+      "uic": "000664332",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:5239",
+      "type": "mp",
+      "mpId": 5239,
+      "label": "Динко Любомиров Странски",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:АТАНАС СТЕФАНОВ ЙОНКОВ",
+      "type": "person",
+      "label": "Атанас Стефанов Йонков"
+    },
+    {
+      "id": "person:САБИНА ЗАХАРИЕВА ЗАХАРИЕВА",
+      "type": "person",
+      "label": "Сабина Захариева Захариева"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Вълчинов Димитров"
+    },
+    {
+      "id": "person:МАРИЯ МИТКОВА ОРБЕЦОВА",
+      "type": "person",
+      "label": "Мария Миткова Орбецова"
+    },
+    {
+      "id": "person:ВЛАДИМИР ВАСЕВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Владимир Васев Даскалов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-konstantinova-tarinska-30192e",
+      "target": "company:tr:000664332",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5239",
+      "target": "company:tr:000664332",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАС СТЕФАНОВ ЙОНКОВ",
+      "target": "company:tr:000664332",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САБИНА ЗАХАРИЕВА ЗАХАРИЕВА",
+      "target": "company:tr:000664332",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ",
+      "target": "company:tr:000664332",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МИТКОВА ОРБЕЦОВА",
+      "target": "company:tr:000664332",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МИТКОВА ОРБЕЦОВА",
+      "target": "company:tr:000664332",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ВАСЕВ ДАСКАЛОВ",
+      "target": "company:tr:000664332",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

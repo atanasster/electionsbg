@@ -1,1 +1,155 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-atanasov-marin-2c8623","nodes":[{"id":"official:nikolai-atanasov-marin-2c8623","type":"official","slug":"nikolai-atanasov-marin-2c8623","label":"Николай Атанасов Марин","tier":"executive","role":"academic","municipality":null},{"id":"company:tr:175496426","type":"company","label":"ЦЕНТЪР ЗА МЕЖДУНАРОДНО И ЕВРОПЕЙСКО ПРАВО","slug":null,"uic":"175496426","legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКСАНДЪР АСЕНОВ ВОДЕНИЧАРОВ","type":"person","label":"Александър Асенов Воденичаров"},{"id":"person:МИРОСЛАВА АНГЕЛОВА ЙОРДАНОВА-ВЕЛИКОВА","type":"person","label":"Мирослава Ангелова Йорданова-Великова"},{"id":"person:НИКОЛАЙ АТАНАСОВ ПОПОВ","type":"person","label":"Николай Атанасов Попов"},{"id":"person:ГЕРГАНА ВАСИЛЕВА ГЕОРГИЕВА","type":"person","label":"Гергана Василева Георгиева"},{"id":"person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ","type":"person","label":"Даниел Милославов Петров"},{"id":"person:СОФИЯ ИЛЧЕВА СЕКУЛОВА","type":"person","label":"София Илчева Секулова"},{"id":"person:ПЛАМЕНА СТОЯНОВА ГРОЗЕВА","type":"person","label":"Пламена Стоянова Грозева"},{"id":"person:АНДОН ИЛИЕВ МИНЕВ","type":"person","label":"Андон Илиев Минев"}],"edges":[{"source":"official:nikolai-atanasov-marin-2c8623","target":"company:tr:175496426","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АЛЕКСАНДЪР АСЕНОВ ВОДЕНИЧАРОВ","target":"company:tr:175496426","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР АСЕНОВ ВОДЕНИЧАРОВ","target":"company:tr:175496426","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВА АНГЕЛОВА ЙОРДАНОВА-ВЕЛИКОВА","target":"company:tr:175496426","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ АТАНАСОВ ПОПОВ","target":"company:tr:175496426","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ВАСИЛЕВА ГЕОРГИЕВА","target":"company:tr:175496426","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ","target":"company:tr:175496426","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ","target":"company:tr:175496426","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОФИЯ ИЛЧЕВА СЕКУЛОВА","target":"company:tr:175496426","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕНА СТОЯНОВА ГРОЗЕВА","target":"company:tr:175496426","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНДОН ИЛИЕВ МИНЕВ","target":"company:tr:175496426","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-atanasov-marin-2c8623",
+  "nodes": [
+    {
+      "id": "official:nikolai-atanasov-marin-2c8623",
+      "type": "official",
+      "slug": "nikolai-atanasov-marin-2c8623",
+      "label": "Николай Атанасов Марин",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175496426",
+      "type": "company",
+      "label": "ЦЕНТЪР ЗА МЕЖДУНАРОДНО И ЕВРОПЕЙСКО ПРАВО",
+      "slug": null,
+      "uic": "175496426",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР АСЕНОВ ВОДЕНИЧАРОВ",
+      "type": "person",
+      "label": "Александър Асенов Воденичаров"
+    },
+    {
+      "id": "person:МИРОСЛАВА АНГЕЛОВА ЙОРДАНОВА-ВЕЛИКОВА",
+      "type": "person",
+      "label": "Мирослава Ангелова Йорданова-Великова"
+    },
+    {
+      "id": "person:НИКОЛАЙ АТАНАСОВ ПОПОВ",
+      "type": "person",
+      "label": "Николай Атанасов Попов"
+    },
+    {
+      "id": "person:ГЕРГАНА ВАСИЛЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Гергана Василева Георгиева"
+    },
+    {
+      "id": "person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Даниел Милославов Петров"
+    },
+    {
+      "id": "person:СОФИЯ ИЛЧЕВА СЕКУЛОВА",
+      "type": "person",
+      "label": "София Илчева Секулова"
+    },
+    {
+      "id": "person:ПЛАМЕНА СТОЯНОВА ГРОЗЕВА",
+      "type": "person",
+      "label": "Пламена Стоянова Грозева"
+    },
+    {
+      "id": "person:АНДОН ИЛИЕВ МИНЕВ",
+      "type": "person",
+      "label": "Андон Илиев Минев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-atanasov-marin-2c8623",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АСЕНОВ ВОДЕНИЧАРОВ",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АСЕНОВ ВОДЕНИЧАРОВ",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА АНГЕЛОВА ЙОРДАНОВА-ВЕЛИКОВА",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АТАНАСОВ ПОПОВ",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ВАСИЛЕВА ГЕОРГИЕВА",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ ИЛЧЕВА СЕКУЛОВА",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНА СТОЯНОВА ГРОЗЕВА",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДОН ИЛИЕВ МИНЕВ",
+      "target": "company:tr:175496426",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

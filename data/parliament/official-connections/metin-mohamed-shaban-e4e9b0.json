@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:metin-mohamed-shaban-e4e9b0","nodes":[{"id":"official:metin-mohamed-shaban-e4e9b0","type":"official","slug":"metin-mohamed-shaban-e4e9b0","label":"Метин Мохамед Шабан","tier":"municipal","role":"councillor","municipality":"Стамболово"},{"id":"company:tr:207408729","type":"company","label":"ОБЛАСТЕН ФЕРМЕРСКИ СЪЮЗ - ХАСКОВО","slug":null,"uic":"207408729","legalForm":null,"status":null,"seat":null},{"id":"person:ТАСИМ КЯЗИМ ЙЪЛДЪЗ","type":"person","label":"Тасим Кязим Йълдъз"},{"id":"person:ХАЙРИ ДЖЕЛАТИН ФЕЙЗИ","type":"person","label":"Хайри Джелатин Фейзи"}],"edges":[{"source":"official:metin-mohamed-shaban-e4e9b0","target":"company:tr:207408729","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТАСИМ КЯЗИМ ЙЪЛДЪЗ","target":"company:tr:207408729","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТАСИМ КЯЗИМ ЙЪЛДЪЗ","target":"company:tr:207408729","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХАЙРИ ДЖЕЛАТИН ФЕЙЗИ","target":"company:tr:207408729","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:metin-mohamed-shaban-e4e9b0",
+  "nodes": [
+    {
+      "id": "official:metin-mohamed-shaban-e4e9b0",
+      "type": "official",
+      "slug": "metin-mohamed-shaban-e4e9b0",
+      "label": "Метин Мохамед Шабан",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стамболово"
+    },
+    {
+      "id": "company:tr:207408729",
+      "type": "company",
+      "label": "ОБЛАСТЕН ФЕРМЕРСКИ СЪЮЗ - ХАСКОВО",
+      "slug": null,
+      "uic": "207408729",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАСИМ КЯЗИМ ЙЪЛДЪЗ",
+      "type": "person",
+      "label": "Тасим Кязим Йълдъз"
+    },
+    {
+      "id": "person:ХАЙРИ ДЖЕЛАТИН ФЕЙЗИ",
+      "type": "person",
+      "label": "Хайри Джелатин Фейзи"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:metin-mohamed-shaban-e4e9b0",
+      "target": "company:tr:207408729",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАСИМ КЯЗИМ ЙЪЛДЪЗ",
+      "target": "company:tr:207408729",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАСИМ КЯЗИМ ЙЪЛДЪЗ",
+      "target": "company:tr:207408729",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙРИ ДЖЕЛАТИН ФЕЙЗИ",
+      "target": "company:tr:207408729",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

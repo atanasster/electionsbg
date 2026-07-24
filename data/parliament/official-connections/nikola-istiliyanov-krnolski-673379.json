@@ -1,1 +1,259 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikola-istiliyanov-krnolski-673379","nodes":[{"id":"official:nikola-istiliyanov-krnolski-673379","type":"official","slug":"nikola-istiliyanov-krnolski-673379","label":"Никола Истилиянов Кърнолски","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:825344636","type":"company","label":"НАУЧНО-ТЕХНИЧЕСКИ СЪЮЗИ С ДОМ НА НАУКАТА И ТЕХНИКАТА-ПЛОВДИВ","slug":null,"uic":"825344636","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ МИХАЙЛОВ ВРАГОВ","type":"person","label":"Георги Михайлов Врагов"},{"id":"person:СВЕТОЗАР АНГЕЛОВ НЕЙКОВ","type":"person","label":"Светозар Ангелов Нейков"},{"id":"person:ИВАН ЯНЕВ ГЕОРГИЕВ","type":"person","label":"Иван Янев Георгиев"},{"id":"person:ГЕОРГИ ТОДОРОВ СОМОВ","type":"person","label":"Георги Тодоров Сомов"},{"id":"person:ЮЛИАН СТЕФАНОВ БРАТАНОВ","type":"person","label":"Юлиан Стефанов Братанов"},{"id":"person:ХРИСТО ГЕОРГИЕВ БОЗУКОВ","type":"person","label":"Христо Георгиев Бозуков"},{"id":"person:САРКИС ТАТЕОС ГАРАБЕДЯН","type":"person","label":"Саркис Татеос Гарабедян"},{"id":"person:МАРГАРИТА ЦОНКОВА БОЗОВА","type":"person","label":"Маргарита Цонкова Бозова"},{"id":"person:ПЕТЪР НЕЙЧЕВ НЕЙЧЕВ","type":"person","label":"Петър Нейчев Нейчев"},{"id":"person:КОНСТАНТИН АЛЕКСАНДРОВ КОСТАДИНОВ","type":"person","label":"Константин Александров Костадинов"},{"id":"person:ИВАН ГЕОРГИЕВ ЯНЧЕВ","type":"person","label":"Иван Георгиев Янчев"},{"id":"person:ДИМИТЪР ГЕНЧЕВ АРНАУДОВ","type":"person","label":"Димитър Генчев Арнаудов"},{"id":"person:МИРКО ЦВЕТАНОВ УГРИНОВ","type":"person","label":"Мирко Цветанов Угринов"},{"id":"person:ЖУЛИЕТА ЙОРДАНОВА ЯНКОВА","type":"person","label":"Жулиета Йорданова Янкова"},{"id":"person:АЛБЕНА СТОЯНОВА СТОЯНОВА","type":"person","label":"Албена Стоянова Стоянова"},{"id":"person:ДИМИТЪР КОСТАДИНОВ ГИШИН","type":"person","label":"Димитър Костадинов Гишин"}],"edges":[{"source":"official:nikola-istiliyanov-krnolski-673379","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ МИХАЙЛОВ ВРАГОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАР АНГЕЛОВ НЕЙКОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ МИХАЙЛОВ ВРАГОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЯНЕВ ГЕОРГИЕВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАР АНГЕЛОВ НЕЙКОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ТОДОРОВ СОМОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИАН СТЕФАНОВ БРАТАНОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ГЕОРГИЕВ БОЗУКОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САРКИС ТАТЕОС ГАРАБЕДЯН","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА ЦОНКОВА БОЗОВА","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР НЕЙЧЕВ НЕЙЧЕВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН АЛЕКСАНДРОВ КОСТАДИНОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГЕОРГИЕВ ЯНЧЕВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ГЕНЧЕВ АРНАУДОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРКО ЦВЕТАНОВ УГРИНОВ","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖУЛИЕТА ЙОРДАНОВА ЯНКОВА","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА СТОЯНОВА СТОЯНОВА","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР КОСТАДИНОВ ГИШИН","target":"company:tr:825344636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikola-istiliyanov-krnolski-673379",
+  "nodes": [
+    {
+      "id": "official:nikola-istiliyanov-krnolski-673379",
+      "type": "official",
+      "slug": "nikola-istiliyanov-krnolski-673379",
+      "label": "Никола Истилиянов Кърнолски",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:825344636",
+      "type": "company",
+      "label": "НАУЧНО-ТЕХНИЧЕСКИ СЪЮЗИ С ДОМ НА НАУКАТА И ТЕХНИКАТА-ПЛОВДИВ",
+      "slug": null,
+      "uic": "825344636",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ МИХАЙЛОВ ВРАГОВ",
+      "type": "person",
+      "label": "Георги Михайлов Врагов"
+    },
+    {
+      "id": "person:СВЕТОЗАР АНГЕЛОВ НЕЙКОВ",
+      "type": "person",
+      "label": "Светозар Ангелов Нейков"
+    },
+    {
+      "id": "person:ИВАН ЯНЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Иван Янев Георгиев"
+    },
+    {
+      "id": "person:ГЕОРГИ ТОДОРОВ СОМОВ",
+      "type": "person",
+      "label": "Георги Тодоров Сомов"
+    },
+    {
+      "id": "person:ЮЛИАН СТЕФАНОВ БРАТАНОВ",
+      "type": "person",
+      "label": "Юлиан Стефанов Братанов"
+    },
+    {
+      "id": "person:ХРИСТО ГЕОРГИЕВ БОЗУКОВ",
+      "type": "person",
+      "label": "Христо Георгиев Бозуков"
+    },
+    {
+      "id": "person:САРКИС ТАТЕОС ГАРАБЕДЯН",
+      "type": "person",
+      "label": "Саркис Татеос Гарабедян"
+    },
+    {
+      "id": "person:МАРГАРИТА ЦОНКОВА БОЗОВА",
+      "type": "person",
+      "label": "Маргарита Цонкова Бозова"
+    },
+    {
+      "id": "person:ПЕТЪР НЕЙЧЕВ НЕЙЧЕВ",
+      "type": "person",
+      "label": "Петър Нейчев Нейчев"
+    },
+    {
+      "id": "person:КОНСТАНТИН АЛЕКСАНДРОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Константин Александров Костадинов"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ЯНЧЕВ",
+      "type": "person",
+      "label": "Иван Георгиев Янчев"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕНЧЕВ АРНАУДОВ",
+      "type": "person",
+      "label": "Димитър Генчев Арнаудов"
+    },
+    {
+      "id": "person:МИРКО ЦВЕТАНОВ УГРИНОВ",
+      "type": "person",
+      "label": "Мирко Цветанов Угринов"
+    },
+    {
+      "id": "person:ЖУЛИЕТА ЙОРДАНОВА ЯНКОВА",
+      "type": "person",
+      "label": "Жулиета Йорданова Янкова"
+    },
+    {
+      "id": "person:АЛБЕНА СТОЯНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Албена Стоянова Стоянова"
+    },
+    {
+      "id": "person:ДИМИТЪР КОСТАДИНОВ ГИШИН",
+      "type": "person",
+      "label": "Димитър Костадинов Гишин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-istiliyanov-krnolski-673379",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ МИХАЙЛОВ ВРАГОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР АНГЕЛОВ НЕЙКОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МИХАЙЛОВ ВРАГОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЯНЕВ ГЕОРГИЕВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР АНГЕЛОВ НЕЙКОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ТОДОРОВ СОМОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН СТЕФАНОВ БРАТАНОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕОРГИЕВ БОЗУКОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САРКИС ТАТЕОС ГАРАБЕДЯН",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ЦОНКОВА БОЗОВА",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР НЕЙЧЕВ НЕЙЧЕВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН АЛЕКСАНДРОВ КОСТАДИНОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ЯНЧЕВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕНЧЕВ АРНАУДОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРКО ЦВЕТАНОВ УГРИНОВ",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖУЛИЕТА ЙОРДАНОВА ЯНКОВА",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА СТОЯНОВА СТОЯНОВА",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КОСТАДИНОВ ГИШИН",
+      "target": "company:tr:825344636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

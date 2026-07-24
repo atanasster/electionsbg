@@ -1,1 +1,138 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-tsvetanov-sirakov-78fedd","nodes":[{"id":"official:nikolai-tsvetanov-sirakov-78fedd","type":"official","slug":"nikolai-tsvetanov-sirakov-78fedd","label":"Николай Цветанов Сираков","tier":"municipal","role":"councillor","municipality":"Габрово"},{"id":"company:tr:207921016","type":"company","label":"Лама Чено","slug":null,"uic":"207921016","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Габрово, 5300"},{"id":"company:tr:205943416","type":"company","label":"Слипдриймс","slug":null,"uic":"205943416","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1505"},{"id":"mp:3241","type":"mp","mpId":3241,"label":"Николай Цветанов Сираков","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["44"]},{"id":"person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ","type":"person","label":"Николай Цветанов Сираков"},{"id":"person:АЛЕКСАНДЪР МИНЧЕВ АНГЕЛОВ","type":"person","label":"Александър Минчев Ангелов"}],"edges":[{"source":"official:nikolai-tsvetanov-sirakov-78fedd","target":"company:tr:207921016","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-tsvetanov-sirakov-78fedd","target":"company:tr:205943416","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:3241","target":"company:tr:207921016","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3241","target":"company:tr:207921016","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ","target":"company:tr:207921016","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ","target":"company:tr:207921016","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:3241","target":"company:tr:205943416","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АЛЕКСАНДЪР МИНЧЕВ АНГЕЛОВ","target":"company:tr:205943416","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР МИНЧЕВ АНГЕЛОВ","target":"company:tr:205943416","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ","target":"company:tr:205943416","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-tsvetanov-sirakov-78fedd",
+  "nodes": [
+    {
+      "id": "official:nikolai-tsvetanov-sirakov-78fedd",
+      "type": "official",
+      "slug": "nikolai-tsvetanov-sirakov-78fedd",
+      "label": "Николай Цветанов Сираков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово"
+    },
+    {
+      "id": "company:tr:207921016",
+      "type": "company",
+      "label": "Лама Чено",
+      "slug": null,
+      "uic": "207921016",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Габрово, 5300"
+    },
+    {
+      "id": "company:tr:205943416",
+      "type": "company",
+      "label": "Слипдриймс",
+      "slug": null,
+      "uic": "205943416",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1505"
+    },
+    {
+      "id": "mp:3241",
+      "type": "mp",
+      "mpId": 3241,
+      "label": "Николай Цветанов Сираков",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44"
+      ]
+    },
+    {
+      "id": "person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ",
+      "type": "person",
+      "label": "Николай Цветанов Сираков"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР МИНЧЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Александър Минчев Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-tsvetanov-sirakov-78fedd",
+      "target": "company:tr:207921016",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-tsvetanov-sirakov-78fedd",
+      "target": "company:tr:205943416",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3241",
+      "target": "company:tr:207921016",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3241",
+      "target": "company:tr:207921016",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ",
+      "target": "company:tr:207921016",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ",
+      "target": "company:tr:207921016",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3241",
+      "target": "company:tr:205943416",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МИНЧЕВ АНГЕЛОВ",
+      "target": "company:tr:205943416",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МИНЧЕВ АНГЕЛОВ",
+      "target": "company:tr:205943416",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ",
+      "target": "company:tr:205943416",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

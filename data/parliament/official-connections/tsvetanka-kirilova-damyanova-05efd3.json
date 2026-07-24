@@ -1,1 +1,156 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetanka-kirilova-damyanova-05efd3","nodes":[{"id":"official:tsvetanka-kirilova-damyanova-05efd3","type":"official","slug":"tsvetanka-kirilova-damyanova-05efd3","label":"Цветанка Кирилова Дамянова","tier":"municipal","role":"councillor","municipality":"Мизия"},{"id":"company:tr:000184721","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА-1899","slug":null,"uic":"000184721","legalForm":null,"status":null,"seat":null},{"id":"official:darina-ivanova-stoyanova-a7799a","type":"official","slug":"darina-ivanova-stoyanova-a7799a","label":"Дарина Иванова Стоянова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:МИЛЕНА ДИМИТРОВА МЛАДЕНОВА","type":"person","label":"Милена Димитрова Младенова"},{"id":"person:РАДОСЛАВА НАЧКОВА СПАСОВА","type":"person","label":"Радослава Начкова Спасова"},{"id":"person:ПЕПА ЙОНЧЕВА ПЕТКОВА","type":"person","label":"Пепа Йончева Петкова"},{"id":"person:АНГЕЛ КРЪСТЕВ АНГЕЛОВ-ПРЕДСЕДАТЕЛ","type":"person","label":"Ангел Кръстев Ангелов-Председател"},{"id":"person:ЕЛЕОНОРА НИКОЛОВА НИНОВА-ЧЛЕН","type":"person","label":"Елеонора Николова Нинова-Член"},{"id":"person:АЛБЕНА ТОДОРОВА ТОДОРОВА-ЧЛЕН","type":"person","label":"Албена Тодорова Тодорова-Член"},{"id":"person:ВИХРА СПАСОВА ЦАНКОВА","type":"person","label":"Вихра Спасова Цанкова"},{"id":"person:ЙОНКА КАМЕНОВА НАЙДЕНОВА","type":"person","label":"Йонка Каменова Найденова"}],"edges":[{"source":"official:tsvetanka-kirilova-damyanova-05efd3","target":"company:tr:000184721","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:darina-ivanova-stoyanova-a7799a","target":"company:tr:000184721","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛЕНА ДИМИТРОВА МЛАДЕНОВА","target":"company:tr:000184721","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВА НАЧКОВА СПАСОВА","target":"company:tr:000184721","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕПА ЙОНЧЕВА ПЕТКОВА","target":"company:tr:000184721","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ КРЪСТЕВ АНГЕЛОВ-ПРЕДСЕДАТЕЛ","target":"company:tr:000184721","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕОНОРА НИКОЛОВА НИНОВА-ЧЛЕН","target":"company:tr:000184721","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА ТОДОРОВА ТОДОРОВА-ЧЛЕН","target":"company:tr:000184721","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВИХРА СПАСОВА ЦАНКОВА","target":"company:tr:000184721","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОНКА КАМЕНОВА НАЙДЕНОВА","target":"company:tr:000184721","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetanka-kirilova-damyanova-05efd3",
+  "nodes": [
+    {
+      "id": "official:tsvetanka-kirilova-damyanova-05efd3",
+      "type": "official",
+      "slug": "tsvetanka-kirilova-damyanova-05efd3",
+      "label": "Цветанка Кирилова Дамянова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мизия"
+    },
+    {
+      "id": "company:tr:000184721",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА-1899",
+      "slug": null,
+      "uic": "000184721",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:darina-ivanova-stoyanova-a7799a",
+      "type": "official",
+      "slug": "darina-ivanova-stoyanova-a7799a",
+      "label": "Дарина Иванова Стоянова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:МИЛЕНА ДИМИТРОВА МЛАДЕНОВА",
+      "type": "person",
+      "label": "Милена Димитрова Младенова"
+    },
+    {
+      "id": "person:РАДОСЛАВА НАЧКОВА СПАСОВА",
+      "type": "person",
+      "label": "Радослава Начкова Спасова"
+    },
+    {
+      "id": "person:ПЕПА ЙОНЧЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Пепа Йончева Петкова"
+    },
+    {
+      "id": "person:АНГЕЛ КРЪСТЕВ АНГЕЛОВ-ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Ангел Кръстев Ангелов-Председател"
+    },
+    {
+      "id": "person:ЕЛЕОНОРА НИКОЛОВА НИНОВА-ЧЛЕН",
+      "type": "person",
+      "label": "Елеонора Николова Нинова-Член"
+    },
+    {
+      "id": "person:АЛБЕНА ТОДОРОВА ТОДОРОВА-ЧЛЕН",
+      "type": "person",
+      "label": "Албена Тодорова Тодорова-Член"
+    },
+    {
+      "id": "person:ВИХРА СПАСОВА ЦАНКОВА",
+      "type": "person",
+      "label": "Вихра Спасова Цанкова"
+    },
+    {
+      "id": "person:ЙОНКА КАМЕНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Йонка Каменова Найденова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetanka-kirilova-damyanova-05efd3",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:darina-ivanova-stoyanova-a7799a",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕНА ДИМИТРОВА МЛАДЕНОВА",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА НАЧКОВА СПАСОВА",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПА ЙОНЧЕВА ПЕТКОВА",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ КРЪСТЕВ АНГЕЛОВ-ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА НИКОЛОВА НИНОВА-ЧЛЕН",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ТОДОРОВА ТОДОРОВА-ЧЛЕН",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИХРА СПАСОВА ЦАНКОВА",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОНКА КАМЕНОВА НАЙДЕНОВА",
+      "target": "company:tr:000184721",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

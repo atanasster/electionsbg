@@ -1,1 +1,160 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mimi-dancheva-karadzhova-belelieva-b31362","nodes":[{"id":"official:mimi-dancheva-karadzhova-belelieva-b31362","type":"official","slug":"mimi-dancheva-karadzhova-belelieva-b31362","label":"Мими Данчева Караджова-Белелиева","tier":"municipal","role":"councillor","municipality":"Гулянци"},{"id":"company:tr:114084372","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ИВАН ВАЗОВ 1928&quot;","slug":null,"uic":"114084372","legalForm":null,"status":null,"seat":null},{"id":"person:ЕЛИЗА ЦВЕТАНОВА МИТКОВА","type":"person","label":"Елиза Цветанова Миткова"},{"id":"person:ЦВЕТАНКА ИЛИЕВА МОЗОКОВА","type":"person","label":"Цветанка Илиева Мозокова"},{"id":"person:ВЕРОНИКА КИРИЛОВА ГЕНОВА","type":"person","label":"Вероника Кирилова Генова"},{"id":"person:МИХАИЛ ГЕОРГИЕВ ПЕЛЕВ","type":"person","label":"Михаил Георгиев Пелев"},{"id":"person:ДЕСИСЛАВА ГЕОРГИЕВА ПАРАШКЕВОВА","type":"person","label":"Десислава Георгиева Парашкевова"},{"id":"person:НИНА ГЕОРГИЕВА ПЕТРОВА-ПАНОВА","type":"person","label":"Нина Георгиева Петрова-Панова"},{"id":"person:СИМЕОНКА ВАЛЕНТИНОВА ЙОРДАНОВА","type":"person","label":"Симеонка Валентинова Йорданова"},{"id":"person:ЕМИЛИЯ ВЕНЦИСЛАВОВА ПРЕДОВА","type":"person","label":"Емилия Венциславова Предова"},{"id":"person:ЕЛЕНКА РАДОВА ШУТОВА","type":"person","label":"Еленка Радова Шутова"}],"edges":[{"source":"official:mimi-dancheva-karadzhova-belelieva-b31362","target":"company:tr:114084372","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ЕЛИЗА ЦВЕТАНОВА МИТКОВА","target":"company:tr:114084372","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА ИЛИЕВА МОЗОКОВА","target":"company:tr:114084372","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЗА ЦВЕТАНОВА МИТКОВА","target":"company:tr:114084372","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРОНИКА КИРИЛОВА ГЕНОВА","target":"company:tr:114084372","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИХАИЛ ГЕОРГИЕВ ПЕЛЕВ","target":"company:tr:114084372","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ГЕОРГИЕВА ПАРАШКЕВОВА","target":"company:tr:114084372","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ГЕОРГИЕВА ПЕТРОВА-ПАНОВА","target":"company:tr:114084372","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОНКА ВАЛЕНТИНОВА ЙОРДАНОВА","target":"company:tr:114084372","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ ВЕНЦИСЛАВОВА ПРЕДОВА","target":"company:tr:114084372","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНКА РАДОВА ШУТОВА","target":"company:tr:114084372","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mimi-dancheva-karadzhova-belelieva-b31362",
+  "nodes": [
+    {
+      "id": "official:mimi-dancheva-karadzhova-belelieva-b31362",
+      "type": "official",
+      "slug": "mimi-dancheva-karadzhova-belelieva-b31362",
+      "label": "Мими Данчева Караджова-Белелиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гулянци"
+    },
+    {
+      "id": "company:tr:114084372",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ИВАН ВАЗОВ 1928&quot;",
+      "slug": null,
+      "uic": "114084372",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛИЗА ЦВЕТАНОВА МИТКОВА",
+      "type": "person",
+      "label": "Елиза Цветанова Миткова"
+    },
+    {
+      "id": "person:ЦВЕТАНКА ИЛИЕВА МОЗОКОВА",
+      "type": "person",
+      "label": "Цветанка Илиева Мозокова"
+    },
+    {
+      "id": "person:ВЕРОНИКА КИРИЛОВА ГЕНОВА",
+      "type": "person",
+      "label": "Вероника Кирилова Генова"
+    },
+    {
+      "id": "person:МИХАИЛ ГЕОРГИЕВ ПЕЛЕВ",
+      "type": "person",
+      "label": "Михаил Георгиев Пелев"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ГЕОРГИЕВА ПАРАШКЕВОВА",
+      "type": "person",
+      "label": "Десислава Георгиева Парашкевова"
+    },
+    {
+      "id": "person:НИНА ГЕОРГИЕВА ПЕТРОВА-ПАНОВА",
+      "type": "person",
+      "label": "Нина Георгиева Петрова-Панова"
+    },
+    {
+      "id": "person:СИМЕОНКА ВАЛЕНТИНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Симеонка Валентинова Йорданова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ВЕНЦИСЛАВОВА ПРЕДОВА",
+      "type": "person",
+      "label": "Емилия Венциславова Предова"
+    },
+    {
+      "id": "person:ЕЛЕНКА РАДОВА ШУТОВА",
+      "type": "person",
+      "label": "Еленка Радова Шутова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mimi-dancheva-karadzhova-belelieva-b31362",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛИЗА ЦВЕТАНОВА МИТКОВА",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА ИЛИЕВА МОЗОКОВА",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЗА ЦВЕТАНОВА МИТКОВА",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРОНИКА КИРИЛОВА ГЕНОВА",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ГЕОРГИЕВ ПЕЛЕВ",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ГЕОРГИЕВА ПАРАШКЕВОВА",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ГЕОРГИЕВА ПЕТРОВА-ПАНОВА",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОНКА ВАЛЕНТИНОВА ЙОРДАНОВА",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ВЕНЦИСЛАВОВА ПРЕДОВА",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНКА РАДОВА ШУТОВА",
+      "target": "company:tr:114084372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

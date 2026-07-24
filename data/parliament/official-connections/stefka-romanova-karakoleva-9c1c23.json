@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stefka-romanova-karakoleva-9c1c23","nodes":[{"id":"official:stefka-romanova-karakoleva-9c1c23","type":"official","slug":"stefka-romanova-karakoleva-9c1c23","label":"СТЕФКА РОМАНОВА КАРАКОЛЕВА","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:203973019","type":"company","label":"МАТЕМАТИЧЕСКО ШКОЛО","slug":null,"uic":"203973019","legalForm":null,"status":null,"seat":null},{"id":"person:ДОНЧО ТОДОРОВ КАРАКОЛЕВ","type":"person","label":"Дончо Тодоров Караколев"}],"edges":[{"source":"official:stefka-romanova-karakoleva-9c1c23","target":"company:tr:203973019","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДОНЧО ТОДОРОВ КАРАКОЛЕВ","target":"company:tr:203973019","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДОНЧО ТОДОРОВ КАРАКОЛЕВ","target":"company:tr:203973019","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stefka-romanova-karakoleva-9c1c23",
+  "nodes": [
+    {
+      "id": "official:stefka-romanova-karakoleva-9c1c23",
+      "type": "official",
+      "slug": "stefka-romanova-karakoleva-9c1c23",
+      "label": "СТЕФКА РОМАНОВА КАРАКОЛЕВА",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203973019",
+      "type": "company",
+      "label": "МАТЕМАТИЧЕСКО ШКОЛО",
+      "slug": null,
+      "uic": "203973019",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОНЧО ТОДОРОВ КАРАКОЛЕВ",
+      "type": "person",
+      "label": "Дончо Тодоров Караколев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefka-romanova-karakoleva-9c1c23",
+      "target": "company:tr:203973019",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОНЧО ТОДОРОВ КАРАКОЛЕВ",
+      "target": "company:tr:203973019",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ТОДОРОВ КАРАКОЛЕВ",
+      "target": "company:tr:203973019",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

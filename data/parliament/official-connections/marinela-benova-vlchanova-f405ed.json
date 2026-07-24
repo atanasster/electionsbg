@@ -1,1 +1,116 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:marinela-benova-vlchanova-f405ed","nodes":[{"id":"official:marinela-benova-vlchanova-f405ed","type":"official","slug":"marinela-benova-vlchanova-f405ed","label":"Маринела Бенова Вълчанова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:114526090","type":"company","label":"СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ ХРИСТО БОТЕВ&quot;","slug":null,"uic":"114526090","legalForm":null,"status":null,"seat":null},{"id":"person:АНГЕЛ ВАСИЛЕВ ИВАНОВ","type":"person","label":"Ангел Василев Иванов"},{"id":"person:ТАТЯНА СЛАВЧЕВА ЦВЕТКОВА","type":"person","label":"Татяна Славчева Цветкова"},{"id":"person:ВАЛЕНТИН ВЪРБАНОВ ВЪРБАНОВ","type":"person","label":"Валентин Върбанов Върбанов"},{"id":"person:ВЕСЕЛИН ВЕНЦИСЛАВОВ ГЕОРГИЕВ","type":"person","label":"Веселин Венциславов Георгиев"},{"id":"person:ЛЮДМИЛА ЦВЕТАНОВА ХРИСТОВА-ВЕЛЧЕВА","type":"person","label":"Людмила Цветанова Христова-Велчева"}],"edges":[{"source":"official:marinela-benova-vlchanova-f405ed","target":"company:tr:114526090","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:marinela-benova-vlchanova-f405ed","target":"company:tr:114526090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНГЕЛ ВАСИЛЕВ ИВАНОВ","target":"company:tr:114526090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА СЛАВЧЕВА ЦВЕТКОВА","target":"company:tr:114526090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ВЪРБАНОВ ВЪРБАНОВ","target":"company:tr:114526090","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ВЪРБАНОВ ВЪРБАНОВ","target":"company:tr:114526090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ВЕНЦИСЛАВОВ ГЕОРГИЕВ","target":"company:tr:114526090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛА ЦВЕТАНОВА ХРИСТОВА-ВЕЛЧЕВА","target":"company:tr:114526090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:marinela-benova-vlchanova-f405ed",
+  "nodes": [
+    {
+      "id": "official:marinela-benova-vlchanova-f405ed",
+      "type": "official",
+      "slug": "marinela-benova-vlchanova-f405ed",
+      "label": "Маринела Бенова Вълчанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114526090",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ ХРИСТО БОТЕВ&quot;",
+      "slug": null,
+      "uic": "114526090",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ ВАСИЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Ангел Василев Иванов"
+    },
+    {
+      "id": "person:ТАТЯНА СЛАВЧЕВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Татяна Славчева Цветкова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВЪРБАНОВ ВЪРБАНОВ",
+      "type": "person",
+      "label": "Валентин Върбанов Върбанов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ВЕНЦИСЛАВОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Веселин Венциславов Георгиев"
+    },
+    {
+      "id": "person:ЛЮДМИЛА ЦВЕТАНОВА ХРИСТОВА-ВЕЛЧЕВА",
+      "type": "person",
+      "label": "Людмила Цветанова Христова-Велчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marinela-benova-vlchanova-f405ed",
+      "target": "company:tr:114526090",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marinela-benova-vlchanova-f405ed",
+      "target": "company:tr:114526090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:114526090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА СЛАВЧЕВА ЦВЕТКОВА",
+      "target": "company:tr:114526090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВЪРБАНОВ ВЪРБАНОВ",
+      "target": "company:tr:114526090",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВЪРБАНОВ ВЪРБАНОВ",
+      "target": "company:tr:114526090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ВЕНЦИСЛАВОВ ГЕОРГИЕВ",
+      "target": "company:tr:114526090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ЦВЕТАНОВА ХРИСТОВА-ВЕЛЧЕВА",
+      "target": "company:tr:114526090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

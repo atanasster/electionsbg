@@ -1,1 +1,160 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kina-ivanova-hristova-944ad1","nodes":[{"id":"official:kina-ivanova-hristova-944ad1","type":"official","slug":"kina-ivanova-hristova-944ad1","label":"Кина Иванова Христова","tier":"municipal","role":"councillor","municipality":"Сунгурларе"},{"id":"company:tr:000045216","type":"company","label":"Народно читалище Христо Ботев - 1927г.","slug":null,"uic":"000045216","legalForm":null,"status":null,"seat":null},{"id":"person:РУСИ ЙОРДАНОВ УРУМОВ","type":"person","label":"Руси Йорданов Урумов"},{"id":"person:АТАНАС АНКИН КАЛЧЕВ","type":"person","label":"Атанас Анкин Калчев"},{"id":"person:АСЕН АНТОНОВ КОЛЕВ","type":"person","label":"Асен Антонов Колев"},{"id":"person:АСЕН МИХАЙЛОВ ХРИСТОВ","type":"person","label":"Асен Михайлов Христов"},{"id":"person:ИВАН СТОИЛОВ СТОИЛОВ","type":"person","label":"Иван Стоилов Стоилов"},{"id":"person:МЕХМЕД АЛИ АЙВАЗ","type":"person","label":"Мехмед Али Айваз"},{"id":"person:АТАНАС ТОДОРОВ ХРИСТОВ","type":"person","label":"Атанас Тодоров Христов"},{"id":"person:АСЕН РАДЕВ ДЯКОВ","type":"person","label":"Асен Радев Дяков"},{"id":"person:МИТКО РУСЕВ КАЛИМАНОВ","type":"person","label":"Митко Русев Калиманов"}],"edges":[{"source":"official:kina-ivanova-hristova-944ad1","target":"company:tr:000045216","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:РУСИ ЙОРДАНОВ УРУМОВ","target":"company:tr:000045216","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РУСИ ЙОРДАНОВ УРУМОВ","target":"company:tr:000045216","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС АНКИН КАЛЧЕВ","target":"company:tr:000045216","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН АНТОНОВ КОЛЕВ","target":"company:tr:000045216","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН МИХАЙЛОВ ХРИСТОВ","target":"company:tr:000045216","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТОИЛОВ СТОИЛОВ","target":"company:tr:000045216","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МЕХМЕД АЛИ АЙВАЗ","target":"company:tr:000045216","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ТОДОРОВ ХРИСТОВ","target":"company:tr:000045216","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН РАДЕВ ДЯКОВ","target":"company:tr:000045216","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО РУСЕВ КАЛИМАНОВ","target":"company:tr:000045216","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kina-ivanova-hristova-944ad1",
+  "nodes": [
+    {
+      "id": "official:kina-ivanova-hristova-944ad1",
+      "type": "official",
+      "slug": "kina-ivanova-hristova-944ad1",
+      "label": "Кина Иванова Христова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сунгурларе"
+    },
+    {
+      "id": "company:tr:000045216",
+      "type": "company",
+      "label": "Народно читалище Христо Ботев - 1927г.",
+      "slug": null,
+      "uic": "000045216",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУСИ ЙОРДАНОВ УРУМОВ",
+      "type": "person",
+      "label": "Руси Йорданов Урумов"
+    },
+    {
+      "id": "person:АТАНАС АНКИН КАЛЧЕВ",
+      "type": "person",
+      "label": "Атанас Анкин Калчев"
+    },
+    {
+      "id": "person:АСЕН АНТОНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Асен Антонов Колев"
+    },
+    {
+      "id": "person:АСЕН МИХАЙЛОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Асен Михайлов Христов"
+    },
+    {
+      "id": "person:ИВАН СТОИЛОВ СТОИЛОВ",
+      "type": "person",
+      "label": "Иван Стоилов Стоилов"
+    },
+    {
+      "id": "person:МЕХМЕД АЛИ АЙВАЗ",
+      "type": "person",
+      "label": "Мехмед Али Айваз"
+    },
+    {
+      "id": "person:АТАНАС ТОДОРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Атанас Тодоров Христов"
+    },
+    {
+      "id": "person:АСЕН РАДЕВ ДЯКОВ",
+      "type": "person",
+      "label": "Асен Радев Дяков"
+    },
+    {
+      "id": "person:МИТКО РУСЕВ КАЛИМАНОВ",
+      "type": "person",
+      "label": "Митко Русев Калиманов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kina-ivanova-hristova-944ad1",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУСИ ЙОРДАНОВ УРУМОВ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСИ ЙОРДАНОВ УРУМОВ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС АНКИН КАЛЧЕВ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН АНТОНОВ КОЛЕВ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН МИХАЙЛОВ ХРИСТОВ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОИЛОВ СТОИЛОВ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД АЛИ АЙВАЗ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ТОДОРОВ ХРИСТОВ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН РАДЕВ ДЯКОВ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО РУСЕВ КАЛИМАНОВ",
+      "target": "company:tr:000045216",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

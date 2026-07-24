@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rumen-pavlinov-aladzhov-1d0d60","nodes":[{"id":"official:rumen-pavlinov-aladzhov-1d0d60","type":"official","slug":"rumen-pavlinov-aladzhov-1d0d60","label":"Румен Павлинов Аладжов","tier":"executive","role":"secretary_general","municipality":null},{"id":"company:tr:123758329","type":"company","label":"Макс имоти ЕООД","slug":null,"uic":"123758329","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205405200","type":"company","label":"Руди инвестстрой ООД","slug":null,"uic":"205405200","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202854752","type":"company","label":"Моллиссима ЕООД","slug":null,"uic":"202854752","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА","type":"person","label":"Мария Господинова Аладжова"},{"id":"person:ДИМИТЪР БОРИСОВ ДЕМИРЕВ","type":"person","label":"Димитър Борисов Демирев"}],"edges":[{"source":"official:rumen-pavlinov-aladzhov-1d0d60","target":"company:tr:123758329","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:rumen-pavlinov-aladzhov-1d0d60","target":"company:tr:205405200","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:rumen-pavlinov-aladzhov-1d0d60","target":"company:tr:202854752","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА","target":"company:tr:205405200","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА","target":"company:tr:205405200","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР БОРИСОВ ДЕМИРЕВ","target":"company:tr:205405200","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА","target":"company:tr:202854752","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА","target":"company:tr:202854752","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rumen-pavlinov-aladzhov-1d0d60",
+  "nodes": [
+    {
+      "id": "official:rumen-pavlinov-aladzhov-1d0d60",
+      "type": "official",
+      "slug": "rumen-pavlinov-aladzhov-1d0d60",
+      "label": "Румен Павлинов Аладжов",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123758329",
+      "type": "company",
+      "label": "Макс имоти ЕООД",
+      "slug": null,
+      "uic": "123758329",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205405200",
+      "type": "company",
+      "label": "Руди инвестстрой ООД",
+      "slug": null,
+      "uic": "205405200",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202854752",
+      "type": "company",
+      "label": "Моллиссима ЕООД",
+      "slug": null,
+      "uic": "202854752",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА",
+      "type": "person",
+      "label": "Мария Господинова Аладжова"
+    },
+    {
+      "id": "person:ДИМИТЪР БОРИСОВ ДЕМИРЕВ",
+      "type": "person",
+      "label": "Димитър Борисов Демирев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-pavlinov-aladzhov-1d0d60",
+      "target": "company:tr:123758329",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rumen-pavlinov-aladzhov-1d0d60",
+      "target": "company:tr:205405200",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rumen-pavlinov-aladzhov-1d0d60",
+      "target": "company:tr:202854752",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА",
+      "target": "company:tr:205405200",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА",
+      "target": "company:tr:205405200",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР БОРИСОВ ДЕМИРЕВ",
+      "target": "company:tr:205405200",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА",
+      "target": "company:tr:202854752",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГОСПОДИНОВА АЛАДЖОВА",
+      "target": "company:tr:202854752",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,134 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-georgieva-galcheva-stoitsova-b1b86d","nodes":[{"id":"official:mariya-georgieva-galcheva-stoitsova-b1b86d","type":"official","slug":"mariya-georgieva-galcheva-stoitsova-b1b86d","label":"Мария Георгиева Галчева-Стоицова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:175425450","type":"company","label":"НАСТОЯТЕЛСТВО НА РОДИТЕЛИ И ОБЩЕСТВЕНИЦИ ПРИ ДГ 59 ЕЛХИЦА","slug":null,"uic":"175425450","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ ГЕОРГИЕВА ГАЛЧЕВА - СТОИЦОВА","type":"person","label":"Мария Георгиева Галчева - Стоицова"},{"id":"person:МАГДАЛЕНА МИЛЕНОВА БЕРБЕРОВА","type":"person","label":"Магдалена Миленова Берберова"},{"id":"person:АЛЕКСАНДРИНА БОРИСЛАВОВА ДИМОВА","type":"person","label":"Александрина Бориславова Димова"},{"id":"person:ЛЮБА ПЕТРОВА ГЕОРГИЕВА","type":"person","label":"Люба Петрова Георгиева"},{"id":"person:МАРИНА КРАСИМИРОВА ВЪЛЕВА","type":"person","label":"Марина Красимирова Вълева"},{"id":"person:ПЕТЯ ДИМИТРОВА ПЕТРОВА","type":"person","label":"Петя Димитрова Петрова"},{"id":"person:БИЛЯНА ВЕНЦИСЛАВОВА ТОДОРОВА","type":"person","label":"Биляна Венциславова Тодорова"}],"edges":[{"source":"official:mariya-georgieva-galcheva-stoitsova-b1b86d","target":"company:tr:175425450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯ ГЕОРГИЕВА ГАЛЧЕВА - СТОИЦОВА","target":"company:tr:175425450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА МИЛЕНОВА БЕРБЕРОВА","target":"company:tr:175425450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДРИНА БОРИСЛАВОВА ДИМОВА","target":"company:tr:175425450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБА ПЕТРОВА ГЕОРГИЕВА","target":"company:tr:175425450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНА КРАСИМИРОВА ВЪЛЕВА","target":"company:tr:175425450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ДИМИТРОВА ПЕТРОВА","target":"company:tr:175425450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯНА ВЕНЦИСЛАВОВА ТОДОРОВА","target":"company:tr:175425450","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯНА ВЕНЦИСЛАВОВА ТОДОРОВА","target":"company:tr:175425450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-georgieva-galcheva-stoitsova-b1b86d",
+  "nodes": [
+    {
+      "id": "official:mariya-georgieva-galcheva-stoitsova-b1b86d",
+      "type": "official",
+      "slug": "mariya-georgieva-galcheva-stoitsova-b1b86d",
+      "label": "Мария Георгиева Галчева-Стоицова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175425450",
+      "type": "company",
+      "label": "НАСТОЯТЕЛСТВО НА РОДИТЕЛИ И ОБЩЕСТВЕНИЦИ ПРИ ДГ 59 ЕЛХИЦА",
+      "slug": null,
+      "uic": "175425450",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ГАЛЧЕВА - СТОИЦОВА",
+      "type": "person",
+      "label": "Мария Георгиева Галчева - Стоицова"
+    },
+    {
+      "id": "person:МАГДАЛЕНА МИЛЕНОВА БЕРБЕРОВА",
+      "type": "person",
+      "label": "Магдалена Миленова Берберова"
+    },
+    {
+      "id": "person:АЛЕКСАНДРИНА БОРИСЛАВОВА ДИМОВА",
+      "type": "person",
+      "label": "Александрина Бориславова Димова"
+    },
+    {
+      "id": "person:ЛЮБА ПЕТРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Люба Петрова Георгиева"
+    },
+    {
+      "id": "person:МАРИНА КРАСИМИРОВА ВЪЛЕВА",
+      "type": "person",
+      "label": "Марина Красимирова Вълева"
+    },
+    {
+      "id": "person:ПЕТЯ ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Петя Димитрова Петрова"
+    },
+    {
+      "id": "person:БИЛЯНА ВЕНЦИСЛАВОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Биляна Венциславова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-georgieva-galcheva-stoitsova-b1b86d",
+      "target": "company:tr:175425450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ГАЛЧЕВА - СТОИЦОВА",
+      "target": "company:tr:175425450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА МИЛЕНОВА БЕРБЕРОВА",
+      "target": "company:tr:175425450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРИНА БОРИСЛАВОВА ДИМОВА",
+      "target": "company:tr:175425450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБА ПЕТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:175425450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА КРАСИМИРОВА ВЪЛЕВА",
+      "target": "company:tr:175425450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:175425450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ВЕНЦИСЛАВОВА ТОДОРОВА",
+      "target": "company:tr:175425450",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ВЕНЦИСЛАВОВА ТОДОРОВА",
+      "target": "company:tr:175425450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

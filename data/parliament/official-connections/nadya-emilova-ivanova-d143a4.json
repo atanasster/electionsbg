@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nadya-emilova-ivanova-d143a4","nodes":[{"id":"official:nadya-emilova-ivanova-d143a4","type":"official","slug":"nadya-emilova-ivanova-d143a4","label":"Надя Емилова Иванова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000190119","type":"company","label":"ЦЕНТЪР ЗА ПСИХИЧНО ЗДРАВЕ - ВРАЦА","slug":null,"uic":"000190119","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:nadya-emilova-ivanova-d143a4","target":"company:tr:000190119","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nadya-emilova-ivanova-d143a4",
+  "nodes": [
+    {
+      "id": "official:nadya-emilova-ivanova-d143a4",
+      "type": "official",
+      "slug": "nadya-emilova-ivanova-d143a4",
+      "label": "Надя Емилова Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000190119",
+      "type": "company",
+      "label": "ЦЕНТЪР ЗА ПСИХИЧНО ЗДРАВЕ - ВРАЦА",
+      "slug": null,
+      "uic": "000190119",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadya-emilova-ivanova-d143a4",
+      "target": "company:tr:000190119",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

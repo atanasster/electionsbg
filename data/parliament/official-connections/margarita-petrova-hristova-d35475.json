@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:margarita-petrova-hristova-d35475","nodes":[{"id":"official:margarita-petrova-hristova-d35475","type":"official","slug":"margarita-petrova-hristova-d35475","label":"Маргарита Петрова Христова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:116052117","type":"company","label":"ТРАКЦИЯ","slug":null,"uic":"116052117","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФАН ПЕТРОВ ГЕРДЕВ","type":"person","label":"Стефан Петров Гердев"},{"id":"person:ИЛИЯН НИКОЛАЕВ НИКОЛОВ","type":"person","label":"Илиян Николаев Николов"},{"id":"person:СТАМЕН РУСЕВ КЪЕВ","type":"person","label":"Стамен Русев Къев"},{"id":"person:АЛЕСЯ СТЕФАНОВА ГЕРДЕВА-ДОНЧЕВА","type":"person","label":"Алеся Стефанова Гердева-Дончева"},{"id":"person:ГАЛИНА ТАРАСОВНА ГЕРДЕВА","type":"person","label":"Галина Тарасовна Гердева"},{"id":"person:ЕЛЕНА ПЕНЧЕВА ХРИСТОВА","type":"person","label":"Елена Пенчева Христова"},{"id":"person:ЛЪЧЕЗАР ГЕОРГИЕВ ЗАХАРИЕВ","type":"person","label":"Лъчезар Георгиев Захариев"}],"edges":[{"source":"official:margarita-petrova-hristova-d35475","target":"company:tr:116052117","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН ПЕТРОВ ГЕРДЕВ","target":"company:tr:116052117","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯН НИКОЛАЕВ НИКОЛОВ","target":"company:tr:116052117","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯН НИКОЛАЕВ НИКОЛОВ","target":"company:tr:116052117","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СТАМЕН РУСЕВ КЪЕВ","target":"company:tr:116052117","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕСЯ СТЕФАНОВА ГЕРДЕВА-ДОНЧЕВА","target":"company:tr:116052117","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ТАРАСОВНА ГЕРДЕВА","target":"company:tr:116052117","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ПЕНЧЕВА ХРИСТОВА","target":"company:tr:116052117","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР ГЕОРГИЕВ ЗАХАРИЕВ","target":"company:tr:116052117","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТАМЕН РУСЕВ КЪЕВ","target":"company:tr:116052117","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:margarita-petrova-hristova-d35475",
+  "nodes": [
+    {
+      "id": "official:margarita-petrova-hristova-d35475",
+      "type": "official",
+      "slug": "margarita-petrova-hristova-d35475",
+      "label": "Маргарита Петрова Христова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:116052117",
+      "type": "company",
+      "label": "ТРАКЦИЯ",
+      "slug": null,
+      "uic": "116052117",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН ПЕТРОВ ГЕРДЕВ",
+      "type": "person",
+      "label": "Стефан Петров Гердев"
+    },
+    {
+      "id": "person:ИЛИЯН НИКОЛАЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Илиян Николаев Николов"
+    },
+    {
+      "id": "person:СТАМЕН РУСЕВ КЪЕВ",
+      "type": "person",
+      "label": "Стамен Русев Къев"
+    },
+    {
+      "id": "person:АЛЕСЯ СТЕФАНОВА ГЕРДЕВА-ДОНЧЕВА",
+      "type": "person",
+      "label": "Алеся Стефанова Гердева-Дончева"
+    },
+    {
+      "id": "person:ГАЛИНА ТАРАСОВНА ГЕРДЕВА",
+      "type": "person",
+      "label": "Галина Тарасовна Гердева"
+    },
+    {
+      "id": "person:ЕЛЕНА ПЕНЧЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Елена Пенчева Христова"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ГЕОРГИЕВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Лъчезар Георгиев Захариев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:margarita-petrova-hristova-d35475",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН ПЕТРОВ ГЕРДЕВ",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАМЕН РУСЕВ КЪЕВ",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕСЯ СТЕФАНОВА ГЕРДЕВА-ДОНЧЕВА",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ТАРАСОВНА ГЕРДЕВА",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ПЕНЧЕВА ХРИСТОВА",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ГЕОРГИЕВ ЗАХАРИЕВ",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАМЕН РУСЕВ КЪЕВ",
+      "target": "company:tr:116052117",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

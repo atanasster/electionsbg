@@ -1,1 +1,203 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariika-dimitrova-naneva-24b3c3","nodes":[{"id":"official:mariika-dimitrova-naneva-24b3c3","type":"official","slug":"mariika-dimitrova-naneva-24b3c3","label":"Марийка Димитрова Нанева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000046275","type":"company","label":"Народно читалище &quot;Гоце Делчев 1943&quot;","slug":null,"uic":"000046275","legalForm":null,"status":null,"seat":null},{"id":"official:rositsa-dimova-dimova-f98c36","type":"official","slug":"rositsa-dimova-dimova-f98c36","label":"Росица Димова Димова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:МАГДАЛЕНА ХРИСТОВА МАНДУЛЕВА","type":"person","label":"Магдалена Христова Мандулева"},{"id":"person:ЕЛЕОНОРА ОГНЯНОВА БОГОЕВА","type":"person","label":"Елеонора Огнянова Богоева"},{"id":"person:СТОЯН ПЕТРОВ ГОЛЕВ","type":"person","label":"Стоян Петров Голев"},{"id":"person:ПЕТЯ ГЕОРГИЕВА СТОЯНОВА","type":"person","label":"Петя Георгиева Стоянова"},{"id":"person:СЛАВКА ИВАНОВА ОЛЧЕВА","type":"person","label":"Славка Иванова Олчева"},{"id":"person:ЕЛЕНКА САРАНДЕВА НЕДЕЛЧЕВА","type":"person","label":"Еленка Сарандева Неделчева"},{"id":"person:АЛБЕНА ПЕЕВА КОЛОДЕЕВА","type":"person","label":"Албена Пеева Колодеева"},{"id":"person:ПЕТКО КИРОВ СТОЯНОВ","type":"person","label":"Петко Киров Стоянов"},{"id":"person:АННА ГЕОРГИЕВА ЧЕРВЕНКОВА","type":"person","label":"Анна Георгиева Червенкова"},{"id":"person:МИТОШКА ГЕОРГИЕВА ВЕЛИКОВА","type":"person","label":"Митошка Георгиева Великова"},{"id":"person:ТАТЯНА СТРАХИЛОВА УЗУНОВА","type":"person","label":"Татяна Страхилова Узунова"}],"edges":[{"source":"official:mariika-dimitrova-naneva-24b3c3","target":"company:tr:000046275","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:rositsa-dimova-dimova-f98c36","target":"company:tr:000046275","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МАГДАЛЕНА ХРИСТОВА МАНДУЛЕВА","target":"company:tr:000046275","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕОНОРА ОГНЯНОВА БОГОЕВА","target":"company:tr:000046275","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА ХРИСТОВА МАНДУЛЕВА","target":"company:tr:000046275","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ПЕТРОВ ГОЛЕВ","target":"company:tr:000046275","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ГЕОРГИЕВА СТОЯНОВА","target":"company:tr:000046275","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВКА ИВАНОВА ОЛЧЕВА","target":"company:tr:000046275","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНКА САРАНДЕВА НЕДЕЛЧЕВА","target":"company:tr:000046275","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА ПЕЕВА КОЛОДЕЕВА","target":"company:tr:000046275","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО КИРОВ СТОЯНОВ","target":"company:tr:000046275","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АННА ГЕОРГИЕВА ЧЕРВЕНКОВА","target":"company:tr:000046275","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИТОШКА ГЕОРГИЕВА ВЕЛИКОВА","target":"company:tr:000046275","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА СТРАХИЛОВА УЗУНОВА","target":"company:tr:000046275","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariika-dimitrova-naneva-24b3c3",
+  "nodes": [
+    {
+      "id": "official:mariika-dimitrova-naneva-24b3c3",
+      "type": "official",
+      "slug": "mariika-dimitrova-naneva-24b3c3",
+      "label": "Марийка Димитрова Нанева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000046275",
+      "type": "company",
+      "label": "Народно читалище &quot;Гоце Делчев 1943&quot;",
+      "slug": null,
+      "uic": "000046275",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:rositsa-dimova-dimova-f98c36",
+      "type": "official",
+      "slug": "rositsa-dimova-dimova-f98c36",
+      "label": "Росица Димова Димова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:МАГДАЛЕНА ХРИСТОВА МАНДУЛЕВА",
+      "type": "person",
+      "label": "Магдалена Христова Мандулева"
+    },
+    {
+      "id": "person:ЕЛЕОНОРА ОГНЯНОВА БОГОЕВА",
+      "type": "person",
+      "label": "Елеонора Огнянова Богоева"
+    },
+    {
+      "id": "person:СТОЯН ПЕТРОВ ГОЛЕВ",
+      "type": "person",
+      "label": "Стоян Петров Голев"
+    },
+    {
+      "id": "person:ПЕТЯ ГЕОРГИЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Петя Георгиева Стоянова"
+    },
+    {
+      "id": "person:СЛАВКА ИВАНОВА ОЛЧЕВА",
+      "type": "person",
+      "label": "Славка Иванова Олчева"
+    },
+    {
+      "id": "person:ЕЛЕНКА САРАНДЕВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Еленка Сарандева Неделчева"
+    },
+    {
+      "id": "person:АЛБЕНА ПЕЕВА КОЛОДЕЕВА",
+      "type": "person",
+      "label": "Албена Пеева Колодеева"
+    },
+    {
+      "id": "person:ПЕТКО КИРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Петко Киров Стоянов"
+    },
+    {
+      "id": "person:АННА ГЕОРГИЕВА ЧЕРВЕНКОВА",
+      "type": "person",
+      "label": "Анна Георгиева Червенкова"
+    },
+    {
+      "id": "person:МИТОШКА ГЕОРГИЕВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Митошка Георгиева Великова"
+    },
+    {
+      "id": "person:ТАТЯНА СТРАХИЛОВА УЗУНОВА",
+      "type": "person",
+      "label": "Татяна Страхилова Узунова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariika-dimitrova-naneva-24b3c3",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rositsa-dimova-dimova-f98c36",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ХРИСТОВА МАНДУЛЕВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ОГНЯНОВА БОГОЕВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ХРИСТОВА МАНДУЛЕВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ПЕТРОВ ГОЛЕВ",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ГЕОРГИЕВА СТОЯНОВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА ИВАНОВА ОЛЧЕВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНКА САРАНДЕВА НЕДЕЛЧЕВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ПЕЕВА КОЛОДЕЕВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО КИРОВ СТОЯНОВ",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ГЕОРГИЕВА ЧЕРВЕНКОВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТОШКА ГЕОРГИЕВА ВЕЛИКОВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА СТРАХИЛОВА УЗУНОВА",
+      "target": "company:tr:000046275",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

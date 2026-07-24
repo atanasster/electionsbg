@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-dimitrova-simeonova-678a00","nodes":[{"id":"official:mariya-dimitrova-simeonova-678a00","type":"official","slug":"mariya-dimitrova-simeonova-678a00","label":"Мария Димитрова Симеонова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206986043","type":"company","label":"ДИНО - ТЙН","slug":null,"uic":"206986043","legalForm":null,"status":null,"seat":null},{"id":"person:ДОРА СИМЕОНОВА ЩЕРЕВА","type":"person","label":"Дора Симеонова Щерева"}],"edges":[{"source":"official:mariya-dimitrova-simeonova-678a00","target":"company:tr:206986043","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ДОРА СИМЕОНОВА ЩЕРЕВА","target":"company:tr:206986043","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДОРА СИМЕОНОВА ЩЕРЕВА","target":"company:tr:206986043","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-dimitrova-simeonova-678a00",
+  "nodes": [
+    {
+      "id": "official:mariya-dimitrova-simeonova-678a00",
+      "type": "official",
+      "slug": "mariya-dimitrova-simeonova-678a00",
+      "label": "Мария Димитрова Симеонова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206986043",
+      "type": "company",
+      "label": "ДИНО - ТЙН",
+      "slug": null,
+      "uic": "206986043",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОРА СИМЕОНОВА ЩЕРЕВА",
+      "type": "person",
+      "label": "Дора Симеонова Щерева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-dimitrova-simeonova-678a00",
+      "target": "company:tr:206986043",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОРА СИМЕОНОВА ЩЕРЕВА",
+      "target": "company:tr:206986043",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА СИМЕОНОВА ЩЕРЕВА",
+      "target": "company:tr:206986043",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

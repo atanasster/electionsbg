@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-georgiev-kadev-4a0876","nodes":[{"id":"official:ivan-georgiev-kadev-4a0876","type":"official","slug":"ivan-georgiev-kadev-4a0876","label":"Иван Георгиев Кадев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:204780546","type":"company","label":"К2-64","slug":null,"uic":"204780546","legalForm":null,"status":null,"seat":null},{"id":"person:МИЛКА ДИМИТРОВА ТОДОРОВА","type":"person","label":"Милка Димитрова Тодорова"}],"edges":[{"source":"official:ivan-georgiev-kadev-4a0876","target":"company:tr:204780546","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛКА ДИМИТРОВА ТОДОРОВА","target":"company:tr:204780546","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-georgiev-kadev-4a0876",
+  "nodes": [
+    {
+      "id": "official:ivan-georgiev-kadev-4a0876",
+      "type": "official",
+      "slug": "ivan-georgiev-kadev-4a0876",
+      "label": "Иван Георгиев Кадев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204780546",
+      "type": "company",
+      "label": "К2-64",
+      "slug": null,
+      "uic": "204780546",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛКА ДИМИТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Милка Димитрова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-georgiev-kadev-4a0876",
+      "target": "company:tr:204780546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛКА ДИМИТРОВА ТОДОРОВА",
+      "target": "company:tr:204780546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

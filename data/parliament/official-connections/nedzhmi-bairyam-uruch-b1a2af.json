@@ -1,1 +1,127 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nedzhmi-bairyam-uruch-b1a2af","nodes":[{"id":"official:nedzhmi-bairyam-uruch-b1a2af","type":"official","slug":"nedzhmi-bairyam-uruch-b1a2af","label":"Неджми Байрям Уруч","tier":"municipal","role":"councillor","municipality":"Гоце Делчев"},{"id":"company:tr:101782822","type":"company","label":"ФУТБОЛЕН КЛУБ &quot;КОРНИЦА&quot;","slug":null,"uic":"101782822","legalForm":null,"status":null,"seat":null},{"id":"person:ИБРАХИМ ИСМАИЛ КЕСЕЖИ","type":"person","label":"Ибрахим Исмаил Кесежи"},{"id":"person:ИБРАХИМ ИБРАХИМ ВЕЛИША","type":"person","label":"Ибрахим Ибрахим Велиша"},{"id":"person:МУСТАФА МУСТАФОВ МЕЙЗИНЕВ","type":"person","label":"Мустафа Мустафов Мейзинев"},{"id":"person:МУСТАФА ЮСУФ ВЕЛИША","type":"person","label":"Мустафа Юсуф Велиша"}],"edges":[{"source":"official:nedzhmi-bairyam-uruch-b1a2af","target":"company:tr:101782822","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:nedzhmi-bairyam-uruch-b1a2af","target":"company:tr:101782822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИБРАХИМ ИСМАИЛ КЕСЕЖИ","target":"company:tr:101782822","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИБРАХИМ ИБРАХИМ ВЕЛИША","target":"company:tr:101782822","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МУСТАФА МУСТАФОВ МЕЙЗИНЕВ","target":"company:tr:101782822","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МУСТАФА ЮСУФ ВЕЛИША","target":"company:tr:101782822","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИБРАХИМ ИБРАХИМ ВЕЛИША","target":"company:tr:101782822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МУСТАФА ЮСУФ ВЕЛИША","target":"company:tr:101782822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИБРАХИМ ИСМАИЛ КЕСЕЖИ","target":"company:tr:101782822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МУСТАФА МУСТАФОВ МЕЙЗИНЕВ","target":"company:tr:101782822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nedzhmi-bairyam-uruch-b1a2af",
+  "nodes": [
+    {
+      "id": "official:nedzhmi-bairyam-uruch-b1a2af",
+      "type": "official",
+      "slug": "nedzhmi-bairyam-uruch-b1a2af",
+      "label": "Неджми Байрям Уруч",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гоце Делчев"
+    },
+    {
+      "id": "company:tr:101782822",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ &quot;КОРНИЦА&quot;",
+      "slug": null,
+      "uic": "101782822",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИБРАХИМ ИСМАИЛ КЕСЕЖИ",
+      "type": "person",
+      "label": "Ибрахим Исмаил Кесежи"
+    },
+    {
+      "id": "person:ИБРАХИМ ИБРАХИМ ВЕЛИША",
+      "type": "person",
+      "label": "Ибрахим Ибрахим Велиша"
+    },
+    {
+      "id": "person:МУСТАФА МУСТАФОВ МЕЙЗИНЕВ",
+      "type": "person",
+      "label": "Мустафа Мустафов Мейзинев"
+    },
+    {
+      "id": "person:МУСТАФА ЮСУФ ВЕЛИША",
+      "type": "person",
+      "label": "Мустафа Юсуф Велиша"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nedzhmi-bairyam-uruch-b1a2af",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nedzhmi-bairyam-uruch-b1a2af",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИБРАХИМ ИСМАИЛ КЕСЕЖИ",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИБРАХИМ ИБРАХИМ ВЕЛИША",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА МУСТАФОВ МЕЙЗИНЕВ",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ЮСУФ ВЕЛИША",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИБРАХИМ ИБРАХИМ ВЕЛИША",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ЮСУФ ВЕЛИША",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИБРАХИМ ИСМАИЛ КЕСЕЖИ",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА МУСТАФОВ МЕЙЗИНЕВ",
+      "target": "company:tr:101782822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

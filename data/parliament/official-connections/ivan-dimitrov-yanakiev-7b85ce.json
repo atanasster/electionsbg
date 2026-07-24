@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-dimitrov-yanakiev-7b85ce","nodes":[{"id":"official:ivan-dimitrov-yanakiev-7b85ce","type":"official","slug":"ivan-dimitrov-yanakiev-7b85ce","label":"Иван Димитров Янакиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206648493","type":"company","label":"ИДЕЯ КОМ","slug":null,"uic":"206648493","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯНА АНГЕЛОВА ЯНАКИЕВА","type":"person","label":"Марияна Ангелова Янакиева"}],"edges":[{"source":"official:ivan-dimitrov-yanakiev-7b85ce","target":"company:tr:206648493","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-dimitrov-yanakiev-7b85ce","target":"company:tr:206648493","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯНА АНГЕЛОВА ЯНАКИЕВА","target":"company:tr:206648493","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА АНГЕЛОВА ЯНАКИЕВА","target":"company:tr:206648493","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-dimitrov-yanakiev-7b85ce",
+  "nodes": [
+    {
+      "id": "official:ivan-dimitrov-yanakiev-7b85ce",
+      "type": "official",
+      "slug": "ivan-dimitrov-yanakiev-7b85ce",
+      "label": "Иван Димитров Янакиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206648493",
+      "type": "company",
+      "label": "ИДЕЯ КОМ",
+      "slug": null,
+      "uic": "206648493",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯНА АНГЕЛОВА ЯНАКИЕВА",
+      "type": "person",
+      "label": "Марияна Ангелова Янакиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-dimitrov-yanakiev-7b85ce",
+      "target": "company:tr:206648493",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-dimitrov-yanakiev-7b85ce",
+      "target": "company:tr:206648493",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯНА АНГЕЛОВА ЯНАКИЕВА",
+      "target": "company:tr:206648493",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА АНГЕЛОВА ЯНАКИЕВА",
+      "target": "company:tr:206648493",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

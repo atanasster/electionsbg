@@ -1,1 +1,110 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kaloyan-evtimov-kostadinov-21105f","nodes":[{"id":"official:kaloyan-evtimov-kostadinov-21105f","type":"official","slug":"kaloyan-evtimov-kostadinov-21105f","label":"Калоян Евтимов Костадинов","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:207194983","type":"company","label":"ТИР ПАРКИНГ ПЗ","slug":null,"uic":"207194983","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕЯН ДЕЯНОВ КАЛИНОВ","type":"person","label":"Деян Деянов Калинов"},{"id":"company:name:ДЖЕЙ ЕС ОЙЛ","type":"company","label":"ДЖЕЙ ЕС ОЙЛ ЕАД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:СМТП МЕНИДЖМЪНТ","type":"company","label":"СМТП МЕНИДЖМЪНТ ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ЯКОВ САМУИЛОВ","type":"person","label":"Георги Яков Самуилов"},{"id":"person:САШКА ЙОРДАНОВА СТАНИСЛАВОВА","type":"person","label":"Сашка Йорданова Станиславова"}],"edges":[{"source":"official:kaloyan-evtimov-kostadinov-21105f","target":"company:tr:207194983","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕЯН ДЕЯНОВ КАЛИНОВ","target":"company:tr:207194983","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:ДЖЕЙ ЕС ОЙЛ","target":"company:tr:207194983","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:СМТП МЕНИДЖМЪНТ","target":"company:tr:207194983","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЯКОВ САМУИЛОВ","target":"company:tr:207194983","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:САШКА ЙОРДАНОВА СТАНИСЛАВОВА","target":"company:tr:207194983","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kaloyan-evtimov-kostadinov-21105f",
+  "nodes": [
+    {
+      "id": "official:kaloyan-evtimov-kostadinov-21105f",
+      "type": "official",
+      "slug": "kaloyan-evtimov-kostadinov-21105f",
+      "label": "Калоян Евтимов Костадинов",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207194983",
+      "type": "company",
+      "label": "ТИР ПАРКИНГ ПЗ",
+      "slug": null,
+      "uic": "207194983",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕЯН ДЕЯНОВ КАЛИНОВ",
+      "type": "person",
+      "label": "Деян Деянов Калинов"
+    },
+    {
+      "id": "company:name:ДЖЕЙ ЕС ОЙЛ",
+      "type": "company",
+      "label": "ДЖЕЙ ЕС ОЙЛ ЕАД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:СМТП МЕНИДЖМЪНТ",
+      "type": "company",
+      "label": "СМТП МЕНИДЖМЪНТ ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ЯКОВ САМУИЛОВ",
+      "type": "person",
+      "label": "Георги Яков Самуилов"
+    },
+    {
+      "id": "person:САШКА ЙОРДАНОВА СТАНИСЛАВОВА",
+      "type": "person",
+      "label": "Сашка Йорданова Станиславова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kaloyan-evtimov-kostadinov-21105f",
+      "target": "company:tr:207194983",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕЯН ДЕЯНОВ КАЛИНОВ",
+      "target": "company:tr:207194983",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЖЕЙ ЕС ОЙЛ",
+      "target": "company:tr:207194983",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СМТП МЕНИДЖМЪНТ",
+      "target": "company:tr:207194983",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЯКОВ САМУИЛОВ",
+      "target": "company:tr:207194983",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШКА ЙОРДАНОВА СТАНИСЛАВОВА",
+      "target": "company:tr:207194983",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

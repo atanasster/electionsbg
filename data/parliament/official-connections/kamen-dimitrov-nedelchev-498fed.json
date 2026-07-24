@@ -1,1 +1,188 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kamen-dimitrov-nedelchev-498fed","nodes":[{"id":"official:kamen-dimitrov-nedelchev-498fed","type":"official","slug":"kamen-dimitrov-nedelchev-498fed","label":"Камен Димитров Неделчев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206561608","type":"company","label":"Асоциация на училищата по земеделие, гори и мебели в България","slug":null,"uic":"206561608","legalForm":null,"status":null,"seat":null},{"id":"official:violeta-todorova-stankova-5ec1ab","type":"official","slug":"violeta-todorova-stankova-5ec1ab","label":"Виолета Тодорова Станкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:zlatina-miteva-katalieva-simeonova-e1fca6","type":"official","slug":"zlatina-miteva-katalieva-simeonova-e1fca6","label":"Златина Митева Каталиева-Симеонова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:kristiyana-georgieva-ivanova-0d797e","type":"official","slug":"kristiyana-georgieva-ivanova-0d797e","label":"Кристияна Георгиева Иванова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:hristina-dimova-milusheva-91ee1f","type":"official","slug":"hristina-dimova-milusheva-91ee1f","label":"Христина Димова Милушева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:hristina-mladenova-hristova-fb2545","type":"official","slug":"hristina-mladenova-hristova-fb2545","label":"Христина Младенова Христова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:СТЕФАН БОРИСОВ ШУЛЕВ","type":"person","label":"Стефан Борисов Шулев"},{"id":"person:КОНСТАНТИН АЛЕКСАНДРОВ КОСТАДИНОВ","type":"person","label":"Константин Александров Костадинов"},{"id":"person:ЙОРДАН АЛЕКСАНДРОВ ДИМИТРОВ","type":"person","label":"Йордан Александров Димитров"},{"id":"person:ТЕМЕНУГА ИВАНОВА ТОДОРОВА","type":"person","label":"Теменуга Иванова Тодорова"}],"edges":[{"source":"official:kamen-dimitrov-nedelchev-498fed","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:violeta-todorova-stankova-5ec1ab","target":"company:tr:206561608","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:violeta-todorova-stankova-5ec1ab","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:zlatina-miteva-katalieva-simeonova-e1fca6","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:kristiyana-georgieva-ivanova-0d797e","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:hristina-dimova-milusheva-91ee1f","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:hristina-mladenova-hristova-fb2545","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН БОРИСОВ ШУЛЕВ","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН АЛЕКСАНДРОВ КОСТАДИНОВ","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН АЛЕКСАНДРОВ ДИМИТРОВ","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕМЕНУГА ИВАНОВА ТОДОРОВА","target":"company:tr:206561608","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТЕМЕНУГА ИВАНОВА ТОДОРОВА","target":"company:tr:206561608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kamen-dimitrov-nedelchev-498fed",
+  "nodes": [
+    {
+      "id": "official:kamen-dimitrov-nedelchev-498fed",
+      "type": "official",
+      "slug": "kamen-dimitrov-nedelchev-498fed",
+      "label": "Камен Димитров Неделчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206561608",
+      "type": "company",
+      "label": "Асоциация на училищата по земеделие, гори и мебели в България",
+      "slug": null,
+      "uic": "206561608",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:violeta-todorova-stankova-5ec1ab",
+      "type": "official",
+      "slug": "violeta-todorova-stankova-5ec1ab",
+      "label": "Виолета Тодорова Станкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:zlatina-miteva-katalieva-simeonova-e1fca6",
+      "type": "official",
+      "slug": "zlatina-miteva-katalieva-simeonova-e1fca6",
+      "label": "Златина Митева Каталиева-Симеонова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:kristiyana-georgieva-ivanova-0d797e",
+      "type": "official",
+      "slug": "kristiyana-georgieva-ivanova-0d797e",
+      "label": "Кристияна Георгиева Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:hristina-dimova-milusheva-91ee1f",
+      "type": "official",
+      "slug": "hristina-dimova-milusheva-91ee1f",
+      "label": "Христина Димова Милушева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:hristina-mladenova-hristova-fb2545",
+      "type": "official",
+      "slug": "hristina-mladenova-hristova-fb2545",
+      "label": "Христина Младенова Христова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:СТЕФАН БОРИСОВ ШУЛЕВ",
+      "type": "person",
+      "label": "Стефан Борисов Шулев"
+    },
+    {
+      "id": "person:КОНСТАНТИН АЛЕКСАНДРОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Константин Александров Костадинов"
+    },
+    {
+      "id": "person:ЙОРДАН АЛЕКСАНДРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Йордан Александров Димитров"
+    },
+    {
+      "id": "person:ТЕМЕНУГА ИВАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Теменуга Иванова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kamen-dimitrov-nedelchev-498fed",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:violeta-todorova-stankova-5ec1ab",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:violeta-todorova-stankova-5ec1ab",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zlatina-miteva-katalieva-simeonova-e1fca6",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristiyana-georgieva-ivanova-0d797e",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristina-dimova-milusheva-91ee1f",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristina-mladenova-hristova-fb2545",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН БОРИСОВ ШУЛЕВ",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН АЛЕКСАНДРОВ КОСТАДИНОВ",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АЛЕКСАНДРОВ ДИМИТРОВ",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕМЕНУГА ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕМЕНУГА ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:206561608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

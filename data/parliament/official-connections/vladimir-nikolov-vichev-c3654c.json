@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-nikolov-vichev-c3654c","nodes":[{"id":"official:vladimir-nikolov-vichev-c3654c","type":"official","slug":"vladimir-nikolov-vichev-c3654c","label":"Владимир Николов Вичев","tier":"executive","role":"revenue_agency","municipality":null},{"id":"company:tr:202744948","type":"company","label":"ЛАРА БГ ООД","slug":null,"uic":"202744948","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vladimir-nikolov-vichev-c3654c","target":"company:tr:202744948","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-nikolov-vichev-c3654c",
+  "nodes": [
+    {
+      "id": "official:vladimir-nikolov-vichev-c3654c",
+      "type": "official",
+      "slug": "vladimir-nikolov-vichev-c3654c",
+      "label": "Владимир Николов Вичев",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202744948",
+      "type": "company",
+      "label": "ЛАРА БГ ООД",
+      "slug": null,
+      "uic": "202744948",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-nikolov-vichev-c3654c",
+      "target": "company:tr:202744948",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

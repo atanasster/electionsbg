@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-slavchev-manolov-05b328","nodes":[{"id":"official:petr-slavchev-manolov-05b328","type":"official","slug":"petr-slavchev-manolov-05b328","label":"Петър Славчев Манолов","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:207850423","type":"company","label":"Справедлива алтернатива за България","slug":null,"uic":"207850423","legalForm":null,"status":null,"seat":null},{"id":"person:ПАВЕЛ БОРИСОВ АНГЕЛОВ","type":"person","label":"Павел Борисов Ангелов"},{"id":"person:СВЕТОСЛАВ ПЕТРОВ МАНОЛОВ","type":"person","label":"Светослав Петров Манолов"},{"id":"person:АЛЕКСАНДЪР НАЙДЕНОВ ДИМИТРОВ","type":"person","label":"Александър Найденов Димитров"},{"id":"person:ИВАН ТОДОРОВ СЪБЕВ","type":"person","label":"Иван Тодоров Събев"}],"edges":[{"source":"official:petr-slavchev-manolov-05b328","target":"company:tr:207850423","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:petr-slavchev-manolov-05b328","target":"company:tr:207850423","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПАВЕЛ БОРИСОВ АНГЕЛОВ","target":"company:tr:207850423","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ПЕТРОВ МАНОЛОВ","target":"company:tr:207850423","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР НАЙДЕНОВ ДИМИТРОВ","target":"company:tr:207850423","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТОДОРОВ СЪБЕВ","target":"company:tr:207850423","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-slavchev-manolov-05b328",
+  "nodes": [
+    {
+      "id": "official:petr-slavchev-manolov-05b328",
+      "type": "official",
+      "slug": "petr-slavchev-manolov-05b328",
+      "label": "Петър Славчев Манолов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207850423",
+      "type": "company",
+      "label": "Справедлива алтернатива за България",
+      "slug": null,
+      "uic": "207850423",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЕЛ БОРИСОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Павел Борисов Ангелов"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ПЕТРОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Светослав Петров Манолов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР НАЙДЕНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Александър Найденов Димитров"
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ СЪБЕВ",
+      "type": "person",
+      "label": "Иван Тодоров Събев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-slavchev-manolov-05b328",
+      "target": "company:tr:207850423",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-slavchev-manolov-05b328",
+      "target": "company:tr:207850423",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЕЛ БОРИСОВ АНГЕЛОВ",
+      "target": "company:tr:207850423",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ПЕТРОВ МАНОЛОВ",
+      "target": "company:tr:207850423",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР НАЙДЕНОВ ДИМИТРОВ",
+      "target": "company:tr:207850423",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ СЪБЕВ",
+      "target": "company:tr:207850423",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

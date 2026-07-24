@@ -1,1 +1,90 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iliya-slavov-zhelezarov-b433df","nodes":[{"id":"official:iliya-slavov-zhelezarov-b433df","type":"official","slug":"iliya-slavov-zhelezarov-b433df","label":"Илия Славов Железаров","tier":"executive","role":"eu_funds_controller","municipality":null},{"id":"company:tr:107562651","type":"company","label":"Ди Кю Ес България ООД","slug":null,"uic":"107562651","legalForm":null,"status":null,"seat":null},{"id":"person:ХАЙКО ШМИДТ","type":"person","label":"Хайко Шмидт"},{"id":"person:СВОБОДА ШМИДТ","type":"person","label":"Свобода Шмидт"},{"id":"person:КОНСТАНЦА ХАЙКО ШМИДТ","type":"person","label":"Констанца Хайко Шмидт"}],"edges":[{"source":"official:iliya-slavov-zhelezarov-b433df","target":"company:tr:107562651","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ХАЙКО ШМИДТ","target":"company:tr:107562651","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВОБОДА ШМИДТ","target":"company:tr:107562651","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХАЙКО ШМИДТ","target":"company:tr:107562651","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СВОБОДА ШМИДТ","target":"company:tr:107562651","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНЦА ХАЙКО ШМИДТ","target":"company:tr:107562651","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iliya-slavov-zhelezarov-b433df",
+  "nodes": [
+    {
+      "id": "official:iliya-slavov-zhelezarov-b433df",
+      "type": "official",
+      "slug": "iliya-slavov-zhelezarov-b433df",
+      "label": "Илия Славов Железаров",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107562651",
+      "type": "company",
+      "label": "Ди Кю Ес България ООД",
+      "slug": null,
+      "uic": "107562651",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХАЙКО ШМИДТ",
+      "type": "person",
+      "label": "Хайко Шмидт"
+    },
+    {
+      "id": "person:СВОБОДА ШМИДТ",
+      "type": "person",
+      "label": "Свобода Шмидт"
+    },
+    {
+      "id": "person:КОНСТАНЦА ХАЙКО ШМИДТ",
+      "type": "person",
+      "label": "Констанца Хайко Шмидт"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliya-slavov-zhelezarov-b433df",
+      "target": "company:tr:107562651",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙКО ШМИДТ",
+      "target": "company:tr:107562651",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВОБОДА ШМИДТ",
+      "target": "company:tr:107562651",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙКО ШМИДТ",
+      "target": "company:tr:107562651",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВОБОДА ШМИДТ",
+      "target": "company:tr:107562651",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНЦА ХАЙКО ШМИДТ",
+      "target": "company:tr:107562651",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

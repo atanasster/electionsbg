@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:miroslav-velinov-damyanov-712cbf","nodes":[{"id":"official:miroslav-velinov-damyanov-712cbf","type":"official","slug":"miroslav-velinov-damyanov-712cbf","label":"Мирослав Велинов Дамянов","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:204646593","type":"company","label":"Трикветра ЕООД","slug":null,"uic":"204646593","legalForm":null,"status":null,"seat":null},{"id":"company:tr:103912645","type":"company","label":"Интеренергоимпекс ООД","slug":null,"uic":"103912645","legalForm":null,"status":null,"seat":null},{"id":"person:ЕВЕЛИНА МИРОСЛАВОВА ДАМЯНОВА","type":"person","label":"Евелина Мирославова Дамянова"}],"edges":[{"source":"official:miroslav-velinov-damyanov-712cbf","target":"company:tr:204646593","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:miroslav-velinov-damyanov-712cbf","target":"company:tr:103912645","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:miroslav-velinov-damyanov-712cbf","target":"company:tr:204646593","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЕВЕЛИНА МИРОСЛАВОВА ДАМЯНОВА","target":"company:tr:204646593","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕВЕЛИНА МИРОСЛАВОВА ДАМЯНОВА","target":"company:tr:204646593","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:miroslav-velinov-damyanov-712cbf",
+  "nodes": [
+    {
+      "id": "official:miroslav-velinov-damyanov-712cbf",
+      "type": "official",
+      "slug": "miroslav-velinov-damyanov-712cbf",
+      "label": "Мирослав Велинов Дамянов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204646593",
+      "type": "company",
+      "label": "Трикветра ЕООД",
+      "slug": null,
+      "uic": "204646593",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:103912645",
+      "type": "company",
+      "label": "Интеренергоимпекс ООД",
+      "slug": null,
+      "uic": "103912645",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕВЕЛИНА МИРОСЛАВОВА ДАМЯНОВА",
+      "type": "person",
+      "label": "Евелина Мирославова Дамянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-velinov-damyanov-712cbf",
+      "target": "company:tr:204646593",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:miroslav-velinov-damyanov-712cbf",
+      "target": "company:tr:103912645",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:miroslav-velinov-damyanov-712cbf",
+      "target": "company:tr:204646593",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВЕЛИНА МИРОСЛАВОВА ДАМЯНОВА",
+      "target": "company:tr:204646593",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА МИРОСЛАВОВА ДАМЯНОВА",
+      "target": "company:tr:204646593",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,203 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:lena-blagoeva-parova-5c9004","nodes":[{"id":"official:lena-blagoeva-parova-5c9004","type":"official","slug":"lena-blagoeva-parova-5c9004","label":"Лена Благоева Парова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000343401","type":"company","label":"ХРИСТО СМИРНЕНСКИ - 1904","slug":null,"uic":"000343401","legalForm":null,"status":null,"seat":null},{"id":"official:iordanka-gancheva-lyutakova-ad8295","type":"official","slug":"iordanka-gancheva-lyutakova-ad8295","label":"Йорданка Ганчева Лютакова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:РАДОСЛАВ ИВАНОВ ЛЮТАКОВ","type":"person","label":"Радослав Иванов Лютаков"},{"id":"person:ПЕТЯ ЯНКОВА ДИШКОВА","type":"person","label":"Петя Янкова Дишкова"},{"id":"person:ЕЛЕНА ИЛИЕВА ПЕТКИНА","type":"person","label":"Елена Илиева Петкина"},{"id":"person:СТАНИСЛАВА БЛАГОЕВА БИВОЛАРСКА","type":"person","label":"Станислава Благоева Биволарска"},{"id":"person:СИЛВАНА АТАНАСОВА ВОЩАНСКА","type":"person","label":"Силвана Атанасова Вощанска"},{"id":"person:НИКОЛАЙ ГЕОРГИЕВ ГУГУТКОВ","type":"person","label":"Николай Георгиев Гугутков"},{"id":"person:СТАНИСЛАВА СПАСОВА ВЕСЕЛИЧКА-СУКМАНКОВА","type":"person","label":"Станислава Спасова Веселичка-Сукманкова"},{"id":"person:АНЕТА ЗДРАВКОВА БЪРЗАКОВА","type":"person","label":"Анета Здравкова Бързакова"},{"id":"person:ПАМЕЛА ДИМИТРОВА БИКОВА","type":"person","label":"Памела Димитрова Бикова"},{"id":"person:СТАНИСЛАВА СПАСОВА ВЕСЕЛИЧКА - СУКМАНКОВА","type":"person","label":"Станислава Спасова Веселичка - Сукманкова"},{"id":"person:ДАНИЕЛ КИРОВ БАЙЛОВ","type":"person","label":"Даниел Киров Байлов"}],"edges":[{"source":"official:lena-blagoeva-parova-5c9004","target":"company:tr:000343401","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:iordanka-gancheva-lyutakova-ad8295","target":"company:tr:000343401","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:РАДОСЛАВ ИВАНОВ ЛЮТАКОВ","target":"company:tr:000343401","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ЯНКОВА ДИШКОВА","target":"company:tr:000343401","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ИВАНОВ ЛЮТАКОВ","target":"company:tr:000343401","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ИЛИЕВА ПЕТКИНА","target":"company:tr:000343401","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВА БЛАГОЕВА БИВОЛАРСКА","target":"company:tr:000343401","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВАНА АТАНАСОВА ВОЩАНСКА","target":"company:tr:000343401","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ГЕОРГИЕВ ГУГУТКОВ","target":"company:tr:000343401","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВА СПАСОВА ВЕСЕЛИЧКА-СУКМАНКОВА","target":"company:tr:000343401","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНЕТА ЗДРАВКОВА БЪРЗАКОВА","target":"company:tr:000343401","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПАМЕЛА ДИМИТРОВА БИКОВА","target":"company:tr:000343401","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВА СПАСОВА ВЕСЕЛИЧКА - СУКМАНКОВА","target":"company:tr:000343401","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ КИРОВ БАЙЛОВ","target":"company:tr:000343401","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:lena-blagoeva-parova-5c9004",
+  "nodes": [
+    {
+      "id": "official:lena-blagoeva-parova-5c9004",
+      "type": "official",
+      "slug": "lena-blagoeva-parova-5c9004",
+      "label": "Лена Благоева Парова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000343401",
+      "type": "company",
+      "label": "ХРИСТО СМИРНЕНСКИ - 1904",
+      "slug": null,
+      "uic": "000343401",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:iordanka-gancheva-lyutakova-ad8295",
+      "type": "official",
+      "slug": "iordanka-gancheva-lyutakova-ad8295",
+      "label": "Йорданка Ганчева Лютакова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:РАДОСЛАВ ИВАНОВ ЛЮТАКОВ",
+      "type": "person",
+      "label": "Радослав Иванов Лютаков"
+    },
+    {
+      "id": "person:ПЕТЯ ЯНКОВА ДИШКОВА",
+      "type": "person",
+      "label": "Петя Янкова Дишкова"
+    },
+    {
+      "id": "person:ЕЛЕНА ИЛИЕВА ПЕТКИНА",
+      "type": "person",
+      "label": "Елена Илиева Петкина"
+    },
+    {
+      "id": "person:СТАНИСЛАВА БЛАГОЕВА БИВОЛАРСКА",
+      "type": "person",
+      "label": "Станислава Благоева Биволарска"
+    },
+    {
+      "id": "person:СИЛВАНА АТАНАСОВА ВОЩАНСКА",
+      "type": "person",
+      "label": "Силвана Атанасова Вощанска"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГЕОРГИЕВ ГУГУТКОВ",
+      "type": "person",
+      "label": "Николай Георгиев Гугутков"
+    },
+    {
+      "id": "person:СТАНИСЛАВА СПАСОВА ВЕСЕЛИЧКА-СУКМАНКОВА",
+      "type": "person",
+      "label": "Станислава Спасова Веселичка-Сукманкова"
+    },
+    {
+      "id": "person:АНЕТА ЗДРАВКОВА БЪРЗАКОВА",
+      "type": "person",
+      "label": "Анета Здравкова Бързакова"
+    },
+    {
+      "id": "person:ПАМЕЛА ДИМИТРОВА БИКОВА",
+      "type": "person",
+      "label": "Памела Димитрова Бикова"
+    },
+    {
+      "id": "person:СТАНИСЛАВА СПАСОВА ВЕСЕЛИЧКА - СУКМАНКОВА",
+      "type": "person",
+      "label": "Станислава Спасова Веселичка - Сукманкова"
+    },
+    {
+      "id": "person:ДАНИЕЛ КИРОВ БАЙЛОВ",
+      "type": "person",
+      "label": "Даниел Киров Байлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lena-blagoeva-parova-5c9004",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordanka-gancheva-lyutakova-ad8295",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСЛАВ ИВАНОВ ЛЮТАКОВ",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ЯНКОВА ДИШКОВА",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ИВАНОВ ЛЮТАКОВ",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ИЛИЕВА ПЕТКИНА",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА БЛАГОЕВА БИВОЛАРСКА",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВАНА АТАНАСОВА ВОЩАНСКА",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ ГУГУТКОВ",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА СПАСОВА ВЕСЕЛИЧКА-СУКМАНКОВА",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ЗДРАВКОВА БЪРЗАКОВА",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАМЕЛА ДИМИТРОВА БИКОВА",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА СПАСОВА ВЕСЕЛИЧКА - СУКМАНКОВА",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ КИРОВ БАЙЛОВ",
+      "target": "company:tr:000343401",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

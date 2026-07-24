@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aihan-faris-shaban-003e0d","nodes":[{"id":"official:aihan-faris-shaban-003e0d","type":"official","slug":"aihan-faris-shaban-003e0d","label":"Айхан Фарис Шабан","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:205721173","type":"company","label":"Сдружение  Шахматен Клуб  Ботев","slug":null,"uic":"205721173","legalForm":null,"status":null,"seat":null},{"id":"person:МЮДЖЕЙТИН РУЖДИ РАИМ","type":"person","label":"Мюджейтин Ружди Раим"},{"id":"person:БИЛЯЛ РАШИД БИЛЯЛ","type":"person","label":"Билял Рашид Билял"}],"edges":[{"source":"official:aihan-faris-shaban-003e0d","target":"company:tr:205721173","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МЮДЖЕЙТИН РУЖДИ РАИМ","target":"company:tr:205721173","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯЛ РАШИД БИЛЯЛ","target":"company:tr:205721173","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aihan-faris-shaban-003e0d",
+  "nodes": [
+    {
+      "id": "official:aihan-faris-shaban-003e0d",
+      "type": "official",
+      "slug": "aihan-faris-shaban-003e0d",
+      "label": "Айхан Фарис Шабан",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205721173",
+      "type": "company",
+      "label": "Сдружение  Шахматен Клуб  Ботев",
+      "slug": null,
+      "uic": "205721173",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЮДЖЕЙТИН РУЖДИ РАИМ",
+      "type": "person",
+      "label": "Мюджейтин Ружди Раим"
+    },
+    {
+      "id": "person:БИЛЯЛ РАШИД БИЛЯЛ",
+      "type": "person",
+      "label": "Билял Рашид Билял"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aihan-faris-shaban-003e0d",
+      "target": "company:tr:205721173",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЮДЖЕЙТИН РУЖДИ РАИМ",
+      "target": "company:tr:205721173",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯЛ РАШИД БИЛЯЛ",
+      "target": "company:tr:205721173",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petya-ivanova-iordanova-4ddc43","nodes":[{"id":"official:petya-ivanova-iordanova-4ddc43","type":"official","slug":"petya-ivanova-iordanova-4ddc43","label":"Петя Иванова Йорданова","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:203171617","type":"company","label":"\"Дервеня хаус\" ООД","slug":null,"uic":"203171617","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОРДАН ЦВЕТАНОВ ЙОРДАНОВ","type":"person","label":"Йордан Цветанов Йорданов"},{"id":"person:ВЕСЕЛКА ИЛИЕВА КОЕВА","type":"person","label":"Веселка Илиева Коева"}],"edges":[{"source":"official:petya-ivanova-iordanova-4ddc43","target":"company:tr:203171617","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ЦВЕТАНОВ ЙОРДАНОВ","target":"company:tr:203171617","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ЦВЕТАНОВ ЙОРДАНОВ","target":"company:tr:203171617","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА ИЛИЕВА КОЕВА","target":"company:tr:203171617","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petya-ivanova-iordanova-4ddc43",
+  "nodes": [
+    {
+      "id": "official:petya-ivanova-iordanova-4ddc43",
+      "type": "official",
+      "slug": "petya-ivanova-iordanova-4ddc43",
+      "label": "Петя Иванова Йорданова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203171617",
+      "type": "company",
+      "label": "\"Дервеня хаус\" ООД",
+      "slug": null,
+      "uic": "203171617",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ЦВЕТАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Йордан Цветанов Йорданов"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ИЛИЕВА КОЕВА",
+      "type": "person",
+      "label": "Веселка Илиева Коева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-ivanova-iordanova-4ddc43",
+      "target": "company:tr:203171617",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЦВЕТАНОВ ЙОРДАНОВ",
+      "target": "company:tr:203171617",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЦВЕТАНОВ ЙОРДАНОВ",
+      "target": "company:tr:203171617",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ИЛИЕВА КОЕВА",
+      "target": "company:tr:203171617",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

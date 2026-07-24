@@ -1,1 +1,133 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:yanko-aleksandrov-yankov-9dcb6b","nodes":[{"id":"official:yanko-aleksandrov-yankov-9dcb6b","type":"official","slug":"yanko-aleksandrov-yankov-9dcb6b","label":"Янко Александров Янков","tier":"executive","role":"party_leader","municipality":null},{"id":"company:tr:130563532","type":"company","label":"СДРУЖЕНИЕ  АСОЦИАЦИЯ НА ЗАВЪРШИЛИТЕ КОЛЕЖА ПО ОТБРАНАТА НА НАТО-РИМ","slug":null,"uic":"130563532","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:2494","type":"mp","mpId":2494,"label":"Янко Александров Янков","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["40","41","42"]},{"id":"mp:2812","type":"mp","mpId":2812,"label":"Славчо Георгиев Велков","partyGroupShort":"ДНК","isCurrent":false,"nsFolders":[]},{"id":"person:ИЛИЯ ВЕСЕЛИНОВ МИЛУШЕВ","type":"person","label":"Илия Веселинов Милушев"},{"id":"person:ПЛАМЕН КРЪСТЕВ ХАЛАЧЕВ","type":"person","label":"Пламен Кръстев Халачев"},{"id":"person:ДИМИТРИНА ЖЕКОВА КОСТАДИНОВА","type":"person","label":"Димитрина Жекова Костадинова"},{"id":"person:ПЛАМЕН ХРИСТОВ СТОЯНОВ","type":"person","label":"Пламен Христов Стоянов"}],"edges":[{"source":"official:yanko-aleksandrov-yankov-9dcb6b","target":"company:tr:130563532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2494","target":"company:tr:130563532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2812","target":"company:tr:130563532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИЛИЯ ВЕСЕЛИНОВ МИЛУШЕВ","target":"company:tr:130563532","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН КРЪСТЕВ ХАЛАЧЕВ","target":"company:tr:130563532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА ЖЕКОВА КОСТАДИНОВА","target":"company:tr:130563532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ВЕСЕЛИНОВ МИЛУШЕВ","target":"company:tr:130563532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ХРИСТОВ СТОЯНОВ","target":"company:tr:130563532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:yanko-aleksandrov-yankov-9dcb6b",
+  "nodes": [
+    {
+      "id": "official:yanko-aleksandrov-yankov-9dcb6b",
+      "type": "official",
+      "slug": "yanko-aleksandrov-yankov-9dcb6b",
+      "label": "Янко Александров Янков",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130563532",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ  АСОЦИАЦИЯ НА ЗАВЪРШИЛИТЕ КОЛЕЖА ПО ОТБРАНАТА НА НАТО-РИМ",
+      "slug": null,
+      "uic": "130563532",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:2494",
+      "type": "mp",
+      "mpId": 2494,
+      "label": "Янко Александров Янков",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "41",
+        "42"
+      ]
+    },
+    {
+      "id": "mp:2812",
+      "type": "mp",
+      "mpId": 2812,
+      "label": "Славчо Георгиев Велков",
+      "partyGroupShort": "ДНК",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ИЛИЯ ВЕСЕЛИНОВ МИЛУШЕВ",
+      "type": "person",
+      "label": "Илия Веселинов Милушев"
+    },
+    {
+      "id": "person:ПЛАМЕН КРЪСТЕВ ХАЛАЧЕВ",
+      "type": "person",
+      "label": "Пламен Кръстев Халачев"
+    },
+    {
+      "id": "person:ДИМИТРИНА ЖЕКОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Димитрина Жекова Костадинова"
+    },
+    {
+      "id": "person:ПЛАМЕН ХРИСТОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Пламен Христов Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yanko-aleksandrov-yankov-9dcb6b",
+      "target": "company:tr:130563532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2494",
+      "target": "company:tr:130563532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2812",
+      "target": "company:tr:130563532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ ВЕСЕЛИНОВ МИЛУШЕВ",
+      "target": "company:tr:130563532",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН КРЪСТЕВ ХАЛАЧЕВ",
+      "target": "company:tr:130563532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ЖЕКОВА КОСТАДИНОВА",
+      "target": "company:tr:130563532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ВЕСЕЛИНОВ МИЛУШЕВ",
+      "target": "company:tr:130563532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ХРИСТОВ СТОЯНОВ",
+      "target": "company:tr:130563532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

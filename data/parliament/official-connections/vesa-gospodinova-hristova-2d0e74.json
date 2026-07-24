@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vesa-gospodinova-hristova-2d0e74","nodes":[{"id":"official:vesa-gospodinova-hristova-2d0e74","type":"official","slug":"vesa-gospodinova-hristova-2d0e74","label":"Веса Господинова Христова","tier":"municipal","role":"councillor","municipality":"Харманли"},{"id":"company:tr:205074921","type":"company","label":"СВЕТЛИНА - 1929","slug":null,"uic":"205074921","legalForm":null,"status":null,"seat":null},{"id":"person:ТЕРЕЗА АТАНАСОВА ПЕТРОВА","type":"person","label":"Тереза Атанасова Петрова"},{"id":"person:МИНКА МИТКОВА КЪНЕВА","type":"person","label":"Минка Миткова Кънева"},{"id":"person:ГЕОРГИ ПЕТРОВ БОГДАНОВ","type":"person","label":"Георги Петров Богданов"},{"id":"person:КРАСИМИР НЕДЕВ МАНЕВ","type":"person","label":"Красимир Недев Манев"},{"id":"person:КРЕМЕНА АТАНАСОВА КЬОСЕВА","type":"person","label":"Кремена Атанасова Кьосева"},{"id":"person:ДЕЯНА ГОСПОДИНОВА МОЛЛОВА","type":"person","label":"Деяна Господинова Моллова"},{"id":"person:МИТКО ЖИВКОВ КОЛЕВ","type":"person","label":"Митко Живков Колев"}],"edges":[{"source":"official:vesa-gospodinova-hristova-2d0e74","target":"company:tr:205074921","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:vesa-gospodinova-hristova-2d0e74","target":"company:tr:205074921","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ТЕРЕЗА АТАНАСОВА ПЕТРОВА","target":"company:tr:205074921","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИНКА МИТКОВА КЪНЕВА","target":"company:tr:205074921","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТЕРЕЗА АТАНАСОВА ПЕТРОВА","target":"company:tr:205074921","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПЕТРОВ БОГДАНОВ","target":"company:tr:205074921","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР НЕДЕВ МАНЕВ","target":"company:tr:205074921","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КРЕМЕНА АТАНАСОВА КЬОСЕВА","target":"company:tr:205074921","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯНА ГОСПОДИНОВА МОЛЛОВА","target":"company:tr:205074921","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО ЖИВКОВ КОЛЕВ","target":"company:tr:205074921","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vesa-gospodinova-hristova-2d0e74",
+  "nodes": [
+    {
+      "id": "official:vesa-gospodinova-hristova-2d0e74",
+      "type": "official",
+      "slug": "vesa-gospodinova-hristova-2d0e74",
+      "label": "Веса Господинова Христова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Харманли"
+    },
+    {
+      "id": "company:tr:205074921",
+      "type": "company",
+      "label": "СВЕТЛИНА - 1929",
+      "slug": null,
+      "uic": "205074921",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕРЕЗА АТАНАСОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Тереза Атанасова Петрова"
+    },
+    {
+      "id": "person:МИНКА МИТКОВА КЪНЕВА",
+      "type": "person",
+      "label": "Минка Миткова Кънева"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Георги Петров Богданов"
+    },
+    {
+      "id": "person:КРАСИМИР НЕДЕВ МАНЕВ",
+      "type": "person",
+      "label": "Красимир Недев Манев"
+    },
+    {
+      "id": "person:КРЕМЕНА АТАНАСОВА КЬОСЕВА",
+      "type": "person",
+      "label": "Кремена Атанасова Кьосева"
+    },
+    {
+      "id": "person:ДЕЯНА ГОСПОДИНОВА МОЛЛОВА",
+      "type": "person",
+      "label": "Деяна Господинова Моллова"
+    },
+    {
+      "id": "person:МИТКО ЖИВКОВ КОЛЕВ",
+      "type": "person",
+      "label": "Митко Живков Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vesa-gospodinova-hristova-2d0e74",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vesa-gospodinova-hristova-2d0e74",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕРЕЗА АТАНАСОВА ПЕТРОВА",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКА МИТКОВА КЪНЕВА",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕРЕЗА АТАНАСОВА ПЕТРОВА",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ БОГДАНОВ",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР НЕДЕВ МАНЕВ",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА АТАНАСОВА КЬОСЕВА",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯНА ГОСПОДИНОВА МОЛЛОВА",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ЖИВКОВ КОЛЕВ",
+      "target": "company:tr:205074921",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,87 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-petkov-petrov-3d32f8","nodes":[{"id":"official:georgi-petkov-petrov-3d32f8","type":"official","slug":"georgi-petkov-petrov-3d32f8","label":"Георги Петков Петров","tier":"municipal","role":"councillor","municipality":"Кюстендил"},{"id":"company:tr:208028434","type":"company","label":"Нуакшот","slug":null,"uic":"208028434","legalForm":null,"status":null,"seat":null},{"id":"company:name:МАВРИНАНС","type":"company","label":"\"Мавринанс\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ГАРЕТ ПОЛ РОУЗЪР","type":"person","label":"Гарет Пол Роузър"},{"id":"person:ТОМОКО ТОГАШИ","type":"person","label":"Томоко Тогаши"}],"edges":[{"source":"official:georgi-petkov-petrov-3d32f8","target":"company:tr:208028434","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"company:name:МАВРИНАНС","target":"company:tr:208028434","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГАРЕТ ПОЛ РОУЗЪР","target":"company:tr:208028434","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТОМОКО ТОГАШИ","target":"company:tr:208028434","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГАРЕТ ПОЛ РОУЗЪР","target":"company:tr:208028434","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-petkov-petrov-3d32f8",
+  "nodes": [
+    {
+      "id": "official:georgi-petkov-petrov-3d32f8",
+      "type": "official",
+      "slug": "georgi-petkov-petrov-3d32f8",
+      "label": "Георги Петков Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кюстендил"
+    },
+    {
+      "id": "company:tr:208028434",
+      "type": "company",
+      "label": "Нуакшот",
+      "slug": null,
+      "uic": "208028434",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:МАВРИНАНС",
+      "type": "company",
+      "label": "\"Мавринанс\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАРЕТ ПОЛ РОУЗЪР",
+      "type": "person",
+      "label": "Гарет Пол Роузър"
+    },
+    {
+      "id": "person:ТОМОКО ТОГАШИ",
+      "type": "person",
+      "label": "Томоко Тогаши"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-petkov-petrov-3d32f8",
+      "target": "company:tr:208028434",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:МАВРИНАНС",
+      "target": "company:tr:208028434",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАРЕТ ПОЛ РОУЗЪР",
+      "target": "company:tr:208028434",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМОКО ТОГАШИ",
+      "target": "company:tr:208028434",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАРЕТ ПОЛ РОУЗЪР",
+      "target": "company:tr:208028434",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,134 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tinka-peneva-velichkova-aff803","nodes":[{"id":"official:tinka-peneva-velichkova-aff803","type":"official","slug":"tinka-peneva-velichkova-aff803","label":"Тинка Пенева Величкова","tier":"municipal","role":"councillor","municipality":"Опан"},{"id":"company:tr:000805644","type":"company","label":"Народно читалище &quot;Христо Ботев&quot; - 1927","slug":null,"uic":"000805644","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЙКА ГОСПОДИНОВА ВЪЛКОВА","type":"person","label":"Марийка Господинова Вълкова"},{"id":"person:ТАНКА РУСЕВА СТАНКОВА","type":"person","label":"Танка Русева Станкова"},{"id":"person:ГИНКА ПЕТРОВА ГЕНОВА","type":"person","label":"Гинка Петрова Генова"},{"id":"person:ДАНАИЛА СТЕФАНОВА ДИМИТРОВА","type":"person","label":"Данаила Стефанова Димитрова"},{"id":"person:ВАСИЛКА ВЕЛИКОВА ПЕТКОВА","type":"person","label":"Василка Великова Петкова"},{"id":"person:МАРИЙКА ДИНЕВА ИВАНОВА","type":"person","label":"Марийка Динева Иванова"},{"id":"person:ДОНКА ГОЧЕВА ТОНЕВА","type":"person","label":"Донка Гочева Тонева"}],"edges":[{"source":"official:tinka-peneva-velichkova-aff803","target":"company:tr:000805644","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:tinka-peneva-velichkova-aff803","target":"company:tr:000805644","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЙКА ГОСПОДИНОВА ВЪЛКОВА","target":"company:tr:000805644","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТАНКА РУСЕВА СТАНКОВА","target":"company:tr:000805644","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА ПЕТРОВА ГЕНОВА","target":"company:tr:000805644","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАНАИЛА СТЕФАНОВА ДИМИТРОВА","target":"company:tr:000805644","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛКА ВЕЛИКОВА ПЕТКОВА","target":"company:tr:000805644","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЙКА ДИНЕВА ИВАНОВА","target":"company:tr:000805644","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА ГОЧЕВА ТОНЕВА","target":"company:tr:000805644","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tinka-peneva-velichkova-aff803",
+  "nodes": [
+    {
+      "id": "official:tinka-peneva-velichkova-aff803",
+      "type": "official",
+      "slug": "tinka-peneva-velichkova-aff803",
+      "label": "Тинка Пенева Величкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Опан"
+    },
+    {
+      "id": "company:tr:000805644",
+      "type": "company",
+      "label": "Народно читалище &quot;Христо Ботев&quot; - 1927",
+      "slug": null,
+      "uic": "000805644",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЙКА ГОСПОДИНОВА ВЪЛКОВА",
+      "type": "person",
+      "label": "Марийка Господинова Вълкова"
+    },
+    {
+      "id": "person:ТАНКА РУСЕВА СТАНКОВА",
+      "type": "person",
+      "label": "Танка Русева Станкова"
+    },
+    {
+      "id": "person:ГИНКА ПЕТРОВА ГЕНОВА",
+      "type": "person",
+      "label": "Гинка Петрова Генова"
+    },
+    {
+      "id": "person:ДАНАИЛА СТЕФАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Данаила Стефанова Димитрова"
+    },
+    {
+      "id": "person:ВАСИЛКА ВЕЛИКОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Василка Великова Петкова"
+    },
+    {
+      "id": "person:МАРИЙКА ДИНЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Марийка Динева Иванова"
+    },
+    {
+      "id": "person:ДОНКА ГОЧЕВА ТОНЕВА",
+      "type": "person",
+      "label": "Донка Гочева Тонева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tinka-peneva-velichkova-aff803",
+      "target": "company:tr:000805644",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tinka-peneva-velichkova-aff803",
+      "target": "company:tr:000805644",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЙКА ГОСПОДИНОВА ВЪЛКОВА",
+      "target": "company:tr:000805644",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНКА РУСЕВА СТАНКОВА",
+      "target": "company:tr:000805644",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА ПЕТРОВА ГЕНОВА",
+      "target": "company:tr:000805644",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛА СТЕФАНОВА ДИМИТРОВА",
+      "target": "company:tr:000805644",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ВЕЛИКОВА ПЕТКОВА",
+      "target": "company:tr:000805644",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ДИНЕВА ИВАНОВА",
+      "target": "company:tr:000805644",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ГОЧЕВА ТОНЕВА",
+      "target": "company:tr:000805644",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

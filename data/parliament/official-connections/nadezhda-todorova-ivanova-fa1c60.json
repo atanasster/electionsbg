@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nadezhda-todorova-ivanova-fa1c60","nodes":[{"id":"official:nadezhda-todorova-ivanova-fa1c60","type":"official","slug":"nadezhda-todorova-ivanova-fa1c60","label":"Надежда Тодорова Иванова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:201863499","type":"company","label":"ЕНИ - 012","slug":null,"uic":"201863499","legalForm":null,"status":null,"seat":null},{"id":"person:ЕЛКА БОРИСОВА КРЪСТЕВА","type":"person","label":"Елка Борисова Кръстева"},{"id":"person:ИРЕНА ЦВЕТАНОВА МИЛАНОВА","type":"person","label":"Ирена Цветанова Миланова"}],"edges":[{"source":"official:nadezhda-todorova-ivanova-fa1c60","target":"company:tr:201863499","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЕЛКА БОРИСОВА КРЪСТЕВА","target":"company:tr:201863499","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА ЦВЕТАНОВА МИЛАНОВА","target":"company:tr:201863499","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nadezhda-todorova-ivanova-fa1c60",
+  "nodes": [
+    {
+      "id": "official:nadezhda-todorova-ivanova-fa1c60",
+      "type": "official",
+      "slug": "nadezhda-todorova-ivanova-fa1c60",
+      "label": "Надежда Тодорова Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201863499",
+      "type": "company",
+      "label": "ЕНИ - 012",
+      "slug": null,
+      "uic": "201863499",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛКА БОРИСОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Елка Борисова Кръстева"
+    },
+    {
+      "id": "person:ИРЕНА ЦВЕТАНОВА МИЛАНОВА",
+      "type": "person",
+      "label": "Ирена Цветанова Миланова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadezhda-todorova-ivanova-fa1c60",
+      "target": "company:tr:201863499",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛКА БОРИСОВА КРЪСТЕВА",
+      "target": "company:tr:201863499",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ЦВЕТАНОВА МИЛАНОВА",
+      "target": "company:tr:201863499",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

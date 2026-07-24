@@ -1,1 +1,158 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:grozdan-stoikov-grozev-05acaa","nodes":[{"id":"official:grozdan-stoikov-grozev-05acaa","type":"official","slug":"grozdan-stoikov-grozev-05acaa","label":"Гроздан Стойков Грозев","tier":"municipal","role":"councillor","municipality":"Димитровград"},{"id":"company:tr:126619320","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;КУЛТУРА-2002&quot;","slug":null,"uic":"126619320","legalForm":null,"status":null,"seat":null},{"id":"person:РАДКА ЗЛАТКОВА ТОДОРОВА","type":"person","label":"Радка Златкова Тодорова"},{"id":"person:ПЕТКО ТЕНЕВ КАНЕВСКИ","type":"person","label":"Петко Тенев Каневски"},{"id":"person:ИРИНА РАЙКОВА АНГЕЛОВА","type":"person","label":"Ирина Райкова Ангелова"},{"id":"person:КРЕМЕНА МИТЕВА ГАНЧЕВА","type":"person","label":"Кремена Митева Ганчева"},{"id":"person:ДЕМИР ХРИСТОВ ДЕМИРЕВ","type":"person","label":"Демир Христов Демирев"},{"id":"person:ЗДРАВКА ГЕОРГИЕВА АНГЕЛОВА","type":"person","label":"Здравка Георгиева Ангелова"},{"id":"person:ДИМИТРИНА ТОНЧЕВА ДИМИТРОВА","type":"person","label":"Димитрина Тончева Димитрова"}],"edges":[{"source":"official:grozdan-stoikov-grozev-05acaa","target":"company:tr:126619320","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:РАДКА ЗЛАТКОВА ТОДОРОВА","target":"company:tr:126619320","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ТЕНЕВ КАНЕВСКИ","target":"company:tr:126619320","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА РАЙКОВА АНГЕЛОВА","target":"company:tr:126619320","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КРЕМЕНА МИТЕВА ГАНЧЕВА","target":"company:tr:126619320","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕМИР ХРИСТОВ ДЕМИРЕВ","target":"company:tr:126619320","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ТЕНЕВ КАНЕВСКИ","target":"company:tr:126619320","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКА ГЕОРГИЕВА АНГЕЛОВА","target":"company:tr:126619320","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ЗЛАТКОВА ТОДОРОВА","target":"company:tr:126619320","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКА ГЕОРГИЕВА АНГЕЛОВА","target":"company:tr:126619320","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРЕМЕНА МИТЕВА ГАНЧЕВА","target":"company:tr:126619320","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА ТОНЧЕВА ДИМИТРОВА","target":"company:tr:126619320","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:grozdan-stoikov-grozev-05acaa",
+  "nodes": [
+    {
+      "id": "official:grozdan-stoikov-grozev-05acaa",
+      "type": "official",
+      "slug": "grozdan-stoikov-grozev-05acaa",
+      "label": "Гроздан Стойков Грозев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:126619320",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;КУЛТУРА-2002&quot;",
+      "slug": null,
+      "uic": "126619320",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДКА ЗЛАТКОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Радка Златкова Тодорова"
+    },
+    {
+      "id": "person:ПЕТКО ТЕНЕВ КАНЕВСКИ",
+      "type": "person",
+      "label": "Петко Тенев Каневски"
+    },
+    {
+      "id": "person:ИРИНА РАЙКОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Ирина Райкова Ангелова"
+    },
+    {
+      "id": "person:КРЕМЕНА МИТЕВА ГАНЧЕВА",
+      "type": "person",
+      "label": "Кремена Митева Ганчева"
+    },
+    {
+      "id": "person:ДЕМИР ХРИСТОВ ДЕМИРЕВ",
+      "type": "person",
+      "label": "Демир Христов Демирев"
+    },
+    {
+      "id": "person:ЗДРАВКА ГЕОРГИЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Здравка Георгиева Ангелова"
+    },
+    {
+      "id": "person:ДИМИТРИНА ТОНЧЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Димитрина Тончева Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:grozdan-stoikov-grozev-05acaa",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДКА ЗЛАТКОВА ТОДОРОВА",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ТЕНЕВ КАНЕВСКИ",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА РАЙКОВА АНГЕЛОВА",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА МИТЕВА ГАНЧЕВА",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕМИР ХРИСТОВ ДЕМИРЕВ",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ТЕНЕВ КАНЕВСКИ",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКА ГЕОРГИЕВА АНГЕЛОВА",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ЗЛАТКОВА ТОДОРОВА",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКА ГЕОРГИЕВА АНГЕЛОВА",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА МИТЕВА ГАНЧЕВА",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ТОНЧЕВА ДИМИТРОВА",
+      "target": "company:tr:126619320",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

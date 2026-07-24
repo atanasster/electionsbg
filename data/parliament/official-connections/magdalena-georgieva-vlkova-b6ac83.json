@@ -1,1 +1,85 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:magdalena-georgieva-vlkova-b6ac83","nodes":[{"id":"official:magdalena-georgieva-vlkova-b6ac83","type":"official","slug":"magdalena-georgieva-vlkova-b6ac83","label":"Магдалена Георгиева Вълкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207865820","type":"company","label":"Чиста магия","slug":null,"uic":"207865820","legalForm":null,"status":null,"seat":null},{"id":"person:БОРЯНА ПЕТРОВА БЕЛЧЕВА","type":"person","label":"Боряна Петрова Белчева"},{"id":"person:ПЕТЯ АТАНАСОВА ПЕНЕВА","type":"person","label":"Петя Атанасова Пенева"}],"edges":[{"source":"official:magdalena-georgieva-vlkova-b6ac83","target":"company:tr:207865820","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:magdalena-georgieva-vlkova-b6ac83","target":"company:tr:207865820","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:БОРЯНА ПЕТРОВА БЕЛЧЕВА","target":"company:tr:207865820","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ АТАНАСОВА ПЕНЕВА","target":"company:tr:207865820","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯНА ПЕТРОВА БЕЛЧЕВА","target":"company:tr:207865820","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ АТАНАСОВА ПЕНЕВА","target":"company:tr:207865820","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:magdalena-georgieva-vlkova-b6ac83",
+  "nodes": [
+    {
+      "id": "official:magdalena-georgieva-vlkova-b6ac83",
+      "type": "official",
+      "slug": "magdalena-georgieva-vlkova-b6ac83",
+      "label": "Магдалена Георгиева Вълкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207865820",
+      "type": "company",
+      "label": "Чиста магия",
+      "slug": null,
+      "uic": "207865820",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРЯНА ПЕТРОВА БЕЛЧЕВА",
+      "type": "person",
+      "label": "Боряна Петрова Белчева"
+    },
+    {
+      "id": "person:ПЕТЯ АТАНАСОВА ПЕНЕВА",
+      "type": "person",
+      "label": "Петя Атанасова Пенева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:magdalena-georgieva-vlkova-b6ac83",
+      "target": "company:tr:207865820",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:magdalena-georgieva-vlkova-b6ac83",
+      "target": "company:tr:207865820",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРЯНА ПЕТРОВА БЕЛЧЕВА",
+      "target": "company:tr:207865820",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ АТАНАСОВА ПЕНЕВА",
+      "target": "company:tr:207865820",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ПЕТРОВА БЕЛЧЕВА",
+      "target": "company:tr:207865820",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ АТАНАСОВА ПЕНЕВА",
+      "target": "company:tr:207865820",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

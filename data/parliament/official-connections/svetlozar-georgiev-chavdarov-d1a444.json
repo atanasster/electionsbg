@@ -1,1 +1,223 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetlozar-georgiev-chavdarov-d1a444","nodes":[{"id":"official:svetlozar-georgiev-chavdarov-d1a444","type":"official","slug":"svetlozar-georgiev-chavdarov-d1a444","label":"Светлозар Георгиев Чавдаров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:115741700","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ НАЦИОНАЛНА ХУДОЖЕСТВЕНА ГИМНАЗИЯ &quot;ЦАНКО ЛАВРЕНОВ&quot;","slug":null,"uic":"115741700","legalForm":null,"status":null,"seat":null},{"id":"person:ВЕЛИСЛАВ ЛОЗАНОВ МИНЕВ","type":"person","label":"Велислав Лозанов Минев"},{"id":"person:РАЛИЦА СВЕТЛОЗАРОВА КАНАЛЕВА-ИВАНОВА","type":"person","label":"Ралица Светлозарова Каналева-Иванова"},{"id":"person:ЖЕЛЯЗКА СТОЯНОВА ПЕТРОВА","type":"person","label":"Желязка Стоянова Петрова"},{"id":"person:ТОШКА ДИМИТРОВА ГРУДЕВА","type":"person","label":"Тошка Димитрова Грудева"},{"id":"person:КРАСИМИРА ИГНАТОВА МЛАДЕНОВА","type":"person","label":"Красимира Игнатова Младенова"},{"id":"person:БОЯНА АСЕНОВА МЕРДЖАНОВА","type":"person","label":"Бояна Асенова Мерджанова"},{"id":"person:ЮЛИЯ ЦВЕТКОВА БАЧЕВА","type":"person","label":"Юлия Цветкова Бачева"},{"id":"person:ГЕРГАНА ХРИСТОВА ИВАНОВА","type":"person","label":"Гергана Христова Иванова"},{"id":"person:КАТЯ ИВАНОВА КАРАЛУКОВА","type":"person","label":"Катя Иванова Каралукова"},{"id":"person:СИМЕОН ПЛАМЕНОВ ПЕТКОВ","type":"person","label":"Симеон Пламенов Петков"},{"id":"person:АТАНАС БОГОМИЛОВ КОСТОВ","type":"person","label":"Атанас Богомилов Костов"},{"id":"person:ПЕТЯ ТОШЕВА БАЛАБАНОВА","type":"person","label":"Петя Тошева Балабанова"}],"edges":[{"source":"official:svetlozar-georgiev-chavdarov-d1a444","target":"company:tr:115741700","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:svetlozar-georgiev-chavdarov-d1a444","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕЛИСЛАВ ЛОЗАНОВ МИНЕВ","target":"company:tr:115741700","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА СВЕТЛОЗАРОВА КАНАЛЕВА-ИВАНОВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛЯЗКА СТОЯНОВА ПЕТРОВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИСЛАВ ЛОЗАНОВ МИНЕВ","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОШКА ДИМИТРОВА ГРУДЕВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ИГНАТОВА МЛАДЕНОВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЯНА АСЕНОВА МЕРДЖАНОВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЯ ЦВЕТКОВА БАЧЕВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЯ ЦВЕТКОВА БАЧЕВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ХРИСТОВА ИВАНОВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ИВАНОВА КАРАЛУКОВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН ПЛАМЕНОВ ПЕТКОВ","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ИВАНОВА КАРАЛУКОВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС БОГОМИЛОВ КОСТОВ","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ТОШЕВА БАЛАБАНОВА","target":"company:tr:115741700","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetlozar-georgiev-chavdarov-d1a444",
+  "nodes": [
+    {
+      "id": "official:svetlozar-georgiev-chavdarov-d1a444",
+      "type": "official",
+      "slug": "svetlozar-georgiev-chavdarov-d1a444",
+      "label": "Светлозар Георгиев Чавдаров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115741700",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ НАЦИОНАЛНА ХУДОЖЕСТВЕНА ГИМНАЗИЯ &quot;ЦАНКО ЛАВРЕНОВ&quot;",
+      "slug": null,
+      "uic": "115741700",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕЛИСЛАВ ЛОЗАНОВ МИНЕВ",
+      "type": "person",
+      "label": "Велислав Лозанов Минев"
+    },
+    {
+      "id": "person:РАЛИЦА СВЕТЛОЗАРОВА КАНАЛЕВА-ИВАНОВА",
+      "type": "person",
+      "label": "Ралица Светлозарова Каналева-Иванова"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКА СТОЯНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Желязка Стоянова Петрова"
+    },
+    {
+      "id": "person:ТОШКА ДИМИТРОВА ГРУДЕВА",
+      "type": "person",
+      "label": "Тошка Димитрова Грудева"
+    },
+    {
+      "id": "person:КРАСИМИРА ИГНАТОВА МЛАДЕНОВА",
+      "type": "person",
+      "label": "Красимира Игнатова Младенова"
+    },
+    {
+      "id": "person:БОЯНА АСЕНОВА МЕРДЖАНОВА",
+      "type": "person",
+      "label": "Бояна Асенова Мерджанова"
+    },
+    {
+      "id": "person:ЮЛИЯ ЦВЕТКОВА БАЧЕВА",
+      "type": "person",
+      "label": "Юлия Цветкова Бачева"
+    },
+    {
+      "id": "person:ГЕРГАНА ХРИСТОВА ИВАНОВА",
+      "type": "person",
+      "label": "Гергана Христова Иванова"
+    },
+    {
+      "id": "person:КАТЯ ИВАНОВА КАРАЛУКОВА",
+      "type": "person",
+      "label": "Катя Иванова Каралукова"
+    },
+    {
+      "id": "person:СИМЕОН ПЛАМЕНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Симеон Пламенов Петков"
+    },
+    {
+      "id": "person:АТАНАС БОГОМИЛОВ КОСТОВ",
+      "type": "person",
+      "label": "Атанас Богомилов Костов"
+    },
+    {
+      "id": "person:ПЕТЯ ТОШЕВА БАЛАБАНОВА",
+      "type": "person",
+      "label": "Петя Тошева Балабанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlozar-georgiev-chavdarov-d1a444",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetlozar-georgiev-chavdarov-d1a444",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИСЛАВ ЛОЗАНОВ МИНЕВ",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА СВЕТЛОЗАРОВА КАНАЛЕВА-ИВАНОВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКА СТОЯНОВА ПЕТРОВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИСЛАВ ЛОЗАНОВ МИНЕВ",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОШКА ДИМИТРОВА ГРУДЕВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ИГНАТОВА МЛАДЕНОВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯНА АСЕНОВА МЕРДЖАНОВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ЦВЕТКОВА БАЧЕВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ЦВЕТКОВА БАЧЕВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ХРИСТОВА ИВАНОВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ИВАНОВА КАРАЛУКОВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ПЛАМЕНОВ ПЕТКОВ",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ИВАНОВА КАРАЛУКОВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС БОГОМИЛОВ КОСТОВ",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ТОШЕВА БАЛАБАНОВА",
+      "target": "company:tr:115741700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

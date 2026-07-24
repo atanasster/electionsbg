@@ -1,1 +1,113 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-milkov-donchev-1ee841","nodes":[{"id":"official:dimitr-milkov-donchev-1ee841","type":"official","slug":"dimitr-milkov-donchev-1ee841","label":"Димитър Милков Дончев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176384348","type":"company","label":"Футболен клуб „Ботев”","slug":null,"uic":"176384348","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОРДАН МИЛЕНОВ ИВАНОВ","type":"person","label":"Йордан Миленов Иванов"},{"id":"person:АЛЕКСАНДЪР НИКОЛАЕВ НИКОЛОВ","type":"person","label":"Александър Николаев Николов"},{"id":"person:ПЛАМЕН СТЕФАНОВ ПЕТРОВ","type":"person","label":"Пламен Стефанов Петров"},{"id":"person:ЮСМЕН ШАКИР ЮСМЕН","type":"person","label":"Юсмен Шакир Юсмен"},{"id":"person:ЗЛАТИ СТАВРЕВ АНАНИЕВ","type":"person","label":"Злати Ставрев Ананиев"},{"id":"person:НИКОЛАЙ ТЕНЧЕВ НИКОЛОВ","type":"person","label":"Николай Тенчев Николов"}],"edges":[{"source":"official:dimitr-milkov-donchev-1ee841","target":"company:tr:176384348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОРДАН МИЛЕНОВ ИВАНОВ","target":"company:tr:176384348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР НИКОЛАЕВ НИКОЛОВ","target":"company:tr:176384348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН СТЕФАНОВ ПЕТРОВ","target":"company:tr:176384348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮСМЕН ШАКИР ЮСМЕН","target":"company:tr:176384348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТИ СТАВРЕВ АНАНИЕВ","target":"company:tr:176384348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ТЕНЧЕВ НИКОЛОВ","target":"company:tr:176384348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-milkov-donchev-1ee841",
+  "nodes": [
+    {
+      "id": "official:dimitr-milkov-donchev-1ee841",
+      "type": "official",
+      "slug": "dimitr-milkov-donchev-1ee841",
+      "label": "Димитър Милков Дончев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176384348",
+      "type": "company",
+      "label": "Футболен клуб „Ботев”",
+      "slug": null,
+      "uic": "176384348",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН МИЛЕНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Йордан Миленов Иванов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР НИКОЛАЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Александър Николаев Николов"
+    },
+    {
+      "id": "person:ПЛАМЕН СТЕФАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Пламен Стефанов Петров"
+    },
+    {
+      "id": "person:ЮСМЕН ШАКИР ЮСМЕН",
+      "type": "person",
+      "label": "Юсмен Шакир Юсмен"
+    },
+    {
+      "id": "person:ЗЛАТИ СТАВРЕВ АНАНИЕВ",
+      "type": "person",
+      "label": "Злати Ставрев Ананиев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ТЕНЧЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Тенчев Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-milkov-donchev-1ee841",
+      "target": "company:tr:176384348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН МИЛЕНОВ ИВАНОВ",
+      "target": "company:tr:176384348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:176384348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН СТЕФАНОВ ПЕТРОВ",
+      "target": "company:tr:176384348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮСМЕН ШАКИР ЮСМЕН",
+      "target": "company:tr:176384348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИ СТАВРЕВ АНАНИЕВ",
+      "target": "company:tr:176384348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТЕНЧЕВ НИКОЛОВ",
+      "target": "company:tr:176384348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

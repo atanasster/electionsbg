@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svilena-stoyanova-dimitrova-4d59b8","nodes":[{"id":"official:svilena-stoyanova-dimitrova-4d59b8","type":"official","slug":"svilena-stoyanova-dimitrova-4d59b8","label":"Свилена Стоянова Димитрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207856718","type":"company","label":"УЧЕБНО ПРЕДПРИЯТИЕ &quot;КОВАЧНИЦА ЗА УМЕНИЯ&quot;","slug":null,"uic":"207856718","legalForm":null,"status":null,"seat":null},{"id":"person:НАТАЛИЯ ЦОНЕВА ПЕТКОВА","type":"person","label":"Наталия Цонева Петкова"},{"id":"person:ИРИНА ИВАНОВА АПОСТОЛОВА","type":"person","label":"Ирина Иванова Апостолова"},{"id":"person:АЛБЕНА НИКОЛОВА КОМИТОВА","type":"person","label":"Албена Николова Комитова"}],"edges":[{"source":"official:svilena-stoyanova-dimitrova-4d59b8","target":"company:tr:207856718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НАТАЛИЯ ЦОНЕВА ПЕТКОВА","target":"company:tr:207856718","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ ЦОНЕВА ПЕТКОВА","target":"company:tr:207856718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ИВАНОВА АПОСТОЛОВА","target":"company:tr:207856718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА НИКОЛОВА КОМИТОВА","target":"company:tr:207856718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svilena-stoyanova-dimitrova-4d59b8",
+  "nodes": [
+    {
+      "id": "official:svilena-stoyanova-dimitrova-4d59b8",
+      "type": "official",
+      "slug": "svilena-stoyanova-dimitrova-4d59b8",
+      "label": "Свилена Стоянова Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207856718",
+      "type": "company",
+      "label": "УЧЕБНО ПРЕДПРИЯТИЕ &quot;КОВАЧНИЦА ЗА УМЕНИЯ&quot;",
+      "slug": null,
+      "uic": "207856718",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАТАЛИЯ ЦОНЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Наталия Цонева Петкова"
+    },
+    {
+      "id": "person:ИРИНА ИВАНОВА АПОСТОЛОВА",
+      "type": "person",
+      "label": "Ирина Иванова Апостолова"
+    },
+    {
+      "id": "person:АЛБЕНА НИКОЛОВА КОМИТОВА",
+      "type": "person",
+      "label": "Албена Николова Комитова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svilena-stoyanova-dimitrova-4d59b8",
+      "target": "company:tr:207856718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАТАЛИЯ ЦОНЕВА ПЕТКОВА",
+      "target": "company:tr:207856718",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ЦОНЕВА ПЕТКОВА",
+      "target": "company:tr:207856718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ИВАНОВА АПОСТОЛОВА",
+      "target": "company:tr:207856718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА НИКОЛОВА КОМИТОВА",
+      "target": "company:tr:207856718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

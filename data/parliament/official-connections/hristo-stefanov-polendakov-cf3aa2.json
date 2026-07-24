@@ -1,1 +1,202 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristo-stefanov-polendakov-cf3aa2","nodes":[{"id":"official:hristo-stefanov-polendakov-cf3aa2","type":"official","slug":"hristo-stefanov-polendakov-cf3aa2","label":"Христо Стефанов Полендаков","tier":"executive","role":"diplomat","municipality":null},{"id":"company:tr:175198547","type":"company","label":"ПроКредит Развитие България АД","slug":null,"uic":"175198547","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206499474","type":"company","label":"СПарк Адванс ЕООД","slug":null,"uic":"206499474","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕЛЧО СТАНЧЕВ ДЕЛЧЕВ","type":"person","label":"Делчо Станчев Делчев"},{"id":"person:РЕНИ ИВАНОВА ПЕЙЧЕВА","type":"person","label":"Рени Иванова Пейчева"},{"id":"person:ПЕТЪР СЛАВЧЕВ СЛАВОВ","type":"person","label":"Петър Славчев Славов"},{"id":"person:МИЛЕН ТОДОРОВ ЧАНОВ","type":"person","label":"Милен Тодоров Чанов"},{"id":"person:ИВАН ДАЧЕВ ДАЧЕВ","type":"person","label":"Иван Дачев Дачев"},{"id":"person:КАМЕЛИЯ ВЛАДИМИРОВА МИНЕВА","type":"person","label":"Камелия Владимирова Минева"},{"id":"person:РУМЯНА ВЕЛИЧКОВА ТОДОРОВА","type":"person","label":"Румяна Величкова Тодорова"},{"id":"person:РУМЕН АНГЕЛОВ ВЕЛИЧКОВ","type":"person","label":"Румен Ангелов Величков"},{"id":"person:ЕМИЛИЯ ХРИСТОВА ЦАРЕВА","type":"person","label":"Емилия Христова Царева"}],"edges":[{"source":"official:hristo-stefanov-polendakov-cf3aa2","target":"company:tr:175198547","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:hristo-stefanov-polendakov-cf3aa2","target":"company:tr:206499474","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЧО СТАНЧЕВ ДЕЛЧЕВ","target":"company:tr:175198547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РЕНИ ИВАНОВА ПЕЙЧЕВА","target":"company:tr:175198547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР СЛАВЧЕВ СЛАВОВ","target":"company:tr:175198547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ТОДОРОВ ЧАНОВ","target":"company:tr:175198547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДАЧЕВ ДАЧЕВ","target":"company:tr:175198547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ ВЛАДИМИРОВА МИНЕВА","target":"company:tr:175198547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ТОДОРОВ ЧАНОВ","target":"company:tr:175198547","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДАЧЕВ ДАЧЕВ","target":"company:tr:175198547","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ВЕЛИЧКОВА ТОДОРОВА","target":"company:tr:175198547","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ВЕЛИЧКОВА ТОДОРОВА","target":"company:tr:175198547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН АНГЕЛОВ ВЕЛИЧКОВ","target":"company:tr:206499474","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ ХРИСТОВА ЦАРЕВА","target":"company:tr:206499474","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ ХРИСТОВА ЦАРЕВА","target":"company:tr:206499474","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristo-stefanov-polendakov-cf3aa2",
+  "nodes": [
+    {
+      "id": "official:hristo-stefanov-polendakov-cf3aa2",
+      "type": "official",
+      "slug": "hristo-stefanov-polendakov-cf3aa2",
+      "label": "Христо Стефанов Полендаков",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175198547",
+      "type": "company",
+      "label": "ПроКредит Развитие България АД",
+      "slug": null,
+      "uic": "175198547",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206499474",
+      "type": "company",
+      "label": "СПарк Адванс ЕООД",
+      "slug": null,
+      "uic": "206499474",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕЛЧО СТАНЧЕВ ДЕЛЧЕВ",
+      "type": "person",
+      "label": "Делчо Станчев Делчев"
+    },
+    {
+      "id": "person:РЕНИ ИВАНОВА ПЕЙЧЕВА",
+      "type": "person",
+      "label": "Рени Иванова Пейчева"
+    },
+    {
+      "id": "person:ПЕТЪР СЛАВЧЕВ СЛАВОВ",
+      "type": "person",
+      "label": "Петър Славчев Славов"
+    },
+    {
+      "id": "person:МИЛЕН ТОДОРОВ ЧАНОВ",
+      "type": "person",
+      "label": "Милен Тодоров Чанов"
+    },
+    {
+      "id": "person:ИВАН ДАЧЕВ ДАЧЕВ",
+      "type": "person",
+      "label": "Иван Дачев Дачев"
+    },
+    {
+      "id": "person:КАМЕЛИЯ ВЛАДИМИРОВА МИНЕВА",
+      "type": "person",
+      "label": "Камелия Владимирова Минева"
+    },
+    {
+      "id": "person:РУМЯНА ВЕЛИЧКОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Румяна Величкова Тодорова"
+    },
+    {
+      "id": "person:РУМЕН АНГЕЛОВ ВЕЛИЧКОВ",
+      "type": "person",
+      "label": "Румен Ангелов Величков"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ХРИСТОВА ЦАРЕВА",
+      "type": "person",
+      "label": "Емилия Христова Царева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-stefanov-polendakov-cf3aa2",
+      "target": "company:tr:175198547",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-stefanov-polendakov-cf3aa2",
+      "target": "company:tr:206499474",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО СТАНЧЕВ ДЕЛЧЕВ",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНИ ИВАНОВА ПЕЙЧЕВА",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СЛАВЧЕВ СЛАВОВ",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ТОДОРОВ ЧАНОВ",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДАЧЕВ ДАЧЕВ",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ ВЛАДИМИРОВА МИНЕВА",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ТОДОРОВ ЧАНОВ",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДАЧЕВ ДАЧЕВ",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ВЕЛИЧКОВА ТОДОРОВА",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ВЕЛИЧКОВА ТОДОРОВА",
+      "target": "company:tr:175198547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН АНГЕЛОВ ВЕЛИЧКОВ",
+      "target": "company:tr:206499474",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ХРИСТОВА ЦАРЕВА",
+      "target": "company:tr:206499474",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ХРИСТОВА ЦАРЕВА",
+      "target": "company:tr:206499474",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

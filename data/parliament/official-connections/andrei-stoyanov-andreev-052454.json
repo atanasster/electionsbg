@@ -1,1 +1,120 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:andrei-stoyanov-andreev-052454","nodes":[{"id":"official:andrei-stoyanov-andreev-052454","type":"official","slug":"andrei-stoyanov-andreev-052454","label":"Андрей Стоянов Андреев","tier":"municipal","role":"councillor","municipality":"Стара Загора"},{"id":"company:tr:121695905","type":"company","label":"СДРУЖЕНИЕ &quot;БЪЛГАРСКА ФЕДЕРАЦИЯ ПО МОДЕРЕН ПЕТОБОЙ&quot;","slug":null,"uic":"121695905","legalForm":null,"status":null,"seat":null},{"id":"official:andrei-georgiev-kuzmanov-b15ddf","type":"official","slug":"andrei-georgiev-kuzmanov-b15ddf","label":"АНДРЕЙ ГЕОРГИЕВ КУЗМАНОВ","tier":"executive","role":"cabinet","municipality":null},{"id":"person:КАМЕЛИЯ НИКОЛАЕВА АЛЕКСАНДРОВА","type":"person","label":"Камелия Николаева Александрова"},{"id":"person:БОЙКО СОТИРОВ ПЕТКОВ","type":"person","label":"Бойко Сотиров Петков"},{"id":"person:РАЛИЦА РУМЕНОВА ГАВРИЛОВА","type":"person","label":"Ралица Руменова Гаврилова"},{"id":"person:РУМЕН НИКОЛАЕВ КОЖУХАРОВ","type":"person","label":"Румен Николаев Кожухаров"}],"edges":[{"source":"official:andrei-stoyanov-andreev-052454","target":"company:tr:121695905","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:andrei-georgiev-kuzmanov-b15ddf","target":"company:tr:121695905","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:andrei-georgiev-kuzmanov-b15ddf","target":"company:tr:121695905","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:КАМЕЛИЯ НИКОЛАЕВА АЛЕКСАНДРОВА","target":"company:tr:121695905","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКО СОТИРОВ ПЕТКОВ","target":"company:tr:121695905","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА РУМЕНОВА ГАВРИЛОВА","target":"company:tr:121695905","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ НИКОЛАЕВА АЛЕКСАНДРОВА","target":"company:tr:121695905","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН НИКОЛАЕВ КОЖУХАРОВ","target":"company:tr:121695905","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:andrei-stoyanov-andreev-052454",
+  "nodes": [
+    {
+      "id": "official:andrei-stoyanov-andreev-052454",
+      "type": "official",
+      "slug": "andrei-stoyanov-andreev-052454",
+      "label": "Андрей Стоянов Андреев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:121695905",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;БЪЛГАРСКА ФЕДЕРАЦИЯ ПО МОДЕРЕН ПЕТОБОЙ&quot;",
+      "slug": null,
+      "uic": "121695905",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:andrei-georgiev-kuzmanov-b15ddf",
+      "type": "official",
+      "slug": "andrei-georgiev-kuzmanov-b15ddf",
+      "label": "АНДРЕЙ ГЕОРГИЕВ КУЗМАНОВ",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "person:КАМЕЛИЯ НИКОЛАЕВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Камелия Николаева Александрова"
+    },
+    {
+      "id": "person:БОЙКО СОТИРОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Бойко Сотиров Петков"
+    },
+    {
+      "id": "person:РАЛИЦА РУМЕНОВА ГАВРИЛОВА",
+      "type": "person",
+      "label": "Ралица Руменова Гаврилова"
+    },
+    {
+      "id": "person:РУМЕН НИКОЛАЕВ КОЖУХАРОВ",
+      "type": "person",
+      "label": "Румен Николаев Кожухаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:andrei-stoyanov-andreev-052454",
+      "target": "company:tr:121695905",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:andrei-georgiev-kuzmanov-b15ddf",
+      "target": "company:tr:121695905",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:andrei-georgiev-kuzmanov-b15ddf",
+      "target": "company:tr:121695905",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАМЕЛИЯ НИКОЛАЕВА АЛЕКСАНДРОВА",
+      "target": "company:tr:121695905",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО СОТИРОВ ПЕТКОВ",
+      "target": "company:tr:121695905",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА РУМЕНОВА ГАВРИЛОВА",
+      "target": "company:tr:121695905",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ НИКОЛАЕВА АЛЕКСАНДРОВА",
+      "target": "company:tr:121695905",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН НИКОЛАЕВ КОЖУХАРОВ",
+      "target": "company:tr:121695905",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,279 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:radovesta-todorova-styurt-dc0e50","nodes":[{"id":"official:radovesta-todorova-styurt-dc0e50","type":"official","slug":"radovesta-todorova-styurt-dc0e50","label":"Радовеста Тодорова Стюърт","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:102867567","type":"company","label":"Сдружение РОТАРИ КЛУБ БУРГАС - ПРИМОРИЕ","slug":null,"uic":"102867567","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"mp:42","type":"mp","mpId":42,"label":"Йордан Димитров Костадинов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"person:АНГЕЛ ГЕОРГИЕВ ГАВРИЛОВ","type":"person","label":"Ангел Георгиев Гаврилов"},{"id":"person:ДИМИТЪР ЙОРДАНОВ УЗУНОВ","type":"person","label":"Димитър Йорданов Узунов"},{"id":"person:СТОЯН ИВАНОВ БУБАЛОВ","type":"person","label":"Стоян Иванов Бубалов"},{"id":"person:СОТИР НИКОЛОВ СОТИРОВ","type":"person","label":"Сотир Николов Сотиров"},{"id":"person:ДИМИТЪР НЕДЕЛЧЕВ ПАВЛОВ","type":"person","label":"Димитър Неделчев Павлов"},{"id":"person:САВА НЕДЕЛЧЕВ НЕДЕЛЧЕВ","type":"person","label":"Сава Неделчев Неделчев"},{"id":"person:ПЕТЪР ВАСИЛЕВ ПОПОВ","type":"person","label":"Петър Василев Попов"},{"id":"person:ПЛАМЕН МИЛЧЕВ СТАВРЕВ","type":"person","label":"Пламен Милчев Ставрев"},{"id":"person:КРИСТИЯН ГЕОРГИЕВ МИЛЧЕВ","type":"person","label":"Кристиян Георгиев Милчев"},{"id":"person:ЮМИТ ЙОЗИЯПЪДЖЪ","type":"person","label":"Юмит Йозияпъджъ"},{"id":"person:КАМЕН ЦВЕТАНОВ ФИЛИПОВ","type":"person","label":"Камен Цветанов Филипов"},{"id":"person:ВЕСЕЛИН ЕНЧЕВ ДИМИТРОВ","type":"person","label":"Веселин Енчев Димитров"},{"id":"person:ИВАН КОЛЕВ КОЛЕВ","type":"person","label":"Иван Колев Колев"},{"id":"person:ДЕМИР ГЕОРГИЕВ ДОБРЕВ","type":"person","label":"Демир Георгиев Добрев"},{"id":"person:ДИАН БОЖИДАРОВ ДИНЕВ","type":"person","label":"Диан Божидаров Динев"}],"edges":[{"source":"official:radovesta-todorova-styurt-dc0e50","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:42","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНГЕЛ ГЕОРГИЕВ ГАВРИЛОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ГЕОРГИЕВ ГАВРИЛОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЙОРДАНОВ УЗУНОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ИВАНОВ БУБАЛОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОТИР НИКОЛОВ СОТИРОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР НЕДЕЛЧЕВ ПАВЛОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САВА НЕДЕЛЧЕВ НЕДЕЛЧЕВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ВАСИЛЕВ ПОПОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОТИР НИКОЛОВ СОТИРОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН МИЛЧЕВ СТАВРЕВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИЯН ГЕОРГИЕВ МИЛЧЕВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮМИТ ЙОЗИЯПЪДЖЪ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИЯН ГЕОРГИЕВ МИЛЧЕВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕН ЦВЕТАНОВ ФИЛИПОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ЕНЧЕВ ДИМИТРОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КОЛЕВ КОЛЕВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕМИР ГЕОРГИЕВ ДОБРЕВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕН ЦВЕТАНОВ ФИЛИПОВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИАН БОЖИДАРОВ ДИНЕВ","target":"company:tr:102867567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:radovesta-todorova-styurt-dc0e50",
+  "nodes": [
+    {
+      "id": "official:radovesta-todorova-styurt-dc0e50",
+      "type": "official",
+      "slug": "radovesta-todorova-styurt-dc0e50",
+      "label": "Радовеста Тодорова Стюърт",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102867567",
+      "type": "company",
+      "label": "Сдружение РОТАРИ КЛУБ БУРГАС - ПРИМОРИЕ",
+      "slug": null,
+      "uic": "102867567",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "mp:42",
+      "type": "mp",
+      "mpId": 42,
+      "label": "Йордан Димитров Костадинов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:АНГЕЛ ГЕОРГИЕВ ГАВРИЛОВ",
+      "type": "person",
+      "label": "Ангел Георгиев Гаврилов"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ УЗУНОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Узунов"
+    },
+    {
+      "id": "person:СТОЯН ИВАНОВ БУБАЛОВ",
+      "type": "person",
+      "label": "Стоян Иванов Бубалов"
+    },
+    {
+      "id": "person:СОТИР НИКОЛОВ СОТИРОВ",
+      "type": "person",
+      "label": "Сотир Николов Сотиров"
+    },
+    {
+      "id": "person:ДИМИТЪР НЕДЕЛЧЕВ ПАВЛОВ",
+      "type": "person",
+      "label": "Димитър Неделчев Павлов"
+    },
+    {
+      "id": "person:САВА НЕДЕЛЧЕВ НЕДЕЛЧЕВ",
+      "type": "person",
+      "label": "Сава Неделчев Неделчев"
+    },
+    {
+      "id": "person:ПЕТЪР ВАСИЛЕВ ПОПОВ",
+      "type": "person",
+      "label": "Петър Василев Попов"
+    },
+    {
+      "id": "person:ПЛАМЕН МИЛЧЕВ СТАВРЕВ",
+      "type": "person",
+      "label": "Пламен Милчев Ставрев"
+    },
+    {
+      "id": "person:КРИСТИЯН ГЕОРГИЕВ МИЛЧЕВ",
+      "type": "person",
+      "label": "Кристиян Георгиев Милчев"
+    },
+    {
+      "id": "person:ЮМИТ ЙОЗИЯПЪДЖЪ",
+      "type": "person",
+      "label": "Юмит Йозияпъджъ"
+    },
+    {
+      "id": "person:КАМЕН ЦВЕТАНОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Камен Цветанов Филипов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЕНЧЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Веселин Енчев Димитров"
+    },
+    {
+      "id": "person:ИВАН КОЛЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Иван Колев Колев"
+    },
+    {
+      "id": "person:ДЕМИР ГЕОРГИЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Демир Георгиев Добрев"
+    },
+    {
+      "id": "person:ДИАН БОЖИДАРОВ ДИНЕВ",
+      "type": "person",
+      "label": "Диан Божидаров Динев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radovesta-todorova-styurt-dc0e50",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:42",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ ГАВРИЛОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ ГАВРИЛОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ УЗУНОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ИВАНОВ БУБАЛОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОТИР НИКОЛОВ СОТИРОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НЕДЕЛЧЕВ ПАВЛОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВА НЕДЕЛЧЕВ НЕДЕЛЧЕВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВАСИЛЕВ ПОПОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОТИР НИКОЛОВ СОТИРОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН МИЛЧЕВ СТАВРЕВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН ГЕОРГИЕВ МИЛЧЕВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮМИТ ЙОЗИЯПЪДЖЪ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН ГЕОРГИЕВ МИЛЧЕВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕН ЦВЕТАНОВ ФИЛИПОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЕНЧЕВ ДИМИТРОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КОЛЕВ КОЛЕВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕМИР ГЕОРГИЕВ ДОБРЕВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕН ЦВЕТАНОВ ФИЛИПОВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАН БОЖИДАРОВ ДИНЕВ",
+      "target": "company:tr:102867567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

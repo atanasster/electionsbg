@@ -1,1 +1,138 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-hristov-antonov-420724","nodes":[{"id":"official:nikolai-hristov-antonov-420724","type":"official","slug":"nikolai-hristov-antonov-420724","label":"Николай Христов Антонов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:103003668","type":"company","label":"ГРАДСКИ ТРАНСПОРТ","slug":null,"uic":"103003668","legalForm":null,"status":null,"seat":null},{"id":"official:nedzhib-remziev-nedzhibov-8c9de5","type":"official","slug":"nedzhib-remziev-nedzhibov-8c9de5","label":"Неджиб Ремзиев Неджибов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:КРЕМЕНА ДИМИТРОВА ТРАНАКИЕВА","type":"person","label":"Кремена Димитрова Транакиева"},{"id":"person:КОНСТАНТИН ДИМИТРОВ ГЕНЧЕВ","type":"person","label":"Константин Димитров Генчев"},{"id":"person:ДАНАИЛ ПАВЛОВ ВЪЛКОВ","type":"person","label":"Данаил Павлов Вълков"},{"id":"person:ПЕТЪР НИКОЛОВ ВЪЛКАНОВ","type":"person","label":"Петър Николов Вълканов"},{"id":"person:НИКОЛА ИВАНОВ МАКЕДОНСКИ","type":"person","label":"Никола Иванов Македонски"},{"id":"person:ДИМЧО ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Димчо Георгиев Георгиев"}],"edges":[{"source":"official:nikolai-hristov-antonov-420724","target":"company:tr:103003668","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-hristov-antonov-420724","target":"company:tr:103003668","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:nedzhib-remziev-nedzhibov-8c9de5","target":"company:tr:103003668","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:КРЕМЕНА ДИМИТРОВА ТРАНАКИЕВА","target":"company:tr:103003668","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН ДИМИТРОВ ГЕНЧЕВ","target":"company:tr:103003668","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАНАИЛ ПАВЛОВ ВЪЛКОВ","target":"company:tr:103003668","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР НИКОЛОВ ВЪЛКАНОВ","target":"company:tr:103003668","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ИВАНОВ МАКЕДОНСКИ","target":"company:tr:103003668","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМЧО ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:103003668","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-hristov-antonov-420724",
+  "nodes": [
+    {
+      "id": "official:nikolai-hristov-antonov-420724",
+      "type": "official",
+      "slug": "nikolai-hristov-antonov-420724",
+      "label": "Николай Христов Антонов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103003668",
+      "type": "company",
+      "label": "ГРАДСКИ ТРАНСПОРТ",
+      "slug": null,
+      "uic": "103003668",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nedzhib-remziev-nedzhibov-8c9de5",
+      "type": "official",
+      "slug": "nedzhib-remziev-nedzhibov-8c9de5",
+      "label": "Неджиб Ремзиев Неджибов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:КРЕМЕНА ДИМИТРОВА ТРАНАКИЕВА",
+      "type": "person",
+      "label": "Кремена Димитрова Транакиева"
+    },
+    {
+      "id": "person:КОНСТАНТИН ДИМИТРОВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Константин Димитров Генчев"
+    },
+    {
+      "id": "person:ДАНАИЛ ПАВЛОВ ВЪЛКОВ",
+      "type": "person",
+      "label": "Данаил Павлов Вълков"
+    },
+    {
+      "id": "person:ПЕТЪР НИКОЛОВ ВЪЛКАНОВ",
+      "type": "person",
+      "label": "Петър Николов Вълканов"
+    },
+    {
+      "id": "person:НИКОЛА ИВАНОВ МАКЕДОНСКИ",
+      "type": "person",
+      "label": "Никола Иванов Македонски"
+    },
+    {
+      "id": "person:ДИМЧО ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Димчо Георгиев Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-hristov-antonov-420724",
+      "target": "company:tr:103003668",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-hristov-antonov-420724",
+      "target": "company:tr:103003668",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nedzhib-remziev-nedzhibov-8c9de5",
+      "target": "company:tr:103003668",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРЕМЕНА ДИМИТРОВА ТРАНАКИЕВА",
+      "target": "company:tr:103003668",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ДИМИТРОВ ГЕНЧЕВ",
+      "target": "company:tr:103003668",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ ПАВЛОВ ВЪЛКОВ",
+      "target": "company:tr:103003668",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР НИКОЛОВ ВЪЛКАНОВ",
+      "target": "company:tr:103003668",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ИВАНОВ МАКЕДОНСКИ",
+      "target": "company:tr:103003668",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:103003668",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

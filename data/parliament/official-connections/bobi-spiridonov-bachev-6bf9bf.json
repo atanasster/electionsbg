@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:bobi-spiridonov-bachev-6bf9bf","nodes":[{"id":"official:bobi-spiridonov-bachev-6bf9bf","type":"official","slug":"bobi-spiridonov-bachev-6bf9bf","label":"Боби Спиридонов Бачев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:200609341","type":"company","label":"КОСТИНБРОД ЕКО","slug":null,"uic":"200609341","legalForm":null,"status":null,"seat":null},{"id":"person:ИВО ИВАНОВ ТРИНГОВ","type":"person","label":"Иво Иванов Трингов"},{"id":"person:ТЕОДОРА ИВАНОВА ВЪЛЧЕВА","type":"person","label":"Теодора Иванова Вълчева"},{"id":"person:БАРТ НЕВЕЯНС","type":"person","label":"Барт Невеянс"},{"id":"person:РУМЯНА НЕДЯЛКОВА ВЕЛИЧКОВА.","type":"person","label":"Румяна Недялкова Величкова."},{"id":"person:ГРЕГЪРИ ГИЛБЕРТ Ф КАРИС АЛИАС РЕЙНДЕРС","type":"person","label":"Грегъри Гилберт Ф Карис Алиас Рейндерс"}],"edges":[{"source":"official:bobi-spiridonov-bachev-6bf9bf","target":"company:tr:200609341","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ИВО ИВАНОВ ТРИНГОВ","target":"company:tr:200609341","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ИВАНОВА ВЪЛЧЕВА","target":"company:tr:200609341","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БАРТ НЕВЕЯНС","target":"company:tr:200609341","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА НЕДЯЛКОВА ВЕЛИЧКОВА.","target":"company:tr:200609341","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГРЕГЪРИ ГИЛБЕРТ Ф КАРИС АЛИАС РЕЙНДЕРС","target":"company:tr:200609341","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:bobi-spiridonov-bachev-6bf9bf",
+  "nodes": [
+    {
+      "id": "official:bobi-spiridonov-bachev-6bf9bf",
+      "type": "official",
+      "slug": "bobi-spiridonov-bachev-6bf9bf",
+      "label": "Боби Спиридонов Бачев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200609341",
+      "type": "company",
+      "label": "КОСТИНБРОД ЕКО",
+      "slug": null,
+      "uic": "200609341",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВО ИВАНОВ ТРИНГОВ",
+      "type": "person",
+      "label": "Иво Иванов Трингов"
+    },
+    {
+      "id": "person:ТЕОДОРА ИВАНОВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Теодора Иванова Вълчева"
+    },
+    {
+      "id": "person:БАРТ НЕВЕЯНС",
+      "type": "person",
+      "label": "Барт Невеянс"
+    },
+    {
+      "id": "person:РУМЯНА НЕДЯЛКОВА ВЕЛИЧКОВА.",
+      "type": "person",
+      "label": "Румяна Недялкова Величкова."
+    },
+    {
+      "id": "person:ГРЕГЪРИ ГИЛБЕРТ Ф КАРИС АЛИАС РЕЙНДЕРС",
+      "type": "person",
+      "label": "Грегъри Гилберт Ф Карис Алиас Рейндерс"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bobi-spiridonov-bachev-6bf9bf",
+      "target": "company:tr:200609341",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО ИВАНОВ ТРИНГОВ",
+      "target": "company:tr:200609341",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ИВАНОВА ВЪЛЧЕВА",
+      "target": "company:tr:200609341",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАРТ НЕВЕЯНС",
+      "target": "company:tr:200609341",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА НЕДЯЛКОВА ВЕЛИЧКОВА.",
+      "target": "company:tr:200609341",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРЕГЪРИ ГИЛБЕРТ Ф КАРИС АЛИАС РЕЙНДЕРС",
+      "target": "company:tr:200609341",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

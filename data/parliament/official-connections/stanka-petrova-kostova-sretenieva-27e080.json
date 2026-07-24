@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stanka-petrova-kostova-sretenieva-27e080","nodes":[{"id":"official:stanka-petrova-kostova-sretenieva-27e080","type":"official","slug":"stanka-petrova-kostova-sretenieva-27e080","label":"Станка Петрова Костова-Сретениева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207115587","type":"company","label":"СВЕТАГРО","slug":null,"uic":"207115587","legalForm":null,"status":null,"seat":null},{"id":"person:ДАМЯН СВЕТЛИНОВ АЛЕКСИЕВ","type":"person","label":"Дамян Светлинов Алексиев"},{"id":"person:ДИМАНА СВЕТЛИНОВА ВЕСЕЛИНОВА","type":"person","label":"Димана Светлинова Веселинова"}],"edges":[{"source":"official:stanka-petrova-kostova-sretenieva-27e080","target":"company:tr:207115587","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДАМЯН СВЕТЛИНОВ АЛЕКСИЕВ","target":"company:tr:207115587","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМАНА СВЕТЛИНОВА ВЕСЕЛИНОВА","target":"company:tr:207115587","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАМЯН СВЕТЛИНОВ АЛЕКСИЕВ","target":"company:tr:207115587","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМАНА СВЕТЛИНОВА ВЕСЕЛИНОВА","target":"company:tr:207115587","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stanka-petrova-kostova-sretenieva-27e080",
+  "nodes": [
+    {
+      "id": "official:stanka-petrova-kostova-sretenieva-27e080",
+      "type": "official",
+      "slug": "stanka-petrova-kostova-sretenieva-27e080",
+      "label": "Станка Петрова Костова-Сретениева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207115587",
+      "type": "company",
+      "label": "СВЕТАГРО",
+      "slug": null,
+      "uic": "207115587",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАМЯН СВЕТЛИНОВ АЛЕКСИЕВ",
+      "type": "person",
+      "label": "Дамян Светлинов Алексиев"
+    },
+    {
+      "id": "person:ДИМАНА СВЕТЛИНОВА ВЕСЕЛИНОВА",
+      "type": "person",
+      "label": "Димана Светлинова Веселинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanka-petrova-kostova-sretenieva-27e080",
+      "target": "company:tr:207115587",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАМЯН СВЕТЛИНОВ АЛЕКСИЕВ",
+      "target": "company:tr:207115587",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМАНА СВЕТЛИНОВА ВЕСЕЛИНОВА",
+      "target": "company:tr:207115587",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАМЯН СВЕТЛИНОВ АЛЕКСИЕВ",
+      "target": "company:tr:207115587",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМАНА СВЕТЛИНОВА ВЕСЕЛИНОВА",
+      "target": "company:tr:207115587",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "generatedAt": "2026-07-24T18:01:46.243Z",
   "mpNodeId": "mp:1020",
   "nodes": [
     {
@@ -20,6 +20,15 @@
       "legalForm": "EOOD",
       "status": "active",
       "seat": "БЪЛГАРИЯ, гр. София, 1164"
+    },
+    {
+      "id": "official:stoyan-todorov-mavrodiev-2b5960",
+      "type": "official",
+      "slug": "stoyan-todorov-mavrodiev-2b5960",
+      "label": "Стоян Тодоров Мавродиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
     }
   ],
   "edges": [
@@ -33,6 +42,22 @@
     },
     {
       "source": "mp:1020",
+      "target": "company:tr:207260102",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-todorov-mavrodiev-2b5960",
+      "target": "company:tr:207260102",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-todorov-mavrodiev-2b5960",
       "target": "company:tr:207260102",
       "kind": "tr_owner",
       "role": "sole_owner",

@@ -1,1 +1,406 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:diana-koleva-gureva-1a1dae","nodes":[{"id":"official:diana-koleva-gureva-1a1dae","type":"official","slug":"diana-koleva-gureva-1a1dae","label":"Диана Колева Гурева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:102659057","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СУ &quot;ХРИСТО БОТЕВ&quot;","slug":null,"uic":"102659057","legalForm":null,"status":null,"seat":null},{"id":"official:nikolai-petkov-rusev-bdcd20","type":"official","slug":"nikolai-petkov-rusev-bdcd20","label":"Николай Петков Русев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:АНТОНИЯ АНДРЕЕВА БАЕВА","type":"person","label":"Антония Андреева Баева"},{"id":"person:МАГДАЛЕНА АТАНАСОВА ЧОМАКОВА","type":"person","label":"Магдалена Атанасова Чомакова"},{"id":"person:ИВАНКА ПЕНЧЕВА КАРАГЬОЗОВА","type":"person","label":"Иванка Пенчева Карагьозова"},{"id":"person:ВЕНЦЕСЛАВА ДИМИТРОВА МЕТОДИЕВА","type":"person","label":"Венцеслава Димитрова Методиева"},{"id":"person:ЯНКА РАЧЕВА РУСЧЕВА","type":"person","label":"Янка Рачева Русчева"},{"id":"person:ДАРИНА РАДЕВА ЧАКЪРОВА","type":"person","label":"Дарина Радева Чакърова"},{"id":"person:РОСИЦА ТАНЕВА ГЕОРГИЕВА","type":"person","label":"Росица Танева Георгиева"},{"id":"person:ПЕТЪР ГОСПОДИНОВ ДИНЕВ","type":"person","label":"Петър Господинов Динев"},{"id":"person:ВАСИЛ ПАНДЕЛИЕВ ГЕОРГИЕВ","type":"person","label":"Васил Панделиев Георгиев"},{"id":"person:МАРИЙКА ГЕНЧЕВА ПЕТРОВА","type":"person","label":"Марийка Генчева Петрова"},{"id":"person:ПЕТЪР СТОЯНОВ МУШИЕВ","type":"person","label":"Петър Стоянов Мушиев"},{"id":"person:МАРИЯ ИВАНОВА КАЗАКОВА","type":"person","label":"Мария Иванова Казакова"},{"id":"person:КАТЯ СТОЕВА РУСЕНОВА","type":"person","label":"Катя Стоева Русенова"},{"id":"person:РАДОСТИНА АТАНАСОВА КРЪСТЕВА","type":"person","label":"Радостина Атанасова Кръстева"},{"id":"person:ГЕОРГИ ДИМИТРОВ ТОНЕВ","type":"person","label":"Георги Димитров Тонев"},{"id":"person:ИРЕНА ИВАНОВА ВОДЕВА","type":"person","label":"Ирена Иванова Водева"},{"id":"person:АТАНАС ЖЕКОВ ЖЕКОВ","type":"person","label":"Атанас Жеков Жеков"},{"id":"person:ТАНЯ ВЕЛКОВА ПЕЕВА","type":"person","label":"Таня Велкова Пеева"},{"id":"person:ПЕНКА АНТОНОВА ЖЕКОВА","type":"person","label":"Пенка Антонова Жекова"},{"id":"person:МИТКО ГАНЕВ ДИМИТРОВ","type":"person","label":"Митко Ганев Димитров"},{"id":"person:ДЕСИСЛАВА ВЕСЕЛИНОВА МИРЧЕВА","type":"person","label":"Десислава Веселинова Мирчева"},{"id":"person:НИКОЛИНА СТОЯНОВА СПАСОВА","type":"person","label":"Николина Стоянова Спасова"},{"id":"person:ЖАНЕТА ГАНЕВА ЖЕЧЕВА","type":"person","label":"Жанета Ганева Жечева"},{"id":"person:ВАСИЛКА КОСТОВА МИХАЙЛОВА","type":"person","label":"Василка Костова Михайлова"},{"id":"person:НИНА КОСТАДИНОВА ГРАДИНАРОВА","type":"person","label":"Нина Костадинова Градинарова"},{"id":"person:ИЛИЯНА СЛАВОВА АРАБАДЖИЕВА","type":"person","label":"Илияна Славова Арабаджиева"}],"edges":[{"source":"official:diana-koleva-gureva-1a1dae","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-petkov-rusev-bdcd20","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНТОНИЯ АНДРЕЕВА БАЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА АТАНАСОВА ЧОМАКОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ПЕНЧЕВА КАРАГЬОЗОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦЕСЛАВА ДИМИТРОВА МЕТОДИЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ АНДРЕЕВА БАЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКА РАЧЕВА РУСЧЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИНА РАДЕВА ЧАКЪРОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ТАНЕВА ГЕОРГИЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГОСПОДИНОВ ДИНЕВ","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ПАНДЕЛИЕВ ГЕОРГИЕВ","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЙКА ГЕНЧЕВА ПЕТРОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР СТОЯНОВ МУШИЕВ","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИВАНОВА КАЗАКОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ СТОЕВА РУСЕНОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА АТАНАСОВА КРЪСТЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ДИМИТРОВ ТОНЕВ","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА ИВАНОВА ВОДЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ЖЕКОВ ЖЕКОВ","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ ВЕЛКОВА ПЕЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА АНТОНОВА ЖЕКОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО ГАНЕВ ДИМИТРОВ","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ВЕСЕЛИНОВА МИРЧЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНА СТОЯНОВА СПАСОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖАНЕТА ГАНЕВА ЖЕЧЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛКА КОСТОВА МИХАЙЛОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА АТАНАСОВА КРЪСТЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИНА КОСТАДИНОВА ГРАДИНАРОВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯНА СЛАВОВА АРАБАДЖИЕВА","target":"company:tr:102659057","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:diana-koleva-gureva-1a1dae",
+  "nodes": [
+    {
+      "id": "official:diana-koleva-gureva-1a1dae",
+      "type": "official",
+      "slug": "diana-koleva-gureva-1a1dae",
+      "label": "Диана Колева Гурева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102659057",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СУ &quot;ХРИСТО БОТЕВ&quot;",
+      "slug": null,
+      "uic": "102659057",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nikolai-petkov-rusev-bdcd20",
+      "type": "official",
+      "slug": "nikolai-petkov-rusev-bdcd20",
+      "label": "Николай Петков Русев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:АНТОНИЯ АНДРЕЕВА БАЕВА",
+      "type": "person",
+      "label": "Антония Андреева Баева"
+    },
+    {
+      "id": "person:МАГДАЛЕНА АТАНАСОВА ЧОМАКОВА",
+      "type": "person",
+      "label": "Магдалена Атанасова Чомакова"
+    },
+    {
+      "id": "person:ИВАНКА ПЕНЧЕВА КАРАГЬОЗОВА",
+      "type": "person",
+      "label": "Иванка Пенчева Карагьозова"
+    },
+    {
+      "id": "person:ВЕНЦЕСЛАВА ДИМИТРОВА МЕТОДИЕВА",
+      "type": "person",
+      "label": "Венцеслава Димитрова Методиева"
+    },
+    {
+      "id": "person:ЯНКА РАЧЕВА РУСЧЕВА",
+      "type": "person",
+      "label": "Янка Рачева Русчева"
+    },
+    {
+      "id": "person:ДАРИНА РАДЕВА ЧАКЪРОВА",
+      "type": "person",
+      "label": "Дарина Радева Чакърова"
+    },
+    {
+      "id": "person:РОСИЦА ТАНЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Росица Танева Георгиева"
+    },
+    {
+      "id": "person:ПЕТЪР ГОСПОДИНОВ ДИНЕВ",
+      "type": "person",
+      "label": "Петър Господинов Динев"
+    },
+    {
+      "id": "person:ВАСИЛ ПАНДЕЛИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Васил Панделиев Георгиев"
+    },
+    {
+      "id": "person:МАРИЙКА ГЕНЧЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Марийка Генчева Петрова"
+    },
+    {
+      "id": "person:ПЕТЪР СТОЯНОВ МУШИЕВ",
+      "type": "person",
+      "label": "Петър Стоянов Мушиев"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА КАЗАКОВА",
+      "type": "person",
+      "label": "Мария Иванова Казакова"
+    },
+    {
+      "id": "person:КАТЯ СТОЕВА РУСЕНОВА",
+      "type": "person",
+      "label": "Катя Стоева Русенова"
+    },
+    {
+      "id": "person:РАДОСТИНА АТАНАСОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Радостина Атанасова Кръстева"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ ТОНЕВ",
+      "type": "person",
+      "label": "Георги Димитров Тонев"
+    },
+    {
+      "id": "person:ИРЕНА ИВАНОВА ВОДЕВА",
+      "type": "person",
+      "label": "Ирена Иванова Водева"
+    },
+    {
+      "id": "person:АТАНАС ЖЕКОВ ЖЕКОВ",
+      "type": "person",
+      "label": "Атанас Жеков Жеков"
+    },
+    {
+      "id": "person:ТАНЯ ВЕЛКОВА ПЕЕВА",
+      "type": "person",
+      "label": "Таня Велкова Пеева"
+    },
+    {
+      "id": "person:ПЕНКА АНТОНОВА ЖЕКОВА",
+      "type": "person",
+      "label": "Пенка Антонова Жекова"
+    },
+    {
+      "id": "person:МИТКО ГАНЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Митко Ганев Димитров"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ВЕСЕЛИНОВА МИРЧЕВА",
+      "type": "person",
+      "label": "Десислава Веселинова Мирчева"
+    },
+    {
+      "id": "person:НИКОЛИНА СТОЯНОВА СПАСОВА",
+      "type": "person",
+      "label": "Николина Стоянова Спасова"
+    },
+    {
+      "id": "person:ЖАНЕТА ГАНЕВА ЖЕЧЕВА",
+      "type": "person",
+      "label": "Жанета Ганева Жечева"
+    },
+    {
+      "id": "person:ВАСИЛКА КОСТОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Василка Костова Михайлова"
+    },
+    {
+      "id": "person:НИНА КОСТАДИНОВА ГРАДИНАРОВА",
+      "type": "person",
+      "label": "Нина Костадинова Градинарова"
+    },
+    {
+      "id": "person:ИЛИЯНА СЛАВОВА АРАБАДЖИЕВА",
+      "type": "person",
+      "label": "Илияна Славова Арабаджиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-koleva-gureva-1a1dae",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-petkov-rusev-bdcd20",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОНИЯ АНДРЕЕВА БАЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА АТАНАСОВА ЧОМАКОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ПЕНЧЕВА КАРАГЬОЗОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦЕСЛАВА ДИМИТРОВА МЕТОДИЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ АНДРЕЕВА БАЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА РАЧЕВА РУСЧЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА РАДЕВА ЧАКЪРОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТАНЕВА ГЕОРГИЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГОСПОДИНОВ ДИНЕВ",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ПАНДЕЛИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ГЕНЧЕВА ПЕТРОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СТОЯНОВ МУШИЕВ",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА КАЗАКОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ СТОЕВА РУСЕНОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА АТАНАСОВА КРЪСТЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ ТОНЕВ",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ИВАНОВА ВОДЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ЖЕКОВ ЖЕКОВ",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ВЕЛКОВА ПЕЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА АНТОНОВА ЖЕКОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ГАНЕВ ДИМИТРОВ",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВЕСЕЛИНОВА МИРЧЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА СТОЯНОВА СПАСОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТА ГАНЕВА ЖЕЧЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА КОСТОВА МИХАЙЛОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА АТАНАСОВА КРЪСТЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА КОСТАДИНОВА ГРАДИНАРОВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА СЛАВОВА АРАБАДЖИЕВА",
+      "target": "company:tr:102659057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

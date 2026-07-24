@@ -1,1 +1,241 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetla-ivanova-yarkova-d660f6","nodes":[{"id":"official:svetla-ivanova-yarkova-d660f6","type":"official","slug":"svetla-ivanova-yarkova-d660f6","label":"Светла Иванова Яркова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:117025863","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА - 1901г.&quot;","slug":null,"uic":"117025863","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЙКА ДОНЧЕВА ГЕНОВА","type":"person","label":"Марийка Дончева Генова"},{"id":"person:СВЕТЛА ВАСИЛЕВА ПЕТРОВА","type":"person","label":"Светла Василева  Петрова"},{"id":"person:РУМЯНА РУСЕВА ВЕЛИКОВА","type":"person","label":"Румяна Русева Великова"},{"id":"person:СТЕФКА ТОНЕВА КЕСИМОВА","type":"person","label":"Стефка Тонева Кесимова"},{"id":"person:АНА ПЕТРОВА БУРЕНКОВА","type":"person","label":"Ана Петрова Буренкова"},{"id":"person:ЗЛАТАН ВАНЕВ ВАСИЛЕВ","type":"person","label":"Златан Ванев Василев"},{"id":"person:КАЛИНКА ИВАНОВА АТАНАСОВА-НИКОЛАЕВА","type":"person","label":"Калинка Иванова Атанасова-Николаева"},{"id":"person:ЦВЕТАНА ПЕТРОВА ЯРКОВА","type":"person","label":"Цветана Петрова Яркова"},{"id":"person:ДОРА СТОЯНОВА ТОНЧЕВА","type":"person","label":"Дора Стоянова Тончева"},{"id":"person:ЛЮДМИЛА АНТОНОВА ВЕНКОВА","type":"person","label":"Людмила Антонова Венкова"},{"id":"person:МАРИНКА АТАНАСОВА КОТЛАРОВА","type":"person","label":"Маринка Атанасова Котларова"},{"id":"person:ВАЛЕНТИНА ГЕОРГИЕВА ПЕТРОВА","type":"person","label":"Валентина Георгиева Петрова"},{"id":"person:РОСИЦА БОРИСОВА ЕНЧЕВА","type":"person","label":"Росица Борисова Енчева"},{"id":"person:АНТОНИЯ ЛЮДМИЛОВА КРЪСТЕВА","type":"person","label":"Антония Людмилова Кръстева"}],"edges":[{"source":"official:svetla-ivanova-yarkova-d660f6","target":"company:tr:117025863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЙКА ДОНЧЕВА ГЕНОВА","target":"company:tr:117025863","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА ВАСИЛЕВА ПЕТРОВА","target":"company:tr:117025863","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЙКА ДОНЧЕВА ГЕНОВА","target":"company:tr:117025863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА РУСЕВА ВЕЛИКОВА","target":"company:tr:117025863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ТОНЕВА КЕСИМОВА","target":"company:tr:117025863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА ВАСИЛЕВА ПЕТРОВА","target":"company:tr:117025863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНА ПЕТРОВА БУРЕНКОВА","target":"company:tr:117025863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТАН ВАНЕВ ВАСИЛЕВ","target":"company:tr:117025863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНКА ИВАНОВА АТАНАСОВА-НИКОЛАЕВА","target":"company:tr:117025863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНА ПЕТРОВА ЯРКОВА","target":"company:tr:117025863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДОРА СТОЯНОВА ТОНЧЕВА","target":"company:tr:117025863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТАН ВАНЕВ ВАСИЛЕВ","target":"company:tr:117025863","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛА АНТОНОВА ВЕНКОВА","target":"company:tr:117025863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНКА АТАНАСОВА КОТЛАРОВА","target":"company:tr:117025863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ГЕОРГИЕВА ПЕТРОВА","target":"company:tr:117025863","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА БОРИСОВА ЕНЧЕВА","target":"company:tr:117025863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ЛЮДМИЛОВА КРЪСТЕВА","target":"company:tr:117025863","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetla-ivanova-yarkova-d660f6",
+  "nodes": [
+    {
+      "id": "official:svetla-ivanova-yarkova-d660f6",
+      "type": "official",
+      "slug": "svetla-ivanova-yarkova-d660f6",
+      "label": "Светла Иванова Яркова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117025863",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА - 1901г.&quot;",
+      "slug": null,
+      "uic": "117025863",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЙКА ДОНЧЕВА ГЕНОВА",
+      "type": "person",
+      "label": "Марийка Дончева Генова"
+    },
+    {
+      "id": "person:СВЕТЛА ВАСИЛЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Светла Василева  Петрова"
+    },
+    {
+      "id": "person:РУМЯНА РУСЕВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Румяна Русева Великова"
+    },
+    {
+      "id": "person:СТЕФКА ТОНЕВА КЕСИМОВА",
+      "type": "person",
+      "label": "Стефка Тонева Кесимова"
+    },
+    {
+      "id": "person:АНА ПЕТРОВА БУРЕНКОВА",
+      "type": "person",
+      "label": "Ана Петрова Буренкова"
+    },
+    {
+      "id": "person:ЗЛАТАН ВАНЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Златан Ванев Василев"
+    },
+    {
+      "id": "person:КАЛИНКА ИВАНОВА АТАНАСОВА-НИКОЛАЕВА",
+      "type": "person",
+      "label": "Калинка Иванова Атанасова-Николаева"
+    },
+    {
+      "id": "person:ЦВЕТАНА ПЕТРОВА ЯРКОВА",
+      "type": "person",
+      "label": "Цветана Петрова Яркова"
+    },
+    {
+      "id": "person:ДОРА СТОЯНОВА ТОНЧЕВА",
+      "type": "person",
+      "label": "Дора Стоянова Тончева"
+    },
+    {
+      "id": "person:ЛЮДМИЛА АНТОНОВА ВЕНКОВА",
+      "type": "person",
+      "label": "Людмила Антонова Венкова"
+    },
+    {
+      "id": "person:МАРИНКА АТАНАСОВА КОТЛАРОВА",
+      "type": "person",
+      "label": "Маринка Атанасова Котларова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ГЕОРГИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Валентина Георгиева Петрова"
+    },
+    {
+      "id": "person:РОСИЦА БОРИСОВА ЕНЧЕВА",
+      "type": "person",
+      "label": "Росица Борисова Енчева"
+    },
+    {
+      "id": "person:АНТОНИЯ ЛЮДМИЛОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Антония Людмилова Кръстева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetla-ivanova-yarkova-d660f6",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЙКА ДОНЧЕВА ГЕНОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ВАСИЛЕВА ПЕТРОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ДОНЧЕВА ГЕНОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА РУСЕВА ВЕЛИКОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ТОНЕВА КЕСИМОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ВАСИЛЕВА ПЕТРОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА ПЕТРОВА БУРЕНКОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТАН ВАНЕВ ВАСИЛЕВ",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ИВАНОВА АТАНАСОВА-НИКОЛАЕВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНА ПЕТРОВА ЯРКОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА СТОЯНОВА ТОНЧЕВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТАН ВАНЕВ ВАСИЛЕВ",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА АНТОНОВА ВЕНКОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНКА АТАНАСОВА КОТЛАРОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ГЕОРГИЕВА ПЕТРОВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА БОРИСОВА ЕНЧЕВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ЛЮДМИЛОВА КРЪСТЕВА",
+      "target": "company:tr:117025863",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,87 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kalin-toshkov-terziiski-22a3ff","nodes":[{"id":"official:kalin-toshkov-terziiski-22a3ff","type":"official","slug":"kalin-toshkov-terziiski-22a3ff","label":"Калин Тошков Терзийски","tier":"municipal","role":"councillor","municipality":"Сандански"},{"id":"company:tr:202580454","type":"company","label":"Кинт Трейд ЕООД","slug":null,"uic":"202580454","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207618414","type":"company","label":"Пирин Трейд Груп ЕООД","slug":null,"uic":"207618414","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206194400","type":"company","label":"Ти и Джи Пропърти ООД","slug":null,"uic":"206194400","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:kalin-toshkov-terziiski-22a3ff","target":"company:tr:202580454","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:kalin-toshkov-terziiski-22a3ff","target":"company:tr:207618414","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:kalin-toshkov-terziiski-22a3ff","target":"company:tr:206194400","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:kalin-toshkov-terziiski-22a3ff","target":"company:tr:207618414","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:kalin-toshkov-terziiski-22a3ff","target":"company:tr:207618414","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kalin-toshkov-terziiski-22a3ff",
+  "nodes": [
+    {
+      "id": "official:kalin-toshkov-terziiski-22a3ff",
+      "type": "official",
+      "slug": "kalin-toshkov-terziiski-22a3ff",
+      "label": "Калин Тошков Терзийски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:202580454",
+      "type": "company",
+      "label": "Кинт Трейд ЕООД",
+      "slug": null,
+      "uic": "202580454",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207618414",
+      "type": "company",
+      "label": "Пирин Трейд Груп ЕООД",
+      "slug": null,
+      "uic": "207618414",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206194400",
+      "type": "company",
+      "label": "Ти и Джи Пропърти ООД",
+      "slug": null,
+      "uic": "206194400",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kalin-toshkov-terziiski-22a3ff",
+      "target": "company:tr:202580454",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kalin-toshkov-terziiski-22a3ff",
+      "target": "company:tr:207618414",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kalin-toshkov-terziiski-22a3ff",
+      "target": "company:tr:206194400",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kalin-toshkov-terziiski-22a3ff",
+      "target": "company:tr:207618414",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kalin-toshkov-terziiski-22a3ff",
+      "target": "company:tr:207618414",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

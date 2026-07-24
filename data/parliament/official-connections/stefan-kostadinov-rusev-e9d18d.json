@@ -1,1 +1,186 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stefan-kostadinov-rusev-e9d18d","nodes":[{"id":"official:stefan-kostadinov-rusev-e9d18d","type":"official","slug":"stefan-kostadinov-rusev-e9d18d","label":"Стефан Костадинов Русев","tier":"municipal","role":"councillor","municipality":"Кайнарджа"},{"id":"company:tr:000560276","type":"company","label":"ОТЕЦ ПАИСИЙ - 1942","slug":null,"uic":"000560276","legalForm":null,"status":null,"seat":null},{"id":"person:ДАФИНКА ГЕОРГИЕВА СТАНЕВА","type":"person","label":"Дафинка Георгиева Станева"},{"id":"person:ДИМИТРИНА КОЛЕВА ПИПИДЖИЕВА","type":"person","label":"Димитрина Колева Пипиджиева"},{"id":"person:ПЛАМЕНКА ЙОРДАНОВА ВАСИЛЕВА","type":"person","label":"Пламенка Йорданова Василева"},{"id":"person:КЕРАНА АТАНАСОВА НЕДКОВА","type":"person","label":"Керана Атанасова Недкова"},{"id":"person:ХРИСТИНКА РУСЕВА ПЕТКОВА","type":"person","label":"Христинка Русева Петкова"},{"id":"person:ИВАНКА СТЕФАНОВА МАРИНОВА","type":"person","label":"Иванка Стефанова Маринова"},{"id":"person:ИВАНКА СТОЯНОВА ТОКУШЕВА","type":"person","label":"Иванка Стоянова Токушева"},{"id":"person:ГИНКА КОСТАДИНОВА ТОДОРОВА","type":"person","label":"Гинка Костадинова Тодорова"},{"id":"person:КРАСИМИРА СТОЯНОВА ПЕТКОВА","type":"person","label":"Красимира Стоянова Петкова"},{"id":"person:ПЕТЪР ПЛАМЕНОВ КОВАЧЕВ","type":"person","label":"Петър Пламенов Ковачев"},{"id":"person:ЖИВКА НИКОЛОВА НИКОЛОВА","type":"person","label":"Живка Николова Николова"}],"edges":[{"source":"official:stefan-kostadinov-rusev-e9d18d","target":"company:tr:000560276","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ДАФИНКА ГЕОРГИЕВА СТАНЕВА","target":"company:tr:000560276","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА КОЛЕВА ПИПИДЖИЕВА","target":"company:tr:000560276","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕНКА ЙОРДАНОВА ВАСИЛЕВА","target":"company:tr:000560276","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КЕРАНА АТАНАСОВА НЕДКОВА","target":"company:tr:000560276","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНКА РУСЕВА ПЕТКОВА","target":"company:tr:000560276","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА СТЕФАНОВА МАРИНОВА","target":"company:tr:000560276","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА СТОЯНОВА ТОКУШЕВА","target":"company:tr:000560276","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА КОЛЕВА ПИПИДЖИЕВА","target":"company:tr:000560276","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА КОСТАДИНОВА ТОДОРОВА","target":"company:tr:000560276","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА СТОЯНОВА ПЕТКОВА","target":"company:tr:000560276","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ПЛАМЕНОВ КОВАЧЕВ","target":"company:tr:000560276","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКА НИКОЛОВА НИКОЛОВА","target":"company:tr:000560276","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stefan-kostadinov-rusev-e9d18d",
+  "nodes": [
+    {
+      "id": "official:stefan-kostadinov-rusev-e9d18d",
+      "type": "official",
+      "slug": "stefan-kostadinov-rusev-e9d18d",
+      "label": "Стефан Костадинов Русев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кайнарджа"
+    },
+    {
+      "id": "company:tr:000560276",
+      "type": "company",
+      "label": "ОТЕЦ ПАИСИЙ - 1942",
+      "slug": null,
+      "uic": "000560276",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАФИНКА ГЕОРГИЕВА СТАНЕВА",
+      "type": "person",
+      "label": "Дафинка Георгиева Станева"
+    },
+    {
+      "id": "person:ДИМИТРИНА КОЛЕВА ПИПИДЖИЕВА",
+      "type": "person",
+      "label": "Димитрина Колева Пипиджиева"
+    },
+    {
+      "id": "person:ПЛАМЕНКА ЙОРДАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Пламенка Йорданова Василева"
+    },
+    {
+      "id": "person:КЕРАНА АТАНАСОВА НЕДКОВА",
+      "type": "person",
+      "label": "Керана Атанасова Недкова"
+    },
+    {
+      "id": "person:ХРИСТИНКА РУСЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Христинка Русева Петкова"
+    },
+    {
+      "id": "person:ИВАНКА СТЕФАНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Иванка Стефанова Маринова"
+    },
+    {
+      "id": "person:ИВАНКА СТОЯНОВА ТОКУШЕВА",
+      "type": "person",
+      "label": "Иванка Стоянова Токушева"
+    },
+    {
+      "id": "person:ГИНКА КОСТАДИНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Гинка Костадинова Тодорова"
+    },
+    {
+      "id": "person:КРАСИМИРА СТОЯНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Красимира Стоянова Петкова"
+    },
+    {
+      "id": "person:ПЕТЪР ПЛАМЕНОВ КОВАЧЕВ",
+      "type": "person",
+      "label": "Петър Пламенов Ковачев"
+    },
+    {
+      "id": "person:ЖИВКА НИКОЛОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Живка Николова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-kostadinov-rusev-e9d18d",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАФИНКА ГЕОРГИЕВА СТАНЕВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА КОЛЕВА ПИПИДЖИЕВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНКА ЙОРДАНОВА ВАСИЛЕВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕРАНА АТАНАСОВА НЕДКОВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНКА РУСЕВА ПЕТКОВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА СТЕФАНОВА МАРИНОВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА СТОЯНОВА ТОКУШЕВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА КОЛЕВА ПИПИДЖИЕВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА КОСТАДИНОВА ТОДОРОВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СТОЯНОВА ПЕТКОВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ПЛАМЕНОВ КОВАЧЕВ",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА НИКОЛОВА НИКОЛОВА",
+      "target": "company:tr:000560276",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

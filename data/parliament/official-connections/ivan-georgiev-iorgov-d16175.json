@@ -1,1 +1,139 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-georgiev-iorgov-d16175","nodes":[{"id":"official:ivan-georgiev-iorgov-d16175","type":"official","slug":"ivan-georgiev-iorgov-d16175","label":"Иван Георгиев Йоргов","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:128015361","type":"company","label":"СДРУЖЕНИЕ &quot;СПОРТЕН КЛУБ БОРБА И САМБО - ЯМБОЛ&quot;","slug":null,"uic":"128015361","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ДРАГОВ ДИНЕВ","type":"person","label":"Георги Драгов Динев"},{"id":"person:НЕДКО ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Недко Георгиев Георгиев"},{"id":"person:ПЕТКО ГЕОРГИЕВ САРАКОСТОВ","type":"person","label":"Петко Георгиев Саракостов"},{"id":"person:РУСЛАН МИТКОВ ДИМИТРОВ","type":"person","label":"Руслан Митков Димитров"},{"id":"person:ХРИСТО ВЕСЕЛИНОВ ГЕОРГИЕВ","type":"person","label":"Христо Веселинов Георгиев"},{"id":"person:ТЕНЬО ЕНЧЕВ ТЕНЕВ","type":"person","label":"Теньо Енчев Тенев"},{"id":"person:СЪБИН МИТКОВ ДАНЧЕВ","type":"person","label":"Събин Митков Данчев"},{"id":"person:ГЕОРГИ ДИМИТРОВ ГЕОРГИЕВ","type":"person","label":"Георги Димитров Георгиев"}],"edges":[{"source":"official:ivan-georgiev-iorgov-d16175","target":"company:tr:128015361","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ДРАГОВ ДИНЕВ","target":"company:tr:128015361","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКО ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:128015361","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ГЕОРГИЕВ САРАКОСТОВ","target":"company:tr:128015361","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУСЛАН МИТКОВ ДИМИТРОВ","target":"company:tr:128015361","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ВЕСЕЛИНОВ ГЕОРГИЕВ","target":"company:tr:128015361","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕНЬО ЕНЧЕВ ТЕНЕВ","target":"company:tr:128015361","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЪБИН МИТКОВ ДАНЧЕВ","target":"company:tr:128015361","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ДИМИТРОВ ГЕОРГИЕВ","target":"company:tr:128015361","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-georgiev-iorgov-d16175",
+  "nodes": [
+    {
+      "id": "official:ivan-georgiev-iorgov-d16175",
+      "type": "official",
+      "slug": "ivan-georgiev-iorgov-d16175",
+      "label": "Иван Георгиев Йоргов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:128015361",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;СПОРТЕН КЛУБ БОРБА И САМБО - ЯМБОЛ&quot;",
+      "slug": null,
+      "uic": "128015361",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ДРАГОВ ДИНЕВ",
+      "type": "person",
+      "label": "Георги Драгов Динев"
+    },
+    {
+      "id": "person:НЕДКО ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Недко Георгиев Георгиев"
+    },
+    {
+      "id": "person:ПЕТКО ГЕОРГИЕВ САРАКОСТОВ",
+      "type": "person",
+      "label": "Петко Георгиев Саракостов"
+    },
+    {
+      "id": "person:РУСЛАН МИТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Руслан Митков Димитров"
+    },
+    {
+      "id": "person:ХРИСТО ВЕСЕЛИНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Христо Веселинов Георгиев"
+    },
+    {
+      "id": "person:ТЕНЬО ЕНЧЕВ ТЕНЕВ",
+      "type": "person",
+      "label": "Теньо Енчев Тенев"
+    },
+    {
+      "id": "person:СЪБИН МИТКОВ ДАНЧЕВ",
+      "type": "person",
+      "label": "Събин Митков Данчев"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Димитров Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-georgiev-iorgov-d16175",
+      "target": "company:tr:128015361",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ДРАГОВ ДИНЕВ",
+      "target": "company:tr:128015361",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:128015361",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ГЕОРГИЕВ САРАКОСТОВ",
+      "target": "company:tr:128015361",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСЛАН МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:128015361",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВЕСЕЛИНОВ ГЕОРГИЕВ",
+      "target": "company:tr:128015361",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕНЬО ЕНЧЕВ ТЕНЕВ",
+      "target": "company:tr:128015361",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБИН МИТКОВ ДАНЧЕВ",
+      "target": "company:tr:128015361",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:128015361",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

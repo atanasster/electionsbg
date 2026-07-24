@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mladen-stoyanov-ivanov-9cfbe9","nodes":[{"id":"official:mladen-stoyanov-ivanov-9cfbe9","type":"official","slug":"mladen-stoyanov-ivanov-9cfbe9","label":"Младен Стоянов Иванов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:208145793","type":"company","label":"МАРИНА ВЮ","slug":null,"uic":"208145793","legalForm":null,"status":null,"seat":null},{"id":"person:СТАНИМИР ГАНЧЕВ ПЕНЧЕВ","type":"person","label":"Станимир Ганчев Пенчев"}],"edges":[{"source":"official:mladen-stoyanov-ivanov-9cfbe9","target":"company:tr:208145793","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mladen-stoyanov-ivanov-9cfbe9","target":"company:tr:208145793","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СТАНИМИР ГАНЧЕВ ПЕНЧЕВ","target":"company:tr:208145793","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mladen-stoyanov-ivanov-9cfbe9",
+  "nodes": [
+    {
+      "id": "official:mladen-stoyanov-ivanov-9cfbe9",
+      "type": "official",
+      "slug": "mladen-stoyanov-ivanov-9cfbe9",
+      "label": "Младен Стоянов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208145793",
+      "type": "company",
+      "label": "МАРИНА ВЮ",
+      "slug": null,
+      "uic": "208145793",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИМИР ГАНЧЕВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Станимир Ганчев Пенчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mladen-stoyanov-ivanov-9cfbe9",
+      "target": "company:tr:208145793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mladen-stoyanov-ivanov-9cfbe9",
+      "target": "company:tr:208145793",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИМИР ГАНЧЕВ ПЕНЧЕВ",
+      "target": "company:tr:208145793",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

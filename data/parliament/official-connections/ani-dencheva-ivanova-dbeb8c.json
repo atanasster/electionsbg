@@ -1,1 +1,242 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ani-dencheva-ivanova-dbeb8c","nodes":[{"id":"official:ani-dencheva-ivanova-dbeb8c","type":"official","slug":"ani-dencheva-ivanova-dbeb8c","label":"Ани Денчева Иванова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:107061494","type":"company","label":"СВ. СВ. КИРИЛ И МЕТОДИЙ - 1928","slug":null,"uic":"107061494","legalForm":null,"status":null,"seat":null},{"id":"official:desislava-krasimirova-mincheva-dba11e","type":"official","slug":"desislava-krasimirova-mincheva-dba11e","label":"Десислава Красимирова Минчева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ХРИСТО ИВАНОВ КОЛЕВ","type":"person","label":"Христо Иванов Колев"},{"id":"person:БОЖАНА МИНЧЕВА ШАНДУРКОВА","type":"person","label":"Божана Минчева Шандуркова"},{"id":"person:ТАТЯНА ЦАНКОВА ПЕЕВА","type":"person","label":"Татяна Цанкова Пеева"},{"id":"person:НЕДКА ПЕНЧЕВА ПЕНЧЕВА","type":"person","label":"Недка Пенчева Пенчева"},{"id":"person:МАРИЯНА ИВАНОВА КОЛЕВА","type":"person","label":"Марияна Иванова Колева"},{"id":"person:ПЕТКО ЗЛАТЕВ ЗЛАТЕВ","type":"person","label":"Петко Златев Златев"},{"id":"person:НАДЕЖДА ДОНЧЕВА ДОНЧЕВА","type":"person","label":"Надежда Дончева Дончева"},{"id":"person:ТАТЯНА СЕРЬОЖЕВА МАРИНЧЕВА","type":"person","label":"Татяна Серьожева Маринчева"},{"id":"person:ТАНЯ НЕСТОРОВА НЕСТОРОВА-ВЛАДОВА","type":"person","label":"Таня Несторова Несторова-Владова"},{"id":"person:СТАНИМИР ГЕОРГИЕВ СТОЯНОВ","type":"person","label":"Станимир Георгиев Стоянов"},{"id":"person:ВИКТОРИЯ ВАСИЛЕВА ПЕТРОВА","type":"person","label":"Виктория Василева Петрова"},{"id":"person:ПЛАМЕН ТИХОМИРОВ ТРИФОНОВ","type":"person","label":"Пламен Тихомиров Трифонов"},{"id":"person:ДИЛЯНА СТЕФАНОВА СТЕФАНОВА","type":"person","label":"Диляна Стефанова Стефанова"},{"id":"person:ХРИСТИНА ЦОНКОВА ТИНЧЕВА","type":"person","label":"Христина Цонкова Тинчева"}],"edges":[{"source":"official:ani-dencheva-ivanova-dbeb8c","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:desislava-krasimirova-mincheva-dba11e","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО ИВАНОВ КОЛЕВ","target":"company:tr:107061494","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОЖАНА МИНЧЕВА ШАНДУРКОВА","target":"company:tr:107061494","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ КОЛЕВ","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА ЦАНКОВА ПЕЕВА","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКА ПЕНЧЕВА ПЕНЧЕВА","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА ИВАНОВА КОЛЕВА","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ЗЛАТЕВ ЗЛАТЕВ","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА ДОНЧЕВА ДОНЧЕВА","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА СЕРЬОЖЕВА МАРИНЧЕВА","target":"company:tr:107061494","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ НЕСТОРОВА НЕСТОРОВА-ВЛАДОВА","target":"company:tr:107061494","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИР ГЕОРГИЕВ СТОЯНОВ","target":"company:tr:107061494","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ ВАСИЛЕВА ПЕТРОВА","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ТИХОМИРОВ ТРИФОНОВ","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИЛЯНА СТЕФАНОВА СТЕФАНОВА","target":"company:tr:107061494","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА ЦОНКОВА ТИНЧЕВА","target":"company:tr:107061494","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ani-dencheva-ivanova-dbeb8c",
+  "nodes": [
+    {
+      "id": "official:ani-dencheva-ivanova-dbeb8c",
+      "type": "official",
+      "slug": "ani-dencheva-ivanova-dbeb8c",
+      "label": "Ани Денчева Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107061494",
+      "type": "company",
+      "label": "СВ. СВ. КИРИЛ И МЕТОДИЙ - 1928",
+      "slug": null,
+      "uic": "107061494",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:desislava-krasimirova-mincheva-dba11e",
+      "type": "official",
+      "slug": "desislava-krasimirova-mincheva-dba11e",
+      "label": "Десислава Красимирова Минчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Христо Иванов Колев"
+    },
+    {
+      "id": "person:БОЖАНА МИНЧЕВА ШАНДУРКОВА",
+      "type": "person",
+      "label": "Божана Минчева Шандуркова"
+    },
+    {
+      "id": "person:ТАТЯНА ЦАНКОВА ПЕЕВА",
+      "type": "person",
+      "label": "Татяна Цанкова Пеева"
+    },
+    {
+      "id": "person:НЕДКА ПЕНЧЕВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Недка Пенчева Пенчева"
+    },
+    {
+      "id": "person:МАРИЯНА ИВАНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Марияна Иванова Колева"
+    },
+    {
+      "id": "person:ПЕТКО ЗЛАТЕВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Петко Златев Златев"
+    },
+    {
+      "id": "person:НАДЕЖДА ДОНЧЕВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Надежда Дончева Дончева"
+    },
+    {
+      "id": "person:ТАТЯНА СЕРЬОЖЕВА МАРИНЧЕВА",
+      "type": "person",
+      "label": "Татяна Серьожева Маринчева"
+    },
+    {
+      "id": "person:ТАНЯ НЕСТОРОВА НЕСТОРОВА-ВЛАДОВА",
+      "type": "person",
+      "label": "Таня Несторова Несторова-Владова"
+    },
+    {
+      "id": "person:СТАНИМИР ГЕОРГИЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Станимир Георгиев Стоянов"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ВАСИЛЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Виктория Василева Петрова"
+    },
+    {
+      "id": "person:ПЛАМЕН ТИХОМИРОВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Пламен Тихомиров Трифонов"
+    },
+    {
+      "id": "person:ДИЛЯНА СТЕФАНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Диляна Стефанова Стефанова"
+    },
+    {
+      "id": "person:ХРИСТИНА ЦОНКОВА ТИНЧЕВА",
+      "type": "person",
+      "label": "Христина Цонкова Тинчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ani-dencheva-ivanova-dbeb8c",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:desislava-krasimirova-mincheva-dba11e",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ КОЛЕВ",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖАНА МИНЧЕВА ШАНДУРКОВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ КОЛЕВ",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ЦАНКОВА ПЕЕВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКА ПЕНЧЕВА ПЕНЧЕВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ИВАНОВА КОЛЕВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ЗЛАТЕВ ЗЛАТЕВ",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ДОНЧЕВА ДОНЧЕВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА СЕРЬОЖЕВА МАРИНЧЕВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ НЕСТОРОВА НЕСТОРОВА-ВЛАДОВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ГЕОРГИЕВ СТОЯНОВ",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ВАСИЛЕВА ПЕТРОВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ТИХОМИРОВ ТРИФОНОВ",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА СТЕФАНОВА СТЕФАНОВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ЦОНКОВА ТИНЧЕВА",
+      "target": "company:tr:107061494",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

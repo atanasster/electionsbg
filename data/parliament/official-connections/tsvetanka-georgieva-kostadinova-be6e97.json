@@ -1,1 +1,259 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetanka-georgieva-kostadinova-be6e97","nodes":[{"id":"official:tsvetanka-georgieva-kostadinova-be6e97","type":"official","slug":"tsvetanka-georgieva-kostadinova-be6e97","label":"Цветанка Георгиева Костадинова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000379963","type":"company","label":"Народно Читалище &quot;Климент Охридски  - 1915 г.","slug":null,"uic":"000379963","legalForm":null,"status":null,"seat":null},{"id":"person:АНАСТАСИЯ СПАСОВА ЧОВАНСКА","type":"person","label":"Анастасия Спасова Чованска"},{"id":"person:ГЕРГАНА АСЕНОВА МИХАЙЛОВА","type":"person","label":"Гергана Асенова Михайлова"},{"id":"person:ДЕСИТА ИВАНОВА КУЛИН","type":"person","label":"Десита Иванова Кулин"},{"id":"person:МАРИЯНА ИВАНОВА ВЛАДИЧКА","type":"person","label":"Марияна Иванова Владичка"},{"id":"person:РОСИЦА НЕДЕЛЧЕВА ВЕЛИНОВА","type":"person","label":"Росица Неделчева Велинова"},{"id":"person:РОЗА РАЙЧЕВА ГЕОРГИЕВА","type":"person","label":"Роза Райчева Георгиева"},{"id":"person:ВАНЯ ПЪРВАНОВА ОГНЯНОВА-АНАЧКОВА","type":"person","label":"Ваня Първанова Огнянова-Аначкова"},{"id":"person:МАРГАРИТА ВАСИЛЕВА РАНГЕЛОВА","type":"person","label":"Маргарита Василева Рангелова"},{"id":"person:ЙОРДАНКА ГЕОРГИЕВА АТАНАСОВА","type":"person","label":"Йорданка Георгиева Атанасова"},{"id":"person:ВЕЛИСЛАВ ДЕНЧОВ НИКОЛОВ","type":"person","label":"Велислав Денчов Николов"},{"id":"person:ИВАЙЛО БОРЧЕВ ВАСИЛЕВ","type":"person","label":"Ивайло Борчев Василев"},{"id":"person:ВЕЛИЧКО МЕТОДИЕВ ВАСИЛЕВ","type":"person","label":"Величко Методиев Василев"},{"id":"person:РАДОСЛАВ ГЕОРГИЕВ ХРИСТОВ","type":"person","label":"Радослав Георгиев Христов"},{"id":"person:СИЛВИЯ ГЕОРГИЕВА ГЕОРГИЕВА","type":"person","label":"Силвия Георгиева Георгиева"},{"id":"person:ЛИЛИЯ ГЕОРГИЕВА ДИМИТРОВА","type":"person","label":"Лилия Георгиева Димитрова"},{"id":"person:ПЛАМЕН СТЕФАНОВ ДИМИТРОВ","type":"person","label":"Пламен Стефанов Димитров"}],"edges":[{"source":"official:tsvetanka-georgieva-kostadinova-be6e97","target":"company:tr:000379963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:АНАСТАСИЯ СПАСОВА ЧОВАНСКА","target":"company:tr:000379963","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА АСЕНОВА МИХАЙЛОВА","target":"company:tr:000379963","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИТА ИВАНОВА КУЛИН","target":"company:tr:000379963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНАСТАСИЯ СПАСОВА ЧОВАНСКА","target":"company:tr:000379963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА ИВАНОВА ВЛАДИЧКА","target":"company:tr:000379963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА НЕДЕЛЧЕВА ВЕЛИНОВА","target":"company:tr:000379963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОЗА РАЙЧЕВА ГЕОРГИЕВА","target":"company:tr:000379963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ПЪРВАНОВА ОГНЯНОВА-АНАЧКОВА","target":"company:tr:000379963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА ВАСИЛЕВА РАНГЕЛОВА","target":"company:tr:000379963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ГЕОРГИЕВА АТАНАСОВА","target":"company:tr:000379963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИСЛАВ ДЕНЧОВ НИКОЛОВ","target":"company:tr:000379963","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИСЛАВ ДЕНЧОВ НИКОЛОВ","target":"company:tr:000379963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО БОРЧЕВ ВАСИЛЕВ","target":"company:tr:000379963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЧКО МЕТОДИЕВ ВАСИЛЕВ","target":"company:tr:000379963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ГЕОРГИЕВ ХРИСТОВ","target":"company:tr:000379963","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ ГЕОРГИЕВА ГЕОРГИЕВА","target":"company:tr:000379963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛИЯ ГЕОРГИЕВА ДИМИТРОВА","target":"company:tr:000379963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН СТЕФАНОВ ДИМИТРОВ","target":"company:tr:000379963","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetanka-georgieva-kostadinova-be6e97",
+  "nodes": [
+    {
+      "id": "official:tsvetanka-georgieva-kostadinova-be6e97",
+      "type": "official",
+      "slug": "tsvetanka-georgieva-kostadinova-be6e97",
+      "label": "Цветанка Георгиева Костадинова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000379963",
+      "type": "company",
+      "label": "Народно Читалище &quot;Климент Охридски  - 1915 г.",
+      "slug": null,
+      "uic": "000379963",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНАСТАСИЯ СПАСОВА ЧОВАНСКА",
+      "type": "person",
+      "label": "Анастасия Спасова Чованска"
+    },
+    {
+      "id": "person:ГЕРГАНА АСЕНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Гергана Асенова Михайлова"
+    },
+    {
+      "id": "person:ДЕСИТА ИВАНОВА КУЛИН",
+      "type": "person",
+      "label": "Десита Иванова Кулин"
+    },
+    {
+      "id": "person:МАРИЯНА ИВАНОВА ВЛАДИЧКА",
+      "type": "person",
+      "label": "Марияна Иванова Владичка"
+    },
+    {
+      "id": "person:РОСИЦА НЕДЕЛЧЕВА ВЕЛИНОВА",
+      "type": "person",
+      "label": "Росица Неделчева Велинова"
+    },
+    {
+      "id": "person:РОЗА РАЙЧЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Роза Райчева Георгиева"
+    },
+    {
+      "id": "person:ВАНЯ ПЪРВАНОВА ОГНЯНОВА-АНАЧКОВА",
+      "type": "person",
+      "label": "Ваня Първанова Огнянова-Аначкова"
+    },
+    {
+      "id": "person:МАРГАРИТА ВАСИЛЕВА РАНГЕЛОВА",
+      "type": "person",
+      "label": "Маргарита Василева Рангелова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ГЕОРГИЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Йорданка Георгиева Атанасова"
+    },
+    {
+      "id": "person:ВЕЛИСЛАВ ДЕНЧОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Велислав Денчов Николов"
+    },
+    {
+      "id": "person:ИВАЙЛО БОРЧЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Ивайло Борчев Василев"
+    },
+    {
+      "id": "person:ВЕЛИЧКО МЕТОДИЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Величко Методиев Василев"
+    },
+    {
+      "id": "person:РАДОСЛАВ ГЕОРГИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Радослав Георгиев Христов"
+    },
+    {
+      "id": "person:СИЛВИЯ ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Силвия Георгиева Георгиева"
+    },
+    {
+      "id": "person:ЛИЛИЯ ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Лилия Георгиева Димитрова"
+    },
+    {
+      "id": "person:ПЛАМЕН СТЕФАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Пламен Стефанов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetanka-georgieva-kostadinova-be6e97",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНАСТАСИЯ СПАСОВА ЧОВАНСКА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА АСЕНОВА МИХАЙЛОВА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИТА ИВАНОВА КУЛИН",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАСТАСИЯ СПАСОВА ЧОВАНСКА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ИВАНОВА ВЛАДИЧКА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА НЕДЕЛЧЕВА ВЕЛИНОВА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОЗА РАЙЧЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ПЪРВАНОВА ОГНЯНОВА-АНАЧКОВА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ВАСИЛЕВА РАНГЕЛОВА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ГЕОРГИЕВА АТАНАСОВА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИСЛАВ ДЕНЧОВ НИКОЛОВ",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИСЛАВ ДЕНЧОВ НИКОЛОВ",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО БОРЧЕВ ВАСИЛЕВ",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКО МЕТОДИЕВ ВАСИЛЕВ",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН СТЕФАНОВ ДИМИТРОВ",
+      "target": "company:tr:000379963",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,199 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-stefkov-stavrev-8e31a2","nodes":[{"id":"official:dimitr-stefkov-stavrev-8e31a2","type":"official","slug":"dimitr-stefkov-stavrev-8e31a2","label":"Димитър Стефков Ставрев","tier":"municipal","role":"councillor","municipality":"Ямбол"},{"id":"company:tr:000962745","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СЪГЛАСИЕ-1862&quot;","slug":null,"uic":"000962745","legalForm":null,"status":null,"seat":null},{"id":"person:МИТКО ФИЛИПОВ ФИЛИПОВ","type":"person","label":"Митко Филипов Филипов"},{"id":"person:ИВАН СТЕФАНОВ СТЕФАНОВ","type":"person","label":"Иван Стефанов Стефанов"},{"id":"person:ЛЪЧЕЗАР СЪБЕВ ХАНДЖИЕВ","type":"person","label":"Лъчезар Събев Ханджиев"},{"id":"person:КОЛЬО ХРИСТОВ ПЕХЛИВАНОВ","type":"person","label":"Кольо Христов Пехливанов"},{"id":"person:ХРИСТО АТАНАСОВ ХРИСТОВ","type":"person","label":"Христо Атанасов Христов"},{"id":"person:КРАСИМИР ТАНЕВ ПЕНЧЕВ","type":"person","label":"Красимир Танев Пенчев"},{"id":"person:ДИМИТЪР СТОЯНОВ ДРАГАНОВ","type":"person","label":"Димитър Стоянов Драганов"},{"id":"person:ГЕНКА ДИМОВА ТЕПСИЗОВА","type":"person","label":"Генка Димова Тепсизова"},{"id":"person:ВИОЛИНА ИВАНОВА КАВАЛДЖИЕВА","type":"person","label":"Виолина Иванова Кавалджиева"},{"id":"person:ЯГОДА ИВАНОВА ДИМОВА","type":"person","label":"Ягода Иванова Димова"},{"id":"person:ЙОРДАН ЙОРДАНОВ СТЕФАНОВ","type":"person","label":"Йордан Йорданов Стефанов"},{"id":"person:БОЖИДАРА КОНСТАНТИНОВА БОЖИЛОВА","type":"person","label":"Божидара Константинова Божилова"}],"edges":[{"source":"official:dimitr-stefkov-stavrev-8e31a2","target":"company:tr:000962745","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МИТКО ФИЛИПОВ ФИЛИПОВ","target":"company:tr:000962745","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТЕФАНОВ СТЕФАНОВ","target":"company:tr:000962745","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР СЪБЕВ ХАНДЖИЕВ","target":"company:tr:000962745","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КОЛЬО ХРИСТОВ ПЕХЛИВАНОВ","target":"company:tr:000962745","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО АТАНАСОВ ХРИСТОВ","target":"company:tr:000962745","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ТАНЕВ ПЕНЧЕВ","target":"company:tr:000962745","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СТОЯНОВ ДРАГАНОВ","target":"company:tr:000962745","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕНКА ДИМОВА ТЕПСИЗОВА","target":"company:tr:000962745","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛИНА ИВАНОВА КАВАЛДЖИЕВА","target":"company:tr:000962745","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЯГОДА ИВАНОВА ДИМОВА","target":"company:tr:000962745","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ЙОРДАНОВ СТЕФАНОВ","target":"company:tr:000962745","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО ФИЛИПОВ ФИЛИПОВ","target":"company:tr:000962745","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАРА КОНСТАНТИНОВА БОЖИЛОВА","target":"company:tr:000962745","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-stefkov-stavrev-8e31a2",
+  "nodes": [
+    {
+      "id": "official:dimitr-stefkov-stavrev-8e31a2",
+      "type": "official",
+      "slug": "dimitr-stefkov-stavrev-8e31a2",
+      "label": "Димитър Стефков Ставрев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "company:tr:000962745",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪГЛАСИЕ-1862&quot;",
+      "slug": null,
+      "uic": "000962745",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИТКО ФИЛИПОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Митко Филипов Филипов"
+    },
+    {
+      "id": "person:ИВАН СТЕФАНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Иван Стефанов Стефанов"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР СЪБЕВ ХАНДЖИЕВ",
+      "type": "person",
+      "label": "Лъчезар Събев Ханджиев"
+    },
+    {
+      "id": "person:КОЛЬО ХРИСТОВ ПЕХЛИВАНОВ",
+      "type": "person",
+      "label": "Кольо Христов Пехливанов"
+    },
+    {
+      "id": "person:ХРИСТО АТАНАСОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Атанасов Христов"
+    },
+    {
+      "id": "person:КРАСИМИР ТАНЕВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Красимир Танев Пенчев"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ ДРАГАНОВ",
+      "type": "person",
+      "label": "Димитър Стоянов Драганов"
+    },
+    {
+      "id": "person:ГЕНКА ДИМОВА ТЕПСИЗОВА",
+      "type": "person",
+      "label": "Генка Димова Тепсизова"
+    },
+    {
+      "id": "person:ВИОЛИНА ИВАНОВА КАВАЛДЖИЕВА",
+      "type": "person",
+      "label": "Виолина Иванова Кавалджиева"
+    },
+    {
+      "id": "person:ЯГОДА ИВАНОВА ДИМОВА",
+      "type": "person",
+      "label": "Ягода Иванова Димова"
+    },
+    {
+      "id": "person:ЙОРДАН ЙОРДАНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Йордан Йорданов Стефанов"
+    },
+    {
+      "id": "person:БОЖИДАРА КОНСТАНТИНОВА БОЖИЛОВА",
+      "type": "person",
+      "label": "Божидара Константинова Божилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-stefkov-stavrev-8e31a2",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИТКО ФИЛИПОВ ФИЛИПОВ",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТЕФАНОВ СТЕФАНОВ",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР СЪБЕВ ХАНДЖИЕВ",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО ХРИСТОВ ПЕХЛИВАНОВ",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО АТАНАСОВ ХРИСТОВ",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ТАНЕВ ПЕНЧЕВ",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ ДРАГАНОВ",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНКА ДИМОВА ТЕПСИЗОВА",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛИНА ИВАНОВА КАВАЛДЖИЕВА",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯГОДА ИВАНОВА ДИМОВА",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЙОРДАНОВ СТЕФАНОВ",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ФИЛИПОВ ФИЛИПОВ",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАРА КОНСТАНТИНОВА БОЖИЛОВА",
+      "target": "company:tr:000962745",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

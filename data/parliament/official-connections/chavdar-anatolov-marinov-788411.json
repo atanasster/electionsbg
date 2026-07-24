@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:chavdar-anatolov-marinov-788411","nodes":[{"id":"official:chavdar-anatolov-marinov-788411","type":"official","slug":"chavdar-anatolov-marinov-788411","label":"Чавдар Анатолов Маринов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130870823","type":"company","label":"ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР &quot;СВЕТА АННА&quot;","slug":null,"uic":"130870823","legalForm":null,"status":null,"seat":null},{"id":"person:СЛАВИ ВЛАДИМИРОВ СТАНЕВ","type":"person","label":"Слави Владимиров Станев"}],"edges":[{"source":"official:chavdar-anatolov-marinov-788411","target":"company:tr:130870823","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:СЛАВИ ВЛАДИМИРОВ СТАНЕВ","target":"company:tr:130870823","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:chavdar-anatolov-marinov-788411",
+  "nodes": [
+    {
+      "id": "official:chavdar-anatolov-marinov-788411",
+      "type": "official",
+      "slug": "chavdar-anatolov-marinov-788411",
+      "label": "Чавдар Анатолов Маринов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130870823",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР &quot;СВЕТА АННА&quot;",
+      "slug": null,
+      "uic": "130870823",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЛАВИ ВЛАДИМИРОВ СТАНЕВ",
+      "type": "person",
+      "label": "Слави Владимиров Станев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:chavdar-anatolov-marinov-788411",
+      "target": "company:tr:130870823",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЛАВИ ВЛАДИМИРОВ СТАНЕВ",
+      "target": "company:tr:130870823",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

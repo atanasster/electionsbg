@@ -1,1 +1,212 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:daniela-ivanova-borisova-79e8b1","nodes":[{"id":"official:daniela-ivanova-borisova-79e8b1","type":"official","slug":"daniela-ivanova-borisova-79e8b1","label":"Даниела Иванова Борисова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000762933","type":"company","label":"СВЕТЛИНА 1919","slug":null,"uic":"000762933","legalForm":null,"status":null,"seat":null},{"id":"person:РАЛИЦА ТОДОРОВА ПОПОВА","type":"person","label":"Ралица Тодорова Попова"},{"id":"person:ЖИВКА ЖИВКОВА ДЕНКОВА","type":"person","label":"Живка Живкова Денкова"},{"id":"person:ТАНЯ ГЕОРГИЕВА ДИМИТРОВА","type":"person","label":"Таня Георгиева Димитрова"},{"id":"person:ТЕОДОРА ЕВГЕНИЕВА КРЪСТАНОВА","type":"person","label":"Теодора Евгениева Кръстанова"},{"id":"person:ИВАЙЛО ГРИГОРОВ КИРИЛОВ","type":"person","label":"Ивайло Григоров Кирилов"},{"id":"person:БОЙКА ВАЛЕРИЕВА ПАВЛОВА","type":"person","label":"Бойка Валериева Павлова"},{"id":"person:ВАЛЯ СТЕФАНОВА АРСОВА","type":"person","label":"Валя Стефанова Арсова"},{"id":"person:ВЕСЕЛКА БОРИСОВА ИГНАТОВА","type":"person","label":"Веселка Борисова Игнатова"},{"id":"person:ГЮРГЕНА РАНГЕЛОВА ТОДОРОВА","type":"person","label":"Гюргена Рангелова Тодорова"},{"id":"person:РОСИЦА ПЕТРОВА ГЕОРГИЕВА","type":"person","label":"Росица Петрова Георгиева"},{"id":"person:ЯНА ВАЛЕРИЕВА СТОИМЕНОВА","type":"person","label":"Яна Валериева Стоименова"},{"id":"person:ЕМИЛИЯ СВИЛЕНОВА ДИМИТРОВА","type":"person","label":"Емилия Свиленова Димитрова"},{"id":"person:ЙОАНА ПЛАМЕНОВА ИВАНОВА","type":"person","label":"Йоана Пламенова Иванова"}],"edges":[{"source":"official:daniela-ivanova-borisova-79e8b1","target":"company:tr:000762933","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:РАЛИЦА ТОДОРОВА ПОПОВА","target":"company:tr:000762933","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКА ЖИВКОВА ДЕНКОВА","target":"company:tr:000762933","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ ГЕОРГИЕВА ДИМИТРОВА","target":"company:tr:000762933","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ЕВГЕНИЕВА КРЪСТАНОВА","target":"company:tr:000762933","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ГРИГОРОВ КИРИЛОВ","target":"company:tr:000762933","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКА ВАЛЕРИЕВА ПАВЛОВА","target":"company:tr:000762933","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЯ СТЕФАНОВА АРСОВА","target":"company:tr:000762933","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА ТОДОРОВА ПОПОВА","target":"company:tr:000762933","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА БОРИСОВА ИГНАТОВА","target":"company:tr:000762933","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГЮРГЕНА РАНГЕЛОВА ТОДОРОВА","target":"company:tr:000762933","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ПЕТРОВА ГЕОРГИЕВА","target":"company:tr:000762933","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ВАЛЕРИЕВА СТОИМЕНОВА","target":"company:tr:000762933","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ СВИЛЕНОВА ДИМИТРОВА","target":"company:tr:000762933","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАНА ПЛАМЕНОВА ИВАНОВА","target":"company:tr:000762933","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:daniela-ivanova-borisova-79e8b1",
+  "nodes": [
+    {
+      "id": "official:daniela-ivanova-borisova-79e8b1",
+      "type": "official",
+      "slug": "daniela-ivanova-borisova-79e8b1",
+      "label": "Даниела Иванова Борисова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000762933",
+      "type": "company",
+      "label": "СВЕТЛИНА 1919",
+      "slug": null,
+      "uic": "000762933",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАЛИЦА ТОДОРОВА ПОПОВА",
+      "type": "person",
+      "label": "Ралица Тодорова Попова"
+    },
+    {
+      "id": "person:ЖИВКА ЖИВКОВА ДЕНКОВА",
+      "type": "person",
+      "label": "Живка Живкова Денкова"
+    },
+    {
+      "id": "person:ТАНЯ ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Таня Георгиева Димитрова"
+    },
+    {
+      "id": "person:ТЕОДОРА ЕВГЕНИЕВА КРЪСТАНОВА",
+      "type": "person",
+      "label": "Теодора Евгениева Кръстанова"
+    },
+    {
+      "id": "person:ИВАЙЛО ГРИГОРОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Ивайло Григоров Кирилов"
+    },
+    {
+      "id": "person:БОЙКА ВАЛЕРИЕВА ПАВЛОВА",
+      "type": "person",
+      "label": "Бойка Валериева Павлова"
+    },
+    {
+      "id": "person:ВАЛЯ СТЕФАНОВА АРСОВА",
+      "type": "person",
+      "label": "Валя Стефанова Арсова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА БОРИСОВА ИГНАТОВА",
+      "type": "person",
+      "label": "Веселка Борисова Игнатова"
+    },
+    {
+      "id": "person:ГЮРГЕНА РАНГЕЛОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Гюргена Рангелова Тодорова"
+    },
+    {
+      "id": "person:РОСИЦА ПЕТРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Росица Петрова Георгиева"
+    },
+    {
+      "id": "person:ЯНА ВАЛЕРИЕВА СТОИМЕНОВА",
+      "type": "person",
+      "label": "Яна Валериева Стоименова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ СВИЛЕНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Емилия Свиленова Димитрова"
+    },
+    {
+      "id": "person:ЙОАНА ПЛАМЕНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Йоана Пламенова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-ivanova-borisova-79e8b1",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАЛИЦА ТОДОРОВА ПОПОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ЖИВКОВА ДЕНКОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ЕВГЕНИЕВА КРЪСТАНОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГРИГОРОВ КИРИЛОВ",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА ВАЛЕРИЕВА ПАВЛОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ СТЕФАНОВА АРСОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ТОДОРОВА ПОПОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА БОРИСОВА ИГНАТОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРГЕНА РАНГЕЛОВА ТОДОРОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ПЕТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ВАЛЕРИЕВА СТОИМЕНОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ СВИЛЕНОВА ДИМИТРОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ПЛАМЕНОВА ИВАНОВА",
+      "target": "company:tr:000762933",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

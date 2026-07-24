@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stoyan-georgiev-parpulov-905e2c","nodes":[{"id":"official:stoyan-georgiev-parpulov-905e2c","type":"official","slug":"stoyan-georgiev-parpulov-905e2c","label":"Стоян Георгиев Парпулов","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:112650747","type":"company","label":"ОБЩИНСКИ ШАХМАТЕН КЛУБ-ПАЗАРДЖИК","slug":null,"uic":"112650747","legalForm":null,"status":null,"seat":null},{"id":"person:ПЛАМЕН ХРИСТОВ ТОПАЛОВ","type":"person","label":"Пламен Христов Топалов"},{"id":"person:КРАСИМИР ДИМИТРОВ БРАНКОВ","type":"person","label":"Красимир Димитров Бранков"},{"id":"person:НИКОЛАЙ ИВАНОВ НИНОВ","type":"person","label":"Николай Иванов Нинов"}],"edges":[{"source":"official:stoyan-georgiev-parpulov-905e2c","target":"company:tr:112650747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЛАМЕН ХРИСТОВ ТОПАЛОВ","target":"company:tr:112650747","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ХРИСТОВ ТОПАЛОВ","target":"company:tr:112650747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ БРАНКОВ","target":"company:tr:112650747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ИВАНОВ НИНОВ","target":"company:tr:112650747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stoyan-georgiev-parpulov-905e2c",
+  "nodes": [
+    {
+      "id": "official:stoyan-georgiev-parpulov-905e2c",
+      "type": "official",
+      "slug": "stoyan-georgiev-parpulov-905e2c",
+      "label": "Стоян Георгиев Парпулов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112650747",
+      "type": "company",
+      "label": "ОБЩИНСКИ ШАХМАТЕН КЛУБ-ПАЗАРДЖИК",
+      "slug": null,
+      "uic": "112650747",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ХРИСТОВ ТОПАЛОВ",
+      "type": "person",
+      "label": "Пламен Христов Топалов"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ БРАНКОВ",
+      "type": "person",
+      "label": "Красимир Димитров Бранков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ НИНОВ",
+      "type": "person",
+      "label": "Николай Иванов Нинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-georgiev-parpulov-905e2c",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ХРИСТОВ ТОПАЛОВ",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ХРИСТОВ ТОПАЛОВ",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ БРАНКОВ",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ НИНОВ",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

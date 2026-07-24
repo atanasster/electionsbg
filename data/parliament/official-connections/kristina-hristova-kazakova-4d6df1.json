@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kristina-hristova-kazakova-4d6df1","nodes":[{"id":"official:kristina-hristova-kazakova-4d6df1","type":"official","slug":"kristina-hristova-kazakova-4d6df1","label":"Кристина Христова Казакова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207384687","type":"company","label":"Тенис Клуб - \"Козлодуй 2023\"","slug":null,"uic":"207384687","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛАЙ АСЕНОВ КАЗАКОВ","type":"person","label":"Николай Асенов Казаков"},{"id":"person:ХРИСТО КРЪСТЕВ СТОЯНОВА","type":"person","label":"Христо Кръстев Стоянова"}],"edges":[{"source":"official:kristina-hristova-kazakova-4d6df1","target":"company:tr:207384687","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ АСЕНОВ КАЗАКОВ","target":"company:tr:207384687","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО КРЪСТЕВ СТОЯНОВА","target":"company:tr:207384687","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ АСЕНОВ КАЗАКОВ","target":"company:tr:207384687","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kristina-hristova-kazakova-4d6df1",
+  "nodes": [
+    {
+      "id": "official:kristina-hristova-kazakova-4d6df1",
+      "type": "official",
+      "slug": "kristina-hristova-kazakova-4d6df1",
+      "label": "Кристина Христова Казакова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207384687",
+      "type": "company",
+      "label": "Тенис Клуб - \"Козлодуй 2023\"",
+      "slug": null,
+      "uic": "207384687",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ АСЕНОВ КАЗАКОВ",
+      "type": "person",
+      "label": "Николай Асенов Казаков"
+    },
+    {
+      "id": "person:ХРИСТО КРЪСТЕВ СТОЯНОВА",
+      "type": "person",
+      "label": "Христо Кръстев Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristina-hristova-kazakova-4d6df1",
+      "target": "company:tr:207384687",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ АСЕНОВ КАЗАКОВ",
+      "target": "company:tr:207384687",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КРЪСТЕВ СТОЯНОВА",
+      "target": "company:tr:207384687",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АСЕНОВ КАЗАКОВ",
+      "target": "company:tr:207384687",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

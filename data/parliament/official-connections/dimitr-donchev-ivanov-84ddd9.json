@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-donchev-ivanov-84ddd9","nodes":[{"id":"official:dimitr-donchev-ivanov-84ddd9","type":"official","slug":"dimitr-donchev-ivanov-84ddd9","label":"Димитър Дончев Иванов","tier":"municipal","role":"councillor","municipality":"Карнобат"},{"id":"company:tr:119611565","type":"company","label":"АГРОФАРМ НЕДЯЛСКО","slug":null,"uic":"119611565","legalForm":null,"status":null,"seat":null},{"id":"person:СТОЙЧО КОСТАДИНОВ ДЕСПОТОВ","type":"person","label":"Стойчо Костадинов Деспотов"},{"id":"person:СТОЙЧО ИВАНОВ СТОЙЧЕВ","type":"person","label":"Стойчо Иванов Стойчев"},{"id":"person:ИВАН ТАНЕВ СОТЕВ","type":"person","label":"Иван Танев Сотев"}],"edges":[{"source":"official:dimitr-donchev-ivanov-84ddd9","target":"company:tr:119611565","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЙЧО КОСТАДИНОВ ДЕСПОТОВ","target":"company:tr:119611565","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТОЙЧО ИВАНОВ СТОЙЧЕВ","target":"company:tr:119611565","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТАНЕВ СОТЕВ","target":"company:tr:119611565","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-donchev-ivanov-84ddd9",
+  "nodes": [
+    {
+      "id": "official:dimitr-donchev-ivanov-84ddd9",
+      "type": "official",
+      "slug": "dimitr-donchev-ivanov-84ddd9",
+      "label": "Димитър Дончев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карнобат"
+    },
+    {
+      "id": "company:tr:119611565",
+      "type": "company",
+      "label": "АГРОФАРМ НЕДЯЛСКО",
+      "slug": null,
+      "uic": "119611565",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЙЧО КОСТАДИНОВ ДЕСПОТОВ",
+      "type": "person",
+      "label": "Стойчо Костадинов Деспотов"
+    },
+    {
+      "id": "person:СТОЙЧО ИВАНОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Стойчо Иванов Стойчев"
+    },
+    {
+      "id": "person:ИВАН ТАНЕВ СОТЕВ",
+      "type": "person",
+      "label": "Иван Танев Сотев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-donchev-ivanov-84ddd9",
+      "target": "company:tr:119611565",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЙЧО КОСТАДИНОВ ДЕСПОТОВ",
+      "target": "company:tr:119611565",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙЧО ИВАНОВ СТОЙЧЕВ",
+      "target": "company:tr:119611565",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТАНЕВ СОТЕВ",
+      "target": "company:tr:119611565",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

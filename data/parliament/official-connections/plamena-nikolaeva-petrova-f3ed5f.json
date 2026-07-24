@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:plamena-nikolaeva-petrova-f3ed5f","nodes":[{"id":"official:plamena-nikolaeva-petrova-f3ed5f","type":"official","slug":"plamena-nikolaeva-petrova-f3ed5f","label":"Пламена Николаева Петрова","tier":"executive","role":"security_service","municipality":null},{"id":"company:tr:207391482","type":"company","label":"ФЛЕЙМ КОЗМЕТИКС","slug":null,"uic":"207391482","legalForm":null,"status":null,"seat":null},{"id":"person:ПЛАМЕНА НИКОЛАЕВА РАШЕВА","type":"person","label":"Пламена Николаева Рашева"}],"edges":[{"source":"official:plamena-nikolaeva-petrova-f3ed5f","target":"company:tr:207391482","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:plamena-nikolaeva-petrova-f3ed5f","target":"company:tr:207391482","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ПЛАМЕНА НИКОЛАЕВА РАШЕВА","target":"company:tr:207391482","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:plamena-nikolaeva-petrova-f3ed5f",
+  "nodes": [
+    {
+      "id": "official:plamena-nikolaeva-petrova-f3ed5f",
+      "type": "official",
+      "slug": "plamena-nikolaeva-petrova-f3ed5f",
+      "label": "Пламена Николаева Петрова",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207391482",
+      "type": "company",
+      "label": "ФЛЕЙМ КОЗМЕТИКС",
+      "slug": null,
+      "uic": "207391482",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕНА НИКОЛАЕВА РАШЕВА",
+      "type": "person",
+      "label": "Пламена Николаева Рашева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamena-nikolaeva-petrova-f3ed5f",
+      "target": "company:tr:207391482",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:plamena-nikolaeva-petrova-f3ed5f",
+      "target": "company:tr:207391482",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕНА НИКОЛАЕВА РАШЕВА",
+      "target": "company:tr:207391482",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,85 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:teodor-bozhidarov-stavrev-70befd","nodes":[{"id":"official:teodor-bozhidarov-stavrev-70befd","type":"official","slug":"teodor-bozhidarov-stavrev-70befd","label":"Теодор Божидаров Ставрев","tier":"municipal","role":"deputy_mayor","municipality":"Червен бряг"},{"id":"company:tr:206528540","type":"company","label":"&quot;БЮТИ СТИЛ  Т И С&quot;  2021","slug":null,"uic":"206528540","legalForm":null,"status":null,"seat":null},{"id":"person:СИЛВИЯ НИКОЛАЕВА ТОДОРОВА","type":"person","label":"Силвия Николаева Тодорова"},{"id":"person:АНА-МАРИЯ ДИЛЯНОВА БОРИСОВА","type":"person","label":"Ана-Мария Дилянова Борисова"}],"edges":[{"source":"official:teodor-bozhidarov-stavrev-70befd","target":"company:tr:206528540","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:teodor-bozhidarov-stavrev-70befd","target":"company:tr:206528540","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СИЛВИЯ НИКОЛАЕВА ТОДОРОВА","target":"company:tr:206528540","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ НИКОЛАЕВА ТОДОРОВА","target":"company:tr:206528540","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АНА-МАРИЯ ДИЛЯНОВА БОРИСОВА","target":"company:tr:206528540","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНА-МАРИЯ ДИЛЯНОВА БОРИСОВА","target":"company:tr:206528540","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:teodor-bozhidarov-stavrev-70befd",
+  "nodes": [
+    {
+      "id": "official:teodor-bozhidarov-stavrev-70befd",
+      "type": "official",
+      "slug": "teodor-bozhidarov-stavrev-70befd",
+      "label": "Теодор Божидаров Ставрев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Червен бряг"
+    },
+    {
+      "id": "company:tr:206528540",
+      "type": "company",
+      "label": "&quot;БЮТИ СТИЛ  Т И С&quot;  2021",
+      "slug": null,
+      "uic": "206528540",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИЛВИЯ НИКОЛАЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Силвия Николаева Тодорова"
+    },
+    {
+      "id": "person:АНА-МАРИЯ ДИЛЯНОВА БОРИСОВА",
+      "type": "person",
+      "label": "Ана-Мария Дилянова Борисова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodor-bozhidarov-stavrev-70befd",
+      "target": "company:tr:206528540",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:teodor-bozhidarov-stavrev-70befd",
+      "target": "company:tr:206528540",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИЛВИЯ НИКОЛАЕВА ТОДОРОВА",
+      "target": "company:tr:206528540",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ НИКОЛАЕВА ТОДОРОВА",
+      "target": "company:tr:206528540",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА-МАРИЯ ДИЛЯНОВА БОРИСОВА",
+      "target": "company:tr:206528540",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА-МАРИЯ ДИЛЯНОВА БОРИСОВА",
+      "target": "company:tr:206528540",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

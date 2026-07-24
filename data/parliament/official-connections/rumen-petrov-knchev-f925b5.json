@@ -1,1 +1,163 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rumen-petrov-knchev-f925b5","nodes":[{"id":"official:rumen-petrov-knchev-f925b5","type":"official","slug":"rumen-petrov-knchev-f925b5","label":"Румен Петров Кънчев","tier":"municipal","role":"deputy_mayor","municipality":"Бойница"},{"id":"company:tr:000152638","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;НАДЕЖДА - 1903&quot;","slug":null,"uic":"000152638","legalForm":null,"status":null,"seat":null},{"id":"official:galya-tsvetanova-kruezi-1a0993","type":"official","slug":"galya-tsvetanova-kruezi-1a0993","label":"Галя Цветанова Круези","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:veselka-ivanova-zhikova-a62dd9","type":"official","slug":"veselka-ivanova-zhikova-a62dd9","label":"Веселка Иванова Жикова","tier":"municipal","role":"councillor","municipality":"Бойница"},{"id":"person:ЦЕЦА СТАНКОВА ИВАНОВА","type":"person","label":"Цеца Станкова Иванова"},{"id":"person:ИРИНА ЦВЕТКОВА СТАНКОВА","type":"person","label":"Ирина Цветкова Станкова"},{"id":"person:ЦЕЦА ЦОКОВА ГРИГОРОВА","type":"person","label":"Цеца Цокова Григорова"},{"id":"person:ГОШО ГЕНЧЕВ ПЕТКОВ","type":"person","label":"Гошо Генчев Петков"},{"id":"person:СТАНКА ЦАНКОВА ПЕКОВА","type":"person","label":"Станка Цанкова Пекова"},{"id":"person:ВАЛЕРИЯ МИТКОВА ПЕТРОВА","type":"person","label":"Валерия Миткова Петрова"}],"edges":[{"source":"official:rumen-petrov-knchev-f925b5","target":"company:tr:000152638","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:galya-tsvetanova-kruezi-1a0993","target":"company:tr:000152638","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:veselka-ivanova-zhikova-a62dd9","target":"company:tr:000152638","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ЦЕЦА СТАНКОВА ИВАНОВА","target":"company:tr:000152638","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ЦВЕТКОВА СТАНКОВА","target":"company:tr:000152638","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦА СТАНКОВА ИВАНОВА","target":"company:tr:000152638","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦА ЦОКОВА ГРИГОРОВА","target":"company:tr:000152638","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГОШО ГЕНЧЕВ ПЕТКОВ","target":"company:tr:000152638","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ЦВЕТКОВА СТАНКОВА","target":"company:tr:000152638","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТАНКА ЦАНКОВА ПЕКОВА","target":"company:tr:000152638","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИЯ МИТКОВА ПЕТРОВА","target":"company:tr:000152638","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rumen-petrov-knchev-f925b5",
+  "nodes": [
+    {
+      "id": "official:rumen-petrov-knchev-f925b5",
+      "type": "official",
+      "slug": "rumen-petrov-knchev-f925b5",
+      "label": "Румен Петров Кънчев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Бойница"
+    },
+    {
+      "id": "company:tr:000152638",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НАДЕЖДА - 1903&quot;",
+      "slug": null,
+      "uic": "000152638",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:galya-tsvetanova-kruezi-1a0993",
+      "type": "official",
+      "slug": "galya-tsvetanova-kruezi-1a0993",
+      "label": "Галя Цветанова Круези",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:veselka-ivanova-zhikova-a62dd9",
+      "type": "official",
+      "slug": "veselka-ivanova-zhikova-a62dd9",
+      "label": "Веселка Иванова Жикова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бойница"
+    },
+    {
+      "id": "person:ЦЕЦА СТАНКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Цеца Станкова Иванова"
+    },
+    {
+      "id": "person:ИРИНА ЦВЕТКОВА СТАНКОВА",
+      "type": "person",
+      "label": "Ирина Цветкова Станкова"
+    },
+    {
+      "id": "person:ЦЕЦА ЦОКОВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Цеца Цокова Григорова"
+    },
+    {
+      "id": "person:ГОШО ГЕНЧЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Гошо Генчев Петков"
+    },
+    {
+      "id": "person:СТАНКА ЦАНКОВА ПЕКОВА",
+      "type": "person",
+      "label": "Станка Цанкова Пекова"
+    },
+    {
+      "id": "person:ВАЛЕРИЯ МИТКОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Валерия Миткова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-petrov-knchev-f925b5",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galya-tsvetanova-kruezi-1a0993",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselka-ivanova-zhikova-a62dd9",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦЕЦА СТАНКОВА ИВАНОВА",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ЦВЕТКОВА СТАНКОВА",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦА СТАНКОВА ИВАНОВА",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦА ЦОКОВА ГРИГОРОВА",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОШО ГЕНЧЕВ ПЕТКОВ",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ЦВЕТКОВА СТАНКОВА",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА ЦАНКОВА ПЕКОВА",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИЯ МИТКОВА ПЕТРОВА",
+      "target": "company:tr:000152638",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-andreev-stoyanov-bd76fd","nodes":[{"id":"official:petr-andreev-stoyanov-bd76fd","type":"official","slug":"petr-andreev-stoyanov-bd76fd","label":"Петър Андреев Стоянов","tier":"municipal","role":"councillor","municipality":"Хасково"},{"id":"company:tr:206457068","type":"company","label":"ФикПро ЕООД","slug":null,"uic":"206457068","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:petr-andreev-stoyanov-bd76fd","target":"company:tr:206457068","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-andreev-stoyanov-bd76fd",
+  "nodes": [
+    {
+      "id": "official:petr-andreev-stoyanov-bd76fd",
+      "type": "official",
+      "slug": "petr-andreev-stoyanov-bd76fd",
+      "label": "Петър Андреев Стоянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:206457068",
+      "type": "company",
+      "label": "ФикПро ЕООД",
+      "slug": null,
+      "uic": "206457068",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-andreev-stoyanov-bd76fd",
+      "target": "company:tr:206457068",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

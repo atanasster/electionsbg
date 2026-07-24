@@ -1,1 +1,186 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-hristov-makakov-4fbccb","nodes":[{"id":"official:dimitr-hristov-makakov-4fbccb","type":"official","slug":"dimitr-hristov-makakov-4fbccb","label":"Димитър Христов Макаков","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:108520304","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРОБУДА","slug":null,"uic":"108520304","legalForm":null,"status":null,"seat":null},{"id":"person:СИЯ ИЛИЕВА ИЛИЕВА","type":"person","label":"Сия Илиева Илиева"},{"id":"person:РОСИЦА ТРЕНДАФИЛОВА МОМЧИЛОВА","type":"person","label":"Росица Трендафилова Момчилова"},{"id":"person:СИЯ ИЛИЕВА ИЛИЕВА- ПРРЕДСЕДАТЕЛ","type":"person","label":"Сия Илиева Илиева- Прредседател"},{"id":"person:РОСИЦА ТРЕНДАФИЛОВА МОМЧИЛОВА- СЕКРЕТАР","type":"person","label":"Росица Трендафилова Момчилова- Секретар"},{"id":"person:ЛЮБЕН ДЕЛЧЕВ ОВЧАРОВ","type":"person","label":"Любен Делчев Овчаров"},{"id":"person:НИКОЛЕТ ПЕНЧЕВА ДЕЛЧЕВА","type":"person","label":"Николет Пенчева Делчева"},{"id":"person:ГАЛЯ АНГЕЛОВА КАРАПЕТКОВА","type":"person","label":"Галя Ангелова Карапеткова"},{"id":"person:МАРИЯ ИВАНОВА АТАНАСОВА","type":"person","label":"Мария Иванова Атанасова"},{"id":"person:ФИЛИП НИКОЛОВ ДЕЛЧЕВ","type":"person","label":"Филип Николов Делчев"},{"id":"person:КАТЕРИНА ТОДОРОВА ДИКМЕВА – ЛОРВЕЛЕК","type":"person","label":"Катерина Тодорова Дикмева – Лорвелек"},{"id":"person:ДОБРИНКА ГЕОРГИЕВА КАМБУРОВА","type":"person","label":"Добринка Георгиева Камбурова"}],"edges":[{"source":"official:dimitr-hristov-makakov-4fbccb","target":"company:tr:108520304","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-hristov-makakov-4fbccb","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СИЯ ИЛИЕВА ИЛИЕВА","target":"company:tr:108520304","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ТРЕНДАФИЛОВА МОМЧИЛОВА","target":"company:tr:108520304","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СИЯ ИЛИЕВА ИЛИЕВА- ПРРЕДСЕДАТЕЛ","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ТРЕНДАФИЛОВА МОМЧИЛОВА- СЕКРЕТАР","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБЕН ДЕЛЧЕВ ОВЧАРОВ","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛЕТ ПЕНЧЕВА ДЕЛЧЕВА","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛЯ АНГЕЛОВА КАРАПЕТКОВА","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИВАНОВА АТАНАСОВА","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП НИКОЛОВ ДЕЛЧЕВ","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАТЕРИНА ТОДОРОВА ДИКМЕВА – ЛОРВЕЛЕК","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИНКА ГЕОРГИЕВА КАМБУРОВА","target":"company:tr:108520304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-hristov-makakov-4fbccb",
+  "nodes": [
+    {
+      "id": "official:dimitr-hristov-makakov-4fbccb",
+      "type": "official",
+      "slug": "dimitr-hristov-makakov-4fbccb",
+      "label": "Димитър Христов Макаков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:108520304",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРОБУДА",
+      "slug": null,
+      "uic": "108520304",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИЯ ИЛИЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Сия Илиева Илиева"
+    },
+    {
+      "id": "person:РОСИЦА ТРЕНДАФИЛОВА МОМЧИЛОВА",
+      "type": "person",
+      "label": "Росица Трендафилова Момчилова"
+    },
+    {
+      "id": "person:СИЯ ИЛИЕВА ИЛИЕВА- ПРРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Сия Илиева Илиева- Прредседател"
+    },
+    {
+      "id": "person:РОСИЦА ТРЕНДАФИЛОВА МОМЧИЛОВА- СЕКРЕТАР",
+      "type": "person",
+      "label": "Росица Трендафилова Момчилова- Секретар"
+    },
+    {
+      "id": "person:ЛЮБЕН ДЕЛЧЕВ ОВЧАРОВ",
+      "type": "person",
+      "label": "Любен Делчев Овчаров"
+    },
+    {
+      "id": "person:НИКОЛЕТ ПЕНЧЕВА ДЕЛЧЕВА",
+      "type": "person",
+      "label": "Николет Пенчева Делчева"
+    },
+    {
+      "id": "person:ГАЛЯ АНГЕЛОВА КАРАПЕТКОВА",
+      "type": "person",
+      "label": "Галя Ангелова Карапеткова"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Мария Иванова Атанасова"
+    },
+    {
+      "id": "person:ФИЛИП НИКОЛОВ ДЕЛЧЕВ",
+      "type": "person",
+      "label": "Филип Николов Делчев"
+    },
+    {
+      "id": "person:КАТЕРИНА ТОДОРОВА ДИКМЕВА – ЛОРВЕЛЕК",
+      "type": "person",
+      "label": "Катерина Тодорова Дикмева – Лорвелек"
+    },
+    {
+      "id": "person:ДОБРИНКА ГЕОРГИЕВА КАМБУРОВА",
+      "type": "person",
+      "label": "Добринка Георгиева Камбурова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-hristov-makakov-4fbccb",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-hristov-makakov-4fbccb",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИЯ ИЛИЕВА ИЛИЕВА",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТРЕНДАФИЛОВА МОМЧИЛОВА",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЯ ИЛИЕВА ИЛИЕВА- ПРРЕДСЕДАТЕЛ",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТРЕНДАФИЛОВА МОМЧИЛОВА- СЕКРЕТАР",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЕН ДЕЛЧЕВ ОВЧАРОВ",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТ ПЕНЧЕВА ДЕЛЧЕВА",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ АНГЕЛОВА КАРАПЕТКОВА",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА АТАНАСОВА",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП НИКОЛОВ ДЕЛЧЕВ",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ТОДОРОВА ДИКМЕВА – ЛОРВЕЛЕК",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА ГЕОРГИЕВА КАМБУРОВА",
+      "target": "company:tr:108520304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

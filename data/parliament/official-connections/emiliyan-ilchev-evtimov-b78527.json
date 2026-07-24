@@ -1,1 +1,86 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emiliyan-ilchev-evtimov-b78527","nodes":[{"id":"official:emiliyan-ilchev-evtimov-b78527","type":"official","slug":"emiliyan-ilchev-evtimov-b78527","label":"Емилиян Илчев Евтимов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207941104","type":"company","label":"СПОРТЕН КЛУБ АВТО МОТО ШОУ","slug":null,"uic":"207941104","legalForm":null,"status":null,"seat":null},{"id":"official:miroslav-pepiev-iliev-d0c013","type":"official","slug":"miroslav-pepiev-iliev-d0c013","label":"Мирослав Пепиев Илиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ЕЛИЗАБЕТА ТОНЕВА НИКОЛОВА","type":"person","label":"Елизабета Тонева Николова"},{"id":"person:АЛБЕНА ИВАНОВА ПАНЧЕВА","type":"person","label":"Албена Иванова Панчева"}],"edges":[{"source":"official:emiliyan-ilchev-evtimov-b78527","target":"company:tr:207941104","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:emiliyan-ilchev-evtimov-b78527","target":"company:tr:207941104","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:miroslav-pepiev-iliev-d0c013","target":"company:tr:207941104","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЕЛИЗАБЕТА ТОНЕВА НИКОЛОВА","target":"company:tr:207941104","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА ИВАНОВА ПАНЧЕВА","target":"company:tr:207941104","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emiliyan-ilchev-evtimov-b78527",
+  "nodes": [
+    {
+      "id": "official:emiliyan-ilchev-evtimov-b78527",
+      "type": "official",
+      "slug": "emiliyan-ilchev-evtimov-b78527",
+      "label": "Емилиян Илчев Евтимов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207941104",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ АВТО МОТО ШОУ",
+      "slug": null,
+      "uic": "207941104",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:miroslav-pepiev-iliev-d0c013",
+      "type": "official",
+      "slug": "miroslav-pepiev-iliev-d0c013",
+      "label": "Мирослав Пепиев Илиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕЛИЗАБЕТА ТОНЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Елизабета Тонева Николова"
+    },
+    {
+      "id": "person:АЛБЕНА ИВАНОВА ПАНЧЕВА",
+      "type": "person",
+      "label": "Албена Иванова Панчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliyan-ilchev-evtimov-b78527",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emiliyan-ilchev-evtimov-b78527",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miroslav-pepiev-iliev-d0c013",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛИЗАБЕТА ТОНЕВА НИКОЛОВА",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ИВАНОВА ПАНЧЕВА",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

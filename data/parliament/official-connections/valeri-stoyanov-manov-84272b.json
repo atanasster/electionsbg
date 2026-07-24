@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valeri-stoyanov-manov-84272b","nodes":[{"id":"official:valeri-stoyanov-manov-84272b","type":"official","slug":"valeri-stoyanov-manov-84272b","label":"Валери Стоянов Манов","tier":"municipal","role":"councillor","municipality":"Благоевград"},{"id":"company:tr:109513731","type":"company","label":"ТЕЦ - БОБОВ ДОЛ","slug":null,"uic":"109513731","legalForm":null,"status":null,"seat":null},{"id":"person:ЛЮБОМИР ВАНГЕЛОВ СПАСОВ","type":"person","label":"Любомир Вангелов Спасов"},{"id":"person:АЛБЕН АЛЕНОВ БАБУЧЕВ","type":"person","label":"Албен Аленов Бабучев"},{"id":"person:КРИСТИНА АТАНАСОВА ЛАЗАРОВА","type":"person","label":"Кристина Атанасова Лазарова"},{"id":"person:ЧАВДАР КИРИЛОВ СТОЙНЕВ","type":"person","label":"Чавдар Кирилов Стойнев"}],"edges":[{"source":"official:valeri-stoyanov-manov-84272b","target":"company:tr:109513731","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР ВАНГЕЛОВ СПАСОВ","target":"company:tr:109513731","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕН АЛЕНОВ БАБУЧЕВ","target":"company:tr:109513731","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА АТАНАСОВА ЛАЗАРОВА","target":"company:tr:109513731","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР КИРИЛОВ СТОЙНЕВ","target":"company:tr:109513731","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР КИРИЛОВ СТОЙНЕВ","target":"company:tr:109513731","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valeri-stoyanov-manov-84272b",
+  "nodes": [
+    {
+      "id": "official:valeri-stoyanov-manov-84272b",
+      "type": "official",
+      "slug": "valeri-stoyanov-manov-84272b",
+      "label": "Валери Стоянов Манов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:109513731",
+      "type": "company",
+      "label": "ТЕЦ - БОБОВ ДОЛ",
+      "slug": null,
+      "uic": "109513731",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОМИР ВАНГЕЛОВ СПАСОВ",
+      "type": "person",
+      "label": "Любомир Вангелов Спасов"
+    },
+    {
+      "id": "person:АЛБЕН АЛЕНОВ БАБУЧЕВ",
+      "type": "person",
+      "label": "Албен Аленов Бабучев"
+    },
+    {
+      "id": "person:КРИСТИНА АТАНАСОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Кристина Атанасова Лазарова"
+    },
+    {
+      "id": "person:ЧАВДАР КИРИЛОВ СТОЙНЕВ",
+      "type": "person",
+      "label": "Чавдар Кирилов Стойнев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeri-stoyanov-manov-84272b",
+      "target": "company:tr:109513731",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР ВАНГЕЛОВ СПАСОВ",
+      "target": "company:tr:109513731",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕН АЛЕНОВ БАБУЧЕВ",
+      "target": "company:tr:109513731",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА АТАНАСОВА ЛАЗАРОВА",
+      "target": "company:tr:109513731",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР КИРИЛОВ СТОЙНЕВ",
+      "target": "company:tr:109513731",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР КИРИЛОВ СТОЙНЕВ",
+      "target": "company:tr:109513731",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

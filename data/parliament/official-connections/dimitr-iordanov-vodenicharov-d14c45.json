@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-iordanov-vodenicharov-d14c45","nodes":[{"id":"official:dimitr-iordanov-vodenicharov-d14c45","type":"official","slug":"dimitr-iordanov-vodenicharov-d14c45","label":"Димитър Йорданов Воденичаров","tier":"municipal","role":"councillor","municipality":"Родопи"},{"id":"company:tr:206989758","type":"company","label":"Обединени за Първенец","slug":null,"uic":"206989758","legalForm":null,"status":null,"seat":null},{"id":"person:ЕЛЕОНОРА ИВАНОВА ГЕОРГИЕВА","type":"person","label":"Елеонора Иванова Георгиева"},{"id":"person:КРИСТИНА БОРИСОВА ИВАНОВА","type":"person","label":"Кристина Борисова Иванова"},{"id":"person:ЙОРДАНКА ВАСИЛЕВА ВАСИЛЕВА","type":"person","label":"Йорданка Василева Василева"},{"id":"person:ОГНЯНА АНГЕЛОВА ДИМИТРОВА","type":"person","label":"Огняна Ангелова Димитрова"},{"id":"person:СТЕФКА АСЕНОВА КАЗАНЦЕВА","type":"person","label":"Стефка Асенова Казанцева"},{"id":"person:ИВАНКА МАКСИМОВА ИШЕВА","type":"person","label":"Иванка Максимова Ишева"}],"edges":[{"source":"official:dimitr-iordanov-vodenicharov-d14c45","target":"company:tr:206989758","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЕЛЕОНОРА ИВАНОВА ГЕОРГИЕВА","target":"company:tr:206989758","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕОНОРА ИВАНОВА ГЕОРГИЕВА","target":"company:tr:206989758","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА БОРИСОВА ИВАНОВА","target":"company:tr:206989758","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ВАСИЛЕВА ВАСИЛЕВА","target":"company:tr:206989758","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯНА АНГЕЛОВА ДИМИТРОВА","target":"company:tr:206989758","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА АСЕНОВА КАЗАНЦЕВА","target":"company:tr:206989758","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА МАКСИМОВА ИШЕВА","target":"company:tr:206989758","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-iordanov-vodenicharov-d14c45",
+  "nodes": [
+    {
+      "id": "official:dimitr-iordanov-vodenicharov-d14c45",
+      "type": "official",
+      "slug": "dimitr-iordanov-vodenicharov-d14c45",
+      "label": "Димитър Йорданов Воденичаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Родопи"
+    },
+    {
+      "id": "company:tr:206989758",
+      "type": "company",
+      "label": "Обединени за Първенец",
+      "slug": null,
+      "uic": "206989758",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕОНОРА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Елеонора Иванова Георгиева"
+    },
+    {
+      "id": "person:КРИСТИНА БОРИСОВА ИВАНОВА",
+      "type": "person",
+      "label": "Кристина Борисова Иванова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ВАСИЛЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Йорданка Василева Василева"
+    },
+    {
+      "id": "person:ОГНЯНА АНГЕЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Огняна Ангелова Димитрова"
+    },
+    {
+      "id": "person:СТЕФКА АСЕНОВА КАЗАНЦЕВА",
+      "type": "person",
+      "label": "Стефка Асенова Казанцева"
+    },
+    {
+      "id": "person:ИВАНКА МАКСИМОВА ИШЕВА",
+      "type": "person",
+      "label": "Иванка Максимова Ишева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-iordanov-vodenicharov-d14c45",
+      "target": "company:tr:206989758",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:206989758",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:206989758",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА БОРИСОВА ИВАНОВА",
+      "target": "company:tr:206989758",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ВАСИЛЕВА ВАСИЛЕВА",
+      "target": "company:tr:206989758",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯНА АНГЕЛОВА ДИМИТРОВА",
+      "target": "company:tr:206989758",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА АСЕНОВА КАЗАНЦЕВА",
+      "target": "company:tr:206989758",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА МАКСИМОВА ИШЕВА",
+      "target": "company:tr:206989758",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

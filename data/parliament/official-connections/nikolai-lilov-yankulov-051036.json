@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-lilov-yankulov-051036","nodes":[{"id":"official:nikolai-lilov-yankulov-051036","type":"official","slug":"nikolai-lilov-yankulov-051036","label":"НИКОЛАЙ ЛИЛОВ ЯНКУЛОВ","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206318848","type":"company","label":"ТУРИСТИЧЕСКО ДРУЖЕСТВО &quot;МАЛЬОВИЦА&quot;","slug":null,"uic":"206318848","legalForm":null,"status":null,"seat":null},{"id":"person:ПОЛЯ БОЧЕВА БЕЕВА","type":"person","label":"Поля Бочева Беева"},{"id":"person:ДЕЯН СТОЯНОВ ВЪЛКАНОВ","type":"person","label":"Деян Стоянов Вълканов"},{"id":"person:БОРИСЛАВ ГЕОРГИЕВ ВАРДАРОВ","type":"person","label":"Борислав Георгиев Вардаров"}],"edges":[{"source":"official:nikolai-lilov-yankulov-051036","target":"company:tr:206318848","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПОЛЯ БОЧЕВА БЕЕВА","target":"company:tr:206318848","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН СТОЯНОВ ВЪЛКАНОВ","target":"company:tr:206318848","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ ГЕОРГИЕВ ВАРДАРОВ","target":"company:tr:206318848","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-lilov-yankulov-051036",
+  "nodes": [
+    {
+      "id": "official:nikolai-lilov-yankulov-051036",
+      "type": "official",
+      "slug": "nikolai-lilov-yankulov-051036",
+      "label": "НИКОЛАЙ ЛИЛОВ ЯНКУЛОВ",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206318848",
+      "type": "company",
+      "label": "ТУРИСТИЧЕСКО ДРУЖЕСТВО &quot;МАЛЬОВИЦА&quot;",
+      "slug": null,
+      "uic": "206318848",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПОЛЯ БОЧЕВА БЕЕВА",
+      "type": "person",
+      "label": "Поля Бочева Беева"
+    },
+    {
+      "id": "person:ДЕЯН СТОЯНОВ ВЪЛКАНОВ",
+      "type": "person",
+      "label": "Деян Стоянов Вълканов"
+    },
+    {
+      "id": "person:БОРИСЛАВ ГЕОРГИЕВ ВАРДАРОВ",
+      "type": "person",
+      "label": "Борислав Георгиев Вардаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-lilov-yankulov-051036",
+      "target": "company:tr:206318848",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПОЛЯ БОЧЕВА БЕЕВА",
+      "target": "company:tr:206318848",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН СТОЯНОВ ВЪЛКАНОВ",
+      "target": "company:tr:206318848",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ГЕОРГИЕВ ВАРДАРОВ",
+      "target": "company:tr:206318848",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

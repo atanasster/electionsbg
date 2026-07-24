@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:polina-milcheva-ivanova-aa5625","nodes":[{"id":"official:polina-milcheva-ivanova-aa5625","type":"official","slug":"polina-milcheva-ivanova-aa5625","label":"Полина Милчева Иванова","tier":"municipal","role":"councillor","municipality":"Ябланица"},{"id":"company:tr:176415530","type":"company","label":"ДОКЛЕ Е МЛАДОСТ","slug":null,"uic":"176415530","legalForm":null,"status":null,"seat":null},{"id":"person:НИНА ВАСИЛЕВА ВАСИЛЕВА","type":"person","label":"Нина Василева Василева"},{"id":"person:КОСТАДИН ГЕОРГИЕВ ОВЧАРОВ","type":"person","label":"Костадин Георгиев Овчаров"},{"id":"person:МАРИЯНА МАРИНОВА СИМЕОНОВА","type":"person","label":"Марияна Маринова Симеонова"},{"id":"person:ИВАНКА НЕЙКОВА ЙОТОВА","type":"person","label":"Иванка Нейкова Йотова"},{"id":"person:СВЕТЛАНА ВЯЧЕСЛАВОВНА ИВАНОВА","type":"person","label":"Светлана Вячеславовна Иванова"},{"id":"person:ДЕТЕЛИНА БОЧЕВА НЕЙКОВА","type":"person","label":"Детелина Бочева Нейкова"}],"edges":[{"source":"official:polina-milcheva-ivanova-aa5625","target":"company:tr:176415530","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИНА ВАСИЛЕВА ВАСИЛЕВА","target":"company:tr:176415530","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ГЕОРГИЕВ ОВЧАРОВ","target":"company:tr:176415530","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА МАРИНОВА СИМЕОНОВА","target":"company:tr:176415530","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ВАСИЛЕВА ВАСИЛЕВА","target":"company:tr:176415530","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА НЕЙКОВА ЙОТОВА","target":"company:tr:176415530","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА ВЯЧЕСЛАВОВНА ИВАНОВА","target":"company:tr:176415530","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕТЕЛИНА БОЧЕВА НЕЙКОВА","target":"company:tr:176415530","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:polina-milcheva-ivanova-aa5625",
+  "nodes": [
+    {
+      "id": "official:polina-milcheva-ivanova-aa5625",
+      "type": "official",
+      "slug": "polina-milcheva-ivanova-aa5625",
+      "label": "Полина Милчева Иванова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ябланица"
+    },
+    {
+      "id": "company:tr:176415530",
+      "type": "company",
+      "label": "ДОКЛЕ Е МЛАДОСТ",
+      "slug": null,
+      "uic": "176415530",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИНА ВАСИЛЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Нина Василева Василева"
+    },
+    {
+      "id": "person:КОСТАДИН ГЕОРГИЕВ ОВЧАРОВ",
+      "type": "person",
+      "label": "Костадин Георгиев Овчаров"
+    },
+    {
+      "id": "person:МАРИЯНА МАРИНОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Марияна Маринова Симеонова"
+    },
+    {
+      "id": "person:ИВАНКА НЕЙКОВА ЙОТОВА",
+      "type": "person",
+      "label": "Иванка Нейкова Йотова"
+    },
+    {
+      "id": "person:СВЕТЛАНА ВЯЧЕСЛАВОВНА ИВАНОВА",
+      "type": "person",
+      "label": "Светлана Вячеславовна Иванова"
+    },
+    {
+      "id": "person:ДЕТЕЛИНА БОЧЕВА НЕЙКОВА",
+      "type": "person",
+      "label": "Детелина Бочева Нейкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:polina-milcheva-ivanova-aa5625",
+      "target": "company:tr:176415530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИНА ВАСИЛЕВА ВАСИЛЕВА",
+      "target": "company:tr:176415530",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ГЕОРГИЕВ ОВЧАРОВ",
+      "target": "company:tr:176415530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА МАРИНОВА СИМЕОНОВА",
+      "target": "company:tr:176415530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ВАСИЛЕВА ВАСИЛЕВА",
+      "target": "company:tr:176415530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА НЕЙКОВА ЙОТОВА",
+      "target": "company:tr:176415530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ВЯЧЕСЛАВОВНА ИВАНОВА",
+      "target": "company:tr:176415530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИНА БОЧЕВА НЕЙКОВА",
+      "target": "company:tr:176415530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

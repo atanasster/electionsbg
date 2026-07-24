@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:metodi-georgiev-popov-47f0fa","nodes":[{"id":"official:metodi-georgiev-popov-47f0fa","type":"official","slug":"metodi-georgiev-popov-47f0fa","label":"Методи Георгиев Попов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:822111559","type":"company","label":"ВКТВ","slug":null,"uic":"822111559","legalForm":null,"status":null,"seat":null},{"id":"person:ИВО ЕМИЛОВ РАДАНОВ","type":"person","label":"Иво Емилов Раданов"},{"id":"person:ИБРАХИМ СЮЛЕЙМАН БУХОВ","type":"person","label":"Ибрахим Сюлейман Бухов"},{"id":"person:МИЛЕНА ДИМИТРОВА ДИМИТРОВА","type":"person","label":"Милена Димитрова Димитрова"}],"edges":[{"source":"official:metodi-georgiev-popov-47f0fa","target":"company:tr:822111559","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ИВО ЕМИЛОВ РАДАНОВ","target":"company:tr:822111559","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИБРАХИМ СЮЛЕЙМАН БУХОВ","target":"company:tr:822111559","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ДИМИТРОВА ДИМИТРОВА","target":"company:tr:822111559","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:metodi-georgiev-popov-47f0fa",
+  "nodes": [
+    {
+      "id": "official:metodi-georgiev-popov-47f0fa",
+      "type": "official",
+      "slug": "metodi-georgiev-popov-47f0fa",
+      "label": "Методи Георгиев Попов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:822111559",
+      "type": "company",
+      "label": "ВКТВ",
+      "slug": null,
+      "uic": "822111559",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВО ЕМИЛОВ РАДАНОВ",
+      "type": "person",
+      "label": "Иво Емилов Раданов"
+    },
+    {
+      "id": "person:ИБРАХИМ СЮЛЕЙМАН БУХОВ",
+      "type": "person",
+      "label": "Ибрахим Сюлейман Бухов"
+    },
+    {
+      "id": "person:МИЛЕНА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Милена Димитрова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:metodi-georgiev-popov-47f0fa",
+      "target": "company:tr:822111559",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО ЕМИЛОВ РАДАНОВ",
+      "target": "company:tr:822111559",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИБРАХИМ СЮЛЕЙМАН БУХОВ",
+      "target": "company:tr:822111559",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:822111559",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

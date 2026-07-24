@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:daniel-malchev-malev-6342a5","nodes":[{"id":"official:daniel-malchev-malev-6342a5","type":"official","slug":"daniel-malchev-malev-6342a5","label":"Даниел Малчев Малев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:204856976","type":"company","label":"Продакшън ТВ","slug":null,"uic":"204856976","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:daniel-malchev-malev-6342a5","target":"company:tr:204856976","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:daniel-malchev-malev-6342a5",
+  "nodes": [
+    {
+      "id": "official:daniel-malchev-malev-6342a5",
+      "type": "official",
+      "slug": "daniel-malchev-malev-6342a5",
+      "label": "Даниел Малчев Малев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204856976",
+      "type": "company",
+      "label": "Продакшън ТВ",
+      "slug": null,
+      "uic": "204856976",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-malchev-malev-6342a5",
+      "target": "company:tr:204856976",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,137 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:gyulseren-mehmed-yusuf-94c311","nodes":[{"id":"official:gyulseren-mehmed-yusuf-94c311","type":"official","slug":"gyulseren-mehmed-yusuf-94c311","label":"Гюлсерен Мехмед Юсуф","tier":"municipal","role":"councillor","municipality":"Дългопол"},{"id":"company:tr:000085029","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ&quot;ЛИЛЯНА ДИМИТРОВА-1927&quot;","slug":null,"uic":"000085029","legalForm":null,"status":null,"seat":null},{"id":"person:НЕДЖЛА ЮМЕРОВА СЕЛИМ","type":"person","label":"Неджла Юмерова Селим"},{"id":"person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ","type":"person","label":"Байзид Шевкедов Якубов"},{"id":"person:ЛЕБИБЕ МЕХМЕДОВА МУСТАФОВА","type":"person","label":"Лебибе Мехмедова Мустафова"},{"id":"person:АКИМЕ ЕМИН АЛИ","type":"person","label":"Акиме Емин Али"},{"id":"person:ХАТИДЖЕ МУСТАФА ЮМЕРОВА","type":"person","label":"Хатидже Мустафа Юмерова"},{"id":"person:РУМЯНА ЯНАКИЕВА БРАТУНОВА","type":"person","label":"Румяна Янакиева Братунова"}],"edges":[{"source":"official:gyulseren-mehmed-yusuf-94c311","target":"company:tr:000085029","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:НЕДЖЛА ЮМЕРОВА СЕЛИМ","target":"company:tr:000085029","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ","target":"company:tr:000085029","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛЕБИБЕ МЕХМЕДОВА МУСТАФОВА","target":"company:tr:000085029","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АКИМЕ ЕМИН АЛИ","target":"company:tr:000085029","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ХАТИДЖЕ МУСТАФА ЮМЕРОВА","target":"company:tr:000085029","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ЯНАКИЕВА БРАТУНОВА","target":"company:tr:000085029","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛЕБИБЕ МЕХМЕДОВА МУСТАФОВА","target":"company:tr:000085029","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ЯНАКИЕВА БРАТУНОВА","target":"company:tr:000085029","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ЯНАКИЕВА БРАТУНОВА","target":"company:tr:000085029","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:gyulseren-mehmed-yusuf-94c311",
+  "nodes": [
+    {
+      "id": "official:gyulseren-mehmed-yusuf-94c311",
+      "type": "official",
+      "slug": "gyulseren-mehmed-yusuf-94c311",
+      "label": "Гюлсерен Мехмед Юсуф",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дългопол"
+    },
+    {
+      "id": "company:tr:000085029",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ&quot;ЛИЛЯНА ДИМИТРОВА-1927&quot;",
+      "slug": null,
+      "uic": "000085029",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕДЖЛА ЮМЕРОВА СЕЛИМ",
+      "type": "person",
+      "label": "Неджла Юмерова Селим"
+    },
+    {
+      "id": "person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ",
+      "type": "person",
+      "label": "Байзид Шевкедов Якубов"
+    },
+    {
+      "id": "person:ЛЕБИБЕ МЕХМЕДОВА МУСТАФОВА",
+      "type": "person",
+      "label": "Лебибе Мехмедова Мустафова"
+    },
+    {
+      "id": "person:АКИМЕ ЕМИН АЛИ",
+      "type": "person",
+      "label": "Акиме Емин Али"
+    },
+    {
+      "id": "person:ХАТИДЖЕ МУСТАФА ЮМЕРОВА",
+      "type": "person",
+      "label": "Хатидже Мустафа Юмерова"
+    },
+    {
+      "id": "person:РУМЯНА ЯНАКИЕВА БРАТУНОВА",
+      "type": "person",
+      "label": "Румяна Янакиева Братунова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gyulseren-mehmed-yusuf-94c311",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕДЖЛА ЮМЕРОВА СЕЛИМ",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕБИБЕ МЕХМЕДОВА МУСТАФОВА",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АКИМЕ ЕМИН АЛИ",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАТИДЖЕ МУСТАФА ЮМЕРОВА",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ЯНАКИЕВА БРАТУНОВА",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕБИБЕ МЕХМЕДОВА МУСТАФОВА",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ЯНАКИЕВА БРАТУНОВА",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ЯНАКИЕВА БРАТУНОВА",
+      "target": "company:tr:000085029",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

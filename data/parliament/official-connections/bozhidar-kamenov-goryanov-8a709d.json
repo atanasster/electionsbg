@@ -1,1 +1,103 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:bozhidar-kamenov-goryanov-8a709d","nodes":[{"id":"official:bozhidar-kamenov-goryanov-8a709d","type":"official","slug":"bozhidar-kamenov-goryanov-8a709d","label":"Божидар Каменов Горянов","tier":"municipal","role":"councillor","municipality":"Сливница"},{"id":"company:tr:205838707","type":"company","label":"Институт за енергийна медицина Нусантара","slug":null,"uic":"205838707","legalForm":null,"status":null,"seat":null},{"id":"person:ВУИ ЕНГ ТАН","type":"person","label":"Вуи Енг Тан"},{"id":"person:МАРГАРИТА ВАСИЛЕВА ВАСИЛЕВА","type":"person","label":"Маргарита Василева Василева"},{"id":"person:НЕВЕН ПЕТКОВ ДИЛКОВ","type":"person","label":"Невен Петков Дилков"},{"id":"person:ЗЛАТИНА ПЕТРОВА МИХАЙЛОВА","type":"person","label":"Златина Петрова Михайлова"}],"edges":[{"source":"official:bozhidar-kamenov-goryanov-8a709d","target":"company:tr:205838707","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:bozhidar-kamenov-goryanov-8a709d","target":"company:tr:205838707","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВУИ ЕНГ ТАН","target":"company:tr:205838707","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВУИ ЕНГ ТАН","target":"company:tr:205838707","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА ВАСИЛЕВА ВАСИЛЕВА","target":"company:tr:205838707","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕН ПЕТКОВ ДИЛКОВ","target":"company:tr:205838707","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТИНА ПЕТРОВА МИХАЙЛОВА","target":"company:tr:205838707","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:bozhidar-kamenov-goryanov-8a709d",
+  "nodes": [
+    {
+      "id": "official:bozhidar-kamenov-goryanov-8a709d",
+      "type": "official",
+      "slug": "bozhidar-kamenov-goryanov-8a709d",
+      "label": "Божидар Каменов Горянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливница"
+    },
+    {
+      "id": "company:tr:205838707",
+      "type": "company",
+      "label": "Институт за енергийна медицина Нусантара",
+      "slug": null,
+      "uic": "205838707",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВУИ ЕНГ ТАН",
+      "type": "person",
+      "label": "Вуи Енг Тан"
+    },
+    {
+      "id": "person:МАРГАРИТА ВАСИЛЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Маргарита Василева Василева"
+    },
+    {
+      "id": "person:НЕВЕН ПЕТКОВ ДИЛКОВ",
+      "type": "person",
+      "label": "Невен Петков Дилков"
+    },
+    {
+      "id": "person:ЗЛАТИНА ПЕТРОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Златина Петрова Михайлова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bozhidar-kamenov-goryanov-8a709d",
+      "target": "company:tr:205838707",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bozhidar-kamenov-goryanov-8a709d",
+      "target": "company:tr:205838707",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВУИ ЕНГ ТАН",
+      "target": "company:tr:205838707",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВУИ ЕНГ ТАН",
+      "target": "company:tr:205838707",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ВАСИЛЕВА ВАСИЛЕВА",
+      "target": "company:tr:205838707",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕН ПЕТКОВ ДИЛКОВ",
+      "target": "company:tr:205838707",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИНА ПЕТРОВА МИХАЙЛОВА",
+      "target": "company:tr:205838707",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

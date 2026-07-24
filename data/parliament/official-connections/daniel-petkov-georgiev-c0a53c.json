@@ -1,1 +1,92 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:daniel-petkov-georgiev-c0a53c","nodes":[{"id":"official:daniel-petkov-georgiev-c0a53c","type":"official","slug":"daniel-petkov-georgiev-c0a53c","label":"Даниел Петков Георгиев","tier":"executive","role":"international","municipality":null},{"id":"company:tr:208255453","type":"company","label":"КАМЕРАД","slug":null,"uic":"208255453","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТО ЙОНЧЕВ НЕЕВ","type":"person","label":"Христо Йончев Неев"},{"id":"person:ДАНИЕЛ ГЕОРГИЕВ ПЕТКОВ","type":"person","label":"Даниел Георгиев Петков"},{"id":"person:НИКОЛА ТОДОРОВ ЗАНЕВ","type":"person","label":"Никола Тодоров Занев"},{"id":"company:name:ЗАНИНИ ИНВЕСТ","type":"company","label":"Занини Инвест ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:daniel-petkov-georgiev-c0a53c","target":"company:tr:208255453","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО ЙОНЧЕВ НЕЕВ","target":"company:tr:208255453","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ ГЕОРГИЕВ ПЕТКОВ","target":"company:tr:208255453","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ТОДОРОВ ЗАНЕВ","target":"company:tr:208255453","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:ЗАНИНИ ИНВЕСТ","target":"company:tr:208255453","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:daniel-petkov-georgiev-c0a53c",
+  "nodes": [
+    {
+      "id": "official:daniel-petkov-georgiev-c0a53c",
+      "type": "official",
+      "slug": "daniel-petkov-georgiev-c0a53c",
+      "label": "Даниел Петков Георгиев",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208255453",
+      "type": "company",
+      "label": "КАМЕРАД",
+      "slug": null,
+      "uic": "208255453",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ЙОНЧЕВ НЕЕВ",
+      "type": "person",
+      "label": "Христо Йончев Неев"
+    },
+    {
+      "id": "person:ДАНИЕЛ ГЕОРГИЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Даниел Георгиев Петков"
+    },
+    {
+      "id": "person:НИКОЛА ТОДОРОВ ЗАНЕВ",
+      "type": "person",
+      "label": "Никола Тодоров Занев"
+    },
+    {
+      "id": "company:name:ЗАНИНИ ИНВЕСТ",
+      "type": "company",
+      "label": "Занини Инвест ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-petkov-georgiev-c0a53c",
+      "target": "company:tr:208255453",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ЙОНЧЕВ НЕЕВ",
+      "target": "company:tr:208255453",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ГЕОРГИЕВ ПЕТКОВ",
+      "target": "company:tr:208255453",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ТОДОРОВ ЗАНЕВ",
+      "target": "company:tr:208255453",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЗАНИНИ ИНВЕСТ",
+      "target": "company:tr:208255453",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:bilyana-stanimirova-atanasova-f73908","nodes":[{"id":"official:bilyana-stanimirova-atanasova-f73908","type":"official","slug":"bilyana-stanimirova-atanasova-f73908","label":"Биляна Станимирова Атанасова","tier":"municipal","role":"councillor","municipality":"Ловеч"},{"id":"company:tr:203064800","type":"company","label":"ЕКО РИМА","slug":null,"uic":"203064800","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕНКО МИХАЙЛОВ МИХАЙЛОВ","type":"person","label":"Пенко Михайлов Михайлов"},{"id":"person:НЕЛИ СТАНИМИРОВА АТАНАСОВА","type":"person","label":"Нели Станимирова Атанасова"}],"edges":[{"source":"official:bilyana-stanimirova-atanasova-f73908","target":"company:tr:203064800","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:bilyana-stanimirova-atanasova-f73908","target":"company:tr:203064800","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕНКО МИХАЙЛОВ МИХАЙЛОВ","target":"company:tr:203064800","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ СТАНИМИРОВА АТАНАСОВА","target":"company:tr:203064800","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ СТАНИМИРОВА АТАНАСОВА","target":"company:tr:203064800","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:bilyana-stanimirova-atanasova-f73908",
+  "nodes": [
+    {
+      "id": "official:bilyana-stanimirova-atanasova-f73908",
+      "type": "official",
+      "slug": "bilyana-stanimirova-atanasova-f73908",
+      "label": "Биляна Станимирова Атанасова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ловеч"
+    },
+    {
+      "id": "company:tr:203064800",
+      "type": "company",
+      "label": "ЕКО РИМА",
+      "slug": null,
+      "uic": "203064800",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕНКО МИХАЙЛОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Пенко Михайлов Михайлов"
+    },
+    {
+      "id": "person:НЕЛИ СТАНИМИРОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Нели Станимирова Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bilyana-stanimirova-atanasova-f73908",
+      "target": "company:tr:203064800",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bilyana-stanimirova-atanasova-f73908",
+      "target": "company:tr:203064800",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНКО МИХАЙЛОВ МИХАЙЛОВ",
+      "target": "company:tr:203064800",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ СТАНИМИРОВА АТАНАСОВА",
+      "target": "company:tr:203064800",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ СТАНИМИРОВА АТАНАСОВА",
+      "target": "company:tr:203064800",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

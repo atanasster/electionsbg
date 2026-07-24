@@ -1,1 +1,207 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:miglena-tsvetanova-stanimirova-e21a0f","nodes":[{"id":"official:miglena-tsvetanova-stanimirova-e21a0f","type":"official","slug":"miglena-tsvetanova-stanimirova-e21a0f","label":"Миглена Цветанова Станимирова","tier":"municipal","role":"councillor","municipality":"Вълчедръм"},{"id":"company:tr:000312854","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;РАЛО - 1891&quot;","slug":null,"uic":"000312854","legalForm":null,"status":null,"seat":null},{"id":"person:МАРГАРИТА БОРИСОВА ЙОНИНА","type":"person","label":"Маргарита Борисова Йонина"},{"id":"person:АСЕН БОЯНОВ КАЧАМАЧКОВ","type":"person","label":"Асен Боянов Качамачков"},{"id":"person:ГАНКА ХРИСТОВА МИХАЙЛОВА","type":"person","label":"Ганка Христова Михайлова"},{"id":"person:КАМЕЛИЯ АСЕНОВА САВОВА","type":"person","label":"Камелия Асенова Савова"},{"id":"person:РАДОСТИНА АНТОНОВА ЗАХАРИЕВА","type":"person","label":"Радостина Антонова Захариева"},{"id":"person:ЮЛИЯ ВАСИЛЕВА МЛАДЕНОВА","type":"person","label":"Юлия Василева Младенова"},{"id":"person:НАДЕЖДА КИРИЛОВА ПЪРВАНКОВА","type":"person","label":"Надежда Кирилова Първанкова"},{"id":"person:КРИСТИНА ПЛАМЕНОВА МОНОВА","type":"person","label":"Кристина Пламенова Монова"},{"id":"person:МАЯ ДИМИТРОВА КОНЯРСКА","type":"person","label":"Мая Димитрова Конярска"},{"id":"person:МАРИЯ ИВАНОВА НИКОЛОВА","type":"person","label":"Мария Иванова Николова"},{"id":"person:МИГЛЕНА ЦВЕТАНОВА ГУГЛИНА","type":"person","label":"Миглена Цветанова Гуглина"},{"id":"person:РОСИЦА АТАНАСОВА РУСИНОВА","type":"person","label":"Росица Атанасова Русинова"}],"edges":[{"source":"official:miglena-tsvetanova-stanimirova-e21a0f","target":"company:tr:000312854","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:miglena-tsvetanova-stanimirova-e21a0f","target":"company:tr:000312854","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МАРГАРИТА БОРИСОВА ЙОНИНА","target":"company:tr:000312854","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН БОЯНОВ КАЧАМАЧКОВ","target":"company:tr:000312854","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАНКА ХРИСТОВА МИХАЙЛОВА","target":"company:tr:000312854","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ АСЕНОВА САВОВА","target":"company:tr:000312854","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА АНТОНОВА ЗАХАРИЕВА","target":"company:tr:000312854","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЯ ВАСИЛЕВА МЛАДЕНОВА","target":"company:tr:000312854","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА КИРИЛОВА ПЪРВАНКОВА","target":"company:tr:000312854","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА ПЛАМЕНОВА МОНОВА","target":"company:tr:000312854","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАЯ ДИМИТРОВА КОНЯРСКА","target":"company:tr:000312854","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИВАНОВА НИКОЛОВА","target":"company:tr:000312854","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА ЦВЕТАНОВА ГУГЛИНА","target":"company:tr:000312854","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА ЦВЕТАНОВА ГУГЛИНА","target":"company:tr:000312854","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА АТАНАСОВА РУСИНОВА","target":"company:tr:000312854","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:miglena-tsvetanova-stanimirova-e21a0f",
+  "nodes": [
+    {
+      "id": "official:miglena-tsvetanova-stanimirova-e21a0f",
+      "type": "official",
+      "slug": "miglena-tsvetanova-stanimirova-e21a0f",
+      "label": "Миглена Цветанова Станимирова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Вълчедръм"
+    },
+    {
+      "id": "company:tr:000312854",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;РАЛО - 1891&quot;",
+      "slug": null,
+      "uic": "000312854",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРГАРИТА БОРИСОВА ЙОНИНА",
+      "type": "person",
+      "label": "Маргарита Борисова Йонина"
+    },
+    {
+      "id": "person:АСЕН БОЯНОВ КАЧАМАЧКОВ",
+      "type": "person",
+      "label": "Асен Боянов Качамачков"
+    },
+    {
+      "id": "person:ГАНКА ХРИСТОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Ганка Христова Михайлова"
+    },
+    {
+      "id": "person:КАМЕЛИЯ АСЕНОВА САВОВА",
+      "type": "person",
+      "label": "Камелия Асенова Савова"
+    },
+    {
+      "id": "person:РАДОСТИНА АНТОНОВА ЗАХАРИЕВА",
+      "type": "person",
+      "label": "Радостина Антонова Захариева"
+    },
+    {
+      "id": "person:ЮЛИЯ ВАСИЛЕВА МЛАДЕНОВА",
+      "type": "person",
+      "label": "Юлия Василева Младенова"
+    },
+    {
+      "id": "person:НАДЕЖДА КИРИЛОВА ПЪРВАНКОВА",
+      "type": "person",
+      "label": "Надежда Кирилова Първанкова"
+    },
+    {
+      "id": "person:КРИСТИНА ПЛАМЕНОВА МОНОВА",
+      "type": "person",
+      "label": "Кристина Пламенова Монова"
+    },
+    {
+      "id": "person:МАЯ ДИМИТРОВА КОНЯРСКА",
+      "type": "person",
+      "label": "Мая Димитрова Конярска"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Мария Иванова Николова"
+    },
+    {
+      "id": "person:МИГЛЕНА ЦВЕТАНОВА ГУГЛИНА",
+      "type": "person",
+      "label": "Миглена Цветанова Гуглина"
+    },
+    {
+      "id": "person:РОСИЦА АТАНАСОВА РУСИНОВА",
+      "type": "person",
+      "label": "Росица Атанасова Русинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-tsvetanova-stanimirova-e21a0f",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miglena-tsvetanova-stanimirova-e21a0f",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА БОРИСОВА ЙОНИНА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН БОЯНОВ КАЧАМАЧКОВ",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА ХРИСТОВА МИХАЙЛОВА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ АСЕНОВА САВОВА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА АНТОНОВА ЗАХАРИЕВА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ВАСИЛЕВА МЛАДЕНОВА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА КИРИЛОВА ПЪРВАНКОВА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ПЛАМЕНОВА МОНОВА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ДИМИТРОВА КОНЯРСКА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА НИКОЛОВА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ЦВЕТАНОВА ГУГЛИНА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ЦВЕТАНОВА ГУГЛИНА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА АТАНАСОВА РУСИНОВА",
+      "target": "company:tr:000312854",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

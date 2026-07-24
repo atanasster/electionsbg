@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:boto-tomov-velinov-3a3680","nodes":[{"id":"official:boto-tomov-velinov-3a3680","type":"official","slug":"boto-tomov-velinov-3a3680","label":"Ботьо Томов Велинов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207356392","type":"company","label":"ДЕФСАЙБЪР","slug":null,"uic":"207356392","legalForm":null,"status":null,"seat":null},{"id":"person:БОРИСЛАВ ПЕТРОВ ПАЛЕШНИКОВ","type":"person","label":"Борислав Петров Палешников"},{"id":"person:ГАЛЕНА ПЕТКОВА СЛАВОВА","type":"person","label":"Галена Петкова Славова"}],"edges":[{"source":"official:boto-tomov-velinov-3a3680","target":"company:tr:207356392","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:БОРИСЛАВ ПЕТРОВ ПАЛЕШНИКОВ","target":"company:tr:207356392","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛЕНА ПЕТКОВА СЛАВОВА","target":"company:tr:207356392","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ ПЕТРОВ ПАЛЕШНИКОВ","target":"company:tr:207356392","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛЕНА ПЕТКОВА СЛАВОВА","target":"company:tr:207356392","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:boto-tomov-velinov-3a3680",
+  "nodes": [
+    {
+      "id": "official:boto-tomov-velinov-3a3680",
+      "type": "official",
+      "slug": "boto-tomov-velinov-3a3680",
+      "label": "Ботьо Томов Велинов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207356392",
+      "type": "company",
+      "label": "ДЕФСАЙБЪР",
+      "slug": null,
+      "uic": "207356392",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИСЛАВ ПЕТРОВ ПАЛЕШНИКОВ",
+      "type": "person",
+      "label": "Борислав Петров Палешников"
+    },
+    {
+      "id": "person:ГАЛЕНА ПЕТКОВА СЛАВОВА",
+      "type": "person",
+      "label": "Галена Петкова Славова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boto-tomov-velinov-3a3680",
+      "target": "company:tr:207356392",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИСЛАВ ПЕТРОВ ПАЛЕШНИКОВ",
+      "target": "company:tr:207356392",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЕНА ПЕТКОВА СЛАВОВА",
+      "target": "company:tr:207356392",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ПЕТРОВ ПАЛЕШНИКОВ",
+      "target": "company:tr:207356392",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЕНА ПЕТКОВА СЛАВОВА",
+      "target": "company:tr:207356392",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

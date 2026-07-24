@@ -1,1 +1,155 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:sofiya-anatolieva-iordanova-75aa4f","nodes":[{"id":"official:sofiya-anatolieva-iordanova-75aa4f","type":"official","slug":"sofiya-anatolieva-iordanova-75aa4f","label":"София Анатолиева Йорданова","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:000662769","type":"company","label":"Специализирана болница за активно лечение по акушерство и гинекология - Майчин дом","slug":null,"uic":"000662769","legalForm":null,"status":null,"seat":null},{"id":"official:virsaviya-stoyanova-vaseva-chorbadzhiiska-c67759","type":"official","slug":"virsaviya-stoyanova-vaseva-chorbadzhiiska-c67759","label":"Вирсавия Стоянова Васева-Чорбаджийска","tier":"executive","role":"hospital_head","municipality":null},{"id":"official:gergana-vasileva-dermendzhieva-c92bd5","type":"official","slug":"gergana-vasileva-dermendzhieva-c92bd5","label":"Гергана Василева Дерменджиева","tier":"executive","role":"hospital_head","municipality":null},{"id":"person:ЛЮБОМИР ЛЮБЧОВ ПЕНЕВ","type":"person","label":"Любомир Любчов Пенев"},{"id":"person:ИВАН АТАНАСОВ КОСТОВ","type":"person","label":"Иван Атанасов Костов"},{"id":"person:ЕКАТЕРИНА ЛАЗАРОВА ТРЕНКОВА","type":"person","label":"Екатерина Лазарова Тренкова"},{"id":"person:МАРИЯ ВЕЛИЧКОВА ЮНАКОВА","type":"person","label":"Мария Величкова Юнакова"},{"id":"person:ТЕОДОРА ТОДОРОВА ТАБАКОВА","type":"person","label":"Теодора Тодорова Табакова"},{"id":"person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ","type":"person","label":"Димитър Вълчинов Димитров"}],"edges":[{"source":"official:sofiya-anatolieva-iordanova-75aa4f","target":"company:tr:000662769","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:virsaviya-stoyanova-vaseva-chorbadzhiiska-c67759","target":"company:tr:000662769","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:gergana-vasileva-dermendzhieva-c92bd5","target":"company:tr:000662769","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР ЛЮБЧОВ ПЕНЕВ","target":"company:tr:000662769","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ КОСТОВ","target":"company:tr:000662769","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ КОСТОВ","target":"company:tr:000662769","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕКАТЕРИНА ЛАЗАРОВА ТРЕНКОВА","target":"company:tr:000662769","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ВЕЛИЧКОВА ЮНАКОВА","target":"company:tr:000662769","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ТОДОРОВА ТАБАКОВА","target":"company:tr:000662769","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ","target":"company:tr:000662769","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:sofiya-anatolieva-iordanova-75aa4f",
+  "nodes": [
+    {
+      "id": "official:sofiya-anatolieva-iordanova-75aa4f",
+      "type": "official",
+      "slug": "sofiya-anatolieva-iordanova-75aa4f",
+      "label": "София Анатолиева Йорданова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000662769",
+      "type": "company",
+      "label": "Специализирана болница за активно лечение по акушерство и гинекология - Майчин дом",
+      "slug": null,
+      "uic": "000662769",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:virsaviya-stoyanova-vaseva-chorbadzhiiska-c67759",
+      "type": "official",
+      "slug": "virsaviya-stoyanova-vaseva-chorbadzhiiska-c67759",
+      "label": "Вирсавия Стоянова Васева-Чорбаджийска",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:gergana-vasileva-dermendzhieva-c92bd5",
+      "type": "official",
+      "slug": "gergana-vasileva-dermendzhieva-c92bd5",
+      "label": "Гергана Василева Дерменджиева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЛЮБОМИР ЛЮБЧОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Любомир Любчов Пенев"
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ КОСТОВ",
+      "type": "person",
+      "label": "Иван Атанасов Костов"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ЛАЗАРОВА ТРЕНКОВА",
+      "type": "person",
+      "label": "Екатерина Лазарова Тренкова"
+    },
+    {
+      "id": "person:МАРИЯ ВЕЛИЧКОВА ЮНАКОВА",
+      "type": "person",
+      "label": "Мария Величкова Юнакова"
+    },
+    {
+      "id": "person:ТЕОДОРА ТОДОРОВА ТАБАКОВА",
+      "type": "person",
+      "label": "Теодора Тодорова Табакова"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Вълчинов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sofiya-anatolieva-iordanova-75aa4f",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:virsaviya-stoyanova-vaseva-chorbadzhiiska-c67759",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-vasileva-dermendzhieva-c92bd5",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР ЛЮБЧОВ ПЕНЕВ",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ КОСТОВ",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ КОСТОВ",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ЛАЗАРОВА ТРЕНКОВА",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВЕЛИЧКОВА ЮНАКОВА",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ТОДОРОВА ТАБАКОВА",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

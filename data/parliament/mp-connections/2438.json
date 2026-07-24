@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "generatedAt": "2026-07-24T18:01:46.243Z",
   "mpNodeId": "mp:2438",
   "nodes": [
     {
@@ -37,9 +37,13 @@
       "seat": "БЪЛГАРИЯ, гр. София, 1000"
     },
     {
-      "id": "person:МЕТИН ХЮСЕИН КАЗАК",
-      "type": "person",
-      "label": "Метин Хюсеин Казак"
+      "id": "official:metin-hyusein-kazak-9a951c",
+      "type": "official",
+      "slug": "metin-hyusein-kazak-9a951c",
+      "label": "Метин Хюсеин Казак",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
     },
     {
       "id": "person:МАРИЯ ГЕОРГИЕВА КАНТАРДЖИЕВА",
@@ -158,12 +162,12 @@
       "confidence": "medium"
     },
     {
-      "source": "person:МЕТИН ХЮСЕИН КАЗАК",
+      "source": "official:metin-hyusein-kazak-9a951c",
       "target": "company:tr:130528677",
       "kind": "tr_role",
       "role": "ngo_board",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
       "source": "person:МАРИЯ ГЕОРГИЕВА КАНТАРДЖИЕВА",

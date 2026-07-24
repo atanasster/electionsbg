@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:osman-mehmedov-palazov-dc808a","nodes":[{"id":"official:osman-mehmedov-palazov-dc808a","type":"official","slug":"osman-mehmedov-palazov-dc808a","label":"Осман Мехмедов Палазов","tier":"municipal","role":"councillor","municipality":"Омуртаг"},{"id":"company:tr:203882402","type":"company","label":"Палазов Агро ЕООД","slug":null,"uic":"203882402","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204883222","type":"company","label":"ПАЛАЗ 89 ЕООД","slug":null,"uic":"204883222","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206365082","type":"company","label":"ЕООД Озан Агро 20","slug":null,"uic":"206365082","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206910305","type":"company","label":"ЕООД АГРО БАЛКАН 22","slug":null,"uic":"206910305","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:osman-mehmedov-palazov-dc808a","target":"company:tr:203882402","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:osman-mehmedov-palazov-dc808a","target":"company:tr:204883222","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:osman-mehmedov-palazov-dc808a","target":"company:tr:206365082","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:osman-mehmedov-palazov-dc808a","target":"company:tr:206910305","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:osman-mehmedov-palazov-dc808a","target":"company:tr:206365082","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:osman-mehmedov-palazov-dc808a","target":"company:tr:206365082","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:osman-mehmedov-palazov-dc808a","target":"company:tr:206910305","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:osman-mehmedov-palazov-dc808a","target":"company:tr:206910305","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:osman-mehmedov-palazov-dc808a",
+  "nodes": [
+    {
+      "id": "official:osman-mehmedov-palazov-dc808a",
+      "type": "official",
+      "slug": "osman-mehmedov-palazov-dc808a",
+      "label": "Осман Мехмедов Палазов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:203882402",
+      "type": "company",
+      "label": "Палазов Агро ЕООД",
+      "slug": null,
+      "uic": "203882402",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204883222",
+      "type": "company",
+      "label": "ПАЛАЗ 89 ЕООД",
+      "slug": null,
+      "uic": "204883222",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206365082",
+      "type": "company",
+      "label": "ЕООД Озан Агро 20",
+      "slug": null,
+      "uic": "206365082",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206910305",
+      "type": "company",
+      "label": "ЕООД АГРО БАЛКАН 22",
+      "slug": null,
+      "uic": "206910305",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:osman-mehmedov-palazov-dc808a",
+      "target": "company:tr:203882402",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:osman-mehmedov-palazov-dc808a",
+      "target": "company:tr:204883222",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:osman-mehmedov-palazov-dc808a",
+      "target": "company:tr:206365082",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:osman-mehmedov-palazov-dc808a",
+      "target": "company:tr:206910305",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:osman-mehmedov-palazov-dc808a",
+      "target": "company:tr:206365082",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:osman-mehmedov-palazov-dc808a",
+      "target": "company:tr:206365082",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:osman-mehmedov-palazov-dc808a",
+      "target": "company:tr:206910305",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:osman-mehmedov-palazov-dc808a",
+      "target": "company:tr:206910305",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

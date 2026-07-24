@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:krasimir-ivanov-stefanov-a56fd7","nodes":[{"id":"official:krasimir-ivanov-stefanov-a56fd7","type":"official","slug":"krasimir-ivanov-stefanov-a56fd7","label":"Красимир Иванов Стефанов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207411593","type":"company","label":"Индустриален технологичен парк - Свищов","slug":null,"uic":"207411593","legalForm":null,"status":null,"seat":null},{"id":"person:ЕЛТИМИР НИКОЛАЕВ АТАНАСОВ","type":"person","label":"Елтимир Николаев Атанасов"},{"id":"person:ОБЩИНА СВИЩОВ","type":"person","label":"Община Свищов"}],"edges":[{"source":"official:krasimir-ivanov-stefanov-a56fd7","target":"company:tr:207411593","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЕЛТИМИР НИКОЛАЕВ АТАНАСОВ","target":"company:tr:207411593","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА СВИЩОВ","target":"company:tr:207411593","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:krasimir-ivanov-stefanov-a56fd7",
+  "nodes": [
+    {
+      "id": "official:krasimir-ivanov-stefanov-a56fd7",
+      "type": "official",
+      "slug": "krasimir-ivanov-stefanov-a56fd7",
+      "label": "Красимир Иванов Стефанов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207411593",
+      "type": "company",
+      "label": "Индустриален технологичен парк - Свищов",
+      "slug": null,
+      "uic": "207411593",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛТИМИР НИКОЛАЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Елтимир Николаев Атанасов"
+    },
+    {
+      "id": "person:ОБЩИНА СВИЩОВ",
+      "type": "person",
+      "label": "Община Свищов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-ivanov-stefanov-a56fd7",
+      "target": "company:tr:207411593",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛТИМИР НИКОЛАЕВ АТАНАСОВ",
+      "target": "company:tr:207411593",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА СВИЩОВ",
+      "target": "company:tr:207411593",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,51 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:spas-atanasov-shumanov-98e38e","nodes":[{"id":"official:spas-atanasov-shumanov-98e38e","type":"official","slug":"spas-atanasov-shumanov-98e38e","label":"Спас Атанасов Шуманов","tier":"municipal","role":"councillor","municipality":"Пловдив"},{"id":"company:tr:207482918","type":"company","label":"РЕЦИКЛИРАНЕ И ВЪЗСТАНОВЯВАНЕ","slug":null,"uic":"207482918","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:spas-atanasov-shumanov-98e38e","target":"company:tr:207482918","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:spas-atanasov-shumanov-98e38e","target":"company:tr:207482918","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:spas-atanasov-shumanov-98e38e","target":"company:tr:207482918","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:spas-atanasov-shumanov-98e38e",
+  "nodes": [
+    {
+      "id": "official:spas-atanasov-shumanov-98e38e",
+      "type": "official",
+      "slug": "spas-atanasov-shumanov-98e38e",
+      "label": "Спас Атанасов Шуманов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "company:tr:207482918",
+      "type": "company",
+      "label": "РЕЦИКЛИРАНЕ И ВЪЗСТАНОВЯВАНЕ",
+      "slug": null,
+      "uic": "207482918",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:spas-atanasov-shumanov-98e38e",
+      "target": "company:tr:207482918",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:spas-atanasov-shumanov-98e38e",
+      "target": "company:tr:207482918",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:spas-atanasov-shumanov-98e38e",
+      "target": "company:tr:207482918",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

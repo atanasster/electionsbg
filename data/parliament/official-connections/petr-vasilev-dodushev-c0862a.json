@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-vasilev-dodushev-c0862a","nodes":[{"id":"official:petr-vasilev-dodushev-c0862a","type":"official","slug":"petr-vasilev-dodushev-c0862a","label":"Петър Василев Додушев","tier":"municipal","role":"councillor","municipality":"Сандански"},{"id":"company:tr:176947362","type":"company","label":"СДРУЖЕНИЕ НА ВСК - САНДАНСКИ","slug":null,"uic":"176947362","legalForm":null,"status":null,"seat":null},{"id":"person:ЯНКА ИЛИЕВА ШАПКОВА","type":"person","label":"Янка Илиева Шапкова"},{"id":"person:БОЙКА КИРИЛОВА ЧОПЕВА","type":"person","label":"Бойка Кирилова Чопева"},{"id":"person:ЕВДОКИЯ СТОЯНОВА БИСЕРКОВА","type":"person","label":"Евдокия Стоянова Бисеркова"}],"edges":[{"source":"official:petr-vasilev-dodushev-c0862a","target":"company:tr:176947362","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЯНКА ИЛИЕВА ШАПКОВА","target":"company:tr:176947362","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКА КИРИЛОВА ЧОПЕВА","target":"company:tr:176947362","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВДОКИЯ СТОЯНОВА БИСЕРКОВА","target":"company:tr:176947362","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-vasilev-dodushev-c0862a",
+  "nodes": [
+    {
+      "id": "official:petr-vasilev-dodushev-c0862a",
+      "type": "official",
+      "slug": "petr-vasilev-dodushev-c0862a",
+      "label": "Петър Василев Додушев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:176947362",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ВСК - САНДАНСКИ",
+      "slug": null,
+      "uic": "176947362",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯНКА ИЛИЕВА ШАПКОВА",
+      "type": "person",
+      "label": "Янка Илиева Шапкова"
+    },
+    {
+      "id": "person:БОЙКА КИРИЛОВА ЧОПЕВА",
+      "type": "person",
+      "label": "Бойка Кирилова Чопева"
+    },
+    {
+      "id": "person:ЕВДОКИЯ СТОЯНОВА БИСЕРКОВА",
+      "type": "person",
+      "label": "Евдокия Стоянова Бисеркова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-vasilev-dodushev-c0862a",
+      "target": "company:tr:176947362",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНКА ИЛИЕВА ШАПКОВА",
+      "target": "company:tr:176947362",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА КИРИЛОВА ЧОПЕВА",
+      "target": "company:tr:176947362",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВДОКИЯ СТОЯНОВА БИСЕРКОВА",
+      "target": "company:tr:176947362",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

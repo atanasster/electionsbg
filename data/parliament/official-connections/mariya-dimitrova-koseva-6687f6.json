@@ -1,1 +1,105 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-dimitrova-koseva-6687f6","nodes":[{"id":"official:mariya-dimitrova-koseva-6687f6","type":"official","slug":"mariya-dimitrova-koseva-6687f6","label":"Мария Димитрова Кьосева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:203606076","type":"company","label":"АСТАНА СТРОЙ","slug":null,"uic":"203606076","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛАЙ САМУИЛОВ САМУИЛОВ","type":"person","label":"Николай Самуилов Самуилов"},{"id":"person:ВЛАДИМИР ЕЛОВИКОВ","type":"person","label":"Владимир Еловиков"},{"id":"company:name:ИНОВЕНТ ХОЛДИНГ","type":"company","label":"„ИНОВЕНТ ХОЛДИНГ“ АД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ВАЛЕНТИНА ПЕТРОВА ДАСКАЛОВА","type":"person","label":"Валентина Петрова Даскалова"},{"id":"person:ТЕОДОР ИВАНОВ ЗАХОВ","type":"person","label":"Теодор Иванов Захов"}],"edges":[{"source":"official:mariya-dimitrova-koseva-6687f6","target":"company:tr:203606076","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ САМУИЛОВ САМУИЛОВ","target":"company:tr:203606076","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ЕЛОВИКОВ","target":"company:tr:203606076","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:ИНОВЕНТ ХОЛДИНГ","target":"company:tr:203606076","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ПЕТРОВА ДАСКАЛОВА","target":"company:tr:203606076","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР ИВАНОВ ЗАХОВ","target":"company:tr:203606076","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-dimitrova-koseva-6687f6",
+  "nodes": [
+    {
+      "id": "official:mariya-dimitrova-koseva-6687f6",
+      "type": "official",
+      "slug": "mariya-dimitrova-koseva-6687f6",
+      "label": "Мария Димитрова Кьосева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203606076",
+      "type": "company",
+      "label": "АСТАНА СТРОЙ",
+      "slug": null,
+      "uic": "203606076",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ САМУИЛОВ САМУИЛОВ",
+      "type": "person",
+      "label": "Николай Самуилов Самуилов"
+    },
+    {
+      "id": "person:ВЛАДИМИР ЕЛОВИКОВ",
+      "type": "person",
+      "label": "Владимир Еловиков"
+    },
+    {
+      "id": "company:name:ИНОВЕНТ ХОЛДИНГ",
+      "type": "company",
+      "label": "„ИНОВЕНТ ХОЛДИНГ“ АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ПЕТРОВА ДАСКАЛОВА",
+      "type": "person",
+      "label": "Валентина Петрова Даскалова"
+    },
+    {
+      "id": "person:ТЕОДОР ИВАНОВ ЗАХОВ",
+      "type": "person",
+      "label": "Теодор Иванов Захов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-dimitrova-koseva-6687f6",
+      "target": "company:tr:203606076",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ САМУИЛОВ САМУИЛОВ",
+      "target": "company:tr:203606076",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЕЛОВИКОВ",
+      "target": "company:tr:203606076",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ИНОВЕНТ ХОЛДИНГ",
+      "target": "company:tr:203606076",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ПЕТРОВА ДАСКАЛОВА",
+      "target": "company:tr:203606076",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ИВАНОВ ЗАХОВ",
+      "target": "company:tr:203606076",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

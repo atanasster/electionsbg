@@ -1,1 +1,96 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kiril-dimitrov-pashov-6be92d","nodes":[{"id":"official:kiril-dimitrov-pashov-6be92d","type":"official","slug":"kiril-dimitrov-pashov-6be92d","label":"Кирил Димитров Пашов","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:202821567","type":"company","label":"МБАЛ СВЕТА ПАРАСКЕВА","slug":null,"uic":"202821567","legalForm":null,"status":null,"seat":null},{"id":"official:yurii-tsvetanova-nikolov-66f4c2","type":"official","slug":"yurii-tsvetanova-nikolov-66f4c2","label":"Юрий Цветанова Николов","tier":"executive","role":"hospital_head","municipality":null},{"id":"person:ЮРИЙ ЦВЕТАНОВ НИКОЛОВ","type":"person","label":"Юрий Цветанов Николов"},{"id":"person:ГЕРГАНА ГЕОРГИЕВА ГЕОРГИЕВА","type":"person","label":"Гергана Георгиева Георгиева"},{"id":"company:name:ВМ МЕДИКЪЛ","type":"company","label":"ВМ МЕДИКЪЛ ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:kiril-dimitrov-pashov-6be92d","target":"company:tr:202821567","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:yurii-tsvetanova-nikolov-66f4c2","target":"company:tr:202821567","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ЮРИЙ ЦВЕТАНОВ НИКОЛОВ","target":"company:tr:202821567","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ГЕОРГИЕВА ГЕОРГИЕВА","target":"company:tr:202821567","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:ВМ МЕДИКЪЛ","target":"company:tr:202821567","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kiril-dimitrov-pashov-6be92d",
+  "nodes": [
+    {
+      "id": "official:kiril-dimitrov-pashov-6be92d",
+      "type": "official",
+      "slug": "kiril-dimitrov-pashov-6be92d",
+      "label": "Кирил Димитров Пашов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202821567",
+      "type": "company",
+      "label": "МБАЛ СВЕТА ПАРАСКЕВА",
+      "slug": null,
+      "uic": "202821567",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:yurii-tsvetanova-nikolov-66f4c2",
+      "type": "official",
+      "slug": "yurii-tsvetanova-nikolov-66f4c2",
+      "label": "Юрий Цветанова Николов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЮРИЙ ЦВЕТАНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Юрий Цветанов Николов"
+    },
+    {
+      "id": "person:ГЕРГАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Гергана Георгиева Георгиева"
+    },
+    {
+      "id": "company:name:ВМ МЕДИКЪЛ",
+      "type": "company",
+      "label": "ВМ МЕДИКЪЛ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-dimitrov-pashov-6be92d",
+      "target": "company:tr:202821567",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yurii-tsvetanova-nikolov-66f4c2",
+      "target": "company:tr:202821567",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИЙ ЦВЕТАНОВ НИКОЛОВ",
+      "target": "company:tr:202821567",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:202821567",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВМ МЕДИКЪЛ",
+      "target": "company:tr:202821567",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

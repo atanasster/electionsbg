@@ -1,1 +1,92 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-iordanov-sbev-d4cff4","nodes":[{"id":"official:nikolai-iordanov-sbev-d4cff4","type":"official","slug":"nikolai-iordanov-sbev-d4cff4","label":"НИКОЛАЙ ЙОРДАНОВ СЪБЕВ","tier":"executive","role":"cabinet","municipality":null},{"id":"company:tr:203321006","type":"company","label":"Фрий ООД","slug":null,"uic":"203321006","legalForm":null,"status":null,"seat":null},{"id":"company:tr:200254698","type":"company","label":"Еконт Експрес БЛ ООД","slug":null,"uic":"200254698","legalForm":null,"status":null,"seat":null},{"id":"person:АЛИНА НИКОЛАЕВА СЪБЕВА","type":"person","label":"Алина Николаева Събева"},{"id":"person:НИКОЛАЙ ЙОРДАНОВ СЪБЕВ","type":"person","label":"Николай Йорданов Събев"},{"id":"person:ЕКОНТ ЕКСПРЕС","type":"person","label":"Еконт Експрес"}],"edges":[{"source":"official:nikolai-iordanov-sbev-d4cff4","target":"company:tr:203321006","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-iordanov-sbev-d4cff4","target":"company:tr:200254698","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:АЛИНА НИКОЛАЕВА СЪБЕВА","target":"company:tr:200254698","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЙОРДАНОВ СЪБЕВ","target":"company:tr:200254698","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕКОНТ ЕКСПРЕС","target":"company:tr:200254698","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-iordanov-sbev-d4cff4",
+  "nodes": [
+    {
+      "id": "official:nikolai-iordanov-sbev-d4cff4",
+      "type": "official",
+      "slug": "nikolai-iordanov-sbev-d4cff4",
+      "label": "НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203321006",
+      "type": "company",
+      "label": "Фрий ООД",
+      "slug": null,
+      "uic": "203321006",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200254698",
+      "type": "company",
+      "label": "Еконт Експрес БЛ ООД",
+      "slug": null,
+      "uic": "200254698",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛИНА НИКОЛАЕВА СЪБЕВА",
+      "type": "person",
+      "label": "Алина Николаева Събева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+      "type": "person",
+      "label": "Николай Йорданов Събев"
+    },
+    {
+      "id": "person:ЕКОНТ ЕКСПРЕС",
+      "type": "person",
+      "label": "Еконт Експрес"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-iordanov-sbev-d4cff4",
+      "target": "company:tr:203321006",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-iordanov-sbev-d4cff4",
+      "target": "company:tr:200254698",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИНА НИКОЛАЕВА СЪБЕВА",
+      "target": "company:tr:200254698",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЙОРДАНОВ СЪБЕВ",
+      "target": "company:tr:200254698",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКОНТ ЕКСПРЕС",
+      "target": "company:tr:200254698",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

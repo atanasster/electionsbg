@@ -1,1 +1,215 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stanislav-ivanov-darachev-aaa028","nodes":[{"id":"official:stanislav-ivanov-darachev-aaa028","type":"official","slug":"stanislav-ivanov-darachev-aaa028","label":"Станислав Иванов Дарачев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:812115210","type":"company","label":"ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ","slug":null,"uic":"812115210","legalForm":"EAD","status":"active","seat":null},{"id":"mp:3551","type":"mp","mpId":3551,"label":"Златомира Димитрова Карагеоргиева-Мострова","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45","46","47"]},{"id":"official:zlatomira-dimitrova-karageorgieva-mostrova-494a7b","type":"official","slug":"zlatomira-dimitrova-karageorgieva-mostrova-494a7b","label":"Златомира Димитрова Карагеоргиева-Мострова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:metodi-georgiev-smilov-e785b4","type":"official","slug":"metodi-georgiev-smilov-e785b4","label":"Методи Георгиев Смилов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ИОАНИС ПАРМЕНИОН ПАРТЕНИОТИС","type":"person","label":"Иоанис Парменион Партениотис"},{"id":"person:ГАНЧО ЙОВЧЕВ ТЕНЕВ","type":"person","label":"Ганчо Йовчев Тенев"},{"id":"person:СТАНИМИР ДОНКОВ НИКОЛОВ","type":"person","label":"Станимир Донков Николов"},{"id":"person:БОЯН МИТКОВ ХЛЕБАРОВ","type":"person","label":"Боян Митков Хлебаров"},{"id":"person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ","type":"person","label":"Цветан Василев Мирчев"},{"id":"person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ","type":"person","label":"Димитър Петров Ганджов"},{"id":"person:ГЕОРГИ ИЛИЕВ ГЕОРГИЕВ","type":"person","label":"Георги Илиев Георгиев"},{"id":"person:ЕВГЕНИ ЖЕЧЕВ ПОПОВ","type":"person","label":"Евгени Жечев Попов"},{"id":"person:ДИМИТЪР АТАНАСОВ АТАНАСОВ","type":"person","label":"Димитър Атанасов Атанасов"}],"edges":[{"source":"official:stanislav-ivanov-darachev-aaa028","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:3551","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:zlatomira-dimitrova-karageorgieva-mostrova-494a7b","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:metodi-georgiev-smilov-e785b4","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ИОАНИС ПАРМЕНИОН ПАРТЕНИОТИС","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГАНЧО ЙОВЧЕВ ТЕНЕВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИР ДОНКОВ НИКОЛОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БОЯН МИТКОВ ХЛЕБАРОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ","target":"company:tr:812115210","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИЛИЕВ ГЕОРГИЕВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ ЖЕЧЕВ ПОПОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР АТАНАСОВ АТАНАСОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stanislav-ivanov-darachev-aaa028",
+  "nodes": [
+    {
+      "id": "official:stanislav-ivanov-darachev-aaa028",
+      "type": "official",
+      "slug": "stanislav-ivanov-darachev-aaa028",
+      "label": "Станислав Иванов Дарачев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:812115210",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "812115210",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3551",
+      "type": "mp",
+      "mpId": 3551,
+      "label": "Златомира Димитрова Карагеоргиева-Мострова",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47"
+      ]
+    },
+    {
+      "id": "official:zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "type": "official",
+      "slug": "zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "label": "Златомира Димитрова Карагеоргиева-Мострова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:metodi-georgiev-smilov-e785b4",
+      "type": "official",
+      "slug": "metodi-georgiev-smilov-e785b4",
+      "label": "Методи Георгиев Смилов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ИОАНИС ПАРМЕНИОН ПАРТЕНИОТИС",
+      "type": "person",
+      "label": "Иоанис Парменион Партениотис"
+    },
+    {
+      "id": "person:ГАНЧО ЙОВЧЕВ ТЕНЕВ",
+      "type": "person",
+      "label": "Ганчо Йовчев Тенев"
+    },
+    {
+      "id": "person:СТАНИМИР ДОНКОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Станимир Донков Николов"
+    },
+    {
+      "id": "person:БОЯН МИТКОВ ХЛЕБАРОВ",
+      "type": "person",
+      "label": "Боян Митков Хлебаров"
+    },
+    {
+      "id": "person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ",
+      "type": "person",
+      "label": "Цветан Василев Мирчев"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ",
+      "type": "person",
+      "label": "Димитър Петров Ганджов"
+    },
+    {
+      "id": "person:ГЕОРГИ ИЛИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Илиев Георгиев"
+    },
+    {
+      "id": "person:ЕВГЕНИ ЖЕЧЕВ ПОПОВ",
+      "type": "person",
+      "label": "Евгени Жечев Попов"
+    },
+    {
+      "id": "person:ДИМИТЪР АТАНАСОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Димитър Атанасов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-ivanov-darachev-aaa028",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3551",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:metodi-georgiev-smilov-e785b4",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИОАНИС ПАРМЕНИОН ПАРТЕНИОТИС",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНЧО ЙОВЧЕВ ТЕНЕВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ДОНКОВ НИКОЛОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН МИТКОВ ХЛЕБАРОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ЖЕЧЕВ ПОПОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АТАНАСОВ АТАНАСОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

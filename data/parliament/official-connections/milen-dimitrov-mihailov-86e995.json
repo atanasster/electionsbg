@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milen-dimitrov-mihailov-86e995","nodes":[{"id":"official:milen-dimitrov-mihailov-86e995","type":"official","slug":"milen-dimitrov-mihailov-86e995","label":"Милен Димитров Михайлов","tier":"municipal","role":"deputy_mayor","municipality":"Пордим"},{"id":"company:tr:107569610","type":"company","label":"УЕБСТОР","slug":null,"uic":"107569610","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:milen-dimitrov-mihailov-86e995","target":"company:tr:107569610","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milen-dimitrov-mihailov-86e995",
+  "nodes": [
+    {
+      "id": "official:milen-dimitrov-mihailov-86e995",
+      "type": "official",
+      "slug": "milen-dimitrov-mihailov-86e995",
+      "label": "Милен Димитров Михайлов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Пордим"
+    },
+    {
+      "id": "company:tr:107569610",
+      "type": "company",
+      "label": "УЕБСТОР",
+      "slug": null,
+      "uic": "107569610",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-dimitrov-mihailov-86e995",
+      "target": "company:tr:107569610",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

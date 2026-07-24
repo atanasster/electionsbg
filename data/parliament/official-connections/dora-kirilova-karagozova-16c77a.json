@@ -1,1 +1,168 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dora-kirilova-karagozova-16c77a","nodes":[{"id":"official:dora-kirilova-karagozova-16c77a","type":"official","slug":"dora-kirilova-karagozova-16c77a","label":"Дора Кирилова Карагьозова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000962970","type":"company","label":"СТЕФАН КАРАДЖА -1904","slug":null,"uic":"000962970","legalForm":null,"status":null,"seat":null},{"id":"person:ТАНЯ АТАНАСОВА ДИМОВА","type":"person","label":"Таня Атанасова Димова"},{"id":"person:КРАСИМИРА ДИМОВА НИКОЛОВА","type":"person","label":"Красимира Димова Николова"},{"id":"person:ГАЛИНА ЖЕЛЯЗКОВА КАНЕВА","type":"person","label":"Галина Желязкова Канева"},{"id":"person:МИТКА ПЕТРОВА НИКОЛОВА","type":"person","label":"Митка Петрова Николова"},{"id":"person:АНГЕЛ ХРИСТОВ МИТЕВ","type":"person","label":"Ангел Христов Митев"},{"id":"person:ДРАГАН ГЕОРГИЕВ ЯНЕВ","type":"person","label":"Драган Георгиев Янев"},{"id":"person:ТОДОРА ПРОДАНОВА СТАНЧЕВА","type":"person","label":"Тодора Проданова Станчева"},{"id":"person:ВИОЛЕТА НИКОЛОВА ГЕОРГИЕВА","type":"person","label":"Виолета Николова Георгиева"},{"id":"person:ПЕТЪР КРЪСТЕВ БОДУРОВ","type":"person","label":"Петър Кръстев Бодуров"}],"edges":[{"source":"official:dora-kirilova-karagozova-16c77a","target":"company:tr:000962970","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ТАНЯ АТАНАСОВА ДИМОВА","target":"company:tr:000962970","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ДИМОВА НИКОЛОВА","target":"company:tr:000962970","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ДИМОВА НИКОЛОВА","target":"company:tr:000962970","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ЖЕЛЯЗКОВА КАНЕВА","target":"company:tr:000962970","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИТКА ПЕТРОВА НИКОЛОВА","target":"company:tr:000962970","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ХРИСТОВ МИТЕВ","target":"company:tr:000962970","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГАН ГЕОРГИЕВ ЯНЕВ","target":"company:tr:000962970","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ АТАНАСОВА ДИМОВА","target":"company:tr:000962970","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРА ПРОДАНОВА СТАНЧЕВА","target":"company:tr:000962970","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА НИКОЛОВА ГЕОРГИЕВА","target":"company:tr:000962970","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР КРЪСТЕВ БОДУРОВ","target":"company:tr:000962970","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dora-kirilova-karagozova-16c77a",
+  "nodes": [
+    {
+      "id": "official:dora-kirilova-karagozova-16c77a",
+      "type": "official",
+      "slug": "dora-kirilova-karagozova-16c77a",
+      "label": "Дора Кирилова Карагьозова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000962970",
+      "type": "company",
+      "label": "СТЕФАН КАРАДЖА -1904",
+      "slug": null,
+      "uic": "000962970",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАНЯ АТАНАСОВА ДИМОВА",
+      "type": "person",
+      "label": "Таня Атанасова Димова"
+    },
+    {
+      "id": "person:КРАСИМИРА ДИМОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Красимира Димова Николова"
+    },
+    {
+      "id": "person:ГАЛИНА ЖЕЛЯЗКОВА КАНЕВА",
+      "type": "person",
+      "label": "Галина Желязкова Канева"
+    },
+    {
+      "id": "person:МИТКА ПЕТРОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Митка Петрова Николова"
+    },
+    {
+      "id": "person:АНГЕЛ ХРИСТОВ МИТЕВ",
+      "type": "person",
+      "label": "Ангел Христов Митев"
+    },
+    {
+      "id": "person:ДРАГАН ГЕОРГИЕВ ЯНЕВ",
+      "type": "person",
+      "label": "Драган Георгиев Янев"
+    },
+    {
+      "id": "person:ТОДОРА ПРОДАНОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Тодора Проданова Станчева"
+    },
+    {
+      "id": "person:ВИОЛЕТА НИКОЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Виолета Николова Георгиева"
+    },
+    {
+      "id": "person:ПЕТЪР КРЪСТЕВ БОДУРОВ",
+      "type": "person",
+      "label": "Петър Кръстев Бодуров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dora-kirilova-karagozova-16c77a",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАНЯ АТАНАСОВА ДИМОВА",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ДИМОВА НИКОЛОВА",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ДИМОВА НИКОЛОВА",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ЖЕЛЯЗКОВА КАНЕВА",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКА ПЕТРОВА НИКОЛОВА",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ХРИСТОВ МИТЕВ",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГАН ГЕОРГИЕВ ЯНЕВ",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ АТАНАСОВА ДИМОВА",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРА ПРОДАНОВА СТАНЧЕВА",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА НИКОЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР КРЪСТЕВ БОДУРОВ",
+      "target": "company:tr:000962970",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

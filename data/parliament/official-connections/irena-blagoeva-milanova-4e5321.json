@@ -1,1 +1,65 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:irena-blagoeva-milanova-4e5321","nodes":[{"id":"official:irena-blagoeva-milanova-4e5321","type":"official","slug":"irena-blagoeva-milanova-4e5321","label":"Ирена Благоева Миланова","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:123535874","type":"company","label":"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПРОФ., Д-Р СТОЯН КИРКОВИЧ","slug":null,"uic":"123535874","legalForm":null,"status":null,"seat":null},{"id":"official:filka-nikolova-simeonova-ce9b11","type":"official","slug":"filka-nikolova-simeonova-ce9b11","label":"Филка Николова Симеонова","tier":"executive","role":"hospital_head","municipality":null},{"id":"person:ЙОВЧО ПЕТКОВ ЙОВЧЕВ","type":"person","label":"Йовчо Петков Йовчев"}],"edges":[{"source":"official:irena-blagoeva-milanova-4e5321","target":"company:tr:123535874","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:filka-nikolova-simeonova-ce9b11","target":"company:tr:123535874","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОВЧО ПЕТКОВ ЙОВЧЕВ","target":"company:tr:123535874","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:irena-blagoeva-milanova-4e5321",
+  "nodes": [
+    {
+      "id": "official:irena-blagoeva-milanova-4e5321",
+      "type": "official",
+      "slug": "irena-blagoeva-milanova-4e5321",
+      "label": "Ирена Благоева Миланова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123535874",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПРОФ., Д-Р СТОЯН КИРКОВИЧ",
+      "slug": null,
+      "uic": "123535874",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:filka-nikolova-simeonova-ce9b11",
+      "type": "official",
+      "slug": "filka-nikolova-simeonova-ce9b11",
+      "label": "Филка Николова Симеонова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЙОВЧО ПЕТКОВ ЙОВЧЕВ",
+      "type": "person",
+      "label": "Йовчо Петков Йовчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irena-blagoeva-milanova-4e5321",
+      "target": "company:tr:123535874",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:filka-nikolova-simeonova-ce9b11",
+      "target": "company:tr:123535874",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОВЧО ПЕТКОВ ЙОВЧЕВ",
+      "target": "company:tr:123535874",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

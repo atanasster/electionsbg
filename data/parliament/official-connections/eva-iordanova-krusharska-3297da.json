@@ -1,1 +1,73 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:eva-iordanova-krusharska-3297da","nodes":[{"id":"official:eva-iordanova-krusharska-3297da","type":"official","slug":"eva-iordanova-krusharska-3297da","label":"Ева Йорданова Крушарска","tier":"municipal","role":"councillor","municipality":"Ихтиман"},{"id":"company:tr:207372375","type":"company","label":"ЗА ИХТИМАН","slug":null,"uic":"207372375","legalForm":null,"status":null,"seat":null},{"id":"official:milena-kirilova-chomakova-a510b3","type":"official","slug":"milena-kirilova-chomakova-a510b3","label":"Милена Кирилова Чомакова","tier":"municipal","role":"councillor","municipality":"Ихтиман"},{"id":"person:МЕРИЛЕНА НЕДКОВА АРНАУДОВА","type":"person","label":"Мерилена Недкова Арнаудова"}],"edges":[{"source":"official:eva-iordanova-krusharska-3297da","target":"company:tr:207372375","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:milena-kirilova-chomakova-a510b3","target":"company:tr:207372375","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:milena-kirilova-chomakova-a510b3","target":"company:tr:207372375","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МЕРИЛЕНА НЕДКОВА АРНАУДОВА","target":"company:tr:207372375","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:eva-iordanova-krusharska-3297da",
+  "nodes": [
+    {
+      "id": "official:eva-iordanova-krusharska-3297da",
+      "type": "official",
+      "slug": "eva-iordanova-krusharska-3297da",
+      "label": "Ева Йорданова Крушарска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ихтиман"
+    },
+    {
+      "id": "company:tr:207372375",
+      "type": "company",
+      "label": "ЗА ИХТИМАН",
+      "slug": null,
+      "uic": "207372375",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:milena-kirilova-chomakova-a510b3",
+      "type": "official",
+      "slug": "milena-kirilova-chomakova-a510b3",
+      "label": "Милена Кирилова Чомакова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ихтиман"
+    },
+    {
+      "id": "person:МЕРИЛЕНА НЕДКОВА АРНАУДОВА",
+      "type": "person",
+      "label": "Мерилена Недкова Арнаудова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:eva-iordanova-krusharska-3297da",
+      "target": "company:tr:207372375",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-kirilova-chomakova-a510b3",
+      "target": "company:tr:207372375",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-kirilova-chomakova-a510b3",
+      "target": "company:tr:207372375",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕРИЛЕНА НЕДКОВА АРНАУДОВА",
+      "target": "company:tr:207372375",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:lyubomir-krasimirov-andreev-897a32","nodes":[{"id":"official:lyubomir-krasimirov-andreev-897a32","type":"official","slug":"lyubomir-krasimirov-andreev-897a32","label":"Любомир Красимиров Андреев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:202764283","type":"company","label":"РОЯЛ ДЖЕЛИ БГ","slug":null,"uic":"202764283","legalForm":null,"status":null,"seat":null},{"id":"person:КРАСИМИР ЛАМБОВ АНДРЕЕВ","type":"person","label":"Красимир Ламбов Андреев"}],"edges":[{"source":"official:lyubomir-krasimirov-andreev-897a32","target":"company:tr:202764283","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:lyubomir-krasimirov-andreev-897a32","target":"company:tr:202764283","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КРАСИМИР ЛАМБОВ АНДРЕЕВ","target":"company:tr:202764283","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ЛАМБОВ АНДРЕЕВ","target":"company:tr:202764283","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:lyubomir-krasimirov-andreev-897a32",
+  "nodes": [
+    {
+      "id": "official:lyubomir-krasimirov-andreev-897a32",
+      "type": "official",
+      "slug": "lyubomir-krasimirov-andreev-897a32",
+      "label": "Любомир Красимиров Андреев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202764283",
+      "type": "company",
+      "label": "РОЯЛ ДЖЕЛИ БГ",
+      "slug": null,
+      "uic": "202764283",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР ЛАМБОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Красимир Ламбов Андреев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-krasimirov-andreev-897a32",
+      "target": "company:tr:202764283",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyubomir-krasimirov-andreev-897a32",
+      "target": "company:tr:202764283",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ЛАМБОВ АНДРЕЕВ",
+      "target": "company:tr:202764283",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ЛАМБОВ АНДРЕЕВ",
+      "target": "company:tr:202764283",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

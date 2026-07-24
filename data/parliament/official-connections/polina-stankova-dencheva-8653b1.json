@@ -1,1 +1,103 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:polina-stankova-dencheva-8653b1","nodes":[{"id":"official:polina-stankova-dencheva-8653b1","type":"official","slug":"polina-stankova-dencheva-8653b1","label":"Полина Станкова Денчева","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:102659833","type":"company","label":"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ - БУРГАСКИ МИНЕРАЛНИ БАНИ","slug":null,"uic":"102659833","legalForm":null,"status":null,"seat":null},{"id":"person:КИРИЛ МЛАДЕНОВ МЛАДЕНОВ","type":"person","label":"Кирил Младенов Младенов"},{"id":"person:ЖИВКО ИВАНОВ ХРИСТОВ","type":"person","label":"Живко Иванов Христов"},{"id":"person:БОРИСЛАВА СТЕФАНОВА СИРАКОВА-ХРИСТОВА","type":"person","label":"Борислава Стефанова Сиракова-Христова"},{"id":"person:ПЕТЯ ГЕОРГИЕВА ТОДОРОВА","type":"person","label":"Петя Георгиева Тодорова"}],"edges":[{"source":"official:polina-stankova-dencheva-8653b1","target":"company:tr:102659833","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:КИРИЛ МЛАДЕНОВ МЛАДЕНОВ","target":"company:tr:102659833","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ МЛАДЕНОВ МЛАДЕНОВ","target":"company:tr:102659833","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ИВАНОВ ХРИСТОВ","target":"company:tr:102659833","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВА СТЕФАНОВА СИРАКОВА-ХРИСТОВА","target":"company:tr:102659833","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ГЕОРГИЕВА ТОДОРОВА","target":"company:tr:102659833","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ГЕОРГИЕВА ТОДОРОВА","target":"company:tr:102659833","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:polina-stankova-dencheva-8653b1",
+  "nodes": [
+    {
+      "id": "official:polina-stankova-dencheva-8653b1",
+      "type": "official",
+      "slug": "polina-stankova-dencheva-8653b1",
+      "label": "Полина Станкова Денчева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102659833",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ - БУРГАСКИ МИНЕРАЛНИ БАНИ",
+      "slug": null,
+      "uic": "102659833",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ МЛАДЕНОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Кирил Младенов Младенов"
+    },
+    {
+      "id": "person:ЖИВКО ИВАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Живко Иванов Христов"
+    },
+    {
+      "id": "person:БОРИСЛАВА СТЕФАНОВА СИРАКОВА-ХРИСТОВА",
+      "type": "person",
+      "label": "Борислава Стефанова Сиракова-Христова"
+    },
+    {
+      "id": "person:ПЕТЯ ГЕОРГИЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Петя Георгиева Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:polina-stankova-dencheva-8653b1",
+      "target": "company:tr:102659833",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ МЛАДЕНОВ МЛАДЕНОВ",
+      "target": "company:tr:102659833",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ МЛАДЕНОВ МЛАДЕНОВ",
+      "target": "company:tr:102659833",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ХРИСТОВ",
+      "target": "company:tr:102659833",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВА СТЕФАНОВА СИРАКОВА-ХРИСТОВА",
+      "target": "company:tr:102659833",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ГЕОРГИЕВА ТОДОРОВА",
+      "target": "company:tr:102659833",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ГЕОРГИЕВА ТОДОРОВА",
+      "target": "company:tr:102659833",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

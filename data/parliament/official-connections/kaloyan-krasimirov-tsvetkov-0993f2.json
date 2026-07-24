@@ -1,1 +1,158 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kaloyan-krasimirov-tsvetkov-0993f2","nodes":[{"id":"official:kaloyan-krasimirov-tsvetkov-0993f2","type":"official","slug":"kaloyan-krasimirov-tsvetkov-0993f2","label":"Калоян Красимиров Цветков","tier":"municipal","role":"mayor","municipality":"Вълчидол"},{"id":"company:tr:201403305","type":"company","label":"Коко 88 ЕООД","slug":null,"uic":"201403305","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207395580","type":"company","label":"Имотни услуги ООД","slug":null,"uic":"207395580","legalForm":null,"status":null,"seat":null},{"id":"person:СЪБИН ТОДОРОВ ПЕТРОВ","type":"person","label":"Събин Тодоров Петров"},{"id":"person:ПАВЛИНА РОСЕНОВА РУСЕВА","type":"person","label":"Павлина Росенова Русева"},{"id":"person:ЕЛЕНА ИВАНОВА РАЧЕВА","type":"person","label":"Елена Иванова Рачева"},{"id":"person:ЕМИЛ ГЕОРГИЕВ НЕЙЧЕВ","type":"person","label":"Емил Георгиев Нейчев"},{"id":"person:КАЛОЯН КРАСИМИРОВ ЦВЕТКОВ","type":"person","label":"Калоян Красимиров Цветков"}],"edges":[{"source":"official:kaloyan-krasimirov-tsvetkov-0993f2","target":"company:tr:201403305","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:kaloyan-krasimirov-tsvetkov-0993f2","target":"company:tr:207395580","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:СЪБИН ТОДОРОВ ПЕТРОВ","target":"company:tr:201403305","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА РОСЕНОВА РУСЕВА","target":"company:tr:201403305","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА РОСЕНОВА РУСЕВА","target":"company:tr:201403305","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ИВАНОВА РАЧЕВА","target":"company:tr:207395580","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ГЕОРГИЕВ НЕЙЧЕВ","target":"company:tr:207395580","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ИВАНОВА РАЧЕВА","target":"company:tr:207395580","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ГЕОРГИЕВ НЕЙЧЕВ","target":"company:tr:207395580","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН КРАСИМИРОВ ЦВЕТКОВ","target":"company:tr:207395580","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА РОСЕНОВА РУСЕВА","target":"company:tr:207395580","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ГЕОРГИЕВ НЕЙЧЕВ","target":"company:tr:207395580","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kaloyan-krasimirov-tsvetkov-0993f2",
+  "nodes": [
+    {
+      "id": "official:kaloyan-krasimirov-tsvetkov-0993f2",
+      "type": "official",
+      "slug": "kaloyan-krasimirov-tsvetkov-0993f2",
+      "label": "Калоян Красимиров Цветков",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Вълчидол"
+    },
+    {
+      "id": "company:tr:201403305",
+      "type": "company",
+      "label": "Коко 88 ЕООД",
+      "slug": null,
+      "uic": "201403305",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207395580",
+      "type": "company",
+      "label": "Имотни услуги ООД",
+      "slug": null,
+      "uic": "207395580",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЪБИН ТОДОРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Събин Тодоров Петров"
+    },
+    {
+      "id": "person:ПАВЛИНА РОСЕНОВА РУСЕВА",
+      "type": "person",
+      "label": "Павлина Росенова Русева"
+    },
+    {
+      "id": "person:ЕЛЕНА ИВАНОВА РАЧЕВА",
+      "type": "person",
+      "label": "Елена Иванова Рачева"
+    },
+    {
+      "id": "person:ЕМИЛ ГЕОРГИЕВ НЕЙЧЕВ",
+      "type": "person",
+      "label": "Емил Георгиев Нейчев"
+    },
+    {
+      "id": "person:КАЛОЯН КРАСИМИРОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Калоян Красимиров Цветков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kaloyan-krasimirov-tsvetkov-0993f2",
+      "target": "company:tr:201403305",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kaloyan-krasimirov-tsvetkov-0993f2",
+      "target": "company:tr:207395580",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБИН ТОДОРОВ ПЕТРОВ",
+      "target": "company:tr:201403305",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА РОСЕНОВА РУСЕВА",
+      "target": "company:tr:201403305",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА РОСЕНОВА РУСЕВА",
+      "target": "company:tr:201403305",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ИВАНОВА РАЧЕВА",
+      "target": "company:tr:207395580",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ГЕОРГИЕВ НЕЙЧЕВ",
+      "target": "company:tr:207395580",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ИВАНОВА РАЧЕВА",
+      "target": "company:tr:207395580",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ГЕОРГИЕВ НЕЙЧЕВ",
+      "target": "company:tr:207395580",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН КРАСИМИРОВ ЦВЕТКОВ",
+      "target": "company:tr:207395580",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА РОСЕНОВА РУСЕВА",
+      "target": "company:tr:207395580",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ГЕОРГИЕВ НЕЙЧЕВ",
+      "target": "company:tr:207395580",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

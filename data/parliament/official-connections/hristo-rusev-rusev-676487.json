@@ -1,1 +1,85 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristo-rusev-rusev-676487","nodes":[{"id":"official:hristo-rusev-rusev-676487","type":"official","slug":"hristo-rusev-rusev-676487","label":"Христо Русев Русев","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:206720590","type":"company","label":"Ем Ейч Ди 21","slug":null,"uic":"206720590","legalForm":null,"status":null,"seat":null},{"id":"person:МИРОСЛАВ ХРИСТОВ РУСЕВ","type":"person","label":"Мирослав Христов Русев"},{"id":"person:ДАЯНА ХРИСТОВА АЛЕКСАНДРОВА","type":"person","label":"Даяна Христова Александрова"}],"edges":[{"source":"official:hristo-rusev-rusev-676487","target":"company:tr:206720590","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-rusev-rusev-676487","target":"company:tr:206720590","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МИРОСЛАВ ХРИСТОВ РУСЕВ","target":"company:tr:206720590","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ ХРИСТОВ РУСЕВ","target":"company:tr:206720590","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДАЯНА ХРИСТОВА АЛЕКСАНДРОВА","target":"company:tr:206720590","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАЯНА ХРИСТОВА АЛЕКСАНДРОВА","target":"company:tr:206720590","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristo-rusev-rusev-676487",
+  "nodes": [
+    {
+      "id": "official:hristo-rusev-rusev-676487",
+      "type": "official",
+      "slug": "hristo-rusev-rusev-676487",
+      "label": "Христо Русев Русев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206720590",
+      "type": "company",
+      "label": "Ем Ейч Ди 21",
+      "slug": null,
+      "uic": "206720590",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ ХРИСТОВ РУСЕВ",
+      "type": "person",
+      "label": "Мирослав Христов Русев"
+    },
+    {
+      "id": "person:ДАЯНА ХРИСТОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Даяна Христова Александрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-rusev-rusev-676487",
+      "target": "company:tr:206720590",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-rusev-rusev-676487",
+      "target": "company:tr:206720590",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ ХРИСТОВ РУСЕВ",
+      "target": "company:tr:206720590",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ХРИСТОВ РУСЕВ",
+      "target": "company:tr:206720590",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАЯНА ХРИСТОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:206720590",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАЯНА ХРИСТОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:206720590",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

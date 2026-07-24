@@ -1,1 +1,86 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-yankov-milenkov-88bfdf","nodes":[{"id":"official:vladimir-yankov-milenkov-88bfdf","type":"official","slug":"vladimir-yankov-milenkov-88bfdf","label":"Владимир Янков Миленков","tier":"municipal","role":"councillor","municipality":"Враца"},{"id":"company:tr:206740130","type":"company","label":"ВРАЧАНОФИЛИ","slug":null,"uic":"206740130","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Враца, 3000"},{"id":"mp:4749","type":"mp","mpId":4749,"label":"Мартин Николаев Харизанов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["48","49","50","51"]},{"id":"person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ","type":"person","label":"Николай Руменов Николов"}],"edges":[{"source":"official:vladimir-yankov-milenkov-88bfdf","target":"company:tr:206740130","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:vladimir-yankov-milenkov-88bfdf","target":"company:tr:206740130","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4749","target":"company:tr:206740130","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4749","target":"company:tr:206740130","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ","target":"company:tr:206740130","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-yankov-milenkov-88bfdf",
+  "nodes": [
+    {
+      "id": "official:vladimir-yankov-milenkov-88bfdf",
+      "type": "official",
+      "slug": "vladimir-yankov-milenkov-88bfdf",
+      "label": "Владимир Янков Миленков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Враца"
+    },
+    {
+      "id": "company:tr:206740130",
+      "type": "company",
+      "label": "ВРАЧАНОФИЛИ",
+      "slug": null,
+      "uic": "206740130",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Враца, 3000"
+    },
+    {
+      "id": "mp:4749",
+      "type": "mp",
+      "mpId": 4749,
+      "label": "Мартин Николаев Харизанов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Руменов Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-yankov-milenkov-88bfdf",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-yankov-milenkov-88bfdf",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4749",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4749",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

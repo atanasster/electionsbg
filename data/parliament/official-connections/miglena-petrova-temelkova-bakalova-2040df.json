@@ -1,1 +1,228 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:miglena-petrova-temelkova-bakalova-2040df","nodes":[{"id":"official:miglena-petrova-temelkova-bakalova-2040df","type":"official","slug":"miglena-petrova-temelkova-bakalova-2040df","label":"Миглена Петрова Темелкова-Бакалова","tier":"executive","role":"academic","municipality":null},{"id":"company:tr:130307629","type":"company","label":"СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ","slug":null,"uic":"130307629","legalForm":null,"status":null,"seat":null},{"id":"person:ЛЪЧЕЗАР ДИНЧОВ ТРАЙКОВ","type":"person","label":"Лъчезар Динчов Трайков"},{"id":"person:ХРИСТО ИВАНОВ БЕЛОЕВ","type":"person","label":"Христо Иванов Белоев"},{"id":"person:НИКОЛАЙ КИРИЛОВ ИЗОВ","type":"person","label":"Николай Кирилов Изов"},{"id":"person:ДИМИТЪР ПАНАЙОТОВ ДИМИТРОВ","type":"person","label":"Димитър Панайотов Димитров"},{"id":"person:ЕВГЕНИ ПЕТРОВ СТАНИМИРОВ","type":"person","label":"Евгени Петров Станимиров"},{"id":"person:ДОБРИ ЖЕЛЕВ ЯРКОВ","type":"person","label":"Добри Желев Ярков"},{"id":"person:ИВАЙЛО ГЕОРГИЕВ КОПРЕВ","type":"person","label":"Ивайло Георгиев Копрев"},{"id":"person:МИГЛЕНА ПЕТРОВА ТЕМЕЛКОВА - БАКАЛОВА","type":"person","label":"Миглена Петрова Темелкова - Бакалова"},{"id":"person:ГЕОРГИ АЛЕКСАНДРОВ ВЪЛЧЕВ","type":"person","label":"Георги Александров Вълчев"},{"id":"person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ","type":"person","label":"Димитър Йорданов Димитров"},{"id":"person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Добромир Димитров Димитров"},{"id":"person:САВА ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Сава Димитров Димитров"},{"id":"person:ДРАГОМИР ПЛАМЕНОВ ДИМИТРОВ","type":"person","label":"Драгомир Пламенов Димитров"}],"edges":[{"source":"official:miglena-petrova-temelkova-bakalova-2040df","target":"company:tr:130307629","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:miglena-petrova-temelkova-bakalova-2040df","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЪЧЕЗАР ДИНЧОВ ТРАЙКОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР ДИНЧОВ ТРАЙКОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ БЕЛОЕВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КИРИЛОВ ИЗОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПАНАЙОТОВ ДИМИТРОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ ПЕТРОВ СТАНИМИРОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИ ЖЕЛЕВ ЯРКОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ГЕОРГИЕВ КОПРЕВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА ПЕТРОВА ТЕМЕЛКОВА - БАКАЛОВА","target":"company:tr:130307629","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ АЛЕКСАНДРОВ ВЪЛЧЕВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САВА ДИМИТРОВ ДИМИТРОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА ПЕТРОВА ТЕМЕЛКОВА - БАКАЛОВА","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГОМИР ПЛАМЕНОВ ДИМИТРОВ","target":"company:tr:130307629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:miglena-petrova-temelkova-bakalova-2040df",
+  "nodes": [
+    {
+      "id": "official:miglena-petrova-temelkova-bakalova-2040df",
+      "type": "official",
+      "slug": "miglena-petrova-temelkova-bakalova-2040df",
+      "label": "Миглена Петрова Темелкова-Бакалова",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130307629",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "130307629",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ДИНЧОВ ТРАЙКОВ",
+      "type": "person",
+      "label": "Лъчезар Динчов Трайков"
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ БЕЛОЕВ",
+      "type": "person",
+      "label": "Христо Иванов Белоев"
+    },
+    {
+      "id": "person:НИКОЛАЙ КИРИЛОВ ИЗОВ",
+      "type": "person",
+      "label": "Николай Кирилов Изов"
+    },
+    {
+      "id": "person:ДИМИТЪР ПАНАЙОТОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Панайотов Димитров"
+    },
+    {
+      "id": "person:ЕВГЕНИ ПЕТРОВ СТАНИМИРОВ",
+      "type": "person",
+      "label": "Евгени Петров Станимиров"
+    },
+    {
+      "id": "person:ДОБРИ ЖЕЛЕВ ЯРКОВ",
+      "type": "person",
+      "label": "Добри Желев Ярков"
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕОРГИЕВ КОПРЕВ",
+      "type": "person",
+      "label": "Ивайло Георгиев Копрев"
+    },
+    {
+      "id": "person:МИГЛЕНА ПЕТРОВА ТЕМЕЛКОВА - БАКАЛОВА",
+      "type": "person",
+      "label": "Миглена Петрова Темелкова - Бакалова"
+    },
+    {
+      "id": "person:ГЕОРГИ АЛЕКСАНДРОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Георги Александров Вълчев"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Димитров"
+    },
+    {
+      "id": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Добромир Димитров Димитров"
+    },
+    {
+      "id": "person:САВА ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Сава Димитров Димитров"
+    },
+    {
+      "id": "person:ДРАГОМИР ПЛАМЕНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Драгомир Пламенов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-petrova-temelkova-bakalova-2040df",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miglena-petrova-temelkova-bakalova-2040df",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ДИНЧОВ ТРАЙКОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ДИНЧОВ ТРАЙКОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ БЕЛОЕВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КИРИЛОВ ИЗОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПАНАЙОТОВ ДИМИТРОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ПЕТРОВ СТАНИМИРОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ЖЕЛЕВ ЯРКОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ КОПРЕВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ПЕТРОВА ТЕМЕЛКОВА - БАКАЛОВА",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АЛЕКСАНДРОВ ВЪЛЧЕВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВА ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ПЕТРОВА ТЕМЕЛКОВА - БАКАЛОВА",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР ПЛАМЕНОВ ДИМИТРОВ",
+      "target": "company:tr:130307629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

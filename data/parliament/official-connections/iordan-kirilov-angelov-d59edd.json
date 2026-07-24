@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iordan-kirilov-angelov-d59edd","nodes":[{"id":"official:iordan-kirilov-angelov-d59edd","type":"official","slug":"iordan-kirilov-angelov-d59edd","label":"Йордан Кирилов Ангелов","tier":"municipal","role":"mayor","municipality":"Костенец"},{"id":"company:tr:207759201","type":"company","label":"ЕЪРПЛАНТС","slug":null,"uic":"207759201","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:iordan-kirilov-angelov-d59edd","target":"company:tr:207759201","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:iordan-kirilov-angelov-d59edd","target":"company:tr:207759201","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iordan-kirilov-angelov-d59edd",
+  "nodes": [
+    {
+      "id": "official:iordan-kirilov-angelov-d59edd",
+      "type": "official",
+      "slug": "iordan-kirilov-angelov-d59edd",
+      "label": "Йордан Кирилов Ангелов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Костенец"
+    },
+    {
+      "id": "company:tr:207759201",
+      "type": "company",
+      "label": "ЕЪРПЛАНТС",
+      "slug": null,
+      "uic": "207759201",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-kirilov-angelov-d59edd",
+      "target": "company:tr:207759201",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-kirilov-angelov-d59edd",
+      "target": "company:tr:207759201",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

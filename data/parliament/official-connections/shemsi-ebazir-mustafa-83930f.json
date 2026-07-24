@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:shemsi-ebazir-mustafa-83930f","nodes":[{"id":"official:shemsi-ebazir-mustafa-83930f","type":"official","slug":"shemsi-ebazir-mustafa-83930f","label":"Шемси Ебазир Мустафа","tier":"municipal","role":"councillor","municipality":"Руен"},{"id":"company:tr:203945176","type":"company","label":"ХИМПЛЮС","slug":null,"uic":"203945176","legalForm":null,"status":null,"seat":null},{"id":"person:ПЛАМЕН ДИМИТРОВ МОМЧИЛОВ","type":"person","label":"Пламен Димитров Момчилов"},{"id":"person:РАДКА АЛЕКСАНДРОВА АЛЕКСАНДРОВА","type":"person","label":"Радка Александрова Александрова"},{"id":"person:МАРИН ЙОРДАНОВ ГЕОРГИЕВ","type":"person","label":"Марин Йорданов Георгиев"},{"id":"person:АТАНАС ДОБРЕВ АТАНАСОВ","type":"person","label":"Атанас Добрев Атанасов"}],"edges":[{"source":"official:shemsi-ebazir-mustafa-83930f","target":"company:tr:203945176","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ПЛАМЕН ДИМИТРОВ МОМЧИЛОВ","target":"company:tr:203945176","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА АЛЕКСАНДРОВА АЛЕКСАНДРОВА","target":"company:tr:203945176","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ДИМИТРОВ МОМЧИЛОВ","target":"company:tr:203945176","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН ЙОРДАНОВ ГЕОРГИЕВ","target":"company:tr:203945176","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ДОБРЕВ АТАНАСОВ","target":"company:tr:203945176","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:shemsi-ebazir-mustafa-83930f",
+  "nodes": [
+    {
+      "id": "official:shemsi-ebazir-mustafa-83930f",
+      "type": "official",
+      "slug": "shemsi-ebazir-mustafa-83930f",
+      "label": "Шемси Ебазир Мустафа",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Руен"
+    },
+    {
+      "id": "company:tr:203945176",
+      "type": "company",
+      "label": "ХИМПЛЮС",
+      "slug": null,
+      "uic": "203945176",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ДИМИТРОВ МОМЧИЛОВ",
+      "type": "person",
+      "label": "Пламен Димитров Момчилов"
+    },
+    {
+      "id": "person:РАДКА АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Радка Александрова Александрова"
+    },
+    {
+      "id": "person:МАРИН ЙОРДАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Марин Йорданов Георгиев"
+    },
+    {
+      "id": "person:АТАНАС ДОБРЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Добрев Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shemsi-ebazir-mustafa-83930f",
+      "target": "company:tr:203945176",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИМИТРОВ МОМЧИЛОВ",
+      "target": "company:tr:203945176",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:203945176",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИМИТРОВ МОМЧИЛОВ",
+      "target": "company:tr:203945176",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ЙОРДАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:203945176",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДОБРЕВ АТАНАСОВ",
+      "target": "company:tr:203945176",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

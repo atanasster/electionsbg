@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-angelov-marinov-60cdaf","nodes":[{"id":"official:vladimir-angelov-marinov-60cdaf","type":"official","slug":"vladimir-angelov-marinov-60cdaf","label":"Владимир Ангелов Маринов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:202804653","type":"company","label":"БЪЛГЕРИЯ РЕНТАЛС","slug":null,"uic":"202804653","legalForm":null,"status":null,"seat":null},{"id":"person:ЛИЛИЯ АЛЕКСАНДРОВА МАРИНОВА","type":"person","label":"Лилия Александрова Маринова"}],"edges":[{"source":"official:vladimir-angelov-marinov-60cdaf","target":"company:tr:202804653","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ЛИЛИЯ АЛЕКСАНДРОВА МАРИНОВА","target":"company:tr:202804653","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-angelov-marinov-60cdaf",
+  "nodes": [
+    {
+      "id": "official:vladimir-angelov-marinov-60cdaf",
+      "type": "official",
+      "slug": "vladimir-angelov-marinov-60cdaf",
+      "label": "Владимир Ангелов Маринов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202804653",
+      "type": "company",
+      "label": "БЪЛГЕРИЯ РЕНТАЛС",
+      "slug": null,
+      "uic": "202804653",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛИЯ АЛЕКСАНДРОВА МАРИНОВА",
+      "type": "person",
+      "label": "Лилия Александрова Маринова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-angelov-marinov-60cdaf",
+      "target": "company:tr:202804653",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛИЯ АЛЕКСАНДРОВА МАРИНОВА",
+      "target": "company:tr:202804653",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

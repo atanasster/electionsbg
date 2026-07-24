@@ -1,1 +1,144 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-dimitrov-kostovski-e3752b","nodes":[{"id":"official:ivan-dimitrov-kostovski-e3752b","type":"official","slug":"ivan-dimitrov-kostovski-e3752b","label":"Иван Димитров Костовски","tier":"municipal","role":"mayor","municipality":"Борован"},{"id":"company:tr:207622680","type":"company","label":"Местна инициативна група Борован - Враца - Вършец","slug":null,"uic":"207622680","legalForm":null,"status":null,"seat":null},{"id":"person:ОБЩИНА БОРОВАН ЧРЕЗ ИВАН ДИМИТРОВ КОСТОВСКИ","type":"person","label":"Община Борован Чрез Иван Димитров Костовски"},{"id":"person:ОБЩИНА ВРАЦА ЧРЕЗ КАЛИН АНГЕЛОВ КАМЕНОВ","type":"person","label":"Община Враца Чрез Калин Ангелов Каменов"},{"id":"person:ОБЩИНА ВЪРШЕЦ ЧРЕЗ ИНЖ. ИВАН МИХАЙЛОВ ЛАЗАРОВ","type":"person","label":"Община Вършец Чрез Инж. Иван Михайлов Лазаров"},{"id":"person:ПЕНСИОНЕРСКИ КЛУБ „ЧИНАРИТЕ“ – ГР. ВЪРШЕЦ ЧРЕЗ САВКА ПЕТРОВА СЕРАФИМОВА","type":"person","label":"Пенсионерски Клуб „чинарите“ – Гр. Вършец Чрез Савка Петрова Серафимова"},{"id":"person:ДИМИТЪР ЦЕКОВ ИВАНОВ","type":"person","label":"Димитър Цеков Иванов"},{"id":"company:name:ДДС-06 – ГР. ВЪРШЕЦ ЧРЕЗ ДАНИЕЛА ПЕТРОВА АЛЕКСОВА","type":"company","label":"„ДДС-06“ ЕООД – гр. Вършец чрез Даниела Петрова Алексова","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:\"АГРОТРЕЙД СС“ - С. БОРОВАН ЧРЕЗ НЕЛИ ТАТЯНОВА ИВАНОВА","type":"person","label":"\"агротрейд Сс“ - С. Борован Чрез Нели Татянова Иванова"},{"id":"person:ДЕСИСЛАВ МАРКОВ ДЕШЕВ","type":"person","label":"Десислав Марков Дешев"}],"edges":[{"source":"official:ivan-dimitrov-kostovski-e3752b","target":"company:tr:207622680","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ОБЩИНА БОРОВАН ЧРЕЗ ИВАН ДИМИТРОВ КОСТОВСКИ","target":"company:tr:207622680","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ВРАЦА ЧРЕЗ КАЛИН АНГЕЛОВ КАМЕНОВ","target":"company:tr:207622680","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ВЪРШЕЦ ЧРЕЗ ИНЖ. ИВАН МИХАЙЛОВ ЛАЗАРОВ","target":"company:tr:207622680","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНСИОНЕРСКИ КЛУБ „ЧИНАРИТЕ“ – ГР. ВЪРШЕЦ ЧРЕЗ САВКА ПЕТРОВА СЕРАФИМОВА","target":"company:tr:207622680","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЦЕКОВ ИВАНОВ","target":"company:tr:207622680","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ДДС-06 – ГР. ВЪРШЕЦ ЧРЕЗ ДАНИЕЛА ПЕТРОВА АЛЕКСОВА","target":"company:tr:207622680","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:\"АГРОТРЕЙД СС“ - С. БОРОВАН ЧРЕЗ НЕЛИ ТАТЯНОВА ИВАНОВА","target":"company:tr:207622680","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВ МАРКОВ ДЕШЕВ","target":"company:tr:207622680","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-dimitrov-kostovski-e3752b",
+  "nodes": [
+    {
+      "id": "official:ivan-dimitrov-kostovski-e3752b",
+      "type": "official",
+      "slug": "ivan-dimitrov-kostovski-e3752b",
+      "label": "Иван Димитров Костовски",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Борован"
+    },
+    {
+      "id": "company:tr:207622680",
+      "type": "company",
+      "label": "Местна инициативна група Борован - Враца - Вършец",
+      "slug": null,
+      "uic": "207622680",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА БОРОВАН ЧРЕЗ ИВАН ДИМИТРОВ КОСТОВСКИ",
+      "type": "person",
+      "label": "Община Борован Чрез Иван Димитров Костовски"
+    },
+    {
+      "id": "person:ОБЩИНА ВРАЦА ЧРЕЗ КАЛИН АНГЕЛОВ КАМЕНОВ",
+      "type": "person",
+      "label": "Община Враца Чрез Калин Ангелов Каменов"
+    },
+    {
+      "id": "person:ОБЩИНА ВЪРШЕЦ ЧРЕЗ ИНЖ. ИВАН МИХАЙЛОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Община Вършец Чрез Инж. Иван Михайлов Лазаров"
+    },
+    {
+      "id": "person:ПЕНСИОНЕРСКИ КЛУБ „ЧИНАРИТЕ“ – ГР. ВЪРШЕЦ ЧРЕЗ САВКА ПЕТРОВА СЕРАФИМОВА",
+      "type": "person",
+      "label": "Пенсионерски Клуб „чинарите“ – Гр. Вършец Чрез Савка Петрова Серафимова"
+    },
+    {
+      "id": "person:ДИМИТЪР ЦЕКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Димитър Цеков Иванов"
+    },
+    {
+      "id": "company:name:ДДС-06 – ГР. ВЪРШЕЦ ЧРЕЗ ДАНИЕЛА ПЕТРОВА АЛЕКСОВА",
+      "type": "company",
+      "label": "„ДДС-06“ ЕООД – гр. Вършец чрез Даниела Петрова Алексова",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:\"АГРОТРЕЙД СС“ - С. БОРОВАН ЧРЕЗ НЕЛИ ТАТЯНОВА ИВАНОВА",
+      "type": "person",
+      "label": "\"агротрейд Сс“ - С. Борован Чрез Нели Татянова Иванова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВ МАРКОВ ДЕШЕВ",
+      "type": "person",
+      "label": "Десислав Марков Дешев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-dimitrov-kostovski-e3752b",
+      "target": "company:tr:207622680",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА БОРОВАН ЧРЕЗ ИВАН ДИМИТРОВ КОСТОВСКИ",
+      "target": "company:tr:207622680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ВРАЦА ЧРЕЗ КАЛИН АНГЕЛОВ КАМЕНОВ",
+      "target": "company:tr:207622680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ВЪРШЕЦ ЧРЕЗ ИНЖ. ИВАН МИХАЙЛОВ ЛАЗАРОВ",
+      "target": "company:tr:207622680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНСИОНЕРСКИ КЛУБ „ЧИНАРИТЕ“ – ГР. ВЪРШЕЦ ЧРЕЗ САВКА ПЕТРОВА СЕРАФИМОВА",
+      "target": "company:tr:207622680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЦЕКОВ ИВАНОВ",
+      "target": "company:tr:207622680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДДС-06 – ГР. ВЪРШЕЦ ЧРЕЗ ДАНИЕЛА ПЕТРОВА АЛЕКСОВА",
+      "target": "company:tr:207622680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"АГРОТРЕЙД СС“ - С. БОРОВАН ЧРЕЗ НЕЛИ ТАТЯНОВА ИВАНОВА",
+      "target": "company:tr:207622680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ МАРКОВ ДЕШЕВ",
+      "target": "company:tr:207622680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

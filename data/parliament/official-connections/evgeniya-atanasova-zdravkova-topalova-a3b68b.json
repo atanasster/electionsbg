@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:evgeniya-atanasova-zdravkova-topalova-a3b68b","nodes":[{"id":"official:evgeniya-atanasova-zdravkova-topalova-a3b68b","type":"official","slug":"evgeniya-atanasova-zdravkova-topalova-a3b68b","label":"Евгения Атанасова Здравкова-Топалова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:200239244","type":"company","label":"СЛУЖБА ПО ТРУДОВА МЕДИЦИНА &quot;АЛЕКСАНДРОВСКА&quot;","slug":null,"uic":"200239244","legalForm":null,"status":null,"seat":null},{"id":"person:ТЕОДОРА НИКОЛОВА ДАСКАЛОВА","type":"person","label":"Теодора Николова Даскалова"},{"id":"person:ЕВГЕНИЯ АТАНАСОВА ЗДРАВКОВА - ТОПАЛОВА","type":"person","label":"Евгения Атанасова Здравкова - Топалова"}],"edges":[{"source":"official:evgeniya-atanasova-zdravkova-topalova-a3b68b","target":"company:tr:200239244","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:ТЕОДОРА НИКОЛОВА ДАСКАЛОВА","target":"company:tr:200239244","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИЯ АТАНАСОВА ЗДРАВКОВА - ТОПАЛОВА","target":"company:tr:200239244","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:evgeniya-atanasova-zdravkova-topalova-a3b68b",
+  "nodes": [
+    {
+      "id": "official:evgeniya-atanasova-zdravkova-topalova-a3b68b",
+      "type": "official",
+      "slug": "evgeniya-atanasova-zdravkova-topalova-a3b68b",
+      "label": "Евгения Атанасова Здравкова-Топалова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200239244",
+      "type": "company",
+      "label": "СЛУЖБА ПО ТРУДОВА МЕДИЦИНА &quot;АЛЕКСАНДРОВСКА&quot;",
+      "slug": null,
+      "uic": "200239244",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОРА НИКОЛОВА ДАСКАЛОВА",
+      "type": "person",
+      "label": "Теодора Николова Даскалова"
+    },
+    {
+      "id": "person:ЕВГЕНИЯ АТАНАСОВА ЗДРАВКОВА - ТОПАЛОВА",
+      "type": "person",
+      "label": "Евгения Атанасова Здравкова - Топалова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evgeniya-atanasova-zdravkova-topalova-a3b68b",
+      "target": "company:tr:200239244",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА НИКОЛОВА ДАСКАЛОВА",
+      "target": "company:tr:200239244",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЯ АТАНАСОВА ЗДРАВКОВА - ТОПАЛОВА",
+      "target": "company:tr:200239244",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

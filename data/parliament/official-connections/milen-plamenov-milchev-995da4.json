@@ -1,1 +1,199 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milen-plamenov-milchev-995da4","nodes":[{"id":"official:milen-plamenov-milchev-995da4","type":"official","slug":"milen-plamenov-milchev-995da4","label":"Милен Пламенов Милчев","tier":"municipal","role":"councillor","municipality":"Видин"},{"id":"company:tr:201381606","type":"company","label":"\"ДЕМЕТРА 91\" ЕООД","slug":null,"uic":"201381606","legalForm":null,"status":null,"seat":null},{"id":"company:tr:121097441","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ ПО САМБО","slug":null,"uic":"121097441","legalForm":null,"status":null,"seat":null},{"id":"person:РОСЕН МИТКОВ ДИМИТРОВ","type":"person","label":"Росен Митков Димитров"},{"id":"person:РУМЕН МИТКОВ ДИМИТРОВ","type":"person","label":"Румен Митков Димитров"},{"id":"person:МИХАИЛ АЛЕКСАНДРОВ АПОСТОЛОВ","type":"person","label":"Михаил Александров Апостолов"},{"id":"person:ДАНИЕЛ СРЕТЕНОВ ДАМЯНОВИЧ","type":"person","label":"Даниел Сретенов Дамянович"},{"id":"person:ВЪЛЧИН СТОЯНОВ ГАРОВ","type":"person","label":"Вълчин Стоянов Гаров"},{"id":"person:ПЕТЪР ТОШКОВ МУСТАКОВ","type":"person","label":"Петър Тошков Мустаков"},{"id":"person:ВАСИЛ АЛЕКСАНДРОВ СОКОЛОВ","type":"person","label":"Васил Александров Соколов"},{"id":"person:ИВАН ГЕОРГИЕВ НЕТОВ","type":"person","label":"Иван Георгиев Нетов"},{"id":"person:ПЕТЯ НИКОЛОВА САРИЕВА","type":"person","label":"Петя Николова Сариева"},{"id":"person:СТОЯН САЛАДИНОВ СТОЯНОВ","type":"person","label":"Стоян Саладинов Стоянов"}],"edges":[{"source":"official:milen-plamenov-milchev-995da4","target":"company:tr:201381606","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-plamenov-milchev-995da4","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:РОСЕН МИТКОВ ДИМИТРОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН МИТКОВ ДИМИТРОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИХАИЛ АЛЕКСАНДРОВ АПОСТОЛОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ СРЕТЕНОВ ДАМЯНОВИЧ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН МИТКОВ ДИМИТРОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЪЛЧИН СТОЯНОВ ГАРОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ТОШКОВ МУСТАКОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ АЛЕКСАНДРОВ СОКОЛОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГЕОРГИЕВ НЕТОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН МИТКОВ ДИМИТРОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ НИКОЛОВА САРИЕВА","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН САЛАДИНОВ СТОЯНОВ","target":"company:tr:121097441","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milen-plamenov-milchev-995da4",
+  "nodes": [
+    {
+      "id": "official:milen-plamenov-milchev-995da4",
+      "type": "official",
+      "slug": "milen-plamenov-milchev-995da4",
+      "label": "Милен Пламенов Милчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Видин"
+    },
+    {
+      "id": "company:tr:201381606",
+      "type": "company",
+      "label": "\"ДЕМЕТРА 91\" ЕООД",
+      "slug": null,
+      "uic": "201381606",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:121097441",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО САМБО",
+      "slug": null,
+      "uic": "121097441",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН МИТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Росен Митков Димитров"
+    },
+    {
+      "id": "person:РУМЕН МИТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Румен Митков Димитров"
+    },
+    {
+      "id": "person:МИХАИЛ АЛЕКСАНДРОВ АПОСТОЛОВ",
+      "type": "person",
+      "label": "Михаил Александров Апостолов"
+    },
+    {
+      "id": "person:ДАНИЕЛ СРЕТЕНОВ ДАМЯНОВИЧ",
+      "type": "person",
+      "label": "Даниел Сретенов Дамянович"
+    },
+    {
+      "id": "person:ВЪЛЧИН СТОЯНОВ ГАРОВ",
+      "type": "person",
+      "label": "Вълчин Стоянов Гаров"
+    },
+    {
+      "id": "person:ПЕТЪР ТОШКОВ МУСТАКОВ",
+      "type": "person",
+      "label": "Петър Тошков Мустаков"
+    },
+    {
+      "id": "person:ВАСИЛ АЛЕКСАНДРОВ СОКОЛОВ",
+      "type": "person",
+      "label": "Васил Александров Соколов"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ НЕТОВ",
+      "type": "person",
+      "label": "Иван Георгиев Нетов"
+    },
+    {
+      "id": "person:ПЕТЯ НИКОЛОВА САРИЕВА",
+      "type": "person",
+      "label": "Петя Николова Сариева"
+    },
+    {
+      "id": "person:СТОЯН САЛАДИНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Саладинов Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-plamenov-milchev-995da4",
+      "target": "company:tr:201381606",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-plamenov-milchev-995da4",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ АЛЕКСАНДРОВ АПОСТОЛОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ СРЕТЕНОВ ДАМЯНОВИЧ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪЛЧИН СТОЯНОВ ГАРОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ТОШКОВ МУСТАКОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ АЛЕКСАНДРОВ СОКОЛОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ НЕТОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ НИКОЛОВА САРИЕВА",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН САЛАДИНОВ СТОЯНОВ",
+      "target": "company:tr:121097441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:elena-ivanova-velkova-9f93e2","nodes":[{"id":"official:elena-ivanova-velkova-9f93e2","type":"official","slug":"elena-ivanova-velkova-9f93e2","label":"Елена Иванова Велкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:175766074","type":"company","label":"СПОРТЕН КЛУБ ПО ХУДОЖЕСТВЕНА ГИМНАСТИКА &quot;ТЕА ДЕНС","slug":null,"uic":"175766074","legalForm":null,"status":null,"seat":null},{"id":"person:ТЕОДОРА ЕВГЕНИЕВА ГРАМАТИКОВА - ДИМИТРОВА","type":"person","label":"Теодора Евгениева Граматикова - Димитрова"},{"id":"person:ИННА НИКОЛАЕВА ЛЮБЕНОВА","type":"person","label":"Инна Николаева Любенова"}],"edges":[{"source":"official:elena-ivanova-velkova-9f93e2","target":"company:tr:175766074","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТЕОДОРА ЕВГЕНИЕВА ГРАМАТИКОВА - ДИМИТРОВА","target":"company:tr:175766074","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИННА НИКОЛАЕВА ЛЮБЕНОВА","target":"company:tr:175766074","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:elena-ivanova-velkova-9f93e2",
+  "nodes": [
+    {
+      "id": "official:elena-ivanova-velkova-9f93e2",
+      "type": "official",
+      "slug": "elena-ivanova-velkova-9f93e2",
+      "label": "Елена Иванова Велкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175766074",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ХУДОЖЕСТВЕНА ГИМНАСТИКА &quot;ТЕА ДЕНС",
+      "slug": null,
+      "uic": "175766074",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОРА ЕВГЕНИЕВА ГРАМАТИКОВА - ДИМИТРОВА",
+      "type": "person",
+      "label": "Теодора Евгениева Граматикова - Димитрова"
+    },
+    {
+      "id": "person:ИННА НИКОЛАЕВА ЛЮБЕНОВА",
+      "type": "person",
+      "label": "Инна Николаева Любенова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-ivanova-velkova-9f93e2",
+      "target": "company:tr:175766074",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА ЕВГЕНИЕВА ГРАМАТИКОВА - ДИМИТРОВА",
+      "target": "company:tr:175766074",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИННА НИКОЛАЕВА ЛЮБЕНОВА",
+      "target": "company:tr:175766074",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

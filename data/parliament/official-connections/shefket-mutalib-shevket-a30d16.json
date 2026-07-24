@@ -1,1 +1,167 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:shefket-mutalib-shevket-a30d16","nodes":[{"id":"official:shefket-mutalib-shevket-a30d16","type":"official","slug":"shefket-mutalib-shevket-a30d16","label":"Шефкет Муталиб Шевкет","tier":"municipal","role":"councillor","municipality":"Дългопол"},{"id":"company:tr:175998304","type":"company","label":"МЕСТНА ИНИЦИАТИВНА ГРУПА ДЪЛГОПОЛ - СМЯДОВО","slug":null,"uic":"175998304","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕНИЦА НАЙДЕНОВА НИКОЛОВА","type":"person","label":"Деница Найденова Николова"},{"id":"person:СДРУЖЕНИЕ \"КАМЧИЙСКИ КЪТ\"","type":"person","label":"Сдружение \"камчийски Кът\""},{"id":"person:НЧ \"Н.Й. ВАПЦАРОВ\"","type":"person","label":"Нч \"н.й. Вапцаров\""},{"id":"company:name:МУТА 2","type":"company","label":"\"Мута 2\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ОБЩИНА СМЯДОВО","type":"person","label":"Община Смядово"},{"id":"person:ОБЩИНА ДЪЛГОПОЛ","type":"person","label":"Община Дългопол"},{"id":"company:name:ФИШ ГРУП","type":"company","label":"\"Фиш груп\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:ТЕХНОСТРОЙ-Г","type":"company","label":"\"Технострой-Г\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:НАРОДНО ЧИТАЛИЩЕ „РАЗВИТИЕ -1908 “ С. КЪЛНОВО","type":"person","label":"Народно Читалище „развитие -1908 “ С. Кълново"}],"edges":[{"source":"official:shefket-mutalib-shevket-a30d16","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕНИЦА НАЙДЕНОВА НИКОЛОВА","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СДРУЖЕНИЕ \"КАМЧИЙСКИ КЪТ\"","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЧ \"Н.Й. ВАПЦАРОВ\"","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:МУТА 2","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА СМЯДОВО","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ДЪЛГОПОЛ","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ФИШ ГРУП","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ТЕХНОСТРОЙ-Г","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НАРОДНО ЧИТАЛИЩЕ „РАЗВИТИЕ -1908 “ С. КЪЛНОВО","target":"company:tr:175998304","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:shefket-mutalib-shevket-a30d16",
+  "nodes": [
+    {
+      "id": "official:shefket-mutalib-shevket-a30d16",
+      "type": "official",
+      "slug": "shefket-mutalib-shevket-a30d16",
+      "label": "Шефкет Муталиб Шевкет",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дългопол"
+    },
+    {
+      "id": "company:tr:175998304",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА ДЪЛГОПОЛ - СМЯДОВО",
+      "slug": null,
+      "uic": "175998304",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕНИЦА НАЙДЕНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Деница Найденова Николова"
+    },
+    {
+      "id": "person:СДРУЖЕНИЕ \"КАМЧИЙСКИ КЪТ\"",
+      "type": "person",
+      "label": "Сдружение \"камчийски Кът\""
+    },
+    {
+      "id": "person:НЧ \"Н.Й. ВАПЦАРОВ\"",
+      "type": "person",
+      "label": "Нч \"н.й. Вапцаров\""
+    },
+    {
+      "id": "company:name:МУТА 2",
+      "type": "company",
+      "label": "\"Мута 2\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА СМЯДОВО",
+      "type": "person",
+      "label": "Община Смядово"
+    },
+    {
+      "id": "person:ОБЩИНА ДЪЛГОПОЛ",
+      "type": "person",
+      "label": "Община Дългопол"
+    },
+    {
+      "id": "company:name:ФИШ ГРУП",
+      "type": "company",
+      "label": "\"Фиш груп\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ТЕХНОСТРОЙ-Г",
+      "type": "company",
+      "label": "\"Технострой-Г\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАРОДНО ЧИТАЛИЩЕ „РАЗВИТИЕ -1908 “ С. КЪЛНОВО",
+      "type": "person",
+      "label": "Народно Читалище „развитие -1908 “ С. Кълново"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shefket-mutalib-shevket-a30d16",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕНИЦА НАЙДЕНОВА НИКОЛОВА",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СДРУЖЕНИЕ \"КАМЧИЙСКИ КЪТ\"",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЧ \"Н.Й. ВАПЦАРОВ\"",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:МУТА 2",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА СМЯДОВО",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ДЪЛГОПОЛ",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ФИШ ГРУП",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ТЕХНОСТРОЙ-Г",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАРОДНО ЧИТАЛИЩЕ „РАЗВИТИЕ -1908 “ С. КЪЛНОВО",
+      "target": "company:tr:175998304",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,268 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:berkant-mehmed-mehmed-ebdbc6","nodes":[{"id":"official:berkant-mehmed-mehmed-ebdbc6","type":"official","slug":"berkant-mehmed-mehmed-ebdbc6","label":"Беркант Мехмед Мехмед","tier":"municipal","role":"councillor","municipality":"Момчилград"},{"id":"company:tr:108519119","type":"company","label":"Ловно-рибарско сдружение Родопи - Момчилград","slug":null,"uic":"108519119","legalForm":null,"status":null,"seat":null},{"id":"official:yuksel-fehim-yumer-c22eef","type":"official","slug":"yuksel-fehim-yumer-c22eef","label":"Юксел Фехим Юмер","tier":"municipal","role":"councillor","municipality":"Кирково"},{"id":"person:ТАНЕР ФИКРИ ИДРИЗ","type":"person","label":"Танер Фикри Идриз"},{"id":"person:КЪНЧО ДЕНЕВ ЖЕЛЕВ","type":"person","label":"Кънчо Денев Желев"},{"id":"person:ТУНДЖЕР ХАШИМОВ АЛИЕВ","type":"person","label":"Тунджер Хашимов Алиев"},{"id":"person:ХАСАН ЕМИН САЛИ","type":"person","label":"Хасан Емин Сали"},{"id":"person:ФИКРЕТ ЕМИН ХАБИБ","type":"person","label":"Фикрет Емин Хабиб"},{"id":"person:АПТУЛА ШАБАН НУРТИН","type":"person","label":"Аптула Шабан Нуртин"},{"id":"person:ИСМЕТ АЛИ МУСТАФА","type":"person","label":"Исмет Али Мустафа"},{"id":"person:СЕЙДАХМЕД АХМЕД АВКАТ","type":"person","label":"Сейдахмед Ахмед Авкат"},{"id":"person:РЕДЖЕБ АПТУЛА ШЕВКИ","type":"person","label":"Реджеб Аптула Шевки"},{"id":"person:ДЖЕМИЛ ЮМЕР МЕХМЕД","type":"person","label":"Джемил Юмер Мехмед"},{"id":"person:ДЖЕЙЛЯН ДЖЕМАЛ МЕХМЕД","type":"person","label":"Джейлян Джемал Мехмед"},{"id":"person:АЛИ САЛИ АЛИ","type":"person","label":"Али Сали Али"},{"id":"person:ЕВГЕНИ СТОЯНОВ КАРАБАДЖАКОВ","type":"person","label":"Евгени Стоянов Карабаджаков"},{"id":"person:БЮНЯМИН САБРИ САЛИФ","type":"person","label":"Бюнямин Сабри Салиф"},{"id":"person:КЕМАЛ ДЖЕМИЛ МЕХМЕД","type":"person","label":"Кемал Джемил Мехмед"},{"id":"person:СИНАН СУБАЙ МУСТАФА","type":"person","label":"Синан Субай Мустафа"}],"edges":[{"source":"official:berkant-mehmed-mehmed-ebdbc6","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:yuksel-fehim-yumer-c22eef","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТАНЕР ФИКРИ ИДРИЗ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КЪНЧО ДЕНЕВ ЖЕЛЕВ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТУНДЖЕР ХАШИМОВ АЛИЕВ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХАСАН ЕМИН САЛИ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЕР ФИКРИ ИДРИЗ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ФИКРЕТ ЕМИН ХАБИБ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АПТУЛА ШАБАН НУРТИН","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИСМЕТ АЛИ МУСТАФА","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕЙДАХМЕД АХМЕД АВКАТ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РЕДЖЕБ АПТУЛА ШЕВКИ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЖЕМИЛ ЮМЕР МЕХМЕД","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЖЕЙЛЯН ДЖЕМАЛ МЕХМЕД","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛИ САЛИ АЛИ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ СТОЯНОВ КАРАБАДЖАКОВ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БЮНЯМИН САБРИ САЛИФ","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КЕМАЛ ДЖЕМИЛ МЕХМЕД","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИНАН СУБАЙ МУСТАФА","target":"company:tr:108519119","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:berkant-mehmed-mehmed-ebdbc6",
+  "nodes": [
+    {
+      "id": "official:berkant-mehmed-mehmed-ebdbc6",
+      "type": "official",
+      "slug": "berkant-mehmed-mehmed-ebdbc6",
+      "label": "Беркант Мехмед Мехмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Момчилград"
+    },
+    {
+      "id": "company:tr:108519119",
+      "type": "company",
+      "label": "Ловно-рибарско сдружение Родопи - Момчилград",
+      "slug": null,
+      "uic": "108519119",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:yuksel-fehim-yumer-c22eef",
+      "type": "official",
+      "slug": "yuksel-fehim-yumer-c22eef",
+      "label": "Юксел Фехим Юмер",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кирково"
+    },
+    {
+      "id": "person:ТАНЕР ФИКРИ ИДРИЗ",
+      "type": "person",
+      "label": "Танер Фикри Идриз"
+    },
+    {
+      "id": "person:КЪНЧО ДЕНЕВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Кънчо Денев Желев"
+    },
+    {
+      "id": "person:ТУНДЖЕР ХАШИМОВ АЛИЕВ",
+      "type": "person",
+      "label": "Тунджер Хашимов Алиев"
+    },
+    {
+      "id": "person:ХАСАН ЕМИН САЛИ",
+      "type": "person",
+      "label": "Хасан Емин Сали"
+    },
+    {
+      "id": "person:ФИКРЕТ ЕМИН ХАБИБ",
+      "type": "person",
+      "label": "Фикрет Емин Хабиб"
+    },
+    {
+      "id": "person:АПТУЛА ШАБАН НУРТИН",
+      "type": "person",
+      "label": "Аптула Шабан Нуртин"
+    },
+    {
+      "id": "person:ИСМЕТ АЛИ МУСТАФА",
+      "type": "person",
+      "label": "Исмет Али Мустафа"
+    },
+    {
+      "id": "person:СЕЙДАХМЕД АХМЕД АВКАТ",
+      "type": "person",
+      "label": "Сейдахмед Ахмед Авкат"
+    },
+    {
+      "id": "person:РЕДЖЕБ АПТУЛА ШЕВКИ",
+      "type": "person",
+      "label": "Реджеб Аптула Шевки"
+    },
+    {
+      "id": "person:ДЖЕМИЛ ЮМЕР МЕХМЕД",
+      "type": "person",
+      "label": "Джемил Юмер Мехмед"
+    },
+    {
+      "id": "person:ДЖЕЙЛЯН ДЖЕМАЛ МЕХМЕД",
+      "type": "person",
+      "label": "Джейлян Джемал Мехмед"
+    },
+    {
+      "id": "person:АЛИ САЛИ АЛИ",
+      "type": "person",
+      "label": "Али Сали Али"
+    },
+    {
+      "id": "person:ЕВГЕНИ СТОЯНОВ КАРАБАДЖАКОВ",
+      "type": "person",
+      "label": "Евгени Стоянов Карабаджаков"
+    },
+    {
+      "id": "person:БЮНЯМИН САБРИ САЛИФ",
+      "type": "person",
+      "label": "Бюнямин Сабри Салиф"
+    },
+    {
+      "id": "person:КЕМАЛ ДЖЕМИЛ МЕХМЕД",
+      "type": "person",
+      "label": "Кемал Джемил Мехмед"
+    },
+    {
+      "id": "person:СИНАН СУБАЙ МУСТАФА",
+      "type": "person",
+      "label": "Синан Субай Мустафа"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:berkant-mehmed-mehmed-ebdbc6",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuksel-fehim-yumer-c22eef",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАНЕР ФИКРИ ИДРИЗ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЪНЧО ДЕНЕВ ЖЕЛЕВ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТУНДЖЕР ХАШИМОВ АЛИЕВ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАСАН ЕМИН САЛИ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЕР ФИКРИ ИДРИЗ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИКРЕТ ЕМИН ХАБИБ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АПТУЛА ШАБАН НУРТИН",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСМЕТ АЛИ МУСТАФА",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЙДАХМЕД АХМЕД АВКАТ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕДЖЕБ АПТУЛА ШЕВКИ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕМИЛ ЮМЕР МЕХМЕД",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕЙЛЯН ДЖЕМАЛ МЕХМЕД",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИ САЛИ АЛИ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ СТОЯНОВ КАРАБАДЖАКОВ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЮНЯМИН САБРИ САЛИФ",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕМАЛ ДЖЕМИЛ МЕХМЕД",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИНАН СУБАЙ МУСТАФА",
+      "target": "company:tr:108519119",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

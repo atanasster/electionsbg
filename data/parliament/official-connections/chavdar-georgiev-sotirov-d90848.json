@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:chavdar-georgiev-sotirov-d90848","nodes":[{"id":"official:chavdar-georgiev-sotirov-d90848","type":"official","slug":"chavdar-georgiev-sotirov-d90848","label":"Чавдар Георгиев Сотиров","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:207155560","type":"company","label":"ГРАДИНАРЧЕ","slug":null,"uic":"207155560","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:chavdar-georgiev-sotirov-d90848","target":"company:tr:207155560","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:chavdar-georgiev-sotirov-d90848","target":"company:tr:207155560","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:chavdar-georgiev-sotirov-d90848",
+  "nodes": [
+    {
+      "id": "official:chavdar-georgiev-sotirov-d90848",
+      "type": "official",
+      "slug": "chavdar-georgiev-sotirov-d90848",
+      "label": "Чавдар Георгиев Сотиров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207155560",
+      "type": "company",
+      "label": "ГРАДИНАРЧЕ",
+      "slug": null,
+      "uic": "207155560",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:chavdar-georgiev-sotirov-d90848",
+      "target": "company:tr:207155560",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:chavdar-georgiev-sotirov-d90848",
+      "target": "company:tr:207155560",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

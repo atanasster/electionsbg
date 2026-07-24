@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:venina-dimitrova-tsonkova-7fd676","nodes":[{"id":"official:venina-dimitrova-tsonkova-7fd676","type":"official","slug":"venina-dimitrova-tsonkova-7fd676","label":"Венина Димитрова Цонкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:123620424","type":"company","label":"СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ СВ.СВ. КИРИЛ И МЕТОДИЙ&quot;","slug":null,"uic":"123620424","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТИНА ХРИСТОВА КОЛЕВА","type":"person","label":"Христина Христова Колева"},{"id":"person:МАРИАНА АТАНАСОВА ИВАНОВА","type":"person","label":"Мариана Атанасова Иванова"},{"id":"person:ЗЛАТКО ХРИСТОВ ГЕНЧЕВ","type":"person","label":"Златко Христов Генчев"},{"id":"person:ДОНКА ВЕЛИЧКОВА СТАНЕВА","type":"person","label":"Донка Величкова Станева"},{"id":"person:РАДОСТИНА НИКОЛОВА ВАСИЛЕВА - АМЗОВА","type":"person","label":"Радостина Николова Василева - Амзова"},{"id":"person:ГАЛИНА ВАСИЛЕВА НИКОЛОВА","type":"person","label":"Галина Василева Николова"},{"id":"person:АНЕЛИЯ НИКОЛАЕВА ДИНЕВА","type":"person","label":"Анелия Николаева Динева"}],"edges":[{"source":"official:venina-dimitrova-tsonkova-7fd676","target":"company:tr:123620424","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:venina-dimitrova-tsonkova-7fd676","target":"company:tr:123620424","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТИНА ХРИСТОВА КОЛЕВА","target":"company:tr:123620424","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА АТАНАСОВА ИВАНОВА","target":"company:tr:123620424","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКО ХРИСТОВ ГЕНЧЕВ","target":"company:tr:123620424","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА ВЕЛИЧКОВА СТАНЕВА","target":"company:tr:123620424","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА ВЕЛИЧКОВА СТАНЕВА","target":"company:tr:123620424","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА НИКОЛОВА ВАСИЛЕВА - АМЗОВА","target":"company:tr:123620424","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ВАСИЛЕВА НИКОЛОВА","target":"company:tr:123620424","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ НИКОЛАЕВА ДИНЕВА","target":"company:tr:123620424","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:venina-dimitrova-tsonkova-7fd676",
+  "nodes": [
+    {
+      "id": "official:venina-dimitrova-tsonkova-7fd676",
+      "type": "official",
+      "slug": "venina-dimitrova-tsonkova-7fd676",
+      "label": "Венина Димитрова Цонкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123620424",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ СВ.СВ. КИРИЛ И МЕТОДИЙ&quot;",
+      "slug": null,
+      "uic": "123620424",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТИНА ХРИСТОВА КОЛЕВА",
+      "type": "person",
+      "label": "Христина Христова Колева"
+    },
+    {
+      "id": "person:МАРИАНА АТАНАСОВА ИВАНОВА",
+      "type": "person",
+      "label": "Мариана Атанасова Иванова"
+    },
+    {
+      "id": "person:ЗЛАТКО ХРИСТОВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Златко Христов Генчев"
+    },
+    {
+      "id": "person:ДОНКА ВЕЛИЧКОВА СТАНЕВА",
+      "type": "person",
+      "label": "Донка Величкова Станева"
+    },
+    {
+      "id": "person:РАДОСТИНА НИКОЛОВА ВАСИЛЕВА - АМЗОВА",
+      "type": "person",
+      "label": "Радостина Николова Василева - Амзова"
+    },
+    {
+      "id": "person:ГАЛИНА ВАСИЛЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Галина Василева Николова"
+    },
+    {
+      "id": "person:АНЕЛИЯ НИКОЛАЕВА ДИНЕВА",
+      "type": "person",
+      "label": "Анелия Николаева Динева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:venina-dimitrova-tsonkova-7fd676",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:venina-dimitrova-tsonkova-7fd676",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИНА ХРИСТОВА КОЛЕВА",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА АТАНАСОВА ИВАНОВА",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКО ХРИСТОВ ГЕНЧЕВ",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ВЕЛИЧКОВА СТАНЕВА",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ВЕЛИЧКОВА СТАНЕВА",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА НИКОЛОВА ВАСИЛЕВА - АМЗОВА",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ВАСИЛЕВА НИКОЛОВА",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ НИКОЛАЕВА ДИНЕВА",
+      "target": "company:tr:123620424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

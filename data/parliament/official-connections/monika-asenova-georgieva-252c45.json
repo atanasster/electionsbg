@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:monika-asenova-georgieva-252c45","nodes":[{"id":"official:monika-asenova-georgieva-252c45","type":"official","slug":"monika-asenova-georgieva-252c45","label":"Моника Асенова Георгиева","tier":"municipal","role":"council_chair","municipality":"Драгоман"},{"id":"company:tr:206731010","type":"company","label":"Табако - Дан ЕООД","slug":null,"uic":"206731010","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕРГАНА СЕДЕФЧОВА ГЕОРГИЕВА","type":"person","label":"Гергана Седефчова Георгиева"}],"edges":[{"source":"official:monika-asenova-georgieva-252c45","target":"company:tr:206731010","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:monika-asenova-georgieva-252c45","target":"company:tr:206731010","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:monika-asenova-georgieva-252c45","target":"company:tr:206731010","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕРГАНА СЕДЕФЧОВА ГЕОРГИЕВА","target":"company:tr:206731010","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:monika-asenova-georgieva-252c45",
+  "nodes": [
+    {
+      "id": "official:monika-asenova-georgieva-252c45",
+      "type": "official",
+      "slug": "monika-asenova-georgieva-252c45",
+      "label": "Моника Асенова Георгиева",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Драгоман"
+    },
+    {
+      "id": "company:tr:206731010",
+      "type": "company",
+      "label": "Табако - Дан ЕООД",
+      "slug": null,
+      "uic": "206731010",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕРГАНА СЕДЕФЧОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Гергана Седефчова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:monika-asenova-georgieva-252c45",
+      "target": "company:tr:206731010",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:monika-asenova-georgieva-252c45",
+      "target": "company:tr:206731010",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:monika-asenova-georgieva-252c45",
+      "target": "company:tr:206731010",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА СЕДЕФЧОВА ГЕОРГИЕВА",
+      "target": "company:tr:206731010",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

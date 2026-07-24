@@ -1,1 +1,203 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariana-ivanova-mineva-4247c3","nodes":[{"id":"official:mariana-ivanova-mineva-4247c3","type":"official","slug":"mariana-ivanova-mineva-4247c3","label":"Мариана Иванова Минева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000523285","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ИСКРА 1898&quot;","slug":null,"uic":"000523285","legalForm":null,"status":null,"seat":null},{"id":"official:iliyana-krasimirova-velikova-290c05","type":"official","slug":"iliyana-krasimirova-velikova-290c05","label":"Илияна Красимирова Великова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ЮЛИЯ ИВАНОВА ДЕНЕВА","type":"person","label":"Юлия Иванова Денева"},{"id":"person:СВЕТЛА ПЕТРОВА ЦВЯТКОВА","type":"person","label":"Светла Петрова Цвяткова"},{"id":"person:ТОТЮ МАНЕВ ТОТЕВ","type":"person","label":"Тотю Манев Тотев"},{"id":"person:МАРТИН НИКОЛОВ ЙОРДАНОВ","type":"person","label":"Мартин Николов Йорданов"},{"id":"person:ИГНАТ ВЕЛИКОВ ИГНАТОВ","type":"person","label":"Игнат Великов Игнатов"},{"id":"person:АТАНАСКА ПЕТКОВА ИВАНОВА","type":"person","label":"Атанаска Петкова Иванова"},{"id":"person:ПЕТРАНКА ВЕЛИКОВА ПЕТКОВА","type":"person","label":"Петранка Великова Петкова"},{"id":"person:МАРИЯ ТОДОРОВА НЕНОВА","type":"person","label":"Мария Тодорова Ненова"},{"id":"person:ДАНИЕЛА ВАЛЕНТИНОВА СТАНЕВА","type":"person","label":"Даниела Валентинова Станева"},{"id":"person:СИЛВИЯ НИКОЛОВА ПЕТРОВА","type":"person","label":"Силвия Николова Петрова"},{"id":"person:ДИЯНА ХРИСТОВА СТОЙЧЕВА","type":"person","label":"Дияна Христова Стойчева"}],"edges":[{"source":"official:mariana-ivanova-mineva-4247c3","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:iliyana-krasimirova-velikova-290c05","target":"company:tr:000523285","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ЮЛИЯ ИВАНОВА ДЕНЕВА","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА ПЕТРОВА ЦВЯТКОВА","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОТЮ МАНЕВ ТОТЕВ","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН НИКОЛОВ ЙОРДАНОВ","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИГНАТ ВЕЛИКОВ ИГНАТОВ","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАСКА ПЕТКОВА ИВАНОВА","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРАНКА ВЕЛИКОВА ПЕТКОВА","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ТОДОРОВА НЕНОВА","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ВАЛЕНТИНОВА СТАНЕВА","target":"company:tr:000523285","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ НИКОЛОВА ПЕТРОВА","target":"company:tr:000523285","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯНА ХРИСТОВА СТОЙЧЕВА","target":"company:tr:000523285","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ НИКОЛОВА ПЕТРОВА","target":"company:tr:000523285","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariana-ivanova-mineva-4247c3",
+  "nodes": [
+    {
+      "id": "official:mariana-ivanova-mineva-4247c3",
+      "type": "official",
+      "slug": "mariana-ivanova-mineva-4247c3",
+      "label": "Мариана Иванова Минева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000523285",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ИСКРА 1898&quot;",
+      "slug": null,
+      "uic": "000523285",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:iliyana-krasimirova-velikova-290c05",
+      "type": "official",
+      "slug": "iliyana-krasimirova-velikova-290c05",
+      "label": "Илияна Красимирова Великова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЮЛИЯ ИВАНОВА ДЕНЕВА",
+      "type": "person",
+      "label": "Юлия Иванова Денева"
+    },
+    {
+      "id": "person:СВЕТЛА ПЕТРОВА ЦВЯТКОВА",
+      "type": "person",
+      "label": "Светла Петрова Цвяткова"
+    },
+    {
+      "id": "person:ТОТЮ МАНЕВ ТОТЕВ",
+      "type": "person",
+      "label": "Тотю Манев Тотев"
+    },
+    {
+      "id": "person:МАРТИН НИКОЛОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Мартин Николов Йорданов"
+    },
+    {
+      "id": "person:ИГНАТ ВЕЛИКОВ ИГНАТОВ",
+      "type": "person",
+      "label": "Игнат Великов Игнатов"
+    },
+    {
+      "id": "person:АТАНАСКА ПЕТКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Атанаска Петкова Иванова"
+    },
+    {
+      "id": "person:ПЕТРАНКА ВЕЛИКОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Петранка Великова Петкова"
+    },
+    {
+      "id": "person:МАРИЯ ТОДОРОВА НЕНОВА",
+      "type": "person",
+      "label": "Мария Тодорова Ненова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ВАЛЕНТИНОВА СТАНЕВА",
+      "type": "person",
+      "label": "Даниела Валентинова Станева"
+    },
+    {
+      "id": "person:СИЛВИЯ НИКОЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Силвия Николова Петрова"
+    },
+    {
+      "id": "person:ДИЯНА ХРИСТОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Дияна Христова Стойчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariana-ivanova-mineva-4247c3",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliyana-krasimirova-velikova-290c05",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЮЛИЯ ИВАНОВА ДЕНЕВА",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ПЕТРОВА ЦВЯТКОВА",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОТЮ МАНЕВ ТОТЕВ",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН НИКОЛОВ ЙОРДАНОВ",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИГНАТ ВЕЛИКОВ ИГНАТОВ",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ПЕТКОВА ИВАНОВА",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНКА ВЕЛИКОВА ПЕТКОВА",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТОДОРОВА НЕНОВА",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ВАЛЕНТИНОВА СТАНЕВА",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ НИКОЛОВА ПЕТРОВА",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ХРИСТОВА СТОЙЧЕВА",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ НИКОЛОВА ПЕТРОВА",
+      "target": "company:tr:000523285",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:sonya-georgieva-budeva-ed14a2","nodes":[{"id":"official:sonya-georgieva-budeva-ed14a2","type":"official","slug":"sonya-georgieva-budeva-ed14a2","label":"Соня Георгиева Будева","tier":"municipal","role":"councillor","municipality":"Велико Търново"},{"id":"company:tr:205416346","type":"company","label":"\"Петров Трюфели\" ЕООД","slug":null,"uic":"205416346","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:sonya-georgieva-budeva-ed14a2","target":"company:tr:205416346","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:sonya-georgieva-budeva-ed14a2",
+  "nodes": [
+    {
+      "id": "official:sonya-georgieva-budeva-ed14a2",
+      "type": "official",
+      "slug": "sonya-georgieva-budeva-ed14a2",
+      "label": "Соня Георгиева Будева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велико Търново"
+    },
+    {
+      "id": "company:tr:205416346",
+      "type": "company",
+      "label": "\"Петров Трюфели\" ЕООД",
+      "slug": null,
+      "uic": "205416346",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sonya-georgieva-budeva-ed14a2",
+      "target": "company:tr:205416346",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

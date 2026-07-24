@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tihomir-mishev-dermendzhiev-d67b8c","nodes":[{"id":"official:tihomir-mishev-dermendzhiev-d67b8c","type":"official","slug":"tihomir-mishev-dermendzhiev-d67b8c","label":"Тихомир Мишев Дерменджиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000463379","type":"company","label":"КОМПЛЕКСЕН ОНКОЛОГИЧЕН ЦЕНТЪР - ПЛОВДИВ","slug":null,"uic":"000463379","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:tihomir-mishev-dermendzhiev-d67b8c","target":"company:tr:000463379","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tihomir-mishev-dermendzhiev-d67b8c",
+  "nodes": [
+    {
+      "id": "official:tihomir-mishev-dermendzhiev-d67b8c",
+      "type": "official",
+      "slug": "tihomir-mishev-dermendzhiev-d67b8c",
+      "label": "Тихомир Мишев Дерменджиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000463379",
+      "type": "company",
+      "label": "КОМПЛЕКСЕН ОНКОЛОГИЧЕН ЦЕНТЪР - ПЛОВДИВ",
+      "slug": null,
+      "uic": "000463379",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tihomir-mishev-dermendzhiev-d67b8c",
+      "target": "company:tr:000463379",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

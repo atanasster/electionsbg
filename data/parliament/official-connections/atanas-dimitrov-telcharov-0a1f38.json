@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:atanas-dimitrov-telcharov-0a1f38","nodes":[{"id":"official:atanas-dimitrov-telcharov-0a1f38","type":"official","slug":"atanas-dimitrov-telcharov-0a1f38","label":"Атанас Димитров Телчаров","tier":"municipal","role":"council_chair","municipality":"Садово"},{"id":"company:tr:207127034","type":"company","label":"Еко Грийн Енерджи ООД","slug":null,"uic":"207127034","legalForm":null,"status":null,"seat":null},{"id":"person:СТОЯН ИВАНОВ КРУШКОВ","type":"person","label":"Стоян Иванов Крушков"},{"id":"person:АТАНАС ДИМИТРОВ ТЕЛЧАРОВ","type":"person","label":"Атанас Димитров Телчаров"}],"edges":[{"source":"official:atanas-dimitrov-telcharov-0a1f38","target":"company:tr:207127034","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ИВАНОВ КРУШКОВ","target":"company:tr:207127034","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ДИМИТРОВ ТЕЛЧАРОВ","target":"company:tr:207127034","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ИВАНОВ КРУШКОВ","target":"company:tr:207127034","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ДИМИТРОВ ТЕЛЧАРОВ","target":"company:tr:207127034","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:atanas-dimitrov-telcharov-0a1f38",
+  "nodes": [
+    {
+      "id": "official:atanas-dimitrov-telcharov-0a1f38",
+      "type": "official",
+      "slug": "atanas-dimitrov-telcharov-0a1f38",
+      "label": "Атанас Димитров Телчаров",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Садово"
+    },
+    {
+      "id": "company:tr:207127034",
+      "type": "company",
+      "label": "Еко Грийн Енерджи ООД",
+      "slug": null,
+      "uic": "207127034",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН ИВАНОВ КРУШКОВ",
+      "type": "person",
+      "label": "Стоян Иванов Крушков"
+    },
+    {
+      "id": "person:АТАНАС ДИМИТРОВ ТЕЛЧАРОВ",
+      "type": "person",
+      "label": "Атанас Димитров Телчаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-dimitrov-telcharov-0a1f38",
+      "target": "company:tr:207127034",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ИВАНОВ КРУШКОВ",
+      "target": "company:tr:207127034",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДИМИТРОВ ТЕЛЧАРОВ",
+      "target": "company:tr:207127034",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ИВАНОВ КРУШКОВ",
+      "target": "company:tr:207127034",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДИМИТРОВ ТЕЛЧАРОВ",
+      "target": "company:tr:207127034",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

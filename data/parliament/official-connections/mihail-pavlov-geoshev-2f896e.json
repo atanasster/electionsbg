@@ -1,1 +1,52 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mihail-pavlov-geoshev-2f896e","nodes":[{"id":"official:mihail-pavlov-geoshev-2f896e","type":"official","slug":"mihail-pavlov-geoshev-2f896e","label":"Михаил Павлов Геошев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:202039534","type":"company","label":"ОБЩИНСКИ ПРЕВОЗИ - КОСТИНБРОД","slug":null,"uic":"202039534","legalForm":null,"status":null,"seat":null},{"id":"official:toshko-nikolaev-todorov-3a38b4","type":"official","slug":"toshko-nikolaev-todorov-3a38b4","label":"Тошко Николаев Тодоров","tier":"executive","role":"state_enterprise","municipality":null}],"edges":[{"source":"official:mihail-pavlov-geoshev-2f896e","target":"company:tr:202039534","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:toshko-nikolaev-todorov-3a38b4","target":"company:tr:202039534","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mihail-pavlov-geoshev-2f896e",
+  "nodes": [
+    {
+      "id": "official:mihail-pavlov-geoshev-2f896e",
+      "type": "official",
+      "slug": "mihail-pavlov-geoshev-2f896e",
+      "label": "Михаил Павлов Геошев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202039534",
+      "type": "company",
+      "label": "ОБЩИНСКИ ПРЕВОЗИ - КОСТИНБРОД",
+      "slug": null,
+      "uic": "202039534",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:toshko-nikolaev-todorov-3a38b4",
+      "type": "official",
+      "slug": "toshko-nikolaev-todorov-3a38b4",
+      "label": "Тошко Николаев Тодоров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-pavlov-geoshev-2f896e",
+      "target": "company:tr:202039534",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:toshko-nikolaev-todorov-3a38b4",
+      "target": "company:tr:202039534",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

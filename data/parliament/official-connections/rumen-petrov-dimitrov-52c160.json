@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rumen-petrov-dimitrov-52c160","nodes":[{"id":"official:rumen-petrov-dimitrov-52c160","type":"official","slug":"rumen-petrov-dimitrov-52c160","label":"Румен Петров Димитров","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:205329820","type":"company","label":"ЗОО 2018","slug":null,"uic":"205329820","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204612331","type":"company","label":"СТОУНИ 21","slug":null,"uic":"204612331","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТИНА ЙОРДАНОВА ДИМИТРОВА","type":"person","label":"Христина Йорданова Димитрова"}],"edges":[{"source":"official:rumen-petrov-dimitrov-52c160","target":"company:tr:205329820","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:rumen-petrov-dimitrov-52c160","target":"company:tr:204612331","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:rumen-petrov-dimitrov-52c160","target":"company:tr:204612331","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТИНА ЙОРДАНОВА ДИМИТРОВА","target":"company:tr:204612331","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА ЙОРДАНОВА ДИМИТРОВА","target":"company:tr:204612331","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rumen-petrov-dimitrov-52c160",
+  "nodes": [
+    {
+      "id": "official:rumen-petrov-dimitrov-52c160",
+      "type": "official",
+      "slug": "rumen-petrov-dimitrov-52c160",
+      "label": "Румен Петров Димитров",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205329820",
+      "type": "company",
+      "label": "ЗОО 2018",
+      "slug": null,
+      "uic": "205329820",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204612331",
+      "type": "company",
+      "label": "СТОУНИ 21",
+      "slug": null,
+      "uic": "204612331",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТИНА ЙОРДАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Христина Йорданова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-petrov-dimitrov-52c160",
+      "target": "company:tr:205329820",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rumen-petrov-dimitrov-52c160",
+      "target": "company:tr:204612331",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-petrov-dimitrov-52c160",
+      "target": "company:tr:204612331",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИНА ЙОРДАНОВА ДИМИТРОВА",
+      "target": "company:tr:204612331",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ЙОРДАНОВА ДИМИТРОВА",
+      "target": "company:tr:204612331",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

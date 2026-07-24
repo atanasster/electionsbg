@@ -1,1 +1,199 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:filip-atanasov-chukarov-7559f1","nodes":[{"id":"official:filip-atanasov-chukarov-7559f1","type":"official","slug":"filip-atanasov-chukarov-7559f1","label":"Филип Атанасов Чукаров","tier":"municipal","role":"councillor","municipality":"Мадан"},{"id":"company:tr:120070975","type":"company","label":"ИВАН ВАЗОВ-1999","slug":null,"uic":"120070975","legalForm":null,"status":null,"seat":null},{"id":"person:РОЗА АТАНАСОВА БАЛИЕВА","type":"person","label":"Роза Атанасова Балиева"},{"id":"person:РОЗАЛИЯ ДИМОВА КЕХАЙОВА","type":"person","label":"Розалия Димова Кехайова"},{"id":"person:НАДЯ АЛЕКСИЕВА КЕХАЙОВА","type":"person","label":"Надя Алексиева Кехайова"},{"id":"person:ЛИЛЯНА АНГЕЛОВА КЕРМЕНОВА","type":"person","label":"Лиляна Ангелова Керменова"},{"id":"person:РОСИЦА ЗАХАРИЕВА КИЧУКОВА","type":"person","label":"Росица Захариева Кичукова"},{"id":"person:СНЕЖАНА МАРИНОВА АТАНАСОВА","type":"person","label":"Снежана Маринова Атанасова"},{"id":"person:ЗЕЙРЕ САЛИХОВА ШЕХОВА","type":"person","label":"Зейре Салихова Шехова"},{"id":"person:МИГЛЕНА АДЕЛИНОВА ИЛЪКОВА-АНГАРОВА","type":"person","label":"Миглена Аделинова Илъкова-Ангарова"},{"id":"person:КРАСИМИРА ТОДОРОВА БАЛЧЕВА","type":"person","label":"Красимира Тодорова Балчева"},{"id":"person:ИРЕНА МИТКОВА БАЗЕНИКОВА","type":"person","label":"Ирена Миткова Базеникова"},{"id":"person:РОСИЦА РУМЕНОВА ЦАНОВА","type":"person","label":"Росица Руменова Цанова"},{"id":"person:НАТАЛИЯ ЙОРДАНОВА МОМЧЕВА","type":"person","label":"Наталия Йорданова Момчева"}],"edges":[{"source":"official:filip-atanasov-chukarov-7559f1","target":"company:tr:120070975","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:filip-atanasov-chukarov-7559f1","target":"company:tr:120070975","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:РОЗА АТАНАСОВА БАЛИЕВА","target":"company:tr:120070975","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РОЗАЛИЯ ДИМОВА КЕХАЙОВА","target":"company:tr:120070975","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ АЛЕКСИЕВА КЕХАЙОВА","target":"company:tr:120070975","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛЯНА АНГЕЛОВА КЕРМЕНОВА","target":"company:tr:120070975","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ЗАХАРИЕВА КИЧУКОВА","target":"company:tr:120070975","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА МАРИНОВА АТАНАСОВА","target":"company:tr:120070975","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗЕЙРЕ САЛИХОВА ШЕХОВА","target":"company:tr:120070975","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА АДЕЛИНОВА ИЛЪКОВА-АНГАРОВА","target":"company:tr:120070975","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ТОДОРОВА БАЛЧЕВА","target":"company:tr:120070975","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА МИТКОВА БАЗЕНИКОВА","target":"company:tr:120070975","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА РУМЕНОВА ЦАНОВА","target":"company:tr:120070975","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ ЙОРДАНОВА МОМЧЕВА","target":"company:tr:120070975","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:filip-atanasov-chukarov-7559f1",
+  "nodes": [
+    {
+      "id": "official:filip-atanasov-chukarov-7559f1",
+      "type": "official",
+      "slug": "filip-atanasov-chukarov-7559f1",
+      "label": "Филип Атанасов Чукаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мадан"
+    },
+    {
+      "id": "company:tr:120070975",
+      "type": "company",
+      "label": "ИВАН ВАЗОВ-1999",
+      "slug": null,
+      "uic": "120070975",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОЗА АТАНАСОВА БАЛИЕВА",
+      "type": "person",
+      "label": "Роза Атанасова Балиева"
+    },
+    {
+      "id": "person:РОЗАЛИЯ ДИМОВА КЕХАЙОВА",
+      "type": "person",
+      "label": "Розалия Димова Кехайова"
+    },
+    {
+      "id": "person:НАДЯ АЛЕКСИЕВА КЕХАЙОВА",
+      "type": "person",
+      "label": "Надя Алексиева Кехайова"
+    },
+    {
+      "id": "person:ЛИЛЯНА АНГЕЛОВА КЕРМЕНОВА",
+      "type": "person",
+      "label": "Лиляна Ангелова Керменова"
+    },
+    {
+      "id": "person:РОСИЦА ЗАХАРИЕВА КИЧУКОВА",
+      "type": "person",
+      "label": "Росица Захариева Кичукова"
+    },
+    {
+      "id": "person:СНЕЖАНА МАРИНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Снежана Маринова Атанасова"
+    },
+    {
+      "id": "person:ЗЕЙРЕ САЛИХОВА ШЕХОВА",
+      "type": "person",
+      "label": "Зейре Салихова Шехова"
+    },
+    {
+      "id": "person:МИГЛЕНА АДЕЛИНОВА ИЛЪКОВА-АНГАРОВА",
+      "type": "person",
+      "label": "Миглена Аделинова Илъкова-Ангарова"
+    },
+    {
+      "id": "person:КРАСИМИРА ТОДОРОВА БАЛЧЕВА",
+      "type": "person",
+      "label": "Красимира Тодорова Балчева"
+    },
+    {
+      "id": "person:ИРЕНА МИТКОВА БАЗЕНИКОВА",
+      "type": "person",
+      "label": "Ирена Миткова Базеникова"
+    },
+    {
+      "id": "person:РОСИЦА РУМЕНОВА ЦАНОВА",
+      "type": "person",
+      "label": "Росица Руменова Цанова"
+    },
+    {
+      "id": "person:НАТАЛИЯ ЙОРДАНОВА МОМЧЕВА",
+      "type": "person",
+      "label": "Наталия Йорданова Момчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:filip-atanasov-chukarov-7559f1",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:filip-atanasov-chukarov-7559f1",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОЗА АТАНАСОВА БАЛИЕВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОЗАЛИЯ ДИМОВА КЕХАЙОВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ АЛЕКСИЕВА КЕХАЙОВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА АНГЕЛОВА КЕРМЕНОВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ЗАХАРИЕВА КИЧУКОВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА МАРИНОВА АТАНАСОВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕЙРЕ САЛИХОВА ШЕХОВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА АДЕЛИНОВА ИЛЪКОВА-АНГАРОВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ТОДОРОВА БАЛЧЕВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА МИТКОВА БАЗЕНИКОВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА РУМЕНОВА ЦАНОВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ЙОРДАНОВА МОМЧЕВА",
+      "target": "company:tr:120070975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,267 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:silviya-ivanova-stavreva-c1a88d","nodes":[{"id":"official:silviya-ivanova-stavreva-c1a88d","type":"official","slug":"silviya-ivanova-stavreva-c1a88d","label":"Силвия Иванова Ставрева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000152346","type":"company","label":"ЦВЯТ 1870","slug":null,"uic":"000152346","legalForm":null,"status":null,"seat":null},{"id":"person:ВЕРКА МАРИНОВА ИВАНОВА","type":"person","label":"Верка Маринова Иванова"},{"id":"person:ЛЮБОМИР ЕВДОКИМОВ ИЛИЕВ","type":"person","label":"Любомир Евдокимов Илиев"},{"id":"person:СВЕТЛИН ПЕТРОВ НИЦОВ","type":"person","label":"Светлин Петров Ницов"},{"id":"person:ФИОНЕРА ЙОРДАНОВА ФИЛИПОВА","type":"person","label":"Фионера Йорданова Филипова"},{"id":"person:ТОДОРКА ВЛАДИМИРОВА ДОНЧЕВА","type":"person","label":"Тодорка Владимирова Дончева"},{"id":"person:АНТОНИНА НИКОЛОВА ПЕТРОВА-РАБОВЯНСКА","type":"person","label":"Антонина Николова Петрова-Рабовянска"},{"id":"person:СВЕТЛАНА ЯНАКИЕВА КРЪСТЕВА","type":"person","label":"Светлана Янакиева Кръстева"},{"id":"person:ЕЛЕОНОРА ЗДРАВКОВА ГЕОРГИЕВА","type":"person","label":"Елеонора Здравкова Георгиева"},{"id":"person:СТЕФАНКА ИВАНОВА ЛАЗАРОВА","type":"person","label":"Стефанка Иванова Лазарова"},{"id":"person:ЗЛАТКО ЕРЕМИЕВ КАЛОТОВ","type":"person","label":"Златко Еремиев Калотов"},{"id":"person:НИКОЛАЙ ИВАНОВ АЛЕКСАНДРОВ","type":"person","label":"Николай Иванов Александров"},{"id":"person:МИГЛЕНА ВИКТОРОВА МИТЕВА","type":"person","label":"Миглена Викторова Митева"},{"id":"person:КРАСИМИР ИЛИЕВ МИХАЙЛОВ","type":"person","label":"Красимир Илиев Михайлов"},{"id":"person:ДИМИТЪР ТОДОРОВ ТОДОРОВ","type":"person","label":"Димитър Тодоров Тодоров"},{"id":"person:ЛЮБОВ ИВАНОВА КАМЕНОВА","type":"person","label":"Любов Иванова Каменова"},{"id":"person:НИКОЛИНА КАМЕНОВА ВАСИЛЕВА","type":"person","label":"Николина Каменова Василева"}],"edges":[{"source":"official:silviya-ivanova-stavreva-c1a88d","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕРКА МАРИНОВА ИВАНОВА","target":"company:tr:000152346","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ЕВДОКИМОВ ИЛИЕВ","target":"company:tr:000152346","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРКА МАРИНОВА ИВАНОВА","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ЕВДОКИМОВ ИЛИЕВ","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛИН ПЕТРОВ НИЦОВ","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФИОНЕРА ЙОРДАНОВА ФИЛИПОВА","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРКА ВЛАДИМИРОВА ДОНЧЕВА","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИНА НИКОЛОВА ПЕТРОВА-РАБОВЯНСКА","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА ЯНАКИЕВА КРЪСТЕВА","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕОНОРА ЗДРАВКОВА ГЕОРГИЕВА","target":"company:tr:000152346","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАНКА ИВАНОВА ЛАЗАРОВА","target":"company:tr:000152346","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКО ЕРЕМИЕВ КАЛОТОВ","target":"company:tr:000152346","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ИВАНОВ АЛЕКСАНДРОВ","target":"company:tr:000152346","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ИВАНОВ АЛЕКСАНДРОВ","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА ВИКТОРОВА МИТЕВА","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ИЛИЕВ МИХАЙЛОВ","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ТОДОРОВ ТОДОРОВ","target":"company:tr:000152346","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОВ ИВАНОВА КАМЕНОВА","target":"company:tr:000152346","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНА КАМЕНОВА ВАСИЛЕВА","target":"company:tr:000152346","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:silviya-ivanova-stavreva-c1a88d",
+  "nodes": [
+    {
+      "id": "official:silviya-ivanova-stavreva-c1a88d",
+      "type": "official",
+      "slug": "silviya-ivanova-stavreva-c1a88d",
+      "label": "Силвия Иванова Ставрева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000152346",
+      "type": "company",
+      "label": "ЦВЯТ 1870",
+      "slug": null,
+      "uic": "000152346",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕРКА МАРИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Верка Маринова Иванова"
+    },
+    {
+      "id": "person:ЛЮБОМИР ЕВДОКИМОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Любомир Евдокимов Илиев"
+    },
+    {
+      "id": "person:СВЕТЛИН ПЕТРОВ НИЦОВ",
+      "type": "person",
+      "label": "Светлин Петров Ницов"
+    },
+    {
+      "id": "person:ФИОНЕРА ЙОРДАНОВА ФИЛИПОВА",
+      "type": "person",
+      "label": "Фионера Йорданова Филипова"
+    },
+    {
+      "id": "person:ТОДОРКА ВЛАДИМИРОВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Тодорка Владимирова Дончева"
+    },
+    {
+      "id": "person:АНТОНИНА НИКОЛОВА ПЕТРОВА-РАБОВЯНСКА",
+      "type": "person",
+      "label": "Антонина Николова Петрова-Рабовянска"
+    },
+    {
+      "id": "person:СВЕТЛАНА ЯНАКИЕВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Светлана Янакиева Кръстева"
+    },
+    {
+      "id": "person:ЕЛЕОНОРА ЗДРАВКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Елеонора Здравкова Георгиева"
+    },
+    {
+      "id": "person:СТЕФАНКА ИВАНОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Стефанка Иванова Лазарова"
+    },
+    {
+      "id": "person:ЗЛАТКО ЕРЕМИЕВ КАЛОТОВ",
+      "type": "person",
+      "label": "Златко Еремиев Калотов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Николай Иванов Александров"
+    },
+    {
+      "id": "person:МИГЛЕНА ВИКТОРОВА МИТЕВА",
+      "type": "person",
+      "label": "Миглена Викторова Митева"
+    },
+    {
+      "id": "person:КРАСИМИР ИЛИЕВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Красимир Илиев Михайлов"
+    },
+    {
+      "id": "person:ДИМИТЪР ТОДОРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Димитър Тодоров Тодоров"
+    },
+    {
+      "id": "person:ЛЮБОВ ИВАНОВА КАМЕНОВА",
+      "type": "person",
+      "label": "Любов Иванова Каменова"
+    },
+    {
+      "id": "person:НИКОЛИНА КАМЕНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Николина Каменова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-ivanova-stavreva-c1a88d",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕРКА МАРИНОВА ИВАНОВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ЕВДОКИМОВ ИЛИЕВ",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРКА МАРИНОВА ИВАНОВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ЕВДОКИМОВ ИЛИЕВ",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ПЕТРОВ НИЦОВ",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИОНЕРА ЙОРДАНОВА ФИЛИПОВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ВЛАДИМИРОВА ДОНЧЕВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИНА НИКОЛОВА ПЕТРОВА-РАБОВЯНСКА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ЯНАКИЕВА КРЪСТЕВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ЗДРАВКОВА ГЕОРГИЕВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАНКА ИВАНОВА ЛАЗАРОВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКО ЕРЕМИЕВ КАЛОТОВ",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ВИКТОРОВА МИТЕВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИЛИЕВ МИХАЙЛОВ",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ТОДОРОВ ТОДОРОВ",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОВ ИВАНОВА КАМЕНОВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА КАМЕНОВА ВАСИЛЕВА",
+      "target": "company:tr:000152346",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

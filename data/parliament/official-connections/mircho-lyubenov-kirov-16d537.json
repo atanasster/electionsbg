@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mircho-lyubenov-kirov-16d537","nodes":[{"id":"official:mircho-lyubenov-kirov-16d537","type":"official","slug":"mircho-lyubenov-kirov-16d537","label":"Мирчо Любенов Киров","tier":"municipal","role":"councillor","municipality":"Вълчедръм"},{"id":"company:tr:111516065","type":"company","label":"ДОКТОР КИРОВИ","slug":null,"uic":"111516065","legalForm":null,"status":null,"seat":null},{"id":"person:ЗОЯ НИКОЛОВА КИРОВА","type":"person","label":"Зоя Николова Кирова"}],"edges":[{"source":"official:mircho-lyubenov-kirov-16d537","target":"company:tr:111516065","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЗОЯ НИКОЛОВА КИРОВА","target":"company:tr:111516065","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mircho-lyubenov-kirov-16d537",
+  "nodes": [
+    {
+      "id": "official:mircho-lyubenov-kirov-16d537",
+      "type": "official",
+      "slug": "mircho-lyubenov-kirov-16d537",
+      "label": "Мирчо Любенов Киров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Вълчедръм"
+    },
+    {
+      "id": "company:tr:111516065",
+      "type": "company",
+      "label": "ДОКТОР КИРОВИ",
+      "slug": null,
+      "uic": "111516065",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗОЯ НИКОЛОВА КИРОВА",
+      "type": "person",
+      "label": "Зоя Николова Кирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mircho-lyubenov-kirov-16d537",
+      "target": "company:tr:111516065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗОЯ НИКОЛОВА КИРОВА",
+      "target": "company:tr:111516065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

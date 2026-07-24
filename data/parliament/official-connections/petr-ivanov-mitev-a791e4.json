@@ -1,1 +1,155 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-ivanov-mitev-a791e4","nodes":[{"id":"official:petr-ivanov-mitev-a791e4","type":"official","slug":"petr-ivanov-mitev-a791e4","label":"Петър Иванов Митев","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:175605263","type":"company","label":"ФОНДАЦИЯ &quot;ПОДДЪРЖАНЕ НА ИЗКУСТВОТО В БЪЛГАРИЯ&quot;","slug":null,"uic":"175605263","legalForm":null,"status":null,"seat":null},{"id":"person:ДОЛОРЕС ДИЛОВА ДИЛОВА","type":"person","label":"Долорес Дилова Дилова"},{"id":"person:КОНСТАНТИН ПЕТКОВ КОСТОВ","type":"person","label":"Константин Петков Костов"},{"id":"person:ДЕЛЯ МИХАЙЛОВА ЧАУШЕВА - КЕМПИСТИ","type":"person","label":"Деля Михайлова Чаушева - Кемписти"},{"id":"person:ГАЛИНА ГЕОРГИЕВА ЛАРДЕВА","type":"person","label":"Галина Георгиева Лардева"},{"id":"person:МИРОСЛАВ ВАСИЛЕВ МИНЧЕВ","type":"person","label":"Мирослав Василев Минчев"},{"id":"person:НИКОЛА ЕНЕВ ПОПОВ","type":"person","label":"Никола Енев Попов"},{"id":"person:ОЛИМПИЯ ИЛИЕВА НИКОЛОВА-ДАНИЕЛ","type":"person","label":"Олимпия Илиева Николова-Даниел"},{"id":"person:РАДОСЛАВ ПЕТРОВ СИМЕОНОВ","type":"person","label":"Радослав Петров Симеонов"}],"edges":[{"source":"official:petr-ivanov-mitev-a791e4","target":"company:tr:175605263","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДОЛОРЕС ДИЛОВА ДИЛОВА","target":"company:tr:175605263","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН ПЕТКОВ КОСТОВ","target":"company:tr:175605263","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯ МИХАЙЛОВА ЧАУШЕВА - КЕМПИСТИ","target":"company:tr:175605263","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОЛОРЕС ДИЛОВА ДИЛОВА","target":"company:tr:175605263","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ГЕОРГИЕВА ЛАРДЕВА","target":"company:tr:175605263","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН ПЕТКОВ КОСТОВ","target":"company:tr:175605263","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ ВАСИЛЕВ МИНЧЕВ","target":"company:tr:175605263","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ЕНЕВ ПОПОВ","target":"company:tr:175605263","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОЛИМПИЯ ИЛИЕВА НИКОЛОВА-ДАНИЕЛ","target":"company:tr:175605263","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ПЕТРОВ СИМЕОНОВ","target":"company:tr:175605263","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-ivanov-mitev-a791e4",
+  "nodes": [
+    {
+      "id": "official:petr-ivanov-mitev-a791e4",
+      "type": "official",
+      "slug": "petr-ivanov-mitev-a791e4",
+      "label": "Петър Иванов Митев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175605263",
+      "type": "company",
+      "label": "ФОНДАЦИЯ &quot;ПОДДЪРЖАНЕ НА ИЗКУСТВОТО В БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "175605263",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОЛОРЕС ДИЛОВА ДИЛОВА",
+      "type": "person",
+      "label": "Долорес Дилова Дилова"
+    },
+    {
+      "id": "person:КОНСТАНТИН ПЕТКОВ КОСТОВ",
+      "type": "person",
+      "label": "Константин Петков Костов"
+    },
+    {
+      "id": "person:ДЕЛЯ МИХАЙЛОВА ЧАУШЕВА - КЕМПИСТИ",
+      "type": "person",
+      "label": "Деля Михайлова Чаушева - Кемписти"
+    },
+    {
+      "id": "person:ГАЛИНА ГЕОРГИЕВА ЛАРДЕВА",
+      "type": "person",
+      "label": "Галина Георгиева Лардева"
+    },
+    {
+      "id": "person:МИРОСЛАВ ВАСИЛЕВ МИНЧЕВ",
+      "type": "person",
+      "label": "Мирослав Василев Минчев"
+    },
+    {
+      "id": "person:НИКОЛА ЕНЕВ ПОПОВ",
+      "type": "person",
+      "label": "Никола Енев Попов"
+    },
+    {
+      "id": "person:ОЛИМПИЯ ИЛИЕВА НИКОЛОВА-ДАНИЕЛ",
+      "type": "person",
+      "label": "Олимпия Илиева Николова-Даниел"
+    },
+    {
+      "id": "person:РАДОСЛАВ ПЕТРОВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Радослав Петров Симеонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-ivanov-mitev-a791e4",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОЛОРЕС ДИЛОВА ДИЛОВА",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ПЕТКОВ КОСТОВ",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯ МИХАЙЛОВА ЧАУШЕВА - КЕМПИСТИ",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОЛОРЕС ДИЛОВА ДИЛОВА",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ГЕОРГИЕВА ЛАРДЕВА",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ПЕТКОВ КОСТОВ",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ВАСИЛЕВ МИНЧЕВ",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ЕНЕВ ПОПОВ",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛИМПИЯ ИЛИЕВА НИКОЛОВА-ДАНИЕЛ",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ПЕТРОВ СИМЕОНОВ",
+      "target": "company:tr:175605263",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

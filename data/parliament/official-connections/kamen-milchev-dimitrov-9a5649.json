@@ -1,1 +1,85 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kamen-milchev-dimitrov-9a5649","nodes":[{"id":"official:kamen-milchev-dimitrov-9a5649","type":"official","slug":"kamen-milchev-dimitrov-9a5649","label":"Камен Милчев Димитров","tier":"executive","role":"eu_funds_controller","municipality":null},{"id":"company:tr:127620172","type":"company","label":"Спортен клуб по културизъм и фитнес - 2006","slug":null,"uic":"127620172","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТЯ СТОЯНОВА ВИДОЛОВА","type":"person","label":"Петя Стоянова Видолова"},{"id":"person:ИВАН ПЕТРОВ ИВАНОВ","type":"person","label":"Иван Петров Иванов"}],"edges":[{"source":"official:kamen-milchev-dimitrov-9a5649","target":"company:tr:127620172","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:kamen-milchev-dimitrov-9a5649","target":"company:tr:127620172","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЯ СТОЯНОВА ВИДОЛОВА","target":"company:tr:127620172","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ СТОЯНОВА ВИДОЛОВА","target":"company:tr:127620172","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ПЕТРОВ ИВАНОВ","target":"company:tr:127620172","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ПЕТРОВ ИВАНОВ","target":"company:tr:127620172","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kamen-milchev-dimitrov-9a5649",
+  "nodes": [
+    {
+      "id": "official:kamen-milchev-dimitrov-9a5649",
+      "type": "official",
+      "slug": "kamen-milchev-dimitrov-9a5649",
+      "label": "Камен Милчев Димитров",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:127620172",
+      "type": "company",
+      "label": "Спортен клуб по културизъм и фитнес - 2006",
+      "slug": null,
+      "uic": "127620172",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЯ СТОЯНОВА ВИДОЛОВА",
+      "type": "person",
+      "label": "Петя Стоянова Видолова"
+    },
+    {
+      "id": "person:ИВАН ПЕТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Петров Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kamen-milchev-dimitrov-9a5649",
+      "target": "company:tr:127620172",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kamen-milchev-dimitrov-9a5649",
+      "target": "company:tr:127620172",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ СТОЯНОВА ВИДОЛОВА",
+      "target": "company:tr:127620172",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ СТОЯНОВА ВИДОЛОВА",
+      "target": "company:tr:127620172",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТРОВ ИВАНОВ",
+      "target": "company:tr:127620172",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТРОВ ИВАНОВ",
+      "target": "company:tr:127620172",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

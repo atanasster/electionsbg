@@ -1,1 +1,52 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stanimir-atanasov-sotirov-c5a484","nodes":[{"id":"official:stanimir-atanasov-sotirov-c5a484","type":"official","slug":"stanimir-atanasov-sotirov-c5a484","label":"Станимир Атанасов Сотиров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:128623901","type":"company","label":"Градински център ООД","slug":null,"uic":"128623901","legalForm":null,"status":null,"seat":null},{"id":"official:stanimir-atanasov-sotirov-19e240","type":"official","slug":"stanimir-atanasov-sotirov-19e240","label":"Станимир Атанасов Сотиров","tier":"executive","role":"procurement_officer","municipality":null}],"edges":[{"source":"official:stanimir-atanasov-sotirov-c5a484","target":"company:tr:128623901","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stanimir-atanasov-sotirov-19e240","target":"company:tr:128623901","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stanimir-atanasov-sotirov-c5a484",
+  "nodes": [
+    {
+      "id": "official:stanimir-atanasov-sotirov-c5a484",
+      "type": "official",
+      "slug": "stanimir-atanasov-sotirov-c5a484",
+      "label": "Станимир Атанасов Сотиров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:128623901",
+      "type": "company",
+      "label": "Градински център ООД",
+      "slug": null,
+      "uic": "128623901",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:stanimir-atanasov-sotirov-19e240",
+      "type": "official",
+      "slug": "stanimir-atanasov-sotirov-19e240",
+      "label": "Станимир Атанасов Сотиров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanimir-atanasov-sotirov-c5a484",
+      "target": "company:tr:128623901",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stanimir-atanasov-sotirov-19e240",
+      "target": "company:tr:128623901",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

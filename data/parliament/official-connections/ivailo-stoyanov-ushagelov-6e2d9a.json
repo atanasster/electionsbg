@@ -1,1 +1,93 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivailo-stoyanov-ushagelov-6e2d9a","nodes":[{"id":"official:ivailo-stoyanov-ushagelov-6e2d9a","type":"official","slug":"ivailo-stoyanov-ushagelov-6e2d9a","label":"Ивайло Стоянов Ушагелов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:177039337","type":"company","label":"СДРУЖЕНИЕ ЗА ПРЕПОДАВАТЕЛСКА ПОМОЩ НА СМГ","slug":null,"uic":"177039337","legalForm":null,"status":null,"seat":null},{"id":"person:КИРИЛ ПЕТЬОВ МАРТИНОВ","type":"person","label":"Кирил Петьов Мартинов"},{"id":"person:ДЕСИСЛАВА АНГЕЛОВА КРАЛЕВА","type":"person","label":"Десислава Ангелова Кралева"}],"edges":[{"source":"official:ivailo-stoyanov-ushagelov-6e2d9a","target":"company:tr:177039337","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:ivailo-stoyanov-ushagelov-6e2d9a","target":"company:tr:177039337","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:ivailo-stoyanov-ushagelov-6e2d9a","target":"company:tr:177039337","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:КИРИЛ ПЕТЬОВ МАРТИНОВ","target":"company:tr:177039337","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА АНГЕЛОВА КРАЛЕВА","target":"company:tr:177039337","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ПЕТЬОВ МАРТИНОВ","target":"company:tr:177039337","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА АНГЕЛОВА КРАЛЕВА","target":"company:tr:177039337","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivailo-stoyanov-ushagelov-6e2d9a",
+  "nodes": [
+    {
+      "id": "official:ivailo-stoyanov-ushagelov-6e2d9a",
+      "type": "official",
+      "slug": "ivailo-stoyanov-ushagelov-6e2d9a",
+      "label": "Ивайло Стоянов Ушагелов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177039337",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ЗА ПРЕПОДАВАТЕЛСКА ПОМОЩ НА СМГ",
+      "slug": null,
+      "uic": "177039337",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ ПЕТЬОВ МАРТИНОВ",
+      "type": "person",
+      "label": "Кирил Петьов Мартинов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА АНГЕЛОВА КРАЛЕВА",
+      "type": "person",
+      "label": "Десислава Ангелова Кралева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-stoyanov-ushagelov-6e2d9a",
+      "target": "company:tr:177039337",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-stoyanov-ushagelov-6e2d9a",
+      "target": "company:tr:177039337",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-stoyanov-ushagelov-6e2d9a",
+      "target": "company:tr:177039337",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ ПЕТЬОВ МАРТИНОВ",
+      "target": "company:tr:177039337",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА АНГЕЛОВА КРАЛЕВА",
+      "target": "company:tr:177039337",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ПЕТЬОВ МАРТИНОВ",
+      "target": "company:tr:177039337",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА АНГЕЛОВА КРАЛЕВА",
+      "target": "company:tr:177039337",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

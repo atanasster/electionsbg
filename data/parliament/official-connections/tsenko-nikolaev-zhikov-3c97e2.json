@@ -1,1 +1,124 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsenko-nikolaev-zhikov-3c97e2","nodes":[{"id":"official:tsenko-nikolaev-zhikov-3c97e2","type":"official","slug":"tsenko-nikolaev-zhikov-3c97e2","label":"Ценко Николаев Жиков","tier":"municipal","role":"councillor","municipality":"Созопол"},{"id":"company:tr:204322456","type":"company","label":"КОНСУЛТ ИНВЕСТ СТАНДАРТ ООД","slug":null,"uic":"204322456","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206520465","type":"company","label":"ИЗГРЕВ КЖМ ООД","slug":null,"uic":"206520465","legalForm":null,"status":null,"seat":null},{"id":"person:КРАСИМИРА СЕМОВА МАРКОВИЧ","type":"person","label":"Красимира Семова Маркович"},{"id":"person:ЛЪЧЕЗАР ДИМИТРОВ КОВАЧЕВ","type":"person","label":"Лъчезар Димитров Ковачев"},{"id":"person:ЧЕРНОМОРСКИ КОНСУЛТАНТИ","type":"person","label":"Черноморски Консултанти"}],"edges":[{"source":"official:tsenko-nikolaev-zhikov-3c97e2","target":"company:tr:204322456","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:tsenko-nikolaev-zhikov-3c97e2","target":"company:tr:206520465","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:tsenko-nikolaev-zhikov-3c97e2","target":"company:tr:204322456","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:tsenko-nikolaev-zhikov-3c97e2","target":"company:tr:206520465","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КРАСИМИРА СЕМОВА МАРКОВИЧ","target":"company:tr:204322456","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР ДИМИТРОВ КОВАЧЕВ","target":"company:tr:206520465","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА СЕМОВА МАРКОВИЧ","target":"company:tr:206520465","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЧЕРНОМОРСКИ КОНСУЛТАНТИ","target":"company:tr:206520465","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР ДИМИТРОВ КОВАЧЕВ","target":"company:tr:206520465","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsenko-nikolaev-zhikov-3c97e2",
+  "nodes": [
+    {
+      "id": "official:tsenko-nikolaev-zhikov-3c97e2",
+      "type": "official",
+      "slug": "tsenko-nikolaev-zhikov-3c97e2",
+      "label": "Ценко Николаев Жиков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Созопол"
+    },
+    {
+      "id": "company:tr:204322456",
+      "type": "company",
+      "label": "КОНСУЛТ ИНВЕСТ СТАНДАРТ ООД",
+      "slug": null,
+      "uic": "204322456",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206520465",
+      "type": "company",
+      "label": "ИЗГРЕВ КЖМ ООД",
+      "slug": null,
+      "uic": "206520465",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИРА СЕМОВА МАРКОВИЧ",
+      "type": "person",
+      "label": "Красимира Семова Маркович"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ДИМИТРОВ КОВАЧЕВ",
+      "type": "person",
+      "label": "Лъчезар Димитров Ковачев"
+    },
+    {
+      "id": "person:ЧЕРНОМОРСКИ КОНСУЛТАНТИ",
+      "type": "person",
+      "label": "Черноморски Консултанти"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsenko-nikolaev-zhikov-3c97e2",
+      "target": "company:tr:204322456",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tsenko-nikolaev-zhikov-3c97e2",
+      "target": "company:tr:206520465",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tsenko-nikolaev-zhikov-3c97e2",
+      "target": "company:tr:204322456",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsenko-nikolaev-zhikov-3c97e2",
+      "target": "company:tr:206520465",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИРА СЕМОВА МАРКОВИЧ",
+      "target": "company:tr:204322456",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ДИМИТРОВ КОВАЧЕВ",
+      "target": "company:tr:206520465",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СЕМОВА МАРКОВИЧ",
+      "target": "company:tr:206520465",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧЕРНОМОРСКИ КОНСУЛТАНТИ",
+      "target": "company:tr:206520465",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ДИМИТРОВ КОВАЧЕВ",
+      "target": "company:tr:206520465",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

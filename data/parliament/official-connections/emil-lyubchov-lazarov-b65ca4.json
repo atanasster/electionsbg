@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-lyubchov-lazarov-b65ca4","nodes":[{"id":"official:emil-lyubchov-lazarov-b65ca4","type":"official","slug":"emil-lyubchov-lazarov-b65ca4","label":"Емил Любчов Лазаров","tier":"municipal","role":"councillor","municipality":"Божурище"},{"id":"company:tr:203493319","type":"company","label":"АЯКС 81 ЕООД","slug":null,"uic":"203493319","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:emil-lyubchov-lazarov-b65ca4","target":"company:tr:203493319","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-lyubchov-lazarov-b65ca4",
+  "nodes": [
+    {
+      "id": "official:emil-lyubchov-lazarov-b65ca4",
+      "type": "official",
+      "slug": "emil-lyubchov-lazarov-b65ca4",
+      "label": "Емил Любчов Лазаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Божурище"
+    },
+    {
+      "id": "company:tr:203493319",
+      "type": "company",
+      "label": "АЯКС 81 ЕООД",
+      "slug": null,
+      "uic": "203493319",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-lyubchov-lazarov-b65ca4",
+      "target": "company:tr:203493319",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

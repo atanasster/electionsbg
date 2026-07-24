@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:minko-neikov-hristov-a24b37","nodes":[{"id":"official:minko-neikov-hristov-a24b37","type":"official","slug":"minko-neikov-hristov-a24b37","label":"Минко Нейков Христов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:103156991","type":"company","label":"ДВОРЕЦ НА КУЛТУРАТА И СПОРТА","slug":null,"uic":"103156991","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН РУСЕВ РУСЕВ","type":"person","label":"Иван Русев Русев"},{"id":"person:ПОЛИНА ЩЕРЕВА МИЛЧЕВА","type":"person","label":"Полина Щерева Милчева"},{"id":"person:НИКОЛАЙ ИВАНОВ НИКОЛОВ","type":"person","label":"Николай Иванов Николов"},{"id":"person:ПЕТЬО КРАСИМИРОВ СТОЯНОВ","type":"person","label":"Петьо Красимиров Стоянов"}],"edges":[{"source":"official:minko-neikov-hristov-a24b37","target":"company:tr:103156991","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН РУСЕВ РУСЕВ","target":"company:tr:103156991","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПОЛИНА ЩЕРЕВА МИЛЧЕВА","target":"company:tr:103156991","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ИВАНОВ НИКОЛОВ","target":"company:tr:103156991","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЬО КРАСИМИРОВ СТОЯНОВ","target":"company:tr:103156991","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ИВАНОВ НИКОЛОВ","target":"company:tr:103156991","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:minko-neikov-hristov-a24b37",
+  "nodes": [
+    {
+      "id": "official:minko-neikov-hristov-a24b37",
+      "type": "official",
+      "slug": "minko-neikov-hristov-a24b37",
+      "label": "Минко Нейков Христов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103156991",
+      "type": "company",
+      "label": "ДВОРЕЦ НА КУЛТУРАТА И СПОРТА",
+      "slug": null,
+      "uic": "103156991",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН РУСЕВ РУСЕВ",
+      "type": "person",
+      "label": "Иван Русев Русев"
+    },
+    {
+      "id": "person:ПОЛИНА ЩЕРЕВА МИЛЧЕВА",
+      "type": "person",
+      "label": "Полина Щерева Милчева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Иванов Николов"
+    },
+    {
+      "id": "person:ПЕТЬО КРАСИМИРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Петьо Красимиров Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:minko-neikov-hristov-a24b37",
+      "target": "company:tr:103156991",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН РУСЕВ РУСЕВ",
+      "target": "company:tr:103156991",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛИНА ЩЕРЕВА МИЛЧЕВА",
+      "target": "company:tr:103156991",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ НИКОЛОВ",
+      "target": "company:tr:103156991",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО КРАСИМИРОВ СТОЯНОВ",
+      "target": "company:tr:103156991",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ НИКОЛОВ",
+      "target": "company:tr:103156991",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

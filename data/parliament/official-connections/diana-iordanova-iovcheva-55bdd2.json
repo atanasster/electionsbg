@@ -1,1 +1,147 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:diana-iordanova-iovcheva-55bdd2","nodes":[{"id":"official:diana-iordanova-iovcheva-55bdd2","type":"official","slug":"diana-iordanova-iovcheva-55bdd2","label":"Диана Йорданова Йовчева","tier":"municipal","role":"councillor","municipality":"Ситово"},{"id":"company:tr:000559274","type":"company","label":"НИКОЛА  ВАПЦАРОВ - 1940","slug":null,"uic":"000559274","legalForm":null,"status":null,"seat":null},{"id":"person:КАТЯ ВЕЛИКОВА ДРАГАНОВА","type":"person","label":"Катя Великова Драганова"},{"id":"person:СВЕТЛА РАДЕВА УДРЕВА","type":"person","label":"Светла Радева Удрева"},{"id":"person:ИВЕЛИНА ЗДРАВКОВА КОСТАДИНОВА","type":"person","label":"Ивелина Здравкова Костадинова"},{"id":"person:СТЕФКА НИКОЛОВА КИРОВА","type":"person","label":"Стефка Николова Кирова"},{"id":"person:ДИМИТРИНА РУСЕВА ИВАНОВА","type":"person","label":"Димитрина Русева Иванова"},{"id":"person:ДОБРИНКА ИВАНОВА ЙОРДАНОВА","type":"person","label":"Добринка Иванова Йорданова"},{"id":"person:АНАСТАСИЯ ПЕТРОВА СТОЯНОВА","type":"person","label":"Анастасия Петрова Стоянова"},{"id":"person:ИВАНКА ПЕТРОВА РУСЕВА","type":"person","label":"Иванка Петрова Русева"}],"edges":[{"source":"official:diana-iordanova-iovcheva-55bdd2","target":"company:tr:000559274","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:КАТЯ ВЕЛИКОВА ДРАГАНОВА","target":"company:tr:000559274","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА РАДЕВА УДРЕВА","target":"company:tr:000559274","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИНА ЗДРАВКОВА КОСТАДИНОВА","target":"company:tr:000559274","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА РАДЕВА УДРЕВА","target":"company:tr:000559274","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА НИКОЛОВА КИРОВА","target":"company:tr:000559274","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА РУСЕВА ИВАНОВА","target":"company:tr:000559274","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИНКА ИВАНОВА ЙОРДАНОВА","target":"company:tr:000559274","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНАСТАСИЯ ПЕТРОВА СТОЯНОВА","target":"company:tr:000559274","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ПЕТРОВА РУСЕВА","target":"company:tr:000559274","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:diana-iordanova-iovcheva-55bdd2",
+  "nodes": [
+    {
+      "id": "official:diana-iordanova-iovcheva-55bdd2",
+      "type": "official",
+      "slug": "diana-iordanova-iovcheva-55bdd2",
+      "label": "Диана Йорданова Йовчева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ситово"
+    },
+    {
+      "id": "company:tr:000559274",
+      "type": "company",
+      "label": "НИКОЛА  ВАПЦАРОВ - 1940",
+      "slug": null,
+      "uic": "000559274",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЯ ВЕЛИКОВА ДРАГАНОВА",
+      "type": "person",
+      "label": "Катя Великова Драганова"
+    },
+    {
+      "id": "person:СВЕТЛА РАДЕВА УДРЕВА",
+      "type": "person",
+      "label": "Светла Радева Удрева"
+    },
+    {
+      "id": "person:ИВЕЛИНА ЗДРАВКОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Ивелина Здравкова Костадинова"
+    },
+    {
+      "id": "person:СТЕФКА НИКОЛОВА КИРОВА",
+      "type": "person",
+      "label": "Стефка Николова Кирова"
+    },
+    {
+      "id": "person:ДИМИТРИНА РУСЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Димитрина Русева Иванова"
+    },
+    {
+      "id": "person:ДОБРИНКА ИВАНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Добринка Иванова Йорданова"
+    },
+    {
+      "id": "person:АНАСТАСИЯ ПЕТРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Анастасия Петрова Стоянова"
+    },
+    {
+      "id": "person:ИВАНКА ПЕТРОВА РУСЕВА",
+      "type": "person",
+      "label": "Иванка Петрова Русева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-iordanova-iovcheva-55bdd2",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЯ ВЕЛИКОВА ДРАГАНОВА",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА РАДЕВА УДРЕВА",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ЗДРАВКОВА КОСТАДИНОВА",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА РАДЕВА УДРЕВА",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА НИКОЛОВА КИРОВА",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА РУСЕВА ИВАНОВА",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА ИВАНОВА ЙОРДАНОВА",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАСТАСИЯ ПЕТРОВА СТОЯНОВА",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ПЕТРОВА РУСЕВА",
+      "target": "company:tr:000559274",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

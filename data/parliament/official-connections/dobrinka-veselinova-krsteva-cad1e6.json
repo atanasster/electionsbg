@@ -1,1 +1,327 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dobrinka-veselinova-krsteva-cad1e6","nodes":[{"id":"official:dobrinka-veselinova-krsteva-cad1e6","type":"official","slug":"dobrinka-veselinova-krsteva-cad1e6","label":"Добринка Веселинова Кръстева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:175331015","type":"company","label":"Фонд ФЛАГ","slug":null,"uic":"175331015","legalForm":"EAD","status":"active","seat":null},{"id":"mp:2621","type":"mp","mpId":2621,"label":"Евгени Димитров Стоев","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41","42"]},{"id":"mp:2662","type":"mp","mpId":2662,"label":"Дора Илиева Янкова","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42","43"]},{"id":"mp:4149","type":"mp","mpId":4149,"label":"Радослава Пламен Чеканска","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["44"]},{"id":"official:asya-petrova-stankova-bae8b1","type":"official","slug":"asya-petrova-stankova-bae8b1","label":"Ася Петрова Станкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:gergana-angelova-tonova-897f6e","type":"official","slug":"gergana-angelova-tonova-897f6e","label":"Гергана Ангелова Тонова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:iva-aleksandrova-talanova-ca7455","type":"official","slug":"iva-aleksandrova-talanova-ca7455","label":"Ива Александрова Таланова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ЕВГЕНИ ДИМИТРОВ СТОЕВ","type":"person","label":"Евгени Димитров Стоев"},{"id":"person:ПЛАМЕН ТОДОРОВ ИЛИЕВ","type":"person","label":"Пламен Тодоров Илиев"},{"id":"person:ЮЛИЯ ПЕТКОВА ЦОЛОВА - ИЛИЕВА","type":"person","label":"Юлия Петкова Цолова - Илиева"},{"id":"person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","type":"person","label":"Надя Йорданова Данкинова"},{"id":"person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ","type":"person","label":"Добромир Проданов Симидчиев"},{"id":"person:ВЛАДИМИР МИТКОВ АНГЕЛОВ","type":"person","label":"Владимир Митков Ангелов"},{"id":"person:НИКОЛАЙ ЗАХАРИЕВ МЛАДЕНОВ","type":"person","label":"Николай Захариев Младенов"},{"id":"person:ВЕСЕЛА НАЧЕВА НАЧЕВА","type":"person","label":"Весела Начева Начева"},{"id":"person:ЛЮБЕН АНГЕЛОВ ПЕТРОВ","type":"person","label":"Любен Ангелов Петров"},{"id":"person:ГЕОРГИ ИВАНОВ БАНКОВ","type":"person","label":"Георги Иванов Банков"},{"id":"person:ГЕРГИН НИКОЛОВ НИТОВ","type":"person","label":"Гергин Николов Нитов"},{"id":"person:МАРИАНА СТОЯНОВА ПЕНЕВА","type":"person","label":"Мариана Стоянова Пенева"},{"id":"person:ЖЕНИ НИКОЛАЕВА БУМБАРОВА-НАЧЕВА","type":"person","label":"Жени Николаева Бумбарова-Начева"},{"id":"person:ДИМИТЪР АЛЕКСАНДРОВ МИТЕВ","type":"person","label":"Димитър Александров Митев"}],"edges":[{"source":"official:dobrinka-veselinova-krsteva-cad1e6","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:2621","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:2662","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:4149","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:asya-petrova-stankova-bae8b1","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:gergana-angelova-tonova-897f6e","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:iva-aleksandrova-talanova-ca7455","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЕВГЕНИ ДИМИТРОВ СТОЕВ","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ТОДОРОВ ИЛИЕВ","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЯ ПЕТКОВА ЦОЛОВА - ИЛИЕВА","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР МИТКОВ АНГЕЛОВ","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЗАХАРИЕВ МЛАДЕНОВ","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛА НАЧЕВА НАЧЕВА","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБЕН АНГЕЛОВ ПЕТРОВ","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ БАНКОВ","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГИН НИКОЛОВ НИТОВ","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА СТОЯНОВА ПЕНЕВА","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕНИ НИКОЛАЕВА БУМБАРОВА-НАЧЕВА","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР АЛЕКСАНДРОВ МИТЕВ","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dobrinka-veselinova-krsteva-cad1e6",
+  "nodes": [
+    {
+      "id": "official:dobrinka-veselinova-krsteva-cad1e6",
+      "type": "official",
+      "slug": "dobrinka-veselinova-krsteva-cad1e6",
+      "label": "Добринка Веселинова Кръстева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175331015",
+      "type": "company",
+      "label": "Фонд ФЛАГ",
+      "slug": null,
+      "uic": "175331015",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2621",
+      "type": "mp",
+      "mpId": 2621,
+      "label": "Евгени Димитров Стоев",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42"
+      ]
+    },
+    {
+      "id": "mp:2662",
+      "type": "mp",
+      "mpId": 2662,
+      "label": "Дора Илиева Янкова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "mp:4149",
+      "type": "mp",
+      "mpId": 4149,
+      "label": "Радослава Пламен Чеканска",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44"
+      ]
+    },
+    {
+      "id": "official:asya-petrova-stankova-bae8b1",
+      "type": "official",
+      "slug": "asya-petrova-stankova-bae8b1",
+      "label": "Ася Петрова Станкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:gergana-angelova-tonova-897f6e",
+      "type": "official",
+      "slug": "gergana-angelova-tonova-897f6e",
+      "label": "Гергана Ангелова Тонова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:iva-aleksandrova-talanova-ca7455",
+      "type": "official",
+      "slug": "iva-aleksandrova-talanova-ca7455",
+      "label": "Ива Александрова Таланова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕВГЕНИ ДИМИТРОВ СТОЕВ",
+      "type": "person",
+      "label": "Евгени Димитров Стоев"
+    },
+    {
+      "id": "person:ПЛАМЕН ТОДОРОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Пламен Тодоров Илиев"
+    },
+    {
+      "id": "person:ЮЛИЯ ПЕТКОВА ЦОЛОВА - ИЛИЕВА",
+      "type": "person",
+      "label": "Юлия Петкова Цолова - Илиева"
+    },
+    {
+      "id": "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+      "type": "person",
+      "label": "Надя Йорданова Данкинова"
+    },
+    {
+      "id": "person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ",
+      "type": "person",
+      "label": "Добромир Проданов Симидчиев"
+    },
+    {
+      "id": "person:ВЛАДИМИР МИТКОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Владимир Митков Ангелов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЗАХАРИЕВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Николай Захариев Младенов"
+    },
+    {
+      "id": "person:ВЕСЕЛА НАЧЕВА НАЧЕВА",
+      "type": "person",
+      "label": "Весела Начева Начева"
+    },
+    {
+      "id": "person:ЛЮБЕН АНГЕЛОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Любен Ангелов Петров"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ БАНКОВ",
+      "type": "person",
+      "label": "Георги Иванов Банков"
+    },
+    {
+      "id": "person:ГЕРГИН НИКОЛОВ НИТОВ",
+      "type": "person",
+      "label": "Гергин Николов Нитов"
+    },
+    {
+      "id": "person:МАРИАНА СТОЯНОВА ПЕНЕВА",
+      "type": "person",
+      "label": "Мариана Стоянова Пенева"
+    },
+    {
+      "id": "person:ЖЕНИ НИКОЛАЕВА БУМБАРОВА-НАЧЕВА",
+      "type": "person",
+      "label": "Жени Николаева Бумбарова-Начева"
+    },
+    {
+      "id": "person:ДИМИТЪР АЛЕКСАНДРОВ МИТЕВ",
+      "type": "person",
+      "label": "Димитър Александров Митев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dobrinka-veselinova-krsteva-cad1e6",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2621",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2662",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4149",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:asya-petrova-stankova-bae8b1",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-angelova-tonova-897f6e",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iva-aleksandrova-talanova-ca7455",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИ ДИМИТРОВ СТОЕВ",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ТОДОРОВ ИЛИЕВ",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ПЕТКОВА ЦОЛОВА - ИЛИЕВА",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР МИТКОВ АНГЕЛОВ",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЗАХАРИЕВ МЛАДЕНОВ",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА НАЧЕВА НАЧЕВА",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЕН АНГЕЛОВ ПЕТРОВ",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ БАНКОВ",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГИН НИКОЛОВ НИТОВ",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА СТОЯНОВА ПЕНЕВА",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕНИ НИКОЛАЕВА БУМБАРОВА-НАЧЕВА",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АЛЕКСАНДРОВ МИТЕВ",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

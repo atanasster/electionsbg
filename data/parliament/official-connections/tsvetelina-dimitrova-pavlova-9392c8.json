@@ -1,1 +1,186 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetelina-dimitrova-pavlova-9392c8","nodes":[{"id":"official:tsvetelina-dimitrova-pavlova-9392c8","type":"official","slug":"tsvetelina-dimitrova-pavlova-9392c8","label":"Цветелина Димитрова Павлова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000125527","type":"company","label":"СЪЗНАТЕЛНОСТ - 1899","slug":null,"uic":"000125527","legalForm":null,"status":null,"seat":null},{"id":"person:НЕЛИ АДРИАНОВА ВЕЛИКОВА","type":"person","label":"Нели Адрианова Великова"},{"id":"person:СОНЯ АТАНАСОВА КРЪСТЕВА","type":"person","label":"Соня Атанасова Кръстева"},{"id":"person:МИЛЕНА ПЕТКОВА КИРОВА","type":"person","label":"Милена Петкова Кирова"},{"id":"person:ГЕОРГИ ИВАНОВ ИВАНОВ","type":"person","label":"Георги Иванов Иванов"},{"id":"person:БЛАГО БОРИСОВ БЛАЖЕВ","type":"person","label":"Благо Борисов Блажев"},{"id":"person:АТАНАС ИВАНОВ АТАНАСОВ","type":"person","label":"Атанас Иванов Атанасов"},{"id":"person:АНКА НИКОЛОВА АНГЕЛОВА","type":"person","label":"Анка Николова Ангелова"},{"id":"person:ХРИСТАН ДИМИТРОВ ХРИСТОВ","type":"person","label":"Христан Димитров Христов"},{"id":"person:ВАНЯ ТОДОРОВА ТОДОРОВА","type":"person","label":"Ваня Тодорова Тодорова"},{"id":"person:БОРИСКА СТРАХИЛОВА ЙОРДАНОВА","type":"person","label":"Бориска Страхилова Йорданова"},{"id":"person:ВАНЯ ПЕТРОВА ЦВЕТАНОВА","type":"person","label":"Ваня Петрова Цветанова"}],"edges":[{"source":"official:tsvetelina-dimitrova-pavlova-9392c8","target":"company:tr:000125527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:НЕЛИ АДРИАНОВА ВЕЛИКОВА","target":"company:tr:000125527","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ АТАНАСОВА КРЪСТЕВА","target":"company:tr:000125527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ПЕТКОВА КИРОВА","target":"company:tr:000125527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ ИВАНОВ","target":"company:tr:000125527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:БЛАГО БОРИСОВ БЛАЖЕВ","target":"company:tr:000125527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ИВАНОВ АТАНАСОВ","target":"company:tr:000125527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНКА НИКОЛОВА АНГЕЛОВА","target":"company:tr:000125527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ АДРИАНОВА ВЕЛИКОВА","target":"company:tr:000125527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТАН ДИМИТРОВ ХРИСТОВ","target":"company:tr:000125527","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ТОДОРОВА ТОДОРОВА","target":"company:tr:000125527","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСКА СТРАХИЛОВА ЙОРДАНОВА","target":"company:tr:000125527","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ПЕТРОВА ЦВЕТАНОВА","target":"company:tr:000125527","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetelina-dimitrova-pavlova-9392c8",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-dimitrova-pavlova-9392c8",
+      "type": "official",
+      "slug": "tsvetelina-dimitrova-pavlova-9392c8",
+      "label": "Цветелина Димитрова Павлова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000125527",
+      "type": "company",
+      "label": "СЪЗНАТЕЛНОСТ - 1899",
+      "slug": null,
+      "uic": "000125527",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕЛИ АДРИАНОВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Нели Адрианова Великова"
+    },
+    {
+      "id": "person:СОНЯ АТАНАСОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Соня Атанасова Кръстева"
+    },
+    {
+      "id": "person:МИЛЕНА ПЕТКОВА КИРОВА",
+      "type": "person",
+      "label": "Милена Петкова Кирова"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Иванов Иванов"
+    },
+    {
+      "id": "person:БЛАГО БОРИСОВ БЛАЖЕВ",
+      "type": "person",
+      "label": "Благо Борисов Блажев"
+    },
+    {
+      "id": "person:АТАНАС ИВАНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Иванов Атанасов"
+    },
+    {
+      "id": "person:АНКА НИКОЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Анка Николова Ангелова"
+    },
+    {
+      "id": "person:ХРИСТАН ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христан Димитров Христов"
+    },
+    {
+      "id": "person:ВАНЯ ТОДОРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Ваня Тодорова Тодорова"
+    },
+    {
+      "id": "person:БОРИСКА СТРАХИЛОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Бориска Страхилова Йорданова"
+    },
+    {
+      "id": "person:ВАНЯ ПЕТРОВА ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Ваня Петрова Цветанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-dimitrova-pavlova-9392c8",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЛИ АДРИАНОВА ВЕЛИКОВА",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ АТАНАСОВА КРЪСТЕВА",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ПЕТКОВА КИРОВА",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГО БОРИСОВ БЛАЖЕВ",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ИВАНОВ АТАНАСОВ",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНКА НИКОЛОВА АНГЕЛОВА",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ АДРИАНОВА ВЕЛИКОВА",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТАН ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ТОДОРОВА ТОДОРОВА",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСКА СТРАХИЛОВА ЙОРДАНОВА",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ПЕТРОВА ЦВЕТАНОВА",
+      "target": "company:tr:000125527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

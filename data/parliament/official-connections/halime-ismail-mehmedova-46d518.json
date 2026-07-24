@@ -1,1 +1,228 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:halime-ismail-mehmedova-46d518","nodes":[{"id":"official:halime-ismail-mehmedova-46d518","type":"official","slug":"halime-ismail-mehmedova-46d518","label":"Халиме Исмаил Мехмедова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000523253","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ „НАПРЕДЪК -1928“","slug":null,"uic":"000523253","legalForm":null,"status":null,"seat":null},{"id":"official:habibe-metinova-pandzharova-d86e59","type":"official","slug":"habibe-metinova-pandzharova-d86e59","label":"Хабибе Метинова Панджарова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:nezhlya-redzhebova-islyamova-c11438","type":"official","slug":"nezhlya-redzhebova-islyamova-c11438","label":"Нежля Реджебова Ислямова","tier":"municipal","role":"councillor","municipality":"Ветово"},{"id":"person:АЙСЕЛ БЕХАТОВА АБАЗОВА","type":"person","label":"Айсел Бехатова Абазова"},{"id":"person:КАДРИЕ МЕХМЕДОВА ЮНУЗОВА","type":"person","label":"Кадрие Мехмедова Юнузова"},{"id":"person:МИХРИБАН РИДВАН МЕДЖИТ","type":"person","label":"Михрибан Ридван Меджит"},{"id":"person:ДИЛБЕР РАИМОВА САЛИЕВА","type":"person","label":"Дилбер Раимова Салиева"},{"id":"person:ШЕФКЕТ ИСМАИЛОВ ИСМАИЛОВ","type":"person","label":"Шефкет Исмаилов Исмаилов"},{"id":"person:НЕВРИЕ МЕХМЕДОВА НЕДЖИБОВА","type":"person","label":"Неврие Мехмедова Неджибова"},{"id":"person:ХЕДИЕ МУХАРЕМОВА ИСМАИЛОВА","type":"person","label":"Хедие Мухаремова Исмаилова"},{"id":"person:СЕВИМ ЗЮХТИЕВА ШАКИРОВА","type":"person","label":"Севим Зюхтиева Шакирова"},{"id":"person:ШЕННАЗ АКИФОВА ЧОБАНОВА","type":"person","label":"Шенназ Акифова Чобанова"},{"id":"person:РЕФИЕ БЕДРИЕВА МУСТАФОВА","type":"person","label":"Рефие Бедриева Мустафова"},{"id":"person:МЕЛИС ЕРДИНЧЕВА ДАУД","type":"person","label":"Мелис Ердинчева Дауд"}],"edges":[{"source":"official:halime-ismail-mehmedova-46d518","target":"company:tr:000523253","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:habibe-metinova-pandzharova-d86e59","target":"company:tr:000523253","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:nezhlya-redzhebova-islyamova-c11438","target":"company:tr:000523253","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:nezhlya-redzhebova-islyamova-c11438","target":"company:tr:000523253","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:АЙСЕЛ БЕХАТОВА АБАЗОВА","target":"company:tr:000523253","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАДРИЕ МЕХМЕДОВА ЮНУЗОВА","target":"company:tr:000523253","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АЙСЕЛ БЕХАТОВА АБАЗОВА","target":"company:tr:000523253","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИХРИБАН РИДВАН МЕДЖИТ","target":"company:tr:000523253","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИЛБЕР РАИМОВА САЛИЕВА","target":"company:tr:000523253","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ШЕФКЕТ ИСМАИЛОВ ИСМАИЛОВ","target":"company:tr:000523253","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕВРИЕ МЕХМЕДОВА НЕДЖИБОВА","target":"company:tr:000523253","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХЕДИЕ МУХАРЕМОВА ИСМАИЛОВА","target":"company:tr:000523253","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СЕВИМ ЗЮХТИЕВА ШАКИРОВА","target":"company:tr:000523253","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ШЕННАЗ АКИФОВА ЧОБАНОВА","target":"company:tr:000523253","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РЕФИЕ БЕДРИЕВА МУСТАФОВА","target":"company:tr:000523253","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МЕЛИС ЕРДИНЧЕВА ДАУД","target":"company:tr:000523253","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:halime-ismail-mehmedova-46d518",
+  "nodes": [
+    {
+      "id": "official:halime-ismail-mehmedova-46d518",
+      "type": "official",
+      "slug": "halime-ismail-mehmedova-46d518",
+      "label": "Халиме Исмаил Мехмедова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000523253",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ „НАПРЕДЪК -1928“",
+      "slug": null,
+      "uic": "000523253",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:habibe-metinova-pandzharova-d86e59",
+      "type": "official",
+      "slug": "habibe-metinova-pandzharova-d86e59",
+      "label": "Хабибе Метинова Панджарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:nezhlya-redzhebova-islyamova-c11438",
+      "type": "official",
+      "slug": "nezhlya-redzhebova-islyamova-c11438",
+      "label": "Нежля Реджебова Ислямова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ветово"
+    },
+    {
+      "id": "person:АЙСЕЛ БЕХАТОВА АБАЗОВА",
+      "type": "person",
+      "label": "Айсел Бехатова Абазова"
+    },
+    {
+      "id": "person:КАДРИЕ МЕХМЕДОВА ЮНУЗОВА",
+      "type": "person",
+      "label": "Кадрие Мехмедова Юнузова"
+    },
+    {
+      "id": "person:МИХРИБАН РИДВАН МЕДЖИТ",
+      "type": "person",
+      "label": "Михрибан Ридван Меджит"
+    },
+    {
+      "id": "person:ДИЛБЕР РАИМОВА САЛИЕВА",
+      "type": "person",
+      "label": "Дилбер Раимова Салиева"
+    },
+    {
+      "id": "person:ШЕФКЕТ ИСМАИЛОВ ИСМАИЛОВ",
+      "type": "person",
+      "label": "Шефкет Исмаилов Исмаилов"
+    },
+    {
+      "id": "person:НЕВРИЕ МЕХМЕДОВА НЕДЖИБОВА",
+      "type": "person",
+      "label": "Неврие Мехмедова Неджибова"
+    },
+    {
+      "id": "person:ХЕДИЕ МУХАРЕМОВА ИСМАИЛОВА",
+      "type": "person",
+      "label": "Хедие Мухаремова Исмаилова"
+    },
+    {
+      "id": "person:СЕВИМ ЗЮХТИЕВА ШАКИРОВА",
+      "type": "person",
+      "label": "Севим Зюхтиева Шакирова"
+    },
+    {
+      "id": "person:ШЕННАЗ АКИФОВА ЧОБАНОВА",
+      "type": "person",
+      "label": "Шенназ Акифова Чобанова"
+    },
+    {
+      "id": "person:РЕФИЕ БЕДРИЕВА МУСТАФОВА",
+      "type": "person",
+      "label": "Рефие Бедриева Мустафова"
+    },
+    {
+      "id": "person:МЕЛИС ЕРДИНЧЕВА ДАУД",
+      "type": "person",
+      "label": "Мелис Ердинчева Дауд"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:halime-ismail-mehmedova-46d518",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:habibe-metinova-pandzharova-d86e59",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nezhlya-redzhebova-islyamova-c11438",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nezhlya-redzhebova-islyamova-c11438",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЙСЕЛ БЕХАТОВА АБАЗОВА",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАДРИЕ МЕХМЕДОВА ЮНУЗОВА",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙСЕЛ БЕХАТОВА АБАЗОВА",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХРИБАН РИДВАН МЕДЖИТ",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛБЕР РАИМОВА САЛИЕВА",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕФКЕТ ИСМАИЛОВ ИСМАИЛОВ",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВРИЕ МЕХМЕДОВА НЕДЖИБОВА",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЕДИЕ МУХАРЕМОВА ИСМАИЛОВА",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВИМ ЗЮХТИЕВА ШАКИРОВА",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕННАЗ АКИФОВА ЧОБАНОВА",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕФИЕ БЕДРИЕВА МУСТАФОВА",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕЛИС ЕРДИНЧЕВА ДАУД",
+      "target": "company:tr:000523253",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

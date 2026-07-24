@@ -1,1 +1,320 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivanina-yurieva-yankova-42ce38","nodes":[{"id":"official:ivanina-yurieva-yankova-42ce38","type":"official","slug":"ivanina-yurieva-yankova-42ce38","label":"Иванина Юриева Янкова","tier":"executive","role":"social_fund","municipality":null},{"id":"company:tr:121524562","type":"company","label":"СДРУЖЕНИЕ &quot;БЛАГОТВОРИТЕЛЕН ФОНД ПРОФ. Д-Р ЖЕЛЯЗКО ХРИСТОВ, ДМ&quot;","slug":null,"uic":"121524562","legalForm":null,"status":null,"seat":null},{"id":"official:asiya-ivanova-goneva-5b6ee7","type":"official","slug":"asiya-ivanova-goneva-5b6ee7","label":"Асия Иванова Гонева","tier":"executive","role":"social_fund","municipality":null},{"id":"person:ПЛАМЕН ГОЧЕВ ДИМИТРОВ","type":"person","label":"Пламен Гочев Димитров"},{"id":"person:ВАЛЕНТИН НИКИФОРОВ ЙОРДАНОВ","type":"person","label":"Валентин Никифоров Йорданов"},{"id":"person:ЯНКА КРУМОВА ТАКЕВА ТАКЕВА","type":"person","label":"Янка Крумова Такева Такева"},{"id":"person:КРЪСТЬО БОЯНОВ БОЯНОВ","type":"person","label":"Кръстьо Боянов Боянов"},{"id":"person:ПЛАМЕН ГЕОРГИЕВ НАНКОВ","type":"person","label":"Пламен Георгиев Нанков"},{"id":"person:КОСТАДИН ПЕТРОВ ПЪРЗУЛОВ","type":"person","label":"Костадин Петров Пързулов"},{"id":"person:ДИМКА РАДЕВА ХРИСТОВА","type":"person","label":"Димка Радева Христова"},{"id":"person:ВАЛЕНТИНА СТАМЕНОВА МИЛЕВА","type":"person","label":"Валентина Стаменова Милева"},{"id":"person:ЕКАТЕРИНА ЕВЛОГИЕВА ЙОРДАНОВА","type":"person","label":"Екатерина Евлогиева Йорданова"},{"id":"person:ВАЛЕНТИН ПЕНЕВ ВЪЛЧЕВ","type":"person","label":"Валентин Пенев Вълчев"},{"id":"person:ВАСИЛ ЛЮБЕНОВ ЯНАЧКОВ","type":"person","label":"Васил Любенов Яначков"},{"id":"person:ДАНИЕЛА ДИМИТРОВА АЛЕКСИЕВА – СТОЯНОВА","type":"person","label":"Даниела Димитрова Алексиева – Стоянова"},{"id":"person:ТОДОР НИКОЛАЕВ КАПИТАНОВ","type":"person","label":"Тодор Николаев Капитанов"},{"id":"person:ОГНЯН ДИЧЕВ АТАНАСОВ","type":"person","label":"Огнян Дичев Атанасов"},{"id":"person:ЛЮБОСЛАВ ЕМИЛОВ КОСТОВ","type":"person","label":"Любослав Емилов Костов"},{"id":"person:ДЕНИЦА ЖЕЛЯЗКОВА ХРИСТОВА","type":"person","label":"Деница Желязкова Христова"},{"id":"person:ВЕЛИЧКА МИЛЧЕВА МИКОВА","type":"person","label":"Величка Милчева Микова"},{"id":"person:РАЙНА ТЕНЕВА ДЖАГАЛОВА","type":"person","label":"Райна Тенева Джагалова"},{"id":"person:РЕНЕТА МЕТОДИЕВА ПЕТРОВА","type":"person","label":"Ренета Методиева Петрова"},{"id":"person:ДЕСИСЛАВА КОСТАДИНОВА ЯГОДИН","type":"person","label":"Десислава Костадинова Ягодин"}],"edges":[{"source":"official:ivanina-yurieva-yankova-42ce38","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:asiya-ivanova-goneva-5b6ee7","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЛАМЕН ГОЧЕВ ДИМИТРОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН НИКИФОРОВ ЙОРДАНОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКА КРУМОВА ТАКЕВА ТАКЕВА","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРЪСТЬО БОЯНОВ БОЯНОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ГОЧЕВ ДИМИТРОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ГЕОРГИЕВ НАНКОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ПЕТРОВ ПЪРЗУЛОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМКА РАДЕВА ХРИСТОВА","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА СТАМЕНОВА МИЛЕВА","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕКАТЕРИНА ЕВЛОГИЕВА ЙОРДАНОВА","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ПЕНЕВ ВЪЛЧЕВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ЛЮБЕНОВ ЯНАЧКОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ДИМИТРОВА АЛЕКСИЕВА – СТОЯНОВА","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР НИКОЛАЕВ КАПИТАНОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯН ДИЧЕВ АТАНАСОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОСЛАВ ЕМИЛОВ КОСТОВ","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА ЖЕЛЯЗКОВА ХРИСТОВА","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЧКА МИЛЧЕВА МИКОВА","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАЙНА ТЕНЕВА ДЖАГАЛОВА","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РЕНЕТА МЕТОДИЕВА ПЕТРОВА","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА КОСТАДИНОВА ЯГОДИН","target":"company:tr:121524562","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivanina-yurieva-yankova-42ce38",
+  "nodes": [
+    {
+      "id": "official:ivanina-yurieva-yankova-42ce38",
+      "type": "official",
+      "slug": "ivanina-yurieva-yankova-42ce38",
+      "label": "Иванина Юриева Янкова",
+      "tier": "executive",
+      "role": "social_fund",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121524562",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;БЛАГОТВОРИТЕЛЕН ФОНД ПРОФ. Д-Р ЖЕЛЯЗКО ХРИСТОВ, ДМ&quot;",
+      "slug": null,
+      "uic": "121524562",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:asiya-ivanova-goneva-5b6ee7",
+      "type": "official",
+      "slug": "asiya-ivanova-goneva-5b6ee7",
+      "label": "Асия Иванова Гонева",
+      "tier": "executive",
+      "role": "social_fund",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЛАМЕН ГОЧЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Пламен Гочев Димитров"
+    },
+    {
+      "id": "person:ВАЛЕНТИН НИКИФОРОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Валентин Никифоров Йорданов"
+    },
+    {
+      "id": "person:ЯНКА КРУМОВА ТАКЕВА ТАКЕВА",
+      "type": "person",
+      "label": "Янка Крумова Такева Такева"
+    },
+    {
+      "id": "person:КРЪСТЬО БОЯНОВ БОЯНОВ",
+      "type": "person",
+      "label": "Кръстьо Боянов Боянов"
+    },
+    {
+      "id": "person:ПЛАМЕН ГЕОРГИЕВ НАНКОВ",
+      "type": "person",
+      "label": "Пламен Георгиев Нанков"
+    },
+    {
+      "id": "person:КОСТАДИН ПЕТРОВ ПЪРЗУЛОВ",
+      "type": "person",
+      "label": "Костадин Петров Пързулов"
+    },
+    {
+      "id": "person:ДИМКА РАДЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Димка Радева Христова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА СТАМЕНОВА МИЛЕВА",
+      "type": "person",
+      "label": "Валентина Стаменова Милева"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ЕВЛОГИЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Екатерина Евлогиева Йорданова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ПЕНЕВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Валентин Пенев Вълчев"
+    },
+    {
+      "id": "person:ВАСИЛ ЛЮБЕНОВ ЯНАЧКОВ",
+      "type": "person",
+      "label": "Васил Любенов Яначков"
+    },
+    {
+      "id": "person:ДАНИЕЛА ДИМИТРОВА АЛЕКСИЕВА – СТОЯНОВА",
+      "type": "person",
+      "label": "Даниела Димитрова Алексиева – Стоянова"
+    },
+    {
+      "id": "person:ТОДОР НИКОЛАЕВ КАПИТАНОВ",
+      "type": "person",
+      "label": "Тодор Николаев Капитанов"
+    },
+    {
+      "id": "person:ОГНЯН ДИЧЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Огнян Дичев Атанасов"
+    },
+    {
+      "id": "person:ЛЮБОСЛАВ ЕМИЛОВ КОСТОВ",
+      "type": "person",
+      "label": "Любослав Емилов Костов"
+    },
+    {
+      "id": "person:ДЕНИЦА ЖЕЛЯЗКОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Деница Желязкова Христова"
+    },
+    {
+      "id": "person:ВЕЛИЧКА МИЛЧЕВА МИКОВА",
+      "type": "person",
+      "label": "Величка Милчева Микова"
+    },
+    {
+      "id": "person:РАЙНА ТЕНЕВА ДЖАГАЛОВА",
+      "type": "person",
+      "label": "Райна Тенева Джагалова"
+    },
+    {
+      "id": "person:РЕНЕТА МЕТОДИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Ренета Методиева Петрова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА КОСТАДИНОВА ЯГОДИН",
+      "type": "person",
+      "label": "Десислава Костадинова Ягодин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanina-yurieva-yankova-42ce38",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:asiya-ivanova-goneva-5b6ee7",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ГОЧЕВ ДИМИТРОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН НИКИФОРОВ ЙОРДАНОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА КРУМОВА ТАКЕВА ТАКЕВА",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЪСТЬО БОЯНОВ БОЯНОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГОЧЕВ ДИМИТРОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ НАНКОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ПЕТРОВ ПЪРЗУЛОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМКА РАДЕВА ХРИСТОВА",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА СТАМЕНОВА МИЛЕВА",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ЕВЛОГИЕВА ЙОРДАНОВА",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЕНЕВ ВЪЛЧЕВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЛЮБЕНОВ ЯНАЧКОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ДИМИТРОВА АЛЕКСИЕВА – СТОЯНОВА",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР НИКОЛАЕВ КАПИТАНОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН ДИЧЕВ АТАНАСОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОСЛАВ ЕМИЛОВ КОСТОВ",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ЖЕЛЯЗКОВА ХРИСТОВА",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА МИЛЧЕВА МИКОВА",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА ТЕНЕВА ДЖАГАЛОВА",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНЕТА МЕТОДИЕВА ПЕТРОВА",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА КОСТАДИНОВА ЯГОДИН",
+      "target": "company:tr:121524562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

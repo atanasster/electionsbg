@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:lchezar-iordanov-petkov-684224","nodes":[{"id":"official:lchezar-iordanov-petkov-684224","type":"official","slug":"lchezar-iordanov-petkov-684224","label":"Лъчезар Йорданов Петков","tier":"executive","role":"secretary_general","municipality":null},{"id":"company:tr:203977754","type":"company","label":"\"БО ФИЛМ\" ЕООД","slug":null,"uic":"203977754","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:lchezar-iordanov-petkov-684224","target":"company:tr:203977754","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:lchezar-iordanov-petkov-684224",
+  "nodes": [
+    {
+      "id": "official:lchezar-iordanov-petkov-684224",
+      "type": "official",
+      "slug": "lchezar-iordanov-petkov-684224",
+      "label": "Лъчезар Йорданов Петков",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203977754",
+      "type": "company",
+      "label": "\"БО ФИЛМ\" ЕООД",
+      "slug": null,
+      "uic": "203977754",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lchezar-iordanov-petkov-684224",
+      "target": "company:tr:203977754",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-ivanov-peev-a14603","nodes":[{"id":"official:emil-ivanov-peev-a14603","type":"official","slug":"emil-ivanov-peev-a14603","label":"Емил Иванов Пеев","tier":"municipal","role":"councillor","municipality":"Плевен"},{"id":"company:tr:203242815","type":"company","label":"спот вижън","slug":null,"uic":"203242815","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕЛЧО СТАЙКОВ ГЕНЧЕВ","type":"person","label":"Делчо Стайков Генчев"},{"id":"person:ИВАЙЛО ЕМИЛОВ ПЕЕВ","type":"person","label":"Ивайло Емилов Пеев"}],"edges":[{"source":"official:emil-ivanov-peev-a14603","target":"company:tr:203242815","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emil-ivanov-peev-a14603","target":"company:tr:203242815","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕЛЧО СТАЙКОВ ГЕНЧЕВ","target":"company:tr:203242815","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ЕМИЛОВ ПЕЕВ","target":"company:tr:203242815","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-ivanov-peev-a14603",
+  "nodes": [
+    {
+      "id": "official:emil-ivanov-peev-a14603",
+      "type": "official",
+      "slug": "emil-ivanov-peev-a14603",
+      "label": "Емил Иванов Пеев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:203242815",
+      "type": "company",
+      "label": "спот вижън",
+      "slug": null,
+      "uic": "203242815",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕЛЧО СТАЙКОВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Делчо Стайков Генчев"
+    },
+    {
+      "id": "person:ИВАЙЛО ЕМИЛОВ ПЕЕВ",
+      "type": "person",
+      "label": "Ивайло Емилов Пеев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-ivanov-peev-a14603",
+      "target": "company:tr:203242815",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-ivanov-peev-a14603",
+      "target": "company:tr:203242815",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕЛЧО СТАЙКОВ ГЕНЧЕВ",
+      "target": "company:tr:203242815",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЕМИЛОВ ПЕЕВ",
+      "target": "company:tr:203242815",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

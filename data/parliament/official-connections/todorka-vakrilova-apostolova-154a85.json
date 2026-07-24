@@ -1,1 +1,202 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:todorka-vakrilova-apostolova-154a85","nodes":[{"id":"official:todorka-vakrilova-apostolova-154a85","type":"official","slug":"todorka-vakrilova-apostolova-154a85","label":"Тодорка Вакрилова Апостолова","tier":"municipal","role":"councillor","municipality":"Садово"},{"id":"company:tr:000456922","type":"company","label":"Народно читалище Отец Паисий - 1927 г. - с. Караджово","slug":null,"uic":"000456922","legalForm":null,"status":null,"seat":null},{"id":"person:ВИОЛЕТА МИРЧЕВА ВАСИЛЕВА-ЛАПКОВА","type":"person","label":"Виолета Мирчева Василева-Лапкова"},{"id":"person:АТАНАСКА НИКОЛАЕВА ПЕТРОВА","type":"person","label":"Атанаска Николаева Петрова"},{"id":"person:ИРИНА ЗДРАВКОВА ПАШОВА","type":"person","label":"Ирина Здравкова Пашова"},{"id":"person:КРАСИМИРА ТРЕНДАФИЛОВА БЛАГОЕВА","type":"person","label":"Красимира Трендафилова Благоева"},{"id":"person:ИВАНКА ТРИФОНОВА ЯНКОВА","type":"person","label":"Иванка Трифонова Янкова"},{"id":"person:ДОРОТЕЯ ГЕОРГИЕВА ИВАНОВА","type":"person","label":"Доротея Георгиева Иванова"},{"id":"person:ТОДОРА АТАНАСОВА РАЛОВА","type":"person","label":"Тодора Атанасова Ралова"},{"id":"person:МАГДАЛЕНА ЖИВКОВА ЖЕЛЕВА","type":"person","label":"Магдалена Живкова Желева"},{"id":"person:ВЕСЕЛА ДИМИТРОВА ЧАЛЪКОВА","type":"person","label":"Весела Димитрова Чалъкова"},{"id":"person:ВИХРА ДАНЧЕВА ДИМИТРОВА","type":"person","label":"Вихра Данчева Димитрова"},{"id":"person:БОРИСЛАВ АТАНАСОВ БЛАГОЕВ","type":"person","label":"Борислав Атанасов Благоев"}],"edges":[{"source":"official:todorka-vakrilova-apostolova-154a85","target":"company:tr:000456922","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:todorka-vakrilova-apostolova-154a85","target":"company:tr:000456922","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ВИОЛЕТА МИРЧЕВА ВАСИЛЕВА-ЛАПКОВА","target":"company:tr:000456922","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА МИРЧЕВА ВАСИЛЕВА-ЛАПКОВА","target":"company:tr:000456922","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАСКА НИКОЛАЕВА ПЕТРОВА","target":"company:tr:000456922","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ЗДРАВКОВА ПАШОВА","target":"company:tr:000456922","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ТРЕНДАФИЛОВА БЛАГОЕВА","target":"company:tr:000456922","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ТРИФОНОВА ЯНКОВА","target":"company:tr:000456922","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДОРОТЕЯ ГЕОРГИЕВА ИВАНОВА","target":"company:tr:000456922","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРА АТАНАСОВА РАЛОВА","target":"company:tr:000456922","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА ЖИВКОВА ЖЕЛЕВА","target":"company:tr:000456922","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА ЖИВКОВА ЖЕЛЕВА","target":"company:tr:000456922","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛА ДИМИТРОВА ЧАЛЪКОВА","target":"company:tr:000456922","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВИХРА ДАНЧЕВА ДИМИТРОВА","target":"company:tr:000456922","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ АТАНАСОВ БЛАГОЕВ","target":"company:tr:000456922","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:todorka-vakrilova-apostolova-154a85",
+  "nodes": [
+    {
+      "id": "official:todorka-vakrilova-apostolova-154a85",
+      "type": "official",
+      "slug": "todorka-vakrilova-apostolova-154a85",
+      "label": "Тодорка Вакрилова Апостолова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Садово"
+    },
+    {
+      "id": "company:tr:000456922",
+      "type": "company",
+      "label": "Народно читалище Отец Паисий - 1927 г. - с. Караджово",
+      "slug": null,
+      "uic": "000456922",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИОЛЕТА МИРЧЕВА ВАСИЛЕВА-ЛАПКОВА",
+      "type": "person",
+      "label": "Виолета Мирчева Василева-Лапкова"
+    },
+    {
+      "id": "person:АТАНАСКА НИКОЛАЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Атанаска Николаева Петрова"
+    },
+    {
+      "id": "person:ИРИНА ЗДРАВКОВА ПАШОВА",
+      "type": "person",
+      "label": "Ирина Здравкова Пашова"
+    },
+    {
+      "id": "person:КРАСИМИРА ТРЕНДАФИЛОВА БЛАГОЕВА",
+      "type": "person",
+      "label": "Красимира Трендафилова Благоева"
+    },
+    {
+      "id": "person:ИВАНКА ТРИФОНОВА ЯНКОВА",
+      "type": "person",
+      "label": "Иванка Трифонова Янкова"
+    },
+    {
+      "id": "person:ДОРОТЕЯ ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Доротея Георгиева Иванова"
+    },
+    {
+      "id": "person:ТОДОРА АТАНАСОВА РАЛОВА",
+      "type": "person",
+      "label": "Тодора Атанасова Ралова"
+    },
+    {
+      "id": "person:МАГДАЛЕНА ЖИВКОВА ЖЕЛЕВА",
+      "type": "person",
+      "label": "Магдалена Живкова Желева"
+    },
+    {
+      "id": "person:ВЕСЕЛА ДИМИТРОВА ЧАЛЪКОВА",
+      "type": "person",
+      "label": "Весела Димитрова Чалъкова"
+    },
+    {
+      "id": "person:ВИХРА ДАНЧЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Вихра Данчева Димитрова"
+    },
+    {
+      "id": "person:БОРИСЛАВ АТАНАСОВ БЛАГОЕВ",
+      "type": "person",
+      "label": "Борислав Атанасов Благоев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todorka-vakrilova-apostolova-154a85",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todorka-vakrilova-apostolova-154a85",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИОЛЕТА МИРЧЕВА ВАСИЛЕВА-ЛАПКОВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА МИРЧЕВА ВАСИЛЕВА-ЛАПКОВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА НИКОЛАЕВА ПЕТРОВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ЗДРАВКОВА ПАШОВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ТРЕНДАФИЛОВА БЛАГОЕВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ТРИФОНОВА ЯНКОВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРОТЕЯ ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРА АТАНАСОВА РАЛОВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ЖИВКОВА ЖЕЛЕВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ЖИВКОВА ЖЕЛЕВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ДИМИТРОВА ЧАЛЪКОВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИХРА ДАНЧЕВА ДИМИТРОВА",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ АТАНАСОВ БЛАГОЕВ",
+      "target": "company:tr:000456922",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

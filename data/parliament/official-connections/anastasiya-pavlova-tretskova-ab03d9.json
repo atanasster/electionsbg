@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:anastasiya-pavlova-tretskova-ab03d9","nodes":[{"id":"official:anastasiya-pavlova-tretskova-ab03d9","type":"official","slug":"anastasiya-pavlova-tretskova-ab03d9","label":"Анастасия Павлова Трецкова","tier":"municipal","role":"councillor","municipality":"Бяла/Варна/"},{"id":"company:tr:205418297","type":"company","label":"Бест Сървис 2018 ООД","slug":null,"uic":"205418297","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:anastasiya-pavlova-tretskova-ab03d9","target":"company:tr:205418297","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:anastasiya-pavlova-tretskova-ab03d9",
+  "nodes": [
+    {
+      "id": "official:anastasiya-pavlova-tretskova-ab03d9",
+      "type": "official",
+      "slug": "anastasiya-pavlova-tretskova-ab03d9",
+      "label": "Анастасия Павлова Трецкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла/Варна/"
+    },
+    {
+      "id": "company:tr:205418297",
+      "type": "company",
+      "label": "Бест Сървис 2018 ООД",
+      "slug": null,
+      "uic": "205418297",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anastasiya-pavlova-tretskova-ab03d9",
+      "target": "company:tr:205418297",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

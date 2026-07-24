@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vasil-georgiev-pendev-fec313","nodes":[{"id":"official:vasil-georgiev-pendev-fec313","type":"official","slug":"vasil-georgiev-pendev-fec313","label":"Васил Георгиев Пендев","tier":"municipal","role":"councillor","municipality":"Хисаря"},{"id":"company:tr:205447085","type":"company","label":"СДРУЖЕНИЕ УЧИЛИЩНО НАСТОЯТЕЛСТВО &quot;СВЕТЛИНА&quot; КЪМ ОУ &quot;ХРИСТО БОТЕВ&quot; С. ПАНИЧЕРИ","slug":null,"uic":"205447085","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vasil-georgiev-pendev-fec313","target":"company:tr:205447085","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vasil-georgiev-pendev-fec313",
+  "nodes": [
+    {
+      "id": "official:vasil-georgiev-pendev-fec313",
+      "type": "official",
+      "slug": "vasil-georgiev-pendev-fec313",
+      "label": "Васил Георгиев Пендев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хисаря"
+    },
+    {
+      "id": "company:tr:205447085",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ УЧИЛИЩНО НАСТОЯТЕЛСТВО &quot;СВЕТЛИНА&quot; КЪМ ОУ &quot;ХРИСТО БОТЕВ&quot; С. ПАНИЧЕРИ",
+      "slug": null,
+      "uic": "205447085",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-georgiev-pendev-fec313",
+      "target": "company:tr:205447085",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

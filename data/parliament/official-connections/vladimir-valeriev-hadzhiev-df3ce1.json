@@ -1,1 +1,53 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-valeriev-hadzhiev-df3ce1","nodes":[{"id":"official:vladimir-valeriev-hadzhiev-df3ce1","type":"official","slug":"vladimir-valeriev-hadzhiev-df3ce1","label":"Владимир Валериев Хаджиев","tier":"executive","role":"eu_funds_controller","municipality":null},{"id":"company:tr:205082050","type":"company","label":"Ехолиси ЕООД","slug":null,"uic":"205082050","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204806852","type":"company","label":"Форсити ООД","slug":null,"uic":"204806852","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vladimir-valeriev-hadzhiev-df3ce1","target":"company:tr:205082050","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vladimir-valeriev-hadzhiev-df3ce1","target":"company:tr:204806852","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-valeriev-hadzhiev-df3ce1",
+  "nodes": [
+    {
+      "id": "official:vladimir-valeriev-hadzhiev-df3ce1",
+      "type": "official",
+      "slug": "vladimir-valeriev-hadzhiev-df3ce1",
+      "label": "Владимир Валериев Хаджиев",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205082050",
+      "type": "company",
+      "label": "Ехолиси ЕООД",
+      "slug": null,
+      "uic": "205082050",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204806852",
+      "type": "company",
+      "label": "Форсити ООД",
+      "slug": null,
+      "uic": "204806852",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-valeriev-hadzhiev-df3ce1",
+      "target": "company:tr:205082050",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-valeriev-hadzhiev-df3ce1",
+      "target": "company:tr:204806852",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

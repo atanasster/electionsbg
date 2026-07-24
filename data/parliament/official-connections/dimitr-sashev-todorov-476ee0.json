@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-sashev-todorov-476ee0","nodes":[{"id":"official:dimitr-sashev-todorov-476ee0","type":"official","slug":"dimitr-sashev-todorov-476ee0","label":"ДИМИТЪР САШЕВ ТОДОРОВ","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:202390483","type":"company","label":"\"РОСИТА АВТО\" ООД","slug":null,"uic":"202390483","legalForm":null,"status":null,"seat":null},{"id":"person:ТАНЯ ГЕОРГИЕВА ПЕНЕВА","type":"person","label":"Таня Георгиева Пенева"},{"id":"person:РОСИЦА ТОНЧЕВА ПЕНЕВА","type":"person","label":"Росица Тончева Пенева"}],"edges":[{"source":"official:dimitr-sashev-todorov-476ee0","target":"company:tr:202390483","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ ГЕОРГИЕВА ПЕНЕВА","target":"company:tr:202390483","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ТОНЧЕВА ПЕНЕВА","target":"company:tr:202390483","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ ГЕОРГИЕВА ПЕНЕВА","target":"company:tr:202390483","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ТОНЧЕВА ПЕНЕВА","target":"company:tr:202390483","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-sashev-todorov-476ee0",
+  "nodes": [
+    {
+      "id": "official:dimitr-sashev-todorov-476ee0",
+      "type": "official",
+      "slug": "dimitr-sashev-todorov-476ee0",
+      "label": "ДИМИТЪР САШЕВ ТОДОРОВ",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202390483",
+      "type": "company",
+      "label": "\"РОСИТА АВТО\" ООД",
+      "slug": null,
+      "uic": "202390483",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАНЯ ГЕОРГИЕВА ПЕНЕВА",
+      "type": "person",
+      "label": "Таня Георгиева Пенева"
+    },
+    {
+      "id": "person:РОСИЦА ТОНЧЕВА ПЕНЕВА",
+      "type": "person",
+      "label": "Росица Тончева Пенева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-sashev-todorov-476ee0",
+      "target": "company:tr:202390483",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ГЕОРГИЕВА ПЕНЕВА",
+      "target": "company:tr:202390483",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТОНЧЕВА ПЕНЕВА",
+      "target": "company:tr:202390483",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ГЕОРГИЕВА ПЕНЕВА",
+      "target": "company:tr:202390483",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТОНЧЕВА ПЕНЕВА",
+      "target": "company:tr:202390483",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

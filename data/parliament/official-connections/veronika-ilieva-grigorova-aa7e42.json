@@ -1,1 +1,225 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:veronika-ilieva-grigorova-aa7e42","nodes":[{"id":"official:veronika-ilieva-grigorova-aa7e42","type":"official","slug":"veronika-ilieva-grigorova-aa7e42","label":"Вероника Илиева Григорова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:121448709","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ ПО БИАТЛОН","slug":null,"uic":"121448709","legalForm":null,"status":null,"seat":null},{"id":"person:ЕКАТЕРИНА СТЕФАНОВА ДАФОВСКА","type":"person","label":"Екатерина Стефанова Дафовска"},{"id":"person:РАЙКО КИРИЛОВ ПЕНЕВ","type":"person","label":"Райко Кирилов Пенев"},{"id":"person:ЦВЕТАН ВЪЛЕВ ЦОЧЕВ","type":"person","label":"Цветан Вълев Цочев"},{"id":"person:МИЛУШ ТРЕНДАФИЛОВ ИВАНЧЕВ","type":"person","label":"Милуш Трендафилов Иванчев"},{"id":"person:ТАНЯ АТАНАСОВА ПАНЕВА","type":"person","label":"Таня Атанасова Панева"},{"id":"person:РАДКА КОСТАДИНОВА ПОПОВА","type":"person","label":"Радка Костадинова Попова"},{"id":"person:ХРИСТО ГЕОРГИЕВ ВОДЕНИЧАРОВ","type":"person","label":"Христо Георгиев Воденичаров"},{"id":"person:ВЕНЦИСЛАВ ДИМИТРОВ АЛЕКСАНДРОВ","type":"person","label":"Венцислав Димитров Александров"},{"id":"person:АТАНАС ИВАНОВ ФУРНАДЖИЕВ","type":"person","label":"Атанас Иванов Фурнаджиев"},{"id":"person:ПАВЛИНА ИВАНОВА ФИЛИПОВА","type":"person","label":"Павлина Иванова Филипова"},{"id":"person:ХРИСТО ГЕОРГИЕВ МИЛТЕНОВ","type":"person","label":"Христо Георгиев Милтенов"},{"id":"person:ИРИНА КОСТАДИНОВА НИКУЛЧИНА","type":"person","label":"Ирина Костадинова Никулчина"},{"id":"person:ВЛАДИМИР ИЛИЕВ ИЛИЕВ","type":"person","label":"Владимир Илиев Илиев"},{"id":"person:ГЕОРГИ ИВАНОВ РАДКОВСКИ","type":"person","label":"Георги Иванов Радковски"}],"edges":[{"source":"official:veronika-ilieva-grigorova-aa7e42","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЕКАТЕРИНА СТЕФАНОВА ДАФОВСКА","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАЙКО КИРИЛОВ ПЕНЕВ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ВЪЛЕВ ЦОЧЕВ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛУШ ТРЕНДАФИЛОВ ИВАНЧЕВ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ АТАНАСОВА ПАНЕВА","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА КОСТАДИНОВА ПОПОВА","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ГЕОРГИЕВ ВОДЕНИЧАРОВ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ДИМИТРОВ АЛЕКСАНДРОВ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ИВАНОВ ФУРНАДЖИЕВ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ИВАНОВ ФУРНАДЖИЕВ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА ИВАНОВА ФИЛИПОВА","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ГЕОРГИЕВ МИЛТЕНОВ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА КОСТАДИНОВА НИКУЛЧИНА","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ИЛИЕВ ИЛИЕВ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ РАДКОВСКИ","target":"company:tr:121448709","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:veronika-ilieva-grigorova-aa7e42",
+  "nodes": [
+    {
+      "id": "official:veronika-ilieva-grigorova-aa7e42",
+      "type": "official",
+      "slug": "veronika-ilieva-grigorova-aa7e42",
+      "label": "Вероника Илиева Григорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121448709",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО БИАТЛОН",
+      "slug": null,
+      "uic": "121448709",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕКАТЕРИНА СТЕФАНОВА ДАФОВСКА",
+      "type": "person",
+      "label": "Екатерина Стефанова Дафовска"
+    },
+    {
+      "id": "person:РАЙКО КИРИЛОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Райко Кирилов Пенев"
+    },
+    {
+      "id": "person:ЦВЕТАН ВЪЛЕВ ЦОЧЕВ",
+      "type": "person",
+      "label": "Цветан Вълев Цочев"
+    },
+    {
+      "id": "person:МИЛУШ ТРЕНДАФИЛОВ ИВАНЧЕВ",
+      "type": "person",
+      "label": "Милуш Трендафилов Иванчев"
+    },
+    {
+      "id": "person:ТАНЯ АТАНАСОВА ПАНЕВА",
+      "type": "person",
+      "label": "Таня Атанасова Панева"
+    },
+    {
+      "id": "person:РАДКА КОСТАДИНОВА ПОПОВА",
+      "type": "person",
+      "label": "Радка Костадинова Попова"
+    },
+    {
+      "id": "person:ХРИСТО ГЕОРГИЕВ ВОДЕНИЧАРОВ",
+      "type": "person",
+      "label": "Христо Георгиев Воденичаров"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ДИМИТРОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Венцислав Димитров Александров"
+    },
+    {
+      "id": "person:АТАНАС ИВАНОВ ФУРНАДЖИЕВ",
+      "type": "person",
+      "label": "Атанас Иванов Фурнаджиев"
+    },
+    {
+      "id": "person:ПАВЛИНА ИВАНОВА ФИЛИПОВА",
+      "type": "person",
+      "label": "Павлина Иванова Филипова"
+    },
+    {
+      "id": "person:ХРИСТО ГЕОРГИЕВ МИЛТЕНОВ",
+      "type": "person",
+      "label": "Христо Георгиев Милтенов"
+    },
+    {
+      "id": "person:ИРИНА КОСТАДИНОВА НИКУЛЧИНА",
+      "type": "person",
+      "label": "Ирина Костадинова Никулчина"
+    },
+    {
+      "id": "person:ВЛАДИМИР ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Владимир Илиев Илиев"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ РАДКОВСКИ",
+      "type": "person",
+      "label": "Георги Иванов Радковски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veronika-ilieva-grigorova-aa7e42",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА СТЕФАНОВА ДАФОВСКА",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙКО КИРИЛОВ ПЕНЕВ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ВЪЛЕВ ЦОЧЕВ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛУШ ТРЕНДАФИЛОВ ИВАНЧЕВ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ АТАНАСОВА ПАНЕВА",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА КОСТАДИНОВА ПОПОВА",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕОРГИЕВ ВОДЕНИЧАРОВ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ДИМИТРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ИВАНОВ ФУРНАДЖИЕВ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ИВАНОВ ФУРНАДЖИЕВ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ИВАНОВА ФИЛИПОВА",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕОРГИЕВ МИЛТЕНОВ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА КОСТАДИНОВА НИКУЛЧИНА",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ РАДКОВСКИ",
+      "target": "company:tr:121448709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

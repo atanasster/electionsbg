@@ -1,1 +1,127 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:decho-dimitrov-koeshinov-3c09b6","nodes":[{"id":"official:decho-dimitrov-koeshinov-3c09b6","type":"official","slug":"decho-dimitrov-koeshinov-3c09b6","label":"Дечо Димитров Коешинов","tier":"municipal","role":"councillor","municipality":"Айтос"},{"id":"company:tr:812117250","type":"company","label":"БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ","slug":null,"uic":"812117250","legalForm":null,"status":null,"seat":null},{"id":"person:РАДОСТИН ИВАНОВ СТОЯНОВ","type":"person","label":"Радостин Иванов Стоянов"},{"id":"person:ПЛАМЕН ГЕОРГИЕВ ЯНЕВ","type":"person","label":"Пламен Георгиев Янев"},{"id":"person:ДИМИТЪР ПЕТЕВ РОШМАНОВ","type":"person","label":"Димитър Петев Рошманов"},{"id":"person:ЧАВДАР ПЕТРОВ ЗАМФИРОВ","type":"person","label":"Чавдар Петров Замфиров"}],"edges":[{"source":"official:decho-dimitrov-koeshinov-3c09b6","target":"company:tr:812117250","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:decho-dimitrov-koeshinov-3c09b6","target":"company:tr:812117250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:РАДОСТИН ИВАНОВ СТОЯНОВ","target":"company:tr:812117250","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ГЕОРГИЕВ ЯНЕВ","target":"company:tr:812117250","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТЕВ РОШМАНОВ","target":"company:tr:812117250","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ГЕОРГИЕВ ЯНЕВ","target":"company:tr:812117250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТЕВ РОШМАНОВ","target":"company:tr:812117250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИН ИВАНОВ СТОЯНОВ","target":"company:tr:812117250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР ПЕТРОВ ЗАМФИРОВ","target":"company:tr:812117250","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР ПЕТРОВ ЗАМФИРОВ","target":"company:tr:812117250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:decho-dimitrov-koeshinov-3c09b6",
+  "nodes": [
+    {
+      "id": "official:decho-dimitrov-koeshinov-3c09b6",
+      "type": "official",
+      "slug": "decho-dimitrov-koeshinov-3c09b6",
+      "label": "Дечо Димитров Коешинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос"
+    },
+    {
+      "id": "company:tr:812117250",
+      "type": "company",
+      "label": "БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ",
+      "slug": null,
+      "uic": "812117250",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСТИН ИВАНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Радостин Иванов Стоянов"
+    },
+    {
+      "id": "person:ПЛАМЕН ГЕОРГИЕВ ЯНЕВ",
+      "type": "person",
+      "label": "Пламен Георгиев Янев"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТЕВ РОШМАНОВ",
+      "type": "person",
+      "label": "Димитър Петев Рошманов"
+    },
+    {
+      "id": "person:ЧАВДАР ПЕТРОВ ЗАМФИРОВ",
+      "type": "person",
+      "label": "Чавдар Петров Замфиров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:decho-dimitrov-koeshinov-3c09b6",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:decho-dimitrov-koeshinov-3c09b6",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСТИН ИВАНОВ СТОЯНОВ",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ ЯНЕВ",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТЕВ РОШМАНОВ",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ ЯНЕВ",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТЕВ РОШМАНОВ",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИН ИВАНОВ СТОЯНОВ",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР ПЕТРОВ ЗАМФИРОВ",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР ПЕТРОВ ЗАМФИРОВ",
+      "target": "company:tr:812117250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hikmet-hasan-durak-dfb594","nodes":[{"id":"official:hikmet-hasan-durak-dfb594","type":"official","slug":"hikmet-hasan-durak-dfb594","label":"Хикмет Хасан Дурак","tier":"municipal","role":"councillor","municipality":"Кирково"},{"id":"company:tr:207207509","type":"company","label":"ДУРАК 2022","slug":null,"uic":"207207509","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:hikmet-hasan-durak-dfb594","target":"company:tr:207207509","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hikmet-hasan-durak-dfb594","target":"company:tr:207207509","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hikmet-hasan-durak-dfb594",
+  "nodes": [
+    {
+      "id": "official:hikmet-hasan-durak-dfb594",
+      "type": "official",
+      "slug": "hikmet-hasan-durak-dfb594",
+      "label": "Хикмет Хасан Дурак",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кирково"
+    },
+    {
+      "id": "company:tr:207207509",
+      "type": "company",
+      "label": "ДУРАК 2022",
+      "slug": null,
+      "uic": "207207509",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hikmet-hasan-durak-dfb594",
+      "target": "company:tr:207207509",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hikmet-hasan-durak-dfb594",
+      "target": "company:tr:207207509",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetlozar-veselinov-pehlivanov-d77a17","nodes":[{"id":"official:svetlozar-veselinov-pehlivanov-d77a17","type":"official","slug":"svetlozar-veselinov-pehlivanov-d77a17","label":"Светлозар Веселинов Пехливанов","tier":"municipal","role":"councillor","municipality":"Златоград"},{"id":"company:tr:120550180","type":"company","label":"РОДОПИ ЕКО ПРОДЖЕКТС","slug":null,"uic":"120550180","legalForm":null,"status":null,"seat":null},{"id":"person:РУЖА ХИТОВА БОДУРОВА","type":"person","label":"Ружа Хитова Бодурова"},{"id":"person:БОЖИДАР ДАНАИЛОВ КИСЬОВ","type":"person","label":"Божидар Данаилов Кисьов"}],"edges":[{"source":"official:svetlozar-veselinov-pehlivanov-d77a17","target":"company:tr:120550180","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:РУЖА ХИТОВА БОДУРОВА","target":"company:tr:120550180","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАР ДАНАИЛОВ КИСЬОВ","target":"company:tr:120550180","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetlozar-veselinov-pehlivanov-d77a17",
+  "nodes": [
+    {
+      "id": "official:svetlozar-veselinov-pehlivanov-d77a17",
+      "type": "official",
+      "slug": "svetlozar-veselinov-pehlivanov-d77a17",
+      "label": "Светлозар Веселинов Пехливанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златоград"
+    },
+    {
+      "id": "company:tr:120550180",
+      "type": "company",
+      "label": "РОДОПИ ЕКО ПРОДЖЕКТС",
+      "slug": null,
+      "uic": "120550180",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУЖА ХИТОВА БОДУРОВА",
+      "type": "person",
+      "label": "Ружа Хитова Бодурова"
+    },
+    {
+      "id": "person:БОЖИДАР ДАНАИЛОВ КИСЬОВ",
+      "type": "person",
+      "label": "Божидар Данаилов Кисьов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlozar-veselinov-pehlivanov-d77a17",
+      "target": "company:tr:120550180",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУЖА ХИТОВА БОДУРОВА",
+      "target": "company:tr:120550180",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ДАНАИЛОВ КИСЬОВ",
+      "target": "company:tr:120550180",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

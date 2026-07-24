@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vasil-peev-peev-4a9aa9","nodes":[{"id":"official:vasil-peev-peev-4a9aa9","type":"official","slug":"vasil-peev-peev-4a9aa9","label":"ВАСИЛ ПЕЕВ ПЕЕВ","tier":"executive","role":"secretary_general","municipality":null},{"id":"company:tr:102904300","type":"company","label":"МЕДЕЯ - СТЕЛА","slug":null,"uic":"102904300","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vasil-peev-peev-4a9aa9","target":"company:tr:102904300","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vasil-peev-peev-4a9aa9",
+  "nodes": [
+    {
+      "id": "official:vasil-peev-peev-4a9aa9",
+      "type": "official",
+      "slug": "vasil-peev-peev-4a9aa9",
+      "label": "ВАСИЛ ПЕЕВ ПЕЕВ",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102904300",
+      "type": "company",
+      "label": "МЕДЕЯ - СТЕЛА",
+      "slug": null,
+      "uic": "102904300",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-peev-peev-4a9aa9",
+      "target": "company:tr:102904300",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

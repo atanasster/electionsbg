@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:penka-nikolova-krsteva-e45a7f","nodes":[{"id":"official:penka-nikolova-krsteva-e45a7f","type":"official","slug":"penka-nikolova-krsteva-e45a7f","label":"Пенка Николова Кръстева","tier":"municipal","role":"councillor","municipality":"Велинград"},{"id":"company:tr:112509725","type":"company","label":"Пемс ООД","slug":null,"uic":"112509725","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:penka-nikolova-krsteva-e45a7f","target":"company:tr:112509725","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:penka-nikolova-krsteva-e45a7f",
+  "nodes": [
+    {
+      "id": "official:penka-nikolova-krsteva-e45a7f",
+      "type": "official",
+      "slug": "penka-nikolova-krsteva-e45a7f",
+      "label": "Пенка Николова Кръстева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велинград"
+    },
+    {
+      "id": "company:tr:112509725",
+      "type": "company",
+      "label": "Пемс ООД",
+      "slug": null,
+      "uic": "112509725",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:penka-nikolova-krsteva-e45a7f",
+      "target": "company:tr:112509725",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

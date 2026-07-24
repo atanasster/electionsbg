@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:boyan-stefanov-byanov-520c20","nodes":[{"id":"official:boyan-stefanov-byanov-520c20","type":"official","slug":"boyan-stefanov-byanov-520c20","label":"Боян Стефанов Бянов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207842896","type":"company","label":"БПО Бийст ООД","slug":null,"uic":"207842896","legalForm":null,"status":null,"seat":null},{"id":"person:БОЯН СТЕФАНОВ БЯНОВ","type":"person","label":"Боян Стефанов Бянов"},{"id":"company:name:РИТЕЙЛ ДИВЕЛЪПМЪНТ СЪЛЮШЪНС","type":"company","label":"\"Ритейл Дивелъпмънт Сълюшънс\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:boyan-stefanov-byanov-520c20","target":"company:tr:207842896","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:БОЯН СТЕФАНОВ БЯНОВ","target":"company:tr:207842896","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОЯН СТЕФАНОВ БЯНОВ","target":"company:tr:207842896","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:РИТЕЙЛ ДИВЕЛЪПМЪНТ СЪЛЮШЪНС","target":"company:tr:207842896","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:boyan-stefanov-byanov-520c20",
+  "nodes": [
+    {
+      "id": "official:boyan-stefanov-byanov-520c20",
+      "type": "official",
+      "slug": "boyan-stefanov-byanov-520c20",
+      "label": "Боян Стефанов Бянов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207842896",
+      "type": "company",
+      "label": "БПО Бийст ООД",
+      "slug": null,
+      "uic": "207842896",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОЯН СТЕФАНОВ БЯНОВ",
+      "type": "person",
+      "label": "Боян Стефанов Бянов"
+    },
+    {
+      "id": "company:name:РИТЕЙЛ ДИВЕЛЪПМЪНТ СЪЛЮШЪНС",
+      "type": "company",
+      "label": "\"Ритейл Дивелъпмънт Сълюшънс\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boyan-stefanov-byanov-520c20",
+      "target": "company:tr:207842896",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН СТЕФАНОВ БЯНОВ",
+      "target": "company:tr:207842896",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН СТЕФАНОВ БЯНОВ",
+      "target": "company:tr:207842896",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:РИТЕЙЛ ДИВЕЛЪПМЪНТ СЪЛЮШЪНС",
+      "target": "company:tr:207842896",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,104 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petko-kolev-doikov-eb122d","nodes":[{"id":"official:petko-kolev-doikov-eb122d","type":"official","slug":"petko-kolev-doikov-eb122d","label":"Петко Колев Дойков","tier":"executive","role":"diplomat","municipality":null},{"id":"company:tr:175394599","type":"company","label":"Ивент Бутик ООД","slug":null,"uic":"175394599","legalForm":null,"status":null,"seat":null},{"id":"company:tr:131452079","type":"company","label":"П2П ЕООД","slug":null,"uic":"131452079","legalForm":null,"status":null,"seat":null},{"id":"official:petko-kolev-doikov-97d41c","type":"official","slug":"petko-kolev-doikov-97d41c","label":"Петко Колев Дойков","tier":"executive","role":"deputy_minister","municipality":null},{"id":"person:ВИОЛЕТА ТОДОРОВА ТЕНЕВА","type":"person","label":"Виолета Тодорова Тенева"},{"id":"person:ГАВРАИЛ ДОНЧЕВ ХРУСАНОВ","type":"person","label":"Гавраил Дончев Хрусанов"}],"edges":[{"source":"official:petko-kolev-doikov-eb122d","target":"company:tr:175394599","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:petko-kolev-doikov-eb122d","target":"company:tr:131452079","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:petko-kolev-doikov-97d41c","target":"company:tr:175394599","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ТОДОРОВА ТЕНЕВА","target":"company:tr:175394599","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:ГАВРАИЛ ДОНЧЕВ ХРУСАНОВ","target":"company:tr:175394599","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"official:petko-kolev-doikov-97d41c","target":"company:tr:131452079","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petko-kolev-doikov-eb122d",
+  "nodes": [
+    {
+      "id": "official:petko-kolev-doikov-eb122d",
+      "type": "official",
+      "slug": "petko-kolev-doikov-eb122d",
+      "label": "Петко Колев Дойков",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175394599",
+      "type": "company",
+      "label": "Ивент Бутик ООД",
+      "slug": null,
+      "uic": "175394599",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131452079",
+      "type": "company",
+      "label": "П2П ЕООД",
+      "slug": null,
+      "uic": "131452079",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:petko-kolev-doikov-97d41c",
+      "type": "official",
+      "slug": "petko-kolev-doikov-97d41c",
+      "label": "Петко Колев Дойков",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "person:ВИОЛЕТА ТОДОРОВА ТЕНЕВА",
+      "type": "person",
+      "label": "Виолета Тодорова Тенева"
+    },
+    {
+      "id": "person:ГАВРАИЛ ДОНЧЕВ ХРУСАНОВ",
+      "type": "person",
+      "label": "Гавраил Дончев Хрусанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petko-kolev-doikov-eb122d",
+      "target": "company:tr:175394599",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:petko-kolev-doikov-eb122d",
+      "target": "company:tr:131452079",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:petko-kolev-doikov-97d41c",
+      "target": "company:tr:175394599",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ТОДОРОВА ТЕНЕВА",
+      "target": "company:tr:175394599",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАВРАИЛ ДОНЧЕВ ХРУСАНОВ",
+      "target": "company:tr:175394599",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:petko-kolev-doikov-97d41c",
+      "target": "company:tr:131452079",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

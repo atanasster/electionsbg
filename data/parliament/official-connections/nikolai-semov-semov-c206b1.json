@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-semov-semov-c206b1","nodes":[{"id":"official:nikolai-semov-semov-c206b1","type":"official","slug":"nikolai-semov-semov-c206b1","label":"НИКОЛАЙ СЕМОВ СЕМОВ","tier":"executive","role":"international","municipality":null},{"id":"company:tr:206365278","type":"company","label":"КОЛОРИТ 70","slug":null,"uic":"206365278","legalForm":null,"status":null,"seat":null},{"id":"person:СТАНИСЛАВА НИКОЛАЕВА СЕМОВА","type":"person","label":"Станислава Николаева Семова"}],"edges":[{"source":"official:nikolai-semov-semov-c206b1","target":"company:tr:206365278","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-semov-semov-c206b1","target":"company:tr:206365278","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СТАНИСЛАВА НИКОЛАЕВА СЕМОВА","target":"company:tr:206365278","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-semov-semov-c206b1",
+  "nodes": [
+    {
+      "id": "official:nikolai-semov-semov-c206b1",
+      "type": "official",
+      "slug": "nikolai-semov-semov-c206b1",
+      "label": "НИКОЛАЙ СЕМОВ СЕМОВ",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206365278",
+      "type": "company",
+      "label": "КОЛОРИТ 70",
+      "slug": null,
+      "uic": "206365278",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИСЛАВА НИКОЛАЕВА СЕМОВА",
+      "type": "person",
+      "label": "Станислава Николаева Семова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-semov-semov-c206b1",
+      "target": "company:tr:206365278",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-semov-semov-c206b1",
+      "target": "company:tr:206365278",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИСЛАВА НИКОЛАЕВА СЕМОВА",
+      "target": "company:tr:206365278",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,144 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivalinka-todorova-tsankova-70d4f3","nodes":[{"id":"official:ivalinka-todorova-tsankova-70d4f3","type":"official","slug":"ivalinka-todorova-tsankova-70d4f3","label":"Ивалинка Тодорова Цанкова","tier":"municipal","role":"councillor","municipality":"Иваново"},{"id":"company:tr:206093796","type":"company","label":"ИТК Цанкови ЕООД","slug":null,"uic":"206093796","legalForm":null,"status":null,"seat":null},{"id":"company:tr:117057633","type":"company","label":"ОТЕЦ ПАИСИЙ-1927 - С.МЕЧКА","slug":null,"uic":"117057633","legalForm":null,"status":null,"seat":null},{"id":"person:ЦАНА ВЕЛИКОВА АТАНАСОВА","type":"person","label":"Цана Великова Атанасова"},{"id":"person:СВЕТОСЛАВ ВЕЛИКОВ СЛАВЕВ","type":"person","label":"Светослав Великов Славев"},{"id":"person:ТЕОФИЛ СПАСОВ ГЕОРГИЕВ","type":"person","label":"Теофил Спасов Георгиев"},{"id":"person:ГЕРГАНА ОГНЯНОВА ПЕТКОВА","type":"person","label":"Гергана Огнянова Петкова"},{"id":"person:НЕДКА АТАНАСОВА ЦАНЕВА","type":"person","label":"Недка Атанасова Цанева"},{"id":"person:ГАЛЯ ГЕОРГИЕВА ВЕНКОВА","type":"person","label":"Галя Георгиева Венкова"},{"id":"person:НАДКА ХРИСТОВА ЙОРДАНОВА","type":"person","label":"Надка Христова Йорданова"}],"edges":[{"source":"official:ivalinka-todorova-tsankova-70d4f3","target":"company:tr:206093796","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivalinka-todorova-tsankova-70d4f3","target":"company:tr:117057633","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЦАНА ВЕЛИКОВА АТАНАСОВА","target":"company:tr:117057633","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ВЕЛИКОВ СЛАВЕВ","target":"company:tr:117057633","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОФИЛ СПАСОВ ГЕОРГИЕВ","target":"company:tr:117057633","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ОГНЯНОВА ПЕТКОВА","target":"company:tr:117057633","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКА АТАНАСОВА ЦАНЕВА","target":"company:tr:117057633","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛЯ ГЕОРГИЕВА ВЕНКОВА","target":"company:tr:117057633","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НАДКА ХРИСТОВА ЙОРДАНОВА","target":"company:tr:117057633","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivalinka-todorova-tsankova-70d4f3",
+  "nodes": [
+    {
+      "id": "official:ivalinka-todorova-tsankova-70d4f3",
+      "type": "official",
+      "slug": "ivalinka-todorova-tsankova-70d4f3",
+      "label": "Ивалинка Тодорова Цанкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Иваново"
+    },
+    {
+      "id": "company:tr:206093796",
+      "type": "company",
+      "label": "ИТК Цанкови ЕООД",
+      "slug": null,
+      "uic": "206093796",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:117057633",
+      "type": "company",
+      "label": "ОТЕЦ ПАИСИЙ-1927 - С.МЕЧКА",
+      "slug": null,
+      "uic": "117057633",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦАНА ВЕЛИКОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Цана Великова Атанасова"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ВЕЛИКОВ СЛАВЕВ",
+      "type": "person",
+      "label": "Светослав Великов Славев"
+    },
+    {
+      "id": "person:ТЕОФИЛ СПАСОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Теофил Спасов Георгиев"
+    },
+    {
+      "id": "person:ГЕРГАНА ОГНЯНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Гергана Огнянова Петкова"
+    },
+    {
+      "id": "person:НЕДКА АТАНАСОВА ЦАНЕВА",
+      "type": "person",
+      "label": "Недка Атанасова Цанева"
+    },
+    {
+      "id": "person:ГАЛЯ ГЕОРГИЕВА ВЕНКОВА",
+      "type": "person",
+      "label": "Галя Георгиева Венкова"
+    },
+    {
+      "id": "person:НАДКА ХРИСТОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Надка Христова Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivalinka-todorova-tsankova-70d4f3",
+      "target": "company:tr:206093796",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivalinka-todorova-tsankova-70d4f3",
+      "target": "company:tr:117057633",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦАНА ВЕЛИКОВА АТАНАСОВА",
+      "target": "company:tr:117057633",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ВЕЛИКОВ СЛАВЕВ",
+      "target": "company:tr:117057633",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОФИЛ СПАСОВ ГЕОРГИЕВ",
+      "target": "company:tr:117057633",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ОГНЯНОВА ПЕТКОВА",
+      "target": "company:tr:117057633",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКА АТАНАСОВА ЦАНЕВА",
+      "target": "company:tr:117057633",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ГЕОРГИЕВА ВЕНКОВА",
+      "target": "company:tr:117057633",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДКА ХРИСТОВА ЙОРДАНОВА",
+      "target": "company:tr:117057633",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

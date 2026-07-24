@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-zhelev-filipov-4e2dd3","nodes":[{"id":"official:nikolai-zhelev-filipov-4e2dd3","type":"official","slug":"nikolai-zhelev-filipov-4e2dd3","label":"Николай Желев Филипов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:123113862","type":"company","label":"ФУТБОЛЕН КЛУБ БОТЕВ","slug":null,"uic":"123113862","legalForm":null,"status":null,"seat":null},{"id":"person:ДИНКО ЖЕЛЯЗКОВ ГОСПОДИНОВ","type":"person","label":"Динко Желязков Господинов"},{"id":"person:НЕДЕЛЧО СТОЯНОВ МАНОЛОВ","type":"person","label":"Неделчо Стоянов Манолов"},{"id":"person:НИКОЛАЙ ДИМИТРОВ ИВАНОВ","type":"person","label":"Николай Димитров Иванов"},{"id":"person:СТАНИСЛАВ ЖЕЛЯЗКОВ КОСТОВ","type":"person","label":"Станислав Желязков Костов"}],"edges":[{"source":"official:nikolai-zhelev-filipov-4e2dd3","target":"company:tr:123113862","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДИНКО ЖЕЛЯЗКОВ ГОСПОДИНОВ","target":"company:tr:123113862","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЕЛЧО СТОЯНОВ МАНОЛОВ","target":"company:tr:123113862","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДИМИТРОВ ИВАНОВ","target":"company:tr:123113862","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИНКО ЖЕЛЯЗКОВ ГОСПОДИНОВ","target":"company:tr:123113862","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ ЖЕЛЯЗКОВ КОСТОВ","target":"company:tr:123113862","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-zhelev-filipov-4e2dd3",
+  "nodes": [
+    {
+      "id": "official:nikolai-zhelev-filipov-4e2dd3",
+      "type": "official",
+      "slug": "nikolai-zhelev-filipov-4e2dd3",
+      "label": "Николай Желев Филипов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123113862",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ БОТЕВ",
+      "slug": null,
+      "uic": "123113862",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИНКО ЖЕЛЯЗКОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Динко Желязков Господинов"
+    },
+    {
+      "id": "person:НЕДЕЛЧО СТОЯНОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Неделчо Стоянов Манолов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Николай Димитров Иванов"
+    },
+    {
+      "id": "person:СТАНИСЛАВ ЖЕЛЯЗКОВ КОСТОВ",
+      "type": "person",
+      "label": "Станислав Желязков Костов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-zhelev-filipov-4e2dd3",
+      "target": "company:tr:123113862",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИНКО ЖЕЛЯЗКОВ ГОСПОДИНОВ",
+      "target": "company:tr:123113862",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЧО СТОЯНОВ МАНОЛОВ",
+      "target": "company:tr:123113862",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:123113862",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО ЖЕЛЯЗКОВ ГОСПОДИНОВ",
+      "target": "company:tr:123113862",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ЖЕЛЯЗКОВ КОСТОВ",
+      "target": "company:tr:123113862",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

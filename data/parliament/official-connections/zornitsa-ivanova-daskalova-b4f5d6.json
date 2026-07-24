@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zornitsa-ivanova-daskalova-b4f5d6","nodes":[{"id":"official:zornitsa-ivanova-daskalova-b4f5d6","type":"official","slug":"zornitsa-ivanova-daskalova-b4f5d6","label":"Зорница Иванова Даскалова","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:203851079","type":"company","label":"ВДЗ Билд ЕООД","slug":null,"uic":"203851079","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201183134","type":"company","label":"Блейси ЕООД","slug":null,"uic":"201183134","legalForm":null,"status":null,"seat":null},{"id":"person:ВЛАДИМИР САШОВ ДАСКАЛОВ","type":"person","label":"Владимир Сашов Даскалов"}],"edges":[{"source":"official:zornitsa-ivanova-daskalova-b4f5d6","target":"company:tr:203851079","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:zornitsa-ivanova-daskalova-b4f5d6","target":"company:tr:201183134","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:zornitsa-ivanova-daskalova-b4f5d6","target":"company:tr:203851079","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЛАДИМИР САШОВ ДАСКАЛОВ","target":"company:tr:203851079","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zornitsa-ivanova-daskalova-b4f5d6",
+  "nodes": [
+    {
+      "id": "official:zornitsa-ivanova-daskalova-b4f5d6",
+      "type": "official",
+      "slug": "zornitsa-ivanova-daskalova-b4f5d6",
+      "label": "Зорница Иванова Даскалова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203851079",
+      "type": "company",
+      "label": "ВДЗ Билд ЕООД",
+      "slug": null,
+      "uic": "203851079",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201183134",
+      "type": "company",
+      "label": "Блейси ЕООД",
+      "slug": null,
+      "uic": "201183134",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР САШОВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Владимир Сашов Даскалов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zornitsa-ivanova-daskalova-b4f5d6",
+      "target": "company:tr:203851079",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zornitsa-ivanova-daskalova-b4f5d6",
+      "target": "company:tr:201183134",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zornitsa-ivanova-daskalova-b4f5d6",
+      "target": "company:tr:203851079",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР САШОВ ДАСКАЛОВ",
+      "target": "company:tr:203851079",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

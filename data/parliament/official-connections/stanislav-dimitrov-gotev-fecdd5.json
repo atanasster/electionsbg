@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stanislav-dimitrov-gotev-fecdd5","nodes":[{"id":"official:stanislav-dimitrov-gotev-fecdd5","type":"official","slug":"stanislav-dimitrov-gotev-fecdd5","label":"Станислав Димитров Готев","tier":"municipal","role":"councillor","municipality":"Пирдоп"},{"id":"company:tr:175510580","type":"company","label":"СДРУЖЕНИЕ ИНСТИТУТ ЗА ПОЛИТИКИ И РАЗВИТИЕ","slug":null,"uic":"175510580","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМИТРИНА КОНСТАНТИНОВА АЛЕКСАНДРОВА","type":"person","label":"Димитрина Константинова Александрова"},{"id":"person:ЕМИЛ АТАНАСОВ ВАКЪВЧИЕВ","type":"person","label":"Емил Атанасов Вакъвчиев"}],"edges":[{"source":"official:stanislav-dimitrov-gotev-fecdd5","target":"company:tr:175510580","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТРИНА КОНСТАНТИНОВА АЛЕКСАНДРОВА","target":"company:tr:175510580","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА КОНСТАНТИНОВА АЛЕКСАНДРОВА","target":"company:tr:175510580","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ АТАНАСОВ ВАКЪВЧИЕВ","target":"company:tr:175510580","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stanislav-dimitrov-gotev-fecdd5",
+  "nodes": [
+    {
+      "id": "official:stanislav-dimitrov-gotev-fecdd5",
+      "type": "official",
+      "slug": "stanislav-dimitrov-gotev-fecdd5",
+      "label": "Станислав Димитров Готев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пирдоп"
+    },
+    {
+      "id": "company:tr:175510580",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ИНСТИТУТ ЗА ПОЛИТИКИ И РАЗВИТИЕ",
+      "slug": null,
+      "uic": "175510580",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТРИНА КОНСТАНТИНОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Димитрина Константинова Александрова"
+    },
+    {
+      "id": "person:ЕМИЛ АТАНАСОВ ВАКЪВЧИЕВ",
+      "type": "person",
+      "label": "Емил Атанасов Вакъвчиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-dimitrov-gotev-fecdd5",
+      "target": "company:tr:175510580",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТРИНА КОНСТАНТИНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:175510580",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА КОНСТАНТИНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:175510580",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ АТАНАСОВ ВАКЪВЧИЕВ",
+      "target": "company:tr:175510580",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

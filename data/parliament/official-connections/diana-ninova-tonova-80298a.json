@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:diana-ninova-tonova-80298a","nodes":[{"id":"official:diana-ninova-tonova-80298a","type":"official","slug":"diana-ninova-tonova-80298a","label":"Диана Нинова Тонова","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:tr:208069573","type":"company","label":"Ди енд ди транс флауърс консулт ЕООД","slug":null,"uic":"208069573","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМИТЪР ХРИСТОВ ТОНОВ","type":"person","label":"Димитър Христов Тонов"}],"edges":[{"source":"official:diana-ninova-tonova-80298a","target":"company:tr:208069573","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ХРИСТОВ ТОНОВ","target":"company:tr:208069573","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ХРИСТОВ ТОНОВ","target":"company:tr:208069573","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:diana-ninova-tonova-80298a",
+  "nodes": [
+    {
+      "id": "official:diana-ninova-tonova-80298a",
+      "type": "official",
+      "slug": "diana-ninova-tonova-80298a",
+      "label": "Диана Нинова Тонова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:208069573",
+      "type": "company",
+      "label": "Ди енд ди транс флауърс консулт ЕООД",
+      "slug": null,
+      "uic": "208069573",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ ТОНОВ",
+      "type": "person",
+      "label": "Димитър Христов Тонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-ninova-tonova-80298a",
+      "target": "company:tr:208069573",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ ТОНОВ",
+      "target": "company:tr:208069573",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ ТОНОВ",
+      "target": "company:tr:208069573",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

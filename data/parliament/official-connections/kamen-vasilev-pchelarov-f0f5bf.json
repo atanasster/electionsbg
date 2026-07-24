@@ -1,1 +1,176 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kamen-vasilev-pchelarov-f0f5bf","nodes":[{"id":"official:kamen-vasilev-pchelarov-f0f5bf","type":"official","slug":"kamen-vasilev-pchelarov-f0f5bf","label":"Камен Василев Пчеларов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:204860889","type":"company","label":"\"ИНТЕРФИН\" ЕООД","slug":null,"uic":"204860889","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206671456","type":"company","label":"СОФИНВЕСТ","slug":null,"uic":"206671456","legalForm":null,"status":null,"seat":null},{"id":"official:nikola-aleksandrov-onov-e3759b","type":"official","slug":"nikola-aleksandrov-onov-e3759b","label":"Никола Александров Онов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:ralitsa-takeva-takeva-c41d4a","type":"official","slug":"ralitsa-takeva-takeva-c41d4a","label":"Ралица Такева Такева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ЧАВДАР НАЙДЕНОВ ГИГОВ","type":"person","label":"Чавдар Найденов Гигов"},{"id":"person:СТОЛИЧНА ОБЩИНА","type":"person","label":"Столична Община"},{"id":"person:ДЕЛЯНА АНТОНОВА ПАНАЙОТОВА","type":"person","label":"Деляна Антонова Панайотова"},{"id":"person:ВАСИЛ ДИМИТРОВ НЕКОВ","type":"person","label":"Васил Димитров Неков"},{"id":"person:НАДЕЖДА ГАНЧЕВА НИКОВА","type":"person","label":"Надежда Ганчева Никова"}],"edges":[{"source":"official:kamen-vasilev-pchelarov-f0f5bf","target":"company:tr:204860889","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:kamen-vasilev-pchelarov-f0f5bf","target":"company:tr:206671456","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:nikola-aleksandrov-onov-e3759b","target":"company:tr:206671456","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:ralitsa-takeva-takeva-c41d4a","target":"company:tr:206671456","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЧАВДАР НАЙДЕНОВ ГИГОВ","target":"company:tr:206671456","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР НАЙДЕНОВ ГИГОВ","target":"company:tr:206671456","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТОЛИЧНА ОБЩИНА","target":"company:tr:206671456","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯНА АНТОНОВА ПАНАЙОТОВА","target":"company:tr:206671456","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯНА АНТОНОВА ПАНАЙОТОВА","target":"company:tr:206671456","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ДИМИТРОВ НЕКОВ","target":"company:tr:206671456","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА ГАНЧЕВА НИКОВА","target":"company:tr:206671456","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА ГАНЧЕВА НИКОВА","target":"company:tr:206671456","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kamen-vasilev-pchelarov-f0f5bf",
+  "nodes": [
+    {
+      "id": "official:kamen-vasilev-pchelarov-f0f5bf",
+      "type": "official",
+      "slug": "kamen-vasilev-pchelarov-f0f5bf",
+      "label": "Камен Василев Пчеларов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204860889",
+      "type": "company",
+      "label": "\"ИНТЕРФИН\" ЕООД",
+      "slug": null,
+      "uic": "204860889",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206671456",
+      "type": "company",
+      "label": "СОФИНВЕСТ",
+      "slug": null,
+      "uic": "206671456",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nikola-aleksandrov-onov-e3759b",
+      "type": "official",
+      "slug": "nikola-aleksandrov-onov-e3759b",
+      "label": "Никола Александров Онов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ralitsa-takeva-takeva-c41d4a",
+      "type": "official",
+      "slug": "ralitsa-takeva-takeva-c41d4a",
+      "label": "Ралица Такева Такева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЧАВДАР НАЙДЕНОВ ГИГОВ",
+      "type": "person",
+      "label": "Чавдар Найденов Гигов"
+    },
+    {
+      "id": "person:СТОЛИЧНА ОБЩИНА",
+      "type": "person",
+      "label": "Столична Община"
+    },
+    {
+      "id": "person:ДЕЛЯНА АНТОНОВА ПАНАЙОТОВА",
+      "type": "person",
+      "label": "Деляна Антонова Панайотова"
+    },
+    {
+      "id": "person:ВАСИЛ ДИМИТРОВ НЕКОВ",
+      "type": "person",
+      "label": "Васил Димитров Неков"
+    },
+    {
+      "id": "person:НАДЕЖДА ГАНЧЕВА НИКОВА",
+      "type": "person",
+      "label": "Надежда Ганчева Никова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kamen-vasilev-pchelarov-f0f5bf",
+      "target": "company:tr:204860889",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kamen-vasilev-pchelarov-f0f5bf",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikola-aleksandrov-onov-e3759b",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ralitsa-takeva-takeva-c41d4a",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЧАВДАР НАЙДЕНОВ ГИГОВ",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР НАЙДЕНОВ ГИГОВ",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЛИЧНА ОБЩИНА",
+      "target": "company:tr:206671456",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯНА АНТОНОВА ПАНАЙОТОВА",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯНА АНТОНОВА ПАНАЙОТОВА",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ДИМИТРОВ НЕКОВ",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ГАНЧЕВА НИКОВА",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ГАНЧЕВА НИКОВА",
+      "target": "company:tr:206671456",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

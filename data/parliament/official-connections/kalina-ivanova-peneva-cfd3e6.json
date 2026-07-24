@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kalina-ivanova-peneva-cfd3e6","nodes":[{"id":"official:kalina-ivanova-peneva-cfd3e6","type":"official","slug":"kalina-ivanova-peneva-cfd3e6","label":"Калина Иванова Пенева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:147252411","type":"company","label":"\"Елфилифт\" ООД","slug":null,"uic":"147252411","legalForm":null,"status":null,"seat":null},{"id":"person:ПЛАМЕН ГОСПОДИНОВ ПЕНЕВ","type":"person","label":"Пламен Господинов Пенев"},{"id":"person:СТОЯН ДИМИТРОВ ТОМОВ","type":"person","label":"Стоян Димитров Томов"}],"edges":[{"source":"official:kalina-ivanova-peneva-cfd3e6","target":"company:tr:147252411","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ГОСПОДИНОВ ПЕНЕВ","target":"company:tr:147252411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИМИТРОВ ТОМОВ","target":"company:tr:147252411","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kalina-ivanova-peneva-cfd3e6",
+  "nodes": [
+    {
+      "id": "official:kalina-ivanova-peneva-cfd3e6",
+      "type": "official",
+      "slug": "kalina-ivanova-peneva-cfd3e6",
+      "label": "Калина Иванова Пенева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:147252411",
+      "type": "company",
+      "label": "\"Елфилифт\" ООД",
+      "slug": null,
+      "uic": "147252411",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ГОСПОДИНОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Пламен Господинов Пенев"
+    },
+    {
+      "id": "person:СТОЯН ДИМИТРОВ ТОМОВ",
+      "type": "person",
+      "label": "Стоян Димитров Томов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kalina-ivanova-peneva-cfd3e6",
+      "target": "company:tr:147252411",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГОСПОДИНОВ ПЕНЕВ",
+      "target": "company:tr:147252411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ ТОМОВ",
+      "target": "company:tr:147252411",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

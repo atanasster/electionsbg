@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-ivanova-noneva-b4e6c5","nodes":[{"id":"official:mariya-ivanova-noneva-b4e6c5","type":"official","slug":"mariya-ivanova-noneva-b4e6c5","label":"Мария Иванова Нонева","tier":"municipal","role":"councillor","municipality":"Сандански"},{"id":"company:tr:101793690","type":"company","label":"ДАНИДАР КОНСУЛТ ЕООД","slug":null,"uic":"101793690","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:mariya-ivanova-noneva-b4e6c5","target":"company:tr:101793690","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-ivanova-noneva-b4e6c5",
+  "nodes": [
+    {
+      "id": "official:mariya-ivanova-noneva-b4e6c5",
+      "type": "official",
+      "slug": "mariya-ivanova-noneva-b4e6c5",
+      "label": "Мария Иванова Нонева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:101793690",
+      "type": "company",
+      "label": "ДАНИДАР КОНСУЛТ ЕООД",
+      "slug": null,
+      "uic": "101793690",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-ivanova-noneva-b4e6c5",
+      "target": "company:tr:101793690",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

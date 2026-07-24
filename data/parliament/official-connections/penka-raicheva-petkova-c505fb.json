@@ -1,1 +1,259 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:penka-raicheva-petkova-c505fb","nodes":[{"id":"official:penka-raicheva-petkova-c505fb","type":"official","slug":"penka-raicheva-petkova-c505fb","label":"Пенка Райчева Петкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000456203","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СЕЛСКА ПРОБУДА - 1896г.&quot; -  . ГРАДИНА","slug":null,"uic":"000456203","legalForm":null,"status":null,"seat":null},{"id":"person:НЕДЯЛКА ЖЕЛЯЗКОВА СТОЕВА","type":"person","label":"Недялка Желязкова Стоева"},{"id":"person:ТОДОРКА ЖЕЛЕВА ДОЙЧЕВА","type":"person","label":"Тодорка Желева Дойчева"},{"id":"person:ЕЛЕНКА СПАСОВА ПЕТРОВА","type":"person","label":"Еленка Спасова Петрова"},{"id":"person:МАРИЯ БАЛЕВА ТОНЧЕВА","type":"person","label":"Мария Балева Тончева"},{"id":"person:КАТЯ НАЙДЕНОВА ИВАНОВА","type":"person","label":"Катя Найденова Иванова"},{"id":"person:ГИНКА СЛАВЧЕВА ИВАНОВА","type":"person","label":"Гинка Славчева Иванова"},{"id":"person:РАДКА АТАНАСОВА ПЕТРОВА","type":"person","label":"Радка Атанасова Петрова"},{"id":"person:ИВАНКА ПЕТКОВА НАЙДЕНОВА","type":"person","label":"Иванка Петкова Найденова"},{"id":"person:НАТАША ПЕТРОВА БАЛЕВА","type":"person","label":"Наташа Петрова Балева"},{"id":"person:АЛТЪНКА ДИМИТРОВА ВАСИЛЕВА","type":"person","label":"Алтънка Димитрова Василева"},{"id":"person:ДОНКА РАШЕВА ТОДОРОВА","type":"person","label":"Донка Рашева Тодорова"},{"id":"person:ЙОРДАНКА ИВАНОВА ГЕОРГИЕВА","type":"person","label":"Йорданка Иванова Георгиева"},{"id":"person:СЛАВКА ИВАНОВА СЛАВЧЕВА","type":"person","label":"Славка Иванова Славчева"},{"id":"person:ДАРИНА ХРИСТОВА АНГЕЛОВА","type":"person","label":"Дарина Христова Ангелова"},{"id":"person:ДОНКА НИХТЯНОВА ВЪЛЧАНОВА","type":"person","label":"Донка Нихтянова Вълчанова"},{"id":"person:ПЕНКА АНГЕЛОВА НАЙДЕНОВА","type":"person","label":"Пенка Ангелова Найденова"}],"edges":[{"source":"official:penka-raicheva-petkova-c505fb","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:НЕДЯЛКА ЖЕЛЯЗКОВА СТОЕВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРКА ЖЕЛЕВА ДОЙЧЕВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНКА СПАСОВА ПЕТРОВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ БАЛЕВА ТОНЧЕВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ НАЙДЕНОВА ИВАНОВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА СЛАВЧЕВА ИВАНОВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА АТАНАСОВА ПЕТРОВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ПЕТКОВА НАЙДЕНОВА","target":"company:tr:000456203","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НАТАША ПЕТРОВА БАЛЕВА","target":"company:tr:000456203","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АЛТЪНКА ДИМИТРОВА ВАСИЛЕВА","target":"company:tr:000456203","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРКА ЖЕЛЕВА ДОЙЧЕВА","target":"company:tr:000456203","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА РАШЕВА ТОДОРОВА","target":"company:tr:000456203","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА РАШЕВА ТОДОРОВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ИВАНОВА ГЕОРГИЕВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВКА ИВАНОВА СЛАВЧЕВА","target":"company:tr:000456203","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИНА ХРИСТОВА АНГЕЛОВА","target":"company:tr:000456203","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА НИХТЯНОВА ВЪЛЧАНОВА","target":"company:tr:000456203","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА АНГЕЛОВА НАЙДЕНОВА","target":"company:tr:000456203","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:penka-raicheva-petkova-c505fb",
+  "nodes": [
+    {
+      "id": "official:penka-raicheva-petkova-c505fb",
+      "type": "official",
+      "slug": "penka-raicheva-petkova-c505fb",
+      "label": "Пенка Райчева Петкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000456203",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЕЛСКА ПРОБУДА - 1896г.&quot; -  . ГРАДИНА",
+      "slug": null,
+      "uic": "000456203",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕДЯЛКА ЖЕЛЯЗКОВА СТОЕВА",
+      "type": "person",
+      "label": "Недялка Желязкова Стоева"
+    },
+    {
+      "id": "person:ТОДОРКА ЖЕЛЕВА ДОЙЧЕВА",
+      "type": "person",
+      "label": "Тодорка Желева Дойчева"
+    },
+    {
+      "id": "person:ЕЛЕНКА СПАСОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Еленка Спасова Петрова"
+    },
+    {
+      "id": "person:МАРИЯ БАЛЕВА ТОНЧЕВА",
+      "type": "person",
+      "label": "Мария Балева Тончева"
+    },
+    {
+      "id": "person:КАТЯ НАЙДЕНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Катя Найденова Иванова"
+    },
+    {
+      "id": "person:ГИНКА СЛАВЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Гинка Славчева Иванова"
+    },
+    {
+      "id": "person:РАДКА АТАНАСОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Радка Атанасова Петрова"
+    },
+    {
+      "id": "person:ИВАНКА ПЕТКОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Иванка Петкова Найденова"
+    },
+    {
+      "id": "person:НАТАША ПЕТРОВА БАЛЕВА",
+      "type": "person",
+      "label": "Наташа Петрова Балева"
+    },
+    {
+      "id": "person:АЛТЪНКА ДИМИТРОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Алтънка Димитрова Василева"
+    },
+    {
+      "id": "person:ДОНКА РАШЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Донка Рашева Тодорова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Йорданка Иванова Георгиева"
+    },
+    {
+      "id": "person:СЛАВКА ИВАНОВА СЛАВЧЕВА",
+      "type": "person",
+      "label": "Славка Иванова Славчева"
+    },
+    {
+      "id": "person:ДАРИНА ХРИСТОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Дарина Христова Ангелова"
+    },
+    {
+      "id": "person:ДОНКА НИХТЯНОВА ВЪЛЧАНОВА",
+      "type": "person",
+      "label": "Донка Нихтянова Вълчанова"
+    },
+    {
+      "id": "person:ПЕНКА АНГЕЛОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Пенка Ангелова Найденова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:penka-raicheva-petkova-c505fb",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕДЯЛКА ЖЕЛЯЗКОВА СТОЕВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ЖЕЛЕВА ДОЙЧЕВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНКА СПАСОВА ПЕТРОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ БАЛЕВА ТОНЧЕВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ НАЙДЕНОВА ИВАНОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА СЛАВЧЕВА ИВАНОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА АТАНАСОВА ПЕТРОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ПЕТКОВА НАЙДЕНОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАША ПЕТРОВА БАЛЕВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛТЪНКА ДИМИТРОВА ВАСИЛЕВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ЖЕЛЕВА ДОЙЧЕВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА РАШЕВА ТОДОРОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА РАШЕВА ТОДОРОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА ИВАНОВА СЛАВЧЕВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА ХРИСТОВА АНГЕЛОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА НИХТЯНОВА ВЪЛЧАНОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА АНГЕЛОВА НАЙДЕНОВА",
+      "target": "company:tr:000456203",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

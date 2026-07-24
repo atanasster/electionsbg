@@ -1,1 +1,207 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valentin-dimitrov-petkov-8c59bc","nodes":[{"id":"official:valentin-dimitrov-petkov-8c59bc","type":"official","slug":"valentin-dimitrov-petkov-8c59bc","label":"Валентин Димитров Петков","tier":"executive","role":"regulator","municipality":null},{"id":"company:tr:123535194","type":"company","label":"СЪЗНАНИЕ-1933 г.","slug":null,"uic":"123535194","legalForm":null,"status":null,"seat":null},{"id":"person:ДРАГИЯ ГЕОРГИЕВ ДРАГИЕВ","type":"person","label":"Драгия Георгиев Драгиев"},{"id":"person:МИРЕНА ВАНЕВА ТАТАРДЖИЙСКА","type":"person","label":"Мирена Ванева Татарджийска"},{"id":"person:ИЛИЯ ПАНАЙОТОВ ЙОРДАНОВ","type":"person","label":"Илия Панайотов Йорданов"},{"id":"person:КРАСИМИРА ДИМИТРОВА МИЛЧЕВА","type":"person","label":"Красимира Димитрова Милчева"},{"id":"person:ЙОВКА ГАНЧЕВА ГЕОРГИЕВА","type":"person","label":"Йовка Ганчева Георгиева"},{"id":"person:МАРИЯНА АТАНАСОВА ТОДОРОВА","type":"person","label":"Марияна Атанасова Тодорова"},{"id":"person:ЯНКА ЕНЕВА ГАНЕВА","type":"person","label":"Янка Енева Ганева"},{"id":"person:РУСКА МАРИНОВА ЖЕЛЕВА","type":"person","label":"Руска Маринова Желева"},{"id":"person:СТЕФАН СТОЕВ КОЛЕВ","type":"person","label":"Стефан Стоев Колев"},{"id":"person:КОСТА ПЕТКОВ СТОЙКОВ","type":"person","label":"Коста Петков Стойков"},{"id":"person:ДОБРИНКА ИВАНОВА МИХАЙЛОВА","type":"person","label":"Добринка Иванова Михайлова"},{"id":"person:ДИАНА ЖЕЛЕВА ВАСИЛЕВА","type":"person","label":"Диана Желева Василева"}],"edges":[{"source":"official:valentin-dimitrov-petkov-8c59bc","target":"company:tr:123535194","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:valentin-dimitrov-petkov-8c59bc","target":"company:tr:123535194","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ДРАГИЯ ГЕОРГИЕВ ДРАГИЕВ","target":"company:tr:123535194","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИРЕНА ВАНЕВА ТАТАРДЖИЙСКА","target":"company:tr:123535194","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГИЯ ГЕОРГИЕВ ДРАГИЕВ","target":"company:tr:123535194","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПАНАЙОТОВ ЙОРДАНОВ","target":"company:tr:123535194","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ДИМИТРОВА МИЛЧЕВА","target":"company:tr:123535194","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВКА ГАНЧЕВА ГЕОРГИЕВА","target":"company:tr:123535194","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА АТАНАСОВА ТОДОРОВА","target":"company:tr:123535194","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКА ЕНЕВА ГАНЕВА","target":"company:tr:123535194","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РУСКА МАРИНОВА ЖЕЛЕВА","target":"company:tr:123535194","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН СТОЕВ КОЛЕВ","target":"company:tr:123535194","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КОСТА ПЕТКОВ СТОЙКОВ","target":"company:tr:123535194","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИНКА ИВАНОВА МИХАЙЛОВА","target":"company:tr:123535194","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА ЖЕЛЕВА ВАСИЛЕВА","target":"company:tr:123535194","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valentin-dimitrov-petkov-8c59bc",
+  "nodes": [
+    {
+      "id": "official:valentin-dimitrov-petkov-8c59bc",
+      "type": "official",
+      "slug": "valentin-dimitrov-petkov-8c59bc",
+      "label": "Валентин Димитров Петков",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123535194",
+      "type": "company",
+      "label": "СЪЗНАНИЕ-1933 г.",
+      "slug": null,
+      "uic": "123535194",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДРАГИЯ ГЕОРГИЕВ ДРАГИЕВ",
+      "type": "person",
+      "label": "Драгия Георгиев Драгиев"
+    },
+    {
+      "id": "person:МИРЕНА ВАНЕВА ТАТАРДЖИЙСКА",
+      "type": "person",
+      "label": "Мирена Ванева Татарджийска"
+    },
+    {
+      "id": "person:ИЛИЯ ПАНАЙОТОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Илия Панайотов Йорданов"
+    },
+    {
+      "id": "person:КРАСИМИРА ДИМИТРОВА МИЛЧЕВА",
+      "type": "person",
+      "label": "Красимира Димитрова Милчева"
+    },
+    {
+      "id": "person:ЙОВКА ГАНЧЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Йовка Ганчева Георгиева"
+    },
+    {
+      "id": "person:МАРИЯНА АТАНАСОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Марияна Атанасова Тодорова"
+    },
+    {
+      "id": "person:ЯНКА ЕНЕВА ГАНЕВА",
+      "type": "person",
+      "label": "Янка Енева Ганева"
+    },
+    {
+      "id": "person:РУСКА МАРИНОВА ЖЕЛЕВА",
+      "type": "person",
+      "label": "Руска Маринова Желева"
+    },
+    {
+      "id": "person:СТЕФАН СТОЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Стефан Стоев Колев"
+    },
+    {
+      "id": "person:КОСТА ПЕТКОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Коста Петков Стойков"
+    },
+    {
+      "id": "person:ДОБРИНКА ИВАНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Добринка Иванова Михайлова"
+    },
+    {
+      "id": "person:ДИАНА ЖЕЛЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Диана Желева Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-dimitrov-petkov-8c59bc",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-dimitrov-petkov-8c59bc",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДРАГИЯ ГЕОРГИЕВ ДРАГИЕВ",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРЕНА ВАНЕВА ТАТАРДЖИЙСКА",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГИЯ ГЕОРГИЕВ ДРАГИЕВ",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПАНАЙОТОВ ЙОРДАНОВ",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ДИМИТРОВА МИЛЧЕВА",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ГАНЧЕВА ГЕОРГИЕВА",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА АТАНАСОВА ТОДОРОВА",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА ЕНЕВА ГАНЕВА",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСКА МАРИНОВА ЖЕЛЕВА",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН СТОЕВ КОЛЕВ",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТА ПЕТКОВ СТОЙКОВ",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА ИВАНОВА МИХАЙЛОВА",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ЖЕЛЕВА ВАСИЛЕВА",
+      "target": "company:tr:123535194",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

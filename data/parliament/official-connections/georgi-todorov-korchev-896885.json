@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-todorov-korchev-896885","nodes":[{"id":"official:georgi-todorov-korchev-896885","type":"official","slug":"georgi-todorov-korchev-896885","label":"Георги Тодоров Корчев","tier":"municipal","role":"councillor","municipality":"Благоевград"},{"id":"company:tr:207533063","type":"company","label":"СДРУЖЕНИЕ&quot;ТУРИЗЪМ ПО ЛОМОВЕТЕ&quot;","slug":null,"uic":"207533063","legalForm":null,"status":null,"seat":null},{"id":"person:МИХАИЛ РУМЕНОВ МИХОВ","type":"person","label":"Михаил Руменов Михов"},{"id":"person:ЕЛЕНА ДИМИТРОВА ИЛИЕВА-КОРЧЕВА","type":"person","label":"Елена Димитрова Илиева-Корчева"}],"edges":[{"source":"official:georgi-todorov-korchev-896885","target":"company:tr:207533063","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-todorov-korchev-896885","target":"company:tr:207533063","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МИХАИЛ РУМЕНОВ МИХОВ","target":"company:tr:207533063","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ДИМИТРОВА ИЛИЕВА-КОРЧЕВА","target":"company:tr:207533063","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-todorov-korchev-896885",
+  "nodes": [
+    {
+      "id": "official:georgi-todorov-korchev-896885",
+      "type": "official",
+      "slug": "georgi-todorov-korchev-896885",
+      "label": "Георги Тодоров Корчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:207533063",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ&quot;ТУРИЗЪМ ПО ЛОМОВЕТЕ&quot;",
+      "slug": null,
+      "uic": "207533063",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИХАИЛ РУМЕНОВ МИХОВ",
+      "type": "person",
+      "label": "Михаил Руменов Михов"
+    },
+    {
+      "id": "person:ЕЛЕНА ДИМИТРОВА ИЛИЕВА-КОРЧЕВА",
+      "type": "person",
+      "label": "Елена Димитрова Илиева-Корчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-todorov-korchev-896885",
+      "target": "company:tr:207533063",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-todorov-korchev-896885",
+      "target": "company:tr:207533063",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИХАИЛ РУМЕНОВ МИХОВ",
+      "target": "company:tr:207533063",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА ИЛИЕВА-КОРЧЕВА",
+      "target": "company:tr:207533063",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

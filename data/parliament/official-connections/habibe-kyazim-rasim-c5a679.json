@@ -1,1 +1,211 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:habibe-kyazim-rasim-c5a679","nodes":[{"id":"official:habibe-kyazim-rasim-c5a679","type":"official","slug":"habibe-kyazim-rasim-c5a679","label":"Хабибе Кязим Расим","tier":"municipal","role":"deputy_mayor","municipality":"Разград"},{"id":"company:tr:176793918","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ДЕЛИОРМАН 2014 г.&quot;","slug":null,"uic":"176793918","legalForm":"CC","status":"active","seat":"БЪЛГАРИЯ, гр. Разград, 7200"},{"id":"mp:4481","type":"mp","mpId":4481,"label":"Хабибе Кязим Расим","partyGroupShort":"АПС","isCurrent":false,"nsFolders":[]},{"id":"person:БИЛЯНА НИКОЛАЕВА АСЕНОВА","type":"person","label":"Биляна Николаева Асенова"},{"id":"person:ЮМГЮЛ МУХАРЕМ АХМЕДОВА","type":"person","label":"Юмгюл Мухарем Ахмедова"},{"id":"person:МЕТИН ЗЕКЕРИЕ МУТИШ","type":"person","label":"Метин Зекерие Мутиш"},{"id":"person:КАДЕР АХМЕД МУСТАФА","type":"person","label":"Кадер Ахмед Мустафа"},{"id":"person:ФАХРИ НАЗИФОВ ФЕРЗУЕВ","type":"person","label":"Фахри Назифов Ферзуев"},{"id":"person:АЙШЕ НИАЗИ ЧЕЛЕБИ","type":"person","label":"Айше Ниази Челеби"},{"id":"person:НЕВИН ФЕДАИЛОВА ТУСЧУ","type":"person","label":"Невин Федаилова Тусчу"},{"id":"person:СЕВДИЕ РЕЙЗА ЧАКЪР","type":"person","label":"Севдие Рейза Чакър"},{"id":"person:ФАТМЕ СЕЛИМ АЛИ","type":"person","label":"Фатме Селим Али"},{"id":"person:МЕХМЕД МАХМУДОВ ЮМЕРОВ","type":"person","label":"Мехмед Махмудов Юмеров"},{"id":"person:САЛИХА НИАЗИ ИБРЯМ","type":"person","label":"Салиха Ниази Ибрям"}],"edges":[{"source":"official:habibe-kyazim-rasim-c5a679","target":"company:tr:176793918","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"mp:4481","target":"company:tr:176793918","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:БИЛЯНА НИКОЛАЕВА АСЕНОВА","target":"company:tr:176793918","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЮМГЮЛ МУХАРЕМ АХМЕДОВА","target":"company:tr:176793918","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МЕТИН ЗЕКЕРИЕ МУТИШ","target":"company:tr:176793918","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КАДЕР АХМЕД МУСТАФА","target":"company:tr:176793918","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ФАХРИ НАЗИФОВ ФЕРЗУЕВ","target":"company:tr:176793918","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АЙШЕ НИАЗИ ЧЕЛЕБИ","target":"company:tr:176793918","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АЙШЕ НИАЗИ ЧЕЛЕБИ","target":"company:tr:176793918","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕВИН ФЕДАИЛОВА ТУСЧУ","target":"company:tr:176793918","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕВИН ФЕДАИЛОВА ТУСЧУ","target":"company:tr:176793918","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЕВДИЕ РЕЙЗА ЧАКЪР","target":"company:tr:176793918","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФАТМЕ СЕЛИМ АЛИ","target":"company:tr:176793918","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МЕХМЕД МАХМУДОВ ЮМЕРОВ","target":"company:tr:176793918","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:САЛИХА НИАЗИ ИБРЯМ","target":"company:tr:176793918","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:habibe-kyazim-rasim-c5a679",
+  "nodes": [
+    {
+      "id": "official:habibe-kyazim-rasim-c5a679",
+      "type": "official",
+      "slug": "habibe-kyazim-rasim-c5a679",
+      "label": "Хабибе Кязим Расим",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Разград"
+    },
+    {
+      "id": "company:tr:176793918",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ДЕЛИОРМАН 2014 г.&quot;",
+      "slug": null,
+      "uic": "176793918",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Разград, 7200"
+    },
+    {
+      "id": "mp:4481",
+      "type": "mp",
+      "mpId": 4481,
+      "label": "Хабибе Кязим Расим",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:БИЛЯНА НИКОЛАЕВА АСЕНОВА",
+      "type": "person",
+      "label": "Биляна Николаева Асенова"
+    },
+    {
+      "id": "person:ЮМГЮЛ МУХАРЕМ АХМЕДОВА",
+      "type": "person",
+      "label": "Юмгюл Мухарем Ахмедова"
+    },
+    {
+      "id": "person:МЕТИН ЗЕКЕРИЕ МУТИШ",
+      "type": "person",
+      "label": "Метин Зекерие Мутиш"
+    },
+    {
+      "id": "person:КАДЕР АХМЕД МУСТАФА",
+      "type": "person",
+      "label": "Кадер Ахмед Мустафа"
+    },
+    {
+      "id": "person:ФАХРИ НАЗИФОВ ФЕРЗУЕВ",
+      "type": "person",
+      "label": "Фахри Назифов Ферзуев"
+    },
+    {
+      "id": "person:АЙШЕ НИАЗИ ЧЕЛЕБИ",
+      "type": "person",
+      "label": "Айше Ниази Челеби"
+    },
+    {
+      "id": "person:НЕВИН ФЕДАИЛОВА ТУСЧУ",
+      "type": "person",
+      "label": "Невин Федаилова Тусчу"
+    },
+    {
+      "id": "person:СЕВДИЕ РЕЙЗА ЧАКЪР",
+      "type": "person",
+      "label": "Севдие Рейза Чакър"
+    },
+    {
+      "id": "person:ФАТМЕ СЕЛИМ АЛИ",
+      "type": "person",
+      "label": "Фатме Селим Али"
+    },
+    {
+      "id": "person:МЕХМЕД МАХМУДОВ ЮМЕРОВ",
+      "type": "person",
+      "label": "Мехмед Махмудов Юмеров"
+    },
+    {
+      "id": "person:САЛИХА НИАЗИ ИБРЯМ",
+      "type": "person",
+      "label": "Салиха Ниази Ибрям"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:habibe-kyazim-rasim-c5a679",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4481",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИЛЯНА НИКОЛАЕВА АСЕНОВА",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮМГЮЛ МУХАРЕМ АХМЕДОВА",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН ЗЕКЕРИЕ МУТИШ",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАДЕР АХМЕД МУСТАФА",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАХРИ НАЗИФОВ ФЕРЗУЕВ",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ НИАЗИ ЧЕЛЕБИ",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ НИАЗИ ЧЕЛЕБИ",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВИН ФЕДАИЛОВА ТУСЧУ",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВИН ФЕДАИЛОВА ТУСЧУ",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДИЕ РЕЙЗА ЧАКЪР",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ СЕЛИМ АЛИ",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД МАХМУДОВ ЮМЕРОВ",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САЛИХА НИАЗИ ИБРЯМ",
+      "target": "company:tr:176793918",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

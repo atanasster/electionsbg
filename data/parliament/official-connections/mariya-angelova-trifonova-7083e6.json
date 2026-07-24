@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-angelova-trifonova-7083e6","nodes":[{"id":"official:mariya-angelova-trifonova-7083e6","type":"official","slug":"mariya-angelova-trifonova-7083e6","label":"Мария Ангелова Трифонова","tier":"municipal","role":"chief_architect","municipality":"Долна Митрополия"},{"id":"company:tr:000456961","type":"company","label":"Пробуда-1912г.- гр. Кричим","slug":null,"uic":"000456961","legalForm":null,"status":null,"seat":null},{"id":"person:СВЕТЛАНА РАНГЕЛОВА РАНГЕЛОВА","type":"person","label":"Светлана Рангелова Рангелова"},{"id":"person:ЯНКА АНГЕЛОВА МИХАЙЛОВА","type":"person","label":"Янка Ангелова Михайлова"},{"id":"person:ФАТМА БАЙРЯМОВА КАЛКАНОВА","type":"person","label":"Фатма Байрямова Калканова"},{"id":"person:РОСИЦА СЕМОВА ТАБАКОВА","type":"person","label":"Росица Семова Табакова"},{"id":"person:БИСТРА ТОДОРОВА РАНГЕЛОВА","type":"person","label":"Бистра Тодорова Рангелова"},{"id":"person:ПЕТКАНА НИКОЛОВА РАДУЛОВА","type":"person","label":"Петкана Николова Радулова"},{"id":"person:ЙОРДАНКА АТАНАСОВА ВЪЛЧАНОВА","type":"person","label":"Йорданка Атанасова Вълчанова"}],"edges":[{"source":"official:mariya-angelova-trifonova-7083e6","target":"company:tr:000456961","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:СВЕТЛАНА РАНГЕЛОВА РАНГЕЛОВА","target":"company:tr:000456961","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКА АНГЕЛОВА МИХАЙЛОВА","target":"company:tr:000456961","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФАТМА БАЙРЯМОВА КАЛКАНОВА","target":"company:tr:000456961","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА СЕМОВА ТАБАКОВА","target":"company:tr:000456961","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:БИСТРА ТОДОРОВА РАНГЕЛОВА","target":"company:tr:000456961","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКАНА НИКОЛОВА РАДУЛОВА","target":"company:tr:000456961","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА АТАНАСОВА ВЪЛЧАНОВА","target":"company:tr:000456961","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-angelova-trifonova-7083e6",
+  "nodes": [
+    {
+      "id": "official:mariya-angelova-trifonova-7083e6",
+      "type": "official",
+      "slug": "mariya-angelova-trifonova-7083e6",
+      "label": "Мария Ангелова Трифонова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Долна Митрополия"
+    },
+    {
+      "id": "company:tr:000456961",
+      "type": "company",
+      "label": "Пробуда-1912г.- гр. Кричим",
+      "slug": null,
+      "uic": "000456961",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛАНА РАНГЕЛОВА РАНГЕЛОВА",
+      "type": "person",
+      "label": "Светлана Рангелова Рангелова"
+    },
+    {
+      "id": "person:ЯНКА АНГЕЛОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Янка Ангелова Михайлова"
+    },
+    {
+      "id": "person:ФАТМА БАЙРЯМОВА КАЛКАНОВА",
+      "type": "person",
+      "label": "Фатма Байрямова Калканова"
+    },
+    {
+      "id": "person:РОСИЦА СЕМОВА ТАБАКОВА",
+      "type": "person",
+      "label": "Росица Семова Табакова"
+    },
+    {
+      "id": "person:БИСТРА ТОДОРОВА РАНГЕЛОВА",
+      "type": "person",
+      "label": "Бистра Тодорова Рангелова"
+    },
+    {
+      "id": "person:ПЕТКАНА НИКОЛОВА РАДУЛОВА",
+      "type": "person",
+      "label": "Петкана Николова Радулова"
+    },
+    {
+      "id": "person:ЙОРДАНКА АТАНАСОВА ВЪЛЧАНОВА",
+      "type": "person",
+      "label": "Йорданка Атанасова Вълчанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-angelova-trifonova-7083e6",
+      "target": "company:tr:000456961",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛАНА РАНГЕЛОВА РАНГЕЛОВА",
+      "target": "company:tr:000456961",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА АНГЕЛОВА МИХАЙЛОВА",
+      "target": "company:tr:000456961",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМА БАЙРЯМОВА КАЛКАНОВА",
+      "target": "company:tr:000456961",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА СЕМОВА ТАБАКОВА",
+      "target": "company:tr:000456961",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСТРА ТОДОРОВА РАНГЕЛОВА",
+      "target": "company:tr:000456961",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКАНА НИКОЛОВА РАДУЛОВА",
+      "target": "company:tr:000456961",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА АТАНАСОВА ВЪЛЧАНОВА",
+      "target": "company:tr:000456961",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

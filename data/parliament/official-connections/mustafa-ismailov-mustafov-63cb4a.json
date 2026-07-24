@@ -1,1 +1,223 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mustafa-ismailov-mustafov-63cb4a","nodes":[{"id":"official:mustafa-ismailov-mustafov-63cb4a","type":"official","slug":"mustafa-ismailov-mustafov-63cb4a","label":"Мустафа Исмаилов Мустафов","tier":"municipal","role":"councillor","municipality":"Завет"},{"id":"company:tr:103856132","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ БАРЪШ - 2004","slug":null,"uic":"103856132","legalForm":null,"status":null,"seat":null},{"id":"person:ИБРЯМ ЯШАР АХМЕД","type":"person","label":"Ибрям Яшар Ахмед"},{"id":"person:ЮКСЕЛ СЮЛЕЙМАН ВЕЛИ","type":"person","label":"Юксел Сюлейман Вели"},{"id":"person:МЛАДЕН СТОЯНОВ МИТКОВ","type":"person","label":"Младен Стоянов Митков"},{"id":"person:АФИЗЕ ИСМАИЛОВА ЮСЕИНОВА","type":"person","label":"Афизе Исмаилова Юсеинова"},{"id":"person:АЛДИН САЛИМ АХМЕД","type":"person","label":"Алдин Салим Ахмед"},{"id":"person:ОЛАФ МАГДАЛЕНОВ ШИМКЕ","type":"person","label":"Олаф Магдаленов Шимке"},{"id":"person:ЮСЕИН ИБРЯМ ЮСЕИН","type":"person","label":"Юсеин Ибрям Юсеин"},{"id":"person:ШАБАН ЕМБИЕ ШАБАН","type":"person","label":"Шабан Ембие Шабан"},{"id":"person:РАСИМ НЕЖДИНОВ РАСИМОВ","type":"person","label":"Расим Неждинов Расимов"},{"id":"person:ЛЪЧЕЗАР ЛЪЧЕЗАРОВ ЩЕРЕВ","type":"person","label":"Лъчезар Лъчезаров Щерев"},{"id":"person:АНГЕЛ РАДОСТИНОВ ТОДОРОВ","type":"person","label":"Ангел Радостинов Тодоров"},{"id":"person:ЩИЛЯН БОРИСЛАВОВ ЩИЛЯНОВ","type":"person","label":"Щилян Бориславов Щилянов"}],"edges":[{"source":"official:mustafa-ismailov-mustafov-63cb4a","target":"company:tr:103856132","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:mustafa-ismailov-mustafov-63cb4a","target":"company:tr:103856132","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:mustafa-ismailov-mustafov-63cb4a","target":"company:tr:103856132","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ИБРЯМ ЯШАР АХМЕД","target":"company:tr:103856132","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЮКСЕЛ СЮЛЕЙМАН ВЕЛИ","target":"company:tr:103856132","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЮКСЕЛ СЮЛЕЙМАН ВЕЛИ","target":"company:tr:103856132","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МЛАДЕН СТОЯНОВ МИТКОВ","target":"company:tr:103856132","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АФИЗЕ ИСМАИЛОВА ЮСЕИНОВА","target":"company:tr:103856132","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АЛДИН САЛИМ АХМЕД","target":"company:tr:103856132","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ОЛАФ МАГДАЛЕНОВ ШИМКЕ","target":"company:tr:103856132","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АФИЗЕ ИСМАИЛОВА ЮСЕИНОВА","target":"company:tr:103856132","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЮСЕИН ИБРЯМ ЮСЕИН","target":"company:tr:103856132","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ШАБАН ЕМБИЕ ШАБАН","target":"company:tr:103856132","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАСИМ НЕЖДИНОВ РАСИМОВ","target":"company:tr:103856132","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР ЛЪЧЕЗАРОВ ЩЕРЕВ","target":"company:tr:103856132","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ РАДОСТИНОВ ТОДОРОВ","target":"company:tr:103856132","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЩИЛЯН БОРИСЛАВОВ ЩИЛЯНОВ","target":"company:tr:103856132","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mustafa-ismailov-mustafov-63cb4a",
+  "nodes": [
+    {
+      "id": "official:mustafa-ismailov-mustafov-63cb4a",
+      "type": "official",
+      "slug": "mustafa-ismailov-mustafov-63cb4a",
+      "label": "Мустафа Исмаилов Мустафов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Завет"
+    },
+    {
+      "id": "company:tr:103856132",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ БАРЪШ - 2004",
+      "slug": null,
+      "uic": "103856132",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИБРЯМ ЯШАР АХМЕД",
+      "type": "person",
+      "label": "Ибрям Яшар Ахмед"
+    },
+    {
+      "id": "person:ЮКСЕЛ СЮЛЕЙМАН ВЕЛИ",
+      "type": "person",
+      "label": "Юксел Сюлейман Вели"
+    },
+    {
+      "id": "person:МЛАДЕН СТОЯНОВ МИТКОВ",
+      "type": "person",
+      "label": "Младен Стоянов Митков"
+    },
+    {
+      "id": "person:АФИЗЕ ИСМАИЛОВА ЮСЕИНОВА",
+      "type": "person",
+      "label": "Афизе Исмаилова Юсеинова"
+    },
+    {
+      "id": "person:АЛДИН САЛИМ АХМЕД",
+      "type": "person",
+      "label": "Алдин Салим Ахмед"
+    },
+    {
+      "id": "person:ОЛАФ МАГДАЛЕНОВ ШИМКЕ",
+      "type": "person",
+      "label": "Олаф Магдаленов Шимке"
+    },
+    {
+      "id": "person:ЮСЕИН ИБРЯМ ЮСЕИН",
+      "type": "person",
+      "label": "Юсеин Ибрям Юсеин"
+    },
+    {
+      "id": "person:ШАБАН ЕМБИЕ ШАБАН",
+      "type": "person",
+      "label": "Шабан Ембие Шабан"
+    },
+    {
+      "id": "person:РАСИМ НЕЖДИНОВ РАСИМОВ",
+      "type": "person",
+      "label": "Расим Неждинов Расимов"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ЛЪЧЕЗАРОВ ЩЕРЕВ",
+      "type": "person",
+      "label": "Лъчезар Лъчезаров Щерев"
+    },
+    {
+      "id": "person:АНГЕЛ РАДОСТИНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Ангел Радостинов Тодоров"
+    },
+    {
+      "id": "person:ЩИЛЯН БОРИСЛАВОВ ЩИЛЯНОВ",
+      "type": "person",
+      "label": "Щилян Бориславов Щилянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mustafa-ismailov-mustafov-63cb4a",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mustafa-ismailov-mustafov-63cb4a",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mustafa-ismailov-mustafov-63cb4a",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИБРЯМ ЯШАР АХМЕД",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮКСЕЛ СЮЛЕЙМАН ВЕЛИ",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮКСЕЛ СЮЛЕЙМАН ВЕЛИ",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕН СТОЯНОВ МИТКОВ",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АФИЗЕ ИСМАИЛОВА ЮСЕИНОВА",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛДИН САЛИМ АХМЕД",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛАФ МАГДАЛЕНОВ ШИМКЕ",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АФИЗЕ ИСМАИЛОВА ЮСЕИНОВА",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮСЕИН ИБРЯМ ЮСЕИН",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШАБАН ЕМБИЕ ШАБАН",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАСИМ НЕЖДИНОВ РАСИМОВ",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ЛЪЧЕЗАРОВ ЩЕРЕВ",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ РАДОСТИНОВ ТОДОРОВ",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЩИЛЯН БОРИСЛАВОВ ЩИЛЯНОВ",
+      "target": "company:tr:103856132",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

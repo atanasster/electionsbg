@@ -1,1 +1,85 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:boncho-grigorov-grigorov-4a7680","nodes":[{"id":"official:boncho-grigorov-grigorov-4a7680","type":"official","slug":"boncho-grigorov-grigorov-4a7680","label":"Бончо Григоров Григоров","tier":"municipal","role":"councillor","municipality":"Стара Загора"},{"id":"company:tr:207372069","type":"company","label":"Био революшън лаб","slug":null,"uic":"207372069","legalForm":null,"status":null,"seat":null},{"id":"person:СТАНИМИР ДИМИТРОВ ТЕНЕВ","type":"person","label":"Станимир Димитров Тенев"},{"id":"person:ИВА ДИНКОВА ТАНЕВА","type":"person","label":"Ива Динкова Танева"}],"edges":[{"source":"official:boncho-grigorov-grigorov-4a7680","target":"company:tr:207372069","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:boncho-grigorov-grigorov-4a7680","target":"company:tr:207372069","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СТАНИМИР ДИМИТРОВ ТЕНЕВ","target":"company:tr:207372069","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВА ДИНКОВА ТАНЕВА","target":"company:tr:207372069","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИР ДИМИТРОВ ТЕНЕВ","target":"company:tr:207372069","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВА ДИНКОВА ТАНЕВА","target":"company:tr:207372069","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:boncho-grigorov-grigorov-4a7680",
+  "nodes": [
+    {
+      "id": "official:boncho-grigorov-grigorov-4a7680",
+      "type": "official",
+      "slug": "boncho-grigorov-grigorov-4a7680",
+      "label": "Бончо Григоров Григоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:207372069",
+      "type": "company",
+      "label": "Био революшън лаб",
+      "slug": null,
+      "uic": "207372069",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИМИР ДИМИТРОВ ТЕНЕВ",
+      "type": "person",
+      "label": "Станимир Димитров Тенев"
+    },
+    {
+      "id": "person:ИВА ДИНКОВА ТАНЕВА",
+      "type": "person",
+      "label": "Ива Динкова Танева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boncho-grigorov-grigorov-4a7680",
+      "target": "company:tr:207372069",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:boncho-grigorov-grigorov-4a7680",
+      "target": "company:tr:207372069",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИМИР ДИМИТРОВ ТЕНЕВ",
+      "target": "company:tr:207372069",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ДИНКОВА ТАНЕВА",
+      "target": "company:tr:207372069",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ДИМИТРОВ ТЕНЕВ",
+      "target": "company:tr:207372069",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ДИНКОВА ТАНЕВА",
+      "target": "company:tr:207372069",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

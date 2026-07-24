@@ -1,1 +1,128 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:grozdan-spasov-karadzhov-039f80","nodes":[{"id":"official:grozdan-spasov-karadzhov-039f80","type":"official","slug":"grozdan-spasov-karadzhov-039f80","label":"Гроздан Спасов Караджов","tier":"executive","role":"cabinet","municipality":null},{"id":"company:Раведас-ЕООД","type":"company","label":"Раведас ЕООД","slug":"Раведас-ЕООД","uic":"202564051","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"company:tr:207689678","type":"company","label":"Алкемиста ЕООД","slug":null,"uic":"207689678","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207815988","type":"company","label":"Алкемиста Премиум ЕООД","slug":null,"uic":"207815988","legalForm":null,"status":null,"seat":null},{"id":"mp:4252","type":"mp","mpId":4252,"label":"Гроздан Спасов Караджов","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["43","49"]},{"id":"person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА","type":"person","label":"Цецка Никифорова Караджова"}],"edges":[{"source":"official:grozdan-spasov-karadzhov-039f80","target":"company:Раведас-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:grozdan-spasov-karadzhov-039f80","target":"company:tr:207689678","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:grozdan-spasov-karadzhov-039f80","target":"company:tr:207815988","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:4252","target":"company:Раведас-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА","target":"company:tr:207689678","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА","target":"company:tr:207689678","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА","target":"company:tr:207815988","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА","target":"company:tr:207815988","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:grozdan-spasov-karadzhov-039f80",
+  "nodes": [
+    {
+      "id": "official:grozdan-spasov-karadzhov-039f80",
+      "type": "official",
+      "slug": "grozdan-spasov-karadzhov-039f80",
+      "label": "Гроздан Спасов Караджов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:Раведас-ЕООД",
+      "type": "company",
+      "label": "Раведас ЕООД",
+      "slug": "Раведас-ЕООД",
+      "uic": "202564051",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:207689678",
+      "type": "company",
+      "label": "Алкемиста ЕООД",
+      "slug": null,
+      "uic": "207689678",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207815988",
+      "type": "company",
+      "label": "Алкемиста Премиум ЕООД",
+      "slug": null,
+      "uic": "207815988",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "mp:4252",
+      "type": "mp",
+      "mpId": 4252,
+      "label": "Гроздан Спасов Караджов",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "49"
+      ]
+    },
+    {
+      "id": "person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА",
+      "type": "person",
+      "label": "Цецка Никифорова Караджова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:grozdan-spasov-karadzhov-039f80",
+      "target": "company:Раведас-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:grozdan-spasov-karadzhov-039f80",
+      "target": "company:tr:207689678",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:grozdan-spasov-karadzhov-039f80",
+      "target": "company:tr:207815988",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4252",
+      "target": "company:Раведас-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА",
+      "target": "company:tr:207689678",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА",
+      "target": "company:tr:207689678",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА",
+      "target": "company:tr:207815988",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦКА НИКИФОРОВА КАРАДЖОВА",
+      "target": "company:tr:207815988",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

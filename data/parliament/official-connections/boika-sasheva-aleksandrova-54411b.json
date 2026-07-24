@@ -1,1 +1,155 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:boika-sasheva-aleksandrova-54411b","nodes":[{"id":"official:boika-sasheva-aleksandrova-54411b","type":"official","slug":"boika-sasheva-aleksandrova-54411b","label":"Бойка Сашева Александрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000153124","type":"company","label":"ХРИСТО БОТЕВ - 1926","slug":null,"uic":"000153124","legalForm":null,"status":null,"seat":null},{"id":"person:НАДЯ ПЕТРОВА ИВАНОВА","type":"person","label":"Надя Петрова Иванова"},{"id":"person:САШКА ИЛИЕВА ЙОРДАНОВА","type":"person","label":"Сашка Илиева Йорданова"},{"id":"person:ЛЮБОМИРКА ЛЮБЕНОВА МИХАЙЛОВА","type":"person","label":"Любомирка Любенова Михайлова"},{"id":"person:СТЕФКА НАЙДЕНОВА ЖИВКОВА","type":"person","label":"Стефка Найденова Живкова"},{"id":"person:МАРИЙКА АРСЕНОВА ДИМИТРОВА","type":"person","label":"Марийка Арсенова Димитрова"},{"id":"person:ГИНКО ЦЕКОВ ЦОЛОВ","type":"person","label":"Гинко Цеков Цолов"},{"id":"person:ВАЛЕНТИНА ВЕСЕЛИНОВА ЙОРДАНОВА","type":"person","label":"Валентина Веселинова Йорданова"},{"id":"person:ЕВДОКИЯ КАМЕНОВА НИКОЛОВА","type":"person","label":"Евдокия Каменова Николова"}],"edges":[{"source":"official:boika-sasheva-aleksandrova-54411b","target":"company:tr:000153124","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:НАДЯ ПЕТРОВА ИВАНОВА","target":"company:tr:000153124","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:САШКА ИЛИЕВА ЙОРДАНОВА","target":"company:tr:000153124","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ПЕТРОВА ИВАНОВА","target":"company:tr:000153124","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИРКА ЛЮБЕНОВА МИХАЙЛОВА","target":"company:tr:000153124","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА НАЙДЕНОВА ЖИВКОВА","target":"company:tr:000153124","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЙКА АРСЕНОВА ДИМИТРОВА","target":"company:tr:000153124","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКО ЦЕКОВ ЦОЛОВ","target":"company:tr:000153124","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ВЕСЕЛИНОВА ЙОРДАНОВА","target":"company:tr:000153124","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕВДОКИЯ КАМЕНОВА НИКОЛОВА","target":"company:tr:000153124","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИРКА ЛЮБЕНОВА МИХАЙЛОВА","target":"company:tr:000153124","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:boika-sasheva-aleksandrova-54411b",
+  "nodes": [
+    {
+      "id": "official:boika-sasheva-aleksandrova-54411b",
+      "type": "official",
+      "slug": "boika-sasheva-aleksandrova-54411b",
+      "label": "Бойка Сашева Александрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000153124",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ - 1926",
+      "slug": null,
+      "uic": "000153124",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАДЯ ПЕТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Надя Петрова Иванова"
+    },
+    {
+      "id": "person:САШКА ИЛИЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Сашка Илиева Йорданова"
+    },
+    {
+      "id": "person:ЛЮБОМИРКА ЛЮБЕНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Любомирка Любенова Михайлова"
+    },
+    {
+      "id": "person:СТЕФКА НАЙДЕНОВА ЖИВКОВА",
+      "type": "person",
+      "label": "Стефка Найденова Живкова"
+    },
+    {
+      "id": "person:МАРИЙКА АРСЕНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Марийка Арсенова Димитрова"
+    },
+    {
+      "id": "person:ГИНКО ЦЕКОВ ЦОЛОВ",
+      "type": "person",
+      "label": "Гинко Цеков Цолов"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ВЕСЕЛИНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Валентина Веселинова Йорданова"
+    },
+    {
+      "id": "person:ЕВДОКИЯ КАМЕНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Евдокия Каменова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boika-sasheva-aleksandrova-54411b",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАДЯ ПЕТРОВА ИВАНОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШКА ИЛИЕВА ЙОРДАНОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ПЕТРОВА ИВАНОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИРКА ЛЮБЕНОВА МИХАЙЛОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА НАЙДЕНОВА ЖИВКОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА АРСЕНОВА ДИМИТРОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКО ЦЕКОВ ЦОЛОВ",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ВЕСЕЛИНОВА ЙОРДАНОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВДОКИЯ КАМЕНОВА НИКОЛОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИРКА ЛЮБЕНОВА МИХАЙЛОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,98 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:branimir-ivanov-mangrov-d61aa4","nodes":[{"id":"official:branimir-ivanov-mangrov-d61aa4","type":"official","slug":"branimir-ivanov-mangrov-d61aa4","label":"Бранимир Иванов Мангъров","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:206067253","type":"company","label":"Братя във вятъра","slug":null,"uic":"206067253","legalForm":null,"status":null,"seat":null},{"id":"person:ОРХАН ИЛМИЕВ МЕХМЕДОВ","type":"person","label":"Орхан Илмиев Мехмедов"},{"id":"person:АНГЕЛ ДРУМЕВ АНГЕЛОВ","type":"person","label":"Ангел Друмев Ангелов"},{"id":"person:СНЕЖАНКА ВЕЛИЧКОВА КАРБОВА-ДИМИТРОВА","type":"person","label":"Снежанка Величкова Карбова-Димитрова"}],"edges":[{"source":"official:branimir-ivanov-mangrov-d61aa4","target":"company:tr:206067253","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:branimir-ivanov-mangrov-d61aa4","target":"company:tr:206067253","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ОРХАН ИЛМИЕВ МЕХМЕДОВ","target":"company:tr:206067253","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ДРУМЕВ АНГЕЛОВ","target":"company:tr:206067253","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНКА ВЕЛИЧКОВА КАРБОВА-ДИМИТРОВА","target":"company:tr:206067253","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ДРУМЕВ АНГЕЛОВ","target":"company:tr:206067253","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОРХАН ИЛМИЕВ МЕХМЕДОВ","target":"company:tr:206067253","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:branimir-ivanov-mangrov-d61aa4",
+  "nodes": [
+    {
+      "id": "official:branimir-ivanov-mangrov-d61aa4",
+      "type": "official",
+      "slug": "branimir-ivanov-mangrov-d61aa4",
+      "label": "Бранимир Иванов Мангъров",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206067253",
+      "type": "company",
+      "label": "Братя във вятъра",
+      "slug": null,
+      "uic": "206067253",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОРХАН ИЛМИЕВ МЕХМЕДОВ",
+      "type": "person",
+      "label": "Орхан Илмиев Мехмедов"
+    },
+    {
+      "id": "person:АНГЕЛ ДРУМЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Друмев Ангелов"
+    },
+    {
+      "id": "person:СНЕЖАНКА ВЕЛИЧКОВА КАРБОВА-ДИМИТРОВА",
+      "type": "person",
+      "label": "Снежанка Величкова Карбова-Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:branimir-ivanov-mangrov-d61aa4",
+      "target": "company:tr:206067253",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:branimir-ivanov-mangrov-d61aa4",
+      "target": "company:tr:206067253",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОРХАН ИЛМИЕВ МЕХМЕДОВ",
+      "target": "company:tr:206067253",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ДРУМЕВ АНГЕЛОВ",
+      "target": "company:tr:206067253",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ВЕЛИЧКОВА КАРБОВА-ДИМИТРОВА",
+      "target": "company:tr:206067253",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ДРУМЕВ АНГЕЛОВ",
+      "target": "company:tr:206067253",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОРХАН ИЛМИЕВ МЕХМЕДОВ",
+      "target": "company:tr:206067253",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetanka-ilieva-dimitrova-01902f","nodes":[{"id":"official:tsvetanka-ilieva-dimitrova-01902f","type":"official","slug":"tsvetanka-ilieva-dimitrova-01902f","label":"Цветанка Илиева Димитрова","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:124142404","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - КАВАРНА","slug":null,"uic":"124142404","legalForm":null,"status":null,"seat":null},{"id":"person:ХАМЗА ВЕЛИЕВ АЛИЕВ","type":"person","label":"Хамза Велиев Алиев"}],"edges":[{"source":"official:tsvetanka-ilieva-dimitrova-01902f","target":"company:tr:124142404","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ХАМЗА ВЕЛИЕВ АЛИЕВ","target":"company:tr:124142404","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetanka-ilieva-dimitrova-01902f",
+  "nodes": [
+    {
+      "id": "official:tsvetanka-ilieva-dimitrova-01902f",
+      "type": "official",
+      "slug": "tsvetanka-ilieva-dimitrova-01902f",
+      "label": "Цветанка Илиева Димитрова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124142404",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - КАВАРНА",
+      "slug": null,
+      "uic": "124142404",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХАМЗА ВЕЛИЕВ АЛИЕВ",
+      "type": "person",
+      "label": "Хамза Велиев Алиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetanka-ilieva-dimitrova-01902f",
+      "target": "company:tr:124142404",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХАМЗА ВЕЛИЕВ АЛИЕВ",
+      "target": "company:tr:124142404",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

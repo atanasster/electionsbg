@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:miroslav-georgiev-kozarev-23db47","nodes":[{"id":"official:miroslav-georgiev-kozarev-23db47","type":"official","slug":"miroslav-georgiev-kozarev-23db47","label":"Мирослав Георгиев Козарев","tier":"municipal","role":"councillor","municipality":"Ямбол"},{"id":"company:tr:207416551","type":"company","label":"СВЕТ 331","slug":null,"uic":"207416551","legalForm":null,"status":null,"seat":null},{"id":"person:СЕРГЕЙ ГРИШИН","type":"person","label":"Сергей Гришин"}],"edges":[{"source":"official:miroslav-georgiev-kozarev-23db47","target":"company:tr:207416551","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:СЕРГЕЙ ГРИШИН","target":"company:tr:207416551","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:СЕРГЕЙ ГРИШИН","target":"company:tr:207416551","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:miroslav-georgiev-kozarev-23db47",
+  "nodes": [
+    {
+      "id": "official:miroslav-georgiev-kozarev-23db47",
+      "type": "official",
+      "slug": "miroslav-georgiev-kozarev-23db47",
+      "label": "Мирослав Георгиев Козарев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "company:tr:207416551",
+      "type": "company",
+      "label": "СВЕТ 331",
+      "slug": null,
+      "uic": "207416551",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЕРГЕЙ ГРИШИН",
+      "type": "person",
+      "label": "Сергей Гришин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-georgiev-kozarev-23db47",
+      "target": "company:tr:207416551",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕРГЕЙ ГРИШИН",
+      "target": "company:tr:207416551",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГЕЙ ГРИШИН",
+      "target": "company:tr:207416551",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

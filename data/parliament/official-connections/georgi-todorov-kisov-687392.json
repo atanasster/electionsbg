@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-todorov-kisov-687392","nodes":[{"id":"official:georgi-todorov-kisov-687392","type":"official","slug":"georgi-todorov-kisov-687392","label":"Георги Тодоров Кисьов","tier":"executive","role":"secretary_general","municipality":null},{"id":"company:tr:120615105","type":"company","label":"„СКИ КЛУБ ВЕТЕРАН“ – гр.Смолян","slug":null,"uic":"120615105","legalForm":null,"status":null,"seat":null},{"id":"person:ТИХОМИР НИКОЛОВ НИКОВ","type":"person","label":"Тихомир Николов Ников"},{"id":"person:ГЕОРГИ ФОТЕВ НИКОЛОВ","type":"person","label":"Георги Фотев Николов"},{"id":"person:МАРИЯ ДИМИТРОВА БАЛАБАНОВА","type":"person","label":"Мария Димитрова Балабанова"},{"id":"person:МАРИЯ ХРИСТОВА СОТИРОВА","type":"person","label":"Мария Христова Сотирова"},{"id":"person:ДИМИТРИНА ИВАНОВА ЙОТОВА","type":"person","label":"Димитрина Иванова Йотова"}],"edges":[{"source":"official:georgi-todorov-kisov-687392","target":"company:tr:120615105","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТИХОМИР НИКОЛОВ НИКОВ","target":"company:tr:120615105","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ФОТЕВ НИКОЛОВ","target":"company:tr:120615105","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА БАЛАБАНОВА","target":"company:tr:120615105","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ХРИСТОВА СОТИРОВА","target":"company:tr:120615105","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА ИВАНОВА ЙОТОВА","target":"company:tr:120615105","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-todorov-kisov-687392",
+  "nodes": [
+    {
+      "id": "official:georgi-todorov-kisov-687392",
+      "type": "official",
+      "slug": "georgi-todorov-kisov-687392",
+      "label": "Георги Тодоров Кисьов",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:120615105",
+      "type": "company",
+      "label": "„СКИ КЛУБ ВЕТЕРАН“ – гр.Смолян",
+      "slug": null,
+      "uic": "120615105",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТИХОМИР НИКОЛОВ НИКОВ",
+      "type": "person",
+      "label": "Тихомир Николов Ников"
+    },
+    {
+      "id": "person:ГЕОРГИ ФОТЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Георги Фотев Николов"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА БАЛАБАНОВА",
+      "type": "person",
+      "label": "Мария Димитрова Балабанова"
+    },
+    {
+      "id": "person:МАРИЯ ХРИСТОВА СОТИРОВА",
+      "type": "person",
+      "label": "Мария Христова Сотирова"
+    },
+    {
+      "id": "person:ДИМИТРИНА ИВАНОВА ЙОТОВА",
+      "type": "person",
+      "label": "Димитрина Иванова Йотова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-todorov-kisov-687392",
+      "target": "company:tr:120615105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТИХОМИР НИКОЛОВ НИКОВ",
+      "target": "company:tr:120615105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ФОТЕВ НИКОЛОВ",
+      "target": "company:tr:120615105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА БАЛАБАНОВА",
+      "target": "company:tr:120615105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ХРИСТОВА СОТИРОВА",
+      "target": "company:tr:120615105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ИВАНОВА ЙОТОВА",
+      "target": "company:tr:120615105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

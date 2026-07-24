@@ -1,1 +1,194 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristina-lyudmilova-ivanova-petrova-c2dd48","nodes":[{"id":"official:hristina-lyudmilova-ivanova-petrova-c2dd48","type":"official","slug":"hristina-lyudmilova-ivanova-petrova-c2dd48","label":"Христина Людмилова Иванова-Петрова","tier":"municipal","role":"councillor","municipality":"Роман"},{"id":"company:tr:175833516","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ПРОБУДА 1930","slug":null,"uic":"175833516","legalForm":null,"status":null,"seat":null},{"id":"person:ЦЕНКА ИВАНОВА ТОНОВА","type":"person","label":"Ценка Иванова Тонова"},{"id":"person:РОСИЦА АЛЕКСАНДРОВА ИЛИЕВА","type":"person","label":"Росица Александрова Илиева"},{"id":"person:МИТКА ЦВЕТАНОВА ПЕТКОВА","type":"person","label":"Митка Цветанова Петкова"},{"id":"person:ТИХОМИР ЦОНКОВ ТОШЕВ","type":"person","label":"Тихомир Цонков Тошев"},{"id":"person:ПЕКА ПЕКОВА ДРАГАНОВА","type":"person","label":"Пека Пекова Драганова"},{"id":"person:ЛЮБЕН ВЕЛКОВ ПЕКОВ","type":"person","label":"Любен Велков Пеков"},{"id":"person:ЛЮБОМИР ГЕОРГИЕВ ПЕНЧЕВ","type":"person","label":"Любомир Георгиев Пенчев"},{"id":"person:ВАНЯ МАРКОВА ПЕТКОВА","type":"person","label":"Ваня Маркова Петкова"},{"id":"person:ИЛИАНА ИВАНОВА МИРКОВА","type":"person","label":"Илиана Иванова Миркова"},{"id":"person:ДИАНА ИВАНОВА ЦОНИНСКА","type":"person","label":"Диана Иванова Цонинска"},{"id":"person:БИСЕРКА ВЕСЕЛИНОВА НЕЦОВА","type":"person","label":"Бисерка Веселинова Нецова"}],"edges":[{"source":"official:hristina-lyudmilova-ivanova-petrova-c2dd48","target":"company:tr:175833516","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:hristina-lyudmilova-ivanova-petrova-c2dd48","target":"company:tr:175833516","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЦЕНКА ИВАНОВА ТОНОВА","target":"company:tr:175833516","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА АЛЕКСАНДРОВА ИЛИЕВА","target":"company:tr:175833516","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИТКА ЦВЕТАНОВА ПЕТКОВА","target":"company:tr:175833516","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР ЦОНКОВ ТОШЕВ","target":"company:tr:175833516","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА АЛЕКСАНДРОВА ИЛИЕВА","target":"company:tr:175833516","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕКА ПЕКОВА ДРАГАНОВА","target":"company:tr:175833516","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБЕН ВЕЛКОВ ПЕКОВ","target":"company:tr:175833516","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ГЕОРГИЕВ ПЕНЧЕВ","target":"company:tr:175833516","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ МАРКОВА ПЕТКОВА","target":"company:tr:175833516","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИАНА ИВАНОВА МИРКОВА","target":"company:tr:175833516","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА ИВАНОВА ЦОНИНСКА","target":"company:tr:175833516","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:БИСЕРКА ВЕСЕЛИНОВА НЕЦОВА","target":"company:tr:175833516","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristina-lyudmilova-ivanova-petrova-c2dd48",
+  "nodes": [
+    {
+      "id": "official:hristina-lyudmilova-ivanova-petrova-c2dd48",
+      "type": "official",
+      "slug": "hristina-lyudmilova-ivanova-petrova-c2dd48",
+      "label": "Христина Людмилова Иванова-Петрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Роман"
+    },
+    {
+      "id": "company:tr:175833516",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПРОБУДА 1930",
+      "slug": null,
+      "uic": "175833516",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦЕНКА ИВАНОВА ТОНОВА",
+      "type": "person",
+      "label": "Ценка Иванова Тонова"
+    },
+    {
+      "id": "person:РОСИЦА АЛЕКСАНДРОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Росица Александрова Илиева"
+    },
+    {
+      "id": "person:МИТКА ЦВЕТАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Митка Цветанова Петкова"
+    },
+    {
+      "id": "person:ТИХОМИР ЦОНКОВ ТОШЕВ",
+      "type": "person",
+      "label": "Тихомир Цонков Тошев"
+    },
+    {
+      "id": "person:ПЕКА ПЕКОВА ДРАГАНОВА",
+      "type": "person",
+      "label": "Пека Пекова Драганова"
+    },
+    {
+      "id": "person:ЛЮБЕН ВЕЛКОВ ПЕКОВ",
+      "type": "person",
+      "label": "Любен Велков Пеков"
+    },
+    {
+      "id": "person:ЛЮБОМИР ГЕОРГИЕВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Любомир Георгиев Пенчев"
+    },
+    {
+      "id": "person:ВАНЯ МАРКОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Ваня Маркова Петкова"
+    },
+    {
+      "id": "person:ИЛИАНА ИВАНОВА МИРКОВА",
+      "type": "person",
+      "label": "Илиана Иванова Миркова"
+    },
+    {
+      "id": "person:ДИАНА ИВАНОВА ЦОНИНСКА",
+      "type": "person",
+      "label": "Диана Иванова Цонинска"
+    },
+    {
+      "id": "person:БИСЕРКА ВЕСЕЛИНОВА НЕЦОВА",
+      "type": "person",
+      "label": "Бисерка Веселинова Нецова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-lyudmilova-ivanova-petrova-c2dd48",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristina-lyudmilova-ivanova-petrova-c2dd48",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦЕНКА ИВАНОВА ТОНОВА",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА АЛЕКСАНДРОВА ИЛИЕВА",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКА ЦВЕТАНОВА ПЕТКОВА",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ЦОНКОВ ТОШЕВ",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА АЛЕКСАНДРОВА ИЛИЕВА",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕКА ПЕКОВА ДРАГАНОВА",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЕН ВЕЛКОВ ПЕКОВ",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ГЕОРГИЕВ ПЕНЧЕВ",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ МАРКОВА ПЕТКОВА",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАНА ИВАНОВА МИРКОВА",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ИВАНОВА ЦОНИНСКА",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕРКА ВЕСЕЛИНОВА НЕЦОВА",
+      "target": "company:tr:175833516",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

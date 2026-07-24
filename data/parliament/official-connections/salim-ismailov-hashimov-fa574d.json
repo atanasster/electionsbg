@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:salim-ismailov-hashimov-fa574d","nodes":[{"id":"official:salim-ismailov-hashimov-fa574d","type":"official","slug":"salim-ismailov-hashimov-fa574d","label":"Салим Исмаилов Хашимов","tier":"municipal","role":"councillor","municipality":"Хитрино"},{"id":"company:tr:000923913","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;КИРИЛ И МЕТОДИЙ - 1956&quot;","slug":null,"uic":"000923913","legalForm":null,"status":null,"seat":null},{"id":"person:АЙШЕ ЮСМЕН ШАБАН","type":"person","label":"Айше Юсмен Шабан"},{"id":"person:МУКАДЕС САЛИМ АЛИ","type":"person","label":"Мукадес Салим Али"},{"id":"person:ИСМАИЛ ХЪЛМИЕВ ЕБАЗЕРОВ","type":"person","label":"Исмаил Хълмиев Ебазеров"},{"id":"person:МЕХМЕД КЯМИЛ МЕХМЕД","type":"person","label":"Мехмед Кямил Мехмед"},{"id":"person:АДЕМ НЕЖДЕТОВ БАКИЕВ","type":"person","label":"Адем Неждетов Бакиев"}],"edges":[{"source":"official:salim-ismailov-hashimov-fa574d","target":"company:tr:000923913","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:АЙШЕ ЮСМЕН ШАБАН","target":"company:tr:000923913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МУКАДЕС САЛИМ АЛИ","target":"company:tr:000923913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИСМАИЛ ХЪЛМИЕВ ЕБАЗЕРОВ","target":"company:tr:000923913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МЕХМЕД КЯМИЛ МЕХМЕД","target":"company:tr:000923913","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АДЕМ НЕЖДЕТОВ БАКИЕВ","target":"company:tr:000923913","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:salim-ismailov-hashimov-fa574d",
+  "nodes": [
+    {
+      "id": "official:salim-ismailov-hashimov-fa574d",
+      "type": "official",
+      "slug": "salim-ismailov-hashimov-fa574d",
+      "label": "Салим Исмаилов Хашимов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хитрино"
+    },
+    {
+      "id": "company:tr:000923913",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;КИРИЛ И МЕТОДИЙ - 1956&quot;",
+      "slug": null,
+      "uic": "000923913",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЙШЕ ЮСМЕН ШАБАН",
+      "type": "person",
+      "label": "Айше Юсмен Шабан"
+    },
+    {
+      "id": "person:МУКАДЕС САЛИМ АЛИ",
+      "type": "person",
+      "label": "Мукадес Салим Али"
+    },
+    {
+      "id": "person:ИСМАИЛ ХЪЛМИЕВ ЕБАЗЕРОВ",
+      "type": "person",
+      "label": "Исмаил Хълмиев Ебазеров"
+    },
+    {
+      "id": "person:МЕХМЕД КЯМИЛ МЕХМЕД",
+      "type": "person",
+      "label": "Мехмед Кямил Мехмед"
+    },
+    {
+      "id": "person:АДЕМ НЕЖДЕТОВ БАКИЕВ",
+      "type": "person",
+      "label": "Адем Неждетов Бакиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:salim-ismailov-hashimov-fa574d",
+      "target": "company:tr:000923913",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЙШЕ ЮСМЕН ШАБАН",
+      "target": "company:tr:000923913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУКАДЕС САЛИМ АЛИ",
+      "target": "company:tr:000923913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСМАИЛ ХЪЛМИЕВ ЕБАЗЕРОВ",
+      "target": "company:tr:000923913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД КЯМИЛ МЕХМЕД",
+      "target": "company:tr:000923913",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕМ НЕЖДЕТОВ БАКИЕВ",
+      "target": "company:tr:000923913",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

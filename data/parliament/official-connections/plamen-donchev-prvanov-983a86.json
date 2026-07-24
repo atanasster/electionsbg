@@ -1,1 +1,78 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:plamen-donchev-prvanov-983a86","nodes":[{"id":"official:plamen-donchev-prvanov-983a86","type":"official","slug":"plamen-donchev-prvanov-983a86","label":"Пламен Дончев Първанов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207479249","type":"company","label":"БЕРКОВИЦА - ВЪРШЕЦ ЕКО","slug":null,"uic":"207479249","legalForm":null,"status":null,"seat":null},{"id":"official:adela-aleksandrova-sergeeva-f65c7d","type":"official","slug":"adela-aleksandrova-sergeeva-f65c7d","label":"Адела Александрова Сергеева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ОБЩИНА БЕРКОВИЦА","type":"person","label":"Община Берковица"},{"id":"person:ОБЩИНА ВЪРШЕЦ","type":"person","label":"Община Вършец"}],"edges":[{"source":"official:plamen-donchev-prvanov-983a86","target":"company:tr:207479249","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:adela-aleksandrova-sergeeva-f65c7d","target":"company:tr:207479249","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ОБЩИНА БЕРКОВИЦА","target":"company:tr:207479249","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ВЪРШЕЦ","target":"company:tr:207479249","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:plamen-donchev-prvanov-983a86",
+  "nodes": [
+    {
+      "id": "official:plamen-donchev-prvanov-983a86",
+      "type": "official",
+      "slug": "plamen-donchev-prvanov-983a86",
+      "label": "Пламен Дончев Първанов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207479249",
+      "type": "company",
+      "label": "БЕРКОВИЦА - ВЪРШЕЦ ЕКО",
+      "slug": null,
+      "uic": "207479249",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:adela-aleksandrova-sergeeva-f65c7d",
+      "type": "official",
+      "slug": "adela-aleksandrova-sergeeva-f65c7d",
+      "label": "Адела Александрова Сергеева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ОБЩИНА БЕРКОВИЦА",
+      "type": "person",
+      "label": "Община Берковица"
+    },
+    {
+      "id": "person:ОБЩИНА ВЪРШЕЦ",
+      "type": "person",
+      "label": "Община Вършец"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-donchev-prvanov-983a86",
+      "target": "company:tr:207479249",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:adela-aleksandrova-sergeeva-f65c7d",
+      "target": "company:tr:207479249",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА БЕРКОВИЦА",
+      "target": "company:tr:207479249",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ВЪРШЕЦ",
+      "target": "company:tr:207479249",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,172 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:galin-georgiev-krtsov-24c678","nodes":[{"id":"official:galin-georgiev-krtsov-24c678","type":"official","slug":"galin-georgiev-krtsov-24c678","label":"Галин Георгиев Кърцов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:833066695","type":"company","label":"НИТИ","slug":null,"uic":"833066695","legalForm":null,"status":null,"seat":null},{"id":"official:delyan-lalev-nachev-7e5be9","type":"official","slug":"delyan-lalev-nachev-7e5be9","label":"Делян Лалев Начев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:yuliyan-atanasov-lekov-1404c0","type":"official","slug":"yuliyan-atanasov-lekov-1404c0","label":"Юлиян Атанасов Леков","tier":"executive","role":"regional_governor","municipality":null},{"id":"official:yuliyan-nedyalkov-balchev-655d23","type":"official","slug":"yuliyan-nedyalkov-balchev-655d23","label":"Юлиян Недялков Балчев","tier":"executive","role":"secretary_general","municipality":null},{"id":"person:КРИСТИНА ТОШЕВА ЦВЕТКОВА","type":"person","label":"Кристина Тошева Цветкова"},{"id":"person:СТЕФАН КОЛЕВ КОЛЕВ","type":"person","label":"Стефан Колев Колев"},{"id":"person:ЙОРДАН ВАСИЛЕВ ВАСИЛЕВ","type":"person","label":"Йордан Василев Василев"},{"id":"person:КОНСТАНТИН ДИМИТРОВ РАДОНОВ","type":"person","label":"Константин Димитров Радонов"},{"id":"person:РУМЕН ВАСИЛЕВ СТОЯНОВ","type":"person","label":"Румен Василев Стоянов"},{"id":"person:СТЕФАН СТОЯНОВ ВЪЛЧЕВ","type":"person","label":"Стефан Стоянов Вълчев"}],"edges":[{"source":"official:galin-georgiev-krtsov-24c678","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:delyan-lalev-nachev-7e5be9","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:delyan-lalev-nachev-7e5be9","target":"company:tr:833066695","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:yuliyan-atanasov-lekov-1404c0","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:yuliyan-nedyalkov-balchev-655d23","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:КРИСТИНА ТОШЕВА ЦВЕТКОВА","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН КОЛЕВ КОЛЕВ","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ВАСИЛЕВ ВАСИЛЕВ","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН ДИМИТРОВ РАДОНОВ","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ВАСИЛЕВ СТОЯНОВ","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН СТОЯНОВ ВЪЛЧЕВ","target":"company:tr:833066695","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:galin-georgiev-krtsov-24c678",
+  "nodes": [
+    {
+      "id": "official:galin-georgiev-krtsov-24c678",
+      "type": "official",
+      "slug": "galin-georgiev-krtsov-24c678",
+      "label": "Галин Георгиев Кърцов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:833066695",
+      "type": "company",
+      "label": "НИТИ",
+      "slug": null,
+      "uic": "833066695",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:delyan-lalev-nachev-7e5be9",
+      "type": "official",
+      "slug": "delyan-lalev-nachev-7e5be9",
+      "label": "Делян Лалев Начев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:yuliyan-atanasov-lekov-1404c0",
+      "type": "official",
+      "slug": "yuliyan-atanasov-lekov-1404c0",
+      "label": "Юлиян Атанасов Леков",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "official:yuliyan-nedyalkov-balchev-655d23",
+      "type": "official",
+      "slug": "yuliyan-nedyalkov-balchev-655d23",
+      "label": "Юлиян Недялков Балчев",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "person:КРИСТИНА ТОШЕВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Кристина Тошева Цветкова"
+    },
+    {
+      "id": "person:СТЕФАН КОЛЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Стефан Колев Колев"
+    },
+    {
+      "id": "person:ЙОРДАН ВАСИЛЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Йордан Василев Василев"
+    },
+    {
+      "id": "person:КОНСТАНТИН ДИМИТРОВ РАДОНОВ",
+      "type": "person",
+      "label": "Константин Димитров Радонов"
+    },
+    {
+      "id": "person:РУМЕН ВАСИЛЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Румен Василев Стоянов"
+    },
+    {
+      "id": "person:СТЕФАН СТОЯНОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Стефан Стоянов Вълчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galin-georgiev-krtsov-24c678",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:delyan-lalev-nachev-7e5be9",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:delyan-lalev-nachev-7e5be9",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuliyan-atanasov-lekov-1404c0",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuliyan-nedyalkov-balchev-655d23",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРИСТИНА ТОШЕВА ЦВЕТКОВА",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН КОЛЕВ КОЛЕВ",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ДИМИТРОВ РАДОНОВ",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ВАСИЛЕВ СТОЯНОВ",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН СТОЯНОВ ВЪЛЧЕВ",
+      "target": "company:tr:833066695",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

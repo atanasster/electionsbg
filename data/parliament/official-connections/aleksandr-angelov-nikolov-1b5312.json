@@ -1,1 +1,129 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aleksandr-angelov-nikolov-1b5312","nodes":[{"id":"official:aleksandr-angelov-nikolov-1b5312","type":"official","slug":"aleksandr-angelov-nikolov-1b5312","label":"Александър Ангелов Николов","tier":"executive","role":"cabinet","municipality":null},{"id":"company:tr:200406533","type":"company","label":"СИТИ КЕПИТЪЛ ООД","slug":null,"uic":"200406533","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206684639","type":"company","label":"Булсан Груп ООД","slug":null,"uic":"206684639","legalForm":null,"status":null,"seat":null},{"id":"person:БОРИСЛАВ ИВАНОВ ДРАГОМИРОВ","type":"person","label":"Борислав Иванов Драгомиров"},{"id":"person:ДИМИТЪР ГЕОРГИЕВ ИРИНКОВ","type":"person","label":"Димитър Георгиев Иринков"},{"id":"company:name:К.Б.Д.","type":"company","label":"\"К.Б.Д.\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:aleksandr-angelov-nikolov-1b5312","target":"company:tr:200406533","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:aleksandr-angelov-nikolov-1b5312","target":"company:tr:206684639","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:aleksandr-angelov-nikolov-1b5312","target":"company:tr:206684639","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandr-angelov-nikolov-1b5312","target":"company:tr:206684639","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:БОРИСЛАВ ИВАНОВ ДРАГОМИРОВ","target":"company:tr:206684639","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ГЕОРГИЕВ ИРИНКОВ","target":"company:tr:206684639","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ ИВАНОВ ДРАГОМИРОВ","target":"company:tr:206684639","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ГЕОРГИЕВ ИРИНКОВ","target":"company:tr:206684639","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:К.Б.Д.","target":"company:tr:206684639","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aleksandr-angelov-nikolov-1b5312",
+  "nodes": [
+    {
+      "id": "official:aleksandr-angelov-nikolov-1b5312",
+      "type": "official",
+      "slug": "aleksandr-angelov-nikolov-1b5312",
+      "label": "Александър Ангелов Николов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200406533",
+      "type": "company",
+      "label": "СИТИ КЕПИТЪЛ ООД",
+      "slug": null,
+      "uic": "200406533",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206684639",
+      "type": "company",
+      "label": "Булсан Груп ООД",
+      "slug": null,
+      "uic": "206684639",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИСЛАВ ИВАНОВ ДРАГОМИРОВ",
+      "type": "person",
+      "label": "Борислав Иванов Драгомиров"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ИРИНКОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Иринков"
+    },
+    {
+      "id": "company:name:К.Б.Д.",
+      "type": "company",
+      "label": "\"К.Б.Д.\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-angelov-nikolov-1b5312",
+      "target": "company:tr:200406533",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleksandr-angelov-nikolov-1b5312",
+      "target": "company:tr:206684639",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleksandr-angelov-nikolov-1b5312",
+      "target": "company:tr:206684639",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-angelov-nikolov-1b5312",
+      "target": "company:tr:206684639",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИСЛАВ ИВАНОВ ДРАГОМИРОВ",
+      "target": "company:tr:206684639",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ИРИНКОВ",
+      "target": "company:tr:206684639",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ИВАНОВ ДРАГОМИРОВ",
+      "target": "company:tr:206684639",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ИРИНКОВ",
+      "target": "company:tr:206684639",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:К.Б.Д.",
+      "target": "company:tr:206684639",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

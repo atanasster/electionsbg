@@ -1,1 +1,93 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-yanev-dimitrov-dd9a46","nodes":[{"id":"official:nikolai-yanev-dimitrov-dd9a46","type":"official","slug":"nikolai-yanev-dimitrov-dd9a46","label":"Николай Янев Димитров","tier":"municipal","role":"councillor","municipality":"Монтана"},{"id":"company:tr:207632710","type":"company","label":"Монт Бюти ООД","slug":null,"uic":"207632710","legalForm":null,"status":null,"seat":null},{"id":"person:ВЕСЕЛКА ФИЛИПОВА ЦЕНКОВА","type":"person","label":"Веселка Филипова Ценкова"},{"id":"person:ЯНА ЯНЕВА ДИМИТРОВА","type":"person","label":"Яна Янева Димитрова"}],"edges":[{"source":"official:nikolai-yanev-dimitrov-dd9a46","target":"company:tr:207632710","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-yanev-dimitrov-dd9a46","target":"company:tr:207632710","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-yanev-dimitrov-dd9a46","target":"company:tr:207632710","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕСЕЛКА ФИЛИПОВА ЦЕНКОВА","target":"company:tr:207632710","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ЯНЕВА ДИМИТРОВА","target":"company:tr:207632710","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА ФИЛИПОВА ЦЕНКОВА","target":"company:tr:207632710","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ЯНЕВА ДИМИТРОВА","target":"company:tr:207632710","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-yanev-dimitrov-dd9a46",
+  "nodes": [
+    {
+      "id": "official:nikolai-yanev-dimitrov-dd9a46",
+      "type": "official",
+      "slug": "nikolai-yanev-dimitrov-dd9a46",
+      "label": "Николай Янев Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "company:tr:207632710",
+      "type": "company",
+      "label": "Монт Бюти ООД",
+      "slug": null,
+      "uic": "207632710",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛКА ФИЛИПОВА ЦЕНКОВА",
+      "type": "person",
+      "label": "Веселка Филипова Ценкова"
+    },
+    {
+      "id": "person:ЯНА ЯНЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Яна Янева Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-yanev-dimitrov-dd9a46",
+      "target": "company:tr:207632710",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-yanev-dimitrov-dd9a46",
+      "target": "company:tr:207632710",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-yanev-dimitrov-dd9a46",
+      "target": "company:tr:207632710",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ФИЛИПОВА ЦЕНКОВА",
+      "target": "company:tr:207632710",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ЯНЕВА ДИМИТРОВА",
+      "target": "company:tr:207632710",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ФИЛИПОВА ЦЕНКОВА",
+      "target": "company:tr:207632710",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ЯНЕВА ДИМИТРОВА",
+      "target": "company:tr:207632710",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

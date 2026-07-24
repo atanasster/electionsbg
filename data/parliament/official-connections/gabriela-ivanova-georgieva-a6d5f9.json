@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:gabriela-ivanova-georgieva-a6d5f9","nodes":[{"id":"official:gabriela-ivanova-georgieva-a6d5f9","type":"official","slug":"gabriela-ivanova-georgieva-a6d5f9","label":"Габриела Иванова Георгиева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207687192","type":"company","label":"ДЖИ АЙ ПАРТНЪРС","slug":null,"uic":"207687192","legalForm":null,"status":null,"seat":null},{"id":"person:ИРИНА ВАСИЛОВА ВАКАНОВА","type":"person","label":"Ирина Василова Ваканова"}],"edges":[{"source":"official:gabriela-ivanova-georgieva-a6d5f9","target":"company:tr:207687192","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИРИНА ВАСИЛОВА ВАКАНОВА","target":"company:tr:207687192","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ВАСИЛОВА ВАКАНОВА","target":"company:tr:207687192","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:gabriela-ivanova-georgieva-a6d5f9",
+  "nodes": [
+    {
+      "id": "official:gabriela-ivanova-georgieva-a6d5f9",
+      "type": "official",
+      "slug": "gabriela-ivanova-georgieva-a6d5f9",
+      "label": "Габриела Иванова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207687192",
+      "type": "company",
+      "label": "ДЖИ АЙ ПАРТНЪРС",
+      "slug": null,
+      "uic": "207687192",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРИНА ВАСИЛОВА ВАКАНОВА",
+      "type": "person",
+      "label": "Ирина Василова Ваканова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gabriela-ivanova-georgieva-a6d5f9",
+      "target": "company:tr:207687192",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРИНА ВАСИЛОВА ВАКАНОВА",
+      "target": "company:tr:207687192",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ВАСИЛОВА ВАКАНОВА",
+      "target": "company:tr:207687192",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ognyan-lyubomirov-nachev-625016","nodes":[{"id":"official:ognyan-lyubomirov-nachev-625016","type":"official","slug":"ognyan-lyubomirov-nachev-625016","label":"Огнян Любомиров Начев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:114583635","type":"company","label":"ДИАГНОСТИЧНО КОНСУЛТАТИВЕН ЦЕНТЪР - ПЛЕВЕН","slug":null,"uic":"114583635","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ognyan-lyubomirov-nachev-625016","target":"company:tr:114583635","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ognyan-lyubomirov-nachev-625016",
+  "nodes": [
+    {
+      "id": "official:ognyan-lyubomirov-nachev-625016",
+      "type": "official",
+      "slug": "ognyan-lyubomirov-nachev-625016",
+      "label": "Огнян Любомиров Начев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114583635",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО КОНСУЛТАТИВЕН ЦЕНТЪР - ПЛЕВЕН",
+      "slug": null,
+      "uic": "114583635",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ognyan-lyubomirov-nachev-625016",
+      "target": "company:tr:114583635",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,1 +1,123 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:robert-yanakiev-yanakiev-6d84c7","nodes":[{"id":"official:robert-yanakiev-yanakiev-6d84c7","type":"official","slug":"robert-yanakiev-yanakiev-6d84c7","label":"Роберт Янакиев Янакиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:121109721","type":"company","label":"Фондация Любен Гройс","slug":null,"uic":"121109721","legalForm":null,"status":null,"seat":null},{"id":"company:name:ИНОВАЦИОНЕН И ИЗСЛЕДОВАТЕЛСКИ ЦЕНТЪР","type":"company","label":"\"ИНОВАЦИОНЕН И ИЗСЛЕДОВАТЕЛСКИ ЦЕНТЪР\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:,,Е - ТУРС","type":"company","label":",,Е - ТУРС\" ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:РУМЯНА ПЕТРОВА КОНСТАНТИНОВА - ИЗПЪЛНИТЕЛЕН ДИРЕКТОР","type":"person","label":"Румяна Петрова Константинова - Изпълнителен Директор"},{"id":"person:\"ЦЕНТЪР ЗА ГРАЖДАНСКИ ИНИЦИАТИВИ, КОНСУЛТАЦИИ И ОБУЧЕНИЕ\" СДРУЖЕНИЕ","type":"person","label":"\"център За Граждански Инициативи, Консултации И Обучение\" Сдружение"},{"id":"person:БИЛЯНА ОГНЯНОВА ПЕТРИНСКА","type":"person","label":"Биляна Огнянова Петринска"},{"id":"person:СДРУЖЕНИЕ \"ИНТЕРНЕШЪНЪЛ СОЛУШЪНС\"","type":"person","label":"Сдружение \"интернешънъл Солушънс\""}],"edges":[{"source":"official:robert-yanakiev-yanakiev-6d84c7","target":"company:tr:121109721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"company:name:ИНОВАЦИОНЕН И ИЗСЛЕДОВАТЕЛСКИ ЦЕНТЪР","target":"company:tr:121109721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:,,Е - ТУРС","target":"company:tr:121109721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ПЕТРОВА КОНСТАНТИНОВА - ИЗПЪЛНИТЕЛЕН ДИРЕКТОР","target":"company:tr:121109721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:\"ЦЕНТЪР ЗА ГРАЖДАНСКИ ИНИЦИАТИВИ, КОНСУЛТАЦИИ И ОБУЧЕНИЕ\" СДРУЖЕНИЕ","target":"company:tr:121109721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯНА ОГНЯНОВА ПЕТРИНСКА","target":"company:tr:121109721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СДРУЖЕНИЕ \"ИНТЕРНЕШЪНЪЛ СОЛУШЪНС\"","target":"company:tr:121109721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:robert-yanakiev-yanakiev-6d84c7",
+  "nodes": [
+    {
+      "id": "official:robert-yanakiev-yanakiev-6d84c7",
+      "type": "official",
+      "slug": "robert-yanakiev-yanakiev-6d84c7",
+      "label": "Роберт Янакиев Янакиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121109721",
+      "type": "company",
+      "label": "Фондация Любен Гройс",
+      "slug": null,
+      "uic": "121109721",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ИНОВАЦИОНЕН И ИЗСЛЕДОВАТЕЛСКИ ЦЕНТЪР",
+      "type": "company",
+      "label": "\"ИНОВАЦИОНЕН И ИЗСЛЕДОВАТЕЛСКИ ЦЕНТЪР\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:,,Е - ТУРС",
+      "type": "company",
+      "label": ",,Е - ТУРС\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУМЯНА ПЕТРОВА КОНСТАНТИНОВА - ИЗПЪЛНИТЕЛЕН ДИРЕКТОР",
+      "type": "person",
+      "label": "Румяна Петрова Константинова - Изпълнителен Директор"
+    },
+    {
+      "id": "person:\"ЦЕНТЪР ЗА ГРАЖДАНСКИ ИНИЦИАТИВИ, КОНСУЛТАЦИИ И ОБУЧЕНИЕ\" СДРУЖЕНИЕ",
+      "type": "person",
+      "label": "\"център За Граждански Инициативи, Консултации И Обучение\" Сдружение"
+    },
+    {
+      "id": "person:БИЛЯНА ОГНЯНОВА ПЕТРИНСКА",
+      "type": "person",
+      "label": "Биляна Огнянова Петринска"
+    },
+    {
+      "id": "person:СДРУЖЕНИЕ \"ИНТЕРНЕШЪНЪЛ СОЛУШЪНС\"",
+      "type": "person",
+      "label": "Сдружение \"интернешънъл Солушънс\""
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:robert-yanakiev-yanakiev-6d84c7",
+      "target": "company:tr:121109721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:ИНОВАЦИОНЕН И ИЗСЛЕДОВАТЕЛСКИ ЦЕНТЪР",
+      "target": "company:tr:121109721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:,,Е - ТУРС",
+      "target": "company:tr:121109721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ПЕТРОВА КОНСТАНТИНОВА - ИЗПЪЛНИТЕЛЕН ДИРЕКТОР",
+      "target": "company:tr:121109721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"ЦЕНТЪР ЗА ГРАЖДАНСКИ ИНИЦИАТИВИ, КОНСУЛТАЦИИ И ОБУЧЕНИЕ\" СДРУЖЕНИЕ",
+      "target": "company:tr:121109721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ОГНЯНОВА ПЕТРИНСКА",
+      "target": "company:tr:121109721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СДРУЖЕНИЕ \"ИНТЕРНЕШЪНЪЛ СОЛУШЪНС\"",
+      "target": "company:tr:121109721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

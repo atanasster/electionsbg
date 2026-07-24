@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "generatedAt": "2026-07-24T18:01:46.243Z",
   "mpNodeId": "mp:5145",
   "nodes": [
     {
@@ -24,6 +24,15 @@
       "seat": null
     },
     {
+      "id": "official:georgi-zlatev-cholakov-586094",
+      "type": "official",
+      "slug": "georgi-zlatev-cholakov-586094",
+      "label": "Георги Златев Чолаков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
       "id": "official:elena-margaritova-noneva-9f6b71",
       "type": "official",
       "slug": "elena-margaritova-noneva-9f6b71",
@@ -46,11 +55,6 @@
       "id": "person:ДАНИЕЛА СВЕТОЗАРОВА ХРИСТОВА",
       "type": "person",
       "label": "Даниела Светозарова Христова"
-    },
-    {
-      "id": "person:ГЕОРГИ ЗЛАТЕВ ЧОЛАКОВ",
-      "type": "person",
-      "label": "Георги Златев Чолаков"
     },
     {
       "id": "person:ХРИСТОФОР ИВАНОВ КОНДЕВ",
@@ -136,6 +140,14 @@
       "confidence": "medium"
     },
     {
+      "source": "official:georgi-zlatev-cholakov-586094",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
       "source": "official:elena-margaritova-noneva-9f6b71",
       "target": "company:tr:000703244",
       "kind": "tr_role",
@@ -161,14 +173,6 @@
     },
     {
       "source": "person:ДАНИЕЛА СВЕТОЗАРОВА ХРИСТОВА",
-      "target": "company:tr:000703244",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ГЕОРГИ ЗЛАТЕВ ЧОЛАКОВ",
       "target": "company:tr:000703244",
       "kind": "tr_role",
       "role": "ngo_board",

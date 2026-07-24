@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetelina-ananieva-stoyanova-adf967","nodes":[{"id":"official:tsvetelina-ananieva-stoyanova-adf967","type":"official","slug":"tsvetelina-ananieva-stoyanova-adf967","label":"Цветелина Ананиева Стоянова","tier":"executive","role":"security_service","municipality":null},{"id":"company:tr:204885675","type":"company","label":"АВС Трейд България ООД","slug":null,"uic":"204885675","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:tsvetelina-ananieva-stoyanova-adf967","target":"company:tr:204885675","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetelina-ananieva-stoyanova-adf967",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-ananieva-stoyanova-adf967",
+      "type": "official",
+      "slug": "tsvetelina-ananieva-stoyanova-adf967",
+      "label": "Цветелина Ананиева Стоянова",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204885675",
+      "type": "company",
+      "label": "АВС Трейд България ООД",
+      "slug": null,
+      "uic": "204885675",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-ananieva-stoyanova-adf967",
+      "target": "company:tr:204885675",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

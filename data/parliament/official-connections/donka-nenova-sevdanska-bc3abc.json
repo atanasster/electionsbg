@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:donka-nenova-sevdanska-bc3abc","nodes":[{"id":"official:donka-nenova-sevdanska-bc3abc","type":"official","slug":"donka-nenova-sevdanska-bc3abc","label":"Донка Ненова Севданска","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:175910382","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО ЗА НАШИТЕ ДЕЦА ПРИ ОУ &quot;ЧУДОМИР&quot;","slug":null,"uic":"175910382","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:donka-nenova-sevdanska-bc3abc","target":"company:tr:175910382","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:donka-nenova-sevdanska-bc3abc",
+  "nodes": [
+    {
+      "id": "official:donka-nenova-sevdanska-bc3abc",
+      "type": "official",
+      "slug": "donka-nenova-sevdanska-bc3abc",
+      "label": "Донка Ненова Севданска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175910382",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ЗА НАШИТЕ ДЕЦА ПРИ ОУ &quot;ЧУДОМИР&quot;",
+      "slug": null,
+      "uic": "175910382",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:donka-nenova-sevdanska-bc3abc",
+      "target": "company:tr:175910382",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

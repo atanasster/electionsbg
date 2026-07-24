@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:marieta-ivanova-dimitrova-2495a9","nodes":[{"id":"official:marieta-ivanova-dimitrova-2495a9","type":"official","slug":"marieta-ivanova-dimitrova-2495a9","label":"Мариета Иванова Димитрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:200688036","type":"company","label":"ТЕХКОНТ ИНЖЕНЕРИНГ","slug":null,"uic":"200688036","legalForm":null,"status":null,"seat":null},{"id":"person:БОРЯНА БЛАГОЕВА НАНЕВА","type":"person","label":"Боряна Благоева Нанева"},{"id":"person:БЛАГОЙ ПЕТРОВ ДИМИТРОВ","type":"person","label":"Благой Петров Димитров"}],"edges":[{"source":"official:marieta-ivanova-dimitrova-2495a9","target":"company:tr:200688036","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:marieta-ivanova-dimitrova-2495a9","target":"company:tr:200688036","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:БОРЯНА БЛАГОЕВА НАНЕВА","target":"company:tr:200688036","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯНА БЛАГОЕВА НАНЕВА","target":"company:tr:200688036","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:БЛАГОЙ ПЕТРОВ ДИМИТРОВ","target":"company:tr:200688036","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:marieta-ivanova-dimitrova-2495a9",
+  "nodes": [
+    {
+      "id": "official:marieta-ivanova-dimitrova-2495a9",
+      "type": "official",
+      "slug": "marieta-ivanova-dimitrova-2495a9",
+      "label": "Мариета Иванова Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200688036",
+      "type": "company",
+      "label": "ТЕХКОНТ ИНЖЕНЕРИНГ",
+      "slug": null,
+      "uic": "200688036",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРЯНА БЛАГОЕВА НАНЕВА",
+      "type": "person",
+      "label": "Боряна Благоева Нанева"
+    },
+    {
+      "id": "person:БЛАГОЙ ПЕТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Благой Петров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marieta-ivanova-dimitrova-2495a9",
+      "target": "company:tr:200688036",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marieta-ivanova-dimitrova-2495a9",
+      "target": "company:tr:200688036",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРЯНА БЛАГОЕВА НАНЕВА",
+      "target": "company:tr:200688036",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА БЛАГОЕВА НАНЕВА",
+      "target": "company:tr:200688036",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОЙ ПЕТРОВ ДИМИТРОВ",
+      "target": "company:tr:200688036",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

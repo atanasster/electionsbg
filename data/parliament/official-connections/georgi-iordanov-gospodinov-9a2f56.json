@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-iordanov-gospodinov-9a2f56","nodes":[{"id":"official:georgi-iordanov-gospodinov-9a2f56","type":"official","slug":"georgi-iordanov-gospodinov-9a2f56","label":"Георги Йорданов Господинов","tier":"municipal","role":"councillor","municipality":"Стара Загора"},{"id":"company:tr:204548156","type":"company","label":"\"Скай Мед\" ЕООД","slug":null,"uic":"204548156","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:georgi-iordanov-gospodinov-9a2f56","target":"company:tr:204548156","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-iordanov-gospodinov-9a2f56",
+  "nodes": [
+    {
+      "id": "official:georgi-iordanov-gospodinov-9a2f56",
+      "type": "official",
+      "slug": "georgi-iordanov-gospodinov-9a2f56",
+      "label": "Георги Йорданов Господинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:204548156",
+      "type": "company",
+      "label": "\"Скай Мед\" ЕООД",
+      "slug": null,
+      "uic": "204548156",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-iordanov-gospodinov-9a2f56",
+      "target": "company:tr:204548156",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

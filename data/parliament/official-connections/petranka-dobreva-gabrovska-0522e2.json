@@ -1,1 +1,181 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petranka-dobreva-gabrovska-0522e2","nodes":[{"id":"official:petranka-dobreva-gabrovska-0522e2","type":"official","slug":"petranka-dobreva-gabrovska-0522e2","label":"Петранка Добрева Габровска","tier":"municipal","role":"councillor","municipality":"Попово"},{"id":"company:tr:000869278","type":"company","label":"Народно читалище &quot;СЪЗНАНИЕ-1907&quot;","slug":null,"uic":"000869278","legalForm":null,"status":null,"seat":null},{"id":"person:ФЕРДЖИХАН КЯМИЛОВА ЮСЕИНОВА","type":"person","label":"Ферджихан Кямилова Юсеинова"},{"id":"person:СВЕТЛА АЛЕКСАНДРОВА АЛЕКСАНДРОВА","type":"person","label":"Светла Александрова Александрова"},{"id":"person:ПЕНКА РАЧЕВА ГРОЗЕВА","type":"person","label":"Пенка Рачева Грозева"},{"id":"person:ВЕЛИЧКА МИХАЙЛОВА СТОЯНОВА","type":"person","label":"Величка Михайлова Стоянова"},{"id":"person:АНДРЕЯН РАЧЕВ ВЕНКОВ","type":"person","label":"Андреян Рачев Венков"},{"id":"person:ТОДОР ВЛАДИМИРОВ АЛЕКСАНДРОВ","type":"person","label":"Тодор Владимиров Александров"},{"id":"person:ИРИНА ТОДОРОВА ЗЛАТЕВА","type":"person","label":"Ирина Тодорова Златева"},{"id":"person:МАРА СЪБЕВА ТАСКОВА","type":"person","label":"Мара Събева Таскова"},{"id":"person:ДИАНА МАРИНОВА СТОЯНОВА","type":"person","label":"Диана Маринова Стоянова"},{"id":"person:СИМОНА ДРАГОМИРОВА СТОЯНОВА","type":"person","label":"Симона Драгомирова Стоянова"}],"edges":[{"source":"official:petranka-dobreva-gabrovska-0522e2","target":"company:tr:000869278","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:petranka-dobreva-gabrovska-0522e2","target":"company:tr:000869278","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ФЕРДЖИХАН КЯМИЛОВА ЮСЕИНОВА","target":"company:tr:000869278","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ФЕРДЖИХАН КЯМИЛОВА ЮСЕИНОВА","target":"company:tr:000869278","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА АЛЕКСАНДРОВА АЛЕКСАНДРОВА","target":"company:tr:000869278","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА РАЧЕВА ГРОЗЕВА","target":"company:tr:000869278","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЧКА МИХАЙЛОВА СТОЯНОВА","target":"company:tr:000869278","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕЯН РАЧЕВ ВЕНКОВ","target":"company:tr:000869278","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ВЛАДИМИРОВ АЛЕКСАНДРОВ","target":"company:tr:000869278","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ТОДОРОВА ЗЛАТЕВА","target":"company:tr:000869278","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРА СЪБЕВА ТАСКОВА","target":"company:tr:000869278","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА МАРИНОВА СТОЯНОВА","target":"company:tr:000869278","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СИМОНА ДРАГОМИРОВА СТОЯНОВА","target":"company:tr:000869278","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petranka-dobreva-gabrovska-0522e2",
+  "nodes": [
+    {
+      "id": "official:petranka-dobreva-gabrovska-0522e2",
+      "type": "official",
+      "slug": "petranka-dobreva-gabrovska-0522e2",
+      "label": "Петранка Добрева Габровска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Попово"
+    },
+    {
+      "id": "company:tr:000869278",
+      "type": "company",
+      "label": "Народно читалище &quot;СЪЗНАНИЕ-1907&quot;",
+      "slug": null,
+      "uic": "000869278",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФЕРДЖИХАН КЯМИЛОВА ЮСЕИНОВА",
+      "type": "person",
+      "label": "Ферджихан Кямилова Юсеинова"
+    },
+    {
+      "id": "person:СВЕТЛА АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Светла Александрова Александрова"
+    },
+    {
+      "id": "person:ПЕНКА РАЧЕВА ГРОЗЕВА",
+      "type": "person",
+      "label": "Пенка Рачева Грозева"
+    },
+    {
+      "id": "person:ВЕЛИЧКА МИХАЙЛОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Величка Михайлова Стоянова"
+    },
+    {
+      "id": "person:АНДРЕЯН РАЧЕВ ВЕНКОВ",
+      "type": "person",
+      "label": "Андреян Рачев Венков"
+    },
+    {
+      "id": "person:ТОДОР ВЛАДИМИРОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Тодор Владимиров Александров"
+    },
+    {
+      "id": "person:ИРИНА ТОДОРОВА ЗЛАТЕВА",
+      "type": "person",
+      "label": "Ирина Тодорова Златева"
+    },
+    {
+      "id": "person:МАРА СЪБЕВА ТАСКОВА",
+      "type": "person",
+      "label": "Мара Събева Таскова"
+    },
+    {
+      "id": "person:ДИАНА МАРИНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Диана Маринова Стоянова"
+    },
+    {
+      "id": "person:СИМОНА ДРАГОМИРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Симона Драгомирова Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petranka-dobreva-gabrovska-0522e2",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petranka-dobreva-gabrovska-0522e2",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФЕРДЖИХАН КЯМИЛОВА ЮСЕИНОВА",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРДЖИХАН КЯМИЛОВА ЮСЕИНОВА",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА РАЧЕВА ГРОЗЕВА",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА МИХАЙЛОВА СТОЯНОВА",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЯН РАЧЕВ ВЕНКОВ",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ВЛАДИМИРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ТОДОРОВА ЗЛАТЕВА",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРА СЪБЕВА ТАСКОВА",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА МАРИНОВА СТОЯНОВА",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМОНА ДРАГОМИРОВА СТОЯНОВА",
+      "target": "company:tr:000869278",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

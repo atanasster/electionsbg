@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:yuliyan-krumov-ivanov-41dd5d","nodes":[{"id":"official:yuliyan-krumov-ivanov-41dd5d","type":"official","slug":"yuliyan-krumov-ivanov-41dd5d","label":"Юлиян Крумов Иванов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:101522924","type":"company","label":"ПАЗАРИ","slug":null,"uic":"101522924","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:yuliyan-krumov-ivanov-41dd5d","target":"company:tr:101522924","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:yuliyan-krumov-ivanov-41dd5d",
+  "nodes": [
+    {
+      "id": "official:yuliyan-krumov-ivanov-41dd5d",
+      "type": "official",
+      "slug": "yuliyan-krumov-ivanov-41dd5d",
+      "label": "Юлиян Крумов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101522924",
+      "type": "company",
+      "label": "ПАЗАРИ",
+      "slug": null,
+      "uic": "101522924",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliyan-krumov-ivanov-41dd5d",
+      "target": "company:tr:101522924",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

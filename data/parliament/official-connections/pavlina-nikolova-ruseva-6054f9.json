@@ -1,1 +1,173 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:pavlina-nikolova-ruseva-6054f9","nodes":[{"id":"official:pavlina-nikolova-ruseva-6054f9","type":"official","slug":"pavlina-nikolova-ruseva-6054f9","label":"Павлина Николова Русева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:208888266","type":"company","label":"Народно читалище Устрем-2026","slug":null,"uic":"208888266","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕНКА ХРИСТОВА ДИМИТРОВА","type":"person","label":"Пенка Христова Димитрова"},{"id":"person:ПЕТЯ СТАНЧЕВА СТЕФАНОВА","type":"person","label":"Петя Станчева Стефанова"},{"id":"person:ПАВЕЛ СТЕФАНОВ РУСЕВ","type":"person","label":"Павел Стефанов Русев"},{"id":"person:ЕЛЕНА ЕНЕВА ДЕЧКОВА","type":"person","label":"Елена Енева Дечкова"},{"id":"person:ИВАНА АРМЕН ХОСРОВЯН","type":"person","label":"Ивана Армен Хосровян"},{"id":"person:КРЕМЕНА РАШКОВА РАДЕВА","type":"person","label":"Кремена Рашкова Радева"},{"id":"person:СВЕТЛА ГЕОРГИЕВА НИКОЛОВА-СТОЙНОВА","type":"person","label":"Светла Георгиева Николова-Стойнова"},{"id":"person:СВЕТЛИН СТАНЧЕВ РУСЕВ","type":"person","label":"Светлин Станчев Русев"},{"id":"person:ЖЕЛЯЗКА МАРКОВА ДИМИТРОВА","type":"person","label":"Желязка Маркова Димитрова"},{"id":"person:ПЕТЯ ВЕНКОВА ВЕЛИКОВА","type":"person","label":"Петя Венкова Великова"}],"edges":[{"source":"official:pavlina-nikolova-ruseva-6054f9","target":"company:tr:208888266","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕНКА ХРИСТОВА ДИМИТРОВА","target":"company:tr:208888266","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ СТАНЧЕВА СТЕФАНОВА","target":"company:tr:208888266","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА ХРИСТОВА ДИМИТРОВА","target":"company:tr:208888266","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ СТЕФАНОВ РУСЕВ","target":"company:tr:208888266","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ЕНЕВА ДЕЧКОВА","target":"company:tr:208888266","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНА АРМЕН ХОСРОВЯН","target":"company:tr:208888266","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРЕМЕНА РАШКОВА РАДЕВА","target":"company:tr:208888266","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА ГЕОРГИЕВА НИКОЛОВА-СТОЙНОВА","target":"company:tr:208888266","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛИН СТАНЧЕВ РУСЕВ","target":"company:tr:208888266","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛЯЗКА МАРКОВА ДИМИТРОВА","target":"company:tr:208888266","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ВЕНКОВА ВЕЛИКОВА","target":"company:tr:208888266","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:pavlina-nikolova-ruseva-6054f9",
+  "nodes": [
+    {
+      "id": "official:pavlina-nikolova-ruseva-6054f9",
+      "type": "official",
+      "slug": "pavlina-nikolova-ruseva-6054f9",
+      "label": "Павлина Николова Русева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208888266",
+      "type": "company",
+      "label": "Народно читалище Устрем-2026",
+      "slug": null,
+      "uic": "208888266",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕНКА ХРИСТОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Пенка Христова Димитрова"
+    },
+    {
+      "id": "person:ПЕТЯ СТАНЧЕВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Петя Станчева Стефанова"
+    },
+    {
+      "id": "person:ПАВЕЛ СТЕФАНОВ РУСЕВ",
+      "type": "person",
+      "label": "Павел Стефанов Русев"
+    },
+    {
+      "id": "person:ЕЛЕНА ЕНЕВА ДЕЧКОВА",
+      "type": "person",
+      "label": "Елена Енева Дечкова"
+    },
+    {
+      "id": "person:ИВАНА АРМЕН ХОСРОВЯН",
+      "type": "person",
+      "label": "Ивана Армен Хосровян"
+    },
+    {
+      "id": "person:КРЕМЕНА РАШКОВА РАДЕВА",
+      "type": "person",
+      "label": "Кремена Рашкова Радева"
+    },
+    {
+      "id": "person:СВЕТЛА ГЕОРГИЕВА НИКОЛОВА-СТОЙНОВА",
+      "type": "person",
+      "label": "Светла Георгиева Николова-Стойнова"
+    },
+    {
+      "id": "person:СВЕТЛИН СТАНЧЕВ РУСЕВ",
+      "type": "person",
+      "label": "Светлин Станчев Русев"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКА МАРКОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Желязка Маркова Димитрова"
+    },
+    {
+      "id": "person:ПЕТЯ ВЕНКОВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Петя Венкова Великова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavlina-nikolova-ruseva-6054f9",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНКА ХРИСТОВА ДИМИТРОВА",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ СТАНЧЕВА СТЕФАНОВА",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ХРИСТОВА ДИМИТРОВА",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ СТЕФАНОВ РУСЕВ",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЕНЕВА ДЕЧКОВА",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНА АРМЕН ХОСРОВЯН",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА РАШКОВА РАДЕВА",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ГЕОРГИЕВА НИКОЛОВА-СТОЙНОВА",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН СТАНЧЕВ РУСЕВ",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКА МАРКОВА ДИМИТРОВА",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ВЕНКОВА ВЕЛИКОВА",
+      "target": "company:tr:208888266",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

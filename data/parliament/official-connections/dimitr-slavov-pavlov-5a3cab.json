@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-slavov-pavlov-5a3cab","nodes":[{"id":"official:dimitr-slavov-pavlov-5a3cab","type":"official","slug":"dimitr-slavov-pavlov-5a3cab","label":"Димитър Славов Павлов","tier":"executive","role":"military_command","municipality":null},{"id":"company:tr:160138918","type":"company","label":"СДРУЖЕНИЕ С ОБЩЕСТВЕНО ПОЛЕЗНА ДЕЙНОСТ ВОЕНЕН СПОРТЕН КЛУБ ХЕЛИСПОРТ","slug":null,"uic":"160138918","legalForm":null,"status":null,"seat":null},{"id":"person:МИЛУШ ДРАГАНОВ ДРАГАНОВ","type":"person","label":"Милуш Драганов Драганов"},{"id":"person:ХРИСТО КИРИЛОВ ДУЛДУРСКИ","type":"person","label":"Христо Кирилов Дулдурски"},{"id":"person:ЯНИ ВАЛЕНТИНОВ СЛАВОВ","type":"person","label":"Яни Валентинов Славов"},{"id":"person:ДИМИТЪР ИВАНОВ ИВАНОВ","type":"person","label":"Димитър Иванов Иванов"},{"id":"person:АНТОН ДИМИТРОВ ХРИСТОЗОВ","type":"person","label":"Антон Димитров Христозов"},{"id":"person:СВЕТЛОЗАР ЦЕЦОВ АЛЕКСАНДРОВ","type":"person","label":"Светлозар Цецов Александров"},{"id":"person:ХРИСТО КОЛЕВ БИКЯРОВ","type":"person","label":"Христо Колев Бикяров"}],"edges":[{"source":"official:dimitr-slavov-pavlov-5a3cab","target":"company:tr:160138918","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-slavov-pavlov-5a3cab","target":"company:tr:160138918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛУШ ДРАГАНОВ ДРАГАНОВ","target":"company:tr:160138918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО КИРИЛОВ ДУЛДУРСКИ","target":"company:tr:160138918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНИ ВАЛЕНТИНОВ СЛАВОВ","target":"company:tr:160138918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ИВАНОВ ИВАНОВ","target":"company:tr:160138918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ДИМИТРОВ ХРИСТОЗОВ","target":"company:tr:160138918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛОЗАР ЦЕЦОВ АЛЕКСАНДРОВ","target":"company:tr:160138918","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛОЗАР ЦЕЦОВ АЛЕКСАНДРОВ","target":"company:tr:160138918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО КОЛЕВ БИКЯРОВ","target":"company:tr:160138918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-slavov-pavlov-5a3cab",
+  "nodes": [
+    {
+      "id": "official:dimitr-slavov-pavlov-5a3cab",
+      "type": "official",
+      "slug": "dimitr-slavov-pavlov-5a3cab",
+      "label": "Димитър Славов Павлов",
+      "tier": "executive",
+      "role": "military_command",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:160138918",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ С ОБЩЕСТВЕНО ПОЛЕЗНА ДЕЙНОСТ ВОЕНЕН СПОРТЕН КЛУБ ХЕЛИСПОРТ",
+      "slug": null,
+      "uic": "160138918",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛУШ ДРАГАНОВ ДРАГАНОВ",
+      "type": "person",
+      "label": "Милуш Драганов Драганов"
+    },
+    {
+      "id": "person:ХРИСТО КИРИЛОВ ДУЛДУРСКИ",
+      "type": "person",
+      "label": "Христо Кирилов Дулдурски"
+    },
+    {
+      "id": "person:ЯНИ ВАЛЕНТИНОВ СЛАВОВ",
+      "type": "person",
+      "label": "Яни Валентинов Славов"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Димитър Иванов Иванов"
+    },
+    {
+      "id": "person:АНТОН ДИМИТРОВ ХРИСТОЗОВ",
+      "type": "person",
+      "label": "Антон Димитров Христозов"
+    },
+    {
+      "id": "person:СВЕТЛОЗАР ЦЕЦОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Светлозар Цецов Александров"
+    },
+    {
+      "id": "person:ХРИСТО КОЛЕВ БИКЯРОВ",
+      "type": "person",
+      "label": "Христо Колев Бикяров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-slavov-pavlov-5a3cab",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-slavov-pavlov-5a3cab",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛУШ ДРАГАНОВ ДРАГАНОВ",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КИРИЛОВ ДУЛДУРСКИ",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИ ВАЛЕНТИНОВ СЛАВОВ",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ ИВАНОВ",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ДИМИТРОВ ХРИСТОЗОВ",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛОЗАР ЦЕЦОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛОЗАР ЦЕЦОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КОЛЕВ БИКЯРОВ",
+      "target": "company:tr:160138918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stoicho-slavov-hristov-36c394","nodes":[{"id":"official:stoicho-slavov-hristov-36c394","type":"official","slug":"stoicho-slavov-hristov-36c394","label":"Стойчо Славов Христов","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:208048593","type":"company","label":"МОТОКЛУБ \"РОДЕН СВОБОДЕН\"","slug":null,"uic":"208048593","legalForm":null,"status":null,"seat":null},{"id":"person:ИРИНА СТОЯНОВА ЕДРЕВА-ТРИФОНОВА","type":"person","label":"Ирина Стоянова Едрева-Трифонова"},{"id":"person:КОСТА РУСЕВ ДИМИТРОВ","type":"person","label":"Коста Русев Димитров"}],"edges":[{"source":"official:stoicho-slavov-hristov-36c394","target":"company:tr:208048593","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИРИНА СТОЯНОВА ЕДРЕВА-ТРИФОНОВА","target":"company:tr:208048593","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА СТОЯНОВА ЕДРЕВА-ТРИФОНОВА","target":"company:tr:208048593","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТА РУСЕВ ДИМИТРОВ","target":"company:tr:208048593","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stoicho-slavov-hristov-36c394",
+  "nodes": [
+    {
+      "id": "official:stoicho-slavov-hristov-36c394",
+      "type": "official",
+      "slug": "stoicho-slavov-hristov-36c394",
+      "label": "Стойчо Славов Христов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208048593",
+      "type": "company",
+      "label": "МОТОКЛУБ \"РОДЕН СВОБОДЕН\"",
+      "slug": null,
+      "uic": "208048593",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРИНА СТОЯНОВА ЕДРЕВА-ТРИФОНОВА",
+      "type": "person",
+      "label": "Ирина Стоянова Едрева-Трифонова"
+    },
+    {
+      "id": "person:КОСТА РУСЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Коста Русев Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoicho-slavov-hristov-36c394",
+      "target": "company:tr:208048593",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРИНА СТОЯНОВА ЕДРЕВА-ТРИФОНОВА",
+      "target": "company:tr:208048593",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА СТОЯНОВА ЕДРЕВА-ТРИФОНОВА",
+      "target": "company:tr:208048593",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТА РУСЕВ ДИМИТРОВ",
+      "target": "company:tr:208048593",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

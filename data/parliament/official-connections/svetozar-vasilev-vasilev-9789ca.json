@@ -1,1 +1,52 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetozar-vasilev-vasilev-9789ca","nodes":[{"id":"official:svetozar-vasilev-vasilev-9789ca","type":"official","slug":"svetozar-vasilev-vasilev-9789ca","label":"Светозар Василев Василев","tier":"executive","role":"secretary_general","municipality":null},{"id":"company:tr:203107162","type":"company","label":"\"Д` Арт Бюти\" ЕООД","slug":null,"uic":"203107162","legalForm":null,"status":null,"seat":null},{"id":"official:svetozar-vasilev-vasilev-6a5894","type":"official","slug":"svetozar-vasilev-vasilev-6a5894","label":"Светозар Василев Василев","tier":"executive","role":"secretary_general","municipality":null}],"edges":[{"source":"official:svetozar-vasilev-vasilev-9789ca","target":"company:tr:203107162","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:svetozar-vasilev-vasilev-6a5894","target":"company:tr:203107162","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetozar-vasilev-vasilev-9789ca",
+  "nodes": [
+    {
+      "id": "official:svetozar-vasilev-vasilev-9789ca",
+      "type": "official",
+      "slug": "svetozar-vasilev-vasilev-9789ca",
+      "label": "Светозар Василев Василев",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203107162",
+      "type": "company",
+      "label": "\"Д` Арт Бюти\" ЕООД",
+      "slug": null,
+      "uic": "203107162",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:svetozar-vasilev-vasilev-6a5894",
+      "type": "official",
+      "slug": "svetozar-vasilev-vasilev-6a5894",
+      "label": "Светозар Василев Василев",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetozar-vasilev-vasilev-9789ca",
+      "target": "company:tr:203107162",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetozar-vasilev-vasilev-6a5894",
+      "target": "company:tr:203107162",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,71 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-todorov-gerov-2b9d03","nodes":[{"id":"official:ivan-todorov-gerov-2b9d03","type":"official","slug":"ivan-todorov-gerov-2b9d03","label":"Иван Тодоров Геров","tier":"municipal","role":"councillor","municipality":"Гоце Делчев"},{"id":"company:tr:811147671","type":"company","label":"Гама Пропърти Мениджмънт ООД","slug":null,"uic":"811147671","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205666054","type":"company","label":"Гама Венчър Капитал ООД","slug":null,"uic":"205666054","legalForm":null,"status":null,"seat":null},{"id":"company:tr:811200024","type":"company","label":"Гама-Комерс ООД","slug":null,"uic":"811200024","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ivan-todorov-gerov-2b9d03","target":"company:tr:811147671","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivan-todorov-gerov-2b9d03","target":"company:tr:205666054","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivan-todorov-gerov-2b9d03","target":"company:tr:811200024","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-todorov-gerov-2b9d03",
+  "nodes": [
+    {
+      "id": "official:ivan-todorov-gerov-2b9d03",
+      "type": "official",
+      "slug": "ivan-todorov-gerov-2b9d03",
+      "label": "Иван Тодоров Геров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гоце Делчев"
+    },
+    {
+      "id": "company:tr:811147671",
+      "type": "company",
+      "label": "Гама Пропърти Мениджмънт ООД",
+      "slug": null,
+      "uic": "811147671",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205666054",
+      "type": "company",
+      "label": "Гама Венчър Капитал ООД",
+      "slug": null,
+      "uic": "205666054",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:811200024",
+      "type": "company",
+      "label": "Гама-Комерс ООД",
+      "slug": null,
+      "uic": "811200024",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-todorov-gerov-2b9d03",
+      "target": "company:tr:811147671",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-todorov-gerov-2b9d03",
+      "target": "company:tr:205666054",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-todorov-gerov-2b9d03",
+      "target": "company:tr:811200024",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

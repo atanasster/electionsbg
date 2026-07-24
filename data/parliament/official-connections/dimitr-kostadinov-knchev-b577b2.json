@@ -1,1 +1,220 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-kostadinov-knchev-b577b2","nodes":[{"id":"official:dimitr-kostadinov-knchev-b577b2","type":"official","slug":"dimitr-kostadinov-knchev-b577b2","label":"Димитър Костадинов Кънчев","tier":"municipal","role":"councillor","municipality":"Марица"},{"id":"company:tr:000456790","type":"company","label":"ПРОБУДА - с. КАЛЕКОВЕЦ - 1927г.","slug":null,"uic":"000456790","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОРДАНКА КОСТАДИНОВА ХАДЖИЙСКА","type":"person","label":"Йорданка Костадинова Хаджийска"},{"id":"person:САВКА ГЕОРГИЕВА ТОШЕВА","type":"person","label":"Савка Георгиева Тошева"},{"id":"person:ТАНЯ ИВАНОВА КЪНЧЕВА","type":"person","label":"Таня Иванова Кънчева"},{"id":"person:СОНЯ МАРИНОВА МЪМЪРСКА","type":"person","label":"Соня Маринова Мъмърска"},{"id":"person:ДРАГОМИРА ДИМИТРОВА НЕДЯЛКОВА","type":"person","label":"Драгомира Димитрова Недялкова"},{"id":"person:ТОДОРКА ПЕТКОВА ЛИЧЕВА","type":"person","label":"Тодорка Петкова Личева"},{"id":"person:ТЕОДОРА ДИМИТРОВА ИВАНОВА","type":"person","label":"Теодора Димитрова Иванова"},{"id":"person:МАРИЯ ГЕОРГИЕВА КАРАДЖОВА","type":"person","label":"Мария Георгиева Караджова"},{"id":"person:ИЛИЯНА ВАСИЛЕВА ИЛИЕВА","type":"person","label":"Илияна Василева Илиева"},{"id":"person:ПАВЛИНА НИКОЛОВА АВРАМОВА","type":"person","label":"Павлина Николова Аврамова"},{"id":"person:АТАНАСКА ВАСИЛЕВА АВРАМОВА","type":"person","label":"Атанаска Василева Аврамова"},{"id":"person:ДИМИТЪР ВЕЛИЧКОВ ХРИСТЕВ","type":"person","label":"Димитър Величков Христев"},{"id":"person:ВАСИЛКА ВАСИЛЕВА КРЪСТЕВА","type":"person","label":"Василка Василева Кръстева"}],"edges":[{"source":"official:dimitr-kostadinov-knchev-b577b2","target":"company:tr:000456790","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОРДАНКА КОСТАДИНОВА ХАДЖИЙСКА","target":"company:tr:000456790","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:САВКА ГЕОРГИЕВА ТОШЕВА","target":"company:tr:000456790","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ ИВАНОВА КЪНЧЕВА","target":"company:tr:000456790","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:САВКА ГЕОРГИЕВА ТОШЕВА","target":"company:tr:000456790","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА КОСТАДИНОВА ХАДЖИЙСКА","target":"company:tr:000456790","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ МАРИНОВА МЪМЪРСКА","target":"company:tr:000456790","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГОМИРА ДИМИТРОВА НЕДЯЛКОВА","target":"company:tr:000456790","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРКА ПЕТКОВА ЛИЧЕВА","target":"company:tr:000456790","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ДИМИТРОВА ИВАНОВА","target":"company:tr:000456790","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕОРГИЕВА КАРАДЖОВА","target":"company:tr:000456790","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯНА ВАСИЛЕВА ИЛИЕВА","target":"company:tr:000456790","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА НИКОЛОВА АВРАМОВА","target":"company:tr:000456790","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАСКА ВАСИЛЕВА АВРАМОВА","target":"company:tr:000456790","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВЕЛИЧКОВ ХРИСТЕВ","target":"company:tr:000456790","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛКА ВАСИЛЕВА КРЪСТЕВА","target":"company:tr:000456790","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-kostadinov-knchev-b577b2",
+  "nodes": [
+    {
+      "id": "official:dimitr-kostadinov-knchev-b577b2",
+      "type": "official",
+      "slug": "dimitr-kostadinov-knchev-b577b2",
+      "label": "Димитър Костадинов Кънчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Марица"
+    },
+    {
+      "id": "company:tr:000456790",
+      "type": "company",
+      "label": "ПРОБУДА - с. КАЛЕКОВЕЦ - 1927г.",
+      "slug": null,
+      "uic": "000456790",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАНКА КОСТАДИНОВА ХАДЖИЙСКА",
+      "type": "person",
+      "label": "Йорданка Костадинова Хаджийска"
+    },
+    {
+      "id": "person:САВКА ГЕОРГИЕВА ТОШЕВА",
+      "type": "person",
+      "label": "Савка Георгиева Тошева"
+    },
+    {
+      "id": "person:ТАНЯ ИВАНОВА КЪНЧЕВА",
+      "type": "person",
+      "label": "Таня Иванова Кънчева"
+    },
+    {
+      "id": "person:СОНЯ МАРИНОВА МЪМЪРСКА",
+      "type": "person",
+      "label": "Соня Маринова Мъмърска"
+    },
+    {
+      "id": "person:ДРАГОМИРА ДИМИТРОВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Драгомира Димитрова Недялкова"
+    },
+    {
+      "id": "person:ТОДОРКА ПЕТКОВА ЛИЧЕВА",
+      "type": "person",
+      "label": "Тодорка Петкова Личева"
+    },
+    {
+      "id": "person:ТЕОДОРА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Теодора Димитрова Иванова"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА КАРАДЖОВА",
+      "type": "person",
+      "label": "Мария Георгиева Караджова"
+    },
+    {
+      "id": "person:ИЛИЯНА ВАСИЛЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Илияна Василева Илиева"
+    },
+    {
+      "id": "person:ПАВЛИНА НИКОЛОВА АВРАМОВА",
+      "type": "person",
+      "label": "Павлина Николова Аврамова"
+    },
+    {
+      "id": "person:АТАНАСКА ВАСИЛЕВА АВРАМОВА",
+      "type": "person",
+      "label": "Атанаска Василева Аврамова"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЕЛИЧКОВ ХРИСТЕВ",
+      "type": "person",
+      "label": "Димитър Величков Христев"
+    },
+    {
+      "id": "person:ВАСИЛКА ВАСИЛЕВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Василка Василева Кръстева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-kostadinov-knchev-b577b2",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАНКА КОСТАДИНОВА ХАДЖИЙСКА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВКА ГЕОРГИЕВА ТОШЕВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ИВАНОВА КЪНЧЕВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВКА ГЕОРГИЕВА ТОШЕВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА КОСТАДИНОВА ХАДЖИЙСКА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ МАРИНОВА МЪМЪРСКА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИРА ДИМИТРОВА НЕДЯЛКОВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ПЕТКОВА ЛИЧЕВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА КАРАДЖОВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ВАСИЛЕВА ИЛИЕВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА НИКОЛОВА АВРАМОВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ВАСИЛЕВА АВРАМОВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЕЛИЧКОВ ХРИСТЕВ",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ВАСИЛЕВА КРЪСТЕВА",
+      "target": "company:tr:000456790",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

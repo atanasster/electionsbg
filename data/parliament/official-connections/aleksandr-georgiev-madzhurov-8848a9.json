@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aleksandr-georgiev-madzhurov-8848a9","nodes":[{"id":"official:aleksandr-georgiev-madzhurov-8848a9","type":"official","slug":"aleksandr-georgiev-madzhurov-8848a9","label":"Александър Георгиев Маджуров","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:204386512","type":"company","label":"МК ИНВЕСТИЦИИ ЕООД","slug":null,"uic":"204386512","legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ","type":"person","label":"Александър Георгиев Маджуров"}],"edges":[{"source":"official:aleksandr-georgiev-madzhurov-8848a9","target":"company:tr:204386512","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ","target":"company:tr:204386512","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ","target":"company:tr:204386512","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aleksandr-georgiev-madzhurov-8848a9",
+  "nodes": [
+    {
+      "id": "official:aleksandr-georgiev-madzhurov-8848a9",
+      "type": "official",
+      "slug": "aleksandr-georgiev-madzhurov-8848a9",
+      "label": "Александър Георгиев Маджуров",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204386512",
+      "type": "company",
+      "label": "МК ИНВЕСТИЦИИ ЕООД",
+      "slug": null,
+      "uic": "204386512",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ",
+      "type": "person",
+      "label": "Александър Георгиев Маджуров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-georgiev-madzhurov-8848a9",
+      "target": "company:tr:204386512",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ",
+      "target": "company:tr:204386512",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ",
+      "target": "company:tr:204386512",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:violeta-stefanova-hristodulova-fac35c","nodes":[{"id":"official:violeta-stefanova-hristodulova-fac35c","type":"official","slug":"violeta-stefanova-hristodulova-fac35c","label":"Виолета Стефанова Христодулова","tier":"municipal","role":"council_chair","municipality":"Марица"},{"id":"company:tr:000457604","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ИЗГРЕВ - 1927 Г. - С. РОГОШ","slug":null,"uic":"000457604","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛИНКА АНДОНОВА МАНОВА","type":"person","label":"Николинка Андонова Манова"},{"id":"person:МАРИЯ ТОШЕВА ДИМИТРОВА","type":"person","label":"Мария Тошева Димитрова"},{"id":"person:ВАСИЛКА СТОЯНОВА ЛОТАРОВА","type":"person","label":"Василка Стоянова Лотарова"},{"id":"person:ТОТКА ЙОРДАНОВА ЗЛАТЕНОВА","type":"person","label":"Тотка Йорданова Златенова"},{"id":"person:ГИНА КОСТАДИНОВА АРГИРОВА","type":"person","label":"Гина Костадинова Аргирова"},{"id":"person:МИЛКА ВЕЛИЧКОВА КОДИНОВА","type":"person","label":"Милка Величкова Кодинова"},{"id":"person:НАДЕЖДА СТОЯНОВА ТОДЕВА","type":"person","label":"Надежда Стоянова Тодева"}],"edges":[{"source":"official:violeta-stefanova-hristodulova-fac35c","target":"company:tr:000457604","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛИНКА АНДОНОВА МАНОВА","target":"company:tr:000457604","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ТОШЕВА ДИМИТРОВА","target":"company:tr:000457604","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛКА СТОЯНОВА ЛОТАРОВА","target":"company:tr:000457604","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОТКА ЙОРДАНОВА ЗЛАТЕНОВА","target":"company:tr:000457604","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГИНА КОСТАДИНОВА АРГИРОВА","target":"company:tr:000457604","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКА ВЕЛИЧКОВА КОДИНОВА","target":"company:tr:000457604","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА СТОЯНОВА ТОДЕВА","target":"company:tr:000457604","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:violeta-stefanova-hristodulova-fac35c",
+  "nodes": [
+    {
+      "id": "official:violeta-stefanova-hristodulova-fac35c",
+      "type": "official",
+      "slug": "violeta-stefanova-hristodulova-fac35c",
+      "label": "Виолета Стефанова Христодулова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Марица"
+    },
+    {
+      "id": "company:tr:000457604",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ИЗГРЕВ - 1927 Г. - С. РОГОШ",
+      "slug": null,
+      "uic": "000457604",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛИНКА АНДОНОВА МАНОВА",
+      "type": "person",
+      "label": "Николинка Андонова Манова"
+    },
+    {
+      "id": "person:МАРИЯ ТОШЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Мария Тошева Димитрова"
+    },
+    {
+      "id": "person:ВАСИЛКА СТОЯНОВА ЛОТАРОВА",
+      "type": "person",
+      "label": "Василка Стоянова Лотарова"
+    },
+    {
+      "id": "person:ТОТКА ЙОРДАНОВА ЗЛАТЕНОВА",
+      "type": "person",
+      "label": "Тотка Йорданова Златенова"
+    },
+    {
+      "id": "person:ГИНА КОСТАДИНОВА АРГИРОВА",
+      "type": "person",
+      "label": "Гина Костадинова Аргирова"
+    },
+    {
+      "id": "person:МИЛКА ВЕЛИЧКОВА КОДИНОВА",
+      "type": "person",
+      "label": "Милка Величкова Кодинова"
+    },
+    {
+      "id": "person:НАДЕЖДА СТОЯНОВА ТОДЕВА",
+      "type": "person",
+      "label": "Надежда Стоянова Тодева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:violeta-stefanova-hristodulova-fac35c",
+      "target": "company:tr:000457604",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛИНКА АНДОНОВА МАНОВА",
+      "target": "company:tr:000457604",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТОШЕВА ДИМИТРОВА",
+      "target": "company:tr:000457604",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА СТОЯНОВА ЛОТАРОВА",
+      "target": "company:tr:000457604",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОТКА ЙОРДАНОВА ЗЛАТЕНОВА",
+      "target": "company:tr:000457604",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНА КОСТАДИНОВА АРГИРОВА",
+      "target": "company:tr:000457604",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ВЕЛИЧКОВА КОДИНОВА",
+      "target": "company:tr:000457604",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА СТОЯНОВА ТОДЕВА",
+      "target": "company:tr:000457604",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

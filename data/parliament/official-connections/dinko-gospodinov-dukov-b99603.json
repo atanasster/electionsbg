@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dinko-gospodinov-dukov-b99603","nodes":[{"id":"official:dinko-gospodinov-dukov-b99603","type":"official","slug":"dinko-gospodinov-dukov-b99603","label":"Динко Господинов Дуков","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130328274","type":"company","label":"СПОРТНА СОФИЯ-2000","slug":null,"uic":"130328274","legalForm":null,"status":null,"seat":null},{"id":"person:ЦВЕТАНКА БОЖИДАРОВА ЦОКОВА","type":"person","label":"Цветанка Божидарова Цокова"},{"id":"person:СТЕФАН ИВАНОВ ЙОРДАНОВ","type":"person","label":"Стефан Иванов Йорданов"}],"edges":[{"source":"official:dinko-gospodinov-dukov-b99603","target":"company:tr:130328274","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТАНКА БОЖИДАРОВА ЦОКОВА","target":"company:tr:130328274","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ИВАНОВ ЙОРДАНОВ","target":"company:tr:130328274","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА БОЖИДАРОВА ЦОКОВА","target":"company:tr:130328274","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dinko-gospodinov-dukov-b99603",
+  "nodes": [
+    {
+      "id": "official:dinko-gospodinov-dukov-b99603",
+      "type": "official",
+      "slug": "dinko-gospodinov-dukov-b99603",
+      "label": "Динко Господинов Дуков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130328274",
+      "type": "company",
+      "label": "СПОРТНА СОФИЯ-2000",
+      "slug": null,
+      "uic": "130328274",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТАНКА БОЖИДАРОВА ЦОКОВА",
+      "type": "person",
+      "label": "Цветанка Божидарова Цокова"
+    },
+    {
+      "id": "person:СТЕФАН ИВАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Стефан Иванов Йорданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dinko-gospodinov-dukov-b99603",
+      "target": "company:tr:130328274",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАНКА БОЖИДАРОВА ЦОКОВА",
+      "target": "company:tr:130328274",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ИВАНОВ ЙОРДАНОВ",
+      "target": "company:tr:130328274",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА БОЖИДАРОВА ЦОКОВА",
+      "target": "company:tr:130328274",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

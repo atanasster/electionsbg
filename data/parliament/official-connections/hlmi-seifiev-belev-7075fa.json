@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hlmi-seifiev-belev-7075fa","nodes":[{"id":"official:hlmi-seifiev-belev-7075fa","type":"official","slug":"hlmi-seifiev-belev-7075fa","label":"Хълми Сейфиев Белев","tier":"municipal","role":"councillor","municipality":"Варна"},{"id":"company:tr:207497261","type":"company","label":"БЕЛЕВ ИНВЕСТ","slug":null,"uic":"207497261","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:hlmi-seifiev-belev-7075fa","target":"company:tr:207497261","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hlmi-seifiev-belev-7075fa","target":"company:tr:207497261","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hlmi-seifiev-belev-7075fa",
+  "nodes": [
+    {
+      "id": "official:hlmi-seifiev-belev-7075fa",
+      "type": "official",
+      "slug": "hlmi-seifiev-belev-7075fa",
+      "label": "Хълми Сейфиев Белев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:207497261",
+      "type": "company",
+      "label": "БЕЛЕВ ИНВЕСТ",
+      "slug": null,
+      "uic": "207497261",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hlmi-seifiev-belev-7075fa",
+      "target": "company:tr:207497261",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hlmi-seifiev-belev-7075fa",
+      "target": "company:tr:207497261",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

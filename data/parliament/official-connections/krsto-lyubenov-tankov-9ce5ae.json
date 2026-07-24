@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:krsto-lyubenov-tankov-9ce5ae","nodes":[{"id":"official:krsto-lyubenov-tankov-9ce5ae","type":"official","slug":"krsto-lyubenov-tankov-9ce5ae","label":"Кръстьо Любенов Танков","tier":"municipal","role":"chief_architect","municipality":"Пещера"},{"id":"company:tr:175565769","type":"company","label":"ТРАКИА","slug":null,"uic":"175565769","legalForm":null,"status":null,"seat":null},{"id":"person:ЛЮБОМИР АНГЕЛОВ КЕЛЧЕВ","type":"person","label":"Любомир Ангелов Келчев"},{"id":"person:ЛАЗАР ИВАНОВ МУШЕВ","type":"person","label":"Лазар Иванов Мушев"}],"edges":[{"source":"official:krsto-lyubenov-tankov-9ce5ae","target":"company:tr:175565769","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:krsto-lyubenov-tankov-9ce5ae","target":"company:tr:175565769","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР АНГЕЛОВ КЕЛЧЕВ","target":"company:tr:175565769","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЗАР ИВАНОВ МУШЕВ","target":"company:tr:175565769","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:krsto-lyubenov-tankov-9ce5ae",
+  "nodes": [
+    {
+      "id": "official:krsto-lyubenov-tankov-9ce5ae",
+      "type": "official",
+      "slug": "krsto-lyubenov-tankov-9ce5ae",
+      "label": "Кръстьо Любенов Танков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Пещера"
+    },
+    {
+      "id": "company:tr:175565769",
+      "type": "company",
+      "label": "ТРАКИА",
+      "slug": null,
+      "uic": "175565769",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОМИР АНГЕЛОВ КЕЛЧЕВ",
+      "type": "person",
+      "label": "Любомир Ангелов Келчев"
+    },
+    {
+      "id": "person:ЛАЗАР ИВАНОВ МУШЕВ",
+      "type": "person",
+      "label": "Лазар Иванов Мушев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krsto-lyubenov-tankov-9ce5ae",
+      "target": "company:tr:175565769",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krsto-lyubenov-tankov-9ce5ae",
+      "target": "company:tr:175565769",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР АНГЕЛОВ КЕЛЧЕВ",
+      "target": "company:tr:175565769",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАР ИВАНОВ МУШЕВ",
+      "target": "company:tr:175565769",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

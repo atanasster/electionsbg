@@ -1,1 +1,90 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mario-krasimirov-grachenov-8ecf2a","nodes":[{"id":"official:mario-krasimirov-grachenov-8ecf2a","type":"official","slug":"mario-krasimirov-grachenov-8ecf2a","label":"Марио Красимиров Граченов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:177181938","type":"company","label":"Център за социална политика","slug":null,"uic":"177181938","legalForm":null,"status":null,"seat":null},{"id":"person:КАЛИН ИВАНОВ ПИНЧЕВ","type":"person","label":"Калин Иванов Пинчев"},{"id":"person:АННА-МАРИЯ КРАСИМИРОВА ГРАЧЕНОВА","type":"person","label":"Анна-Мария Красимирова Граченова"},{"id":"person:КРАСИМИР БОРИСОВ ГРАЧЕНОВ","type":"person","label":"Красимир Борисов Граченов"}],"edges":[{"source":"official:mario-krasimirov-grachenov-8ecf2a","target":"company:tr:177181938","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:mario-krasimirov-grachenov-8ecf2a","target":"company:tr:177181938","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:КАЛИН ИВАНОВ ПИНЧЕВ","target":"company:tr:177181938","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АННА-МАРИЯ КРАСИМИРОВА ГРАЧЕНОВА","target":"company:tr:177181938","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР БОРИСОВ ГРАЧЕНОВ","target":"company:tr:177181938","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР БОРИСОВ ГРАЧЕНОВ","target":"company:tr:177181938","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mario-krasimirov-grachenov-8ecf2a",
+  "nodes": [
+    {
+      "id": "official:mario-krasimirov-grachenov-8ecf2a",
+      "type": "official",
+      "slug": "mario-krasimirov-grachenov-8ecf2a",
+      "label": "Марио Красимиров Граченов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177181938",
+      "type": "company",
+      "label": "Център за социална политика",
+      "slug": null,
+      "uic": "177181938",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛИН ИВАНОВ ПИНЧЕВ",
+      "type": "person",
+      "label": "Калин Иванов Пинчев"
+    },
+    {
+      "id": "person:АННА-МАРИЯ КРАСИМИРОВА ГРАЧЕНОВА",
+      "type": "person",
+      "label": "Анна-Мария Красимирова Граченова"
+    },
+    {
+      "id": "person:КРАСИМИР БОРИСОВ ГРАЧЕНОВ",
+      "type": "person",
+      "label": "Красимир Борисов Граченов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mario-krasimirov-grachenov-8ecf2a",
+      "target": "company:tr:177181938",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mario-krasimirov-grachenov-8ecf2a",
+      "target": "company:tr:177181938",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАЛИН ИВАНОВ ПИНЧЕВ",
+      "target": "company:tr:177181938",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА-МАРИЯ КРАСИМИРОВА ГРАЧЕНОВА",
+      "target": "company:tr:177181938",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР БОРИСОВ ГРАЧЕНОВ",
+      "target": "company:tr:177181938",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР БОРИСОВ ГРАЧЕНОВ",
+      "target": "company:tr:177181938",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

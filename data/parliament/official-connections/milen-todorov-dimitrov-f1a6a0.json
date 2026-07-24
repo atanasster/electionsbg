@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milen-todorov-dimitrov-f1a6a0","nodes":[{"id":"official:milen-todorov-dimitrov-f1a6a0","type":"official","slug":"milen-todorov-dimitrov-f1a6a0","label":"Милен Тодоров Димитров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:208234523","type":"company","label":"АгроЕнерджи Челопеч","slug":null,"uic":"208234523","legalForm":null,"status":null,"seat":null},{"id":"person:ОБЩИНА ЧЕЛОПЕЧ","type":"person","label":"Община Челопеч"}],"edges":[{"source":"official:milen-todorov-dimitrov-f1a6a0","target":"company:tr:208234523","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ОБЩИНА ЧЕЛОПЕЧ","target":"company:tr:208234523","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milen-todorov-dimitrov-f1a6a0",
+  "nodes": [
+    {
+      "id": "official:milen-todorov-dimitrov-f1a6a0",
+      "type": "official",
+      "slug": "milen-todorov-dimitrov-f1a6a0",
+      "label": "Милен Тодоров Димитров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208234523",
+      "type": "company",
+      "label": "АгроЕнерджи Челопеч",
+      "slug": null,
+      "uic": "208234523",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА ЧЕЛОПЕЧ",
+      "type": "person",
+      "label": "Община Челопеч"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-todorov-dimitrov-f1a6a0",
+      "target": "company:tr:208234523",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА ЧЕЛОПЕЧ",
+      "target": "company:tr:208234523",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

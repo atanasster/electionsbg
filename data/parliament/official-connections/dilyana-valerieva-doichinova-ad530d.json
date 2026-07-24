@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dilyana-valerieva-doichinova-ad530d","nodes":[{"id":"official:dilyana-valerieva-doichinova-ad530d","type":"official","slug":"dilyana-valerieva-doichinova-ad530d","label":"Диляна Валериева Дойчинова","tier":"executive","role":"political_cabinet","municipality":null},{"id":"company:tr:208002279","type":"company","label":"БЪЛГАРО - СИНГАПУРСКА ТЪРГОВСКА КАМАРА","slug":null,"uic":"208002279","legalForm":null,"status":null,"seat":null},{"id":"person:КРЕМЕНА ПЕТКОВА КАРАКАНОВСКИ","type":"person","label":"Кремена Петкова Каракановски"},{"id":"person:РАДОСЛАВ ЙОРДАНОВ ЯНЕВ","type":"person","label":"Радослав Йорданов Янев"}],"edges":[{"source":"official:dilyana-valerieva-doichinova-ad530d","target":"company:tr:208002279","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:dilyana-valerieva-doichinova-ad530d","target":"company:tr:208002279","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:КРЕМЕНА ПЕТКОВА КАРАКАНОВСКИ","target":"company:tr:208002279","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ЙОРДАНОВ ЯНЕВ","target":"company:tr:208002279","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dilyana-valerieva-doichinova-ad530d",
+  "nodes": [
+    {
+      "id": "official:dilyana-valerieva-doichinova-ad530d",
+      "type": "official",
+      "slug": "dilyana-valerieva-doichinova-ad530d",
+      "label": "Диляна Валериева Дойчинова",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208002279",
+      "type": "company",
+      "label": "БЪЛГАРО - СИНГАПУРСКА ТЪРГОВСКА КАМАРА",
+      "slug": null,
+      "uic": "208002279",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРЕМЕНА ПЕТКОВА КАРАКАНОВСКИ",
+      "type": "person",
+      "label": "Кремена Петкова Каракановски"
+    },
+    {
+      "id": "person:РАДОСЛАВ ЙОРДАНОВ ЯНЕВ",
+      "type": "person",
+      "label": "Радослав Йорданов Янев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dilyana-valerieva-doichinova-ad530d",
+      "target": "company:tr:208002279",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dilyana-valerieva-doichinova-ad530d",
+      "target": "company:tr:208002279",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРЕМЕНА ПЕТКОВА КАРАКАНОВСКИ",
+      "target": "company:tr:208002279",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ЙОРДАНОВ ЯНЕВ",
+      "target": "company:tr:208002279",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

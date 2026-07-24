@@ -1,1 +1,113 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:veneta-ivanova-vasileva-23cbd8","nodes":[{"id":"official:veneta-ivanova-vasileva-23cbd8","type":"official","slug":"veneta-ivanova-vasileva-23cbd8","label":"Венета Иванова Василева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000844298","type":"company","label":"ДИМИТЪР МИНЧЕВ - 1896","slug":null,"uic":"000844298","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ БОНЕВА ИЛИЕВА","type":"person","label":"Мария Бонева Илиева"},{"id":"person:ДИЯНА ГЕОРГИЕВА КОЙЧЕВА","type":"person","label":"Дияна Георгиева Койчева"},{"id":"person:ПЕТЪР ЯНКОВ ЯНКОВ","type":"person","label":"Петър Янков Янков"},{"id":"person:НЕДЯЛКА НАУМОВА БУРВАНОВА","type":"person","label":"Недялка Наумова Бурванова"},{"id":"person:МАРИНЕЛА ЙОРДАНОВА МИХАЙЛОВА","type":"person","label":"Маринела Йорданова Михайлова"},{"id":"person:ЦВЕТАНКА ПАНАЙОТОВА ДИМОВА","type":"person","label":"Цветанка Панайотова Димова"}],"edges":[{"source":"official:veneta-ivanova-vasileva-23cbd8","target":"company:tr:000844298","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯ БОНЕВА ИЛИЕВА","target":"company:tr:000844298","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯНА ГЕОРГИЕВА КОЙЧЕВА","target":"company:tr:000844298","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ЯНКОВ ЯНКОВ","target":"company:tr:000844298","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКА НАУМОВА БУРВАНОВА","target":"company:tr:000844298","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНЕЛА ЙОРДАНОВА МИХАЙЛОВА","target":"company:tr:000844298","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА ПАНАЙОТОВА ДИМОВА","target":"company:tr:000844298","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:veneta-ivanova-vasileva-23cbd8",
+  "nodes": [
+    {
+      "id": "official:veneta-ivanova-vasileva-23cbd8",
+      "type": "official",
+      "slug": "veneta-ivanova-vasileva-23cbd8",
+      "label": "Венета Иванова Василева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000844298",
+      "type": "company",
+      "label": "ДИМИТЪР МИНЧЕВ - 1896",
+      "slug": null,
+      "uic": "000844298",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ БОНЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Мария Бонева Илиева"
+    },
+    {
+      "id": "person:ДИЯНА ГЕОРГИЕВА КОЙЧЕВА",
+      "type": "person",
+      "label": "Дияна Георгиева Койчева"
+    },
+    {
+      "id": "person:ПЕТЪР ЯНКОВ ЯНКОВ",
+      "type": "person",
+      "label": "Петър Янков Янков"
+    },
+    {
+      "id": "person:НЕДЯЛКА НАУМОВА БУРВАНОВА",
+      "type": "person",
+      "label": "Недялка Наумова Бурванова"
+    },
+    {
+      "id": "person:МАРИНЕЛА ЙОРДАНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Маринела Йорданова Михайлова"
+    },
+    {
+      "id": "person:ЦВЕТАНКА ПАНАЙОТОВА ДИМОВА",
+      "type": "person",
+      "label": "Цветанка Панайотова Димова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veneta-ivanova-vasileva-23cbd8",
+      "target": "company:tr:000844298",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ БОНЕВА ИЛИЕВА",
+      "target": "company:tr:000844298",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ГЕОРГИЕВА КОЙЧЕВА",
+      "target": "company:tr:000844298",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЯНКОВ ЯНКОВ",
+      "target": "company:tr:000844298",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА НАУМОВА БУРВАНОВА",
+      "target": "company:tr:000844298",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА ЙОРДАНОВА МИХАЙЛОВА",
+      "target": "company:tr:000844298",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА ПАНАЙОТОВА ДИМОВА",
+      "target": "company:tr:000844298",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

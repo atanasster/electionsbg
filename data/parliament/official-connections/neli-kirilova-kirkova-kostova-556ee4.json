@@ -1,1 +1,87 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:neli-kirilova-kirkova-kostova-556ee4","nodes":[{"id":"official:neli-kirilova-kirkova-kostova-556ee4","type":"official","slug":"neli-kirilova-kirkova-kostova-556ee4","label":"Нели Кирилова Киркова-Костова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:175419337","type":"company","label":"АСОЦИАЦИЯ НА КЕЙМБРИДЖ УЧИЛИЩАТА В БЪЛГАРИЯ","slug":null,"uic":"175419337","legalForm":null,"status":null,"seat":null},{"id":"person:ВЛАДИМИР ХРИСТОВ КОЛЕВ","type":"person","label":"Владимир Христов Колев"},{"id":"person:ДИЯН ВЕЛИЧКОВ СТАМАТОВ","type":"person","label":"Диян Величков Стаматов"},{"id":"person:ВИКТОР ПЕТКОВ КРЪСТЕВ","type":"person","label":"Виктор Петков Кръстев"},{"id":"person:РАДИАНА СТЕФАНОВА СТЕФАНОВА","type":"person","label":"Радиана Стефанова Стефанова"}],"edges":[{"source":"official:neli-kirilova-kirkova-kostova-556ee4","target":"company:tr:175419337","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВЛАДИМИР ХРИСТОВ КОЛЕВ","target":"company:tr:175419337","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯН ВЕЛИЧКОВ СТАМАТОВ","target":"company:tr:175419337","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР ПЕТКОВ КРЪСТЕВ","target":"company:tr:175419337","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДИАНА СТЕФАНОВА СТЕФАНОВА","target":"company:tr:175419337","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:neli-kirilova-kirkova-kostova-556ee4",
+  "nodes": [
+    {
+      "id": "official:neli-kirilova-kirkova-kostova-556ee4",
+      "type": "official",
+      "slug": "neli-kirilova-kirkova-kostova-556ee4",
+      "label": "Нели Кирилова Киркова-Костова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175419337",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ НА КЕЙМБРИДЖ УЧИЛИЩАТА В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "175419337",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ХРИСТОВ КОЛЕВ",
+      "type": "person",
+      "label": "Владимир Христов Колев"
+    },
+    {
+      "id": "person:ДИЯН ВЕЛИЧКОВ СТАМАТОВ",
+      "type": "person",
+      "label": "Диян Величков Стаматов"
+    },
+    {
+      "id": "person:ВИКТОР ПЕТКОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Виктор Петков Кръстев"
+    },
+    {
+      "id": "person:РАДИАНА СТЕФАНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Радиана Стефанова Стефанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-kirilova-kirkova-kostova-556ee4",
+      "target": "company:tr:175419337",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР ХРИСТОВ КОЛЕВ",
+      "target": "company:tr:175419337",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН ВЕЛИЧКОВ СТАМАТОВ",
+      "target": "company:tr:175419337",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР ПЕТКОВ КРЪСТЕВ",
+      "target": "company:tr:175419337",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДИАНА СТЕФАНОВА СТЕФАНОВА",
+      "target": "company:tr:175419337",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

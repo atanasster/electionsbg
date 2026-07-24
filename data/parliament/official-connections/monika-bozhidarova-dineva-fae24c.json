@@ -1,1 +1,138 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:monika-bozhidarova-dineva-fae24c","nodes":[{"id":"official:monika-bozhidarova-dineva-fae24c","type":"official","slug":"monika-bozhidarova-dineva-fae24c","label":"Моника Божидарова Динева","tier":"municipal","role":"councillor","municipality":"Казанлък"},{"id":"company:tr:206709398","type":"company","label":"Васил Самарски","slug":null,"uic":"206709398","legalForm":null,"status":null,"seat":null},{"id":"official:rumyana-stoyanova-drumeva-92fc36","type":"official","slug":"rumyana-stoyanova-drumeva-92fc36","label":"Румяна Стоянова Друмева","tier":"executive","role":"regional_governor","municipality":null},{"id":"person:СЛАВКА СТЕФАНОВА САМАРСКА","type":"person","label":"Славка Стефанова Самарска"},{"id":"person:ИВАН МАРКОВ ДИМОВ","type":"person","label":"Иван Марков Димов"},{"id":"person:МАРИЯ ВАСИЛЕВА РАШКОВА","type":"person","label":"Мария Василева Рашкова"},{"id":"person:АНТОНИЯ ГАНЧЕВА ДРАГАНОВА","type":"person","label":"Антония Ганчева Драганова"},{"id":"person:ТЕОДОРА ГАНЧЕВА ИВАНОВА","type":"person","label":"Теодора Ганчева Иванова"},{"id":"person:ВАСИЛКА АЛЕКСАНДРОВА КИРИЛОВА","type":"person","label":"Василка Александрова Кирилова"}],"edges":[{"source":"official:monika-bozhidarova-dineva-fae24c","target":"company:tr:206709398","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:rumyana-stoyanova-drumeva-92fc36","target":"company:tr:206709398","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СЛАВКА СТЕФАНОВА САМАРСКА","target":"company:tr:206709398","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МАРКОВ ДИМОВ","target":"company:tr:206709398","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВКА СТЕФАНОВА САМАРСКА","target":"company:tr:206709398","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ВАСИЛЕВА РАШКОВА","target":"company:tr:206709398","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ГАНЧЕВА ДРАГАНОВА","target":"company:tr:206709398","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ГАНЧЕВА ИВАНОВА","target":"company:tr:206709398","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛКА АЛЕКСАНДРОВА КИРИЛОВА","target":"company:tr:206709398","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:monika-bozhidarova-dineva-fae24c",
+  "nodes": [
+    {
+      "id": "official:monika-bozhidarova-dineva-fae24c",
+      "type": "official",
+      "slug": "monika-bozhidarova-dineva-fae24c",
+      "label": "Моника Божидарова Динева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Казанлък"
+    },
+    {
+      "id": "company:tr:206709398",
+      "type": "company",
+      "label": "Васил Самарски",
+      "slug": null,
+      "uic": "206709398",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:rumyana-stoyanova-drumeva-92fc36",
+      "type": "official",
+      "slug": "rumyana-stoyanova-drumeva-92fc36",
+      "label": "Румяна Стоянова Друмева",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "person:СЛАВКА СТЕФАНОВА САМАРСКА",
+      "type": "person",
+      "label": "Славка Стефанова Самарска"
+    },
+    {
+      "id": "person:ИВАН МАРКОВ ДИМОВ",
+      "type": "person",
+      "label": "Иван Марков Димов"
+    },
+    {
+      "id": "person:МАРИЯ ВАСИЛЕВА РАШКОВА",
+      "type": "person",
+      "label": "Мария Василева Рашкова"
+    },
+    {
+      "id": "person:АНТОНИЯ ГАНЧЕВА ДРАГАНОВА",
+      "type": "person",
+      "label": "Антония Ганчева Драганова"
+    },
+    {
+      "id": "person:ТЕОДОРА ГАНЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Теодора Ганчева Иванова"
+    },
+    {
+      "id": "person:ВАСИЛКА АЛЕКСАНДРОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Василка Александрова Кирилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:monika-bozhidarova-dineva-fae24c",
+      "target": "company:tr:206709398",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumyana-stoyanova-drumeva-92fc36",
+      "target": "company:tr:206709398",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЛАВКА СТЕФАНОВА САМАРСКА",
+      "target": "company:tr:206709398",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МАРКОВ ДИМОВ",
+      "target": "company:tr:206709398",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА СТЕФАНОВА САМАРСКА",
+      "target": "company:tr:206709398",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВАСИЛЕВА РАШКОВА",
+      "target": "company:tr:206709398",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ГАНЧЕВА ДРАГАНОВА",
+      "target": "company:tr:206709398",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ГАНЧЕВА ИВАНОВА",
+      "target": "company:tr:206709398",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА АЛЕКСАНДРОВА КИРИЛОВА",
+      "target": "company:tr:206709398",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

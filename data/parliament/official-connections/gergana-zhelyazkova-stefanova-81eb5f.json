@@ -1,1 +1,362 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:gergana-zhelyazkova-stefanova-81eb5f","nodes":[{"id":"official:gergana-zhelyazkova-stefanova-81eb5f","type":"official","slug":"gergana-zhelyazkova-stefanova-81eb5f","label":"Гергана Желязкова Стефанова","tier":"executive","role":"party_leader","municipality":null},{"id":"company:Хелт-кеър-фарм-ЕООД","type":"company","label":"Хелт кеър фарм ЕООД","slug":"Хелт-кеър-фарм-ЕООД","uic":"202347770","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Вегамедикс-ЕООД","type":"company","label":"Вегамедикс ЕООД","slug":"Вегамедикс-ЕООД","uic":"202179760","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Витагер-ЕООД","type":"company","label":"Витагер ЕООД","slug":"Витагер-ЕООД","uic":"201932162","legalForm":"EOOD","status":"active","seat":"Варна"},{"id":"company:Фармация-2012-ЕООД","type":"company","label":"Фармация 2012 ЕООД","slug":"Фармация-2012-ЕООД","uic":"202148850","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Юнифарма-ЕООД","type":"company","label":"Юнифарма ЕООД","slug":"Юнифарма-ЕООД","uic":"202228271","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Демос-фарм-ЕООД","type":"company","label":"Демос фарм ЕООД","slug":"Демос-фарм-ЕООД","uic":"202347934","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Интерфарм-2012-ЕООД","type":"company","label":"Интерфарм 2012 ЕООД","slug":"Интерфарм-2012-ЕООД","uic":"202148944","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Бургас-Петролеум-Трейд-ЕООД","type":"company","label":"Бургас Петролеум Трейд ЕООД","slug":"Бургас-Петролеум-Трейд-ЕООД","uic":"205301632","legalForm":"EOOD","status":"active","seat":"Варна"},{"id":"mp:2659","type":"mp","mpId":2659,"label":"Гергана Желязкова Стефанова","partyGroupShort":"Воля","isCurrent":false,"nsFolders":[]},{"id":"person:КАЛИНКА РАЙКОВА СЛАВОВА","type":"person","label":"Калинка Райкова Славова"},{"id":"person:СИЛВИЯ ПЕТРОВА ЧУЧУЛСКА","type":"person","label":"Силвия Петрова Чучулска"},{"id":"person:ХРИСТО ПЕТКОВ ХРИСТОВ","type":"person","label":"Христо Петков Христов"},{"id":"person:МИКИ ШУЛЕСКИ","type":"person","label":"Мики  Шулески"},{"id":"person:АЙСЕЛ АЗИС КАРАДЕНИЗ","type":"person","label":"Айсел Азис Карадениз"},{"id":"person:ИЛИЯНА ХРИСТОВА ДАСКАЛОВА-ПЕТРОВА","type":"person","label":"Илияна Христова Даскалова-Петрова"},{"id":"person:НАДКА РУМЕНОВА ВАСИЛЕВА","type":"person","label":"Надка Руменова Василева"},{"id":"person:СРЕБРИНА ГЕОРГИЕВА ГЮХПАЛОВА","type":"person","label":"Сребрина Георгиева Гюхпалова"}],"edges":[{"source":"official:gergana-zhelyazkova-stefanova-81eb5f","target":"company:Хелт-кеър-фарм-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:gergana-zhelyazkova-stefanova-81eb5f","target":"company:Вегамедикс-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:gergana-zhelyazkova-stefanova-81eb5f","target":"company:Витагер-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:gergana-zhelyazkova-stefanova-81eb5f","target":"company:Фармация-2012-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:gergana-zhelyazkova-stefanova-81eb5f","target":"company:Юнифарма-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:gergana-zhelyazkova-stefanova-81eb5f","target":"company:Демос-фарм-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:gergana-zhelyazkova-stefanova-81eb5f","target":"company:Интерфарм-2012-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:gergana-zhelyazkova-stefanova-81eb5f","target":"company:Бургас-Петролеум-Трейд-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:2659","target":"company:Хелт-кеър-фарм-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2659","target":"company:Вегамедикс-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2659","target":"company:Витагер-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНКА РАЙКОВА СЛАВОВА","target":"company:Витагер-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ ПЕТРОВА ЧУЧУЛСКА","target":"company:Витагер-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ПЕТКОВ ХРИСТОВ","target":"company:Витагер-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИКИ ШУЛЕСКИ","target":"company:Витагер-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:2659","target":"company:Фармация-2012-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНКА РАЙКОВА СЛАВОВА","target":"company:Фармация-2012-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЙСЕЛ АЗИС КАРАДЕНИЗ","target":"company:Фармация-2012-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯНА ХРИСТОВА ДАСКАЛОВА-ПЕТРОВА","target":"company:Фармация-2012-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:2659","target":"company:Юнифарма-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2659","target":"company:Демос-фарм-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНКА РАЙКОВА СЛАВОВА","target":"company:Демос-фарм-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НАДКА РУМЕНОВА ВАСИЛЕВА","target":"company:Демос-фарм-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:2659","target":"company:Интерфарм-2012-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНКА РАЙКОВА СЛАВОВА","target":"company:Интерфарм-2012-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СРЕБРИНА ГЕОРГИЕВА ГЮХПАЛОВА","target":"company:Интерфарм-2012-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:2659","target":"company:Бургас-Петролеум-Трейд-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:gergana-zhelyazkova-stefanova-81eb5f",
+  "nodes": [
+    {
+      "id": "official:gergana-zhelyazkova-stefanova-81eb5f",
+      "type": "official",
+      "slug": "gergana-zhelyazkova-stefanova-81eb5f",
+      "label": "Гергана Желязкова Стефанова",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:Хелт-кеър-фарм-ЕООД",
+      "type": "company",
+      "label": "Хелт кеър фарм ЕООД",
+      "slug": "Хелт-кеър-фарм-ЕООД",
+      "uic": "202347770",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Вегамедикс-ЕООД",
+      "type": "company",
+      "label": "Вегамедикс ЕООД",
+      "slug": "Вегамедикс-ЕООД",
+      "uic": "202179760",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Витагер-ЕООД",
+      "type": "company",
+      "label": "Витагер ЕООД",
+      "slug": "Витагер-ЕООД",
+      "uic": "201932162",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Фармация-2012-ЕООД",
+      "type": "company",
+      "label": "Фармация 2012 ЕООД",
+      "slug": "Фармация-2012-ЕООД",
+      "uic": "202148850",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Юнифарма-ЕООД",
+      "type": "company",
+      "label": "Юнифарма ЕООД",
+      "slug": "Юнифарма-ЕООД",
+      "uic": "202228271",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Демос-фарм-ЕООД",
+      "type": "company",
+      "label": "Демос фарм ЕООД",
+      "slug": "Демос-фарм-ЕООД",
+      "uic": "202347934",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Интерфарм-2012-ЕООД",
+      "type": "company",
+      "label": "Интерфарм 2012 ЕООД",
+      "slug": "Интерфарм-2012-ЕООД",
+      "uic": "202148944",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Бургас-Петролеум-Трейд-ЕООД",
+      "type": "company",
+      "label": "Бургас Петролеум Трейд ЕООД",
+      "slug": "Бургас-Петролеум-Трейд-ЕООД",
+      "uic": "205301632",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "mp:2659",
+      "type": "mp",
+      "mpId": 2659,
+      "label": "Гергана Желязкова Стефанова",
+      "partyGroupShort": "Воля",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:КАЛИНКА РАЙКОВА СЛАВОВА",
+      "type": "person",
+      "label": "Калинка Райкова Славова"
+    },
+    {
+      "id": "person:СИЛВИЯ ПЕТРОВА ЧУЧУЛСКА",
+      "type": "person",
+      "label": "Силвия Петрова Чучулска"
+    },
+    {
+      "id": "person:ХРИСТО ПЕТКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Петков Христов"
+    },
+    {
+      "id": "person:МИКИ ШУЛЕСКИ",
+      "type": "person",
+      "label": "Мики  Шулески"
+    },
+    {
+      "id": "person:АЙСЕЛ АЗИС КАРАДЕНИЗ",
+      "type": "person",
+      "label": "Айсел Азис Карадениз"
+    },
+    {
+      "id": "person:ИЛИЯНА ХРИСТОВА ДАСКАЛОВА-ПЕТРОВА",
+      "type": "person",
+      "label": "Илияна Христова Даскалова-Петрова"
+    },
+    {
+      "id": "person:НАДКА РУМЕНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Надка Руменова Василева"
+    },
+    {
+      "id": "person:СРЕБРИНА ГЕОРГИЕВА ГЮХПАЛОВА",
+      "type": "person",
+      "label": "Сребрина Георгиева Гюхпалова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-zhelyazkova-stefanova-81eb5f",
+      "target": "company:Хелт-кеър-фарм-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gergana-zhelyazkova-stefanova-81eb5f",
+      "target": "company:Вегамедикс-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gergana-zhelyazkova-stefanova-81eb5f",
+      "target": "company:Витагер-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gergana-zhelyazkova-stefanova-81eb5f",
+      "target": "company:Фармация-2012-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gergana-zhelyazkova-stefanova-81eb5f",
+      "target": "company:Юнифарма-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gergana-zhelyazkova-stefanova-81eb5f",
+      "target": "company:Демос-фарм-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gergana-zhelyazkova-stefanova-81eb5f",
+      "target": "company:Интерфарм-2012-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gergana-zhelyazkova-stefanova-81eb5f",
+      "target": "company:Бургас-Петролеум-Трейд-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2659",
+      "target": "company:Хелт-кеър-фарм-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2659",
+      "target": "company:Вегамедикс-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2659",
+      "target": "company:Витагер-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА РАЙКОВА СЛАВОВА",
+      "target": "company:Витагер-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ПЕТРОВА ЧУЧУЛСКА",
+      "target": "company:Витагер-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ПЕТКОВ ХРИСТОВ",
+      "target": "company:Витагер-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИКИ ШУЛЕСКИ",
+      "target": "company:Витагер-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2659",
+      "target": "company:Фармация-2012-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА РАЙКОВА СЛАВОВА",
+      "target": "company:Фармация-2012-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙСЕЛ АЗИС КАРАДЕНИЗ",
+      "target": "company:Фармация-2012-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ХРИСТОВА ДАСКАЛОВА-ПЕТРОВА",
+      "target": "company:Фармация-2012-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2659",
+      "target": "company:Юнифарма-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2659",
+      "target": "company:Демос-фарм-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА РАЙКОВА СЛАВОВА",
+      "target": "company:Демос-фарм-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДКА РУМЕНОВА ВАСИЛЕВА",
+      "target": "company:Демос-фарм-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2659",
+      "target": "company:Интерфарм-2012-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА РАЙКОВА СЛАВОВА",
+      "target": "company:Интерфарм-2012-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СРЕБРИНА ГЕОРГИЕВА ГЮХПАЛОВА",
+      "target": "company:Интерфарм-2012-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2659",
+      "target": "company:Бургас-Петролеум-Трейд-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zhivko-danailov-dachev-698a24","nodes":[{"id":"official:zhivko-danailov-dachev-698a24","type":"official","slug":"zhivko-danailov-dachev-698a24","label":"Живко Данаилов Дачев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:834052321","type":"company","label":"ЖИЛФОНД - ИНВЕСТ","slug":null,"uic":"834052321","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:zhivko-danailov-dachev-698a24","target":"company:tr:834052321","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zhivko-danailov-dachev-698a24",
+  "nodes": [
+    {
+      "id": "official:zhivko-danailov-dachev-698a24",
+      "type": "official",
+      "slug": "zhivko-danailov-dachev-698a24",
+      "label": "Живко Данаилов Дачев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:834052321",
+      "type": "company",
+      "label": "ЖИЛФОНД - ИНВЕСТ",
+      "slug": null,
+      "uic": "834052321",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-danailov-dachev-698a24",
+      "target": "company:tr:834052321",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

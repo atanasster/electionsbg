@@ -1,1 +1,116 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nivelin-marinov-radichkov-f56bac","nodes":[{"id":"official:nivelin-marinov-radichkov-f56bac","type":"official","slug":"nivelin-marinov-radichkov-f56bac","label":"Нивелин Маринов Радичков","tier":"municipal","role":"councillor","municipality":"Добрич"},{"id":"company:tr:124597470","type":"company","label":"СДРУЖЕНИЕ &quot;ТАН НАК РА&quot;","slug":null,"uic":"124597470","legalForm":null,"status":null,"seat":null},{"id":"person:ВАЛЕНТИН ВИКТОРОВ ЗЕЛЕНЧЕНКО","type":"person","label":"Валентин Викторов Зеленченко"},{"id":"person:ДОНКО ГЕОРГИЕВ МАРЕВ","type":"person","label":"Донко Георгиев Марев"},{"id":"person:ДОБРИН ИВАНОВ ДОБРЕВ","type":"person","label":"Добрин Иванов Добрев"},{"id":"person:МИТКО ГЕОРГИЕВ ЖЕЛЯЗКОВ","type":"person","label":"Митко Георгиев Желязков"},{"id":"person:ГЕОРГИ КРЪСТЕВ ПАНОВ","type":"person","label":"Георги Кръстев Панов"}],"edges":[{"source":"official:nivelin-marinov-radichkov-f56bac","target":"company:tr:124597470","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕНТИН ВИКТОРОВ ЗЕЛЕНЧЕНКО","target":"company:tr:124597470","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ВИКТОРОВ ЗЕЛЕНЧЕНКО","target":"company:tr:124597470","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКО ГЕОРГИЕВ МАРЕВ","target":"company:tr:124597470","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИН ИВАНОВ ДОБРЕВ","target":"company:tr:124597470","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО ГЕОРГИЕВ ЖЕЛЯЗКОВ","target":"company:tr:124597470","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО ГЕОРГИЕВ ЖЕЛЯЗКОВ","target":"company:tr:124597470","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ КРЪСТЕВ ПАНОВ","target":"company:tr:124597470","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nivelin-marinov-radichkov-f56bac",
+  "nodes": [
+    {
+      "id": "official:nivelin-marinov-radichkov-f56bac",
+      "type": "official",
+      "slug": "nivelin-marinov-radichkov-f56bac",
+      "label": "Нивелин Маринов Радичков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:124597470",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ТАН НАК РА&quot;",
+      "slug": null,
+      "uic": "124597470",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВИКТОРОВ ЗЕЛЕНЧЕНКО",
+      "type": "person",
+      "label": "Валентин Викторов Зеленченко"
+    },
+    {
+      "id": "person:ДОНКО ГЕОРГИЕВ МАРЕВ",
+      "type": "person",
+      "label": "Донко Георгиев Марев"
+    },
+    {
+      "id": "person:ДОБРИН ИВАНОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Добрин Иванов Добрев"
+    },
+    {
+      "id": "person:МИТКО ГЕОРГИЕВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Митко Георгиев Желязков"
+    },
+    {
+      "id": "person:ГЕОРГИ КРЪСТЕВ ПАНОВ",
+      "type": "person",
+      "label": "Георги Кръстев Панов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nivelin-marinov-radichkov-f56bac",
+      "target": "company:tr:124597470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВИКТОРОВ ЗЕЛЕНЧЕНКО",
+      "target": "company:tr:124597470",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВИКТОРОВ ЗЕЛЕНЧЕНКО",
+      "target": "company:tr:124597470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКО ГЕОРГИЕВ МАРЕВ",
+      "target": "company:tr:124597470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИН ИВАНОВ ДОБРЕВ",
+      "target": "company:tr:124597470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ГЕОРГИЕВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:124597470",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ГЕОРГИЕВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:124597470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КРЪСТЕВ ПАНОВ",
+      "target": "company:tr:124597470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

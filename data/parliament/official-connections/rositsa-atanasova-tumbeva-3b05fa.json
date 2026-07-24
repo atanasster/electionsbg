@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rositsa-atanasova-tumbeva-3b05fa","nodes":[{"id":"official:rositsa-atanasova-tumbeva-3b05fa","type":"official","slug":"rositsa-atanasova-tumbeva-3b05fa","label":"Росица Атанасова Тумбева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:101670669","type":"company","label":"СДРУЖЕНИЕ \"ВЯРА И ДЕЛА\"","slug":null,"uic":"101670669","legalForm":null,"status":null,"seat":null},{"id":"person:РОСИЦА ПЕТРОВА КИРЕВА- БУЧКОВА","type":"person","label":"Росица Петрова Кирева- Бучкова"},{"id":"person:АТАНАС МАРИОВ ТУМБЕВ","type":"person","label":"Атанас Мариов Тумбев"}],"edges":[{"source":"official:rositsa-atanasova-tumbeva-3b05fa","target":"company:tr:101670669","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:rositsa-atanasova-tumbeva-3b05fa","target":"company:tr:101670669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:РОСИЦА ПЕТРОВА КИРЕВА- БУЧКОВА","target":"company:tr:101670669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС МАРИОВ ТУМБЕВ","target":"company:tr:101670669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rositsa-atanasova-tumbeva-3b05fa",
+  "nodes": [
+    {
+      "id": "official:rositsa-atanasova-tumbeva-3b05fa",
+      "type": "official",
+      "slug": "rositsa-atanasova-tumbeva-3b05fa",
+      "label": "Росица Атанасова Тумбева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101670669",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ \"ВЯРА И ДЕЛА\"",
+      "slug": null,
+      "uic": "101670669",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСИЦА ПЕТРОВА КИРЕВА- БУЧКОВА",
+      "type": "person",
+      "label": "Росица Петрова Кирева- Бучкова"
+    },
+    {
+      "id": "person:АТАНАС МАРИОВ ТУМБЕВ",
+      "type": "person",
+      "label": "Атанас Мариов Тумбев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rositsa-atanasova-tumbeva-3b05fa",
+      "target": "company:tr:101670669",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rositsa-atanasova-tumbeva-3b05fa",
+      "target": "company:tr:101670669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСИЦА ПЕТРОВА КИРЕВА- БУЧКОВА",
+      "target": "company:tr:101670669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС МАРИОВ ТУМБЕВ",
+      "target": "company:tr:101670669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,51 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:veselin-hristov-hristov-12750b","nodes":[{"id":"official:veselin-hristov-hristov-12750b","type":"official","slug":"veselin-hristov-hristov-12750b","label":"Веселин Христов Христов","tier":"municipal","role":"councillor","municipality":"Благоевград"},{"id":"company:tr:207882549","type":"company","label":"\"СОНИК КОНСУЛТИНГ\" ЕООД","slug":null,"uic":"207882549","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:veselin-hristov-hristov-12750b","target":"company:tr:207882549","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:veselin-hristov-hristov-12750b","target":"company:tr:207882549","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:veselin-hristov-hristov-12750b","target":"company:tr:207882549","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:veselin-hristov-hristov-12750b",
+  "nodes": [
+    {
+      "id": "official:veselin-hristov-hristov-12750b",
+      "type": "official",
+      "slug": "veselin-hristov-hristov-12750b",
+      "label": "Веселин Христов Христов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:207882549",
+      "type": "company",
+      "label": "\"СОНИК КОНСУЛТИНГ\" ЕООД",
+      "slug": null,
+      "uic": "207882549",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-hristov-hristov-12750b",
+      "target": "company:tr:207882549",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:veselin-hristov-hristov-12750b",
+      "target": "company:tr:207882549",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselin-hristov-hristov-12750b",
+      "target": "company:tr:207882549",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

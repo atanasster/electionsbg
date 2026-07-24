@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ventsislav-iordanov-dimov-2237d7","nodes":[{"id":"official:ventsislav-iordanov-dimov-2237d7","type":"official","slug":"ventsislav-iordanov-dimov-2237d7","label":"Венцислав Йорданов Димов","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:200261536","type":"company","label":"МНОГОПРОФИЛНА  БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;ПОЛИМЕД&quot;","slug":null,"uic":"200261536","legalForm":null,"status":null,"seat":null},{"id":"person:ЦВЕТАН ДИМОВ ДИМАНОВ","type":"person","label":"Цветан Димов Диманов"},{"id":"person:ЙОРДАН ГЕОРГИЕВ ПЕЙЧЕВ","type":"person","label":"Йордан Георгиев Пейчев"}],"edges":[{"source":"official:ventsislav-iordanov-dimov-2237d7","target":"company:tr:200261536","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТАН ДИМОВ ДИМАНОВ","target":"company:tr:200261536","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ДИМОВ ДИМАНОВ","target":"company:tr:200261536","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ГЕОРГИЕВ ПЕЙЧЕВ","target":"company:tr:200261536","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ventsislav-iordanov-dimov-2237d7",
+  "nodes": [
+    {
+      "id": "official:ventsislav-iordanov-dimov-2237d7",
+      "type": "official",
+      "slug": "ventsislav-iordanov-dimov-2237d7",
+      "label": "Венцислав Йорданов Димов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200261536",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА  БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;ПОЛИМЕД&quot;",
+      "slug": null,
+      "uic": "200261536",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТАН ДИМОВ ДИМАНОВ",
+      "type": "person",
+      "label": "Цветан Димов Диманов"
+    },
+    {
+      "id": "person:ЙОРДАН ГЕОРГИЕВ ПЕЙЧЕВ",
+      "type": "person",
+      "label": "Йордан Георгиев Пейчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ventsislav-iordanov-dimov-2237d7",
+      "target": "company:tr:200261536",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАН ДИМОВ ДИМАНОВ",
+      "target": "company:tr:200261536",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ДИМОВ ДИМАНОВ",
+      "target": "company:tr:200261536",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕОРГИЕВ ПЕЙЧЕВ",
+      "target": "company:tr:200261536",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

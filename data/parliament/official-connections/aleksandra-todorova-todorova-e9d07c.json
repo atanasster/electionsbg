@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aleksandra-todorova-todorova-e9d07c","nodes":[{"id":"official:aleksandra-todorova-todorova-e9d07c","type":"official","slug":"aleksandra-todorova-todorova-e9d07c","label":"Александра Тодорова Тодорова","tier":"municipal","role":"councillor","municipality":"Велико Търново"},{"id":"company:tr:208557996","type":"company","label":"АлекЗандър 80","slug":null,"uic":"208557996","legalForm":null,"status":null,"seat":null},{"id":"person:ЗЛАТОМИР САШЕВ УЛАЙБЕВ","type":"person","label":"Златомир Сашев Улайбев"}],"edges":[{"source":"official:aleksandra-todorova-todorova-e9d07c","target":"company:tr:208557996","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandra-todorova-todorova-e9d07c","target":"company:tr:208557996","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЗЛАТОМИР САШЕВ УЛАЙБЕВ","target":"company:tr:208557996","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТОМИР САШЕВ УЛАЙБЕВ","target":"company:tr:208557996","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aleksandra-todorova-todorova-e9d07c",
+  "nodes": [
+    {
+      "id": "official:aleksandra-todorova-todorova-e9d07c",
+      "type": "official",
+      "slug": "aleksandra-todorova-todorova-e9d07c",
+      "label": "Александра Тодорова Тодорова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велико Търново"
+    },
+    {
+      "id": "company:tr:208557996",
+      "type": "company",
+      "label": "АлекЗандър 80",
+      "slug": null,
+      "uic": "208557996",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗЛАТОМИР САШЕВ УЛАЙБЕВ",
+      "type": "person",
+      "label": "Златомир Сашев Улайбев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandra-todorova-todorova-e9d07c",
+      "target": "company:tr:208557996",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandra-todorova-todorova-e9d07c",
+      "target": "company:tr:208557996",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЛАТОМИР САШЕВ УЛАЙБЕВ",
+      "target": "company:tr:208557996",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТОМИР САШЕВ УЛАЙБЕВ",
+      "target": "company:tr:208557996",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

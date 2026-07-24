@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:chavdar-hristov-georgiev-f19f6e","nodes":[{"id":"official:chavdar-hristov-georgiev-f19f6e","type":"official","slug":"chavdar-hristov-georgiev-f19f6e","label":"Чавдар Христов Георгиев","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:202999541","type":"company","label":"ГЕОРГИЕВ ДИЗАЙН СТУДИО","slug":null,"uic":"202999541","legalForm":null,"status":null,"seat":null},{"id":"person:АНГЕЛ РАЙЧОВ ГАЛЕВ","type":"person","label":"Ангел Райчов Галев"},{"id":"person:НАДЕЖДА ПЕТРОВА ГЕОРГИЕВА","type":"person","label":"Надежда Петрова Георгиева"}],"edges":[{"source":"official:chavdar-hristov-georgiev-f19f6e","target":"company:tr:202999541","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:АНГЕЛ РАЙЧОВ ГАЛЕВ","target":"company:tr:202999541","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА ПЕТРОВА ГЕОРГИЕВА","target":"company:tr:202999541","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:chavdar-hristov-georgiev-f19f6e",
+  "nodes": [
+    {
+      "id": "official:chavdar-hristov-georgiev-f19f6e",
+      "type": "official",
+      "slug": "chavdar-hristov-georgiev-f19f6e",
+      "label": "Чавдар Христов Георгиев",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202999541",
+      "type": "company",
+      "label": "ГЕОРГИЕВ ДИЗАЙН СТУДИО",
+      "slug": null,
+      "uic": "202999541",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ РАЙЧОВ ГАЛЕВ",
+      "type": "person",
+      "label": "Ангел Райчов Галев"
+    },
+    {
+      "id": "person:НАДЕЖДА ПЕТРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Надежда Петрова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:chavdar-hristov-georgiev-f19f6e",
+      "target": "company:tr:202999541",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ РАЙЧОВ ГАЛЕВ",
+      "target": "company:tr:202999541",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ПЕТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:202999541",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

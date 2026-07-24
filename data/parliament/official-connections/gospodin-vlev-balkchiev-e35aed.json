@@ -1,1 +1,158 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:gospodin-vlev-balkchiev-e35aed","nodes":[{"id":"official:gospodin-vlev-balkchiev-e35aed","type":"official","slug":"gospodin-vlev-balkchiev-e35aed","label":"Господин Вълев Балъкчиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176336047","type":"company","label":"КЛУБ НА УЧИТЕЛИТЕ ВЕТЕРАНИ &quot;СВЕТИ КЛИМЕНТ ОХРИДСКИ&quot;","slug":null,"uic":"176336047","legalForm":null,"status":null,"seat":null},{"id":"person:КРАСИМИРА ДИМИТРОВА БАНОВА","type":"person","label":"Красимира Димитрова Банова"},{"id":"person:ЙОРДАНКА НУНЕВА КОСТОВА","type":"person","label":"Йорданка Нунева Костова"},{"id":"person:МАРИЯ ГРОЗЕВА ДЕНЕВА","type":"person","label":"Мария Грозева Денева"},{"id":"person:СТЕФАНКА ДИМОВА НИКОЛОВА","type":"person","label":"Стефанка Димова Николова"},{"id":"person:ЮЛИАНА ДИНЧЕВА СТЕФАНОВА","type":"person","label":"Юлиана Динчева Стефанова"},{"id":"person:ГИНКА НЕДЕВА КОЛЕВА","type":"person","label":"Гинка Недева Колева"},{"id":"person:ПЕНКА СТРАТЕВА ДИМИТРОВА","type":"person","label":"Пенка Стратева Димитрова"}],"edges":[{"source":"official:gospodin-vlev-balkchiev-e35aed","target":"company:tr:176336047","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:gospodin-vlev-balkchiev-e35aed","target":"company:tr:176336047","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:КРАСИМИРА ДИМИТРОВА БАНОВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА НУНЕВА КОСТОВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГРОЗЕВА ДЕНЕВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГРОЗЕВА ДЕНЕВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ДИМИТРОВА БАНОВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА НУНЕВА КОСТОВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАНКА ДИМОВА НИКОЛОВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИАНА ДИНЧЕВА СТЕФАНОВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА НЕДЕВА КОЛЕВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА СТРАТЕВА ДИМИТРОВА","target":"company:tr:176336047","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:gospodin-vlev-balkchiev-e35aed",
+  "nodes": [
+    {
+      "id": "official:gospodin-vlev-balkchiev-e35aed",
+      "type": "official",
+      "slug": "gospodin-vlev-balkchiev-e35aed",
+      "label": "Господин Вълев Балъкчиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176336047",
+      "type": "company",
+      "label": "КЛУБ НА УЧИТЕЛИТЕ ВЕТЕРАНИ &quot;СВЕТИ КЛИМЕНТ ОХРИДСКИ&quot;",
+      "slug": null,
+      "uic": "176336047",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИРА ДИМИТРОВА БАНОВА",
+      "type": "person",
+      "label": "Красимира Димитрова Банова"
+    },
+    {
+      "id": "person:ЙОРДАНКА НУНЕВА КОСТОВА",
+      "type": "person",
+      "label": "Йорданка Нунева Костова"
+    },
+    {
+      "id": "person:МАРИЯ ГРОЗЕВА ДЕНЕВА",
+      "type": "person",
+      "label": "Мария Грозева Денева"
+    },
+    {
+      "id": "person:СТЕФАНКА ДИМОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Стефанка Димова Николова"
+    },
+    {
+      "id": "person:ЮЛИАНА ДИНЧЕВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Юлиана Динчева Стефанова"
+    },
+    {
+      "id": "person:ГИНКА НЕДЕВА КОЛЕВА",
+      "type": "person",
+      "label": "Гинка Недева Колева"
+    },
+    {
+      "id": "person:ПЕНКА СТРАТЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Пенка Стратева Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gospodin-vlev-balkchiev-e35aed",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gospodin-vlev-balkchiev-e35aed",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИРА ДИМИТРОВА БАНОВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА НУНЕВА КОСТОВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГРОЗЕВА ДЕНЕВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГРОЗЕВА ДЕНЕВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ДИМИТРОВА БАНОВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА НУНЕВА КОСТОВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАНКА ДИМОВА НИКОЛОВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАНА ДИНЧЕВА СТЕФАНОВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА НЕДЕВА КОЛЕВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА СТРАТЕВА ДИМИТРОВА",
+      "target": "company:tr:176336047",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

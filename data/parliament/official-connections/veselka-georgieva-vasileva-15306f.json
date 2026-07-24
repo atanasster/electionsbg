@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:veselka-georgieva-vasileva-15306f","nodes":[{"id":"official:veselka-georgieva-vasileva-15306f","type":"official","slug":"veselka-georgieva-vasileva-15306f","label":"Веселка Георгиева Василева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:118514608","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО &quot;ЙОРДАН ЙОВКОВ&quot;","slug":null,"uic":"118514608","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛАЙ НИКОЛОВ РУСЕВ","type":"person","label":"Николай Николов Русев"},{"id":"person:ЕХЛИМАН НИХАТ ЕХЛИМАН","type":"person","label":"Ехлиман Нихат Ехлиман"},{"id":"person:СНЕЖАНА АТАНАСОВА ГЕОРГИЕВА","type":"person","label":"Снежана Атанасова Георгиева"},{"id":"person:ФАТМЕ МЮМЮН САДЪК","type":"person","label":"Фатме Мюмюн Садък"}],"edges":[{"source":"official:veselka-georgieva-vasileva-15306f","target":"company:tr:118514608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ НИКОЛОВ РУСЕВ","target":"company:tr:118514608","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ НИКОЛОВ РУСЕВ","target":"company:tr:118514608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕХЛИМАН НИХАТ ЕХЛИМАН","target":"company:tr:118514608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА АТАНАСОВА ГЕОРГИЕВА","target":"company:tr:118514608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ФАТМЕ МЮМЮН САДЪК","target":"company:tr:118514608","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:veselka-georgieva-vasileva-15306f",
+  "nodes": [
+    {
+      "id": "official:veselka-georgieva-vasileva-15306f",
+      "type": "official",
+      "slug": "veselka-georgieva-vasileva-15306f",
+      "label": "Веселка Георгиева Василева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:118514608",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО &quot;ЙОРДАН ЙОВКОВ&quot;",
+      "slug": null,
+      "uic": "118514608",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ НИКОЛОВ РУСЕВ",
+      "type": "person",
+      "label": "Николай Николов Русев"
+    },
+    {
+      "id": "person:ЕХЛИМАН НИХАТ ЕХЛИМАН",
+      "type": "person",
+      "label": "Ехлиман Нихат Ехлиман"
+    },
+    {
+      "id": "person:СНЕЖАНА АТАНАСОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Снежана Атанасова Георгиева"
+    },
+    {
+      "id": "person:ФАТМЕ МЮМЮН САДЪК",
+      "type": "person",
+      "label": "Фатме Мюмюн Садък"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselka-georgieva-vasileva-15306f",
+      "target": "company:tr:118514608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ НИКОЛОВ РУСЕВ",
+      "target": "company:tr:118514608",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ НИКОЛОВ РУСЕВ",
+      "target": "company:tr:118514608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕХЛИМАН НИХАТ ЕХЛИМАН",
+      "target": "company:tr:118514608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА АТАНАСОВА ГЕОРГИЕВА",
+      "target": "company:tr:118514608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ МЮМЮН САДЪК",
+      "target": "company:tr:118514608",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

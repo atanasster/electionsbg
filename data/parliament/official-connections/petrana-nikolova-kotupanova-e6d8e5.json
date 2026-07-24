@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petrana-nikolova-kotupanova-e6d8e5","nodes":[{"id":"official:petrana-nikolova-kotupanova-e6d8e5","type":"official","slug":"petrana-nikolova-kotupanova-e6d8e5","label":"Петрана Николова Котупанова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176130442","type":"company","label":"РОДИТЕЛСКО НАСТОЯТЕЛСТВО ЗАЕДНО ЗА ОДЗ БУРАТИНО","slug":null,"uic":"176130442","legalForm":null,"status":null,"seat":null},{"id":"person:ЛИЛИЯ ПАНЧЕВА ЛОЗАНОВА","type":"person","label":"Лилия Панчева Лозанова"},{"id":"person:МАРИЕЛА КИРИЛОВА РАНДЖЕВА","type":"person","label":"Мариела Кирилова Ранджева"},{"id":"person:РАДОСЛАВА КИРИЛОВА ПЕТРОВА ИЛИЕВА","type":"person","label":"Радослава Кирилова Петрова Илиева"},{"id":"person:ТАНЯ КИРИЛОВА МИТОВА","type":"person","label":"Таня Кирилова Митова"}],"edges":[{"source":"official:petrana-nikolova-kotupanova-e6d8e5","target":"company:tr:176130442","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:petrana-nikolova-kotupanova-e6d8e5","target":"company:tr:176130442","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛИЛИЯ ПАНЧЕВА ЛОЗАНОВА","target":"company:tr:176130442","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЕЛА КИРИЛОВА РАНДЖЕВА","target":"company:tr:176130442","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВА КИРИЛОВА ПЕТРОВА ИЛИЕВА","target":"company:tr:176130442","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ КИРИЛОВА МИТОВА","target":"company:tr:176130442","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petrana-nikolova-kotupanova-e6d8e5",
+  "nodes": [
+    {
+      "id": "official:petrana-nikolova-kotupanova-e6d8e5",
+      "type": "official",
+      "slug": "petrana-nikolova-kotupanova-e6d8e5",
+      "label": "Петрана Николова Котупанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176130442",
+      "type": "company",
+      "label": "РОДИТЕЛСКО НАСТОЯТЕЛСТВО ЗАЕДНО ЗА ОДЗ БУРАТИНО",
+      "slug": null,
+      "uic": "176130442",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛИЯ ПАНЧЕВА ЛОЗАНОВА",
+      "type": "person",
+      "label": "Лилия Панчева Лозанова"
+    },
+    {
+      "id": "person:МАРИЕЛА КИРИЛОВА РАНДЖЕВА",
+      "type": "person",
+      "label": "Мариела Кирилова Ранджева"
+    },
+    {
+      "id": "person:РАДОСЛАВА КИРИЛОВА ПЕТРОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Радослава Кирилова Петрова Илиева"
+    },
+    {
+      "id": "person:ТАНЯ КИРИЛОВА МИТОВА",
+      "type": "person",
+      "label": "Таня Кирилова Митова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petrana-nikolova-kotupanova-e6d8e5",
+      "target": "company:tr:176130442",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petrana-nikolova-kotupanova-e6d8e5",
+      "target": "company:tr:176130442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛИЯ ПАНЧЕВА ЛОЗАНОВА",
+      "target": "company:tr:176130442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕЛА КИРИЛОВА РАНДЖЕВА",
+      "target": "company:tr:176130442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА КИРИЛОВА ПЕТРОВА ИЛИЕВА",
+      "target": "company:tr:176130442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ КИРИЛОВА МИТОВА",
+      "target": "company:tr:176130442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

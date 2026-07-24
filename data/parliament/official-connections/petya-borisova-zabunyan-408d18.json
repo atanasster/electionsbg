@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petya-borisova-zabunyan-408d18","nodes":[{"id":"official:petya-borisova-zabunyan-408d18","type":"official","slug":"petya-borisova-zabunyan-408d18","label":"Петя Борисова Забунян","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:175655017","type":"company","label":"СДРУЖЕНИЕ НА ИНСТИТУЦИИ ЗА ПРОФЕСИОНАЛНО ОБУЧЕНИЕ В БЪЛГАРИЯ","slug":null,"uic":"175655017","legalForm":null,"status":null,"seat":null},{"id":"person:БОРЯНА ВАЛЕНТИНОВА СТРАХИЛОВА","type":"person","label":"Боряна Валентинова Страхилова"},{"id":"person:ВАЛЕНТИНА ВЕНЕЛИНОВА ГЕОРГИЕВА","type":"person","label":"Валентина Венелинова Георгиева"}],"edges":[{"source":"official:petya-borisova-zabunyan-408d18","target":"company:tr:175655017","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:БОРЯНА ВАЛЕНТИНОВА СТРАХИЛОВА","target":"company:tr:175655017","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ВЕНЕЛИНОВА ГЕОРГИЕВА","target":"company:tr:175655017","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯНА ВАЛЕНТИНОВА СТРАХИЛОВА","target":"company:tr:175655017","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА ВЕНЕЛИНОВА ГЕОРГИЕВА","target":"company:tr:175655017","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petya-borisova-zabunyan-408d18",
+  "nodes": [
+    {
+      "id": "official:petya-borisova-zabunyan-408d18",
+      "type": "official",
+      "slug": "petya-borisova-zabunyan-408d18",
+      "label": "Петя Борисова Забунян",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175655017",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ИНСТИТУЦИИ ЗА ПРОФЕСИОНАЛНО ОБУЧЕНИЕ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "175655017",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРЯНА ВАЛЕНТИНОВА СТРАХИЛОВА",
+      "type": "person",
+      "label": "Боряна Валентинова Страхилова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ВЕНЕЛИНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Валентина Венелинова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-borisova-zabunyan-408d18",
+      "target": "company:tr:175655017",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРЯНА ВАЛЕНТИНОВА СТРАХИЛОВА",
+      "target": "company:tr:175655017",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ВЕНЕЛИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:175655017",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ВАЛЕНТИНОВА СТРАХИЛОВА",
+      "target": "company:tr:175655017",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ВЕНЕЛИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:175655017",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

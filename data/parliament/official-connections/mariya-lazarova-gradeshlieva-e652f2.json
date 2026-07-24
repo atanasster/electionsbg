@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-lazarova-gradeshlieva-e652f2","nodes":[{"id":"official:mariya-lazarova-gradeshlieva-e652f2","type":"official","slug":"mariya-lazarova-gradeshlieva-e652f2","label":"Мария Лазарова Градешлиева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:119535982","type":"company","label":"Гейт 01 ЕООД","slug":null,"uic":"119535982","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:mariya-lazarova-gradeshlieva-e652f2","target":"company:tr:119535982","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-lazarova-gradeshlieva-e652f2",
+  "nodes": [
+    {
+      "id": "official:mariya-lazarova-gradeshlieva-e652f2",
+      "type": "official",
+      "slug": "mariya-lazarova-gradeshlieva-e652f2",
+      "label": "Мария Лазарова Градешлиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119535982",
+      "type": "company",
+      "label": "Гейт 01 ЕООД",
+      "slug": null,
+      "uic": "119535982",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-lazarova-gradeshlieva-e652f2",
+      "target": "company:tr:119535982",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

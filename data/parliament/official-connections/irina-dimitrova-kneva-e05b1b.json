@@ -1,1 +1,392 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:irina-dimitrova-kneva-e05b1b","nodes":[{"id":"official:irina-dimitrova-kneva-e05b1b","type":"official","slug":"irina-dimitrova-kneva-e05b1b","label":"Ирина Димитрова Кънева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:831622969","type":"company","label":"ЕЛ БИ БУЛГАРИКУМ","slug":null,"uic":"831622969","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"},{"id":"mp:3249","type":"mp","mpId":3249,"label":"Владимир Стоянов Русев","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45"]},{"id":"official:vladimir-stoyanov-rusev-752b95","type":"official","slug":"vladimir-stoyanov-rusev-752b95","label":"Владимир Стоянов Русев","tier":"executive","role":"political_cabinet","municipality":null},{"id":"person:СВЕТЛАНА ТОДОРОВА МИНКОВА-ФАХРИЕВА","type":"person","label":"Светлана Тодорова Минкова-Фахриева"},{"id":"person:ГЕРГАНА АСЕНОВА КАРААЛАНОВА","type":"person","label":"Гергана Асенова Карааланова"},{"id":"person:ПЛАМЕН ВЕСЕЛИНОВ ПУВКОВ","type":"person","label":"Пламен Веселинов Пувков"},{"id":"person:НИКОЛАЙ БОЯНОВ МАРИНОВ","type":"person","label":"Николай Боянов Маринов"},{"id":"person:НЕВЕНА АНТОНОВА ПЕТРОВА","type":"person","label":"Невена Антонова Петрова"},{"id":"person:КЛЕМЕНТИНА ЗДРАВКОВА ГРОХЧЕВА","type":"person","label":"Клементина Здравкова Грохчева"},{"id":"person:ЧАНКО НЕДКОВ ДУЧЕВ","type":"person","label":"Чанко Недков Дучев"},{"id":"person:ДАНИЕЛА БОТЮВА ЙОРДАНОВА","type":"person","label":"Даниела Ботюва Йорданова"},{"id":"person:СТОЙЧО ЙОВЧЕВ ПРОДАНОВ","type":"person","label":"Стойчо Йовчев Проданов"},{"id":"person:АНА ДРАГОМИРОВА ВЕЛКОВА","type":"person","label":"Ана Драгомирова Велкова"},{"id":"person:КРИСТИЯН БОГДАНОВ ВИЛНЕР","type":"person","label":"Кристиян Богданов Вилнер"},{"id":"person:ИВАЙЛО ЦВЕТАНОВ ЛИЛОВ","type":"person","label":"Ивайло Цветанов Лилов"},{"id":"person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ","type":"person","label":"Христо Иларионов Михайловски"},{"id":"person:АННА ЛЮДМИЛОВА РАДОВСКА","type":"person","label":"Анна Людмилова Радовска"},{"id":"person:ЖИВКО ТОДОРОВ ЖИВКОВ","type":"person","label":"Живко Тодоров Живков"},{"id":"person:НАДЯ ГЕОРГИЕВА СТЕФАНОВА - НЕЗАВИСИМ ЧЛЕН","type":"person","label":"Надя Георгиева Стефанова - Независим Член"},{"id":"person:ЖИВКО ТОДОРОВ ЖИВКОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","type":"person","label":"Живко Тодоров Живков - Представител На Държавата"},{"id":"person:СПАСИН КИРОВ КАРАЙЧЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","type":"person","label":"Спасин Киров Карайчев  - Представител На Държавата"},{"id":"person:ГЕОРГИ ИВАНОВ БАНКОВ","type":"person","label":"Георги Иванов Банков"},{"id":"person:ИРИНА ДИМИТРОВА КЪНЕВА ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","type":"person","label":"Ирина Димитрова Кънева Представител На Държавата"},{"id":"person:НИКОЛАЙ АСЕНОВ СТОЙНЕВ","type":"person","label":"Николай Асенов Стойнев"}],"edges":[{"source":"official:irina-dimitrova-kneva-e05b1b","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:3249","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:3249","target":"company:tr:831622969","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:vladimir-stoyanov-rusev-752b95","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:vladimir-stoyanov-rusev-752b95","target":"company:tr:831622969","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"person:СВЕТЛАНА ТОДОРОВА МИНКОВА-ФАХРИЕВА","target":"company:tr:831622969","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА ТОДОРОВА МИНКОВА-ФАХРИЕВА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА АСЕНОВА КАРААЛАНОВА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ВЕСЕЛИНОВ ПУВКОВ","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ БОЯНОВ МАРИНОВ","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕНА АНТОНОВА ПЕТРОВА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КЛЕМЕНТИНА ЗДРАВКОВА ГРОХЧЕВА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЧАНКО НЕДКОВ ДУЧЕВ","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ БОЯНОВ МАРИНОВ","target":"company:tr:831622969","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА БОТЮВА ЙОРДАНОВА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТОЙЧО ЙОВЧЕВ ПРОДАНОВ","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНА ДРАГОМИРОВА ВЕЛКОВА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИЯН БОГДАНОВ ВИЛНЕР","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ЦВЕТАНОВ ЛИЛОВ","target":"company:tr:831622969","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ЦВЕТАНОВ ЛИЛОВ","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АННА ЛЮДМИЛОВА РАДОВСКА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ТОДОРОВ ЖИВКОВ","target":"company:tr:831622969","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ГЕОРГИЕВА СТЕФАНОВА - НЕЗАВИСИМ ЧЛЕН","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ТОДОРОВ ЖИВКОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СПАСИН КИРОВ КАРАЙЧЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ БАНКОВ","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ДИМИТРОВА КЪНЕВА ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ АСЕНОВ СТОЙНЕВ","target":"company:tr:831622969","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ АСЕНОВ СТОЙНЕВ","target":"company:tr:831622969","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:irina-dimitrova-kneva-e05b1b",
+  "nodes": [
+    {
+      "id": "official:irina-dimitrova-kneva-e05b1b",
+      "type": "official",
+      "slug": "irina-dimitrova-kneva-e05b1b",
+      "label": "Ирина Димитрова Кънева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831622969",
+      "type": "company",
+      "label": "ЕЛ БИ БУЛГАРИКУМ",
+      "slug": null,
+      "uic": "831622969",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "mp:3249",
+      "type": "mp",
+      "mpId": 3249,
+      "label": "Владимир Стоянов Русев",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "official:vladimir-stoyanov-rusev-752b95",
+      "type": "official",
+      "slug": "vladimir-stoyanov-rusev-752b95",
+      "label": "Владимир Стоянов Русев",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "person:СВЕТЛАНА ТОДОРОВА МИНКОВА-ФАХРИЕВА",
+      "type": "person",
+      "label": "Светлана Тодорова Минкова-Фахриева"
+    },
+    {
+      "id": "person:ГЕРГАНА АСЕНОВА КАРААЛАНОВА",
+      "type": "person",
+      "label": "Гергана Асенова Карааланова"
+    },
+    {
+      "id": "person:ПЛАМЕН ВЕСЕЛИНОВ ПУВКОВ",
+      "type": "person",
+      "label": "Пламен Веселинов Пувков"
+    },
+    {
+      "id": "person:НИКОЛАЙ БОЯНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Николай Боянов Маринов"
+    },
+    {
+      "id": "person:НЕВЕНА АНТОНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Невена Антонова Петрова"
+    },
+    {
+      "id": "person:КЛЕМЕНТИНА ЗДРАВКОВА ГРОХЧЕВА",
+      "type": "person",
+      "label": "Клементина Здравкова Грохчева"
+    },
+    {
+      "id": "person:ЧАНКО НЕДКОВ ДУЧЕВ",
+      "type": "person",
+      "label": "Чанко Недков Дучев"
+    },
+    {
+      "id": "person:ДАНИЕЛА БОТЮВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Даниела Ботюва Йорданова"
+    },
+    {
+      "id": "person:СТОЙЧО ЙОВЧЕВ ПРОДАНОВ",
+      "type": "person",
+      "label": "Стойчо Йовчев Проданов"
+    },
+    {
+      "id": "person:АНА ДРАГОМИРОВА ВЕЛКОВА",
+      "type": "person",
+      "label": "Ана Драгомирова Велкова"
+    },
+    {
+      "id": "person:КРИСТИЯН БОГДАНОВ ВИЛНЕР",
+      "type": "person",
+      "label": "Кристиян Богданов Вилнер"
+    },
+    {
+      "id": "person:ИВАЙЛО ЦВЕТАНОВ ЛИЛОВ",
+      "type": "person",
+      "label": "Ивайло Цветанов Лилов"
+    },
+    {
+      "id": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "type": "person",
+      "label": "Христо Иларионов Михайловски"
+    },
+    {
+      "id": "person:АННА ЛЮДМИЛОВА РАДОВСКА",
+      "type": "person",
+      "label": "Анна Людмилова Радовска"
+    },
+    {
+      "id": "person:ЖИВКО ТОДОРОВ ЖИВКОВ",
+      "type": "person",
+      "label": "Живко Тодоров Живков"
+    },
+    {
+      "id": "person:НАДЯ ГЕОРГИЕВА СТЕФАНОВА - НЕЗАВИСИМ ЧЛЕН",
+      "type": "person",
+      "label": "Надя Георгиева Стефанова - Независим Член"
+    },
+    {
+      "id": "person:ЖИВКО ТОДОРОВ ЖИВКОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Живко Тодоров Живков - Представител На Държавата"
+    },
+    {
+      "id": "person:СПАСИН КИРОВ КАРАЙЧЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Спасин Киров Карайчев  - Представител На Държавата"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ БАНКОВ",
+      "type": "person",
+      "label": "Георги Иванов Банков"
+    },
+    {
+      "id": "person:ИРИНА ДИМИТРОВА КЪНЕВА ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Ирина Димитрова Кънева Представител На Държавата"
+    },
+    {
+      "id": "person:НИКОЛАЙ АСЕНОВ СТОЙНЕВ",
+      "type": "person",
+      "label": "Николай Асенов Стойнев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irina-dimitrova-kneva-e05b1b",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3249",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3249",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-stoyanov-rusev-752b95",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-stoyanov-rusev-752b95",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛАНА ТОДОРОВА МИНКОВА-ФАХРИЕВА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ТОДОРОВА МИНКОВА-ФАХРИЕВА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА АСЕНОВА КАРААЛАНОВА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ВЕСЕЛИНОВ ПУВКОВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ БОЯНОВ МАРИНОВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА АНТОНОВА ПЕТРОВА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЛЕМЕНТИНА ЗДРАВКОВА ГРОХЧЕВА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАНКО НЕДКОВ ДУЧЕВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ БОЯНОВ МАРИНОВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА БОТЮВА ЙОРДАНОВА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙЧО ЙОВЧЕВ ПРОДАНОВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА ДРАГОМИРОВА ВЕЛКОВА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН БОГДАНОВ ВИЛНЕР",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЦВЕТАНОВ ЛИЛОВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЦВЕТАНОВ ЛИЛОВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ЛЮДМИЛОВА РАДОВСКА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ТОДОРОВ ЖИВКОВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ГЕОРГИЕВА СТЕФАНОВА - НЕЗАВИСИМ ЧЛЕН",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ТОДОРОВ ЖИВКОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАСИН КИРОВ КАРАЙЧЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ БАНКОВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ДИМИТРОВА КЪНЕВА ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АСЕНОВ СТОЙНЕВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АСЕНОВ СТОЙНЕВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

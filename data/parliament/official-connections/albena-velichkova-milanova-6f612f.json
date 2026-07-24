@@ -1,1 +1,87 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:albena-velichkova-milanova-6f612f","nodes":[{"id":"official:albena-velichkova-milanova-6f612f","type":"official","slug":"albena-velichkova-milanova-6f612f","label":"Албена Величкова Миланова","tier":"municipal","role":"councillor","municipality":"Марица"},{"id":"company:tr:115174189","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО КЪМ ОУ &quot;СВ.СВ. КИРИЛ И МЕТОДИЙ&quot;, С.КОСТИЕВО","slug":null,"uic":"115174189","legalForm":null,"status":null,"seat":null},{"id":"person:ДАФИНКА ХРИСТЕВА КЛЯВКОВА - ХАДЖИЕВА","type":"person","label":"Дафинка Христева Клявкова - Хаджиева"},{"id":"person:МАРИАНА ПАВЛОВА КАРАДЖОВА","type":"person","label":"Мариана Павлова Караджова"},{"id":"person:ПЕТРА ЦВЕТАНОВА КРЪСТЕВА","type":"person","label":"Петра Цветанова Кръстева"},{"id":"person:ГЕОРГИ ЛАЗАРОВ КАРАГЬОЗОВ","type":"person","label":"Георги Лазаров Карагьозов"}],"edges":[{"source":"official:albena-velichkova-milanova-6f612f","target":"company:tr:115174189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДАФИНКА ХРИСТЕВА КЛЯВКОВА - ХАДЖИЕВА","target":"company:tr:115174189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ПАВЛОВА КАРАДЖОВА","target":"company:tr:115174189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРА ЦВЕТАНОВА КРЪСТЕВА","target":"company:tr:115174189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЛАЗАРОВ КАРАГЬОЗОВ","target":"company:tr:115174189","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:albena-velichkova-milanova-6f612f",
+  "nodes": [
+    {
+      "id": "official:albena-velichkova-milanova-6f612f",
+      "type": "official",
+      "slug": "albena-velichkova-milanova-6f612f",
+      "label": "Албена Величкова Миланова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Марица"
+    },
+    {
+      "id": "company:tr:115174189",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО КЪМ ОУ &quot;СВ.СВ. КИРИЛ И МЕТОДИЙ&quot;, С.КОСТИЕВО",
+      "slug": null,
+      "uic": "115174189",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАФИНКА ХРИСТЕВА КЛЯВКОВА - ХАДЖИЕВА",
+      "type": "person",
+      "label": "Дафинка Христева Клявкова - Хаджиева"
+    },
+    {
+      "id": "person:МАРИАНА ПАВЛОВА КАРАДЖОВА",
+      "type": "person",
+      "label": "Мариана Павлова Караджова"
+    },
+    {
+      "id": "person:ПЕТРА ЦВЕТАНОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Петра Цветанова Кръстева"
+    },
+    {
+      "id": "person:ГЕОРГИ ЛАЗАРОВ КАРАГЬОЗОВ",
+      "type": "person",
+      "label": "Георги Лазаров Карагьозов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:albena-velichkova-milanova-6f612f",
+      "target": "company:tr:115174189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАФИНКА ХРИСТЕВА КЛЯВКОВА - ХАДЖИЕВА",
+      "target": "company:tr:115174189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ПАВЛОВА КАРАДЖОВА",
+      "target": "company:tr:115174189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРА ЦВЕТАНОВА КРЪСТЕВА",
+      "target": "company:tr:115174189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЛАЗАРОВ КАРАГЬОЗОВ",
+      "target": "company:tr:115174189",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

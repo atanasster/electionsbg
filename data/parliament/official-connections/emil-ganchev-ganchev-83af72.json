@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-ganchev-ganchev-83af72","nodes":[{"id":"official:emil-ganchev-ganchev-83af72","type":"official","slug":"emil-ganchev-ganchev-83af72","label":"Емил Ганчев Ганчев","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:205243660","type":"company","label":"СНЦ ПРИЯТЕЛИ НА язовир ДОМЛЯН гр. Карлово","slug":null,"uic":"205243660","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТКО МИЛКОВ МАРКОВ","type":"person","label":"Петко Милков Марков"},{"id":"person:СТАЙКА ИВАНОВА МАЗАКОВА","type":"person","label":"Стайка Иванова Мазакова"}],"edges":[{"source":"official:emil-ganchev-ganchev-83af72","target":"company:tr:205243660","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТКО МИЛКОВ МАРКОВ","target":"company:tr:205243660","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАЙКА ИВАНОВА МАЗАКОВА","target":"company:tr:205243660","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-ganchev-ganchev-83af72",
+  "nodes": [
+    {
+      "id": "official:emil-ganchev-ganchev-83af72",
+      "type": "official",
+      "slug": "emil-ganchev-ganchev-83af72",
+      "label": "Емил Ганчев Ганчев",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205243660",
+      "type": "company",
+      "label": "СНЦ ПРИЯТЕЛИ НА язовир ДОМЛЯН гр. Карлово",
+      "slug": null,
+      "uic": "205243660",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТКО МИЛКОВ МАРКОВ",
+      "type": "person",
+      "label": "Петко Милков Марков"
+    },
+    {
+      "id": "person:СТАЙКА ИВАНОВА МАЗАКОВА",
+      "type": "person",
+      "label": "Стайка Иванова Мазакова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-ganchev-ganchev-83af72",
+      "target": "company:tr:205243660",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТКО МИЛКОВ МАРКОВ",
+      "target": "company:tr:205243660",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАЙКА ИВАНОВА МАЗАКОВА",
+      "target": "company:tr:205243660",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

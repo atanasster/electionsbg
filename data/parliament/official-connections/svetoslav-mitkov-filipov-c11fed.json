@@ -1,1 +1,103 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetoslav-mitkov-filipov-c11fed","nodes":[{"id":"official:svetoslav-mitkov-filipov-c11fed","type":"official","slug":"svetoslav-mitkov-filipov-c11fed","label":"Светослав Митков Филипов","tier":"municipal","role":"councillor","municipality":"Мадан"},{"id":"company:tr:207818233","type":"company","label":"ДРИЛИНГ ЕКУИПМЕНТ ЕООД","slug":null,"uic":"207818233","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИАН ДИМИТРОВ ДАМЯНОВ","type":"person","label":"Мариан Димитров Дамянов"},{"id":"person:НИКОЛАЙ КАЛОЯНОВ ДОРСУНСКИ","type":"person","label":"Николай Калоянов Дорсунски"},{"id":"person:МАРИЯ ТОДОРОВА СТАНКЕВА","type":"person","label":"Мария Тодорова Станкева"},{"id":"person:МИЛЕНА СЛАВЕЕВА ФИЛИПОВА","type":"person","label":"Милена Славеева Филипова"}],"edges":[{"source":"official:svetoslav-mitkov-filipov-c11fed","target":"company:tr:207818233","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:svetoslav-mitkov-filipov-c11fed","target":"company:tr:207818233","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:svetoslav-mitkov-filipov-c11fed","target":"company:tr:207818233","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИАН ДИМИТРОВ ДАМЯНОВ","target":"company:tr:207818233","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КАЛОЯНОВ ДОРСУНСКИ","target":"company:tr:207818233","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ТОДОРОВА СТАНКЕВА","target":"company:tr:207818233","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА СЛАВЕЕВА ФИЛИПОВА","target":"company:tr:207818233","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetoslav-mitkov-filipov-c11fed",
+  "nodes": [
+    {
+      "id": "official:svetoslav-mitkov-filipov-c11fed",
+      "type": "official",
+      "slug": "svetoslav-mitkov-filipov-c11fed",
+      "label": "Светослав Митков Филипов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мадан"
+    },
+    {
+      "id": "company:tr:207818233",
+      "type": "company",
+      "label": "ДРИЛИНГ ЕКУИПМЕНТ ЕООД",
+      "slug": null,
+      "uic": "207818233",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАН ДИМИТРОВ ДАМЯНОВ",
+      "type": "person",
+      "label": "Мариан Димитров Дамянов"
+    },
+    {
+      "id": "person:НИКОЛАЙ КАЛОЯНОВ ДОРСУНСКИ",
+      "type": "person",
+      "label": "Николай Калоянов Дорсунски"
+    },
+    {
+      "id": "person:МАРИЯ ТОДОРОВА СТАНКЕВА",
+      "type": "person",
+      "label": "Мария Тодорова Станкева"
+    },
+    {
+      "id": "person:МИЛЕНА СЛАВЕЕВА ФИЛИПОВА",
+      "type": "person",
+      "label": "Милена Славеева Филипова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-mitkov-filipov-c11fed",
+      "target": "company:tr:207818233",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetoslav-mitkov-filipov-c11fed",
+      "target": "company:tr:207818233",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetoslav-mitkov-filipov-c11fed",
+      "target": "company:tr:207818233",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАН ДИМИТРОВ ДАМЯНОВ",
+      "target": "company:tr:207818233",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КАЛОЯНОВ ДОРСУНСКИ",
+      "target": "company:tr:207818233",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТОДОРОВА СТАНКЕВА",
+      "target": "company:tr:207818233",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА СЛАВЕЕВА ФИЛИПОВА",
+      "target": "company:tr:207818233",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

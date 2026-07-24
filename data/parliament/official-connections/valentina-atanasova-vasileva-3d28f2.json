@@ -1,1 +1,104 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valentina-atanasova-vasileva-3d28f2","nodes":[{"id":"official:valentina-atanasova-vasileva-3d28f2","type":"official","slug":"valentina-atanasova-vasileva-3d28f2","label":"Валентина Атанасова Василева","tier":"executive","role":"regional_director","municipality":null},{"id":"company:tr:120547825","type":"company","label":"Регионална туристическа асоциация &quot;Родопи&quot;","slug":null,"uic":"120547825","legalForm":null,"status":null,"seat":null},{"id":"official:marin-tashev-zahariev-7cb8c1","type":"official","slug":"marin-tashev-zahariev-7cb8c1","label":"Марин Ташев Захариев","tier":"municipal","role":"deputy_mayor","municipality":"Смолян"},{"id":"person:БОРАН СМИЛКОВ ХАДЖИЕВ","type":"person","label":"Боран Смилков Хаджиев"},{"id":"person:ПАНТЕЛЕЙ СТОЯНОВ МЕМЦОВ","type":"person","label":"Пантелей Стоянов Мемцов"},{"id":"person:ДИМИТЪР ЙОВЧЕВ КРЪСТАНОВ","type":"person","label":"Димитър Йовчев Кръстанов"},{"id":"person:СЕРГЕЙ ГОШЕВ ГЕНЧЕВ","type":"person","label":"Сергей Гошев Генчев"}],"edges":[{"source":"official:valentina-atanasova-vasileva-3d28f2","target":"company:tr:120547825","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:marin-tashev-zahariev-7cb8c1","target":"company:tr:120547825","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:БОРАН СМИЛКОВ ХАДЖИЕВ","target":"company:tr:120547825","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАНТЕЛЕЙ СТОЯНОВ МЕМЦОВ","target":"company:tr:120547825","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЙОВЧЕВ КРЪСТАНОВ","target":"company:tr:120547825","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕРГЕЙ ГОШЕВ ГЕНЧЕВ","target":"company:tr:120547825","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valentina-atanasova-vasileva-3d28f2",
+  "nodes": [
+    {
+      "id": "official:valentina-atanasova-vasileva-3d28f2",
+      "type": "official",
+      "slug": "valentina-atanasova-vasileva-3d28f2",
+      "label": "Валентина Атанасова Василева",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:120547825",
+      "type": "company",
+      "label": "Регионална туристическа асоциация &quot;Родопи&quot;",
+      "slug": null,
+      "uic": "120547825",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:marin-tashev-zahariev-7cb8c1",
+      "type": "official",
+      "slug": "marin-tashev-zahariev-7cb8c1",
+      "label": "Марин Ташев Захариев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Смолян"
+    },
+    {
+      "id": "person:БОРАН СМИЛКОВ ХАДЖИЕВ",
+      "type": "person",
+      "label": "Боран Смилков Хаджиев"
+    },
+    {
+      "id": "person:ПАНТЕЛЕЙ СТОЯНОВ МЕМЦОВ",
+      "type": "person",
+      "label": "Пантелей Стоянов Мемцов"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОВЧЕВ КРЪСТАНОВ",
+      "type": "person",
+      "label": "Димитър Йовчев Кръстанов"
+    },
+    {
+      "id": "person:СЕРГЕЙ ГОШЕВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Сергей Гошев Генчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentina-atanasova-vasileva-3d28f2",
+      "target": "company:tr:120547825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marin-tashev-zahariev-7cb8c1",
+      "target": "company:tr:120547825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРАН СМИЛКОВ ХАДЖИЕВ",
+      "target": "company:tr:120547825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАНТЕЛЕЙ СТОЯНОВ МЕМЦОВ",
+      "target": "company:tr:120547825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОВЧЕВ КРЪСТАНОВ",
+      "target": "company:tr:120547825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГЕЙ ГОШЕВ ГЕНЧЕВ",
+      "target": "company:tr:120547825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,165 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dino-ivanov-mechkov-d9281c","nodes":[{"id":"official:dino-ivanov-mechkov-d9281c","type":"official","slug":"dino-ivanov-mechkov-d9281c","label":"Диньо Иванов Мечков","tier":"executive","role":"security_service","municipality":null},{"id":"company:tr:116517274","type":"company","label":"ЛОВНО-РИБАРСКО СДРУЖЕНИЕ &quot;СОКОЛ&quot;","slug":null,"uic":"116517274","legalForm":null,"status":null,"seat":null},{"id":"person:АДЕМ ЮНУЗОВ ХАСАНОВ","type":"person","label":"Адем Юнузов Хасанов"},{"id":"person:ТИХОМИР ХИНКОВ КЪСОВ","type":"person","label":"Тихомир Хинков Късов"},{"id":"person:ТЕОДОР НИКОЛОВ ТОДОРОВ","type":"person","label":"Теодор Николов Тодоров"},{"id":"person:РУМЕН МАРКОВ НЕНОВ","type":"person","label":"Румен Марков Ненов"},{"id":"person:ПЛАМЕН ЙОРДАНОВ КОЛЕВ","type":"person","label":"Пламен Йорданов Колев"},{"id":"person:ПЕНЧО ИВАНОВ ПЕНЧЕВ","type":"person","label":"Пенчо Иванов Пенчев"},{"id":"person:НИКОЛАЙ ДОНЧЕВ АНГЕЛОВ","type":"person","label":"Николай Дончев Ангелов"},{"id":"person:МИЛЕН КИРОВ ЕНЧЕВ","type":"person","label":"Милен Киров Енчев"},{"id":"person:СВЕТЛОМИР ТОДОРОВ СЪБЕВ","type":"person","label":"Светломир Тодоров Събев"},{"id":"person:НЕЛОМИЛ ИВАНОВ ИВАНОВ","type":"person","label":"Неломил Иванов Иванов"}],"edges":[{"source":"official:dino-ivanov-mechkov-d9281c","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АДЕМ ЮНУЗОВ ХАСАНОВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР ХИНКОВ КЪСОВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР НИКОЛОВ ТОДОРОВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН МАРКОВ НЕНОВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЙОРДАНОВ КОЛЕВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНЧО ИВАНОВ ПЕНЧЕВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДОНЧЕВ АНГЕЛОВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН КИРОВ ЕНЧЕВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛОМИР ТОДОРОВ СЪБЕВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛОМИЛ ИВАНОВ ИВАНОВ","target":"company:tr:116517274","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dino-ivanov-mechkov-d9281c",
+  "nodes": [
+    {
+      "id": "official:dino-ivanov-mechkov-d9281c",
+      "type": "official",
+      "slug": "dino-ivanov-mechkov-d9281c",
+      "label": "Диньо Иванов Мечков",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:116517274",
+      "type": "company",
+      "label": "ЛОВНО-РИБАРСКО СДРУЖЕНИЕ &quot;СОКОЛ&quot;",
+      "slug": null,
+      "uic": "116517274",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АДЕМ ЮНУЗОВ ХАСАНОВ",
+      "type": "person",
+      "label": "Адем Юнузов Хасанов"
+    },
+    {
+      "id": "person:ТИХОМИР ХИНКОВ КЪСОВ",
+      "type": "person",
+      "label": "Тихомир Хинков Късов"
+    },
+    {
+      "id": "person:ТЕОДОР НИКОЛОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Теодор Николов Тодоров"
+    },
+    {
+      "id": "person:РУМЕН МАРКОВ НЕНОВ",
+      "type": "person",
+      "label": "Румен Марков Ненов"
+    },
+    {
+      "id": "person:ПЛАМЕН ЙОРДАНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Пламен Йорданов Колев"
+    },
+    {
+      "id": "person:ПЕНЧО ИВАНОВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Пенчо Иванов Пенчев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДОНЧЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Николай Дончев Ангелов"
+    },
+    {
+      "id": "person:МИЛЕН КИРОВ ЕНЧЕВ",
+      "type": "person",
+      "label": "Милен Киров Енчев"
+    },
+    {
+      "id": "person:СВЕТЛОМИР ТОДОРОВ СЪБЕВ",
+      "type": "person",
+      "label": "Светломир Тодоров Събев"
+    },
+    {
+      "id": "person:НЕЛОМИЛ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Неломил Иванов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dino-ivanov-mechkov-d9281c",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АДЕМ ЮНУЗОВ ХАСАНОВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ХИНКОВ КЪСОВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР НИКОЛОВ ТОДОРОВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН МАРКОВ НЕНОВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЙОРДАНОВ КОЛЕВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНЧО ИВАНОВ ПЕНЧЕВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДОНЧЕВ АНГЕЛОВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН КИРОВ ЕНЧЕВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛОМИР ТОДОРОВ СЪБЕВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛОМИЛ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:116517274",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

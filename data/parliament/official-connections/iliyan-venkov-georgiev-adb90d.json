@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iliyan-venkov-georgiev-adb90d","nodes":[{"id":"official:iliyan-venkov-georgiev-adb90d","type":"official","slug":"iliyan-venkov-georgiev-adb90d","label":"Илиян Венков Георгиев","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:104509202","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ Д-Р ДИМИТЪР ПАВЛОВИЧ","slug":null,"uic":"104509202","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:iliyan-venkov-georgiev-adb90d","target":"company:tr:104509202","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iliyan-venkov-georgiev-adb90d",
+  "nodes": [
+    {
+      "id": "official:iliyan-venkov-georgiev-adb90d",
+      "type": "official",
+      "slug": "iliyan-venkov-georgiev-adb90d",
+      "label": "Илиян Венков Георгиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104509202",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ Д-Р ДИМИТЪР ПАВЛОВИЧ",
+      "slug": null,
+      "uic": "104509202",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyan-venkov-georgiev-adb90d",
+      "target": "company:tr:104509202",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

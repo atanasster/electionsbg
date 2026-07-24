@@ -1,1 +1,163 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:hristo-borisov-mollov-0c2cde","nodes":[{"id":"official:hristo-borisov-mollov-0c2cde","type":"official","slug":"hristo-borisov-mollov-0c2cde","label":"Христо Борисов Моллов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:201661152","type":"company","label":"УНИВЕРСУМ ГРУП ООД","slug":null,"uic":"201661152","legalForm":null,"status":null,"seat":null},{"id":"company:tr:121428877","type":"company","label":"МАГУС ООД","slug":null,"uic":"121428877","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201937234","type":"company","label":"ТРЕЮНИОН ГРУП ЕООД","slug":null,"uic":"201937234","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206675849","type":"company","label":"ЛУЧЕ ДЕЛ СОЛЕ ООД","slug":null,"uic":"206675849","legalForm":null,"status":null,"seat":null},{"id":"person:ВЯРА АСЕНОВА МАЦЕВА","type":"person","label":"Вяра Асенова Мацева"},{"id":"person:ЛУЧАНО МУЧЧИ","type":"person","label":"Лучано Муччи"}],"edges":[{"source":"official:hristo-borisov-mollov-0c2cde","target":"company:tr:201661152","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:hristo-borisov-mollov-0c2cde","target":"company:tr:121428877","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:hristo-borisov-mollov-0c2cde","target":"company:tr:201937234","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:hristo-borisov-mollov-0c2cde","target":"company:tr:206675849","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:hristo-borisov-mollov-0c2cde","target":"company:tr:121428877","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-borisov-mollov-0c2cde","target":"company:tr:121428877","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-borisov-mollov-0c2cde","target":"company:tr:201937234","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-borisov-mollov-0c2cde","target":"company:tr:206675849","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-borisov-mollov-0c2cde","target":"company:tr:206675849","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЯРА АСЕНОВА МАЦЕВА","target":"company:tr:121428877","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛУЧАНО МУЧЧИ","target":"company:tr:206675849","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛУЧАНО МУЧЧИ","target":"company:tr:206675849","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:hristo-borisov-mollov-0c2cde",
+  "nodes": [
+    {
+      "id": "official:hristo-borisov-mollov-0c2cde",
+      "type": "official",
+      "slug": "hristo-borisov-mollov-0c2cde",
+      "label": "Христо Борисов Моллов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201661152",
+      "type": "company",
+      "label": "УНИВЕРСУМ ГРУП ООД",
+      "slug": null,
+      "uic": "201661152",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:121428877",
+      "type": "company",
+      "label": "МАГУС ООД",
+      "slug": null,
+      "uic": "121428877",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201937234",
+      "type": "company",
+      "label": "ТРЕЮНИОН ГРУП ЕООД",
+      "slug": null,
+      "uic": "201937234",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206675849",
+      "type": "company",
+      "label": "ЛУЧЕ ДЕЛ СОЛЕ ООД",
+      "slug": null,
+      "uic": "206675849",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЯРА АСЕНОВА МАЦЕВА",
+      "type": "person",
+      "label": "Вяра Асенова Мацева"
+    },
+    {
+      "id": "person:ЛУЧАНО МУЧЧИ",
+      "type": "person",
+      "label": "Лучано Муччи"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-borisov-mollov-0c2cde",
+      "target": "company:tr:201661152",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-borisov-mollov-0c2cde",
+      "target": "company:tr:121428877",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-borisov-mollov-0c2cde",
+      "target": "company:tr:201937234",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-borisov-mollov-0c2cde",
+      "target": "company:tr:206675849",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-borisov-mollov-0c2cde",
+      "target": "company:tr:121428877",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-borisov-mollov-0c2cde",
+      "target": "company:tr:121428877",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-borisov-mollov-0c2cde",
+      "target": "company:tr:201937234",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-borisov-mollov-0c2cde",
+      "target": "company:tr:206675849",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-borisov-mollov-0c2cde",
+      "target": "company:tr:206675849",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЯРА АСЕНОВА МАЦЕВА",
+      "target": "company:tr:121428877",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛУЧАНО МУЧЧИ",
+      "target": "company:tr:206675849",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛУЧАНО МУЧЧИ",
+      "target": "company:tr:206675849",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

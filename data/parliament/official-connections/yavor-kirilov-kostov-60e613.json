@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:yavor-kirilov-kostov-60e613","nodes":[{"id":"official:yavor-kirilov-kostov-60e613","type":"official","slug":"yavor-kirilov-kostov-60e613","label":"Явор Кирилов Костов","tier":"municipal","role":"councillor","municipality":"Бургас"},{"id":"company:tr:176007272","type":"company","label":"АТЕЛИЕ ПЛАСТЕЛИН","slug":null,"uic":"176007272","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛИНКА МИТЕВА БОГДАНОВА","type":"person","label":"Николинка Митева Богданова"},{"id":"person:ЯНКО ВЛАДИМИРОВ ВЕЛКОВ","type":"person","label":"Янко Владимиров Велков"},{"id":"person:МАРТИН ЕМИЛОВ НОЕВ","type":"person","label":"Мартин Емилов Ноев"},{"id":"person:СТАНИСЛАВ ПЕЙЧЕВ ПЕЕВ","type":"person","label":"Станислав Пейчев Пеев"},{"id":"person:СВЕТОСЛАВ КИРИЛОВ НИКОЛОВ","type":"person","label":"Светослав Кирилов Николов"},{"id":"person:ДЕНИЦА АТАНАСОВА ГАДЖЕВА","type":"person","label":"Деница Атанасова Гаджева"}],"edges":[{"source":"official:yavor-kirilov-kostov-60e613","target":"company:tr:176007272","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛИНКА МИТЕВА БОГДАНОВА","target":"company:tr:176007272","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНКА МИТЕВА БОГДАНОВА","target":"company:tr:176007272","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКО ВЛАДИМИРОВ ВЕЛКОВ","target":"company:tr:176007272","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ЕМИЛОВ НОЕВ","target":"company:tr:176007272","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ ПЕЙЧЕВ ПЕЕВ","target":"company:tr:176007272","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ КИРИЛОВ НИКОЛОВ","target":"company:tr:176007272","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА АТАНАСОВА ГАДЖЕВА","target":"company:tr:176007272","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:yavor-kirilov-kostov-60e613",
+  "nodes": [
+    {
+      "id": "official:yavor-kirilov-kostov-60e613",
+      "type": "official",
+      "slug": "yavor-kirilov-kostov-60e613",
+      "label": "Явор Кирилов Костов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:176007272",
+      "type": "company",
+      "label": "АТЕЛИЕ ПЛАСТЕЛИН",
+      "slug": null,
+      "uic": "176007272",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛИНКА МИТЕВА БОГДАНОВА",
+      "type": "person",
+      "label": "Николинка Митева Богданова"
+    },
+    {
+      "id": "person:ЯНКО ВЛАДИМИРОВ ВЕЛКОВ",
+      "type": "person",
+      "label": "Янко Владимиров Велков"
+    },
+    {
+      "id": "person:МАРТИН ЕМИЛОВ НОЕВ",
+      "type": "person",
+      "label": "Мартин Емилов Ноев"
+    },
+    {
+      "id": "person:СТАНИСЛАВ ПЕЙЧЕВ ПЕЕВ",
+      "type": "person",
+      "label": "Станислав Пейчев Пеев"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ КИРИЛОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Светослав Кирилов Николов"
+    },
+    {
+      "id": "person:ДЕНИЦА АТАНАСОВА ГАДЖЕВА",
+      "type": "person",
+      "label": "Деница Атанасова Гаджева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-kirilov-kostov-60e613",
+      "target": "company:tr:176007272",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛИНКА МИТЕВА БОГДАНОВА",
+      "target": "company:tr:176007272",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНКА МИТЕВА БОГДАНОВА",
+      "target": "company:tr:176007272",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО ВЛАДИМИРОВ ВЕЛКОВ",
+      "target": "company:tr:176007272",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ЕМИЛОВ НОЕВ",
+      "target": "company:tr:176007272",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ПЕЙЧЕВ ПЕЕВ",
+      "target": "company:tr:176007272",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ КИРИЛОВ НИКОЛОВ",
+      "target": "company:tr:176007272",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА АТАНАСОВА ГАДЖЕВА",
+      "target": "company:tr:176007272",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

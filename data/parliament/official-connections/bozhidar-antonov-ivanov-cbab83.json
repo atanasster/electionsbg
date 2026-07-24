@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:bozhidar-antonov-ivanov-cbab83","nodes":[{"id":"official:bozhidar-antonov-ivanov-cbab83","type":"official","slug":"bozhidar-antonov-ivanov-cbab83","label":"Божидар Антонов Иванов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:160027818","type":"company","label":"Агроарена","slug":null,"uic":"160027818","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:bozhidar-antonov-ivanov-cbab83","target":"company:tr:160027818","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:bozhidar-antonov-ivanov-cbab83",
+  "nodes": [
+    {
+      "id": "official:bozhidar-antonov-ivanov-cbab83",
+      "type": "official",
+      "slug": "bozhidar-antonov-ivanov-cbab83",
+      "label": "Божидар Антонов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:160027818",
+      "type": "company",
+      "label": "Агроарена",
+      "slug": null,
+      "uic": "160027818",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bozhidar-antonov-ivanov-cbab83",
+      "target": "company:tr:160027818",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

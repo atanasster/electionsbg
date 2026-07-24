@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:angelin-nikolaev-tsachev-a0d37e","nodes":[{"id":"official:angelin-nikolaev-tsachev-a0d37e","type":"official","slug":"angelin-nikolaev-tsachev-a0d37e","label":"Ангелин Николаев Цачев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206858164","type":"company","label":"Йозона ЕООД","slug":null,"uic":"206858164","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОВКА ЗАХАРИЕВА ЦАЧЕВА","type":"person","label":"Йовка Захариева Цачева"}],"edges":[{"source":"official:angelin-nikolaev-tsachev-a0d37e","target":"company:tr:206858164","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВКА ЗАХАРИЕВА ЦАЧЕВА","target":"company:tr:206858164","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВКА ЗАХАРИЕВА ЦАЧЕВА","target":"company:tr:206858164","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:angelin-nikolaev-tsachev-a0d37e",
+  "nodes": [
+    {
+      "id": "official:angelin-nikolaev-tsachev-a0d37e",
+      "type": "official",
+      "slug": "angelin-nikolaev-tsachev-a0d37e",
+      "label": "Ангелин Николаев Цачев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206858164",
+      "type": "company",
+      "label": "Йозона ЕООД",
+      "slug": null,
+      "uic": "206858164",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОВКА ЗАХАРИЕВА ЦАЧЕВА",
+      "type": "person",
+      "label": "Йовка Захариева Цачева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angelin-nikolaev-tsachev-a0d37e",
+      "target": "company:tr:206858164",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ЗАХАРИЕВА ЦАЧЕВА",
+      "target": "company:tr:206858164",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ЗАХАРИЕВА ЦАЧЕВА",
+      "target": "company:tr:206858164",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:todor-slavov-krstev-b50dcc","nodes":[{"id":"official:todor-slavov-krstev-b50dcc","type":"official","slug":"todor-slavov-krstev-b50dcc","label":"Тодор Славов Кръстев","tier":"executive","role":"eu_funds_controller","municipality":null},{"id":"company:tr:206810828","type":"company","label":"КПД 2","slug":null,"uic":"206810828","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМИТЪР ПЕТРОВ ПЕТРОВ","type":"person","label":"Димитър Петров Петров"}],"edges":[{"source":"official:todor-slavov-krstev-b50dcc","target":"company:tr:206810828","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:todor-slavov-krstev-b50dcc","target":"company:tr:206810828","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТЪР ПЕТРОВ ПЕТРОВ","target":"company:tr:206810828","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТРОВ ПЕТРОВ","target":"company:tr:206810828","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:todor-slavov-krstev-b50dcc",
+  "nodes": [
+    {
+      "id": "official:todor-slavov-krstev-b50dcc",
+      "type": "official",
+      "slug": "todor-slavov-krstev-b50dcc",
+      "label": "Тодор Славов Кръстев",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206810828",
+      "type": "company",
+      "label": "КПД 2",
+      "slug": null,
+      "uic": "206810828",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Димитър Петров Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-slavov-krstev-b50dcc",
+      "target": "company:tr:206810828",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-slavov-krstev-b50dcc",
+      "target": "company:tr:206810828",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:206810828",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:206810828",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

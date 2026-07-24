@@ -1,1 +1,233 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:fatme-shaban-kalfa-e995c0","nodes":[{"id":"official:fatme-shaban-kalfa-e995c0","type":"official","slug":"fatme-shaban-kalfa-e995c0","label":"Фатме Шабан Калфа","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000805338","type":"company","label":"Георги Бенковски - 1928","slug":null,"uic":"000805338","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕНКА МАНОЛОВА СТЕФАНОВА","type":"person","label":"Пенка Манолова Стефанова"},{"id":"person:АНТОАНЕТА ЛЮБОМИРОВА ГЕОРГИЕВА","type":"person","label":"Антоанета Любомирова Георгиева"},{"id":"person:МАРИЙКА ПЕТКОВА ПЕТРОВА","type":"person","label":"Марийка Петкова Петрова"},{"id":"person:ФЕРДЕС РАШИД МАНАФ","type":"person","label":"Фердес Рашид Манаф"},{"id":"person:МАРИЯ ИВАНОВА СТАЕВА","type":"person","label":"Мария Иванова Стаева"},{"id":"person:ХРИСТИНА НОНЧЕВА ПЕТКОВА","type":"person","label":"Христина Нончева Петкова"},{"id":"person:ВЪЛКО БОНЧЕВ ВИДЕВ","type":"person","label":"Вълко Бончев Видев"},{"id":"person:ДИМИТРИНА ХРИСТОВА НЕНОВА","type":"person","label":"Димитрина Христова Ненова"},{"id":"person:НИКОЛАЙ ДИМИТРОВ ТОНЕВ","type":"person","label":"Николай Димитров Тонев"},{"id":"person:ЗЕЙНЕП АЛИ МЕХМЕД","type":"person","label":"Зейнеп Али Мехмед"},{"id":"person:СТОЯН БОТЕВ НАНКОВ","type":"person","label":"Стоян Ботев Нанков"},{"id":"person:ХРИСТИЯН ФИЛИПОВ ЛЮБЕНОВ","type":"person","label":"Християн Филипов Любенов"},{"id":"person:ИВАНКА ПЕЕВА КОЛЕВА","type":"person","label":"Иванка Пеева  Колева"},{"id":"person:НИКОЛАЙ СЛАВОВ ИЛИЕВ","type":"person","label":"Николай Славов Илиев"}],"edges":[{"source":"official:fatme-shaban-kalfa-e995c0","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕНКА МАНОЛОВА СТЕФАНОВА","target":"company:tr:000805338","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАНЕТА ЛЮБОМИРОВА ГЕОРГИЕВА","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЙКА ПЕТКОВА ПЕТРОВА","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА МАНОЛОВА СТЕФАНОВА","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФЕРДЕС РАШИД МАНАФ","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИВАНОВА СТАЕВА","target":"company:tr:000805338","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА НОНЧЕВА ПЕТКОВА","target":"company:tr:000805338","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЪЛКО БОНЧЕВ ВИДЕВ","target":"company:tr:000805338","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА ХРИСТОВА НЕНОВА","target":"company:tr:000805338","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА ХРИСТОВА НЕНОВА","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДИМИТРОВ ТОНЕВ","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗЕЙНЕП АЛИ МЕХМЕД","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН БОТЕВ НАНКОВ","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИЯН ФИЛИПОВ ЛЮБЕНОВ","target":"company:tr:000805338","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ПЕЕВА КОЛЕВА","target":"company:tr:000805338","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ СЛАВОВ ИЛИЕВ","target":"company:tr:000805338","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:fatme-shaban-kalfa-e995c0",
+  "nodes": [
+    {
+      "id": "official:fatme-shaban-kalfa-e995c0",
+      "type": "official",
+      "slug": "fatme-shaban-kalfa-e995c0",
+      "label": "Фатме Шабан Калфа",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000805338",
+      "type": "company",
+      "label": "Георги Бенковски - 1928",
+      "slug": null,
+      "uic": "000805338",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕНКА МАНОЛОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Пенка Манолова Стефанова"
+    },
+    {
+      "id": "person:АНТОАНЕТА ЛЮБОМИРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Антоанета Любомирова Георгиева"
+    },
+    {
+      "id": "person:МАРИЙКА ПЕТКОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Марийка Петкова Петрова"
+    },
+    {
+      "id": "person:ФЕРДЕС РАШИД МАНАФ",
+      "type": "person",
+      "label": "Фердес Рашид Манаф"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА СТАЕВА",
+      "type": "person",
+      "label": "Мария Иванова Стаева"
+    },
+    {
+      "id": "person:ХРИСТИНА НОНЧЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Христина Нончева Петкова"
+    },
+    {
+      "id": "person:ВЪЛКО БОНЧЕВ ВИДЕВ",
+      "type": "person",
+      "label": "Вълко Бончев Видев"
+    },
+    {
+      "id": "person:ДИМИТРИНА ХРИСТОВА НЕНОВА",
+      "type": "person",
+      "label": "Димитрина Христова Ненова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ ТОНЕВ",
+      "type": "person",
+      "label": "Николай Димитров Тонев"
+    },
+    {
+      "id": "person:ЗЕЙНЕП АЛИ МЕХМЕД",
+      "type": "person",
+      "label": "Зейнеп Али Мехмед"
+    },
+    {
+      "id": "person:СТОЯН БОТЕВ НАНКОВ",
+      "type": "person",
+      "label": "Стоян Ботев Нанков"
+    },
+    {
+      "id": "person:ХРИСТИЯН ФИЛИПОВ ЛЮБЕНОВ",
+      "type": "person",
+      "label": "Християн Филипов Любенов"
+    },
+    {
+      "id": "person:ИВАНКА ПЕЕВА КОЛЕВА",
+      "type": "person",
+      "label": "Иванка Пеева  Колева"
+    },
+    {
+      "id": "person:НИКОЛАЙ СЛАВОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Николай Славов Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:fatme-shaban-kalfa-e995c0",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНКА МАНОЛОВА СТЕФАНОВА",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ЛЮБОМИРОВА ГЕОРГИЕВА",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ПЕТКОВА ПЕТРОВА",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА МАНОЛОВА СТЕФАНОВА",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРДЕС РАШИД МАНАФ",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА СТАЕВА",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА НОНЧЕВА ПЕТКОВА",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪЛКО БОНЧЕВ ВИДЕВ",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ХРИСТОВА НЕНОВА",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ХРИСТОВА НЕНОВА",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ТОНЕВ",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕЙНЕП АЛИ МЕХМЕД",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН БОТЕВ НАНКОВ",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИЯН ФИЛИПОВ ЛЮБЕНОВ",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ПЕЕВА КОЛЕВА",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СЛАВОВ ИЛИЕВ",
+      "target": "company:tr:000805338",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

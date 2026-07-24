@@ -1,1 +1,124 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-peikov-iliev-d108dd","nodes":[{"id":"official:ivan-peikov-iliev-d108dd","type":"official","slug":"ivan-peikov-iliev-d108dd","label":"Иван Пейков Илиев","tier":"municipal","role":"councillor","municipality":"Левски"},{"id":"company:tr:114086188","type":"company","label":"СДРУЖЕНИЕ &quot;ХАНДБАЛЕН СПОРТЕН КЛУБ ЛЕВСКИ&quot;","slug":null,"uic":"114086188","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН МИРОСЛАВОВ БОЯНОВ","type":"person","label":"Иван Мирославов Боянов"},{"id":"person:ЕМИЛ ИВАНОВ ИЛИЕВ","type":"person","label":"Емил Иванов Илиев"},{"id":"person:ВАЛЕРИ ЙОРДАНОВ ВЕЛИЧКОВ","type":"person","label":"Валери Йорданов Величков"},{"id":"person:МАРИУС ЛЪЧЕЗАРОВ ЛУКАНОВ","type":"person","label":"Мариус Лъчезаров Луканов"},{"id":"person:АЛЕКСАНДЪР АСЕНОВ КОЛЧЕВ","type":"person","label":"Александър Асенов Колчев"}],"edges":[{"source":"official:ivan-peikov-iliev-d108dd","target":"company:tr:114086188","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-peikov-iliev-d108dd","target":"company:tr:114086188","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН МИРОСЛАВОВ БОЯНОВ","target":"company:tr:114086188","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ИВАНОВ ИЛИЕВ","target":"company:tr:114086188","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ ЙОРДАНОВ ВЕЛИЧКОВ","target":"company:tr:114086188","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МИРОСЛАВОВ БОЯНОВ","target":"company:tr:114086188","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИУС ЛЪЧЕЗАРОВ ЛУКАНОВ","target":"company:tr:114086188","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИУС ЛЪЧЕЗАРОВ ЛУКАНОВ","target":"company:tr:114086188","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР АСЕНОВ КОЛЧЕВ","target":"company:tr:114086188","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-peikov-iliev-d108dd",
+  "nodes": [
+    {
+      "id": "official:ivan-peikov-iliev-d108dd",
+      "type": "official",
+      "slug": "ivan-peikov-iliev-d108dd",
+      "label": "Иван Пейков Илиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Левски"
+    },
+    {
+      "id": "company:tr:114086188",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ХАНДБАЛЕН СПОРТЕН КЛУБ ЛЕВСКИ&quot;",
+      "slug": null,
+      "uic": "114086188",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН МИРОСЛАВОВ БОЯНОВ",
+      "type": "person",
+      "label": "Иван Мирославов Боянов"
+    },
+    {
+      "id": "person:ЕМИЛ ИВАНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Емил Иванов Илиев"
+    },
+    {
+      "id": "person:ВАЛЕРИ ЙОРДАНОВ ВЕЛИЧКОВ",
+      "type": "person",
+      "label": "Валери Йорданов Величков"
+    },
+    {
+      "id": "person:МАРИУС ЛЪЧЕЗАРОВ ЛУКАНОВ",
+      "type": "person",
+      "label": "Мариус Лъчезаров Луканов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР АСЕНОВ КОЛЧЕВ",
+      "type": "person",
+      "label": "Александър Асенов Колчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-peikov-iliev-d108dd",
+      "target": "company:tr:114086188",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-peikov-iliev-d108dd",
+      "target": "company:tr:114086188",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН МИРОСЛАВОВ БОЯНОВ",
+      "target": "company:tr:114086188",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАНОВ ИЛИЕВ",
+      "target": "company:tr:114086188",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ЙОРДАНОВ ВЕЛИЧКОВ",
+      "target": "company:tr:114086188",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИРОСЛАВОВ БОЯНОВ",
+      "target": "company:tr:114086188",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИУС ЛЪЧЕЗАРОВ ЛУКАНОВ",
+      "target": "company:tr:114086188",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИУС ЛЪЧЕЗАРОВ ЛУКАНОВ",
+      "target": "company:tr:114086188",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АСЕНОВ КОЛЧЕВ",
+      "target": "company:tr:114086188",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

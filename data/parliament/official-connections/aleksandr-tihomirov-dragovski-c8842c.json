@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aleksandr-tihomirov-dragovski-c8842c","nodes":[{"id":"official:aleksandr-tihomirov-dragovski-c8842c","type":"official","slug":"aleksandr-tihomirov-dragovski-c8842c","label":"Александър Тихомиров Драговски","tier":"executive","role":"eu_funds_controller","municipality":null},{"id":"company:tr:208497798","type":"company","label":"СЪЮЗ НА СОФИЙСКИТЕ ХОРИСТИ ПРОФ. Д-Р АДРИАНА БЛАГОЕВА","slug":null,"uic":"208497798","legalForm":null,"status":null,"seat":null},{"id":"person:ЯСЕН ВЕНЦЕСЛАВОВ ЗЕРДЕВ","type":"person","label":"Ясен Венцеславов Зердев"},{"id":"person:ПЕТЪР ЕМИЛОВ ДЯНКОВ","type":"person","label":"Петър Емилов Дянков"}],"edges":[{"source":"official:aleksandr-tihomirov-dragovski-c8842c","target":"company:tr:208497798","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandr-tihomirov-dragovski-c8842c","target":"company:tr:208497798","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЯСЕН ВЕНЦЕСЛАВОВ ЗЕРДЕВ","target":"company:tr:208497798","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ЕМИЛОВ ДЯНКОВ","target":"company:tr:208497798","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aleksandr-tihomirov-dragovski-c8842c",
+  "nodes": [
+    {
+      "id": "official:aleksandr-tihomirov-dragovski-c8842c",
+      "type": "official",
+      "slug": "aleksandr-tihomirov-dragovski-c8842c",
+      "label": "Александър Тихомиров Драговски",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208497798",
+      "type": "company",
+      "label": "СЪЮЗ НА СОФИЙСКИТЕ ХОРИСТИ ПРОФ. Д-Р АДРИАНА БЛАГОЕВА",
+      "slug": null,
+      "uic": "208497798",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯСЕН ВЕНЦЕСЛАВОВ ЗЕРДЕВ",
+      "type": "person",
+      "label": "Ясен Венцеславов Зердев"
+    },
+    {
+      "id": "person:ПЕТЪР ЕМИЛОВ ДЯНКОВ",
+      "type": "person",
+      "label": "Петър Емилов Дянков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-tihomirov-dragovski-c8842c",
+      "target": "company:tr:208497798",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-tihomirov-dragovski-c8842c",
+      "target": "company:tr:208497798",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯСЕН ВЕНЦЕСЛАВОВ ЗЕРДЕВ",
+      "target": "company:tr:208497798",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЕМИЛОВ ДЯНКОВ",
+      "target": "company:tr:208497798",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

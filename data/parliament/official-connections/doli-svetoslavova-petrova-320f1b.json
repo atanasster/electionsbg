@@ -1,1 +1,91 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:doli-svetoslavova-petrova-320f1b","nodes":[{"id":"official:doli-svetoslavova-petrova-320f1b","type":"official","slug":"doli-svetoslavova-petrova-320f1b","label":"Доли Светославова Петрова","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:831900201","type":"company","label":"УНИВЕРСИТЕТСКА СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ОРТОПЕДИЯ &quot;ПРОФ. БОЙЧО БОЙЧЕВ&quot;","slug":null,"uic":"831900201","legalForm":null,"status":null,"seat":null},{"id":"official:vladimir-atanasov-ovcharov-82d5f2","type":"official","slug":"vladimir-atanasov-ovcharov-82d5f2","label":"Владимир Атанасов Овчаров","tier":"executive","role":"hospital_head","municipality":null},{"id":"person:ВАЛЕНТИН НИКОЛОВ АНГЕЛОВ","type":"person","label":"Валентин Николов Ангелов"},{"id":"person:ХРИСТИНА АНГЕЛОВА ГАВАЗОВА","type":"person","label":"Христина Ангелова Гавазова"},{"id":"person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА","type":"person","label":"Златина Георгиева Георгиева"}],"edges":[{"source":"official:doli-svetoslavova-petrova-320f1b","target":"company:tr:831900201","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:vladimir-atanasov-ovcharov-82d5f2","target":"company:tr:831900201","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕНТИН НИКОЛОВ АНГЕЛОВ","target":"company:tr:831900201","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА АНГЕЛОВА ГАВАЗОВА","target":"company:tr:831900201","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА","target":"company:tr:831900201","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:doli-svetoslavova-petrova-320f1b",
+  "nodes": [
+    {
+      "id": "official:doli-svetoslavova-petrova-320f1b",
+      "type": "official",
+      "slug": "doli-svetoslavova-petrova-320f1b",
+      "label": "Доли Светославова Петрова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831900201",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ОРТОПЕДИЯ &quot;ПРОФ. БОЙЧО БОЙЧЕВ&quot;",
+      "slug": null,
+      "uic": "831900201",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vladimir-atanasov-ovcharov-82d5f2",
+      "type": "official",
+      "slug": "vladimir-atanasov-ovcharov-82d5f2",
+      "label": "Владимир Атанасов Овчаров",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН НИКОЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Валентин Николов Ангелов"
+    },
+    {
+      "id": "person:ХРИСТИНА АНГЕЛОВА ГАВАЗОВА",
+      "type": "person",
+      "label": "Христина Ангелова Гавазова"
+    },
+    {
+      "id": "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Златина Георгиева Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:doli-svetoslavova-petrova-320f1b",
+      "target": "company:tr:831900201",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-atanasov-ovcharov-82d5f2",
+      "target": "company:tr:831900201",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН НИКОЛОВ АНГЕЛОВ",
+      "target": "company:tr:831900201",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА АНГЕЛОВА ГАВАЗОВА",
+      "target": "company:tr:831900201",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:831900201",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

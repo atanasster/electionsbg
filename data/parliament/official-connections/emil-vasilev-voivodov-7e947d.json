@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-vasilev-voivodov-7e947d","nodes":[{"id":"official:emil-vasilev-voivodov-7e947d","type":"official","slug":"emil-vasilev-voivodov-7e947d","label":"Емил Василев Войводов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206849368","type":"company","label":"\"ВЕГ - 94\" ЕООД","slug":null,"uic":"206849368","legalForm":null,"status":null,"seat":null},{"id":"person:ГАЛЯ ПЕТРОВА ВОЙВОДОВА","type":"person","label":"Галя Петрова Войводова"}],"edges":[{"source":"official:emil-vasilev-voivodov-7e947d","target":"company:tr:206849368","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emil-vasilev-voivodov-7e947d","target":"company:tr:206849368","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ГАЛЯ ПЕТРОВА ВОЙВОДОВА","target":"company:tr:206849368","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛЯ ПЕТРОВА ВОЙВОДОВА","target":"company:tr:206849368","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-vasilev-voivodov-7e947d",
+  "nodes": [
+    {
+      "id": "official:emil-vasilev-voivodov-7e947d",
+      "type": "official",
+      "slug": "emil-vasilev-voivodov-7e947d",
+      "label": "Емил Василев Войводов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206849368",
+      "type": "company",
+      "label": "\"ВЕГ - 94\" ЕООД",
+      "slug": null,
+      "uic": "206849368",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛЯ ПЕТРОВА ВОЙВОДОВА",
+      "type": "person",
+      "label": "Галя Петрова Войводова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-vasilev-voivodov-7e947d",
+      "target": "company:tr:206849368",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-vasilev-voivodov-7e947d",
+      "target": "company:tr:206849368",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛЯ ПЕТРОВА ВОЙВОДОВА",
+      "target": "company:tr:206849368",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ПЕТРОВА ВОЙВОДОВА",
+      "target": "company:tr:206849368",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

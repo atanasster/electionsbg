@@ -1,1 +1,132 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:halil-adem-adem-0c029e","nodes":[{"id":"official:halil-adem-adem-0c029e","type":"official","slug":"halil-adem-adem-0c029e","label":"Халил Адем Адем","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:103938166","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ&quot;ВАСИЛ ЛЕВСКИ&quot;-С.ПОЛЯЦИТЕ","slug":null,"uic":"103938166","legalForm":null,"status":null,"seat":null},{"id":"person:ХАЙРЕДИН АЛИ МЮМЮН","type":"person","label":"Хайредин Али Мюмюн"},{"id":"person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ","type":"person","label":"Байзид Шевкедов Якубов"},{"id":"person:НУРАЙ ЮСУФОВА МУСТАФОВА","type":"person","label":"Нурай Юсуфова Мустафова"},{"id":"person:НЕЖДЛА ЮМЕРОВА СЕЛИМ","type":"person","label":"Неждла Юмерова Селим"},{"id":"person:ГЮСУМ ХАСАНОВА МУСТАФА","type":"person","label":"Гюсум Хасанова Мустафа"}],"edges":[{"source":"official:halil-adem-adem-0c029e","target":"company:tr:103938166","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:halil-adem-adem-0c029e","target":"company:tr:103938166","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ХАЙРЕДИН АЛИ МЮМЮН","target":"company:tr:103938166","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ","target":"company:tr:103938166","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ","target":"company:tr:103938166","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХАЙРЕДИН АЛИ МЮМЮН","target":"company:tr:103938166","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НУРАЙ ЮСУФОВА МУСТАФОВА","target":"company:tr:103938166","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НУРАЙ ЮСУФОВА МУСТАФОВА","target":"company:tr:103938166","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕЖДЛА ЮМЕРОВА СЕЛИМ","target":"company:tr:103938166","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЮСУМ ХАСАНОВА МУСТАФА","target":"company:tr:103938166","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:halil-adem-adem-0c029e",
+  "nodes": [
+    {
+      "id": "official:halil-adem-adem-0c029e",
+      "type": "official",
+      "slug": "halil-adem-adem-0c029e",
+      "label": "Халил Адем Адем",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103938166",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ&quot;ВАСИЛ ЛЕВСКИ&quot;-С.ПОЛЯЦИТЕ",
+      "slug": null,
+      "uic": "103938166",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХАЙРЕДИН АЛИ МЮМЮН",
+      "type": "person",
+      "label": "Хайредин Али Мюмюн"
+    },
+    {
+      "id": "person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ",
+      "type": "person",
+      "label": "Байзид Шевкедов Якубов"
+    },
+    {
+      "id": "person:НУРАЙ ЮСУФОВА МУСТАФОВА",
+      "type": "person",
+      "label": "Нурай Юсуфова Мустафова"
+    },
+    {
+      "id": "person:НЕЖДЛА ЮМЕРОВА СЕЛИМ",
+      "type": "person",
+      "label": "Неждла Юмерова Селим"
+    },
+    {
+      "id": "person:ГЮСУМ ХАСАНОВА МУСТАФА",
+      "type": "person",
+      "label": "Гюсум Хасанова Мустафа"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:halil-adem-adem-0c029e",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:halil-adem-adem-0c029e",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХАЙРЕДИН АЛИ МЮМЮН",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАЙЗИД ШЕВКЕДОВ ЯКУБОВ",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙРЕДИН АЛИ МЮМЮН",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРАЙ ЮСУФОВА МУСТАФОВА",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРАЙ ЮСУФОВА МУСТАФОВА",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЖДЛА ЮМЕРОВА СЕЛИМ",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮСУМ ХАСАНОВА МУСТАФА",
+      "target": "company:tr:103938166",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

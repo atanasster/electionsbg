@@ -1,1 +1,137 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iordanka-dimitrova-naneva-18f584","nodes":[{"id":"official:iordanka-dimitrova-naneva-18f584","type":"official","slug":"iordanka-dimitrova-naneva-18f584","label":"Йорданка Димитрова Нанева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176416408","type":"company","label":"Настоятелство Радост при ДГ с. Свещари","slug":null,"uic":"176416408","legalForm":null,"status":null,"seat":null},{"id":"person:КЕМАЛ АЛИ КЯЗИМ","type":"person","label":"Кемал Али Кязим"},{"id":"person:РЕМЗИЕ ХАСАНОВА МУСТАФА","type":"person","label":"Ремзие Хасанова Мустафа"},{"id":"person:АНЕТА БРАТОЕВА АНДРЕЕВА","type":"person","label":"Анета Братоева Андреева"},{"id":"person:ЗЮЛФИЕ ДЖЕВАТОВА МУСТАФА","type":"person","label":"Зюлфие Джеватова Мустафа"},{"id":"person:ВЕНЕТА ВАЛЕНТИНОВА ЦВЯТКОВА","type":"person","label":"Венета Валентинова Цвяткова"},{"id":"person:ВЕСЕЛИНА ПАНОВА БОРИСОВА","type":"person","label":"Веселина Панова Борисова"}],"edges":[{"source":"official:iordanka-dimitrova-naneva-18f584","target":"company:tr:176416408","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:iordanka-dimitrova-naneva-18f584","target":"company:tr:176416408","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:КЕМАЛ АЛИ КЯЗИМ","target":"company:tr:176416408","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РЕМЗИЕ ХАСАНОВА МУСТАФА","target":"company:tr:176416408","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РЕМЗИЕ ХАСАНОВА МУСТАФА","target":"company:tr:176416408","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНЕТА БРАТОЕВА АНДРЕЕВА","target":"company:tr:176416408","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЮЛФИЕ ДЖЕВАТОВА МУСТАФА","target":"company:tr:176416408","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЗЮЛФИЕ ДЖЕВАТОВА МУСТАФА","target":"company:tr:176416408","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕТА ВАЛЕНТИНОВА ЦВЯТКОВА","target":"company:tr:176416408","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА ПАНОВА БОРИСОВА","target":"company:tr:176416408","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iordanka-dimitrova-naneva-18f584",
+  "nodes": [
+    {
+      "id": "official:iordanka-dimitrova-naneva-18f584",
+      "type": "official",
+      "slug": "iordanka-dimitrova-naneva-18f584",
+      "label": "Йорданка Димитрова Нанева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176416408",
+      "type": "company",
+      "label": "Настоятелство Радост при ДГ с. Свещари",
+      "slug": null,
+      "uic": "176416408",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КЕМАЛ АЛИ КЯЗИМ",
+      "type": "person",
+      "label": "Кемал Али Кязим"
+    },
+    {
+      "id": "person:РЕМЗИЕ ХАСАНОВА МУСТАФА",
+      "type": "person",
+      "label": "Ремзие Хасанова Мустафа"
+    },
+    {
+      "id": "person:АНЕТА БРАТОЕВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Анета Братоева Андреева"
+    },
+    {
+      "id": "person:ЗЮЛФИЕ ДЖЕВАТОВА МУСТАФА",
+      "type": "person",
+      "label": "Зюлфие Джеватова Мустафа"
+    },
+    {
+      "id": "person:ВЕНЕТА ВАЛЕНТИНОВА ЦВЯТКОВА",
+      "type": "person",
+      "label": "Венета Валентинова Цвяткова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ПАНОВА БОРИСОВА",
+      "type": "person",
+      "label": "Веселина Панова Борисова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordanka-dimitrova-naneva-18f584",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordanka-dimitrova-naneva-18f584",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КЕМАЛ АЛИ КЯЗИМ",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕМЗИЕ ХАСАНОВА МУСТАФА",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕМЗИЕ ХАСАНОВА МУСТАФА",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА БРАТОЕВА АНДРЕЕВА",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЮЛФИЕ ДЖЕВАТОВА МУСТАФА",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЮЛФИЕ ДЖЕВАТОВА МУСТАФА",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА ВАЛЕНТИНОВА ЦВЯТКОВА",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ПАНОВА БОРИСОВА",
+      "target": "company:tr:176416408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-ivanov-banski-af0b38","nodes":[{"id":"official:georgi-ivanov-banski-af0b38","type":"official","slug":"georgi-ivanov-banski-af0b38","label":"Георги Иванов Бански","tier":"municipal","role":"councillor","municipality":"Дупница"},{"id":"company:tr:109561256","type":"company","label":"ДЕСИСЛАВА-БАНСКИ","slug":null,"uic":"109561256","legalForm":null,"status":null,"seat":null},{"id":"person:ЛЮДМИЛА ИГНАТОВА БАНСКА","type":"person","label":"Людмила Игнатова Банска"}],"edges":[{"source":"official:georgi-ivanov-banski-af0b38","target":"company:tr:109561256","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮДМИЛА ИГНАТОВА БАНСКА","target":"company:tr:109561256","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-ivanov-banski-af0b38",
+  "nodes": [
+    {
+      "id": "official:georgi-ivanov-banski-af0b38",
+      "type": "official",
+      "slug": "georgi-ivanov-banski-af0b38",
+      "label": "Георги Иванов Бански",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дупница"
+    },
+    {
+      "id": "company:tr:109561256",
+      "type": "company",
+      "label": "ДЕСИСЛАВА-БАНСКИ",
+      "slug": null,
+      "uic": "109561256",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮДМИЛА ИГНАТОВА БАНСКА",
+      "type": "person",
+      "label": "Людмила Игнатова Банска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ivanov-banski-af0b38",
+      "target": "company:tr:109561256",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ИГНАТОВА БАНСКА",
+      "target": "company:tr:109561256",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

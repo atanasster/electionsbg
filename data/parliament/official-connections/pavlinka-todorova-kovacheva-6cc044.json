@@ -1,1 +1,186 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:pavlinka-todorova-kovacheva-6cc044","nodes":[{"id":"official:pavlinka-todorova-kovacheva-6cc044","type":"official","slug":"pavlinka-todorova-kovacheva-6cc044","label":"Павлинка Тодорова Ковачева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000843506","type":"company","label":"ПЕТКО РАЧЕВ СЛАВЕЙКОВ - 1942 ГОДИНА","slug":null,"uic":"000843506","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМИТЪР НИКОЛОВ ДИМИТРОВ","type":"person","label":"Димитър Николов Димитров"},{"id":"person:АНТОАНЕТА БАРБОВА ПАНТЕЛЕЕВА","type":"person","label":"Антоанета Барбова Пантелеева"},{"id":"person:СТИЛИЯНКА ЖЕЛЕВА ЙОНКОВА","type":"person","label":"Стилиянка Желева Йонкова"},{"id":"person:КИНА СТАНЕВА ПЕТРОВА","type":"person","label":"Кина Станева Петрова"},{"id":"person:ЦЕЦА ВАСИЛЕВА СИМЕОНОВА","type":"person","label":"Цеца Василева Симеонова"},{"id":"person:РАДА КОЛЕВА МОМЧЕВА","type":"person","label":"Рада Колева Момчева"},{"id":"person:КРАСТИНКА СТЕФАНОВА ХРИСТОВА","type":"person","label":"Крастинка Стефанова Христова"},{"id":"person:ИВЕЛИНА МАЛЧЕВА ЙОРДАНОВА","type":"person","label":"Ивелина Малчева Йорданова"},{"id":"person:ВЕЛИЧКА МИНКОВА ГЕОРГИЕВА","type":"person","label":"Величка Минкова Георгиева"},{"id":"person:ТАНЯ СЛАВОВА ГЕОРГИЕВА","type":"person","label":"Таня Славова Георгиева"},{"id":"person:РУСЛАНА РАДЕВА ДЕНЕВА","type":"person","label":"Руслана Радева Денева"}],"edges":[{"source":"official:pavlinka-todorova-kovacheva-6cc044","target":"company:tr:000843506","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:pavlinka-todorova-kovacheva-6cc044","target":"company:tr:000843506","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТЪР НИКОЛОВ ДИМИТРОВ","target":"company:tr:000843506","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАНЕТА БАРБОВА ПАНТЕЛЕЕВА","target":"company:tr:000843506","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТИЛИЯНКА ЖЕЛЕВА ЙОНКОВА","target":"company:tr:000843506","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КИНА СТАНЕВА ПЕТРОВА","target":"company:tr:000843506","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦА ВАСИЛЕВА СИМЕОНОВА","target":"company:tr:000843506","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАДА КОЛЕВА МОМЧЕВА","target":"company:tr:000843506","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КРАСТИНКА СТЕФАНОВА ХРИСТОВА","target":"company:tr:000843506","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИНА МАЛЧЕВА ЙОРДАНОВА","target":"company:tr:000843506","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЧКА МИНКОВА ГЕОРГИЕВА","target":"company:tr:000843506","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ СЛАВОВА ГЕОРГИЕВА","target":"company:tr:000843506","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РУСЛАНА РАДЕВА ДЕНЕВА","target":"company:tr:000843506","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:pavlinka-todorova-kovacheva-6cc044",
+  "nodes": [
+    {
+      "id": "official:pavlinka-todorova-kovacheva-6cc044",
+      "type": "official",
+      "slug": "pavlinka-todorova-kovacheva-6cc044",
+      "label": "Павлинка Тодорова Ковачева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000843506",
+      "type": "company",
+      "label": "ПЕТКО РАЧЕВ СЛАВЕЙКОВ - 1942 ГОДИНА",
+      "slug": null,
+      "uic": "000843506",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Николов Димитров"
+    },
+    {
+      "id": "person:АНТОАНЕТА БАРБОВА ПАНТЕЛЕЕВА",
+      "type": "person",
+      "label": "Антоанета Барбова Пантелеева"
+    },
+    {
+      "id": "person:СТИЛИЯНКА ЖЕЛЕВА ЙОНКОВА",
+      "type": "person",
+      "label": "Стилиянка Желева Йонкова"
+    },
+    {
+      "id": "person:КИНА СТАНЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Кина Станева Петрова"
+    },
+    {
+      "id": "person:ЦЕЦА ВАСИЛЕВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Цеца Василева Симеонова"
+    },
+    {
+      "id": "person:РАДА КОЛЕВА МОМЧЕВА",
+      "type": "person",
+      "label": "Рада Колева Момчева"
+    },
+    {
+      "id": "person:КРАСТИНКА СТЕФАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Крастинка Стефанова Христова"
+    },
+    {
+      "id": "person:ИВЕЛИНА МАЛЧЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Ивелина Малчева Йорданова"
+    },
+    {
+      "id": "person:ВЕЛИЧКА МИНКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Величка Минкова Георгиева"
+    },
+    {
+      "id": "person:ТАНЯ СЛАВОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Таня Славова Георгиева"
+    },
+    {
+      "id": "person:РУСЛАНА РАДЕВА ДЕНЕВА",
+      "type": "person",
+      "label": "Руслана Радева Денева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavlinka-todorova-kovacheva-6cc044",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:pavlinka-todorova-kovacheva-6cc044",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ ДИМИТРОВ",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА БАРБОВА ПАНТЕЛЕЕВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИЛИЯНКА ЖЕЛЕВА ЙОНКОВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИНА СТАНЕВА ПЕТРОВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦА ВАСИЛЕВА СИМЕОНОВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДА КОЛЕВА МОМЧЕВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСТИНКА СТЕФАНОВА ХРИСТОВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА МАЛЧЕВА ЙОРДАНОВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА МИНКОВА ГЕОРГИЕВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ СЛАВОВА ГЕОРГИЕВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСЛАНА РАДЕВА ДЕНЕВА",
+      "target": "company:tr:000843506",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

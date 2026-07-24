@@ -1,1 +1,53 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mustafa-mehmedov-ademov-e2e1d8","nodes":[{"id":"official:mustafa-mehmedov-ademov-e2e1d8","type":"official","slug":"mustafa-mehmedov-ademov-e2e1d8","label":"Мустафа Мехмедов Адемов","tier":"municipal","role":"councillor","municipality":"Омуртаг"},{"id":"company:tr:205910590","type":"company","label":"Бифа Строй","slug":null,"uic":"205910590","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205564245","type":"company","label":"Соли 2019","slug":null,"uic":"205564245","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:mustafa-mehmedov-ademov-e2e1d8","target":"company:tr:205910590","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:mustafa-mehmedov-ademov-e2e1d8","target":"company:tr:205564245","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mustafa-mehmedov-ademov-e2e1d8",
+  "nodes": [
+    {
+      "id": "official:mustafa-mehmedov-ademov-e2e1d8",
+      "type": "official",
+      "slug": "mustafa-mehmedov-ademov-e2e1d8",
+      "label": "Мустафа Мехмедов Адемов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:205910590",
+      "type": "company",
+      "label": "Бифа Строй",
+      "slug": null,
+      "uic": "205910590",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205564245",
+      "type": "company",
+      "label": "Соли 2019",
+      "slug": null,
+      "uic": "205564245",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mustafa-mehmedov-ademov-e2e1d8",
+      "target": "company:tr:205910590",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mustafa-mehmedov-ademov-e2e1d8",
+      "target": "company:tr:205564245",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

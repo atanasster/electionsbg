@@ -1,1 +1,176 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:boris-lyubenov-babugerov-7131d7","nodes":[{"id":"official:boris-lyubenov-babugerov-7131d7","type":"official","slug":"boris-lyubenov-babugerov-7131d7","label":"Борис Любенов Бабугеров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000456018","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ - 1930г. - С. БЕНКОВСКИ","slug":null,"uic":"000456018","legalForm":null,"status":null,"seat":null},{"id":"person:СТОИЛКА ВЕЛКОВА ДЕШЛИЕВА","type":"person","label":"Стоилка Велкова Дешлиева"},{"id":"person:СВЕТЛА ТОДОРОВА ПЕНЧЕВА","type":"person","label":"Светла Тодорова Пенчева"},{"id":"person:АНТОНИЯ ВЕЛИЧКОВА ПАЧЕВА","type":"person","label":"Антония Величкова Пачева"},{"id":"person:МАРИАНА СТОЯНОВА ЕНЧЕВА","type":"person","label":"Мариана Стоянова Енчева"},{"id":"person:КРИСТИАНА МАРИНОВА АНГЕЛЧОВСКА","type":"person","label":"Кристиана Маринова Ангелчовска"},{"id":"person:ВИОЛЕТА САДЬОВА УЗУНОВА","type":"person","label":"Виолета Садьова Узунова"},{"id":"person:НАДЕЖДА МАНОВА АНДРЕЕВА","type":"person","label":"Надежда Манова Андреева"},{"id":"person:ИГЛИКА НЕДКОВА НЕДКОВА","type":"person","label":"Иглика Недкова Недкова"},{"id":"person:АСЯ АНГЕЛОВА СТОЕВА","type":"person","label":"Ася Ангелова Стоева"}],"edges":[{"source":"official:boris-lyubenov-babugerov-7131d7","target":"company:tr:000456018","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:СТОИЛКА ВЕЛКОВА ДЕШЛИЕВА","target":"company:tr:000456018","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА ТОДОРОВА ПЕНЧЕВА","target":"company:tr:000456018","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ВЕЛИЧКОВА ПАЧЕВА","target":"company:tr:000456018","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА СТОЯНОВА ЕНЧЕВА","target":"company:tr:000456018","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТОИЛКА ВЕЛКОВА ДЕШЛИЕВА","target":"company:tr:000456018","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА ТОДОРОВА ПЕНЧЕВА","target":"company:tr:000456018","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИАНА МАРИНОВА АНГЕЛЧОВСКА","target":"company:tr:000456018","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА САДЬОВА УЗУНОВА","target":"company:tr:000456018","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА МАНОВА АНДРЕЕВА","target":"company:tr:000456018","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА САДЬОВА УЗУНОВА","target":"company:tr:000456018","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИГЛИКА НЕДКОВА НЕДКОВА","target":"company:tr:000456018","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АСЯ АНГЕЛОВА СТОЕВА","target":"company:tr:000456018","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:boris-lyubenov-babugerov-7131d7",
+  "nodes": [
+    {
+      "id": "official:boris-lyubenov-babugerov-7131d7",
+      "type": "official",
+      "slug": "boris-lyubenov-babugerov-7131d7",
+      "label": "Борис Любенов Бабугеров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000456018",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ - 1930г. - С. БЕНКОВСКИ",
+      "slug": null,
+      "uic": "000456018",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОИЛКА ВЕЛКОВА ДЕШЛИЕВА",
+      "type": "person",
+      "label": "Стоилка Велкова Дешлиева"
+    },
+    {
+      "id": "person:СВЕТЛА ТОДОРОВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Светла Тодорова Пенчева"
+    },
+    {
+      "id": "person:АНТОНИЯ ВЕЛИЧКОВА ПАЧЕВА",
+      "type": "person",
+      "label": "Антония Величкова Пачева"
+    },
+    {
+      "id": "person:МАРИАНА СТОЯНОВА ЕНЧЕВА",
+      "type": "person",
+      "label": "Мариана Стоянова Енчева"
+    },
+    {
+      "id": "person:КРИСТИАНА МАРИНОВА АНГЕЛЧОВСКА",
+      "type": "person",
+      "label": "Кристиана Маринова Ангелчовска"
+    },
+    {
+      "id": "person:ВИОЛЕТА САДЬОВА УЗУНОВА",
+      "type": "person",
+      "label": "Виолета Садьова Узунова"
+    },
+    {
+      "id": "person:НАДЕЖДА МАНОВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Надежда Манова Андреева"
+    },
+    {
+      "id": "person:ИГЛИКА НЕДКОВА НЕДКОВА",
+      "type": "person",
+      "label": "Иглика Недкова Недкова"
+    },
+    {
+      "id": "person:АСЯ АНГЕЛОВА СТОЕВА",
+      "type": "person",
+      "label": "Ася Ангелова Стоева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boris-lyubenov-babugerov-7131d7",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОИЛКА ВЕЛКОВА ДЕШЛИЕВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ТОДОРОВА ПЕНЧЕВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ВЕЛИЧКОВА ПАЧЕВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА СТОЯНОВА ЕНЧЕВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОИЛКА ВЕЛКОВА ДЕШЛИЕВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ТОДОРОВА ПЕНЧЕВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИАНА МАРИНОВА АНГЕЛЧОВСКА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА САДЬОВА УЗУНОВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА МАНОВА АНДРЕЕВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА САДЬОВА УЗУНОВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИГЛИКА НЕДКОВА НЕДКОВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЯ АНГЕЛОВА СТОЕВА",
+      "target": "company:tr:000456018",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

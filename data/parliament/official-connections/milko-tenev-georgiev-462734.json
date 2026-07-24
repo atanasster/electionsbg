@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milko-tenev-georgiev-462734","nodes":[{"id":"official:milko-tenev-georgiev-462734","type":"official","slug":"milko-tenev-georgiev-462734","label":"Милко Тенев Георгиев","tier":"municipal","role":"councillor","municipality":"Раднево"},{"id":"company:tr:204628339","type":"company","label":"МИЛЕ ГРУП ЕООД","slug":null,"uic":"204628339","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:milko-tenev-georgiev-462734","target":"company:tr:204628339","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milko-tenev-georgiev-462734",
+  "nodes": [
+    {
+      "id": "official:milko-tenev-georgiev-462734",
+      "type": "official",
+      "slug": "milko-tenev-georgiev-462734",
+      "label": "Милко Тенев Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Раднево"
+    },
+    {
+      "id": "company:tr:204628339",
+      "type": "company",
+      "label": "МИЛЕ ГРУП ЕООД",
+      "slug": null,
+      "uic": "204628339",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milko-tenev-georgiev-462734",
+      "target": "company:tr:204628339",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

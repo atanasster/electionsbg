@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:irena-hristova-ivanova-709dc7","nodes":[{"id":"official:irena-hristova-ivanova-709dc7","type":"official","slug":"irena-hristova-ivanova-709dc7","label":"Ирена Христова Иванова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:204726502","type":"company","label":"ГЛОБАЛ ЛОГИСТИК ДК","slug":null,"uic":"204726502","legalForm":null,"status":null,"seat":null},{"id":"person:БАЙРАМ БУЛДУК","type":"person","label":"Байрам Булдук"}],"edges":[{"source":"official:irena-hristova-ivanova-709dc7","target":"company:tr:204726502","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:irena-hristova-ivanova-709dc7","target":"company:tr:204726502","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:БАЙРАМ БУЛДУК","target":"company:tr:204726502","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БАЙРАМ БУЛДУК","target":"company:tr:204726502","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:irena-hristova-ivanova-709dc7",
+  "nodes": [
+    {
+      "id": "official:irena-hristova-ivanova-709dc7",
+      "type": "official",
+      "slug": "irena-hristova-ivanova-709dc7",
+      "label": "Ирена Христова Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204726502",
+      "type": "company",
+      "label": "ГЛОБАЛ ЛОГИСТИК ДК",
+      "slug": null,
+      "uic": "204726502",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БАЙРАМ БУЛДУК",
+      "type": "person",
+      "label": "Байрам Булдук"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irena-hristova-ivanova-709dc7",
+      "target": "company:tr:204726502",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:irena-hristova-ivanova-709dc7",
+      "target": "company:tr:204726502",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БАЙРАМ БУЛДУК",
+      "target": "company:tr:204726502",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАЙРАМ БУЛДУК",
+      "target": "company:tr:204726502",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

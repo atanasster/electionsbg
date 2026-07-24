@@ -1,1 +1,176 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kiril-kirilov-trpov-3f9354","nodes":[{"id":"official:kiril-kirilov-trpov-3f9354","type":"official","slug":"kiril-kirilov-trpov-3f9354","label":"Кирил Кирилов Търпов","tier":"municipal","role":"councillor","municipality":"Свиленград"},{"id":"company:tr:130925433","type":"company","label":"СДРУЖЕНИЕ БЪЛГАРСКИ ХОРОВ СЪЮЗ","slug":null,"uic":"130925433","legalForm":null,"status":null,"seat":null},{"id":"person:СЛАВИЛ ЗДРАВКОВ ДИМИТРОВ","type":"person","label":"Славил Здравков Димитров"},{"id":"person:ДЕНИЦА СТАНЧЕВА УЗУНОВА","type":"person","label":"Деница Станчева Узунова"},{"id":"person:ГАНЧО ГЕОРГИЕВ ГАНЧЕВ","type":"person","label":"Ганчо Георгиев Ганчев"},{"id":"person:МАРИНА ПЕТРОВА КОЛЕВА","type":"person","label":"Марина Петрова Колева"},{"id":"person:ЕЛЕНА ЦВЕТКОВА ШОПОВА","type":"person","label":"Елена Цветкова Шопова"},{"id":"person:МИЛЕНА РАДОСЛАВОВА ДОБРЕВА","type":"person","label":"Милена Радославова Добрева"},{"id":"person:ДЖУЛИЯ СЕВДАЛИНОВА УЗУНОВА","type":"person","label":"Джулия Севдалинова Узунова"},{"id":"person:СИМЕОН АСЕНОВ ЗЛАТКОВ","type":"person","label":"Симеон Асенов Златков"},{"id":"person:ЕЛЕОНОРА ХРИСТОВА ВАСИЛЕВА","type":"person","label":"Елеонора Христова Василева"}],"edges":[{"source":"official:kiril-kirilov-trpov-3f9354","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СЛАВИЛ ЗДРАВКОВ ДИМИТРОВ","target":"company:tr:130925433","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА СТАНЧЕВА УЗУНОВА","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВИЛ ЗДРАВКОВ ДИМИТРОВ","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАНЧО ГЕОРГИЕВ ГАНЧЕВ","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНА ПЕТРОВА КОЛЕВА","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ЦВЕТКОВА ШОПОВА","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА РАДОСЛАВОВА ДОБРЕВА","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЖУЛИЯ СЕВДАЛИНОВА УЗУНОВА","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАНЧО ГЕОРГИЕВ ГАНЧЕВ","target":"company:tr:130925433","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН АСЕНОВ ЗЛАТКОВ","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕОНОРА ХРИСТОВА ВАСИЛЕВА","target":"company:tr:130925433","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ЦВЕТКОВА ШОПОВА","target":"company:tr:130925433","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kiril-kirilov-trpov-3f9354",
+  "nodes": [
+    {
+      "id": "official:kiril-kirilov-trpov-3f9354",
+      "type": "official",
+      "slug": "kiril-kirilov-trpov-3f9354",
+      "label": "Кирил Кирилов Търпов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Свиленград"
+    },
+    {
+      "id": "company:tr:130925433",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ БЪЛГАРСКИ ХОРОВ СЪЮЗ",
+      "slug": null,
+      "uic": "130925433",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЛАВИЛ ЗДРАВКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Славил Здравков Димитров"
+    },
+    {
+      "id": "person:ДЕНИЦА СТАНЧЕВА УЗУНОВА",
+      "type": "person",
+      "label": "Деница Станчева Узунова"
+    },
+    {
+      "id": "person:ГАНЧО ГЕОРГИЕВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Ганчо Георгиев Ганчев"
+    },
+    {
+      "id": "person:МАРИНА ПЕТРОВА КОЛЕВА",
+      "type": "person",
+      "label": "Марина Петрова Колева"
+    },
+    {
+      "id": "person:ЕЛЕНА ЦВЕТКОВА ШОПОВА",
+      "type": "person",
+      "label": "Елена Цветкова Шопова"
+    },
+    {
+      "id": "person:МИЛЕНА РАДОСЛАВОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Милена Радославова Добрева"
+    },
+    {
+      "id": "person:ДЖУЛИЯ СЕВДАЛИНОВА УЗУНОВА",
+      "type": "person",
+      "label": "Джулия Севдалинова Узунова"
+    },
+    {
+      "id": "person:СИМЕОН АСЕНОВ ЗЛАТКОВ",
+      "type": "person",
+      "label": "Симеон Асенов Златков"
+    },
+    {
+      "id": "person:ЕЛЕОНОРА ХРИСТОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Елеонора Христова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-kirilov-trpov-3f9354",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЛАВИЛ ЗДРАВКОВ ДИМИТРОВ",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА СТАНЧЕВА УЗУНОВА",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВИЛ ЗДРАВКОВ ДИМИТРОВ",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНЧО ГЕОРГИЕВ ГАНЧЕВ",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ПЕТРОВА КОЛЕВА",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЦВЕТКОВА ШОПОВА",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА РАДОСЛАВОВА ДОБРЕВА",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖУЛИЯ СЕВДАЛИНОВА УЗУНОВА",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНЧО ГЕОРГИЕВ ГАНЧЕВ",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН АСЕНОВ ЗЛАТКОВ",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ХРИСТОВА ВАСИЛЕВА",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЦВЕТКОВА ШОПОВА",
+      "target": "company:tr:130925433",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

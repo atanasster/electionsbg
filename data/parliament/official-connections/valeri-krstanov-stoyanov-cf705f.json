@@ -1,1 +1,87 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:valeri-krstanov-stoyanov-cf705f","nodes":[{"id":"official:valeri-krstanov-stoyanov-cf705f","type":"official","slug":"valeri-krstanov-stoyanov-cf705f","label":"Валери Кръстанов Стоянов","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:175096970","type":"company","label":"СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА СПЕЦИАЛИЗИРАНИТЕ ЕКСПЕРТИ В ТУРИСТИЧЕСКАТА ИНДУСТРИЯ&quot;","slug":null,"uic":"175096970","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН ЙОРДАНОВ ИВАНОВ","type":"person","label":"Иван Йорданов Иванов"},{"id":"person:ПЕТЪР СТОЯНОВ ПЕТРОВ","type":"person","label":"Петър Стоянов Петров"},{"id":"person:ХРИСТО НИКОЛАЕВ ГАНКОВ","type":"person","label":"Христо Николаев Ганков"},{"id":"person:СВЕТЛАНА ТАНЕВА СТАНЕВА","type":"person","label":"Светлана Танева Станева"}],"edges":[{"source":"official:valeri-krstanov-stoyanov-cf705f","target":"company:tr:175096970","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ЙОРДАНОВ ИВАНОВ","target":"company:tr:175096970","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР СТОЯНОВ ПЕТРОВ","target":"company:tr:175096970","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО НИКОЛАЕВ ГАНКОВ","target":"company:tr:175096970","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА ТАНЕВА СТАНЕВА","target":"company:tr:175096970","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:valeri-krstanov-stoyanov-cf705f",
+  "nodes": [
+    {
+      "id": "official:valeri-krstanov-stoyanov-cf705f",
+      "type": "official",
+      "slug": "valeri-krstanov-stoyanov-cf705f",
+      "label": "Валери Кръстанов Стоянов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175096970",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА СПЕЦИАЛИЗИРАНИТЕ ЕКСПЕРТИ В ТУРИСТИЧЕСКАТА ИНДУСТРИЯ&quot;",
+      "slug": null,
+      "uic": "175096970",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ЙОРДАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Йорданов Иванов"
+    },
+    {
+      "id": "person:ПЕТЪР СТОЯНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Стоянов Петров"
+    },
+    {
+      "id": "person:ХРИСТО НИКОЛАЕВ ГАНКОВ",
+      "type": "person",
+      "label": "Христо Николаев Ганков"
+    },
+    {
+      "id": "person:СВЕТЛАНА ТАНЕВА СТАНЕВА",
+      "type": "person",
+      "label": "Светлана Танева Станева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeri-krstanov-stoyanov-cf705f",
+      "target": "company:tr:175096970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ЙОРДАНОВ ИВАНОВ",
+      "target": "company:tr:175096970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СТОЯНОВ ПЕТРОВ",
+      "target": "company:tr:175096970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ ГАНКОВ",
+      "target": "company:tr:175096970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ТАНЕВА СТАНЕВА",
+      "target": "company:tr:175096970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

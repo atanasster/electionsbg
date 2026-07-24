@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aleksandr-biserov-ivanov-fc96ee","nodes":[{"id":"official:aleksandr-biserov-ivanov-fc96ee","type":"official","slug":"aleksandr-biserov-ivanov-fc96ee","label":"Александър Бисеров Иванов","tier":"municipal","role":"councillor","municipality":"Първомай"},{"id":"company:tr:206154352","type":"company","label":"Артебилд ООД","slug":null,"uic":"206154352","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТО РАЙЧЕВ ЧАУШЕВ","type":"person","label":"Христо Райчев Чаушев"}],"edges":[{"source":"official:aleksandr-biserov-ivanov-fc96ee","target":"company:tr:206154352","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:aleksandr-biserov-ivanov-fc96ee","target":"company:tr:206154352","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО РАЙЧЕВ ЧАУШЕВ","target":"company:tr:206154352","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aleksandr-biserov-ivanov-fc96ee",
+  "nodes": [
+    {
+      "id": "official:aleksandr-biserov-ivanov-fc96ee",
+      "type": "official",
+      "slug": "aleksandr-biserov-ivanov-fc96ee",
+      "label": "Александър Бисеров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Първомай"
+    },
+    {
+      "id": "company:tr:206154352",
+      "type": "company",
+      "label": "Артебилд ООД",
+      "slug": null,
+      "uic": "206154352",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО РАЙЧЕВ ЧАУШЕВ",
+      "type": "person",
+      "label": "Христо Райчев Чаушев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-biserov-ivanov-fc96ee",
+      "target": "company:tr:206154352",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleksandr-biserov-ivanov-fc96ee",
+      "target": "company:tr:206154352",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО РАЙЧЕВ ЧАУШЕВ",
+      "target": "company:tr:206154352",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

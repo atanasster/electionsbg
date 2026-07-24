@@ -1,1 +1,207 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nevena-zaharieva-andreeva-4b1329","nodes":[{"id":"official:nevena-zaharieva-andreeva-4b1329","type":"official","slug":"nevena-zaharieva-andreeva-4b1329","label":"Невена Захариева Андреева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000523050","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ХРИСТО БОТЕВ - 1927","slug":null,"uic":"000523050","legalForm":null,"status":null,"seat":null},{"id":"person:ТОДОРИНА ЦВЕТАНОВА ТОДОРОВА","type":"person","label":"Тодорина Цветанова Тодорова"},{"id":"person:РАДОСЛАВ ДИМИТРОВ КОПЧЕВ","type":"person","label":"Радослав Димитров Копчев"},{"id":"person:ТОНКА АНЧЕВА ПЕТКОВА","type":"person","label":"Тонка Анчева Петкова"},{"id":"person:МАРИЕТА ВАСИЛЕВА ИГНАТОВА","type":"person","label":"Мариета Василева Игнатова"},{"id":"person:ДЕСИСЛАВА ГЕОРГИЕВА СИМЕОНОВА","type":"person","label":"Десислава Георгиева Симеонова"},{"id":"person:ЕЛЕНА МИХАЙЛОВА АСЕНОВА","type":"person","label":"Елена Михайлова Асенова"},{"id":"person:МИТКА ПЕТКОВА КОЛЕВА","type":"person","label":"Митка Петкова Колева"},{"id":"person:СИЛВИЯ СТАНИСЛАВОВА НЕДЯЛКОВА","type":"person","label":"Силвия Станиславова Недялкова"},{"id":"person:МИРОСЛАВА ЙОРДАНОВА АНДРЕЕВА","type":"person","label":"Мирослава Йорданова Андреева"},{"id":"person:ФИЛИС МЕХМЕДОВА МЕХМЕДОВА","type":"person","label":"Филис Мехмедова Мехмедова"},{"id":"person:ПЕТРАНКА БИЛЕВА КРУМОВА","type":"person","label":"Петранка Билева Крумова"},{"id":"person:ВАСИЛКА КОСТАДИНОВА КОЛЕВА","type":"person","label":"Василка Костадинова Колева"}],"edges":[{"source":"official:nevena-zaharieva-andreeva-4b1329","target":"company:tr:000523050","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ТОДОРИНА ЦВЕТАНОВА ТОДОРОВА","target":"company:tr:000523050","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ДИМИТРОВ КОПЧЕВ","target":"company:tr:000523050","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОНКА АНЧЕВА ПЕТКОВА","target":"company:tr:000523050","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЕТА ВАСИЛЕВА ИГНАТОВА","target":"company:tr:000523050","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ГЕОРГИЕВА СИМЕОНОВА","target":"company:tr:000523050","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА МИХАЙЛОВА АСЕНОВА","target":"company:tr:000523050","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИТКА ПЕТКОВА КОЛЕВА","target":"company:tr:000523050","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ СТАНИСЛАВОВА НЕДЯЛКОВА","target":"company:tr:000523050","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРИНА ЦВЕТАНОВА ТОДОРОВА","target":"company:tr:000523050","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВА ЙОРДАНОВА АНДРЕЕВА","target":"company:tr:000523050","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВА ЙОРДАНОВА АНДРЕЕВА","target":"company:tr:000523050","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИС МЕХМЕДОВА МЕХМЕДОВА","target":"company:tr:000523050","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРАНКА БИЛЕВА КРУМОВА","target":"company:tr:000523050","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛКА КОСТАДИНОВА КОЛЕВА","target":"company:tr:000523050","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nevena-zaharieva-andreeva-4b1329",
+  "nodes": [
+    {
+      "id": "official:nevena-zaharieva-andreeva-4b1329",
+      "type": "official",
+      "slug": "nevena-zaharieva-andreeva-4b1329",
+      "label": "Невена Захариева Андреева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000523050",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ХРИСТО БОТЕВ - 1927",
+      "slug": null,
+      "uic": "000523050",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОРИНА ЦВЕТАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Тодорина Цветанова Тодорова"
+    },
+    {
+      "id": "person:РАДОСЛАВ ДИМИТРОВ КОПЧЕВ",
+      "type": "person",
+      "label": "Радослав Димитров Копчев"
+    },
+    {
+      "id": "person:ТОНКА АНЧЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Тонка Анчева Петкова"
+    },
+    {
+      "id": "person:МАРИЕТА ВАСИЛЕВА ИГНАТОВА",
+      "type": "person",
+      "label": "Мариета Василева Игнатова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ГЕОРГИЕВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Десислава Георгиева Симеонова"
+    },
+    {
+      "id": "person:ЕЛЕНА МИХАЙЛОВА АСЕНОВА",
+      "type": "person",
+      "label": "Елена Михайлова Асенова"
+    },
+    {
+      "id": "person:МИТКА ПЕТКОВА КОЛЕВА",
+      "type": "person",
+      "label": "Митка Петкова Колева"
+    },
+    {
+      "id": "person:СИЛВИЯ СТАНИСЛАВОВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Силвия Станиславова Недялкова"
+    },
+    {
+      "id": "person:МИРОСЛАВА ЙОРДАНОВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Мирослава Йорданова Андреева"
+    },
+    {
+      "id": "person:ФИЛИС МЕХМЕДОВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Филис Мехмедова Мехмедова"
+    },
+    {
+      "id": "person:ПЕТРАНКА БИЛЕВА КРУМОВА",
+      "type": "person",
+      "label": "Петранка Билева Крумова"
+    },
+    {
+      "id": "person:ВАСИЛКА КОСТАДИНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Василка Костадинова Колева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nevena-zaharieva-andreeva-4b1329",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОРИНА ЦВЕТАНОВА ТОДОРОВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ДИМИТРОВ КОПЧЕВ",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНКА АНЧЕВА ПЕТКОВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕТА ВАСИЛЕВА ИГНАТОВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ГЕОРГИЕВА СИМЕОНОВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА МИХАЙЛОВА АСЕНОВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКА ПЕТКОВА КОЛЕВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ СТАНИСЛАВОВА НЕДЯЛКОВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРИНА ЦВЕТАНОВА ТОДОРОВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА ЙОРДАНОВА АНДРЕЕВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА ЙОРДАНОВА АНДРЕЕВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИС МЕХМЕДОВА МЕХМЕДОВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНКА БИЛЕВА КРУМОВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА КОСТАДИНОВА КОЛЕВА",
+      "target": "company:tr:000523050",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

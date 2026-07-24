@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:silviya-plamenova-georgieva-78e2d3","nodes":[{"id":"official:silviya-plamenova-georgieva-78e2d3","type":"official","slug":"silviya-plamenova-georgieva-78e2d3","label":"Силвия Пламенова Георгиева","tier":"municipal","role":"councillor","municipality":"Пирдоп"},{"id":"company:tr:205340489","type":"company","label":"БРИАНА ГРУП","slug":null,"uic":"205340489","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕРГАНА ПЛАМЕНОВА РАЯНОВА","type":"person","label":"Гергана Пламенова Раянова"}],"edges":[{"source":"official:silviya-plamenova-georgieva-78e2d3","target":"company:tr:205340489","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:silviya-plamenova-georgieva-78e2d3","target":"company:tr:205340489","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕРГАНА ПЛАМЕНОВА РАЯНОВА","target":"company:tr:205340489","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:silviya-plamenova-georgieva-78e2d3",
+  "nodes": [
+    {
+      "id": "official:silviya-plamenova-georgieva-78e2d3",
+      "type": "official",
+      "slug": "silviya-plamenova-georgieva-78e2d3",
+      "label": "Силвия Пламенова Георгиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пирдоп"
+    },
+    {
+      "id": "company:tr:205340489",
+      "type": "company",
+      "label": "БРИАНА ГРУП",
+      "slug": null,
+      "uic": "205340489",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕРГАНА ПЛАМЕНОВА РАЯНОВА",
+      "type": "person",
+      "label": "Гергана Пламенова Раянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-plamenova-georgieva-78e2d3",
+      "target": "company:tr:205340489",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:silviya-plamenova-georgieva-78e2d3",
+      "target": "company:tr:205340489",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА ПЛАМЕНОВА РАЯНОВА",
+      "target": "company:tr:205340489",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,158 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mehmed-orlinov-mladenov-738e6e","nodes":[{"id":"official:mehmed-orlinov-mladenov-738e6e","type":"official","slug":"mehmed-orlinov-mladenov-738e6e","label":"Мехмед Орлинов Младенов","tier":"municipal","role":"councillor","municipality":"Търговище"},{"id":"company:tr:204461484","type":"company","label":"Арме ООД","slug":null,"uic":"204461484","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206263387","type":"company","label":"ПМ УАЙН ООД","slug":null,"uic":"206263387","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206175019","type":"company","label":"Мастър Груп ЕООД","slug":null,"uic":"206175019","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206560844","type":"company","label":"ГЛОБАЛ КРИПТО ГРУП ООД","slug":null,"uic":"206560844","legalForm":null,"status":null,"seat":null},{"id":"person:АРЗУ ЙОЗДЖАН МЕХМЕД","type":"person","label":"Арзу Йозджан Мехмед"}],"edges":[{"source":"official:mehmed-orlinov-mladenov-738e6e","target":"company:tr:204461484","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:mehmed-orlinov-mladenov-738e6e","target":"company:tr:206263387","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:mehmed-orlinov-mladenov-738e6e","target":"company:tr:206175019","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:mehmed-orlinov-mladenov-738e6e","target":"company:tr:206560844","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:mehmed-orlinov-mladenov-738e6e","target":"company:tr:204461484","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mehmed-orlinov-mladenov-738e6e","target":"company:tr:204461484","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:mehmed-orlinov-mladenov-738e6e","target":"company:tr:206560844","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mehmed-orlinov-mladenov-738e6e","target":"company:tr:206560844","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АРЗУ ЙОЗДЖАН МЕХМЕД","target":"company:tr:204461484","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АРЗУ ЙОЗДЖАН МЕХМЕД","target":"company:tr:204461484","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АРЗУ ЙОЗДЖАН МЕХМЕД","target":"company:tr:206560844","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АРЗУ ЙОЗДЖАН МЕХМЕД","target":"company:tr:206560844","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mehmed-orlinov-mladenov-738e6e",
+  "nodes": [
+    {
+      "id": "official:mehmed-orlinov-mladenov-738e6e",
+      "type": "official",
+      "slug": "mehmed-orlinov-mladenov-738e6e",
+      "label": "Мехмед Орлинов Младенов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Търговище"
+    },
+    {
+      "id": "company:tr:204461484",
+      "type": "company",
+      "label": "Арме ООД",
+      "slug": null,
+      "uic": "204461484",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206263387",
+      "type": "company",
+      "label": "ПМ УАЙН ООД",
+      "slug": null,
+      "uic": "206263387",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206175019",
+      "type": "company",
+      "label": "Мастър Груп ЕООД",
+      "slug": null,
+      "uic": "206175019",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206560844",
+      "type": "company",
+      "label": "ГЛОБАЛ КРИПТО ГРУП ООД",
+      "slug": null,
+      "uic": "206560844",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АРЗУ ЙОЗДЖАН МЕХМЕД",
+      "type": "person",
+      "label": "Арзу Йозджан Мехмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mehmed-orlinov-mladenov-738e6e",
+      "target": "company:tr:204461484",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mehmed-orlinov-mladenov-738e6e",
+      "target": "company:tr:206263387",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mehmed-orlinov-mladenov-738e6e",
+      "target": "company:tr:206175019",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mehmed-orlinov-mladenov-738e6e",
+      "target": "company:tr:206560844",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mehmed-orlinov-mladenov-738e6e",
+      "target": "company:tr:204461484",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mehmed-orlinov-mladenov-738e6e",
+      "target": "company:tr:204461484",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mehmed-orlinov-mladenov-738e6e",
+      "target": "company:tr:206560844",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mehmed-orlinov-mladenov-738e6e",
+      "target": "company:tr:206560844",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АРЗУ ЙОЗДЖАН МЕХМЕД",
+      "target": "company:tr:204461484",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АРЗУ ЙОЗДЖАН МЕХМЕД",
+      "target": "company:tr:204461484",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АРЗУ ЙОЗДЖАН МЕХМЕД",
+      "target": "company:tr:206560844",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АРЗУ ЙОЗДЖАН МЕХМЕД",
+      "target": "company:tr:206560844",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

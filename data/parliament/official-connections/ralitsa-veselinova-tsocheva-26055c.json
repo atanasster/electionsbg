@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ralitsa-veselinova-tsocheva-26055c","nodes":[{"id":"official:ralitsa-veselinova-tsocheva-26055c","type":"official","slug":"ralitsa-veselinova-tsocheva-26055c","label":"Ралица Веселинова Цочева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000283559","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;БОРБА - 1895 Г.&quot;","slug":null,"uic":"000283559","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТЯ ВЕЛЕВА БОТЕВА","type":"person","label":"Петя Велева Ботева"},{"id":"person:ИСКРА ИВАНОВА НАЙДЕНОВА","type":"person","label":"Искра Иванова Найденова"},{"id":"person:ВАЛЕНТИНА НЕШЕВА ХРИСТОВА","type":"person","label":"Валентина Нешева Христова"},{"id":"person:ЦВЕТАН ЙОРДАНОВ ДАКОВ","type":"person","label":"Цветан Йорданов Даков"},{"id":"person:ДЕСИСЛАВА МИЛЕНОВА ЙОВЕВА","type":"person","label":"Десислава Миленова Йовева"},{"id":"person:МАРИНЕЛА ТОДОРОВА КИРИЛОВА","type":"person","label":"Маринела Тодорова Кирилова"},{"id":"person:ДЕЯН БОРИСЛАВОВ ДЯНКОВ","type":"person","label":"Деян Бориславов Дянков"}],"edges":[{"source":"official:ralitsa-veselinova-tsocheva-26055c","target":"company:tr:000283559","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЯ ВЕЛЕВА БОТЕВА","target":"company:tr:000283559","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИСКРА ИВАНОВА НАЙДЕНОВА","target":"company:tr:000283559","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА НЕШЕВА ХРИСТОВА","target":"company:tr:000283559","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ЙОРДАНОВ ДАКОВ","target":"company:tr:000283559","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА МИЛЕНОВА ЙОВЕВА","target":"company:tr:000283559","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНЕЛА ТОДОРОВА КИРИЛОВА","target":"company:tr:000283559","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН БОРИСЛАВОВ ДЯНКОВ","target":"company:tr:000283559","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ralitsa-veselinova-tsocheva-26055c",
+  "nodes": [
+    {
+      "id": "official:ralitsa-veselinova-tsocheva-26055c",
+      "type": "official",
+      "slug": "ralitsa-veselinova-tsocheva-26055c",
+      "label": "Ралица Веселинова Цочева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000283559",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;БОРБА - 1895 Г.&quot;",
+      "slug": null,
+      "uic": "000283559",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЯ ВЕЛЕВА БОТЕВА",
+      "type": "person",
+      "label": "Петя Велева Ботева"
+    },
+    {
+      "id": "person:ИСКРА ИВАНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Искра Иванова Найденова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА НЕШЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Валентина Нешева Христова"
+    },
+    {
+      "id": "person:ЦВЕТАН ЙОРДАНОВ ДАКОВ",
+      "type": "person",
+      "label": "Цветан Йорданов Даков"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА МИЛЕНОВА ЙОВЕВА",
+      "type": "person",
+      "label": "Десислава Миленова Йовева"
+    },
+    {
+      "id": "person:МАРИНЕЛА ТОДОРОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Маринела Тодорова Кирилова"
+    },
+    {
+      "id": "person:ДЕЯН БОРИСЛАВОВ ДЯНКОВ",
+      "type": "person",
+      "label": "Деян Бориславов Дянков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ralitsa-veselinova-tsocheva-26055c",
+      "target": "company:tr:000283559",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ ВЕЛЕВА БОТЕВА",
+      "target": "company:tr:000283559",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСКРА ИВАНОВА НАЙДЕНОВА",
+      "target": "company:tr:000283559",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА НЕШЕВА ХРИСТОВА",
+      "target": "company:tr:000283559",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ЙОРДАНОВ ДАКОВ",
+      "target": "company:tr:000283559",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА МИЛЕНОВА ЙОВЕВА",
+      "target": "company:tr:000283559",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА ТОДОРОВА КИРИЛОВА",
+      "target": "company:tr:000283559",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН БОРИСЛАВОВ ДЯНКОВ",
+      "target": "company:tr:000283559",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

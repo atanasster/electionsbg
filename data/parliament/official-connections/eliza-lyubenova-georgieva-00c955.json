@@ -1,1 +1,272 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:eliza-lyubenova-georgieva-00c955","nodes":[{"id":"official:eliza-lyubenova-georgieva-00c955","type":"official","slug":"eliza-lyubenova-georgieva-00c955","label":"Елиза Любенова Георгиева","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:202421733","type":"company","label":"Радун ООД","slug":null,"uic":"202421733","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203155207","type":"company","label":"СТМ Свети Панталеймон ООД","slug":null,"uic":"203155207","legalForm":null,"status":null,"seat":null},{"id":"company:tr:176542129","type":"company","label":"Национално сдружение на частните болници","slug":null,"uic":"176542129","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:164","type":"mp","mpId":164,"label":"Атанас Димитров Щерев","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"person:ВЕНЕЛИНА ФИЛИПОВА АТАНАСОВА","type":"person","label":"Венелина Филипова Атанасова"},{"id":"person:ВЕСЕЛИН ТОДОРОВ ДАСКАЛОВ","type":"person","label":"Веселин Тодоров Даскалов"},{"id":"person:АЛЕКСАНДЪР АНГЕЛОВ АНГЕЛОВ","type":"person","label":"Александър Ангелов Ангелов"},{"id":"person:ИВА БРАНИМИРОВА ПЕХЛИВАНСКА","type":"person","label":"Ива Бранимирова Пехливанска"},{"id":"person:ЕНИ МИЛЧОВ ЛЕФТЕРОВ","type":"person","label":"Ени Милчов Лефтеров"},{"id":"person:КРАСИМИР ДИМИТРОВ ГРУДЕВ","type":"person","label":"Красимир Димитров Грудев"},{"id":"person:ДИНКО МЛАДЕНОВ ГОСПОДИНОВ","type":"person","label":"Динко Младенов Господинов"},{"id":"person:МЕТОДИ ВАНГЕЛОВ ЯНКОВ","type":"person","label":"Методи Вангелов Янков"},{"id":"person:ЙОРДАН ИВАНОВ СТАЙКОВ","type":"person","label":"Йордан Иванов Стайков"},{"id":"person:ЦВЕТАН ДИМОВ ДИМАНОВ","type":"person","label":"Цветан Димов Диманов"},{"id":"person:ЛАЛКА ИЛИЕВА КОЕВА","type":"person","label":"Лалка Илиева Коева"},{"id":"person:МАРИЯ МЕТОДИЕВА ЯНКОВА","type":"person","label":"Мария Методиева Янкова"},{"id":"person:КОСТАДИН КРУМОВ КОСТАДИНОВ","type":"person","label":"Костадин Крумов Костадинов"},{"id":"person:ВЕРГИНИЯ ДАНЧОВА ЦАНОВА - ИВАНОВА","type":"person","label":"Вергиния Данчова Цанова - Иванова"}],"edges":[{"source":"official:eliza-lyubenova-georgieva-00c955","target":"company:tr:202421733","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:eliza-lyubenova-georgieva-00c955","target":"company:tr:203155207","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:eliza-lyubenova-georgieva-00c955","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:164","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕНЕЛИНА ФИЛИПОВА АТАНАСОВА","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ТОДОРОВ ДАСКАЛОВ","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР АНГЕЛОВ АНГЕЛОВ","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВА БРАНИМИРОВА ПЕХЛИВАНСКА","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕНИ МИЛЧОВ ЛЕФТЕРОВ","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ ГРУДЕВ","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИНКО МЛАДЕНОВ ГОСПОДИНОВ","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МЕТОДИ ВАНГЕЛОВ ЯНКОВ","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ИВАНОВ СТАЙКОВ","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ДИМОВ ДИМАНОВ","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЛКА ИЛИЕВА КОЕВА","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ МЕТОДИЕВА ЯНКОВА","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН КРУМОВ КОСТАДИНОВ","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРГИНИЯ ДАНЧОВА ЦАНОВА - ИВАНОВА","target":"company:tr:176542129","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:eliza-lyubenova-georgieva-00c955",
+  "nodes": [
+    {
+      "id": "official:eliza-lyubenova-georgieva-00c955",
+      "type": "official",
+      "slug": "eliza-lyubenova-georgieva-00c955",
+      "label": "Елиза Любенова Георгиева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202421733",
+      "type": "company",
+      "label": "Радун ООД",
+      "slug": null,
+      "uic": "202421733",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203155207",
+      "type": "company",
+      "label": "СТМ Свети Панталеймон ООД",
+      "slug": null,
+      "uic": "203155207",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:176542129",
+      "type": "company",
+      "label": "Национално сдружение на частните болници",
+      "slug": null,
+      "uic": "176542129",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:164",
+      "type": "mp",
+      "mpId": 164,
+      "label": "Атанас Димитров Щерев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "person:ВЕНЕЛИНА ФИЛИПОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Венелина Филипова Атанасова"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ТОДОРОВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Веселин Тодоров Даскалов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР АНГЕЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Александър Ангелов Ангелов"
+    },
+    {
+      "id": "person:ИВА БРАНИМИРОВА ПЕХЛИВАНСКА",
+      "type": "person",
+      "label": "Ива Бранимирова Пехливанска"
+    },
+    {
+      "id": "person:ЕНИ МИЛЧОВ ЛЕФТЕРОВ",
+      "type": "person",
+      "label": "Ени Милчов Лефтеров"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ ГРУДЕВ",
+      "type": "person",
+      "label": "Красимир Димитров Грудев"
+    },
+    {
+      "id": "person:ДИНКО МЛАДЕНОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Динко Младенов Господинов"
+    },
+    {
+      "id": "person:МЕТОДИ ВАНГЕЛОВ ЯНКОВ",
+      "type": "person",
+      "label": "Методи Вангелов Янков"
+    },
+    {
+      "id": "person:ЙОРДАН ИВАНОВ СТАЙКОВ",
+      "type": "person",
+      "label": "Йордан Иванов Стайков"
+    },
+    {
+      "id": "person:ЦВЕТАН ДИМОВ ДИМАНОВ",
+      "type": "person",
+      "label": "Цветан Димов Диманов"
+    },
+    {
+      "id": "person:ЛАЛКА ИЛИЕВА КОЕВА",
+      "type": "person",
+      "label": "Лалка Илиева Коева"
+    },
+    {
+      "id": "person:МАРИЯ МЕТОДИЕВА ЯНКОВА",
+      "type": "person",
+      "label": "Мария Методиева Янкова"
+    },
+    {
+      "id": "person:КОСТАДИН КРУМОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Костадин Крумов Костадинов"
+    },
+    {
+      "id": "person:ВЕРГИНИЯ ДАНЧОВА ЦАНОВА - ИВАНОВА",
+      "type": "person",
+      "label": "Вергиния Данчова Цанова - Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:eliza-lyubenova-georgieva-00c955",
+      "target": "company:tr:202421733",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:eliza-lyubenova-georgieva-00c955",
+      "target": "company:tr:203155207",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:eliza-lyubenova-georgieva-00c955",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:164",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕНЕЛИНА ФИЛИПОВА АТАНАСОВА",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ТОДОРОВ ДАСКАЛОВ",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АНГЕЛОВ АНГЕЛОВ",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА БРАНИМИРОВА ПЕХЛИВАНСКА",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНИ МИЛЧОВ ЛЕФТЕРОВ",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ГРУДЕВ",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО МЛАДЕНОВ ГОСПОДИНОВ",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ ВАНГЕЛОВ ЯНКОВ",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНОВ СТАЙКОВ",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ДИМОВ ДИМАНОВ",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЛКА ИЛИЕВА КОЕВА",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МЕТОДИЕВА ЯНКОВА",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН КРУМОВ КОСТАДИНОВ",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРГИНИЯ ДАНЧОВА ЦАНОВА - ИВАНОВА",
+      "target": "company:tr:176542129",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

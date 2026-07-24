@@ -1,1 +1,173 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:detelin-marinov-lungolov-bff666","nodes":[{"id":"official:detelin-marinov-lungolov-bff666","type":"official","slug":"detelin-marinov-lungolov-bff666","label":"Детелин Маринов Лунголов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:114607822","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ Н. Й. ВАПЦАРОВ","slug":null,"uic":"114607822","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТЬО ВЕНЕЛИНОВ ГЕЦОВ","type":"person","label":"Петьо Венелинов Гецов"},{"id":"person:НЕЛИ КАМЕНОВА ПЕТРОВА","type":"person","label":"Нели Каменова Петрова"},{"id":"person:МИЛЕНА ИЛИЕВА ДОЧКОВА","type":"person","label":"Милена Илиева Дочкова"},{"id":"person:ЕЛИХА АЛИ ЮСМЕН","type":"person","label":"Елиха Али Юсмен"},{"id":"person:ВЕСЕЛКА ВЕЛИЧКОВА ПАНОВА","type":"person","label":"Веселка Величкова Панова"},{"id":"person:ЕЛЕНА ИВАНОВА ТОДОРОВА","type":"person","label":"Елена Иванова Тодорова"},{"id":"person:ВЕСЕЛКА ЦВЕТАНОВА ВЪЛЧЕВА","type":"person","label":"Веселка Цветанова Вълчева"},{"id":"person:ДИМИТЪР МАНОЛОВ БЪЧВАРОВ","type":"person","label":"Димитър Манолов Бъчваров"},{"id":"person:БИСЕРКА ДИМИТРОВА ПЕТКОВА","type":"person","label":"Бисерка Димитрова Петкова"},{"id":"person:СТЕФАН АНГЕЛОВ ИВАНОВ","type":"person","label":"Стефан Ангелов Иванов"}],"edges":[{"source":"official:detelin-marinov-lungolov-bff666","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЬО ВЕНЕЛИНОВ ГЕЦОВ","target":"company:tr:114607822","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЬО ВЕНЕЛИНОВ ГЕЦОВ","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ КАМЕНОВА ПЕТРОВА","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ИЛИЕВА ДОЧКОВА","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИХА АЛИ ЮСМЕН","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА ВЕЛИЧКОВА ПАНОВА","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ИВАНОВА ТОДОРОВА","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА ЦВЕТАНОВА ВЪЛЧЕВА","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР МАНОЛОВ БЪЧВАРОВ","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БИСЕРКА ДИМИТРОВА ПЕТКОВА","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АНГЕЛОВ ИВАНОВ","target":"company:tr:114607822","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:detelin-marinov-lungolov-bff666",
+  "nodes": [
+    {
+      "id": "official:detelin-marinov-lungolov-bff666",
+      "type": "official",
+      "slug": "detelin-marinov-lungolov-bff666",
+      "label": "Детелин Маринов Лунголов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114607822",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ Н. Й. ВАПЦАРОВ",
+      "slug": null,
+      "uic": "114607822",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЬО ВЕНЕЛИНОВ ГЕЦОВ",
+      "type": "person",
+      "label": "Петьо Венелинов Гецов"
+    },
+    {
+      "id": "person:НЕЛИ КАМЕНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Нели Каменова Петрова"
+    },
+    {
+      "id": "person:МИЛЕНА ИЛИЕВА ДОЧКОВА",
+      "type": "person",
+      "label": "Милена Илиева Дочкова"
+    },
+    {
+      "id": "person:ЕЛИХА АЛИ ЮСМЕН",
+      "type": "person",
+      "label": "Елиха Али Юсмен"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ВЕЛИЧКОВА ПАНОВА",
+      "type": "person",
+      "label": "Веселка Величкова Панова"
+    },
+    {
+      "id": "person:ЕЛЕНА ИВАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Елена Иванова Тодорова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ЦВЕТАНОВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Веселка Цветанова Вълчева"
+    },
+    {
+      "id": "person:ДИМИТЪР МАНОЛОВ БЪЧВАРОВ",
+      "type": "person",
+      "label": "Димитър Манолов Бъчваров"
+    },
+    {
+      "id": "person:БИСЕРКА ДИМИТРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Бисерка Димитрова Петкова"
+    },
+    {
+      "id": "person:СТЕФАН АНГЕЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Стефан Ангелов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:detelin-marinov-lungolov-bff666",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЬО ВЕНЕЛИНОВ ГЕЦОВ",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО ВЕНЕЛИНОВ ГЕЦОВ",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ КАМЕНОВА ПЕТРОВА",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ИЛИЕВА ДОЧКОВА",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИХА АЛИ ЮСМЕН",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ВЕЛИЧКОВА ПАНОВА",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ЦВЕТАНОВА ВЪЛЧЕВА",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР МАНОЛОВ БЪЧВАРОВ",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕРКА ДИМИТРОВА ПЕТКОВА",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНГЕЛОВ ИВАНОВ",
+      "target": "company:tr:114607822",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

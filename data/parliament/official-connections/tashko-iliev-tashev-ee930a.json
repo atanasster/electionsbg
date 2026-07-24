@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tashko-iliev-tashev-ee930a","nodes":[{"id":"official:tashko-iliev-tashev-ee930a","type":"official","slug":"tashko-iliev-tashev-ee930a","label":"Ташко Илиев Ташев","tier":"municipal","role":"council_chair","municipality":"Трекляно"},{"id":"company:tr:206039873","type":"company","label":"Евро Инженеринг Консулт 55","slug":null,"uic":"206039873","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:tashko-iliev-tashev-ee930a","target":"company:tr:206039873","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tashko-iliev-tashev-ee930a",
+  "nodes": [
+    {
+      "id": "official:tashko-iliev-tashev-ee930a",
+      "type": "official",
+      "slug": "tashko-iliev-tashev-ee930a",
+      "label": "Ташко Илиев Ташев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Трекляно"
+    },
+    {
+      "id": "company:tr:206039873",
+      "type": "company",
+      "label": "Евро Инженеринг Консулт 55",
+      "slug": null,
+      "uic": "206039873",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tashko-iliev-tashev-ee930a",
+      "target": "company:tr:206039873",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

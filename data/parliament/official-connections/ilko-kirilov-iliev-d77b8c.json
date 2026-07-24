@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ilko-kirilov-iliev-d77b8c","nodes":[{"id":"official:ilko-kirilov-iliev-d77b8c","type":"official","slug":"ilko-kirilov-iliev-d77b8c","label":"Илко Кирилов Илиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:815123415","type":"company","label":"ВОДОСНАБДЯВАНЕ  и  КАНАЛИЗАЦИЯ -  ВИДИН","slug":null,"uic":"815123415","legalForm":null,"status":null,"seat":null},{"id":"person:СТОЯН ВЕЛКОВ СТОЯНОВ","type":"person","label":"Стоян Велков Стоянов"}],"edges":[{"source":"official:ilko-kirilov-iliev-d77b8c","target":"company:tr:815123415","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯН ВЕЛКОВ СТОЯНОВ","target":"company:tr:815123415","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ilko-kirilov-iliev-d77b8c",
+  "nodes": [
+    {
+      "id": "official:ilko-kirilov-iliev-d77b8c",
+      "type": "official",
+      "slug": "ilko-kirilov-iliev-d77b8c",
+      "label": "Илко Кирилов Илиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:815123415",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ  и  КАНАЛИЗАЦИЯ -  ВИДИН",
+      "slug": null,
+      "uic": "815123415",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН ВЕЛКОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Велков Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilko-kirilov-iliev-d77b8c",
+      "target": "company:tr:815123415",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ВЕЛКОВ СТОЯНОВ",
+      "target": "company:tr:815123415",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

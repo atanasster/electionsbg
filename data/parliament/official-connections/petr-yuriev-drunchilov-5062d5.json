@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:petr-yuriev-drunchilov-5062d5","nodes":[{"id":"official:petr-yuriev-drunchilov-5062d5","type":"official","slug":"petr-yuriev-drunchilov-5062d5","label":"Петър Юриев Друнчилов","tier":"municipal","role":"councillor","municipality":"Банско"},{"id":"company:tr:101543719","type":"company","label":"ДИМИТЪР БЛАГОЕВ 1925","slug":null,"uic":"101543719","legalForm":null,"status":null,"seat":null},{"id":"person:ПОЛИНА ЗДРАВЧОВА ГАЛЧЕВА-ШОПОВА","type":"person","label":"Полина Здравчова Галчева-Шопова"},{"id":"person:МАРИЯ ИЛИАНОВА САКАРЕВА","type":"person","label":"Мария Илианова Сакарева"},{"id":"person:ЗОРНИЦА ЙОРДАНОВА ГАЛЧЕВА","type":"person","label":"Зорница Йорданова Галчева"},{"id":"person:КОСТАДИНКА БОРИСОВА СТАМБЕРОВА","type":"person","label":"Костадинка Борисова Стамберова"},{"id":"person:ИВАН КОСТАДИНОВ ЧАКЪРОВ","type":"person","label":"Иван Костадинов Чакъров"},{"id":"person:КОСТАДИНКА ДИМИТРОВА САКАРЕВА","type":"person","label":"Костадинка Димитрова Сакарева"},{"id":"person:ПЕТЪР СЛАВЧОВ САКАРЕВ","type":"person","label":"Петър Славчов Сакарев"}],"edges":[{"source":"official:petr-yuriev-drunchilov-5062d5","target":"company:tr:101543719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ПОЛИНА ЗДРАВЧОВА ГАЛЧЕВА-ШОПОВА","target":"company:tr:101543719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИЛИАНОВА САКАРЕВА","target":"company:tr:101543719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗОРНИЦА ЙОРДАНОВА ГАЛЧЕВА","target":"company:tr:101543719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИНКА БОРИСОВА СТАМБЕРОВА","target":"company:tr:101543719","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КОСТАДИНОВ ЧАКЪРОВ","target":"company:tr:101543719","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИНКА ДИМИТРОВА САКАРЕВА","target":"company:tr:101543719","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР СЛАВЧОВ САКАРЕВ","target":"company:tr:101543719","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:petr-yuriev-drunchilov-5062d5",
+  "nodes": [
+    {
+      "id": "official:petr-yuriev-drunchilov-5062d5",
+      "type": "official",
+      "slug": "petr-yuriev-drunchilov-5062d5",
+      "label": "Петър Юриев Друнчилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Банско"
+    },
+    {
+      "id": "company:tr:101543719",
+      "type": "company",
+      "label": "ДИМИТЪР БЛАГОЕВ 1925",
+      "slug": null,
+      "uic": "101543719",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПОЛИНА ЗДРАВЧОВА ГАЛЧЕВА-ШОПОВА",
+      "type": "person",
+      "label": "Полина Здравчова Галчева-Шопова"
+    },
+    {
+      "id": "person:МАРИЯ ИЛИАНОВА САКАРЕВА",
+      "type": "person",
+      "label": "Мария Илианова Сакарева"
+    },
+    {
+      "id": "person:ЗОРНИЦА ЙОРДАНОВА ГАЛЧЕВА",
+      "type": "person",
+      "label": "Зорница Йорданова Галчева"
+    },
+    {
+      "id": "person:КОСТАДИНКА БОРИСОВА СТАМБЕРОВА",
+      "type": "person",
+      "label": "Костадинка Борисова Стамберова"
+    },
+    {
+      "id": "person:ИВАН КОСТАДИНОВ ЧАКЪРОВ",
+      "type": "person",
+      "label": "Иван Костадинов Чакъров"
+    },
+    {
+      "id": "person:КОСТАДИНКА ДИМИТРОВА САКАРЕВА",
+      "type": "person",
+      "label": "Костадинка Димитрова Сакарева"
+    },
+    {
+      "id": "person:ПЕТЪР СЛАВЧОВ САКАРЕВ",
+      "type": "person",
+      "label": "Петър Славчов Сакарев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-yuriev-drunchilov-5062d5",
+      "target": "company:tr:101543719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПОЛИНА ЗДРАВЧОВА ГАЛЧЕВА-ШОПОВА",
+      "target": "company:tr:101543719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИЛИАНОВА САКАРЕВА",
+      "target": "company:tr:101543719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРНИЦА ЙОРДАНОВА ГАЛЧЕВА",
+      "target": "company:tr:101543719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИНКА БОРИСОВА СТАМБЕРОВА",
+      "target": "company:tr:101543719",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КОСТАДИНОВ ЧАКЪРОВ",
+      "target": "company:tr:101543719",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИНКА ДИМИТРОВА САКАРЕВА",
+      "target": "company:tr:101543719",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СЛАВЧОВ САКАРЕВ",
+      "target": "company:tr:101543719",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

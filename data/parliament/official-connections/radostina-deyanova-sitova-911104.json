@@ -1,1 +1,439 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:radostina-deyanova-sitova-911104","nodes":[{"id":"official:radostina-deyanova-sitova-911104","type":"official","slug":"radostina-deyanova-sitova-911104","label":"Радостина Деянова Ситова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:121706255","type":"company","label":"НАЦИОНАЛНА КОМПАНИЯ ИНДУСТРИАЛНИ ЗОНИ","slug":null,"uic":"121706255","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:3167","type":"mp","mpId":3167,"label":"Илия Димитров Лазаров","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"official:angel-ventsislavov-tanev-2912bf","type":"official","slug":"angel-ventsislavov-tanev-2912bf","label":"Ангел Венциславов Танев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:andreana-krasimirova-premyanova-yankova-22d57f","type":"official","slug":"andreana-krasimirova-premyanova-yankova-22d57f","label":"Андреана Красимирова Премянова-Янкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:docho-minev-karadochev-74378a","type":"official","slug":"docho-minev-karadochev-74378a","label":"Дочо Минев Карадочев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:konstantin-chavdarov-palaveev-431122","type":"official","slug":"konstantin-chavdarov-palaveev-431122","label":"Константин Чавдаров Палавеев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:ognyana-ilieva-iorgova-8a3b82","type":"official","slug":"ognyana-ilieva-iorgova-8a3b82","label":"Огняна Илиева Йоргова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ЦВЕТАН ПЕТРОВ ЦИРКОВ","type":"person","label":"Цветан Петров Цирков"},{"id":"person:ДОБРИНКА ДИМИТРОВА ВИЧЕВА","type":"person","label":"Добринка Димитрова Вичева"},{"id":"person:НИКОЛАЙ НЕДЯЛКОВ РАЙЧЕВ","type":"person","label":"Николай Недялков Райчев"},{"id":"person:АНТОАНЕТА ПЕТРОВА ИВАНОВА - БАРЕС","type":"person","label":"Антоанета Петрова Иванова - Барес"},{"id":"person:НИНА СТЕФАНОВА ВЛАДИМИРОВА","type":"person","label":"Нина Стефанова Владимирова"},{"id":"person:ПЕТКО ГЕОРГИЕВ НИКОЛОВ","type":"person","label":"Петко Георгиев Николов"},{"id":"person:ЦВЕТЕЛИНА ГЕОРГИЕВА ЧОБАНОВА-СТЕФАНОВА","type":"person","label":"Цветелина Георгиева Чобанова-Стефанова"},{"id":"person:ТАТЯНА ЙОРДАНОВА ЕДРЕВА","type":"person","label":"Татяна Йорданова Едрева"},{"id":"person:МИНИСТЕРСТВО НА ИКОНОМИКАТА И ИНДУСТРИЯТА","type":"person","label":"Министерство На Икономиката И Индустрията"},{"id":"person:ДАНИЕЛА ВЪЛЧЕВА УЗУНОВА","type":"person","label":"Даниела Вълчева Узунова"},{"id":"person:МЛАДЕНКА БОЙКОВА МАНГЕЗОВА","type":"person","label":"Младенка Бойкова Мангезова"},{"id":"person:МЛАДЕНКА БОЙКОВА МАНГЕЗОВА - НЕЗАВИСИМ ЧЛЕН","type":"person","label":"Младенка Бойкова Мангезова - Независим Член"},{"id":"person:ОГНЯНА ИЛИЕВА ЙОРГОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","type":"person","label":"Огняна Илиева Йоргова - Представител На Държавата"},{"id":"person:ЯНА ГЕОРГИЕВА МЛАДЕНОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","type":"person","label":"Яна Георгиева Младенова - Представител На Държавата"},{"id":"person:РАДОСТ ИВАНОВА ВЪЛЧЕВА-ГЕНЧЕВА - НЕЗАВИСИМ ЧЛЕН","type":"person","label":"Радост Иванова Вълчева-Генчева - Независим Член"},{"id":"person:АНГЕЛ ВЕНЦИСЛАВОВ ТАНЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","type":"person","label":"Ангел Венциславов Танев - Представител На Държавата"},{"id":"person:РАДОСЛАВ ЙОНЧЕВ ВЛАХОВ- ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","type":"person","label":"Радослав Йончев Влахов- Представител На Държавата"},{"id":"person:НЕДЕЛИН ПЕТЕВ КОЛЕОЛОВ - НЕЗАВИСИМ ЧЛЕН","type":"person","label":"Неделин Петев Колеолов - Независим Член"},{"id":"person:ЕМИЛИЯ НИКОЛОВА ТОДОРОВА","type":"person","label":"Емилия Николова Тодорова"},{"id":"person:ЕМИЛИЯ НИКОЛОВА ТОДОРОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","type":"person","label":"Емилия Николова Тодорова - Представител На Държавата"},{"id":"person:РАДОСТИНА ДЕЯНОВА СИТОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","type":"person","label":"Радостина Деянова Ситова - Представител На Държавата"},{"id":"person:АНДРЕАНА КРАСИМИРОВА ПРЕМЯНОВА-ЯНКОВА - НЕЗАВИСИМ ЧЛЕН","type":"person","label":"Андреана Красимирова Премянова-Янкова - Независим Член"}],"edges":[{"source":"official:radostina-deyanova-sitova-911104","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:3167","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:angel-ventsislavov-tanev-2912bf","target":"company:tr:121706255","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:andreana-krasimirova-premyanova-yankova-22d57f","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:docho-minev-karadochev-74378a","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:konstantin-chavdarov-palaveev-431122","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:ognyana-ilieva-iorgova-8a3b82","target":"company:tr:121706255","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТАН ПЕТРОВ ЦИРКОВ","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИНКА ДИМИТРОВА ВИЧЕВА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ НЕДЯЛКОВ РАЙЧЕВ","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАНЕТА ПЕТРОВА ИВАНОВА - БАРЕС","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИНА СТЕФАНОВА ВЛАДИМИРОВА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ГЕОРГИЕВ НИКОЛОВ","target":"company:tr:121706255","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА ГЕОРГИЕВА ЧОБАНОВА-СТЕФАНОВА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА ЙОРДАНОВА ЕДРЕВА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ГЕОРГИЕВ НИКОЛОВ","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИНИСТЕРСТВО НА ИКОНОМИКАТА И ИНДУСТРИЯТА","target":"company:tr:121706255","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАНЕТА ПЕТРОВА ИВАНОВА - БАРЕС","target":"company:tr:121706255","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ВЪЛЧЕВА УЗУНОВА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МЛАДЕНКА БОЙКОВА МАНГЕЗОВА","target":"company:tr:121706255","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МЛАДЕНКА БОЙКОВА МАНГЕЗОВА - НЕЗАВИСИМ ЧЛЕН","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯНА ИЛИЕВА ЙОРГОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ГЕОРГИЕВА МЛАДЕНОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТ ИВАНОВА ВЪЛЧЕВА-ГЕНЧЕВА - НЕЗАВИСИМ ЧЛЕН","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ВЕНЦИСЛАВОВ ТАНЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ЙОНЧЕВ ВЛАХОВ- ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЕЛИН ПЕТЕВ КОЛЕОЛОВ - НЕЗАВИСИМ ЧЛЕН","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ НИКОЛОВА ТОДОРОВА","target":"company:tr:121706255","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ НИКОЛОВА ТОДОРОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА ДЕЯНОВА СИТОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕАНА КРАСИМИРОВА ПРЕМЯНОВА-ЯНКОВА - НЕЗАВИСИМ ЧЛЕН","target":"company:tr:121706255","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:radostina-deyanova-sitova-911104",
+  "nodes": [
+    {
+      "id": "official:radostina-deyanova-sitova-911104",
+      "type": "official",
+      "slug": "radostina-deyanova-sitova-911104",
+      "label": "Радостина Деянова Ситова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121706255",
+      "type": "company",
+      "label": "НАЦИОНАЛНА КОМПАНИЯ ИНДУСТРИАЛНИ ЗОНИ",
+      "slug": null,
+      "uic": "121706255",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:3167",
+      "type": "mp",
+      "mpId": 3167,
+      "label": "Илия Димитров Лазаров",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:angel-ventsislavov-tanev-2912bf",
+      "type": "official",
+      "slug": "angel-ventsislavov-tanev-2912bf",
+      "label": "Ангел Венциславов Танев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:andreana-krasimirova-premyanova-yankova-22d57f",
+      "type": "official",
+      "slug": "andreana-krasimirova-premyanova-yankova-22d57f",
+      "label": "Андреана Красимирова Премянова-Янкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:docho-minev-karadochev-74378a",
+      "type": "official",
+      "slug": "docho-minev-karadochev-74378a",
+      "label": "Дочо Минев Карадочев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:konstantin-chavdarov-palaveev-431122",
+      "type": "official",
+      "slug": "konstantin-chavdarov-palaveev-431122",
+      "label": "Константин Чавдаров Палавеев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ognyana-ilieva-iorgova-8a3b82",
+      "type": "official",
+      "slug": "ognyana-ilieva-iorgova-8a3b82",
+      "label": "Огняна Илиева Йоргова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЦВЕТАН ПЕТРОВ ЦИРКОВ",
+      "type": "person",
+      "label": "Цветан Петров Цирков"
+    },
+    {
+      "id": "person:ДОБРИНКА ДИМИТРОВА ВИЧЕВА",
+      "type": "person",
+      "label": "Добринка Димитрова Вичева"
+    },
+    {
+      "id": "person:НИКОЛАЙ НЕДЯЛКОВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Николай Недялков Райчев"
+    },
+    {
+      "id": "person:АНТОАНЕТА ПЕТРОВА ИВАНОВА - БАРЕС",
+      "type": "person",
+      "label": "Антоанета Петрова Иванова - Барес"
+    },
+    {
+      "id": "person:НИНА СТЕФАНОВА ВЛАДИМИРОВА",
+      "type": "person",
+      "label": "Нина Стефанова Владимирова"
+    },
+    {
+      "id": "person:ПЕТКО ГЕОРГИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Петко Георгиев Николов"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ГЕОРГИЕВА ЧОБАНОВА-СТЕФАНОВА",
+      "type": "person",
+      "label": "Цветелина Георгиева Чобанова-Стефанова"
+    },
+    {
+      "id": "person:ТАТЯНА ЙОРДАНОВА ЕДРЕВА",
+      "type": "person",
+      "label": "Татяна Йорданова Едрева"
+    },
+    {
+      "id": "person:МИНИСТЕРСТВО НА ИКОНОМИКАТА И ИНДУСТРИЯТА",
+      "type": "person",
+      "label": "Министерство На Икономиката И Индустрията"
+    },
+    {
+      "id": "person:ДАНИЕЛА ВЪЛЧЕВА УЗУНОВА",
+      "type": "person",
+      "label": "Даниела Вълчева Узунова"
+    },
+    {
+      "id": "person:МЛАДЕНКА БОЙКОВА МАНГЕЗОВА",
+      "type": "person",
+      "label": "Младенка Бойкова Мангезова"
+    },
+    {
+      "id": "person:МЛАДЕНКА БОЙКОВА МАНГЕЗОВА - НЕЗАВИСИМ ЧЛЕН",
+      "type": "person",
+      "label": "Младенка Бойкова Мангезова - Независим Член"
+    },
+    {
+      "id": "person:ОГНЯНА ИЛИЕВА ЙОРГОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Огняна Илиева Йоргова - Представител На Държавата"
+    },
+    {
+      "id": "person:ЯНА ГЕОРГИЕВА МЛАДЕНОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Яна Георгиева Младенова - Представител На Държавата"
+    },
+    {
+      "id": "person:РАДОСТ ИВАНОВА ВЪЛЧЕВА-ГЕНЧЕВА - НЕЗАВИСИМ ЧЛЕН",
+      "type": "person",
+      "label": "Радост Иванова Вълчева-Генчева - Независим Член"
+    },
+    {
+      "id": "person:АНГЕЛ ВЕНЦИСЛАВОВ ТАНЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Ангел Венциславов Танев - Представител На Държавата"
+    },
+    {
+      "id": "person:РАДОСЛАВ ЙОНЧЕВ ВЛАХОВ- ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Радослав Йончев Влахов- Представител На Държавата"
+    },
+    {
+      "id": "person:НЕДЕЛИН ПЕТЕВ КОЛЕОЛОВ - НЕЗАВИСИМ ЧЛЕН",
+      "type": "person",
+      "label": "Неделин Петев Колеолов - Независим Член"
+    },
+    {
+      "id": "person:ЕМИЛИЯ НИКОЛОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Емилия Николова Тодорова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ НИКОЛОВА ТОДОРОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Емилия Николова Тодорова - Представител На Държавата"
+    },
+    {
+      "id": "person:РАДОСТИНА ДЕЯНОВА СИТОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Радостина Деянова Ситова - Представител На Държавата"
+    },
+    {
+      "id": "person:АНДРЕАНА КРАСИМИРОВА ПРЕМЯНОВА-ЯНКОВА - НЕЗАВИСИМ ЧЛЕН",
+      "type": "person",
+      "label": "Андреана Красимирова Премянова-Янкова - Независим Член"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radostina-deyanova-sitova-911104",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3167",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-ventsislavov-tanev-2912bf",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:andreana-krasimirova-premyanova-yankova-22d57f",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:docho-minev-karadochev-74378a",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:konstantin-chavdarov-palaveev-431122",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ognyana-ilieva-iorgova-8a3b82",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАН ПЕТРОВ ЦИРКОВ",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА ДИМИТРОВА ВИЧЕВА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ НЕДЯЛКОВ РАЙЧЕВ",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ПЕТРОВА ИВАНОВА - БАРЕС",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА СТЕФАНОВА ВЛАДИМИРОВА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ГЕОРГИЕВА ЧОБАНОВА-СТЕФАНОВА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ЙОРДАНОВА ЕДРЕВА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНИСТЕРСТВО НА ИКОНОМИКАТА И ИНДУСТРИЯТА",
+      "target": "company:tr:121706255",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ПЕТРОВА ИВАНОВА - БАРЕС",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ВЪЛЧЕВА УЗУНОВА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕНКА БОЙКОВА МАНГЕЗОВА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕНКА БОЙКОВА МАНГЕЗОВА - НЕЗАВИСИМ ЧЛЕН",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯНА ИЛИЕВА ЙОРГОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ГЕОРГИЕВА МЛАДЕНОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТ ИВАНОВА ВЪЛЧЕВА-ГЕНЧЕВА - НЕЗАВИСИМ ЧЛЕН",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ВЕНЦИСЛАВОВ ТАНЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ЙОНЧЕВ ВЛАХОВ- ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛИН ПЕТЕВ КОЛЕОЛОВ - НЕЗАВИСИМ ЧЛЕН",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ НИКОЛОВА ТОДОРОВА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ НИКОЛОВА ТОДОРОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ДЕЯНОВА СИТОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕАНА КРАСИМИРОВА ПРЕМЯНОВА-ЯНКОВА - НЕЗАВИСИМ ЧЛЕН",
+      "target": "company:tr:121706255",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

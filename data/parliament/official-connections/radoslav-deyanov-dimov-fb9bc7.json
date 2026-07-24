@@ -1,1 +1,125 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:radoslav-deyanov-dimov-fb9bc7","nodes":[{"id":"official:radoslav-deyanov-dimov-fb9bc7","type":"official","slug":"radoslav-deyanov-dimov-fb9bc7","label":"Радослав Деянов Димов","tier":"municipal","role":"councillor","municipality":"Велинград"},{"id":"company:tr:206945651","type":"company","label":"Асоциация на преработвателите и обработватели на дървесина в България","slug":null,"uic":"206945651","legalForm":null,"status":null,"seat":null},{"id":"official:zhivko-draganov-zhelev-dbcb6b","type":"official","slug":"zhivko-draganov-zhelev-dbcb6b","label":"Живко Драганов Желев","tier":"municipal","role":"councillor","municipality":"Сливо поле"},{"id":"person:КЕМАЛ МУСТАФОВ ТИНЕВ","type":"person","label":"Кемал Мустафов Тинев"},{"id":"person:ВАЛЕРИ ЕЛИНОВ РАДЕВ","type":"person","label":"Валери Елинов Радев"},{"id":"person:АНТОН ЕНЧЕВ ВЕЧЕРНИКОВ","type":"person","label":"Антон Енчев Вечерников"},{"id":"person:АХМЕД СЮЛЕЙМАН МЕРДЖАН","type":"person","label":"Ахмед Сюлейман Мерджан"},{"id":"person:СТЕФАН ГЕОРГИЕВ БАШАЛОВ","type":"person","label":"Стефан Георгиев Башалов"}],"edges":[{"source":"official:radoslav-deyanov-dimov-fb9bc7","target":"company:tr:206945651","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:zhivko-draganov-zhelev-dbcb6b","target":"company:tr:206945651","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:КЕМАЛ МУСТАФОВ ТИНЕВ","target":"company:tr:206945651","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КЕМАЛ МУСТАФОВ ТИНЕВ","target":"company:tr:206945651","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ ЕЛИНОВ РАДЕВ","target":"company:tr:206945651","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ЕНЧЕВ ВЕЧЕРНИКОВ","target":"company:tr:206945651","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АХМЕД СЮЛЕЙМАН МЕРДЖАН","target":"company:tr:206945651","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ГЕОРГИЕВ БАШАЛОВ","target":"company:tr:206945651","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:radoslav-deyanov-dimov-fb9bc7",
+  "nodes": [
+    {
+      "id": "official:radoslav-deyanov-dimov-fb9bc7",
+      "type": "official",
+      "slug": "radoslav-deyanov-dimov-fb9bc7",
+      "label": "Радослав Деянов Димов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велинград"
+    },
+    {
+      "id": "company:tr:206945651",
+      "type": "company",
+      "label": "Асоциация на преработвателите и обработватели на дървесина в България",
+      "slug": null,
+      "uic": "206945651",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:zhivko-draganov-zhelev-dbcb6b",
+      "type": "official",
+      "slug": "zhivko-draganov-zhelev-dbcb6b",
+      "label": "Живко Драганов Желев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливо поле"
+    },
+    {
+      "id": "person:КЕМАЛ МУСТАФОВ ТИНЕВ",
+      "type": "person",
+      "label": "Кемал Мустафов Тинев"
+    },
+    {
+      "id": "person:ВАЛЕРИ ЕЛИНОВ РАДЕВ",
+      "type": "person",
+      "label": "Валери Елинов Радев"
+    },
+    {
+      "id": "person:АНТОН ЕНЧЕВ ВЕЧЕРНИКОВ",
+      "type": "person",
+      "label": "Антон Енчев Вечерников"
+    },
+    {
+      "id": "person:АХМЕД СЮЛЕЙМАН МЕРДЖАН",
+      "type": "person",
+      "label": "Ахмед Сюлейман Мерджан"
+    },
+    {
+      "id": "person:СТЕФАН ГЕОРГИЕВ БАШАЛОВ",
+      "type": "person",
+      "label": "Стефан Георгиев Башалов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-deyanov-dimov-fb9bc7",
+      "target": "company:tr:206945651",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhivko-draganov-zhelev-dbcb6b",
+      "target": "company:tr:206945651",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КЕМАЛ МУСТАФОВ ТИНЕВ",
+      "target": "company:tr:206945651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕМАЛ МУСТАФОВ ТИНЕВ",
+      "target": "company:tr:206945651",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ЕЛИНОВ РАДЕВ",
+      "target": "company:tr:206945651",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ЕНЧЕВ ВЕЧЕРНИКОВ",
+      "target": "company:tr:206945651",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД СЮЛЕЙМАН МЕРДЖАН",
+      "target": "company:tr:206945651",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ГЕОРГИЕВ БАШАЛОВ",
+      "target": "company:tr:206945651",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

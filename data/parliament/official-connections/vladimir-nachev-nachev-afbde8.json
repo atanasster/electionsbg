@@ -1,1 +1,347 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-nachev-nachev-afbde8","nodes":[{"id":"official:vladimir-nachev-nachev-afbde8","type":"official","slug":"vladimir-nachev-nachev-afbde8","label":"Владимир Начев Начев","tier":"municipal","role":"councillor","municipality":"Генерал Тошево"},{"id":"company:tr:000842977","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТЛИНА-1941&quot;","slug":null,"uic":"000842977","legalForm":"CC","status":"active","seat":null},{"id":"mp:5099","type":"mp","mpId":5099,"label":"Румен Василев Мунтянов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"official:zhivka-ilieva-hristova-a3a689","type":"official","slug":"zhivka-ilieva-hristova-a3a689","label":"Живка Илиева Христова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:КЪНА МИНЧЕВА ДЯКОВА","type":"person","label":"Къна Минчева Дякова"},{"id":"person:РОСИЦА ДОНОВА ДИМИТРОВА","type":"person","label":"Росица Донова Димитрова"},{"id":"person:КАТЯ ВАСИЛЕВА НИКОЛОВА","type":"person","label":"Катя Василева Николова"},{"id":"person:СТЕФКА КОЛЕВА ГЕОРГИЕВА","type":"person","label":"Стефка Колева Георгиева"},{"id":"person:МАРГАРИТА ДИМИТРОВА ВЕЛИКОВА","type":"person","label":"Маргарита Димитрова Великова"},{"id":"person:КОСТА ИВАНОВ КОСТОВ","type":"person","label":"Коста Иванов Костов"},{"id":"person:ВЯРА ДЯНКОВА ВЛАДЕВА","type":"person","label":"Вяра Дянкова Владева"},{"id":"person:РОСЕН ДИМОВ ВЛАСЕВ","type":"person","label":"Росен Димов Власев"},{"id":"person:СВЕТОСЛАВА ГЕОРГИЕВА ГЕОРГИЕВА","type":"person","label":"Светослава Георгиева Георгиева"},{"id":"person:ГЮНЮЛ ФЕВЗИЕВА ФЕРАД","type":"person","label":"Гюнюл Февзиева Ферад"},{"id":"person:ГАЛИНА СТЕФАНОВА ДИМОВА","type":"person","label":"Галина Стефанова Димова"},{"id":"person:РОСИЦА ТОДОРОВА ВЕЛИКОВА","type":"person","label":"Росица Тодорова Великова"},{"id":"person:НИКОЛИНКА ИВАНОВА ГИЦОВА","type":"person","label":"Николинка Иванова Гицова"},{"id":"person:НЕЛИ ГОСПОДИНОВА НИКОЛОВА","type":"person","label":"Нели Господинова Николова"},{"id":"person:ГЕОРГИ НИКОЛАЕВ ТОДОРОВ","type":"person","label":"Георги Николаев Тодоров"},{"id":"person:НЕДКА ДИМИТРОВА МИХАЙЛОВА","type":"person","label":"Недка Димитрова Михайлова"},{"id":"person:ТЕОДОРА АНДРИЯНОВА ТОДОРОВА-ПЕТКОВА","type":"person","label":"Теодора Андриянова Тодорова-Петкова"},{"id":"person:СНЕЖАНКА СТОЯНОВА ГЕОРГИЕВА","type":"person","label":"Снежанка Стоянова Георгиева"},{"id":"person:НЕЛА ТОДОРОВА ПАВЛЕНКОВА","type":"person","label":"Нела Тодорова Павленкова"},{"id":"person:ЯНА БОНЕВА ГЕОРГИЕВА","type":"person","label":"Яна Бонева Георгиева"}],"edges":[{"source":"official:vladimir-nachev-nachev-afbde8","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"mp:5099","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:zhivka-ilieva-hristova-a3a689","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:КЪНА МИНЧЕВА ДЯКОВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ДОНОВА ДИМИТРОВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ВАСИЛЕВА НИКОЛОВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА КОЛЕВА ГЕОРГИЕВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА ДИМИТРОВА ВЕЛИКОВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КОСТА ИВАНОВ КОСТОВ","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЯРА ДЯНКОВА ВЛАДЕВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ДИМОВ ВЛАСЕВ","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВА ГЕОРГИЕВА ГЕОРГИЕВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЮНЮЛ ФЕВЗИЕВА ФЕРАД","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА СТЕФАНОВА ДИМОВА","target":"company:tr:000842977","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ТОДОРОВА ВЕЛИКОВА","target":"company:tr:000842977","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНКА ИВАНОВА ГИЦОВА","target":"company:tr:000842977","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЯРА ДЯНКОВА ВЛАДЕВА","target":"company:tr:000842977","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ ГОСПОДИНОВА НИКОЛОВА","target":"company:tr:000842977","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВА ГЕОРГИЕВА ГЕОРГИЕВА","target":"company:tr:000842977","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ТОДОРОВ","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКА ДИМИТРОВА МИХАЙЛОВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА АНДРИЯНОВА ТОДОРОВА-ПЕТКОВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНКА СТОЯНОВА ГЕОРГИЕВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛА ТОДОРОВА ПАВЛЕНКОВА","target":"company:tr:000842977","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА БОНЕВА ГЕОРГИЕВА","target":"company:tr:000842977","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-nachev-nachev-afbde8",
+  "nodes": [
+    {
+      "id": "official:vladimir-nachev-nachev-afbde8",
+      "type": "official",
+      "slug": "vladimir-nachev-nachev-afbde8",
+      "label": "Владимир Начев Начев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Генерал Тошево"
+    },
+    {
+      "id": "company:tr:000842977",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТЛИНА-1941&quot;",
+      "slug": null,
+      "uic": "000842977",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:5099",
+      "type": "mp",
+      "mpId": 5099,
+      "label": "Румен Василев Мунтянов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "official:zhivka-ilieva-hristova-a3a689",
+      "type": "official",
+      "slug": "zhivka-ilieva-hristova-a3a689",
+      "label": "Живка Илиева Христова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:КЪНА МИНЧЕВА ДЯКОВА",
+      "type": "person",
+      "label": "Къна Минчева Дякова"
+    },
+    {
+      "id": "person:РОСИЦА ДОНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Росица Донова Димитрова"
+    },
+    {
+      "id": "person:КАТЯ ВАСИЛЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Катя Василева Николова"
+    },
+    {
+      "id": "person:СТЕФКА КОЛЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Стефка Колева Георгиева"
+    },
+    {
+      "id": "person:МАРГАРИТА ДИМИТРОВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Маргарита Димитрова Великова"
+    },
+    {
+      "id": "person:КОСТА ИВАНОВ КОСТОВ",
+      "type": "person",
+      "label": "Коста Иванов Костов"
+    },
+    {
+      "id": "person:ВЯРА ДЯНКОВА ВЛАДЕВА",
+      "type": "person",
+      "label": "Вяра Дянкова Владева"
+    },
+    {
+      "id": "person:РОСЕН ДИМОВ ВЛАСЕВ",
+      "type": "person",
+      "label": "Росен Димов Власев"
+    },
+    {
+      "id": "person:СВЕТОСЛАВА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Светослава Георгиева Георгиева"
+    },
+    {
+      "id": "person:ГЮНЮЛ ФЕВЗИЕВА ФЕРАД",
+      "type": "person",
+      "label": "Гюнюл Февзиева Ферад"
+    },
+    {
+      "id": "person:ГАЛИНА СТЕФАНОВА ДИМОВА",
+      "type": "person",
+      "label": "Галина Стефанова Димова"
+    },
+    {
+      "id": "person:РОСИЦА ТОДОРОВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Росица Тодорова Великова"
+    },
+    {
+      "id": "person:НИКОЛИНКА ИВАНОВА ГИЦОВА",
+      "type": "person",
+      "label": "Николинка Иванова Гицова"
+    },
+    {
+      "id": "person:НЕЛИ ГОСПОДИНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Нели Господинова Николова"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛАЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Георги Николаев Тодоров"
+    },
+    {
+      "id": "person:НЕДКА ДИМИТРОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Недка Димитрова Михайлова"
+    },
+    {
+      "id": "person:ТЕОДОРА АНДРИЯНОВА ТОДОРОВА-ПЕТКОВА",
+      "type": "person",
+      "label": "Теодора Андриянова Тодорова-Петкова"
+    },
+    {
+      "id": "person:СНЕЖАНКА СТОЯНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Снежанка Стоянова Георгиева"
+    },
+    {
+      "id": "person:НЕЛА ТОДОРОВА ПАВЛЕНКОВА",
+      "type": "person",
+      "label": "Нела Тодорова Павленкова"
+    },
+    {
+      "id": "person:ЯНА БОНЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Яна Бонева Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-nachev-nachev-afbde8",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5099",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhivka-ilieva-hristova-a3a689",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КЪНА МИНЧЕВА ДЯКОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ДОНОВА ДИМИТРОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ВАСИЛЕВА НИКОЛОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА КОЛЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ДИМИТРОВА ВЕЛИКОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТА ИВАНОВ КОСТОВ",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРА ДЯНКОВА ВЛАДЕВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ДИМОВ ВЛАСЕВ",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮНЮЛ ФЕВЗИЕВА ФЕРАД",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА СТЕФАНОВА ДИМОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТОДОРОВА ВЕЛИКОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНКА ИВАНОВА ГИЦОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРА ДЯНКОВА ВЛАДЕВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ГОСПОДИНОВА НИКОЛОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛАЕВ ТОДОРОВ",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКА ДИМИТРОВА МИХАЙЛОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА АНДРИЯНОВА ТОДОРОВА-ПЕТКОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА СТОЯНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛА ТОДОРОВА ПАВЛЕНКОВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА БОНЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000842977",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:metodi-dinev-penchev-5bab19","nodes":[{"id":"official:metodi-dinev-penchev-5bab19","type":"official","slug":"metodi-dinev-penchev-5bab19","label":"Методи Динев Пенчев","tier":"municipal","role":"councillor","municipality":"Стара Загора"},{"id":"company:tr:200274238","type":"company","label":"ПОЛИСТЕРМ МВ ЕООД","slug":null,"uic":"200274238","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206415400","type":"company","label":"ТЕРА ТЕХ СТРОЙ ЕООД","slug":null,"uic":"206415400","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:metodi-dinev-penchev-5bab19","target":"company:tr:200274238","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:metodi-dinev-penchev-5bab19","target":"company:tr:206415400","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:metodi-dinev-penchev-5bab19","target":"company:tr:206415400","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:metodi-dinev-penchev-5bab19","target":"company:tr:206415400","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:metodi-dinev-penchev-5bab19",
+  "nodes": [
+    {
+      "id": "official:metodi-dinev-penchev-5bab19",
+      "type": "official",
+      "slug": "metodi-dinev-penchev-5bab19",
+      "label": "Методи Динев Пенчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:200274238",
+      "type": "company",
+      "label": "ПОЛИСТЕРМ МВ ЕООД",
+      "slug": null,
+      "uic": "200274238",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206415400",
+      "type": "company",
+      "label": "ТЕРА ТЕХ СТРОЙ ЕООД",
+      "slug": null,
+      "uic": "206415400",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:metodi-dinev-penchev-5bab19",
+      "target": "company:tr:200274238",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:metodi-dinev-penchev-5bab19",
+      "target": "company:tr:206415400",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:metodi-dinev-penchev-5bab19",
+      "target": "company:tr:206415400",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:metodi-dinev-penchev-5bab19",
+      "target": "company:tr:206415400",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

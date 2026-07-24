@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iordanka-todorova-temelkova-haidutova-467729","nodes":[{"id":"official:iordanka-todorova-temelkova-haidutova-467729","type":"official","slug":"iordanka-todorova-temelkova-haidutova-467729","label":"Йорданка Тодорова Темелкова-Хайдутова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206348389","type":"company","label":"АРМОТРЕЙД","slug":null,"uic":"206348389","legalForm":null,"status":null,"seat":null},{"id":"person:АСЕН ПЕТРОВ КИМОВ","type":"person","label":"Асен Петров Кимов"},{"id":"person:НИКОЛАЙ ГРИГОРОВ НИКОЛОВ","type":"person","label":"Николай Григоров Николов"}],"edges":[{"source":"official:iordanka-todorova-temelkova-haidutova-467729","target":"company:tr:206348389","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:АСЕН ПЕТРОВ КИМОВ","target":"company:tr:206348389","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ГРИГОРОВ НИКОЛОВ","target":"company:tr:206348389","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iordanka-todorova-temelkova-haidutova-467729",
+  "nodes": [
+    {
+      "id": "official:iordanka-todorova-temelkova-haidutova-467729",
+      "type": "official",
+      "slug": "iordanka-todorova-temelkova-haidutova-467729",
+      "label": "Йорданка Тодорова Темелкова-Хайдутова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206348389",
+      "type": "company",
+      "label": "АРМОТРЕЙД",
+      "slug": null,
+      "uic": "206348389",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСЕН ПЕТРОВ КИМОВ",
+      "type": "person",
+      "label": "Асен Петров Кимов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГРИГОРОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Григоров Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordanka-todorova-temelkova-haidutova-467729",
+      "target": "company:tr:206348389",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЕН ПЕТРОВ КИМОВ",
+      "target": "company:tr:206348389",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГРИГОРОВ НИКОЛОВ",
+      "target": "company:tr:206348389",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

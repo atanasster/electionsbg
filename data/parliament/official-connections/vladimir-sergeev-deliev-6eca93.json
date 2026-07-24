@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vladimir-sergeev-deliev-6eca93","nodes":[{"id":"official:vladimir-sergeev-deliev-6eca93","type":"official","slug":"vladimir-sergeev-deliev-6eca93","label":"Владимир Сергеев Делиев","tier":"municipal","role":"councillor","municipality":"Доспат"},{"id":"company:tr:202998852","type":"company","label":"ЕМ И ЕН ИНЖЕНЕРИНГ","slug":null,"uic":"202998852","legalForm":null,"status":null,"seat":null},{"id":"person:ВАЛЕНТИН МИЛАНОВ АРНАУДОВ","type":"person","label":"Валентин Миланов Арнаудов"}],"edges":[{"source":"official:vladimir-sergeev-deliev-6eca93","target":"company:tr:202998852","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕНТИН МИЛАНОВ АРНАУДОВ","target":"company:tr:202998852","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vladimir-sergeev-deliev-6eca93",
+  "nodes": [
+    {
+      "id": "official:vladimir-sergeev-deliev-6eca93",
+      "type": "official",
+      "slug": "vladimir-sergeev-deliev-6eca93",
+      "label": "Владимир Сергеев Делиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Доспат"
+    },
+    {
+      "id": "company:tr:202998852",
+      "type": "company",
+      "label": "ЕМ И ЕН ИНЖЕНЕРИНГ",
+      "slug": null,
+      "uic": "202998852",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН МИЛАНОВ АРНАУДОВ",
+      "type": "person",
+      "label": "Валентин Миланов Арнаудов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-sergeev-deliev-6eca93",
+      "target": "company:tr:202998852",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН МИЛАНОВ АРНАУДОВ",
+      "target": "company:tr:202998852",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

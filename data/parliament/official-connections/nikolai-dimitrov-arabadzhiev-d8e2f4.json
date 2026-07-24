@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolai-dimitrov-arabadzhiev-d8e2f4","nodes":[{"id":"official:nikolai-dimitrov-arabadzhiev-d8e2f4","type":"official","slug":"nikolai-dimitrov-arabadzhiev-d8e2f4","label":"Николай Димитров Арабаджиев","tier":"executive","role":"international","municipality":null},{"id":"company:tr:201591586","type":"company","label":"БОМАРТ 2011","slug":null,"uic":"201591586","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:nikolai-dimitrov-arabadzhiev-d8e2f4","target":"company:tr:201591586","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolai-dimitrov-arabadzhiev-d8e2f4",
+  "nodes": [
+    {
+      "id": "official:nikolai-dimitrov-arabadzhiev-d8e2f4",
+      "type": "official",
+      "slug": "nikolai-dimitrov-arabadzhiev-d8e2f4",
+      "label": "Николай Димитров Арабаджиев",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201591586",
+      "type": "company",
+      "label": "БОМАРТ 2011",
+      "slug": null,
+      "uic": "201591586",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-dimitrov-arabadzhiev-d8e2f4",
+      "target": "company:tr:201591586",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

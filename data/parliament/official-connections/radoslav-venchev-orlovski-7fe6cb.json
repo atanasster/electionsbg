@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:radoslav-venchev-orlovski-7fe6cb","nodes":[{"id":"official:radoslav-venchev-orlovski-7fe6cb","type":"official","slug":"radoslav-venchev-orlovski-7fe6cb","label":"Радослав Венчев Орловски","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:207883430","type":"company","label":"РЪСТ ОЙЛ","slug":null,"uic":"207883430","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕНИЦА ВАЛЕРИЕВА ОРЛОВСКА","type":"person","label":"Деница Валериева Орловска"},{"id":"person:ИСКРЕН КРАСИМИРОВ ЦЕНКОВ","type":"person","label":"Искрен Красимиров Ценков"},{"id":"person:ТИНКА ГЕРГОВА ОРЛОВСКА","type":"person","label":"Тинка Гергова Орловска"}],"edges":[{"source":"official:radoslav-venchev-orlovski-7fe6cb","target":"company:tr:207883430","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕНИЦА ВАЛЕРИЕВА ОРЛОВСКА","target":"company:tr:207883430","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИСКРЕН КРАСИМИРОВ ЦЕНКОВ","target":"company:tr:207883430","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТИНКА ГЕРГОВА ОРЛОВСКА","target":"company:tr:207883430","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:radoslav-venchev-orlovski-7fe6cb",
+  "nodes": [
+    {
+      "id": "official:radoslav-venchev-orlovski-7fe6cb",
+      "type": "official",
+      "slug": "radoslav-venchev-orlovski-7fe6cb",
+      "label": "Радослав Венчев Орловски",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207883430",
+      "type": "company",
+      "label": "РЪСТ ОЙЛ",
+      "slug": null,
+      "uic": "207883430",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕНИЦА ВАЛЕРИЕВА ОРЛОВСКА",
+      "type": "person",
+      "label": "Деница Валериева Орловска"
+    },
+    {
+      "id": "person:ИСКРЕН КРАСИМИРОВ ЦЕНКОВ",
+      "type": "person",
+      "label": "Искрен Красимиров Ценков"
+    },
+    {
+      "id": "person:ТИНКА ГЕРГОВА ОРЛОВСКА",
+      "type": "person",
+      "label": "Тинка Гергова Орловска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-venchev-orlovski-7fe6cb",
+      "target": "company:tr:207883430",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕНИЦА ВАЛЕРИЕВА ОРЛОВСКА",
+      "target": "company:tr:207883430",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСКРЕН КРАСИМИРОВ ЦЕНКОВ",
+      "target": "company:tr:207883430",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИНКА ГЕРГОВА ОРЛОВСКА",
+      "target": "company:tr:207883430",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

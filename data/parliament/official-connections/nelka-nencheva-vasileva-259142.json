@@ -1,1 +1,884 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nelka-nencheva-vasileva-259142","nodes":[{"id":"official:nelka-nencheva-vasileva-259142","type":"official","slug":"nelka-nencheva-vasileva-259142","label":"Нелка Ненчева Василева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130341567","type":"company","label":"БЪЛГАРСКИ АНТИФАШИСТКИ СЪЮЗ /БАС/","slug":null,"uic":"130341567","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:160","type":"mp","mpId":160,"label":"Трифон Димитров Митев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:1701","type":"mp","mpId":1701,"label":"Маргарита Асенова Стоилова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:3016","type":"mp","mpId":3016,"label":"Борис Цветков Цветков","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42"]},{"id":"mp:4911","type":"mp","mpId":4911,"label":"Атанас Зафиров Зафиров","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42","43","45","46","47","48","49","50"]},{"id":"mp:80","type":"mp","mpId":80,"label":"Ненко Викторов Темелков","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"official:antoaneta-zdravkova-draganova-495e5b","type":"official","slug":"antoaneta-zdravkova-draganova-495e5b","label":"Антоанета Здравкова Драганова","tier":"municipal","role":"councillor","municipality":"Елин Пелин"},{"id":"person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ","type":"person","label":"Евгений Николаевич Белий"},{"id":"person:ГЕОРГИ ИВАНОВ КОЛЕОЛОВ","type":"person","label":"Георги Иванов Колеолов"},{"id":"person:ДИНКО ВЪЛЧЕВ ЖЕЛЕВ","type":"person","label":"Динко Вълчев Желев"},{"id":"person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ - ГЛАВЕН СЕКРЕТАР И ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ","type":"person","label":"Евгений Николаевич Белий - Главен Секретар И Заместник-Председател"},{"id":"person:НИНА КАЛИНОВА ДИМИТРОВА","type":"person","label":"Нина Калинова Димитрова"},{"id":"person:КРАСИМИР ПЕТРОВ КРЪСТАНОВ","type":"person","label":"Красимир Петров Кръстанов"},{"id":"person:ЯНКА МИТЕВА ДЖЕНДОВА","type":"person","label":"Янка Митева Джендова"},{"id":"person:ЦЕКО КОСТАДИНОВ ЦЕКОВ","type":"person","label":"Цеко Костадинов Цеков"},{"id":"person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА - ЗАМЕСТНИ-ПРЕДСЕДАТЕЛ","type":"person","label":"Веселина Николова Груева - Заместни-Председател"},{"id":"person:АНГЕЛ ИВАНОВ МАРИН","type":"person","label":"Ангел Иванов Марин"},{"id":"person:ЯНУАРИЙ МАРКОВ ВИЧЕВ","type":"person","label":"Януарий Марков Вичев"},{"id":"person:МИХАЕЛА СТОЯНОВА ДЕМИРЕВСКА-БЕЛУХОВА","type":"person","label":"Михаела Стоянова Демиревска-Белухова"},{"id":"person:ВЛАДИМИР ЦОКОВ ИВАНОВ","type":"person","label":"Владимир Цоков Иванов"},{"id":"person:БОРИС ЦВЕТКОВ ЦВЕТКОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ","type":"person","label":"Борис Цветков Цветков - Заместник-Председател"},{"id":"person:НИНА ЛАЗАРОВА ГЕРИНСКА","type":"person","label":"Нина Лазарова Геринска"},{"id":"person:ВЕНЕЛИН ГЕОРГИЕВ МИХАЙЛОВ","type":"person","label":"Венелин Георгиев Михайлов"},{"id":"person:РАДКА ИВАНОВА КАМЕНСКА - СЕКРЕТАР","type":"person","label":"Радка Иванова Каменска - Секретар"},{"id":"person:ПЕТЪР ДИМИТРОВ ГЕОРГИЕВ","type":"person","label":"Петър Димитров Георгиев"},{"id":"person:ОЛЕГ ДИМИТРОВ ЦОНЕВ","type":"person","label":"Олег Димитров Цонев"},{"id":"person:ХРИСТО БОРИСОВ ХРИСТОВ","type":"person","label":"Христо Борисов Христов"},{"id":"person:СТЕФАН ПЕТРОВ ДОСЕВ","type":"person","label":"Стефан Петров Досев"},{"id":"person:РАДКА ТОДОРОВА МИХАЙЛОВА","type":"person","label":"Радка Тодорова Михайлова"},{"id":"person:КОСТАДИНКА МИНКОВА ХРИСТОВА","type":"person","label":"Костадинка Минкова Христова"},{"id":"person:ЙОРДАН МИТЕВ МИТЕВ","type":"person","label":"Йордан Митев Митев"},{"id":"person:ИВАН ЛОЗАНОВ СТОИЛОВ","type":"person","label":"Иван Лозанов Стоилов"},{"id":"person:ЛЮБОМИР ЕВГЕНИЕВ БУКОВСКИ","type":"person","label":"Любомир Евгениев Буковски"},{"id":"person:ЛИДИЯ ИЛИЕВА ПРОКОПОВА","type":"person","label":"Лидия Илиева Прокопова"},{"id":"person:КОСТАДИН ИВАНОВ САНДЕВ","type":"person","label":"Костадин Иванов Сандев"},{"id":"person:БОЖАНКА ГАНЕВА ДИМИТРОВА","type":"person","label":"Божанка Ганева Димитрова"},{"id":"person:АТАНАС ГЕОРГИЕВ ПАВЛОВ","type":"person","label":"Атанас Георгиев Павлов"},{"id":"person:АРГИР ЛЕОНИДОВ БОЯДЖИЕВ","type":"person","label":"Аргир Леонидов Бояджиев"},{"id":"person:ЗОЯ СТАНОЕВА ЦЕНОВА","type":"person","label":"Зоя Станоева Ценова"},{"id":"person:ДРАГОМИР ГЕОРГИЕВ ШОПОВ","type":"person","label":"Драгомир Георгиев Шопов"},{"id":"person:ГЕОРГИ ЙОРДАНОВ МОМЧЕВ","type":"person","label":"Георги Йорданов Момчев"},{"id":"person:СЕВДАЛИНА МИХАЙЛОВА ДЕМИРЕВСКА","type":"person","label":"Севдалина Михайлова Демиревска"},{"id":"person:НИКОЛАЙ ЙОРДАНОВ БЕЛАЛОВ","type":"person","label":"Николай Йорданов Белалов"},{"id":"person:НЕНО СТАНЧЕВ РОБОВ","type":"person","label":"Нено Станчев Робов"},{"id":"person:СТЕФАН ЛАЗАРОВ КУЗМАНОВ","type":"person","label":"Стефан Лазаров Кузманов"},{"id":"person:СОФИ ЛЕОН ПИНКАС","type":"person","label":"Софи Леон Пинкас"},{"id":"person:МАРИЯ АСЕНОВА ЧОМПОВА","type":"person","label":"Мария Асенова Чомпова"},{"id":"person:МАКСИМ НИКОЛАЕВ МИЗОВ","type":"person","label":"Максим Николаев Мизов"},{"id":"person:МАТЕЙ ЛЮБЕНОВ ШОПКИН","type":"person","label":"Матей Любенов Шопкин"},{"id":"person:ИГО БОЯНОВ ИГОВ","type":"person","label":"Иго Боянов Игов"},{"id":"person:ИВАН ЯНЧОВ ТАКОВ","type":"person","label":"Иван Янчов Таков"},{"id":"person:ДРАГОМИР ПЕТРОВ ГРИГОРОВ","type":"person","label":"Драгомир Петров Григоров"},{"id":"person:ВАЛЕРИЙ ВЕЛИЧКОВ СТОЯНОВ","type":"person","label":"Валерий Величков Стоянов"},{"id":"person:РАДКА ИВАНОВА КАМЕНСКА","type":"person","label":"Радка Иванова Каменска"},{"id":"person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА","type":"person","label":"Веселина Николова Груева"},{"id":"person:КОСТАДИНКА МИЛКОВА ХРИСТОВА","type":"person","label":"Костадинка Милкова Христова"},{"id":"person:ТРИФОН ПЕТРОВ ИВАНОВ","type":"person","label":"Трифон Петров Иванов"},{"id":"person:ПЕТЪР ГЕОРГИЕВ АНДАСАРОВ","type":"person","label":"Петър Георгиев Андасаров"},{"id":"person:ПЕТЪР ГАНЧЕВ ГОРЧЕВ","type":"person","label":"Петър Ганчев Горчев"},{"id":"person:НАСКО МАРИНОВ ГЕОРГИЕВ","type":"person","label":"Наско Маринов Георгиев"},{"id":"person:МИНЧО ПЕТРОВ МИНЧЕВ","type":"person","label":"Минчо Петров Минчев"},{"id":"person:МАРИН ГЕНАДИЕВ ЦВЕТКОВ","type":"person","label":"Марин Генадиев Цветков"},{"id":"person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ","type":"person","label":"Веселина Николова Груева - Заместник-Председател"}],"edges":[{"source":"official:nelka-nencheva-vasileva-259142","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:160","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1701","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3016","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4911","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:80","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:antoaneta-zdravkova-draganova-495e5b","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ КОЛЕОЛОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИНКО ВЪЛЧЕВ ЖЕЛЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ - ГЛАВЕН СЕКРЕТАР И ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИНА КАЛИНОВА ДИМИТРОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ПЕТРОВ КРЪСТАНОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКА МИТЕВА ДЖЕНДОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕКО КОСТАДИНОВ ЦЕКОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА - ЗАМЕСТНИ-ПРЕДСЕДАТЕЛ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ИВАНОВ МАРИН","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНУАРИЙ МАРКОВ ВИЧЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИХАЕЛА СТОЯНОВА ДЕМИРЕВСКА-БЕЛУХОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ЦОКОВ ИВАНОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИС ЦВЕТКОВ ЦВЕТКОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ЛАЗАРОВА ГЕРИНСКА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИН ГЕОРГИЕВ МИХАЙЛОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ИВАНОВА КАМЕНСКА - СЕКРЕТАР","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ДИМИТРОВ ГЕОРГИЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОЛЕГ ДИМИТРОВ ЦОНЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО БОРИСОВ ХРИСТОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ПЕТРОВ ДОСЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ТОДОРОВА МИХАЙЛОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИНКА МИНКОВА ХРИСТОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН МИТЕВ МИТЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЛОЗАНОВ СТОИЛОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ЕВГЕНИЕВ БУКОВСКИ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛИДИЯ ИЛИЕВА ПРОКОПОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ИВАНОВ САНДЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЖАНКА ГАНЕВА ДИМИТРОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ГЕОРГИЕВ ПАВЛОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АРГИР ЛЕОНИДОВ БОЯДЖИЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗОЯ СТАНОЕВА ЦЕНОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГОМИР ГЕОРГИЕВ ШОПОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЙОРДАНОВ МОМЧЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕВДАЛИНА МИХАЙЛОВА ДЕМИРЕВСКА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЙОРДАНОВ БЕЛАЛОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕНО СТАНЧЕВ РОБОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ЛАЗАРОВ КУЗМАНОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОФИ ЛЕОН ПИНКАС","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ АСЕНОВА ЧОМПОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАКСИМ НИКОЛАЕВ МИЗОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАТЕЙ ЛЮБЕНОВ ШОПКИН","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИГО БОЯНОВ ИГОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЯНЧОВ ТАКОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГОМИР ПЕТРОВ ГРИГОРОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИЙ ВЕЛИЧКОВ СТОЯНОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ИВАНОВА КАМЕНСКА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИНКА МИЛКОВА ХРИСТОВА","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТРИФОН ПЕТРОВ ИВАНОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГЕОРГИЕВ АНДАСАРОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГАНЧЕВ ГОРЧЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НАСКО МАРИНОВ ГЕОРГИЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИНЧО ПЕТРОВ МИНЧЕВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН ГЕНАДИЕВ ЦВЕТКОВ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ","target":"company:tr:130341567","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nelka-nencheva-vasileva-259142",
+  "nodes": [
+    {
+      "id": "official:nelka-nencheva-vasileva-259142",
+      "type": "official",
+      "slug": "nelka-nencheva-vasileva-259142",
+      "label": "Нелка Ненчева Василева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130341567",
+      "type": "company",
+      "label": "БЪЛГАРСКИ АНТИФАШИСТКИ СЪЮЗ /БАС/",
+      "slug": null,
+      "uic": "130341567",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:160",
+      "type": "mp",
+      "mpId": 160,
+      "label": "Трифон Димитров Митев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:1701",
+      "type": "mp",
+      "mpId": 1701,
+      "label": "Маргарита Асенова Стоилова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:3016",
+      "type": "mp",
+      "mpId": 3016,
+      "label": "Борис Цветков Цветков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    },
+    {
+      "id": "mp:4911",
+      "type": "mp",
+      "mpId": 4911,
+      "label": "Атанас Зафиров Зафиров",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "mp:80",
+      "type": "mp",
+      "mpId": 80,
+      "label": "Ненко Викторов Темелков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:antoaneta-zdravkova-draganova-495e5b",
+      "type": "official",
+      "slug": "antoaneta-zdravkova-draganova-495e5b",
+      "label": "Антоанета Здравкова Драганова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елин Пелин"
+    },
+    {
+      "id": "person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ",
+      "type": "person",
+      "label": "Евгений Николаевич Белий"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ КОЛЕОЛОВ",
+      "type": "person",
+      "label": "Георги Иванов Колеолов"
+    },
+    {
+      "id": "person:ДИНКО ВЪЛЧЕВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Динко Вълчев Желев"
+    },
+    {
+      "id": "person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ - ГЛАВЕН СЕКРЕТАР И ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Евгений Николаевич Белий - Главен Секретар И Заместник-Председател"
+    },
+    {
+      "id": "person:НИНА КАЛИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Нина Калинова Димитрова"
+    },
+    {
+      "id": "person:КРАСИМИР ПЕТРОВ КРЪСТАНОВ",
+      "type": "person",
+      "label": "Красимир Петров Кръстанов"
+    },
+    {
+      "id": "person:ЯНКА МИТЕВА ДЖЕНДОВА",
+      "type": "person",
+      "label": "Янка Митева Джендова"
+    },
+    {
+      "id": "person:ЦЕКО КОСТАДИНОВ ЦЕКОВ",
+      "type": "person",
+      "label": "Цеко Костадинов Цеков"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА - ЗАМЕСТНИ-ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Веселина Николова Груева - Заместни-Председател"
+    },
+    {
+      "id": "person:АНГЕЛ ИВАНОВ МАРИН",
+      "type": "person",
+      "label": "Ангел Иванов Марин"
+    },
+    {
+      "id": "person:ЯНУАРИЙ МАРКОВ ВИЧЕВ",
+      "type": "person",
+      "label": "Януарий Марков Вичев"
+    },
+    {
+      "id": "person:МИХАЕЛА СТОЯНОВА ДЕМИРЕВСКА-БЕЛУХОВА",
+      "type": "person",
+      "label": "Михаела Стоянова Демиревска-Белухова"
+    },
+    {
+      "id": "person:ВЛАДИМИР ЦОКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Владимир Цоков Иванов"
+    },
+    {
+      "id": "person:БОРИС ЦВЕТКОВ ЦВЕТКОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Борис Цветков Цветков - Заместник-Председател"
+    },
+    {
+      "id": "person:НИНА ЛАЗАРОВА ГЕРИНСКА",
+      "type": "person",
+      "label": "Нина Лазарова Геринска"
+    },
+    {
+      "id": "person:ВЕНЕЛИН ГЕОРГИЕВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Венелин Георгиев Михайлов"
+    },
+    {
+      "id": "person:РАДКА ИВАНОВА КАМЕНСКА - СЕКРЕТАР",
+      "type": "person",
+      "label": "Радка Иванова Каменска - Секретар"
+    },
+    {
+      "id": "person:ПЕТЪР ДИМИТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Петър Димитров Георгиев"
+    },
+    {
+      "id": "person:ОЛЕГ ДИМИТРОВ ЦОНЕВ",
+      "type": "person",
+      "label": "Олег Димитров Цонев"
+    },
+    {
+      "id": "person:ХРИСТО БОРИСОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Борисов Христов"
+    },
+    {
+      "id": "person:СТЕФАН ПЕТРОВ ДОСЕВ",
+      "type": "person",
+      "label": "Стефан Петров Досев"
+    },
+    {
+      "id": "person:РАДКА ТОДОРОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Радка Тодорова Михайлова"
+    },
+    {
+      "id": "person:КОСТАДИНКА МИНКОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Костадинка Минкова Христова"
+    },
+    {
+      "id": "person:ЙОРДАН МИТЕВ МИТЕВ",
+      "type": "person",
+      "label": "Йордан Митев Митев"
+    },
+    {
+      "id": "person:ИВАН ЛОЗАНОВ СТОИЛОВ",
+      "type": "person",
+      "label": "Иван Лозанов Стоилов"
+    },
+    {
+      "id": "person:ЛЮБОМИР ЕВГЕНИЕВ БУКОВСКИ",
+      "type": "person",
+      "label": "Любомир Евгениев Буковски"
+    },
+    {
+      "id": "person:ЛИДИЯ ИЛИЕВА ПРОКОПОВА",
+      "type": "person",
+      "label": "Лидия Илиева Прокопова"
+    },
+    {
+      "id": "person:КОСТАДИН ИВАНОВ САНДЕВ",
+      "type": "person",
+      "label": "Костадин Иванов Сандев"
+    },
+    {
+      "id": "person:БОЖАНКА ГАНЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Божанка Ганева Димитрова"
+    },
+    {
+      "id": "person:АТАНАС ГЕОРГИЕВ ПАВЛОВ",
+      "type": "person",
+      "label": "Атанас Георгиев Павлов"
+    },
+    {
+      "id": "person:АРГИР ЛЕОНИДОВ БОЯДЖИЕВ",
+      "type": "person",
+      "label": "Аргир Леонидов Бояджиев"
+    },
+    {
+      "id": "person:ЗОЯ СТАНОЕВА ЦЕНОВА",
+      "type": "person",
+      "label": "Зоя Станоева Ценова"
+    },
+    {
+      "id": "person:ДРАГОМИР ГЕОРГИЕВ ШОПОВ",
+      "type": "person",
+      "label": "Драгомир Георгиев Шопов"
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ МОМЧЕВ",
+      "type": "person",
+      "label": "Георги Йорданов Момчев"
+    },
+    {
+      "id": "person:СЕВДАЛИНА МИХАЙЛОВА ДЕМИРЕВСКА",
+      "type": "person",
+      "label": "Севдалина Михайлова Демиревска"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЙОРДАНОВ БЕЛАЛОВ",
+      "type": "person",
+      "label": "Николай Йорданов Белалов"
+    },
+    {
+      "id": "person:НЕНО СТАНЧЕВ РОБОВ",
+      "type": "person",
+      "label": "Нено Станчев Робов"
+    },
+    {
+      "id": "person:СТЕФАН ЛАЗАРОВ КУЗМАНОВ",
+      "type": "person",
+      "label": "Стефан Лазаров Кузманов"
+    },
+    {
+      "id": "person:СОФИ ЛЕОН ПИНКАС",
+      "type": "person",
+      "label": "Софи Леон Пинкас"
+    },
+    {
+      "id": "person:МАРИЯ АСЕНОВА ЧОМПОВА",
+      "type": "person",
+      "label": "Мария Асенова Чомпова"
+    },
+    {
+      "id": "person:МАКСИМ НИКОЛАЕВ МИЗОВ",
+      "type": "person",
+      "label": "Максим Николаев Мизов"
+    },
+    {
+      "id": "person:МАТЕЙ ЛЮБЕНОВ ШОПКИН",
+      "type": "person",
+      "label": "Матей Любенов Шопкин"
+    },
+    {
+      "id": "person:ИГО БОЯНОВ ИГОВ",
+      "type": "person",
+      "label": "Иго Боянов Игов"
+    },
+    {
+      "id": "person:ИВАН ЯНЧОВ ТАКОВ",
+      "type": "person",
+      "label": "Иван Янчов Таков"
+    },
+    {
+      "id": "person:ДРАГОМИР ПЕТРОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Драгомир Петров Григоров"
+    },
+    {
+      "id": "person:ВАЛЕРИЙ ВЕЛИЧКОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Валерий Величков Стоянов"
+    },
+    {
+      "id": "person:РАДКА ИВАНОВА КАМЕНСКА",
+      "type": "person",
+      "label": "Радка Иванова Каменска"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА",
+      "type": "person",
+      "label": "Веселина Николова Груева"
+    },
+    {
+      "id": "person:КОСТАДИНКА МИЛКОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Костадинка Милкова Христова"
+    },
+    {
+      "id": "person:ТРИФОН ПЕТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Трифон Петров Иванов"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ АНДАСАРОВ",
+      "type": "person",
+      "label": "Петър Георгиев Андасаров"
+    },
+    {
+      "id": "person:ПЕТЪР ГАНЧЕВ ГОРЧЕВ",
+      "type": "person",
+      "label": "Петър Ганчев Горчев"
+    },
+    {
+      "id": "person:НАСКО МАРИНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Наско Маринов Георгиев"
+    },
+    {
+      "id": "person:МИНЧО ПЕТРОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Минчо Петров Минчев"
+    },
+    {
+      "id": "person:МАРИН ГЕНАДИЕВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Марин Генадиев Цветков"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Веселина Николова Груева - Заместник-Председател"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nelka-nencheva-vasileva-259142",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:160",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1701",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3016",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4911",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:80",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:antoaneta-zdravkova-draganova-495e5b",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ КОЛЕОЛОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО ВЪЛЧЕВ ЖЕЛЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ - ГЛАВЕН СЕКРЕТАР И ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА КАЛИНОВА ДИМИТРОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТРОВ КРЪСТАНОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА МИТЕВА ДЖЕНДОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕКО КОСТАДИНОВ ЦЕКОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА - ЗАМЕСТНИ-ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ИВАНОВ МАРИН",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНУАРИЙ МАРКОВ ВИЧЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА СТОЯНОВА ДЕМИРЕВСКА-БЕЛУХОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЦОКОВ ИВАНОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ЦВЕТКОВ ЦВЕТКОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ЛАЗАРОВА ГЕРИНСКА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН ГЕОРГИЕВ МИХАЙЛОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ИВАНОВА КАМЕНСКА - СЕКРЕТАР",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ДИМИТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛЕГ ДИМИТРОВ ЦОНЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО БОРИСОВ ХРИСТОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ПЕТРОВ ДОСЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ТОДОРОВА МИХАЙЛОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИНКА МИНКОВА ХРИСТОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН МИТЕВ МИТЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЛОЗАНОВ СТОИЛОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ЕВГЕНИЕВ БУКОВСКИ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ ИЛИЕВА ПРОКОПОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ИВАНОВ САНДЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖАНКА ГАНЕВА ДИМИТРОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГЕОРГИЕВ ПАВЛОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АРГИР ЛЕОНИДОВ БОЯДЖИЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОЯ СТАНОЕВА ЦЕНОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР ГЕОРГИЕВ ШОПОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ МОМЧЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИНА МИХАЙЛОВА ДЕМИРЕВСКА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЙОРДАНОВ БЕЛАЛОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕНО СТАНЧЕВ РОБОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЛАЗАРОВ КУЗМАНОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИ ЛЕОН ПИНКАС",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АСЕНОВА ЧОМПОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАКСИМ НИКОЛАЕВ МИЗОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТЕЙ ЛЮБЕНОВ ШОПКИН",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИГО БОЯНОВ ИГОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЯНЧОВ ТАКОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР ПЕТРОВ ГРИГОРОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИЙ ВЕЛИЧКОВ СТОЯНОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ИВАНОВА КАМЕНСКА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИНКА МИЛКОВА ХРИСТОВА",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРИФОН ПЕТРОВ ИВАНОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ АНДАСАРОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГАНЧЕВ ГОРЧЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАСКО МАРИНОВ ГЕОРГИЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНЧО ПЕТРОВ МИНЧЕВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ГЕНАДИЕВ ЦВЕТКОВ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЙ НИКОЛАЕВИЧ БЕЛИЙ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА НИКОЛОВА ГРУЕВА - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:130341567",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

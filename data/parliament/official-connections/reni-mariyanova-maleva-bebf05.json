@@ -1,1 +1,153 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:reni-mariyanova-maleva-bebf05","nodes":[{"id":"official:reni-mariyanova-maleva-bebf05","type":"official","slug":"reni-mariyanova-maleva-bebf05","label":"Рени Мариянова Малева","tier":"municipal","role":"deputy_mayor","municipality":"Мъглиж"},{"id":"company:tr:207482003","type":"company","label":"Местна инициативна група - Мъглиж, Николаево, Гурково","slug":null,"uic":"207482003","legalForm":null,"status":null,"seat":null},{"id":"official:dusho-ivanov-gavazov-c1e265","type":"official","slug":"dusho-ivanov-gavazov-c1e265","label":"Душо Иванов Гавазов","tier":"municipal","role":"deputy_mayor","municipality":"Мъглиж"},{"id":"person:ОБЩИНА МЪГЛИЖ - ПРЕДСТАВИТЕЛ РЕНИ МАРИЯНОВА МАЛЕВА","type":"person","label":"Община Мъглиж - Представител Рени Мариянова Малева"},{"id":"person:ОБЩИНСКИ ФУТБОЛЕН КЛУБ МЪГЛИЖ, ПРЕДСТАВЛЯВАНО ОТ ТИХОМИР ИВАНОВ МИНЧЕВ","type":"person","label":"Общински Футболен Клуб Мъглиж, Представлявано От Тихомир Иванов Минчев"},{"id":"person:НЧ \"ХРИСТО СМИРНЕНСКИ 1899 Г.\", ПРЕДСТАВЛЯВАНО ОТ ГАНКА РАШЕВА ЧАКЪРОВА","type":"person","label":"Нч \"христо Смирненски 1899 Г.\", Представлявано От Ганка Рашева Чакърова"},{"id":"company:name:ДАНИ - ЛЕС ЕООД, ПРЕДСТАВЛЯВАНО ОТ РОСЕН ЙОРГОВ ЙОРГОВ","type":"company","label":"\"Дани - лес\" ЕООД, представлявано от Росен Йоргов Йоргов","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:ПРЕСМАР СТРОЙ 1 ЕООД, ПРЕДСТАВЛЯВАНО ОТ ГЕОРГИ СТОЯНОВ ТОДОРОВ","type":"company","label":"\"Пресмар строй 1\" ЕООД, представлявано от Георги Стоянов Тодоров","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ОБЩИНА МЪГЛИЖ - ПРЕДСТАВИТЕЛ ДУШО ИВАНОВ ГАВАЗОВ","type":"person","label":"Община Мъглиж - Представител Душо Иванов Гавазов"},{"id":"person:ET ИВАН ИВАНОВ-ОЛИМП-75, ПРЕДСТАВЛЯВАНО ОТ ВАНЯ ТОТЕВА СТОЯНОВА","type":"person","label":"Et Иван Иванов-Олимп-75, Представлявано От Ваня Тотева Стоянова"}],"edges":[{"source":"official:reni-mariyanova-maleva-bebf05","target":"company:tr:207482003","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:dusho-ivanov-gavazov-c1e265","target":"company:tr:207482003","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ОБЩИНА МЪГЛИЖ - ПРЕДСТАВИТЕЛ РЕНИ МАРИЯНОВА МАЛЕВА","target":"company:tr:207482003","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНСКИ ФУТБОЛЕН КЛУБ МЪГЛИЖ, ПРЕДСТАВЛЯВАНО ОТ ТИХОМИР ИВАНОВ МИНЧЕВ","target":"company:tr:207482003","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЧ \"ХРИСТО СМИРНЕНСКИ 1899 Г.\", ПРЕДСТАВЛЯВАНО ОТ ГАНКА РАШЕВА ЧАКЪРОВА","target":"company:tr:207482003","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ДАНИ - ЛЕС ЕООД, ПРЕДСТАВЛЯВАНО ОТ РОСЕН ЙОРГОВ ЙОРГОВ","target":"company:tr:207482003","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ПРЕСМАР СТРОЙ 1 ЕООД, ПРЕДСТАВЛЯВАНО ОТ ГЕОРГИ СТОЯНОВ ТОДОРОВ","target":"company:tr:207482003","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА МЪГЛИЖ - ПРЕДСТАВИТЕЛ ДУШО ИВАНОВ ГАВАЗОВ","target":"company:tr:207482003","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ET ИВАН ИВАНОВ-ОЛИМП-75, ПРЕДСТАВЛЯВАНО ОТ ВАНЯ ТОТЕВА СТОЯНОВА","target":"company:tr:207482003","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:reni-mariyanova-maleva-bebf05",
+  "nodes": [
+    {
+      "id": "official:reni-mariyanova-maleva-bebf05",
+      "type": "official",
+      "slug": "reni-mariyanova-maleva-bebf05",
+      "label": "Рени Мариянова Малева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Мъглиж"
+    },
+    {
+      "id": "company:tr:207482003",
+      "type": "company",
+      "label": "Местна инициативна група - Мъглиж, Николаево, Гурково",
+      "slug": null,
+      "uic": "207482003",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dusho-ivanov-gavazov-c1e265",
+      "type": "official",
+      "slug": "dusho-ivanov-gavazov-c1e265",
+      "label": "Душо Иванов Гавазов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Мъглиж"
+    },
+    {
+      "id": "person:ОБЩИНА МЪГЛИЖ - ПРЕДСТАВИТЕЛ РЕНИ МАРИЯНОВА МАЛЕВА",
+      "type": "person",
+      "label": "Община Мъглиж - Представител Рени Мариянова Малева"
+    },
+    {
+      "id": "person:ОБЩИНСКИ ФУТБОЛЕН КЛУБ МЪГЛИЖ, ПРЕДСТАВЛЯВАНО ОТ ТИХОМИР ИВАНОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Общински Футболен Клуб Мъглиж, Представлявано От Тихомир Иванов Минчев"
+    },
+    {
+      "id": "person:НЧ \"ХРИСТО СМИРНЕНСКИ 1899 Г.\", ПРЕДСТАВЛЯВАНО ОТ ГАНКА РАШЕВА ЧАКЪРОВА",
+      "type": "person",
+      "label": "Нч \"христо Смирненски 1899 Г.\", Представлявано От Ганка Рашева Чакърова"
+    },
+    {
+      "id": "company:name:ДАНИ - ЛЕС ЕООД, ПРЕДСТАВЛЯВАНО ОТ РОСЕН ЙОРГОВ ЙОРГОВ",
+      "type": "company",
+      "label": "\"Дани - лес\" ЕООД, представлявано от Росен Йоргов Йоргов",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ПРЕСМАР СТРОЙ 1 ЕООД, ПРЕДСТАВЛЯВАНО ОТ ГЕОРГИ СТОЯНОВ ТОДОРОВ",
+      "type": "company",
+      "label": "\"Пресмар строй 1\" ЕООД, представлявано от Георги Стоянов Тодоров",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА МЪГЛИЖ - ПРЕДСТАВИТЕЛ ДУШО ИВАНОВ ГАВАЗОВ",
+      "type": "person",
+      "label": "Община Мъглиж - Представител Душо Иванов Гавазов"
+    },
+    {
+      "id": "person:ET ИВАН ИВАНОВ-ОЛИМП-75, ПРЕДСТАВЛЯВАНО ОТ ВАНЯ ТОТЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Et Иван Иванов-Олимп-75, Представлявано От Ваня Тотева Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:reni-mariyanova-maleva-bebf05",
+      "target": "company:tr:207482003",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dusho-ivanov-gavazov-c1e265",
+      "target": "company:tr:207482003",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА МЪГЛИЖ - ПРЕДСТАВИТЕЛ РЕНИ МАРИЯНОВА МАЛЕВА",
+      "target": "company:tr:207482003",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНСКИ ФУТБОЛЕН КЛУБ МЪГЛИЖ, ПРЕДСТАВЛЯВАНО ОТ ТИХОМИР ИВАНОВ МИНЧЕВ",
+      "target": "company:tr:207482003",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЧ \"ХРИСТО СМИРНЕНСКИ 1899 Г.\", ПРЕДСТАВЛЯВАНО ОТ ГАНКА РАШЕВА ЧАКЪРОВА",
+      "target": "company:tr:207482003",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДАНИ - ЛЕС ЕООД, ПРЕДСТАВЛЯВАНО ОТ РОСЕН ЙОРГОВ ЙОРГОВ",
+      "target": "company:tr:207482003",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ПРЕСМАР СТРОЙ 1 ЕООД, ПРЕДСТАВЛЯВАНО ОТ ГЕОРГИ СТОЯНОВ ТОДОРОВ",
+      "target": "company:tr:207482003",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА МЪГЛИЖ - ПРЕДСТАВИТЕЛ ДУШО ИВАНОВ ГАВАЗОВ",
+      "target": "company:tr:207482003",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ET ИВАН ИВАНОВ-ОЛИМП-75, ПРЕДСТАВЛЯВАНО ОТ ВАНЯ ТОТЕВА СТОЯНОВА",
+      "target": "company:tr:207482003",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

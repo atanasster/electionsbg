@@ -1,1 +1,249 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aneliya-stefanova-bocheva-7f1f53","nodes":[{"id":"official:aneliya-stefanova-bocheva-7f1f53","type":"official","slug":"aneliya-stefanova-bocheva-7f1f53","label":"Анелия Стефанова Бочева","tier":"municipal","role":"councillor","municipality":"Сопот"},{"id":"company:tr:000455913","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ИВАН ВАЗОВ - 1871","slug":null,"uic":"000455913","legalForm":null,"status":null,"seat":null},{"id":"official:rositsa-doncheva-gavrilska-4ea489","type":"official","slug":"rositsa-doncheva-gavrilska-4ea489","label":"Росица Дончева Гаврилска","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:antonina-tsocheva-tsocheva-0f1756","type":"official","slug":"antonina-tsocheva-tsocheva-0f1756","label":"Антонина Цочева Цочева","tier":"municipal","role":"council_chair","municipality":"Сопот"},{"id":"person:ДИАНА СТОЕВА КУШЕВА","type":"person","label":"Диана Стоева Кушева"},{"id":"person:ИВАНКА ИВАНОВА ВЪЛЕВА","type":"person","label":"Иванка Иванова Вълева"},{"id":"person:ЕВГЕНИ ТОДОРОВ ДИМОВ","type":"person","label":"Евгени Тодоров Димов"},{"id":"person:ГЕОРГИ ПЕНЧЕВ БЕЛЧЕВ","type":"person","label":"Георги Пенчев Белчев"},{"id":"person:МИЛЕНА ВЪЛКОВА РУСЕВА","type":"person","label":"Милена Вълкова Русева"},{"id":"person:КРАСИМИРА СЛАВЧЕВА КОНСТАНТИНОВА","type":"person","label":"Красимира Славчева Константинова"},{"id":"person:НАТАЛИЯ ГЕНЧЕВА ГЕНЧЕВА","type":"person","label":"Наталия Генчева Генчева"},{"id":"person:ДЕСИСЛАВА ИВАНОВА АТАНАСОВА","type":"person","label":"Десислава Иванова Атанасова"},{"id":"person:СИЛВИЯ ХРИСТОВА КАРАКОЛЕВА","type":"person","label":"Силвия Христова Караколева"},{"id":"person:ДАЛИЯ-НИКОЛ НИКОЛАЙ УРУМОВА","type":"person","label":"Далия-Никол Николай Урумова"},{"id":"person:ЙОРДАН АРМЕНОВ СТАНЕВ","type":"person","label":"Йордан Арменов Станев"},{"id":"person:РОМИНА ГЕОРГИЕВА СОТИРОВА","type":"person","label":"Ромина Георгиева Сотирова"}],"edges":[{"source":"official:aneliya-stefanova-bocheva-7f1f53","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:aneliya-stefanova-bocheva-7f1f53","target":"company:tr:000455913","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:rositsa-doncheva-gavrilska-4ea489","target":"company:tr:000455913","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:antonina-tsocheva-tsocheva-0f1756","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ДИАНА СТОЕВА КУШЕВА","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ИВАНОВА ВЪЛЕВА","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ ТОДОРОВ ДИМОВ","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПЕНЧЕВ БЕЛЧЕВ","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ВЪЛКОВА РУСЕВА","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА СЛАВЧЕВА КОНСТАНТИНОВА","target":"company:tr:000455913","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ ГЕНЧЕВА ГЕНЧЕВА","target":"company:tr:000455913","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ИВАНОВА АТАНАСОВА","target":"company:tr:000455913","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА СТОЕВА КУШЕВА","target":"company:tr:000455913","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ ХРИСТОВА КАРАКОЛЕВА","target":"company:tr:000455913","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ ХРИСТОВА КАРАКОЛЕВА","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАЛИЯ-НИКОЛ НИКОЛАЙ УРУМОВА","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН АРМЕНОВ СТАНЕВ","target":"company:tr:000455913","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОМИНА ГЕОРГИЕВА СОТИРОВА","target":"company:tr:000455913","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aneliya-stefanova-bocheva-7f1f53",
+  "nodes": [
+    {
+      "id": "official:aneliya-stefanova-bocheva-7f1f53",
+      "type": "official",
+      "slug": "aneliya-stefanova-bocheva-7f1f53",
+      "label": "Анелия Стефанова Бочева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сопот"
+    },
+    {
+      "id": "company:tr:000455913",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ИВАН ВАЗОВ - 1871",
+      "slug": null,
+      "uic": "000455913",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:rositsa-doncheva-gavrilska-4ea489",
+      "type": "official",
+      "slug": "rositsa-doncheva-gavrilska-4ea489",
+      "label": "Росица Дончева Гаврилска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:antonina-tsocheva-tsocheva-0f1756",
+      "type": "official",
+      "slug": "antonina-tsocheva-tsocheva-0f1756",
+      "label": "Антонина Цочева Цочева",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Сопот"
+    },
+    {
+      "id": "person:ДИАНА СТОЕВА КУШЕВА",
+      "type": "person",
+      "label": "Диана Стоева Кушева"
+    },
+    {
+      "id": "person:ИВАНКА ИВАНОВА ВЪЛЕВА",
+      "type": "person",
+      "label": "Иванка Иванова Вълева"
+    },
+    {
+      "id": "person:ЕВГЕНИ ТОДОРОВ ДИМОВ",
+      "type": "person",
+      "label": "Евгени Тодоров Димов"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕНЧЕВ БЕЛЧЕВ",
+      "type": "person",
+      "label": "Георги Пенчев Белчев"
+    },
+    {
+      "id": "person:МИЛЕНА ВЪЛКОВА РУСЕВА",
+      "type": "person",
+      "label": "Милена Вълкова Русева"
+    },
+    {
+      "id": "person:КРАСИМИРА СЛАВЧЕВА КОНСТАНТИНОВА",
+      "type": "person",
+      "label": "Красимира Славчева Константинова"
+    },
+    {
+      "id": "person:НАТАЛИЯ ГЕНЧЕВА ГЕНЧЕВА",
+      "type": "person",
+      "label": "Наталия Генчева Генчева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ИВАНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Десислава Иванова Атанасова"
+    },
+    {
+      "id": "person:СИЛВИЯ ХРИСТОВА КАРАКОЛЕВА",
+      "type": "person",
+      "label": "Силвия Христова Караколева"
+    },
+    {
+      "id": "person:ДАЛИЯ-НИКОЛ НИКОЛАЙ УРУМОВА",
+      "type": "person",
+      "label": "Далия-Никол Николай Урумова"
+    },
+    {
+      "id": "person:ЙОРДАН АРМЕНОВ СТАНЕВ",
+      "type": "person",
+      "label": "Йордан Арменов Станев"
+    },
+    {
+      "id": "person:РОМИНА ГЕОРГИЕВА СОТИРОВА",
+      "type": "person",
+      "label": "Ромина Георгиева Сотирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-stefanova-bocheva-7f1f53",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aneliya-stefanova-bocheva-7f1f53",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rositsa-doncheva-gavrilska-4ea489",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:antonina-tsocheva-tsocheva-0f1756",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИАНА СТОЕВА КУШЕВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ИВАНОВА ВЪЛЕВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ТОДОРОВ ДИМОВ",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕНЧЕВ БЕЛЧЕВ",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ВЪЛКОВА РУСЕВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СЛАВЧЕВА КОНСТАНТИНОВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ГЕНЧЕВА ГЕНЧЕВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИВАНОВА АТАНАСОВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА СТОЕВА КУШЕВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ХРИСТОВА КАРАКОЛЕВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ХРИСТОВА КАРАКОЛЕВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАЛИЯ-НИКОЛ НИКОЛАЙ УРУМОВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АРМЕНОВ СТАНЕВ",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОМИНА ГЕОРГИЕВА СОТИРОВА",
+      "target": "company:tr:000455913",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

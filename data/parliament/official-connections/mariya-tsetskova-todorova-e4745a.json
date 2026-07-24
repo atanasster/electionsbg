@@ -1,1 +1,138 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-tsetskova-todorova-e4745a","nodes":[{"id":"official:mariya-tsetskova-todorova-e4745a","type":"official","slug":"mariya-tsetskova-todorova-e4745a","label":"Мария Цецкова Тодорова","tier":"municipal","role":"mayor","municipality":"Чупрене"},{"id":"company:tr:206744755","type":"company","label":"Еко иновейшън хъб - Стартъп вилидж Чупрене","slug":null,"uic":"206744755","legalForm":null,"status":null,"seat":null},{"id":"official:zaharin-ivanov-zahariev-77f9d7","type":"official","slug":"zaharin-ivanov-zahariev-77f9d7","label":"Захарин Иванов Захариев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ДИМИТЪР ВАСИЛЕВ ИВАНОВ","type":"person","label":"Димитър Василев Иванов"},{"id":"person:КРУМ ОГНЯНОВ МАНОИЛОВ","type":"person","label":"Крум Огнянов Маноилов"},{"id":"person:ОГНЯН ЙОРДАНОВ ЙОВКОВ","type":"person","label":"Огнян Йорданов Йовков"},{"id":"person:ЛЮБКА АНГЕЛОВА БУЧКОВА","type":"person","label":"Любка Ангелова Бучкова"},{"id":"person:ХРИСТО БОНЧЕВ НЕЙЧЕВ","type":"person","label":"Христо Бончев Нейчев"},{"id":"person:ГЕОРГИ ПЕТРОВ НИЗАМОВ","type":"person","label":"Георги Петров Низамов"}],"edges":[{"source":"official:mariya-tsetskova-todorova-e4745a","target":"company:tr:206744755","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:zaharin-ivanov-zahariev-77f9d7","target":"company:tr:206744755","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:zaharin-ivanov-zahariev-77f9d7","target":"company:tr:206744755","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТЪР ВАСИЛЕВ ИВАНОВ","target":"company:tr:206744755","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРУМ ОГНЯНОВ МАНОИЛОВ","target":"company:tr:206744755","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯН ЙОРДАНОВ ЙОВКОВ","target":"company:tr:206744755","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБКА АНГЕЛОВА БУЧКОВА","target":"company:tr:206744755","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО БОНЧЕВ НЕЙЧЕВ","target":"company:tr:206744755","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПЕТРОВ НИЗАМОВ","target":"company:tr:206744755","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-tsetskova-todorova-e4745a",
+  "nodes": [
+    {
+      "id": "official:mariya-tsetskova-todorova-e4745a",
+      "type": "official",
+      "slug": "mariya-tsetskova-todorova-e4745a",
+      "label": "Мария Цецкова Тодорова",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Чупрене"
+    },
+    {
+      "id": "company:tr:206744755",
+      "type": "company",
+      "label": "Еко иновейшън хъб - Стартъп вилидж Чупрене",
+      "slug": null,
+      "uic": "206744755",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:zaharin-ivanov-zahariev-77f9d7",
+      "type": "official",
+      "slug": "zaharin-ivanov-zahariev-77f9d7",
+      "label": "Захарин Иванов Захариев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИМИТЪР ВАСИЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Димитър Василев Иванов"
+    },
+    {
+      "id": "person:КРУМ ОГНЯНОВ МАНОИЛОВ",
+      "type": "person",
+      "label": "Крум Огнянов Маноилов"
+    },
+    {
+      "id": "person:ОГНЯН ЙОРДАНОВ ЙОВКОВ",
+      "type": "person",
+      "label": "Огнян Йорданов Йовков"
+    },
+    {
+      "id": "person:ЛЮБКА АНГЕЛОВА БУЧКОВА",
+      "type": "person",
+      "label": "Любка Ангелова Бучкова"
+    },
+    {
+      "id": "person:ХРИСТО БОНЧЕВ НЕЙЧЕВ",
+      "type": "person",
+      "label": "Христо Бончев Нейчев"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ НИЗАМОВ",
+      "type": "person",
+      "label": "Георги Петров Низамов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-tsetskova-todorova-e4745a",
+      "target": "company:tr:206744755",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zaharin-ivanov-zahariev-77f9d7",
+      "target": "company:tr:206744755",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zaharin-ivanov-zahariev-77f9d7",
+      "target": "company:tr:206744755",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:206744755",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРУМ ОГНЯНОВ МАНОИЛОВ",
+      "target": "company:tr:206744755",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН ЙОРДАНОВ ЙОВКОВ",
+      "target": "company:tr:206744755",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА АНГЕЛОВА БУЧКОВА",
+      "target": "company:tr:206744755",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО БОНЧЕВ НЕЙЧЕВ",
+      "target": "company:tr:206744755",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ НИЗАМОВ",
+      "target": "company:tr:206744755",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

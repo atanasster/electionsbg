@@ -1,1 +1,232 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zlatina-ilieva-staneva-d02cf0","nodes":[{"id":"official:zlatina-ilieva-staneva-d02cf0","type":"official","slug":"zlatina-ilieva-staneva-d02cf0","label":"Златина Илиева Станева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000559121","type":"company","label":"&quot;ДОРОСТОЛ - 1870 Г.&quot;","slug":null,"uic":"000559121","legalForm":null,"status":null,"seat":null},{"id":"official:nedka-nikolova-ruseva-3e67ee","type":"official","slug":"nedka-nikolova-ruseva-3e67ee","label":"Недка Николова Русева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:МАРГАРИТА ИВАНОВА ЛЮБОМИРОВА","type":"person","label":"Маргарита Иванова Любомирова"},{"id":"person:НИКОЛИНКА КИРОВА НИКОЛОВА-ЖЕКОВА","type":"person","label":"Николинка Кирова Николова-Жекова"},{"id":"person:ГЕОРГИ ИВАНОВ ИВАНОВ","type":"person","label":"Георги Иванов Иванов"},{"id":"person:ВАЛЕНТИН СТОЯНОВ КОПРИНДЖИЙСКИ","type":"person","label":"Валентин Стоянов Копринджийски"},{"id":"person:ТИХОМИР ЛЕФТЕРОВ ТОМОВ","type":"person","label":"Тихомир Лефтеров Томов"},{"id":"person:РОСЕН АЛЕКСАНДРОВ ЛЕБЕДОВ","type":"person","label":"Росен Александров Лебедов"},{"id":"person:ДЕСИСЛАВА ЕНЧЕВА ПАРУШЕВА","type":"person","label":"Десислава Енчева Парушева"},{"id":"person:РОСИЦА ВЕЛИКОВА ДИМОВА","type":"person","label":"Росица Великова Димова"},{"id":"person:ЕМИЛИЯН ИЛИЕВ БОРИСОВ","type":"person","label":"Емилиян Илиев Борисов"},{"id":"person:ЙОРДАН ЗДРАВКОВ ГЕОРГИЕВ","type":"person","label":"Йордан Здравков Георгиев"},{"id":"person:МИЛЕНА СТАНЕВА ИЛИЕВА","type":"person","label":"Милена Станева Илиева"},{"id":"person:ДОНЧО ИВАНОВ ДИМИТРАНОВ","type":"person","label":"Дончо Иванов Димитранов"}],"edges":[{"source":"official:zlatina-ilieva-staneva-d02cf0","target":"company:tr:000559121","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:zlatina-ilieva-staneva-d02cf0","target":"company:tr:000559121","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:nedka-nikolova-ruseva-3e67ee","target":"company:tr:000559121","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:nedka-nikolova-ruseva-3e67ee","target":"company:tr:000559121","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:МАРГАРИТА ИВАНОВА ЛЮБОМИРОВА","target":"company:tr:000559121","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНКА КИРОВА НИКОЛОВА-ЖЕКОВА","target":"company:tr:000559121","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА ИВАНОВА ЛЮБОМИРОВА","target":"company:tr:000559121","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ ИВАНОВ","target":"company:tr:000559121","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН СТОЯНОВ КОПРИНДЖИЙСКИ","target":"company:tr:000559121","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР ЛЕФТЕРОВ ТОМОВ","target":"company:tr:000559121","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН АЛЕКСАНДРОВ ЛЕБЕДОВ","target":"company:tr:000559121","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ЕНЧЕВА ПАРУШЕВА","target":"company:tr:000559121","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ВЕЛИКОВА ДИМОВА","target":"company:tr:000559121","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯН ИЛИЕВ БОРИСОВ","target":"company:tr:000559121","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ЗДРАВКОВ ГЕОРГИЕВ","target":"company:tr:000559121","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА СТАНЕВА ИЛИЕВА","target":"company:tr:000559121","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДОНЧО ИВАНОВ ДИМИТРАНОВ","target":"company:tr:000559121","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zlatina-ilieva-staneva-d02cf0",
+  "nodes": [
+    {
+      "id": "official:zlatina-ilieva-staneva-d02cf0",
+      "type": "official",
+      "slug": "zlatina-ilieva-staneva-d02cf0",
+      "label": "Златина Илиева Станева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000559121",
+      "type": "company",
+      "label": "&quot;ДОРОСТОЛ - 1870 Г.&quot;",
+      "slug": null,
+      "uic": "000559121",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nedka-nikolova-ruseva-3e67ee",
+      "type": "official",
+      "slug": "nedka-nikolova-ruseva-3e67ee",
+      "label": "Недка Николова Русева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:МАРГАРИТА ИВАНОВА ЛЮБОМИРОВА",
+      "type": "person",
+      "label": "Маргарита Иванова Любомирова"
+    },
+    {
+      "id": "person:НИКОЛИНКА КИРОВА НИКОЛОВА-ЖЕКОВА",
+      "type": "person",
+      "label": "Николинка Кирова Николова-Жекова"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Иванов Иванов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН СТОЯНОВ КОПРИНДЖИЙСКИ",
+      "type": "person",
+      "label": "Валентин Стоянов Копринджийски"
+    },
+    {
+      "id": "person:ТИХОМИР ЛЕФТЕРОВ ТОМОВ",
+      "type": "person",
+      "label": "Тихомир Лефтеров Томов"
+    },
+    {
+      "id": "person:РОСЕН АЛЕКСАНДРОВ ЛЕБЕДОВ",
+      "type": "person",
+      "label": "Росен Александров Лебедов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЕНЧЕВА ПАРУШЕВА",
+      "type": "person",
+      "label": "Десислава Енчева Парушева"
+    },
+    {
+      "id": "person:РОСИЦА ВЕЛИКОВА ДИМОВА",
+      "type": "person",
+      "label": "Росица Великова Димова"
+    },
+    {
+      "id": "person:ЕМИЛИЯН ИЛИЕВ БОРИСОВ",
+      "type": "person",
+      "label": "Емилиян Илиев Борисов"
+    },
+    {
+      "id": "person:ЙОРДАН ЗДРАВКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Йордан Здравков Георгиев"
+    },
+    {
+      "id": "person:МИЛЕНА СТАНЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Милена Станева Илиева"
+    },
+    {
+      "id": "person:ДОНЧО ИВАНОВ ДИМИТРАНОВ",
+      "type": "person",
+      "label": "Дончо Иванов Димитранов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatina-ilieva-staneva-d02cf0",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zlatina-ilieva-staneva-d02cf0",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nedka-nikolova-ruseva-3e67ee",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nedka-nikolova-ruseva-3e67ee",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА ИВАНОВА ЛЮБОМИРОВА",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНКА КИРОВА НИКОЛОВА-ЖЕКОВА",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ИВАНОВА ЛЮБОМИРОВА",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СТОЯНОВ КОПРИНДЖИЙСКИ",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ЛЕФТЕРОВ ТОМОВ",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН АЛЕКСАНДРОВ ЛЕБЕДОВ",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕНЧЕВА ПАРУШЕВА",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ВЕЛИКОВА ДИМОВА",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯН ИЛИЕВ БОРИСОВ",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЗДРАВКОВ ГЕОРГИЕВ",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА СТАНЕВА ИЛИЕВА",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ИВАНОВ ДИМИТРАНОВ",
+      "target": "company:tr:000559121",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rusi-goshev-nikolov-b9121c","nodes":[{"id":"official:rusi-goshev-nikolov-b9121c","type":"official","slug":"rusi-goshev-nikolov-b9121c","label":"РУСИ ГОШЕВ НИКОЛОВ","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206892412","type":"company","label":"АЙХЕМПФАРМС","slug":null,"uic":"206892412","legalForm":null,"status":null,"seat":null},{"id":"person:ТЕОДОР ГЕОРГИЕВ МЕЧКАРОВ","type":"person","label":"Теодор Георгиев Мечкаров"},{"id":"company:name:ВИА КОНСЕПТ","type":"company","label":"Виа Консепт ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЮЛИЯН ВЕСЕЛИНОВ МИЛЕВ","type":"person","label":"Юлиян Веселинов Милев"},{"id":"person:СТЕФАН НЕНКОВ НЕШКОВ","type":"person","label":"Стефан Ненков Нешков"},{"id":"person:ВЛАДИМИР ПЕТРОВ ИВАНОВ","type":"person","label":"Владимир Петров Иванов"}],"edges":[{"source":"official:rusi-goshev-nikolov-b9121c","target":"company:tr:206892412","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ТЕОДОР ГЕОРГИЕВ МЕЧКАРОВ","target":"company:tr:206892412","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР ГЕОРГИЕВ МЕЧКАРОВ","target":"company:tr:206892412","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:ВИА КОНСЕПТ","target":"company:tr:206892412","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЯН ВЕСЕЛИНОВ МИЛЕВ","target":"company:tr:206892412","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР ГЕОРГИЕВ МЕЧКАРОВ","target":"company:tr:206892412","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН НЕНКОВ НЕШКОВ","target":"company:tr:206892412","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ПЕТРОВ ИВАНОВ","target":"company:tr:206892412","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rusi-goshev-nikolov-b9121c",
+  "nodes": [
+    {
+      "id": "official:rusi-goshev-nikolov-b9121c",
+      "type": "official",
+      "slug": "rusi-goshev-nikolov-b9121c",
+      "label": "РУСИ ГОШЕВ НИКОЛОВ",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206892412",
+      "type": "company",
+      "label": "АЙХЕМПФАРМС",
+      "slug": null,
+      "uic": "206892412",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОР ГЕОРГИЕВ МЕЧКАРОВ",
+      "type": "person",
+      "label": "Теодор Георгиев Мечкаров"
+    },
+    {
+      "id": "company:name:ВИА КОНСЕПТ",
+      "type": "company",
+      "label": "Виа Консепт ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЮЛИЯН ВЕСЕЛИНОВ МИЛЕВ",
+      "type": "person",
+      "label": "Юлиян Веселинов Милев"
+    },
+    {
+      "id": "person:СТЕФАН НЕНКОВ НЕШКОВ",
+      "type": "person",
+      "label": "Стефан Ненков Нешков"
+    },
+    {
+      "id": "person:ВЛАДИМИР ПЕТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Владимир Петров Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rusi-goshev-nikolov-b9121c",
+      "target": "company:tr:206892412",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОР ГЕОРГИЕВ МЕЧКАРОВ",
+      "target": "company:tr:206892412",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ГЕОРГИЕВ МЕЧКАРОВ",
+      "target": "company:tr:206892412",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВИА КОНСЕПТ",
+      "target": "company:tr:206892412",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯН ВЕСЕЛИНОВ МИЛЕВ",
+      "target": "company:tr:206892412",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ГЕОРГИЕВ МЕЧКАРОВ",
+      "target": "company:tr:206892412",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН НЕНКОВ НЕШКОВ",
+      "target": "company:tr:206892412",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ПЕТРОВ ИВАНОВ",
+      "target": "company:tr:206892412",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

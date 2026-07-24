@@ -1,1 +1,317 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milen-penkov-penkov-78aad3","nodes":[{"id":"official:milen-penkov-penkov-78aad3","type":"official","slug":"milen-penkov-penkov-78aad3","label":"Милен Пенков Пенков","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:119516793","type":"company","label":"ИНВЕСТ ГРУП Д-Р ПЕНКОВИ ООД","slug":null,"uic":"119516793","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201582897","type":"company","label":"МЕДИЦИНСКИ ЦЕНТЪР БЮТЕ","slug":null,"uic":"201582897","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201298060","type":"company","label":"ФОТО СОЛАР ТРЕЙД ООД","slug":null,"uic":"201298060","legalForm":null,"status":null,"seat":null},{"id":"company:tr:147019342","type":"company","label":"КА ЕНД ЕС ООД","slug":null,"uic":"147019342","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204474357","type":"company","label":"СЪРВИЗ ЛОКАТОР ЕООД","slug":null,"uic":"204474357","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202952092","type":"company","label":"ЛАЙФ ОПТИК ООД","slug":null,"uic":"202952092","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205296224","type":"company","label":"\"ЦЕНТЪР ЗА КОНСУЛТАТИВНА РАБОТА И ПСИХОТЕРАПИЯ\"СЕНС\"\"ООД","slug":null,"uic":"205296224","legalForm":null,"status":null,"seat":null},{"id":"company:tr:119667674","type":"company","label":"ЕВРОЗЕМЕДЕЛИЕ ЕООД","slug":null,"uic":"119667674","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201563562","type":"company","label":"Сънимед Асист","slug":null,"uic":"201563562","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201998598","type":"company","label":"МЕДЛОКАТОР ТРЕЙД ЕООД","slug":null,"uic":"201998598","legalForm":null,"status":null,"seat":null},{"id":"official:gergana-penkova-aleksandrova-4e2774","type":"official","slug":"gergana-penkova-aleksandrova-4e2774","label":"Гергана Пенкова Александрова","tier":"executive","role":"hospital_head","municipality":null},{"id":"official:penko-minchev-penkov-19d0e8","type":"official","slug":"penko-minchev-penkov-19d0e8","label":"Пенко Минчев Пенков","tier":"executive","role":"hospital_head","municipality":null},{"id":"person:РАЛИЦА ПЛАМЕНОВА ПЕНКОВА","type":"person","label":"Ралица Пламенова Пенкова"},{"id":"official:georgi-petkov-iliev-59dc23","type":"official","slug":"georgi-petkov-iliev-59dc23","label":"Георги Петков Илиев","tier":"executive","role":"hospital_head","municipality":null}],"edges":[{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:119516793","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:201582897","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:201298060","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:147019342","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:204474357","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:202952092","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:205296224","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:119667674","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:201563562","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:201998598","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:119516793","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:119667674","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:119667674","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"medium"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:201998598","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:milen-penkov-penkov-78aad3","target":"company:tr:201998598","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:gergana-penkova-aleksandrova-4e2774","target":"company:tr:119516793","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:penko-minchev-penkov-19d0e8","target":"company:tr:119516793","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:penko-minchev-penkov-19d0e8","target":"company:tr:119516793","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:РАЛИЦА ПЛАМЕНОВА ПЕНКОВА","target":"company:tr:202952092","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА ПЛАМЕНОВА ПЕНКОВА","target":"company:tr:202952092","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"official:georgi-petkov-iliev-59dc23","target":"company:tr:201563562","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milen-penkov-penkov-78aad3",
+  "nodes": [
+    {
+      "id": "official:milen-penkov-penkov-78aad3",
+      "type": "official",
+      "slug": "milen-penkov-penkov-78aad3",
+      "label": "Милен Пенков Пенков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119516793",
+      "type": "company",
+      "label": "ИНВЕСТ ГРУП Д-Р ПЕНКОВИ ООД",
+      "slug": null,
+      "uic": "119516793",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201582897",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР БЮТЕ",
+      "slug": null,
+      "uic": "201582897",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201298060",
+      "type": "company",
+      "label": "ФОТО СОЛАР ТРЕЙД ООД",
+      "slug": null,
+      "uic": "201298060",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:147019342",
+      "type": "company",
+      "label": "КА ЕНД ЕС ООД",
+      "slug": null,
+      "uic": "147019342",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204474357",
+      "type": "company",
+      "label": "СЪРВИЗ ЛОКАТОР ЕООД",
+      "slug": null,
+      "uic": "204474357",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202952092",
+      "type": "company",
+      "label": "ЛАЙФ ОПТИК ООД",
+      "slug": null,
+      "uic": "202952092",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205296224",
+      "type": "company",
+      "label": "\"ЦЕНТЪР ЗА КОНСУЛТАТИВНА РАБОТА И ПСИХОТЕРАПИЯ\"СЕНС\"\"ООД",
+      "slug": null,
+      "uic": "205296224",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:119667674",
+      "type": "company",
+      "label": "ЕВРОЗЕМЕДЕЛИЕ ЕООД",
+      "slug": null,
+      "uic": "119667674",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201563562",
+      "type": "company",
+      "label": "Сънимед Асист",
+      "slug": null,
+      "uic": "201563562",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201998598",
+      "type": "company",
+      "label": "МЕДЛОКАТОР ТРЕЙД ЕООД",
+      "slug": null,
+      "uic": "201998598",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:gergana-penkova-aleksandrova-4e2774",
+      "type": "official",
+      "slug": "gergana-penkova-aleksandrova-4e2774",
+      "label": "Гергана Пенкова Александрова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:penko-minchev-penkov-19d0e8",
+      "type": "official",
+      "slug": "penko-minchev-penkov-19d0e8",
+      "label": "Пенко Минчев Пенков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:РАЛИЦА ПЛАМЕНОВА ПЕНКОВА",
+      "type": "person",
+      "label": "Ралица Пламенова Пенкова"
+    },
+    {
+      "id": "official:georgi-petkov-iliev-59dc23",
+      "type": "official",
+      "slug": "georgi-petkov-iliev-59dc23",
+      "label": "Георги Петков Илиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:119516793",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:201582897",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:201298060",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:147019342",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:204474357",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:202952092",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:205296224",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:119667674",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:201563562",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:201998598",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:119516793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:119667674",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:119667674",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:201998598",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:201998598",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-penkova-aleksandrova-4e2774",
+      "target": "company:tr:119516793",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:119516793",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:119516793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАЛИЦА ПЛАМЕНОВА ПЕНКОВА",
+      "target": "company:tr:202952092",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ПЛАМЕНОВА ПЕНКОВА",
+      "target": "company:tr:202952092",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-petkov-iliev-59dc23",
+      "target": "company:tr:201563562",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

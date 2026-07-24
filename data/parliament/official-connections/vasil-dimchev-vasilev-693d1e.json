@@ -1,1 +1,160 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vasil-dimchev-vasilev-693d1e","nodes":[{"id":"official:vasil-dimchev-vasilev-693d1e","type":"official","slug":"vasil-dimchev-vasilev-693d1e","label":"Васил Димчев Василев","tier":"municipal","role":"councillor","municipality":"Харманли"},{"id":"company:tr:175798524","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ-1928&quot;","slug":null,"uic":"175798524","legalForm":null,"status":null,"seat":null},{"id":"person:СВЕТЛА ВЕСЕЛИНОВА СИДЕРОВА","type":"person","label":"Светла Веселинова Сидерова"},{"id":"person:ДИМИТРИНА НЕЙКОВА ТЯНЕВА-СТОЙКОВА","type":"person","label":"Димитрина Нейкова Тянева-Стойкова"},{"id":"person:АНГЕЛИНА ПЕТКОВА ДИМИТРОВА","type":"person","label":"Ангелина Петкова Димитрова"},{"id":"person:АНТОН МИТКОВ КОЗАЛИЕВ","type":"person","label":"Антон Митков Козалиев"},{"id":"person:РУМЯНА ЛАМБОВА ИЛЧЕВА","type":"person","label":"Румяна Ламбова Илчева"},{"id":"person:АНЕЛИЯ РУСЕВА МИХОВА","type":"person","label":"Анелия Русева Михова"},{"id":"person:ПАВЛИНА ДИМИТРОВА ХРИСТОВА","type":"person","label":"Павлина Димитрова Христова"},{"id":"person:КИРИЛКА ПЕТКОВА НЕЙКОВА","type":"person","label":"Кирилка Петкова Нейкова"},{"id":"person:ВЛАДИМИР РУСЕВ ГОЧЕВ","type":"person","label":"Владимир Русев Гочев"}],"edges":[{"source":"official:vasil-dimchev-vasilev-693d1e","target":"company:tr:175798524","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:СВЕТЛА ВЕСЕЛИНОВА СИДЕРОВА","target":"company:tr:175798524","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА НЕЙКОВА ТЯНЕВА-СТОЙКОВА","target":"company:tr:175798524","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА НЕЙКОВА ТЯНЕВА-СТОЙКОВА","target":"company:tr:175798524","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛИНА ПЕТКОВА ДИМИТРОВА","target":"company:tr:175798524","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН МИТКОВ КОЗАЛИЕВ","target":"company:tr:175798524","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ЛАМБОВА ИЛЧЕВА","target":"company:tr:175798524","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ РУСЕВА МИХОВА","target":"company:tr:175798524","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА ДИМИТРОВА ХРИСТОВА","target":"company:tr:175798524","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛКА ПЕТКОВА НЕЙКОВА","target":"company:tr:175798524","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР РУСЕВ ГОЧЕВ","target":"company:tr:175798524","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vasil-dimchev-vasilev-693d1e",
+  "nodes": [
+    {
+      "id": "official:vasil-dimchev-vasilev-693d1e",
+      "type": "official",
+      "slug": "vasil-dimchev-vasilev-693d1e",
+      "label": "Васил Димчев Василев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Харманли"
+    },
+    {
+      "id": "company:tr:175798524",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ-1928&quot;",
+      "slug": null,
+      "uic": "175798524",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛА ВЕСЕЛИНОВА СИДЕРОВА",
+      "type": "person",
+      "label": "Светла Веселинова Сидерова"
+    },
+    {
+      "id": "person:ДИМИТРИНА НЕЙКОВА ТЯНЕВА-СТОЙКОВА",
+      "type": "person",
+      "label": "Димитрина Нейкова Тянева-Стойкова"
+    },
+    {
+      "id": "person:АНГЕЛИНА ПЕТКОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Ангелина Петкова Димитрова"
+    },
+    {
+      "id": "person:АНТОН МИТКОВ КОЗАЛИЕВ",
+      "type": "person",
+      "label": "Антон Митков Козалиев"
+    },
+    {
+      "id": "person:РУМЯНА ЛАМБОВА ИЛЧЕВА",
+      "type": "person",
+      "label": "Румяна Ламбова Илчева"
+    },
+    {
+      "id": "person:АНЕЛИЯ РУСЕВА МИХОВА",
+      "type": "person",
+      "label": "Анелия Русева Михова"
+    },
+    {
+      "id": "person:ПАВЛИНА ДИМИТРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Павлина Димитрова Христова"
+    },
+    {
+      "id": "person:КИРИЛКА ПЕТКОВА НЕЙКОВА",
+      "type": "person",
+      "label": "Кирилка Петкова Нейкова"
+    },
+    {
+      "id": "person:ВЛАДИМИР РУСЕВ ГОЧЕВ",
+      "type": "person",
+      "label": "Владимир Русев Гочев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-dimchev-vasilev-693d1e",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛА ВЕСЕЛИНОВА СИДЕРОВА",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА НЕЙКОВА ТЯНЕВА-СТОЙКОВА",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА НЕЙКОВА ТЯНЕВА-СТОЙКОВА",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА ПЕТКОВА ДИМИТРОВА",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН МИТКОВ КОЗАЛИЕВ",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ЛАМБОВА ИЛЧЕВА",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ РУСЕВА МИХОВА",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ДИМИТРОВА ХРИСТОВА",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛКА ПЕТКОВА НЕЙКОВА",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР РУСЕВ ГОЧЕВ",
+      "target": "company:tr:175798524",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

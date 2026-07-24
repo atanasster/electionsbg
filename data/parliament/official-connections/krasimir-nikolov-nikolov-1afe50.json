@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:krasimir-nikolov-nikolov-1afe50","nodes":[{"id":"official:krasimir-nikolov-nikolov-1afe50","type":"official","slug":"krasimir-nikolov-nikolov-1afe50","label":"Красимир Николов Николов","tier":"executive","role":"hospital_head","municipality":null},{"id":"company:tr:200512814","type":"company","label":"МОТ БГ ООД","slug":null,"uic":"200512814","legalForm":null,"status":null,"seat":null},{"id":"person:БАВАРИЯ ХОЛДИНГ","type":"person","label":"Бавария Холдинг"}],"edges":[{"source":"official:krasimir-nikolov-nikolov-1afe50","target":"company:tr:200512814","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:БАВАРИЯ ХОЛДИНГ","target":"company:tr:200512814","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:krasimir-nikolov-nikolov-1afe50",
+  "nodes": [
+    {
+      "id": "official:krasimir-nikolov-nikolov-1afe50",
+      "type": "official",
+      "slug": "krasimir-nikolov-nikolov-1afe50",
+      "label": "Красимир Николов Николов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200512814",
+      "type": "company",
+      "label": "МОТ БГ ООД",
+      "slug": null,
+      "uic": "200512814",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БАВАРИЯ ХОЛДИНГ",
+      "type": "person",
+      "label": "Бавария Холдинг"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-nikolov-nikolov-1afe50",
+      "target": "company:tr:200512814",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАВАРИЯ ХОЛДИНГ",
+      "target": "company:tr:200512814",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

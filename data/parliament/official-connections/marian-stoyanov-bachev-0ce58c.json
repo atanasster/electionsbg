@@ -1,1 +1,220 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:marian-stoyanov-bachev-0ce58c","nodes":[{"id":"official:marian-stoyanov-bachev-0ce58c","type":"official","slug":"marian-stoyanov-bachev-0ce58c","label":"Мариан Стоянов Бачев","tier":"executive","role":"cabinet","municipality":null},{"id":"company:tr:207874584","type":"company","label":"\"Мак Фюжън\" ЕООД","slug":null,"uic":"207874584","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206483084","type":"company","label":"Асоциация на частните театрални школи","slug":null,"uic":"206483084","legalForm":null,"status":null,"seat":null},{"id":"person:МИЛЕНА ВИДЕРОВА ПЪРВАНОВА - БАЧЕВА","type":"person","label":"Милена Видерова Първанова - Бачева"},{"id":"person:СИМОНА ВЕНЦИСЛАВОВА ПОПОВА - ЛИПОВСКА","type":"person","label":"Симона Венциславова Попова - Липовска"},{"id":"person:БРАНИМИР ИВАНОВ МИТОВ","type":"person","label":"Бранимир Иванов Митов"},{"id":"person:ЦВЕТА ЦВЕТАНОВА БАЛИЙСКА - СОКОЛОВА","type":"person","label":"Цвета Цветанова Балийска - Соколова"},{"id":"person:АЛЕКСАНДЪР СТОЯНОВ БЕРОВСКИ","type":"person","label":"Александър Стоянов Беровски"},{"id":"person:ДАНИАНА БОЙКОВА КОЕВА","type":"person","label":"Даниана Бойкова Коева"},{"id":"person:ДИАНА КИРИЛОВА ЖЕЧЕВА-ДОСЕВА","type":"person","label":"Диана Кирилова Жечева-Досева"},{"id":"person:ТЕОДОР ТЕОДОРУ ЛУКА","type":"person","label":"Теодор Теодору Лука"},{"id":"person:АСОЦИАЦИЯ ЗА ИЗКУСТВО И МЛАДЕЖКИ ИНИЦИАТИВИ \"СТУДИЯТА\" ЧРЕЗ ДИАНА КИРИЛОВА ЖЕЧЕВА-ДОСЕВА","type":"person","label":"Асоциация За Изкуство И Младежки Инициативи \"студията\" Чрез Диана Кирилова Жечева-Досева"},{"id":"person:ЕМИЛ ЕМИЛОВ АТАНАСОВ","type":"person","label":"Емил Емилов Атанасов"},{"id":"person:ЛЮДМИЛА ЦОНЕВА ДАСКАЛОВА","type":"person","label":"Людмила Цонева Даскалова"}],"edges":[{"source":"official:marian-stoyanov-bachev-0ce58c","target":"company:tr:207874584","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:marian-stoyanov-bachev-0ce58c","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛЕНА ВИДЕРОВА ПЪРВАНОВА - БАЧЕВА","target":"company:tr:207874584","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ВИДЕРОВА ПЪРВАНОВА - БАЧЕВА","target":"company:tr:207874584","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:СИМОНА ВЕНЦИСЛАВОВА ПОПОВА - ЛИПОВСКА","target":"company:tr:206483084","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БРАНИМИР ИВАНОВ МИТОВ","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИМОНА ВЕНЦИСЛАВОВА ПОПОВА - ЛИПОВСКА","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТА ЦВЕТАНОВА БАЛИЙСКА - СОКОЛОВА","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР СТОЯНОВ БЕРОВСКИ","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИАНА БОЙКОВА КОЕВА","target":"company:tr:206483084","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА КИРИЛОВА ЖЕЧЕВА-ДОСЕВА","target":"company:tr:206483084","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИАНА БОЙКОВА КОЕВА","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР ТЕОДОРУ ЛУКА","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АСОЦИАЦИЯ ЗА ИЗКУСТВО И МЛАДЕЖКИ ИНИЦИАТИВИ \"СТУДИЯТА\" ЧРЕЗ ДИАНА КИРИЛОВА ЖЕЧЕВА-ДОСЕВА","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ЕМИЛОВ АТАНАСОВ","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛА ЦОНЕВА ДАСКАЛОВА","target":"company:tr:206483084","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:marian-stoyanov-bachev-0ce58c",
+  "nodes": [
+    {
+      "id": "official:marian-stoyanov-bachev-0ce58c",
+      "type": "official",
+      "slug": "marian-stoyanov-bachev-0ce58c",
+      "label": "Мариан Стоянов Бачев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207874584",
+      "type": "company",
+      "label": "\"Мак Фюжън\" ЕООД",
+      "slug": null,
+      "uic": "207874584",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206483084",
+      "type": "company",
+      "label": "Асоциация на частните театрални школи",
+      "slug": null,
+      "uic": "206483084",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕНА ВИДЕРОВА ПЪРВАНОВА - БАЧЕВА",
+      "type": "person",
+      "label": "Милена Видерова Първанова - Бачева"
+    },
+    {
+      "id": "person:СИМОНА ВЕНЦИСЛАВОВА ПОПОВА - ЛИПОВСКА",
+      "type": "person",
+      "label": "Симона Венциславова Попова - Липовска"
+    },
+    {
+      "id": "person:БРАНИМИР ИВАНОВ МИТОВ",
+      "type": "person",
+      "label": "Бранимир Иванов Митов"
+    },
+    {
+      "id": "person:ЦВЕТА ЦВЕТАНОВА БАЛИЙСКА - СОКОЛОВА",
+      "type": "person",
+      "label": "Цвета Цветанова Балийска - Соколова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР СТОЯНОВ БЕРОВСКИ",
+      "type": "person",
+      "label": "Александър Стоянов Беровски"
+    },
+    {
+      "id": "person:ДАНИАНА БОЙКОВА КОЕВА",
+      "type": "person",
+      "label": "Даниана Бойкова Коева"
+    },
+    {
+      "id": "person:ДИАНА КИРИЛОВА ЖЕЧЕВА-ДОСЕВА",
+      "type": "person",
+      "label": "Диана Кирилова Жечева-Досева"
+    },
+    {
+      "id": "person:ТЕОДОР ТЕОДОРУ ЛУКА",
+      "type": "person",
+      "label": "Теодор Теодору Лука"
+    },
+    {
+      "id": "person:АСОЦИАЦИЯ ЗА ИЗКУСТВО И МЛАДЕЖКИ ИНИЦИАТИВИ \"СТУДИЯТА\" ЧРЕЗ ДИАНА КИРИЛОВА ЖЕЧЕВА-ДОСЕВА",
+      "type": "person",
+      "label": "Асоциация За Изкуство И Младежки Инициативи \"студията\" Чрез Диана Кирилова Жечева-Досева"
+    },
+    {
+      "id": "person:ЕМИЛ ЕМИЛОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Емил Емилов Атанасов"
+    },
+    {
+      "id": "person:ЛЮДМИЛА ЦОНЕВА ДАСКАЛОВА",
+      "type": "person",
+      "label": "Людмила Цонева Даскалова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marian-stoyanov-bachev-0ce58c",
+      "target": "company:tr:207874584",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:marian-stoyanov-bachev-0ce58c",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕНА ВИДЕРОВА ПЪРВАНОВА - БАЧЕВА",
+      "target": "company:tr:207874584",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ВИДЕРОВА ПЪРВАНОВА - БАЧЕВА",
+      "target": "company:tr:207874584",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМОНА ВЕНЦИСЛАВОВА ПОПОВА - ЛИПОВСКА",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БРАНИМИР ИВАНОВ МИТОВ",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМОНА ВЕНЦИСЛАВОВА ПОПОВА - ЛИПОВСКА",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТА ЦВЕТАНОВА БАЛИЙСКА - СОКОЛОВА",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР СТОЯНОВ БЕРОВСКИ",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИАНА БОЙКОВА КОЕВА",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА КИРИЛОВА ЖЕЧЕВА-ДОСЕВА",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИАНА БОЙКОВА КОЕВА",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ТЕОДОРУ ЛУКА",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСОЦИАЦИЯ ЗА ИЗКУСТВО И МЛАДЕЖКИ ИНИЦИАТИВИ \"СТУДИЯТА\" ЧРЕЗ ДИАНА КИРИЛОВА ЖЕЧЕВА-ДОСЕВА",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ЕМИЛОВ АТАНАСОВ",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ЦОНЕВА ДАСКАЛОВА",
+      "target": "company:tr:206483084",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,126 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milena-raicheva-drencheva-1e9cbd","nodes":[{"id":"official:milena-raicheva-drencheva-1e9cbd","type":"official","slug":"milena-raicheva-drencheva-1e9cbd","label":"Милена Райчева Дренчева","tier":"municipal","role":"councillor","municipality":"Малко Търново"},{"id":"company:tr:000044648","type":"company","label":"ГЕОРГИ ПОПАЯНОВ 1914","slug":null,"uic":"000044648","legalForm":null,"status":null,"seat":null},{"id":"person:МИЛЬО ТОДОРОВ БАРАКОВ","type":"person","label":"Мильо Тодоров Бараков"},{"id":"person:КАТЯ СТОЯНОВА БОГОВА - ЧЛЕН","type":"person","label":"Катя Стоянова Богова - Член"},{"id":"person:СТЕФКА ГЕОРГИЕВА ТОДОРОВА - ЧЛЕН","type":"person","label":"Стефка Георгиева Тодорова - Член"},{"id":"person:МИЛЬО ТОДОРОВ БАРАКОВ - ПРЕДСЕДАТЕЛ","type":"person","label":"Мильо Тодоров Бараков - Председател"},{"id":"person:ПРОЛЕТИНА КОСТАДИНОВА ПАРАЛИЕВА - ПРЕДСЕДАТЕЛ","type":"person","label":"Пролетина Костадинова Паралиева - Председател"},{"id":"person:ВЕЛИЧКА СТОЯНОВА ШУРЕЛОВА - ЧЛЕН","type":"person","label":"Величка Стоянова Шурелова - Член"},{"id":"person:МАРИЯ ЗЛАТЕВА НИКОЛОВА","type":"person","label":"Мария Златева Николова"}],"edges":[{"source":"official:milena-raicheva-drencheva-1e9cbd","target":"company:tr:000044648","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛЬО ТОДОРОВ БАРАКОВ","target":"company:tr:000044648","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ СТОЯНОВА БОГОВА - ЧЛЕН","target":"company:tr:000044648","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ГЕОРГИЕВА ТОДОРОВА - ЧЛЕН","target":"company:tr:000044648","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЬО ТОДОРОВ БАРАКОВ - ПРЕДСЕДАТЕЛ","target":"company:tr:000044648","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПРОЛЕТИНА КОСТАДИНОВА ПАРАЛИЕВА - ПРЕДСЕДАТЕЛ","target":"company:tr:000044648","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЧКА СТОЯНОВА ШУРЕЛОВА - ЧЛЕН","target":"company:tr:000044648","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ЗЛАТЕВА НИКОЛОВА","target":"company:tr:000044648","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milena-raicheva-drencheva-1e9cbd",
+  "nodes": [
+    {
+      "id": "official:milena-raicheva-drencheva-1e9cbd",
+      "type": "official",
+      "slug": "milena-raicheva-drencheva-1e9cbd",
+      "label": "Милена Райчева Дренчева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Малко Търново"
+    },
+    {
+      "id": "company:tr:000044648",
+      "type": "company",
+      "label": "ГЕОРГИ ПОПАЯНОВ 1914",
+      "slug": null,
+      "uic": "000044648",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЬО ТОДОРОВ БАРАКОВ",
+      "type": "person",
+      "label": "Мильо Тодоров Бараков"
+    },
+    {
+      "id": "person:КАТЯ СТОЯНОВА БОГОВА - ЧЛЕН",
+      "type": "person",
+      "label": "Катя Стоянова Богова - Член"
+    },
+    {
+      "id": "person:СТЕФКА ГЕОРГИЕВА ТОДОРОВА - ЧЛЕН",
+      "type": "person",
+      "label": "Стефка Георгиева Тодорова - Член"
+    },
+    {
+      "id": "person:МИЛЬО ТОДОРОВ БАРАКОВ - ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Мильо Тодоров Бараков - Председател"
+    },
+    {
+      "id": "person:ПРОЛЕТИНА КОСТАДИНОВА ПАРАЛИЕВА - ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Пролетина Костадинова Паралиева - Председател"
+    },
+    {
+      "id": "person:ВЕЛИЧКА СТОЯНОВА ШУРЕЛОВА - ЧЛЕН",
+      "type": "person",
+      "label": "Величка Стоянова Шурелова - Член"
+    },
+    {
+      "id": "person:МАРИЯ ЗЛАТЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Мария Златева Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-raicheva-drencheva-1e9cbd",
+      "target": "company:tr:000044648",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЬО ТОДОРОВ БАРАКОВ",
+      "target": "company:tr:000044648",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ СТОЯНОВА БОГОВА - ЧЛЕН",
+      "target": "company:tr:000044648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ГЕОРГИЕВА ТОДОРОВА - ЧЛЕН",
+      "target": "company:tr:000044648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЬО ТОДОРОВ БАРАКОВ - ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:000044648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПРОЛЕТИНА КОСТАДИНОВА ПАРАЛИЕВА - ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:000044648",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА СТОЯНОВА ШУРЕЛОВА - ЧЛЕН",
+      "target": "company:tr:000044648",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ЗЛАТЕВА НИКОЛОВА",
+      "target": "company:tr:000044648",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

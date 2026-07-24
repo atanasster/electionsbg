@@ -11,11 +11,14 @@
 // would APPEND to the already-graphed index and duplicate roles.
 //
 // company_links.json (officials→company) is intentionally NOT regenerated here:
-// it's already current from run-officials-links-only.ts and uses the pretty
-// (2-space) format, which the compact pipeline stringify would churn.
+// it's already current from run-officials-links-only.ts.
 //
-// Formats match what's committed: compact for the parliament pipeline, pretty
-// for the officials connections.json (mirrors run-officials-connections-only).
+// EVERYTHING here is written PRETTY (2-space), because that is what is
+// committed. scripts/main.ts:57 only goes compact under --prod, and the runs
+// that produce the committed tree do not pass it. This runner used to hardcode
+// compact for the parliament leg on the belief that it matched — it did until
+// 2026-07-23, and re-running it after the flip reformatted all 2,511 parliament
+// artifacts into single lines, a 1.5M-line diff carrying no content change.
 
 import {
   buildCompanyIndex,
@@ -31,34 +34,33 @@ import { buildCompaniesByObshtina } from "./parliament/build_companies_by_obshti
 
 const publicFolder = "./data"; // pipeline's historical name for the data root
 const dataFolder = "./raw_data";
-const compact = (o: object) => JSON.stringify(o);
 const pretty = (o: object) => JSON.stringify(o, null, 2);
 
 // 1. Fresh companies-index from parsed declarations (resets mpRoles).
-buildCompanyIndex({ publicFolder, stringify: compact });
-annotatePerMpDeclarationsWithSlugs({ publicFolder, stringify: compact });
+buildCompanyIndex({ publicFolder, stringify: pretty });
+annotatePerMpDeclarationsWithSlugs({ publicFolder, stringify: pretty });
 
 // 2. TR enrichment (officers/owners + seats) onto the index.
-integrateTr({ publicFolder, rawFolder: dataFolder, stringify: compact });
+integrateTr({ publicFolder, rawFolder: dataFolder, stringify: pretty });
 
 // 3. The graph: declared stakes + TR roles (now namesake-filtered) → mpRoles.
 buildConnectionsGraph({
   publicFolder,
   rawFolder: dataFolder,
-  stringify: compact,
+  stringify: pretty,
 });
 
 // 4. Per-EIK company→power-people connections (the /company/:eik section).
 buildCompanyConnections();
 
 // 5. Second-pass HQ resolution now that tr.seat is populated.
-reEnrichCompaniesIndex({ publicFolder, stringify: compact });
+reEnrichCompaniesIndex({ publicFolder, stringify: pretty });
 
 // 6. Per-settlement / per-município company shards (carry mpRoles).
-buildCompaniesBySettlement({ publicFolder, stringify: compact });
-buildCompaniesByObshtina({ publicFolder, stringify: compact });
+buildCompaniesBySettlement({ publicFolder, stringify: pretty });
+buildCompaniesByObshtina({ publicFolder, stringify: pretty });
 
-// 7. Officials ↔ MP/peer bridge (pretty, like run-officials-connections-only).
+// 7. Officials ↔ MP/peer bridge (mirrors run-officials-connections-only).
 buildOfficialsConnections({ stringify: pretty });
 
 console.log("connections rebuild complete");

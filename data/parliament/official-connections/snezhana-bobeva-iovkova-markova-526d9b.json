@@ -1,1 +1,94 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:snezhana-bobeva-iovkova-markova-526d9b","nodes":[{"id":"official:snezhana-bobeva-iovkova-markova-526d9b","type":"official","slug":"snezhana-bobeva-iovkova-markova-526d9b","label":"Снежана Бобева Йовкова-Маркова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:208224810","type":"company","label":"\"Файнспейс\" ООД","slug":null,"uic":"208224810","legalForm":null,"status":null,"seat":null},{"id":"official:ivan-vasilev-markov-cc13d9","type":"official","slug":"ivan-vasilev-markov-cc13d9","label":"Иван Василев Марков","tier":"executive","role":"secretary_general","municipality":null},{"id":"person:СЪБИНА КОНДЕВА ИВАНОВА","type":"person","label":"Събина Кондева Иванова"},{"id":"person:СНЕЖАНА БОБЕВА ЙОВКОВА - МАРКОВА","type":"person","label":"Снежана Бобева Йовкова - Маркова"}],"edges":[{"source":"official:snezhana-bobeva-iovkova-markova-526d9b","target":"company:tr:208224810","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:snezhana-bobeva-iovkova-markova-526d9b","target":"company:tr:208224810","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-vasilev-markov-cc13d9","target":"company:tr:208224810","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:СЪБИНА КОНДЕВА ИВАНОВА","target":"company:tr:208224810","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СЪБИНА КОНДЕВА ИВАНОВА","target":"company:tr:208224810","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА БОБЕВА ЙОВКОВА - МАРКОВА","target":"company:tr:208224810","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:snezhana-bobeva-iovkova-markova-526d9b",
+  "nodes": [
+    {
+      "id": "official:snezhana-bobeva-iovkova-markova-526d9b",
+      "type": "official",
+      "slug": "snezhana-bobeva-iovkova-markova-526d9b",
+      "label": "Снежана Бобева Йовкова-Маркова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208224810",
+      "type": "company",
+      "label": "\"Файнспейс\" ООД",
+      "slug": null,
+      "uic": "208224810",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivan-vasilev-markov-cc13d9",
+      "type": "official",
+      "slug": "ivan-vasilev-markov-cc13d9",
+      "label": "Иван Василев Марков",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "person:СЪБИНА КОНДЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Събина Кондева Иванова"
+    },
+    {
+      "id": "person:СНЕЖАНА БОБЕВА ЙОВКОВА - МАРКОВА",
+      "type": "person",
+      "label": "Снежана Бобева Йовкова - Маркова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:snezhana-bobeva-iovkova-markova-526d9b",
+      "target": "company:tr:208224810",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:snezhana-bobeva-iovkova-markova-526d9b",
+      "target": "company:tr:208224810",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-vasilev-markov-cc13d9",
+      "target": "company:tr:208224810",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБИНА КОНДЕВА ИВАНОВА",
+      "target": "company:tr:208224810",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБИНА КОНДЕВА ИВАНОВА",
+      "target": "company:tr:208224810",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА БОБЕВА ЙОВКОВА - МАРКОВА",
+      "target": "company:tr:208224810",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

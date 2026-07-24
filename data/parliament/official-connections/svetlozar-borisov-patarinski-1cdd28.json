@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetlozar-borisov-patarinski-1cdd28","nodes":[{"id":"official:svetlozar-borisov-patarinski-1cdd28","type":"official","slug":"svetlozar-borisov-patarinski-1cdd28","label":"Светлозар Борисов Патарински","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:207993065","type":"company","label":"\"П енд К Груп\" ООД","slug":null,"uic":"207993065","legalForm":null,"status":null,"seat":null},{"id":"person:ДАВИД КИРИЛОВ КОЛЕВ","type":"person","label":"Давид Кирилов Колев"},{"id":"person:НАТАЛИЯ ДОНЧЕВА ПАТАРИНСКА","type":"person","label":"Наталия Дончева Патаринска"}],"edges":[{"source":"official:svetlozar-borisov-patarinski-1cdd28","target":"company:tr:207993065","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ДАВИД КИРИЛОВ КОЛЕВ","target":"company:tr:207993065","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ ДОНЧЕВА ПАТАРИНСКА","target":"company:tr:207993065","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАВИД КИРИЛОВ КОЛЕВ","target":"company:tr:207993065","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ ДОНЧЕВА ПАТАРИНСКА","target":"company:tr:207993065","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetlozar-borisov-patarinski-1cdd28",
+  "nodes": [
+    {
+      "id": "official:svetlozar-borisov-patarinski-1cdd28",
+      "type": "official",
+      "slug": "svetlozar-borisov-patarinski-1cdd28",
+      "label": "Светлозар Борисов Патарински",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207993065",
+      "type": "company",
+      "label": "\"П енд К Груп\" ООД",
+      "slug": null,
+      "uic": "207993065",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАВИД КИРИЛОВ КОЛЕВ",
+      "type": "person",
+      "label": "Давид Кирилов Колев"
+    },
+    {
+      "id": "person:НАТАЛИЯ ДОНЧЕВА ПАТАРИНСКА",
+      "type": "person",
+      "label": "Наталия Дончева Патаринска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlozar-borisov-patarinski-1cdd28",
+      "target": "company:tr:207993065",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАВИД КИРИЛОВ КОЛЕВ",
+      "target": "company:tr:207993065",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ДОНЧЕВА ПАТАРИНСКА",
+      "target": "company:tr:207993065",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАВИД КИРИЛОВ КОЛЕВ",
+      "target": "company:tr:207993065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ДОНЧЕВА ПАТАРИНСКА",
+      "target": "company:tr:207993065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

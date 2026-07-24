@@ -1,1 +1,104 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-hristov-filipov-94c7a5","nodes":[{"id":"official:emil-hristov-filipov-94c7a5","type":"official","slug":"emil-hristov-filipov-94c7a5","label":"Емил Христов Филипов","tier":"municipal","role":"deputy_mayor","municipality":"Братя Даскалови"},{"id":"company:tr:000804332","type":"company","label":"Пейчо Минев - 1905","slug":null,"uic":"000804332","legalForm":null,"status":null,"seat":null},{"id":"official:zhana-genova-mileva-4e1f00","type":"official","slug":"zhana-genova-mileva-4e1f00","label":"Жана Генова Милева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ЦВЕТАНА ЖЕЛЕВА АТАНАСОВА","type":"person","label":"Цветана Желева Атанасова"},{"id":"person:ЗЛАТКА ЗЛАТАНОВА СТОЕВА","type":"person","label":"Златка Златанова Стоева"},{"id":"person:ЗЛАТКА АТАНАСОВА АТАНАСОВА","type":"person","label":"Златка Атанасова Атанасова"},{"id":"person:МАРИЯНА ХРИСТОВА КОЛЕВА","type":"person","label":"Марияна Христова Колева"}],"edges":[{"source":"official:emil-hristov-filipov-94c7a5","target":"company:tr:000804332","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:zhana-genova-mileva-4e1f00","target":"company:tr:000804332","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТАНА ЖЕЛЕВА АТАНАСОВА","target":"company:tr:000804332","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКА ЗЛАТАНОВА СТОЕВА","target":"company:tr:000804332","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКА АТАНАСОВА АТАНАСОВА","target":"company:tr:000804332","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА ХРИСТОВА КОЛЕВА","target":"company:tr:000804332","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-hristov-filipov-94c7a5",
+  "nodes": [
+    {
+      "id": "official:emil-hristov-filipov-94c7a5",
+      "type": "official",
+      "slug": "emil-hristov-filipov-94c7a5",
+      "label": "Емил Христов Филипов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Братя Даскалови"
+    },
+    {
+      "id": "company:tr:000804332",
+      "type": "company",
+      "label": "Пейчо Минев - 1905",
+      "slug": null,
+      "uic": "000804332",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:zhana-genova-mileva-4e1f00",
+      "type": "official",
+      "slug": "zhana-genova-mileva-4e1f00",
+      "label": "Жана Генова Милева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЦВЕТАНА ЖЕЛЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Цветана Желева Атанасова"
+    },
+    {
+      "id": "person:ЗЛАТКА ЗЛАТАНОВА СТОЕВА",
+      "type": "person",
+      "label": "Златка Златанова Стоева"
+    },
+    {
+      "id": "person:ЗЛАТКА АТАНАСОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Златка Атанасова Атанасова"
+    },
+    {
+      "id": "person:МАРИЯНА ХРИСТОВА КОЛЕВА",
+      "type": "person",
+      "label": "Марияна Христова Колева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-hristov-filipov-94c7a5",
+      "target": "company:tr:000804332",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhana-genova-mileva-4e1f00",
+      "target": "company:tr:000804332",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАНА ЖЕЛЕВА АТАНАСОВА",
+      "target": "company:tr:000804332",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ЗЛАТАНОВА СТОЕВА",
+      "target": "company:tr:000804332",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА АТАНАСОВА АТАНАСОВА",
+      "target": "company:tr:000804332",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ХРИСТОВА КОЛЕВА",
+      "target": "company:tr:000804332",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

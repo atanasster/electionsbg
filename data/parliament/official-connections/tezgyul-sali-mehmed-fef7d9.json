@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tezgyul-sali-mehmed-fef7d9","nodes":[{"id":"official:tezgyul-sali-mehmed-fef7d9","type":"official","slug":"tezgyul-sali-mehmed-fef7d9","label":"Тезгюл Сали Мехмед","tier":"municipal","role":"councillor","municipality":"Кирково"},{"id":"company:tr:207840913","type":"company","label":"Н е Н 99","slug":null,"uic":"207840913","legalForm":null,"status":null,"seat":null},{"id":"person:ТЕЗГЮЛ САЛИ МЕПМЕД","type":"person","label":"Тезгюл Сали Мепмед"}],"edges":[{"source":"official:tezgyul-sali-mehmed-fef7d9","target":"company:tr:207840913","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ТЕЗГЮЛ САЛИ МЕПМЕД","target":"company:tr:207840913","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tezgyul-sali-mehmed-fef7d9",
+  "nodes": [
+    {
+      "id": "official:tezgyul-sali-mehmed-fef7d9",
+      "type": "official",
+      "slug": "tezgyul-sali-mehmed-fef7d9",
+      "label": "Тезгюл Сали Мехмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кирково"
+    },
+    {
+      "id": "company:tr:207840913",
+      "type": "company",
+      "label": "Н е Н 99",
+      "slug": null,
+      "uic": "207840913",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕЗГЮЛ САЛИ МЕПМЕД",
+      "type": "person",
+      "label": "Тезгюл Сали Мепмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tezgyul-sali-mehmed-fef7d9",
+      "target": "company:tr:207840913",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕЗГЮЛ САЛИ МЕПМЕД",
+      "target": "company:tr:207840913",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

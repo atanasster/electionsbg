@@ -1,1 +1,239 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tanya-petrova-pavlova-e4b48c","nodes":[{"id":"official:tanya-petrova-pavlova-e4b48c","type":"official","slug":"tanya-petrova-pavlova-e4b48c","label":"Таня Петрова Павлова","tier":"executive","role":"political_cabinet","municipality":null},{"id":"company:tr:000583108","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ \"ИСКРА - 1875 Г.\"","slug":null,"uic":"000583108","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ ГЕОРГИЕВА КАЗАКОВА","type":"person","label":"Мария Георгиева Казакова"},{"id":"person:ВЕСЕЛИНА ДИНЕВА СТОЕВА","type":"person","label":"Веселина Динева Стоева"},{"id":"person:МИНКА КЪНЕВА ПОПОВА","type":"person","label":"Минка Кънева Попова"},{"id":"person:ПЕТКО МИХАЙЛОВ ТРЪНОВ","type":"person","label":"Петко Михайлов Трънов"},{"id":"person:ХРИСТО ИВАНОВ СТОЯНОВ","type":"person","label":"Христо Иванов Стоянов"},{"id":"person:СТАНКА ЦВЯТКОВА ЧОЛАКОВА","type":"person","label":"Станка Цвяткова Чолакова"},{"id":"person:СТОЯНКА ДИМИТРОВА МИТЕВА","type":"person","label":"Стоянка Димитрова Митева"},{"id":"person:ХРИСТО МИТЕВ ХРИСТОВ","type":"person","label":"Христо Митев Христов"},{"id":"person:ДЖЕНА СТАМОВА ПАНОВА","type":"person","label":"Джена Стамова Панова"},{"id":"person:РАДКА АНГЕЛОВА ПОПОВА","type":"person","label":"Радка Ангелова Попова"},{"id":"person:МАРИНЕЛА СТОЯНОВА ИВАНОВА","type":"person","label":"Маринела Стоянова Иванова"},{"id":"person:ЖЕЛЯЗКА КОСТАДИНОВА ПЕТКОВА","type":"person","label":"Желязка Костадинова Петкова"}],"edges":[{"source":"official:tanya-petrova-pavlova-e4b48c","target":"company:tr:000583108","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:tanya-petrova-pavlova-e4b48c","target":"company:tr:000583108","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:tanya-petrova-pavlova-e4b48c","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯ ГЕОРГИЕВА КАЗАКОВА","target":"company:tr:000583108","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА ДИНЕВА СТОЕВА","target":"company:tr:000583108","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИНКА КЪНЕВА ПОПОВА","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО МИХАЙЛОВ ТРЪНОВ","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ СТОЯНОВ","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТАНКА ЦВЯТКОВА ЧОЛАКОВА","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕОРГИЕВА КАЗАКОВА","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯНКА ДИМИТРОВА МИТЕВА","target":"company:tr:000583108","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО МИТЕВ ХРИСТОВ","target":"company:tr:000583108","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЖЕНА СТАМОВА ПАНОВА","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА АНГЕЛОВА ПОПОВА","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО МИХАЙЛОВ ТРЪНОВ","target":"company:tr:000583108","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНЕЛА СТОЯНОВА ИВАНОВА","target":"company:tr:000583108","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНЕЛА СТОЯНОВА ИВАНОВА","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛЯЗКА КОСТАДИНОВА ПЕТКОВА","target":"company:tr:000583108","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛЯЗКА КОСТАДИНОВА ПЕТКОВА","target":"company:tr:000583108","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tanya-petrova-pavlova-e4b48c",
+  "nodes": [
+    {
+      "id": "official:tanya-petrova-pavlova-e4b48c",
+      "type": "official",
+      "slug": "tanya-petrova-pavlova-e4b48c",
+      "label": "Таня Петрова Павлова",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000583108",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ \"ИСКРА - 1875 Г.\"",
+      "slug": null,
+      "uic": "000583108",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА КАЗАКОВА",
+      "type": "person",
+      "label": "Мария Георгиева Казакова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ДИНЕВА СТОЕВА",
+      "type": "person",
+      "label": "Веселина Динева Стоева"
+    },
+    {
+      "id": "person:МИНКА КЪНЕВА ПОПОВА",
+      "type": "person",
+      "label": "Минка Кънева Попова"
+    },
+    {
+      "id": "person:ПЕТКО МИХАЙЛОВ ТРЪНОВ",
+      "type": "person",
+      "label": "Петко Михайлов Трънов"
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Христо Иванов Стоянов"
+    },
+    {
+      "id": "person:СТАНКА ЦВЯТКОВА ЧОЛАКОВА",
+      "type": "person",
+      "label": "Станка Цвяткова Чолакова"
+    },
+    {
+      "id": "person:СТОЯНКА ДИМИТРОВА МИТЕВА",
+      "type": "person",
+      "label": "Стоянка Димитрова Митева"
+    },
+    {
+      "id": "person:ХРИСТО МИТЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Митев Христов"
+    },
+    {
+      "id": "person:ДЖЕНА СТАМОВА ПАНОВА",
+      "type": "person",
+      "label": "Джена Стамова Панова"
+    },
+    {
+      "id": "person:РАДКА АНГЕЛОВА ПОПОВА",
+      "type": "person",
+      "label": "Радка Ангелова Попова"
+    },
+    {
+      "id": "person:МАРИНЕЛА СТОЯНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Маринела Стоянова Иванова"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКА КОСТАДИНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Желязка Костадинова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-petrova-pavlova-e4b48c",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tanya-petrova-pavlova-e4b48c",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tanya-petrova-pavlova-e4b48c",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА КАЗАКОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ДИНЕВА СТОЕВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКА КЪНЕВА ПОПОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО МИХАЙЛОВ ТРЪНОВ",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ СТОЯНОВ",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА ЦВЯТКОВА ЧОЛАКОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА КАЗАКОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ДИМИТРОВА МИТЕВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО МИТЕВ ХРИСТОВ",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕНА СТАМОВА ПАНОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА АНГЕЛОВА ПОПОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО МИХАЙЛОВ ТРЪНОВ",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА СТОЯНОВА ИВАНОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА СТОЯНОВА ИВАНОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКА КОСТАДИНОВА ПЕТКОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКА КОСТАДИНОВА ПЕТКОВА",
+      "target": "company:tr:000583108",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

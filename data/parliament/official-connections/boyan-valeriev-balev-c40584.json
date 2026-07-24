@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:boyan-valeriev-balev-c40584","nodes":[{"id":"official:boyan-valeriev-balev-c40584","type":"official","slug":"boyan-valeriev-balev-c40584","label":"Боян Валериев Балев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206755221","type":"company","label":"Аргументи Нюз ЕООД","slug":null,"uic":"206755221","legalForm":null,"status":null,"seat":null},{"id":"person:БОЯНА ДИМИТРОВА БОЗАДЖИЕВА","type":"person","label":"Бояна Димитрова Бозаджиева"},{"id":"person:БОЯН ВАЛЕРИЕВ БАЛЕВ","type":"person","label":"Боян Валериев Балев"},{"id":"person:ВАЛЕРИ ВАСИЛЕВ БАЛЕВ","type":"person","label":"Валери Василев Балев"}],"edges":[{"source":"official:boyan-valeriev-balev-c40584","target":"company:tr:206755221","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:БОЯНА ДИМИТРОВА БОЗАДЖИЕВА","target":"company:tr:206755221","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОЯН ВАЛЕРИЕВ БАЛЕВ","target":"company:tr:206755221","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ ВАСИЛЕВ БАЛЕВ","target":"company:tr:206755221","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ ВАСИЛЕВ БАЛЕВ","target":"company:tr:206755221","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:boyan-valeriev-balev-c40584",
+  "nodes": [
+    {
+      "id": "official:boyan-valeriev-balev-c40584",
+      "type": "official",
+      "slug": "boyan-valeriev-balev-c40584",
+      "label": "Боян Валериев Балев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206755221",
+      "type": "company",
+      "label": "Аргументи Нюз ЕООД",
+      "slug": null,
+      "uic": "206755221",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОЯНА ДИМИТРОВА БОЗАДЖИЕВА",
+      "type": "person",
+      "label": "Бояна Димитрова Бозаджиева"
+    },
+    {
+      "id": "person:БОЯН ВАЛЕРИЕВ БАЛЕВ",
+      "type": "person",
+      "label": "Боян Валериев Балев"
+    },
+    {
+      "id": "person:ВАЛЕРИ ВАСИЛЕВ БАЛЕВ",
+      "type": "person",
+      "label": "Валери Василев Балев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boyan-valeriev-balev-c40584",
+      "target": "company:tr:206755221",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯНА ДИМИТРОВА БОЗАДЖИЕВА",
+      "target": "company:tr:206755221",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН ВАЛЕРИЕВ БАЛЕВ",
+      "target": "company:tr:206755221",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ВАСИЛЕВ БАЛЕВ",
+      "target": "company:tr:206755221",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ВАСИЛЕВ БАЛЕВ",
+      "target": "company:tr:206755221",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

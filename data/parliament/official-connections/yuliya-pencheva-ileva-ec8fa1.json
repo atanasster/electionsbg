@@ -1,1 +1,124 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:yuliya-pencheva-ileva-ec8fa1","nodes":[{"id":"official:yuliya-pencheva-ileva-ec8fa1","type":"official","slug":"yuliya-pencheva-ileva-ec8fa1","label":"Юлия Пенчева Илева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:122087578","type":"company","label":"ЦЕНТЪР НАДЯ","slug":null,"uic":"122087578","legalForm":null,"status":null,"seat":null},{"id":"person:СИАНА ГЕРАСИМОВА ГЕРАСИМОВА","type":"person","label":"Сиана Герасимова Герасимова"},{"id":"person:РОСАНКА ВЕНЕЛИНОВА КРЪСТЕВА","type":"person","label":"Росанка Венелинова Кръстева"},{"id":"person:ДОНКА ИВАНОВА АЛЕКСАНДРОВА-БУБНЯК","type":"person","label":"Донка Иванова Александрова-Бубняк"},{"id":"person:МИЛКА ДАНЕВА ВАСИЛЕВА","type":"person","label":"Милка Данева Василева"},{"id":"person:ЦЕЦКА БОРИСОВА АСЕНОВА","type":"person","label":"Цецка Борисова Асенова"}],"edges":[{"source":"official:yuliya-pencheva-ileva-ec8fa1","target":"company:tr:122087578","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:yuliya-pencheva-ileva-ec8fa1","target":"company:tr:122087578","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"medium"},{"source":"person:СИАНА ГЕРАСИМОВА ГЕРАСИМОВА","target":"company:tr:122087578","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:РОСАНКА ВЕНЕЛИНОВА КРЪСТЕВА","target":"company:tr:122087578","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА ИВАНОВА АЛЕКСАНДРОВА-БУБНЯК","target":"company:tr:122087578","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКА ДАНЕВА ВАСИЛЕВА","target":"company:tr:122087578","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦКА БОРИСОВА АСЕНОВА","target":"company:tr:122087578","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСАНКА ВЕНЕЛИНОВА КРЪСТЕВА","target":"company:tr:122087578","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА ИВАНОВА АЛЕКСАНДРОВА-БУБНЯК","target":"company:tr:122087578","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:yuliya-pencheva-ileva-ec8fa1",
+  "nodes": [
+    {
+      "id": "official:yuliya-pencheva-ileva-ec8fa1",
+      "type": "official",
+      "slug": "yuliya-pencheva-ileva-ec8fa1",
+      "label": "Юлия Пенчева Илева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:122087578",
+      "type": "company",
+      "label": "ЦЕНТЪР НАДЯ",
+      "slug": null,
+      "uic": "122087578",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИАНА ГЕРАСИМОВА ГЕРАСИМОВА",
+      "type": "person",
+      "label": "Сиана Герасимова Герасимова"
+    },
+    {
+      "id": "person:РОСАНКА ВЕНЕЛИНОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Росанка Венелинова Кръстева"
+    },
+    {
+      "id": "person:ДОНКА ИВАНОВА АЛЕКСАНДРОВА-БУБНЯК",
+      "type": "person",
+      "label": "Донка Иванова Александрова-Бубняк"
+    },
+    {
+      "id": "person:МИЛКА ДАНЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Милка Данева Василева"
+    },
+    {
+      "id": "person:ЦЕЦКА БОРИСОВА АСЕНОВА",
+      "type": "person",
+      "label": "Цецка Борисова Асенова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliya-pencheva-ileva-ec8fa1",
+      "target": "company:tr:122087578",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuliya-pencheva-ileva-ec8fa1",
+      "target": "company:tr:122087578",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИАНА ГЕРАСИМОВА ГЕРАСИМОВА",
+      "target": "company:tr:122087578",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСАНКА ВЕНЕЛИНОВА КРЪСТЕВА",
+      "target": "company:tr:122087578",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ИВАНОВА АЛЕКСАНДРОВА-БУБНЯК",
+      "target": "company:tr:122087578",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ДАНЕВА ВАСИЛЕВА",
+      "target": "company:tr:122087578",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦКА БОРИСОВА АСЕНОВА",
+      "target": "company:tr:122087578",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСАНКА ВЕНЕЛИНОВА КРЪСТЕВА",
+      "target": "company:tr:122087578",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ИВАНОВА АЛЕКСАНДРОВА-БУБНЯК",
+      "target": "company:tr:122087578",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:antonii-dimitrov-dyulgerov-b2eef8","nodes":[{"id":"official:antonii-dimitrov-dyulgerov-b2eef8","type":"official","slug":"antonii-dimitrov-dyulgerov-b2eef8","label":"Антоний Димитров Дюлгеров","tier":"municipal","role":"councillor","municipality":"Средец"},{"id":"company:tr:200868041","type":"company","label":"КРИСГРУП","slug":null,"uic":"200868041","legalForm":null,"status":null,"seat":null},{"id":"person:СВИЛЕН ГЕОРГИЕВ ПАПУДЖИКОВ","type":"person","label":"Свилен Георгиев Папуджиков"},{"id":"person:ИВАН ТОДОРОВ ТОДОРОВ","type":"person","label":"Иван Тодоров Тодоров"}],"edges":[{"source":"official:antonii-dimitrov-dyulgerov-b2eef8","target":"company:tr:200868041","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:СВИЛЕН ГЕОРГИЕВ ПАПУДЖИКОВ","target":"company:tr:200868041","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СВИЛЕН ГЕОРГИЕВ ПАПУДЖИКОВ","target":"company:tr:200868041","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТОДОРОВ ТОДОРОВ","target":"company:tr:200868041","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СВИЛЕН ГЕОРГИЕВ ПАПУДЖИКОВ","target":"company:tr:200868041","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:antonii-dimitrov-dyulgerov-b2eef8",
+  "nodes": [
+    {
+      "id": "official:antonii-dimitrov-dyulgerov-b2eef8",
+      "type": "official",
+      "slug": "antonii-dimitrov-dyulgerov-b2eef8",
+      "label": "Антоний Димитров Дюлгеров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Средец"
+    },
+    {
+      "id": "company:tr:200868041",
+      "type": "company",
+      "label": "КРИСГРУП",
+      "slug": null,
+      "uic": "200868041",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВИЛЕН ГЕОРГИЕВ ПАПУДЖИКОВ",
+      "type": "person",
+      "label": "Свилен Георгиев Папуджиков"
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Иван Тодоров Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:antonii-dimitrov-dyulgerov-b2eef8",
+      "target": "company:tr:200868041",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВИЛЕН ГЕОРГИЕВ ПАПУДЖИКОВ",
+      "target": "company:tr:200868041",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕН ГЕОРГИЕВ ПАПУДЖИКОВ",
+      "target": "company:tr:200868041",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ТОДОРОВ",
+      "target": "company:tr:200868041",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕН ГЕОРГИЕВ ПАПУДЖИКОВ",
+      "target": "company:tr:200868041",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

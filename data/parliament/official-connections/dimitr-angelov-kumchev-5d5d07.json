@@ -1,1 +1,51 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-angelov-kumchev-5d5d07","nodes":[{"id":"official:dimitr-angelov-kumchev-5d5d07","type":"official","slug":"dimitr-angelov-kumchev-5d5d07","label":"Димитър Ангелов Кумчев","tier":"municipal","role":"councillor","municipality":"Асеновград"},{"id":"company:tr:207657463","type":"company","label":"КУМЧЕВ 120 ЕООД","slug":null,"uic":"207657463","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:dimitr-angelov-kumchev-5d5d07","target":"company:tr:207657463","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:dimitr-angelov-kumchev-5d5d07","target":"company:tr:207657463","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-angelov-kumchev-5d5d07","target":"company:tr:207657463","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-angelov-kumchev-5d5d07",
+  "nodes": [
+    {
+      "id": "official:dimitr-angelov-kumchev-5d5d07",
+      "type": "official",
+      "slug": "dimitr-angelov-kumchev-5d5d07",
+      "label": "Димитър Ангелов Кумчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Асеновград"
+    },
+    {
+      "id": "company:tr:207657463",
+      "type": "company",
+      "label": "КУМЧЕВ 120 ЕООД",
+      "slug": null,
+      "uic": "207657463",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-angelov-kumchev-5d5d07",
+      "target": "company:tr:207657463",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-angelov-kumchev-5d5d07",
+      "target": "company:tr:207657463",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-angelov-kumchev-5d5d07",
+      "target": "company:tr:207657463",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

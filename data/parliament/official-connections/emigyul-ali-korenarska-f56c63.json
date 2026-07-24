@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emigyul-ali-korenarska-f56c63","nodes":[{"id":"official:emigyul-ali-korenarska-f56c63","type":"official","slug":"emigyul-ali-korenarska-f56c63","label":"Емигюл Али Коренарска","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:101551993","type":"company","label":"СТРОИТЕЛ-2001","slug":null,"uic":"101551993","legalForm":null,"status":null,"seat":null},{"id":"person:МУСТАФА МУСА СИРАЧКИ","type":"person","label":"Мустафа Муса Сирачки"}],"edges":[{"source":"official:emigyul-ali-korenarska-f56c63","target":"company:tr:101551993","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:МУСТАФА МУСА СИРАЧКИ","target":"company:tr:101551993","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emigyul-ali-korenarska-f56c63",
+  "nodes": [
+    {
+      "id": "official:emigyul-ali-korenarska-f56c63",
+      "type": "official",
+      "slug": "emigyul-ali-korenarska-f56c63",
+      "label": "Емигюл Али Коренарска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101551993",
+      "type": "company",
+      "label": "СТРОИТЕЛ-2001",
+      "slug": null,
+      "uic": "101551993",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МУСТАФА МУСА СИРАЧКИ",
+      "type": "person",
+      "label": "Мустафа Муса Сирачки"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emigyul-ali-korenarska-f56c63",
+      "target": "company:tr:101551993",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МУСТАФА МУСА СИРАЧКИ",
+      "target": "company:tr:101551993",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

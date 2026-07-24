@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:miroslav-iordanov-angelov-f96bdf","nodes":[{"id":"official:miroslav-iordanov-angelov-f96bdf","type":"official","slug":"miroslav-iordanov-angelov-f96bdf","label":"Мирослав Йорданов Ангелов","tier":"municipal","role":"councillor","municipality":"Ценово"},{"id":"company:tr:203673203","type":"company","label":"\"ЮКЕМ\"","slug":null,"uic":"203673203","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:miroslav-iordanov-angelov-f96bdf","target":"company:tr:203673203","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:miroslav-iordanov-angelov-f96bdf",
+  "nodes": [
+    {
+      "id": "official:miroslav-iordanov-angelov-f96bdf",
+      "type": "official",
+      "slug": "miroslav-iordanov-angelov-f96bdf",
+      "label": "Мирослав Йорданов Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ценово"
+    },
+    {
+      "id": "company:tr:203673203",
+      "type": "company",
+      "label": "\"ЮКЕМ\"",
+      "slug": null,
+      "uic": "203673203",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-iordanov-angelov-f96bdf",
+      "target": "company:tr:203673203",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

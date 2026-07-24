@@ -1,1 +1,236 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milan-angelov-milanov-03d3a9","nodes":[{"id":"official:milan-angelov-milanov-03d3a9","type":"official","slug":"milan-angelov-milanov-03d3a9","label":"Милан Ангелов Миланов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:123531939","type":"company","label":"ТЕЦ МАРИЦА ИЗТОК 2","slug":null,"uic":"123531939","legalForm":null,"status":null,"seat":null},{"id":"official:boyan-ivanov-boev-a09ac1","type":"official","slug":"boyan-ivanov-boev-a09ac1","label":"Боян Иванов Боев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:ruslan-tanev-germanov-ce375d","type":"official","slug":"ruslan-tanev-germanov-ce375d","label":"Руслан Танев Германов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:БОНЧО ИВАНОВ БОНЕВ","type":"person","label":"Бончо Иванов Бонев"},{"id":"person:ЖИВКО ДИЧИТРОВ ДИНЧЕВ","type":"person","label":"Живко Дичитров Динчев"},{"id":"person:ЖИВКО ДИМИТРОВ ДИНЧЕВ","type":"person","label":"Живко Димитров Динчев"},{"id":"person:ХРИСТО СТОЯНОВ ИВАНОВ","type":"person","label":"Христо Стоянов Иванов"},{"id":"person:ДИЯН СТАНИМИРОВ ДИМИТРОВ","type":"person","label":"Диян Станимиров Димитров"},{"id":"person:МАРТИН НИКОЛАЕВ МАРТИНОВ","type":"person","label":"Мартин Николаев Мартинов"},{"id":"person:РУМЕН ИВАНОВ ЯНКОВ","type":"person","label":"Румен Иванов Янков"},{"id":"person:ТИХОМИР СТОЯНОВ ТОЧЕВ","type":"person","label":"Тихомир Стоянов Точев"},{"id":"person:ГЕОРГИ СТОЯНОВ БОРИСОВ","type":"person","label":"Георги Стоянов Борисов"},{"id":"person:ДИАН ГЕОРГИЕВ ИВАНОВ","type":"person","label":"Диан Георгиев Иванов"},{"id":"person:ЯНКО ВЪЛКОВ ТОПАЛОВ","type":"person","label":"Янко Вълков Топалов"}],"edges":[{"source":"official:milan-angelov-milanov-03d3a9","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:boyan-ivanov-boev-a09ac1","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:ruslan-tanev-germanov-ce375d","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:БОНЧО ИВАНОВ БОНЕВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ДИЧИТРОВ ДИНЧЕВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ДИМИТРОВ ДИНЧЕВ","target":"company:tr:123531939","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ДИМИТРОВ ДИНЧЕВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО СТОЯНОВ ИВАНОВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯН СТАНИМИРОВ ДИМИТРОВ","target":"company:tr:123531939","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯН СТАНИМИРОВ ДИМИТРОВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН НИКОЛАЕВ МАРТИНОВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ИВАНОВ ЯНКОВ","target":"company:tr:123531939","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР СТОЯНОВ ТОЧЕВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СТОЯНОВ БОРИСОВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ИВАНОВ ЯНКОВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИАН ГЕОРГИЕВ ИВАНОВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКО ВЪЛКОВ ТОПАЛОВ","target":"company:tr:123531939","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milan-angelov-milanov-03d3a9",
+  "nodes": [
+    {
+      "id": "official:milan-angelov-milanov-03d3a9",
+      "type": "official",
+      "slug": "milan-angelov-milanov-03d3a9",
+      "label": "Милан Ангелов Миланов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123531939",
+      "type": "company",
+      "label": "ТЕЦ МАРИЦА ИЗТОК 2",
+      "slug": null,
+      "uic": "123531939",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:boyan-ivanov-boev-a09ac1",
+      "type": "official",
+      "slug": "boyan-ivanov-boev-a09ac1",
+      "label": "Боян Иванов Боев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ruslan-tanev-germanov-ce375d",
+      "type": "official",
+      "slug": "ruslan-tanev-germanov-ce375d",
+      "label": "Руслан Танев Германов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:БОНЧО ИВАНОВ БОНЕВ",
+      "type": "person",
+      "label": "Бончо Иванов Бонев"
+    },
+    {
+      "id": "person:ЖИВКО ДИЧИТРОВ ДИНЧЕВ",
+      "type": "person",
+      "label": "Живко Дичитров Динчев"
+    },
+    {
+      "id": "person:ЖИВКО ДИМИТРОВ ДИНЧЕВ",
+      "type": "person",
+      "label": "Живко Димитров Динчев"
+    },
+    {
+      "id": "person:ХРИСТО СТОЯНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Христо Стоянов Иванов"
+    },
+    {
+      "id": "person:ДИЯН СТАНИМИРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Диян Станимиров Димитров"
+    },
+    {
+      "id": "person:МАРТИН НИКОЛАЕВ МАРТИНОВ",
+      "type": "person",
+      "label": "Мартин Николаев Мартинов"
+    },
+    {
+      "id": "person:РУМЕН ИВАНОВ ЯНКОВ",
+      "type": "person",
+      "label": "Румен Иванов Янков"
+    },
+    {
+      "id": "person:ТИХОМИР СТОЯНОВ ТОЧЕВ",
+      "type": "person",
+      "label": "Тихомир Стоянов Точев"
+    },
+    {
+      "id": "person:ГЕОРГИ СТОЯНОВ БОРИСОВ",
+      "type": "person",
+      "label": "Георги Стоянов Борисов"
+    },
+    {
+      "id": "person:ДИАН ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Диан Георгиев Иванов"
+    },
+    {
+      "id": "person:ЯНКО ВЪЛКОВ ТОПАЛОВ",
+      "type": "person",
+      "label": "Янко Вълков Топалов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milan-angelov-milanov-03d3a9",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boyan-ivanov-boev-a09ac1",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ruslan-tanev-germanov-ce375d",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОНЧО ИВАНОВ БОНЕВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ДИЧИТРОВ ДИНЧЕВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ДИМИТРОВ ДИНЧЕВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ДИМИТРОВ ДИНЧЕВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СТОЯНОВ ИВАНОВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН СТАНИМИРОВ ДИМИТРОВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН СТАНИМИРОВ ДИМИТРОВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН НИКОЛАЕВ МАРТИНОВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ ЯНКОВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР СТОЯНОВ ТОЧЕВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ БОРИСОВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ ЯНКОВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАН ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО ВЪЛКОВ ТОПАЛОВ",
+      "target": "company:tr:123531939",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

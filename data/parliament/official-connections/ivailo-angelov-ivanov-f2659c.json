@@ -1,1 +1,216 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivailo-angelov-ivanov-f2659c","nodes":[{"id":"official:ivailo-angelov-ivanov-f2659c","type":"official","slug":"ivailo-angelov-ivanov-f2659c","label":"Ивайло Ангелов Иванов","tier":"municipal","role":"deputy_mayor","municipality":"Панагюрище"},{"id":"company:Планкерман-ООД","type":"company","label":"Планкерман ООД","slug":"Планкерман-ООД","uic":"206960094","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Панагюрище, 4500"},{"id":"company:Изодом-ООД","type":"company","label":"Изодом ООД","slug":"Изодом-ООД","uic":"112666534","legalForm":"EOOD","status":"active","seat":"Панагюрище"},{"id":"company:Фасадни-Конструкции-ООД","type":"company","label":"Фасадни Конструкции ООД","slug":"Фасадни-Конструкции-ООД","uic":"200477578","legalForm":"OOD","status":"active","seat":"София"},{"id":"company:tr:203077445","type":"company","label":"Нуук Индъстри ООД","slug":null,"uic":"203077445","legalForm":null,"status":null,"seat":null},{"id":"mp:4430","type":"mp","mpId":4430,"label":"Ивайло Ангелов Иванов","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["49"]},{"id":"person:ЗЛАТОМИР НИКОЛАЕВ НИКОЛОВ","type":"person","label":"Златомир Николаев Николов"},{"id":"person:ИВАЙЛО АНГЕЛОВ ИВАНОВ","type":"person","label":"Ивайло Ангелов Иванов"},{"id":"person:ПЕТЪР ИВАНОВ ЧОЛАКОВ","type":"person","label":"Петър Иванов Чолаков"},{"id":"person:КАЛИН ИЛИЕВ РУСЕВ","type":"person","label":"Калин Илиев Русев"}],"edges":[{"source":"official:ivailo-angelov-ivanov-f2659c","target":"company:Планкерман-ООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivailo-angelov-ivanov-f2659c","target":"company:Изодом-ООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivailo-angelov-ivanov-f2659c","target":"company:Фасадни-Конструкции-ООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivailo-angelov-ivanov-f2659c","target":"company:tr:203077445","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:4430","target":"company:Планкерман-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4430","target":"company:Планкерман-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТОМИР НИКОЛАЕВ НИКОЛОВ","target":"company:Планкерман-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТОМИР НИКОЛАЕВ НИКОЛОВ","target":"company:Планкерман-ООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:4430","target":"company:Планкерман-ООД","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"high"},{"source":"person:ИВАЙЛО АНГЕЛОВ ИВАНОВ","target":"company:Планкерман-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4430","target":"company:Изодом-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТОМИР НИКОЛАЕВ НИКОЛОВ","target":"company:Изодом-ООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:4430","target":"company:Фасадни-Конструкции-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ИВАНОВ ЧОЛАКОВ","target":"company:Фасадни-Конструкции-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ИЛИЕВ РУСЕВ","target":"company:Фасадни-Конструкции-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ИЛИЕВ РУСЕВ","target":"company:tr:203077445","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivailo-angelov-ivanov-f2659c",
+  "nodes": [
+    {
+      "id": "official:ivailo-angelov-ivanov-f2659c",
+      "type": "official",
+      "slug": "ivailo-angelov-ivanov-f2659c",
+      "label": "Ивайло Ангелов Иванов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Панагюрище"
+    },
+    {
+      "id": "company:Планкерман-ООД",
+      "type": "company",
+      "label": "Планкерман ООД",
+      "slug": "Планкерман-ООД",
+      "uic": "206960094",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Панагюрище, 4500"
+    },
+    {
+      "id": "company:Изодом-ООД",
+      "type": "company",
+      "label": "Изодом ООД",
+      "slug": "Изодом-ООД",
+      "uic": "112666534",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Панагюрище"
+    },
+    {
+      "id": "company:Фасадни-Конструкции-ООД",
+      "type": "company",
+      "label": "Фасадни Конструкции ООД",
+      "slug": "Фасадни-Конструкции-ООД",
+      "uic": "200477578",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:203077445",
+      "type": "company",
+      "label": "Нуук Индъстри ООД",
+      "slug": null,
+      "uic": "203077445",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "mp:4430",
+      "type": "mp",
+      "mpId": 4430,
+      "label": "Ивайло Ангелов Иванов",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "49"
+      ]
+    },
+    {
+      "id": "person:ЗЛАТОМИР НИКОЛАЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Златомир Николаев Николов"
+    },
+    {
+      "id": "person:ИВАЙЛО АНГЕЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Ангелов Иванов"
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ ЧОЛАКОВ",
+      "type": "person",
+      "label": "Петър Иванов Чолаков"
+    },
+    {
+      "id": "person:КАЛИН ИЛИЕВ РУСЕВ",
+      "type": "person",
+      "label": "Калин Илиев Русев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-angelov-ivanov-f2659c",
+      "target": "company:Планкерман-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivailo-angelov-ivanov-f2659c",
+      "target": "company:Изодом-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivailo-angelov-ivanov-f2659c",
+      "target": "company:Фасадни-Конструкции-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivailo-angelov-ivanov-f2659c",
+      "target": "company:tr:203077445",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4430",
+      "target": "company:Планкерман-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4430",
+      "target": "company:Планкерман-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТОМИР НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:Планкерман-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТОМИР НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:Планкерман-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4430",
+      "target": "company:Планкерман-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО АНГЕЛОВ ИВАНОВ",
+      "target": "company:Планкерман-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4430",
+      "target": "company:Изодом-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТОМИР НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:Изодом-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4430",
+      "target": "company:Фасадни-Конструкции-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ЧОЛАКОВ",
+      "target": "company:Фасадни-Конструкции-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ИЛИЕВ РУСЕВ",
+      "target": "company:Фасадни-Конструкции-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ИЛИЕВ РУСЕВ",
+      "target": "company:tr:203077445",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

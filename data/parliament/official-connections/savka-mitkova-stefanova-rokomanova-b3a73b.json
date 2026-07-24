@@ -1,1 +1,254 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:savka-mitkova-stefanova-rokomanova-b3a73b","nodes":[{"id":"official:savka-mitkova-stefanova-rokomanova-b3a73b","type":"official","slug":"savka-mitkova-stefanova-rokomanova-b3a73b","label":"Савка Миткова Стефанова-Рокоманова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:831629999","type":"company","label":"МОНТАЖИ","slug":null,"uic":"831629999","legalForm":null,"status":null,"seat":null},{"id":"official:aleksandra-boteva-sariiska-1ecb46","type":"official","slug":"aleksandra-boteva-sariiska-1ecb46","label":"Александра Ботева Сарийска","tier":"executive","role":"state_enterprise","municipality":null},{"id":"official:rosen-damyanov-krumov-5bfa39","type":"official","slug":"rosen-damyanov-krumov-5bfa39","label":"Росен Дамянов Крумов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:НИКОЛА КОСТОВ НАЧЕВ","type":"person","label":"Никола Костов Начев"},{"id":"person:ГЕОРГИ ХРИСТОВ ХРИСТОВ","type":"person","label":"Георги Христов Христов"},{"id":"person:ХРИСТО ВАСИЛЕВ ИВАНОВ","type":"person","label":"Христо Василев Иванов"},{"id":"person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ","type":"person","label":"Даниел Милославов Петров"},{"id":"person:НОНА ДАРИНОВА МАНДОВА","type":"person","label":"Нона Даринова Мандова"},{"id":"person:ВЛАДИСЛАВ МИХАЙЛОВ МИХОВ","type":"person","label":"Владислав Михайлов Михов"},{"id":"person:АЛЕКСАНДЪР РОСЕНОВ СТОИМЕНОВ","type":"person","label":"Александър Росенов Стоименов"},{"id":"person:МАРИЯ ИВАНОВА ИВАНОВА","type":"person","label":"Мария Иванова Иванова"},{"id":"person:КОЙЧО МАРИНОВ МАРИНОВ","type":"person","label":"Койчо Маринов Маринов"},{"id":"person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ","type":"person","label":"Добромир Проданов Симидчиев"},{"id":"person:РУМЕН ВЕНЦИСЛАВОВ ПЕХЛИВАНОВ","type":"person","label":"Румен Венциславов Пехливанов"},{"id":"company:tr:000076877","type":"company","label":"ПРИБОЙ","slug":null,"uic":"000076877","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:savka-mitkova-stefanova-rokomanova-b3a73b","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandra-boteva-sariiska-1ecb46","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:rosen-damyanov-krumov-5bfa39","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛА КОСТОВ НАЧЕВ","target":"company:tr:831629999","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХРИСТОВ ХРИСТОВ","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ВАСИЛЕВ ИВАНОВ","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА КОСТОВ НАЧЕВ","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НОНА ДАРИНОВА МАНДОВА","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ МИХАЙЛОВ МИХОВ","target":"company:tr:831629999","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ МИХАЙЛОВ МИХОВ","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР РОСЕНОВ СТОИМЕНОВ","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИВАНОВА ИВАНОВА","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КОЙЧО МАРИНОВ МАРИНОВ","target":"company:tr:831629999","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:КОЙЧО МАРИНОВ МАРИНОВ","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ВЕНЦИСЛАВОВ ПЕХЛИВАНОВ","target":"company:tr:831629999","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:tr:831629999","target":"company:tr:000076877","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:savka-mitkova-stefanova-rokomanova-b3a73b",
+  "nodes": [
+    {
+      "id": "official:savka-mitkova-stefanova-rokomanova-b3a73b",
+      "type": "official",
+      "slug": "savka-mitkova-stefanova-rokomanova-b3a73b",
+      "label": "Савка Миткова Стефанова-Рокоманова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831629999",
+      "type": "company",
+      "label": "МОНТАЖИ",
+      "slug": null,
+      "uic": "831629999",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:aleksandra-boteva-sariiska-1ecb46",
+      "type": "official",
+      "slug": "aleksandra-boteva-sariiska-1ecb46",
+      "label": "Александра Ботева Сарийска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:rosen-damyanov-krumov-5bfa39",
+      "type": "official",
+      "slug": "rosen-damyanov-krumov-5bfa39",
+      "label": "Росен Дамянов Крумов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:НИКОЛА КОСТОВ НАЧЕВ",
+      "type": "person",
+      "label": "Никола Костов Начев"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Георги Христов Христов"
+    },
+    {
+      "id": "person:ХРИСТО ВАСИЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Христо Василев Иванов"
+    },
+    {
+      "id": "person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Даниел Милославов Петров"
+    },
+    {
+      "id": "person:НОНА ДАРИНОВА МАНДОВА",
+      "type": "person",
+      "label": "Нона Даринова Мандова"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ МИХАЙЛОВ МИХОВ",
+      "type": "person",
+      "label": "Владислав Михайлов Михов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР РОСЕНОВ СТОИМЕНОВ",
+      "type": "person",
+      "label": "Александър Росенов Стоименов"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Мария Иванова Иванова"
+    },
+    {
+      "id": "person:КОЙЧО МАРИНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Койчо Маринов Маринов"
+    },
+    {
+      "id": "person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ",
+      "type": "person",
+      "label": "Добромир Проданов Симидчиев"
+    },
+    {
+      "id": "person:РУМЕН ВЕНЦИСЛАВОВ ПЕХЛИВАНОВ",
+      "type": "person",
+      "label": "Румен Венциславов Пехливанов"
+    },
+    {
+      "id": "company:tr:000076877",
+      "type": "company",
+      "label": "ПРИБОЙ",
+      "slug": null,
+      "uic": "000076877",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:savka-mitkova-stefanova-rokomanova-b3a73b",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandra-boteva-sariiska-1ecb46",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rosen-damyanov-krumov-5bfa39",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА КОСТОВ НАЧЕВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ МИЛОСЛАВОВ ПЕТРОВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА КОСТОВ НАЧЕВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НОНА ДАРИНОВА МАНДОВА",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ МИХАЙЛОВ МИХОВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ МИХАЙЛОВ МИХОВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР РОСЕНОВ СТОИМЕНОВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА ИВАНОВА",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЙЧО МАРИНОВ МАРИНОВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЙЧО МАРИНОВ МАРИНОВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ВЕНЦИСЛАВОВ ПЕХЛИВАНОВ",
+      "target": "company:tr:831629999",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:831629999",
+      "target": "company:tr:000076877",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

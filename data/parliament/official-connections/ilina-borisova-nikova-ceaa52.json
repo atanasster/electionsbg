@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ilina-borisova-nikova-ceaa52","nodes":[{"id":"official:ilina-borisova-nikova-ceaa52","type":"official","slug":"ilina-borisova-nikova-ceaa52","label":"Илина Борисова Никова","tier":"municipal","role":"councillor","municipality":"Сандански"},{"id":"company:tr:202296123","type":"company","label":"БИОФУУДТЕХНОЛОДЖИ","slug":null,"uic":"202296123","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ilina-borisova-nikova-ceaa52","target":"company:tr:202296123","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ilina-borisova-nikova-ceaa52",
+  "nodes": [
+    {
+      "id": "official:ilina-borisova-nikova-ceaa52",
+      "type": "official",
+      "slug": "ilina-borisova-nikova-ceaa52",
+      "label": "Илина Борисова Никова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:202296123",
+      "type": "company",
+      "label": "БИОФУУДТЕХНОЛОДЖИ",
+      "slug": null,
+      "uic": "202296123",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilina-borisova-nikova-ceaa52",
+      "target": "company:tr:202296123",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,1 +1,207 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nadya-iordanova-stavreva-afbe9c","nodes":[{"id":"official:nadya-iordanova-stavreva-afbe9c","type":"official","slug":"nadya-iordanova-stavreva-afbe9c","label":"Надя Йорданова Ставрева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:106045989","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;САМООБРАЗОВАНИЕ-1894&quot;","slug":null,"uic":"106045989","legalForm":null,"status":null,"seat":null},{"id":"person:КАЛИНКА БЛАГОЕВА МАНИНСКА","type":"person","label":"Калинка Благоева Манинска"},{"id":"person:ПЕТЯ РУСИНОВА ПЕТКОВА","type":"person","label":"Петя Русинова Петкова"},{"id":"person:АНЕЛИЯ БОРИСОВА НИКОЛОВА","type":"person","label":"Анелия Борисова Николова"},{"id":"person:НЕВЕНА ДИМИТРОВА КРЪСТЕВА","type":"person","label":"Невена Димитрова Кръстева"},{"id":"person:ГАБРИЕЛА МИЛЧЕВА МАРИНОВА","type":"person","label":"Габриела Милчева Маринова"},{"id":"person:СИЛВИЯ ДЕТЕЛИНОВА МОНОВА","type":"person","label":"Силвия Детелинова Монова"},{"id":"person:ДОБРИНКА ВАСИЛЕВА ПЕТКОВА","type":"person","label":"Добринка Василева Петкова"},{"id":"person:ВЕСЕЛКА САВЧЕВА ПЕТКОВА","type":"person","label":"Веселка Савчева Петкова"},{"id":"person:ШИРИН АЛАЙДИНОВА ЦЕКОВА","type":"person","label":"Ширин Алайдинова Цекова"},{"id":"person:ЦВЕТЕЛИНА ЙОРДАНОВА КРЪСТЕВА","type":"person","label":"Цветелина Йорданова Кръстева"},{"id":"person:МАРИНА ГЕОРГИЕВА АНГЕЛОВА","type":"person","label":"Марина Георгиева Ангелова"},{"id":"person:ЮНАЛ ЕРГЮЛОВА ЗДРАВКОВА","type":"person","label":"Юнал Ергюлова Здравкова"}],"edges":[{"source":"official:nadya-iordanova-stavreva-afbe9c","target":"company:tr:106045989","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:КАЛИНКА БЛАГОЕВА МАНИНСКА","target":"company:tr:106045989","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ РУСИНОВА ПЕТКОВА","target":"company:tr:106045989","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ БОРИСОВА НИКОЛОВА","target":"company:tr:106045989","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕНА ДИМИТРОВА КРЪСТЕВА","target":"company:tr:106045989","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГАБРИЕЛА МИЛЧЕВА МАРИНОВА","target":"company:tr:106045989","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ ДЕТЕЛИНОВА МОНОВА","target":"company:tr:106045989","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИНКА ВАСИЛЕВА ПЕТКОВА","target":"company:tr:106045989","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА САВЧЕВА ПЕТКОВА","target":"company:tr:106045989","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАБРИЕЛА МИЛЧЕВА МАРИНОВА","target":"company:tr:106045989","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ШИРИН АЛАЙДИНОВА ЦЕКОВА","target":"company:tr:106045989","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА ЙОРДАНОВА КРЪСТЕВА","target":"company:tr:106045989","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ БОРИСОВА НИКОЛОВА","target":"company:tr:106045989","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНА ГЕОРГИЕВА АНГЕЛОВА","target":"company:tr:106045989","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЮНАЛ ЕРГЮЛОВА ЗДРАВКОВА","target":"company:tr:106045989","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nadya-iordanova-stavreva-afbe9c",
+  "nodes": [
+    {
+      "id": "official:nadya-iordanova-stavreva-afbe9c",
+      "type": "official",
+      "slug": "nadya-iordanova-stavreva-afbe9c",
+      "label": "Надя Йорданова Ставрева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106045989",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;САМООБРАЗОВАНИЕ-1894&quot;",
+      "slug": null,
+      "uic": "106045989",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛИНКА БЛАГОЕВА МАНИНСКА",
+      "type": "person",
+      "label": "Калинка Благоева Манинска"
+    },
+    {
+      "id": "person:ПЕТЯ РУСИНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Петя Русинова Петкова"
+    },
+    {
+      "id": "person:АНЕЛИЯ БОРИСОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Анелия Борисова Николова"
+    },
+    {
+      "id": "person:НЕВЕНА ДИМИТРОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Невена Димитрова Кръстева"
+    },
+    {
+      "id": "person:ГАБРИЕЛА МИЛЧЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Габриела Милчева Маринова"
+    },
+    {
+      "id": "person:СИЛВИЯ ДЕТЕЛИНОВА МОНОВА",
+      "type": "person",
+      "label": "Силвия Детелинова Монова"
+    },
+    {
+      "id": "person:ДОБРИНКА ВАСИЛЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Добринка Василева Петкова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА САВЧЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Веселка Савчева Петкова"
+    },
+    {
+      "id": "person:ШИРИН АЛАЙДИНОВА ЦЕКОВА",
+      "type": "person",
+      "label": "Ширин Алайдинова Цекова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ЙОРДАНОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Цветелина Йорданова Кръстева"
+    },
+    {
+      "id": "person:МАРИНА ГЕОРГИЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Марина Георгиева Ангелова"
+    },
+    {
+      "id": "person:ЮНАЛ ЕРГЮЛОВА ЗДРАВКОВА",
+      "type": "person",
+      "label": "Юнал Ергюлова Здравкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadya-iordanova-stavreva-afbe9c",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАЛИНКА БЛАГОЕВА МАНИНСКА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ РУСИНОВА ПЕТКОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ БОРИСОВА НИКОЛОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА ДИМИТРОВА КРЪСТЕВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАБРИЕЛА МИЛЧЕВА МАРИНОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ДЕТЕЛИНОВА МОНОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА ВАСИЛЕВА ПЕТКОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА САВЧЕВА ПЕТКОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАБРИЕЛА МИЛЧЕВА МАРИНОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШИРИН АЛАЙДИНОВА ЦЕКОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ЙОРДАНОВА КРЪСТЕВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ БОРИСОВА НИКОЛОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ГЕОРГИЕВА АНГЕЛОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮНАЛ ЕРГЮЛОВА ЗДРАВКОВА",
+      "target": "company:tr:106045989",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

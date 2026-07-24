@@ -1,1 +1,103 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:pepo-iordanov-petrov-bcef27","nodes":[{"id":"official:pepo-iordanov-petrov-bcef27","type":"official","slug":"pepo-iordanov-petrov-bcef27","label":"Пепо Йорданов Петров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:175787870","type":"company","label":"КЛУБ ПО ВОДНИ СПОРТОВЕ- НИКОПОЛ","slug":null,"uic":"175787870","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, Никопол, 5940"},{"id":"mp:3866","type":"mp","mpId":3866,"label":"Албена Симеонова Върбанова","partyGroupShort":"АКБ","isCurrent":false,"nsFolders":["45","46","48"]},{"id":"person:ТУРГАЙ КЕМАЛОВ ДЖАВИДОВ","type":"person","label":"Тургай Кемалов Джавидов"},{"id":"person:ХАРИ ДИМИТРОВ ТОДОРОВ","type":"person","label":"Хари Димитров Тодоров"},{"id":"person:ВЛАДИМИР МИЛКОВ ГЕОРГИЕВ","type":"person","label":"Владимир Милков Георгиев"}],"edges":[{"source":"official:pepo-iordanov-petrov-bcef27","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3866","target":"company:tr:175787870","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3866","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТУРГАЙ КЕМАЛОВ ДЖАВИДОВ","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХАРИ ДИМИТРОВ ТОДОРОВ","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР МИЛКОВ ГЕОРГИЕВ","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:pepo-iordanov-petrov-bcef27",
+  "nodes": [
+    {
+      "id": "official:pepo-iordanov-petrov-bcef27",
+      "type": "official",
+      "slug": "pepo-iordanov-petrov-bcef27",
+      "label": "Пепо Йорданов Петров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175787870",
+      "type": "company",
+      "label": "КЛУБ ПО ВОДНИ СПОРТОВЕ- НИКОПОЛ",
+      "slug": null,
+      "uic": "175787870",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Никопол, 5940"
+    },
+    {
+      "id": "mp:3866",
+      "type": "mp",
+      "mpId": 3866,
+      "label": "Албена Симеонова Върбанова",
+      "partyGroupShort": "АКБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "48"
+      ]
+    },
+    {
+      "id": "person:ТУРГАЙ КЕМАЛОВ ДЖАВИДОВ",
+      "type": "person",
+      "label": "Тургай Кемалов Джавидов"
+    },
+    {
+      "id": "person:ХАРИ ДИМИТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Хари Димитров Тодоров"
+    },
+    {
+      "id": "person:ВЛАДИМИР МИЛКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Владимир Милков Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pepo-iordanov-petrov-bcef27",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3866",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3866",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТУРГАЙ КЕМАЛОВ ДЖАВИДОВ",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАРИ ДИМИТРОВ ТОДОРОВ",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР МИЛКОВ ГЕОРГИЕВ",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

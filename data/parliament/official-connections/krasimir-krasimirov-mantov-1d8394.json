@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:krasimir-krasimirov-mantov-1d8394","nodes":[{"id":"official:krasimir-krasimirov-mantov-1d8394","type":"official","slug":"krasimir-krasimirov-mantov-1d8394","label":"Красимир Красимиров Мантов","tier":"municipal","role":"councillor","municipality":"Доспат"},{"id":"company:tr:176235500","type":"company","label":"Бартина","slug":null,"uic":"176235500","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕТЕЛИН ИЛИЕВ КАЧАРОВ","type":"person","label":"Детелин Илиев Качаров"},{"id":"person:ИРИНА СОКРАТИС ДЕРВИСИШ","type":"person","label":"Ирина Сократис Дервисиш"}],"edges":[{"source":"official:krasimir-krasimirov-mantov-1d8394","target":"company:tr:176235500","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕТЕЛИН ИЛИЕВ КАЧАРОВ","target":"company:tr:176235500","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА СОКРАТИС ДЕРВИСИШ","target":"company:tr:176235500","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:krasimir-krasimirov-mantov-1d8394",
+  "nodes": [
+    {
+      "id": "official:krasimir-krasimirov-mantov-1d8394",
+      "type": "official",
+      "slug": "krasimir-krasimirov-mantov-1d8394",
+      "label": "Красимир Красимиров Мантов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Доспат"
+    },
+    {
+      "id": "company:tr:176235500",
+      "type": "company",
+      "label": "Бартина",
+      "slug": null,
+      "uic": "176235500",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕТЕЛИН ИЛИЕВ КАЧАРОВ",
+      "type": "person",
+      "label": "Детелин Илиев Качаров"
+    },
+    {
+      "id": "person:ИРИНА СОКРАТИС ДЕРВИСИШ",
+      "type": "person",
+      "label": "Ирина Сократис Дервисиш"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-krasimirov-mantov-1d8394",
+      "target": "company:tr:176235500",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕТЕЛИН ИЛИЕВ КАЧАРОВ",
+      "target": "company:tr:176235500",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА СОКРАТИС ДЕРВИСИШ",
+      "target": "company:tr:176235500",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

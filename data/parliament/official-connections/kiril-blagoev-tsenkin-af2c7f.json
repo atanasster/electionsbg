@@ -1,1 +1,87 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kiril-blagoev-tsenkin-af2c7f","nodes":[{"id":"official:kiril-blagoev-tsenkin-af2c7f","type":"official","slug":"kiril-blagoev-tsenkin-af2c7f","label":"Кирил Благоев Ценкин","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:177241641","type":"company","label":"Хандбален клуб ЗВЕЗДА - СОФИЯ","slug":null,"uic":"177241641","legalForm":null,"status":null,"seat":null},{"id":"person:ЦАКО ХРИСТОВ ЦАКОВ","type":"person","label":"Цако Христов Цаков"},{"id":"person:ИВАЙЛО ЛАЗАРОВ ИВАНОВ","type":"person","label":"Ивайло Лазаров Иванов"},{"id":"person:ДИМИТЪР АСЕНОВ АСЕНОВ","type":"person","label":"Димитър Асенов Асенов"},{"id":"person:ТЕОДОР ЙОРДАНОВ КОСЕВ","type":"person","label":"Теодор Йорданов Косев"}],"edges":[{"source":"official:kiril-blagoev-tsenkin-af2c7f","target":"company:tr:177241641","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЦАКО ХРИСТОВ ЦАКОВ","target":"company:tr:177241641","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ЛАЗАРОВ ИВАНОВ","target":"company:tr:177241641","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР АСЕНОВ АСЕНОВ","target":"company:tr:177241641","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР ЙОРДАНОВ КОСЕВ","target":"company:tr:177241641","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kiril-blagoev-tsenkin-af2c7f",
+  "nodes": [
+    {
+      "id": "official:kiril-blagoev-tsenkin-af2c7f",
+      "type": "official",
+      "slug": "kiril-blagoev-tsenkin-af2c7f",
+      "label": "Кирил Благоев Ценкин",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177241641",
+      "type": "company",
+      "label": "Хандбален клуб ЗВЕЗДА - СОФИЯ",
+      "slug": null,
+      "uic": "177241641",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦАКО ХРИСТОВ ЦАКОВ",
+      "type": "person",
+      "label": "Цако Христов Цаков"
+    },
+    {
+      "id": "person:ИВАЙЛО ЛАЗАРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Лазаров Иванов"
+    },
+    {
+      "id": "person:ДИМИТЪР АСЕНОВ АСЕНОВ",
+      "type": "person",
+      "label": "Димитър Асенов Асенов"
+    },
+    {
+      "id": "person:ТЕОДОР ЙОРДАНОВ КОСЕВ",
+      "type": "person",
+      "label": "Теодор Йорданов Косев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-blagoev-tsenkin-af2c7f",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦАКО ХРИСТОВ ЦАКОВ",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЛАЗАРОВ ИВАНОВ",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АСЕНОВ АСЕНОВ",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ЙОРДАНОВ КОСЕВ",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

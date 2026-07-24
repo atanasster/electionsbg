@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:bogomil-borisov-manov-12367f","nodes":[{"id":"official:bogomil-borisov-manov-12367f","type":"official","slug":"bogomil-borisov-manov-12367f","label":"Богомил Борисов Манов","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:206325063","type":"company","label":"ФИДУ ТРЕЙД","slug":null,"uic":"206325063","legalForm":null,"status":null,"seat":null},{"id":"person:АНИТА НИКОЛОВА СТОЕВА","type":"person","label":"Анита Николова Стоева"},{"id":"person:ИВЕЛИН СТРАХИЛОВ ДОРОВСКИ","type":"person","label":"Ивелин Страхилов Доровски"},{"id":"person:МАРИН ИЛИЕВ ИЛИЕВ","type":"person","label":"Марин Илиев Илиев"},{"id":"person:ВАЛЕНТИН КИРИЛОВ САВОВ","type":"person","label":"Валентин Кирилов Савов"}],"edges":[{"source":"official:bogomil-borisov-manov-12367f","target":"company:tr:206325063","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:АНИТА НИКОЛОВА СТОЕВА","target":"company:tr:206325063","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИН СТРАХИЛОВ ДОРОВСКИ","target":"company:tr:206325063","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН ИЛИЕВ ИЛИЕВ","target":"company:tr:206325063","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН КИРИЛОВ САВОВ","target":"company:tr:206325063","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН КИРИЛОВ САВОВ","target":"company:tr:206325063","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:bogomil-borisov-manov-12367f",
+  "nodes": [
+    {
+      "id": "official:bogomil-borisov-manov-12367f",
+      "type": "official",
+      "slug": "bogomil-borisov-manov-12367f",
+      "label": "Богомил Борисов Манов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206325063",
+      "type": "company",
+      "label": "ФИДУ ТРЕЙД",
+      "slug": null,
+      "uic": "206325063",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНИТА НИКОЛОВА СТОЕВА",
+      "type": "person",
+      "label": "Анита Николова Стоева"
+    },
+    {
+      "id": "person:ИВЕЛИН СТРАХИЛОВ ДОРОВСКИ",
+      "type": "person",
+      "label": "Ивелин Страхилов Доровски"
+    },
+    {
+      "id": "person:МАРИН ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Марин Илиев Илиев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН КИРИЛОВ САВОВ",
+      "type": "person",
+      "label": "Валентин Кирилов Савов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bogomil-borisov-manov-12367f",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНИТА НИКОЛОВА СТОЕВА",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН СТРАХИЛОВ ДОРОВСКИ",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН КИРИЛОВ САВОВ",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН КИРИЛОВ САВОВ",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

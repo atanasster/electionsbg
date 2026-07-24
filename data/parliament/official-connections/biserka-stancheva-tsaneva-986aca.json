@@ -1,1 +1,53 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:biserka-stancheva-tsaneva-986aca","nodes":[{"id":"official:biserka-stancheva-tsaneva-986aca","type":"official","slug":"biserka-stancheva-tsaneva-986aca","label":"Бисерка Станчева Цанева","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:204901001","type":"company","label":"Ин консулт ЕООД","slug":null,"uic":"204901001","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205783513","type":"company","label":"Ин консулт София ЕООД","slug":null,"uic":"205783513","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:biserka-stancheva-tsaneva-986aca","target":"company:tr:204901001","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:biserka-stancheva-tsaneva-986aca","target":"company:tr:205783513","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:biserka-stancheva-tsaneva-986aca",
+  "nodes": [
+    {
+      "id": "official:biserka-stancheva-tsaneva-986aca",
+      "type": "official",
+      "slug": "biserka-stancheva-tsaneva-986aca",
+      "label": "Бисерка Станчева Цанева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204901001",
+      "type": "company",
+      "label": "Ин консулт ЕООД",
+      "slug": null,
+      "uic": "204901001",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205783513",
+      "type": "company",
+      "label": "Ин консулт София ЕООД",
+      "slug": null,
+      "uic": "205783513",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:biserka-stancheva-tsaneva-986aca",
+      "target": "company:tr:204901001",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:biserka-stancheva-tsaneva-986aca",
+      "target": "company:tr:205783513",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

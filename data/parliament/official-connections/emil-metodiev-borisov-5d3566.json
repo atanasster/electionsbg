@@ -1,1 +1,90 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emil-metodiev-borisov-5d3566","nodes":[{"id":"official:emil-metodiev-borisov-5d3566","type":"official","slug":"emil-metodiev-borisov-5d3566","label":"Емил Методиев Борисов","tier":"executive","role":"security_service","municipality":null},{"id":"company:tr:117634273","type":"company","label":"Аква Пуулс ООД","slug":null,"uic":"117634273","legalForm":null,"status":null,"seat":null},{"id":"company:tr:117653576","type":"company","label":"Темена Пулс ООД","slug":null,"uic":"117653576","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИАН ГЕОРГИЕВ НИКОЛОВ","type":"person","label":"Мариан Георгиев Николов"}],"edges":[{"source":"official:emil-metodiev-borisov-5d3566","target":"company:tr:117634273","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emil-metodiev-borisov-5d3566","target":"company:tr:117653576","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emil-metodiev-borisov-5d3566","target":"company:tr:117634273","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:emil-metodiev-borisov-5d3566","target":"company:tr:117634273","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИАН ГЕОРГИЕВ НИКОЛОВ","target":"company:tr:117634273","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАН ГЕОРГИЕВ НИКОЛОВ","target":"company:tr:117634273","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emil-metodiev-borisov-5d3566",
+  "nodes": [
+    {
+      "id": "official:emil-metodiev-borisov-5d3566",
+      "type": "official",
+      "slug": "emil-metodiev-borisov-5d3566",
+      "label": "Емил Методиев Борисов",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117634273",
+      "type": "company",
+      "label": "Аква Пуулс ООД",
+      "slug": null,
+      "uic": "117634273",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:117653576",
+      "type": "company",
+      "label": "Темена Пулс ООД",
+      "slug": null,
+      "uic": "117653576",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАН ГЕОРГИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Мариан Георгиев Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-metodiev-borisov-5d3566",
+      "target": "company:tr:117634273",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-metodiev-borisov-5d3566",
+      "target": "company:tr:117653576",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-metodiev-borisov-5d3566",
+      "target": "company:tr:117634273",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-metodiev-borisov-5d3566",
+      "target": "company:tr:117634273",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАН ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:117634273",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАН ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:117634273",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

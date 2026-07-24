@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T16:20:29.185Z",
+  "generatedAt": "2026-07-24T18:01:46.243Z",
   "entries": [
     {
       "type": "mp",
@@ -32887,6 +32887,13 @@
     {
       "type": "company",
       "slug": null,
+      "uic": "204591054",
+      "label": "ДААД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
       "uic": "000456979",
       "label": "НАУКА - 1919 Г. - С. КРУМОВО",
       "seat": null
@@ -34632,6 +34639,13 @@
       "slug": null,
       "uic": "103936404",
       "label": "\"ПАНИСУС\" ООД",
+      "seat": null
+    },
+    {
+      "type": "company",
+      "slug": null,
+      "uic": "000699358",
+      "label": "БЪЛГАРСКИ СПОРТ",
       "seat": null
     },
     {
@@ -36844,13 +36858,6 @@
       "slug": null,
       "uic": "175415075",
       "label": "Стандартстрой Инженеринг ЕООД",
-      "seat": null
-    },
-    {
-      "type": "company",
-      "slug": null,
-      "uic": "175150666",
-      "label": "\"Тилев и Ко\" ООд",
       "seat": null
     },
     {
@@ -60245,15 +60252,7 @@
     },
     {
       "type": "official",
-      "slug": "angel-petrov-petrov-2f3c63",
-      "label": "Ангел Петров Петров",
-      "tier": "executive",
-      "role": "secretary_general",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "angel-petrov-petrov-082ac6",
+      "slug": "angel-petrov-petrov-292f57",
       "label": "Ангел Петров Петров",
       "tier": "executive",
       "role": "secretary_general",
@@ -60886,14 +60885,6 @@
     {
       "type": "official",
       "slug": "asya-borislavova-petrova-f8f114",
-      "label": "Ася Бориславова Петрова",
-      "tier": "executive",
-      "role": "procurement_officer",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "asya-borislavova-petrova-717cc4",
       "label": "Ася Бориславова Петрова",
       "tier": "executive",
       "role": "procurement_officer",
@@ -64109,6 +64100,14 @@
     },
     {
       "type": "official",
+      "slug": "georgi-zlatev-cholakov-586094",
+      "label": "Георги Златев Чолаков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "georgi-ivanov-georgiev-b95494",
       "label": "Георги Иванов Георгиев",
       "tier": "executive",
@@ -65733,6 +65732,14 @@
     },
     {
       "type": "official",
+      "slug": "diana-petrova-kovacheva-0608aa",
+      "label": "Диана Петрова Ковачева",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "type": "official",
       "slug": "diana-petrova-mladenova-naidenova-6bd3bb",
       "label": "Диана Петрова Младенова-Найденова",
       "tier": "executive",
@@ -66917,7 +66924,7 @@
     },
     {
       "type": "official",
-      "slug": "edvin-stefanov-sugarev-01155e",
+      "slug": "edvin-stefanov-sugarev-ef04a3",
       "label": "Едвин Стефанов Сугарев",
       "tier": "executive",
       "role": "diplomat",
@@ -67745,6 +67752,14 @@
       "label": "Живка Тодорова Костадинова",
       "tier": "executive",
       "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "type": "official",
+      "slug": "zhivko-atanasov-vangelov-fc5959",
+      "label": "Живко Атанасов Вангелов",
+      "tier": "executive",
+      "role": "state_enterprise",
       "municipality": null
     },
     {
@@ -70729,14 +70744,6 @@
       "label": "Константин Тодоров Медаров",
       "tier": "executive",
       "role": "state_enterprise",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "konstantin-todorov-tilev-1125c4",
-      "label": "Константин Тодоров Тилев",
-      "tier": "executive",
-      "role": "regulator",
       "municipality": null
     },
     {
@@ -75773,30 +75780,6 @@
     },
     {
       "type": "official",
-      "slug": "petko-nenkov-salchev-60598b",
-      "label": "Петко Ненков Салчев",
-      "tier": "executive",
-      "role": "social_fund",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "petko-nenkov-salchev-6d8cc5",
-      "label": "Петко Ненков Салчев",
-      "tier": "executive",
-      "role": "social_fund",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "petko-nenkov-salchev-da9b94",
-      "label": "Петко Ненков Салчев",
-      "tier": "executive",
-      "role": "social_fund",
-      "municipality": null
-    },
-    {
-      "type": "official",
       "slug": "petko-penkov-marinov-c4f20f",
       "label": "Петко Пенков Маринов",
       "tier": "executive",
@@ -79302,14 +79285,6 @@
     {
       "type": "official",
       "slug": "stoyan-todorov-mavrodiev-2b5960",
-      "label": "Стоян Тодоров Мавродиев",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "municipality": null
-    },
-    {
-      "type": "official",
-      "slug": "stoyan-todorov-mavrodiev-c4cf82",
       "label": "Стоян Тодоров Мавродиев",
       "tier": "executive",
       "role": "state_enterprise",

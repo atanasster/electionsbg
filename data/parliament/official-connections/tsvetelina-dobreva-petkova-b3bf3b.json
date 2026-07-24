@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsvetelina-dobreva-petkova-b3bf3b","nodes":[{"id":"official:tsvetelina-dobreva-petkova-b3bf3b","type":"official","slug":"tsvetelina-dobreva-petkova-b3bf3b","label":"Цветелина Добрева Петкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:208342709","type":"company","label":"Медицински център ВИП ХЕЛТ","slug":null,"uic":"208342709","legalForm":null,"status":null,"seat":null},{"id":"person:ВАЛЕНТИН ДИМИТРОВ ИВАНОВ","type":"person","label":"Валентин Димитров Иванов"},{"id":"person:НИКОЛЕТА ТОДОРОВА ВЕЛЕВА","type":"person","label":"Николета Тодорова Велева"},{"id":"person:ЕЛЕНА СТЕФАНОВА ВЕЛЕВА","type":"person","label":"Елена Стефанова Велева"}],"edges":[{"source":"official:tsvetelina-dobreva-petkova-b3bf3b","target":"company:tr:208342709","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕНТИН ДИМИТРОВ ИВАНОВ","target":"company:tr:208342709","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛЕТА ТОДОРОВА ВЕЛЕВА","target":"company:tr:208342709","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА СТЕФАНОВА ВЕЛЕВА","target":"company:tr:208342709","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsvetelina-dobreva-petkova-b3bf3b",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-dobreva-petkova-b3bf3b",
+      "type": "official",
+      "slug": "tsvetelina-dobreva-petkova-b3bf3b",
+      "label": "Цветелина Добрева Петкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208342709",
+      "type": "company",
+      "label": "Медицински център ВИП ХЕЛТ",
+      "slug": null,
+      "uic": "208342709",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Валентин Димитров Иванов"
+    },
+    {
+      "id": "person:НИКОЛЕТА ТОДОРОВА ВЕЛЕВА",
+      "type": "person",
+      "label": "Николета Тодорова Велева"
+    },
+    {
+      "id": "person:ЕЛЕНА СТЕФАНОВА ВЕЛЕВА",
+      "type": "person",
+      "label": "Елена Стефанова Велева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-dobreva-petkova-b3bf3b",
+      "target": "company:tr:208342709",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:208342709",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТА ТОДОРОВА ВЕЛЕВА",
+      "target": "company:tr:208342709",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА СТЕФАНОВА ВЕЛЕВА",
+      "target": "company:tr:208342709",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

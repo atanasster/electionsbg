@@ -1,1 +1,127 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kristin-krstov-krosnarov-e7c915","nodes":[{"id":"official:kristin-krstov-krosnarov-e7c915","type":"official","slug":"kristin-krstov-krosnarov-e7c915","label":"Кристин Кръстьов Кроснаров","tier":"municipal","role":"councillor","municipality":"Панагюрище"},{"id":"company:tr:130111790","type":"company","label":"КЛУБ ПО ЛЕКА АТЛЕТИКА &quot;ОБОРИЩЕ&quot;","slug":null,"uic":"130111790","legalForm":null,"status":null,"seat":null},{"id":"person:ТОДОР ПЕТРОВ ЦУЦЕКОВ","type":"person","label":"Тодор Петров Цуцеков"},{"id":"person:ГЕРГАНА ПЕТЬОВА ДОНОВА","type":"person","label":"Гергана Петьова Донова"},{"id":"person:ИЛИЯ ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Илия Димитров Димитров"},{"id":"person:ИВАН МИНКОВ ИВАНОВ","type":"person","label":"Иван Минков Иванов"}],"edges":[{"source":"official:kristin-krstov-krosnarov-e7c915","target":"company:tr:130111790","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:kristin-krstov-krosnarov-e7c915","target":"company:tr:130111790","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТОДОР ПЕТРОВ ЦУЦЕКОВ","target":"company:tr:130111790","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ПЕТЬОВА ДОНОВА","target":"company:tr:130111790","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ПЕТРОВ ЦУЦЕКОВ","target":"company:tr:130111790","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ПЕТЬОВА ДОНОВА","target":"company:tr:130111790","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ДИМИТРОВ ДИМИТРОВ","target":"company:tr:130111790","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МИНКОВ ИВАНОВ","target":"company:tr:130111790","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ДИМИТРОВ ДИМИТРОВ","target":"company:tr:130111790","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МИНКОВ ИВАНОВ","target":"company:tr:130111790","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kristin-krstov-krosnarov-e7c915",
+  "nodes": [
+    {
+      "id": "official:kristin-krstov-krosnarov-e7c915",
+      "type": "official",
+      "slug": "kristin-krstov-krosnarov-e7c915",
+      "label": "Кристин Кръстьов Кроснаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Панагюрище"
+    },
+    {
+      "id": "company:tr:130111790",
+      "type": "company",
+      "label": "КЛУБ ПО ЛЕКА АТЛЕТИКА &quot;ОБОРИЩЕ&quot;",
+      "slug": null,
+      "uic": "130111790",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ПЕТРОВ ЦУЦЕКОВ",
+      "type": "person",
+      "label": "Тодор Петров Цуцеков"
+    },
+    {
+      "id": "person:ГЕРГАНА ПЕТЬОВА ДОНОВА",
+      "type": "person",
+      "label": "Гергана Петьова Донова"
+    },
+    {
+      "id": "person:ИЛИЯ ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Илия Димитров Димитров"
+    },
+    {
+      "id": "person:ИВАН МИНКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Минков Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristin-krstov-krosnarov-e7c915",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristin-krstov-krosnarov-e7c915",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ПЕТРОВ ЦУЦЕКОВ",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ПЕТЬОВА ДОНОВА",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ПЕТРОВ ЦУЦЕКОВ",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ПЕТЬОВА ДОНОВА",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИНКОВ ИВАНОВ",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИНКОВ ИВАНОВ",
+      "target": "company:tr:130111790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

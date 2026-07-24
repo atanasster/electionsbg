@@ -1,1 +1,194 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:emiliya-ivalinova-kinovska-ae93c8","nodes":[{"id":"official:emiliya-ivalinova-kinovska-ae93c8","type":"official","slug":"emiliya-ivalinova-kinovska-ae93c8","label":"Емилия Ивалинова Киновска","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000183690","type":"company","label":"&quot;НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА-1915&quot;","slug":null,"uic":"000183690","legalForm":null,"status":null,"seat":null},{"id":"official:vladislava-tihomirova-blagoeva-3b1a9a","type":"official","slug":"vladislava-tihomirova-blagoeva-3b1a9a","label":"Владислава Тихомирова Благоева","tier":"municipal","role":"councillor","municipality":"Мизия"},{"id":"official:vlcho-ignatov-zlatanov-516f99","type":"official","slug":"vlcho-ignatov-zlatanov-516f99","label":"Вълчо Игнатов Златанов","tier":"municipal","role":"councillor","municipality":"Мизия"},{"id":"person:ДАНИЕЛА МОМЧИЛОВА АНДРОВА","type":"person","label":"Даниела Момчилова Андрова"},{"id":"person:ВЕСЕЛКА ЛЮБЕНОВА КРАЧУНОВА","type":"person","label":"Веселка Любенова Крачунова"},{"id":"person:ДАНИЕЛА ИВАНОВА ЦУРОВА","type":"person","label":"Даниела Иванова Цурова"},{"id":"person:ВАЛЯ ЕМИЛОВА БЕЛЯШКА","type":"person","label":"Валя Емилова Беляшка"},{"id":"person:ИВЕЛИНА СЕРГЕЕВА ЦЕНКИНСКА","type":"person","label":"Ивелина Сергеева Ценкинска"},{"id":"person:АНИТА ПЕТРОВА ЛИЛОВА","type":"person","label":"Анита Петрова Лилова"},{"id":"person:ВАНЯ НИКОЛОВА МОЙСОВСКА-НИНОВА","type":"person","label":"Ваня Николова Мойсовска-Нинова"},{"id":"person:ВЕНЕРА КЛИМЕНТОВА ГЕОРГИЕВА","type":"person","label":"Венера Климентова Георгиева"},{"id":"person:ЦВЕТЕЛИНА ГЕОРГИЕВА МИТОВА","type":"person","label":"Цветелина Георгиева Митова"}],"edges":[{"source":"official:emiliya-ivalinova-kinovska-ae93c8","target":"company:tr:000183690","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:vladislava-tihomirova-blagoeva-3b1a9a","target":"company:tr:000183690","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:vlcho-ignatov-zlatanov-516f99","target":"company:tr:000183690","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:vlcho-ignatov-zlatanov-516f99","target":"company:tr:000183690","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ДАНИЕЛА МОМЧИЛОВА АНДРОВА","target":"company:tr:000183690","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА ЛЮБЕНОВА КРАЧУНОВА","target":"company:tr:000183690","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ИВАНОВА ЦУРОВА","target":"company:tr:000183690","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЯ ЕМИЛОВА БЕЛЯШКА","target":"company:tr:000183690","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИНА СЕРГЕЕВА ЦЕНКИНСКА","target":"company:tr:000183690","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНИТА ПЕТРОВА ЛИЛОВА","target":"company:tr:000183690","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ НИКОЛОВА МОЙСОВСКА-НИНОВА","target":"company:tr:000183690","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕРА КЛИМЕНТОВА ГЕОРГИЕВА","target":"company:tr:000183690","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА ГЕОРГИЕВА МИТОВА","target":"company:tr:000183690","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:emiliya-ivalinova-kinovska-ae93c8",
+  "nodes": [
+    {
+      "id": "official:emiliya-ivalinova-kinovska-ae93c8",
+      "type": "official",
+      "slug": "emiliya-ivalinova-kinovska-ae93c8",
+      "label": "Емилия Ивалинова Киновска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000183690",
+      "type": "company",
+      "label": "&quot;НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА-1915&quot;",
+      "slug": null,
+      "uic": "000183690",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vladislava-tihomirova-blagoeva-3b1a9a",
+      "type": "official",
+      "slug": "vladislava-tihomirova-blagoeva-3b1a9a",
+      "label": "Владислава Тихомирова Благоева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мизия"
+    },
+    {
+      "id": "official:vlcho-ignatov-zlatanov-516f99",
+      "type": "official",
+      "slug": "vlcho-ignatov-zlatanov-516f99",
+      "label": "Вълчо Игнатов Златанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мизия"
+    },
+    {
+      "id": "person:ДАНИЕЛА МОМЧИЛОВА АНДРОВА",
+      "type": "person",
+      "label": "Даниела Момчилова Андрова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ЛЮБЕНОВА КРАЧУНОВА",
+      "type": "person",
+      "label": "Веселка Любенова Крачунова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ИВАНОВА ЦУРОВА",
+      "type": "person",
+      "label": "Даниела Иванова Цурова"
+    },
+    {
+      "id": "person:ВАЛЯ ЕМИЛОВА БЕЛЯШКА",
+      "type": "person",
+      "label": "Валя Емилова Беляшка"
+    },
+    {
+      "id": "person:ИВЕЛИНА СЕРГЕЕВА ЦЕНКИНСКА",
+      "type": "person",
+      "label": "Ивелина Сергеева Ценкинска"
+    },
+    {
+      "id": "person:АНИТА ПЕТРОВА ЛИЛОВА",
+      "type": "person",
+      "label": "Анита Петрова Лилова"
+    },
+    {
+      "id": "person:ВАНЯ НИКОЛОВА МОЙСОВСКА-НИНОВА",
+      "type": "person",
+      "label": "Ваня Николова Мойсовска-Нинова"
+    },
+    {
+      "id": "person:ВЕНЕРА КЛИМЕНТОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Венера Климентова Георгиева"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ГЕОРГИЕВА МИТОВА",
+      "type": "person",
+      "label": "Цветелина Георгиева Митова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-ivalinova-kinovska-ae93c8",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladislava-tihomirova-blagoeva-3b1a9a",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vlcho-ignatov-zlatanov-516f99",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vlcho-ignatov-zlatanov-516f99",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА МОМЧИЛОВА АНДРОВА",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ЛЮБЕНОВА КРАЧУНОВА",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАНОВА ЦУРОВА",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ ЕМИЛОВА БЕЛЯШКА",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА СЕРГЕЕВА ЦЕНКИНСКА",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИТА ПЕТРОВА ЛИЛОВА",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ НИКОЛОВА МОЙСОВСКА-НИНОВА",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕРА КЛИМЕНТОВА ГЕОРГИЕВА",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ГЕОРГИЕВА МИТОВА",
+      "target": "company:tr:000183690",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

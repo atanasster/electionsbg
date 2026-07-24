@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:veselin-nikolov-krumov-b660dc","nodes":[{"id":"official:veselin-nikolov-krumov-b660dc","type":"official","slug":"veselin-nikolov-krumov-b660dc","label":"Веселин Николов Крумов","tier":"municipal","role":"councillor","municipality":"Брезник"},{"id":"company:tr:176914704","type":"company","label":"ЗАЕДНО ЗА ХРАМА СВЕТИ ГЕОРГИ ПОБЕДОНОСЕЦ - БРЕЗНИК","slug":null,"uic":"176914704","legalForm":null,"status":null,"seat":null},{"id":"person:СОНЯ МАНОВА ТЕМЕЛКОВА","type":"person","label":"Соня Манова Темелкова"},{"id":"person:ИВАН КОСТАДИНОВ МИЛЕНОВ","type":"person","label":"Иван Костадинов Миленов"}],"edges":[{"source":"official:veselin-nikolov-krumov-b660dc","target":"company:tr:176914704","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СОНЯ МАНОВА ТЕМЕЛКОВА","target":"company:tr:176914704","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КОСТАДИНОВ МИЛЕНОВ","target":"company:tr:176914704","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ МАНОВА ТЕМЕЛКОВА","target":"company:tr:176914704","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:veselin-nikolov-krumov-b660dc",
+  "nodes": [
+    {
+      "id": "official:veselin-nikolov-krumov-b660dc",
+      "type": "official",
+      "slug": "veselin-nikolov-krumov-b660dc",
+      "label": "Веселин Николов Крумов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брезник"
+    },
+    {
+      "id": "company:tr:176914704",
+      "type": "company",
+      "label": "ЗАЕДНО ЗА ХРАМА СВЕТИ ГЕОРГИ ПОБЕДОНОСЕЦ - БРЕЗНИК",
+      "slug": null,
+      "uic": "176914704",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СОНЯ МАНОВА ТЕМЕЛКОВА",
+      "type": "person",
+      "label": "Соня Манова Темелкова"
+    },
+    {
+      "id": "person:ИВАН КОСТАДИНОВ МИЛЕНОВ",
+      "type": "person",
+      "label": "Иван Костадинов Миленов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-nikolov-krumov-b660dc",
+      "target": "company:tr:176914704",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СОНЯ МАНОВА ТЕМЕЛКОВА",
+      "target": "company:tr:176914704",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КОСТАДИНОВ МИЛЕНОВ",
+      "target": "company:tr:176914704",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ МАНОВА ТЕМЕЛКОВА",
+      "target": "company:tr:176914704",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

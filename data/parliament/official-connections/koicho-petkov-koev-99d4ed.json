@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:koicho-petkov-koev-99d4ed","nodes":[{"id":"official:koicho-petkov-koev-99d4ed","type":"official","slug":"koicho-petkov-koev-99d4ed","label":"Койчо Петков Коев","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:206896161","type":"company","label":"КОЕВ 2022","slug":null,"uic":"206896161","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИАНА ДИМИТРОВА ВАСИЛЕВА","type":"person","label":"Мариана Димитрова Василева"}],"edges":[{"source":"official:koicho-petkov-koev-99d4ed","target":"company:tr:206896161","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИАНА ДИМИТРОВА ВАСИЛЕВА","target":"company:tr:206896161","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ДИМИТРОВА ВАСИЛЕВА","target":"company:tr:206896161","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:koicho-petkov-koev-99d4ed",
+  "nodes": [
+    {
+      "id": "official:koicho-petkov-koev-99d4ed",
+      "type": "official",
+      "slug": "koicho-petkov-koev-99d4ed",
+      "label": "Койчо Петков Коев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206896161",
+      "type": "company",
+      "label": "КОЕВ 2022",
+      "slug": null,
+      "uic": "206896161",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАНА ДИМИТРОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Мариана Димитрова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:koicho-petkov-koev-99d4ed",
+      "target": "company:tr:206896161",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАНА ДИМИТРОВА ВАСИЛЕВА",
+      "target": "company:tr:206896161",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ДИМИТРОВА ВАСИЛЕВА",
+      "target": "company:tr:206896161",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

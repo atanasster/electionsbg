@@ -1,1 +1,268 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:katya-ivanova-misheva-3ff69c","nodes":[{"id":"official:katya-ivanova-misheva-3ff69c","type":"official","slug":"katya-ivanova-misheva-3ff69c","label":"Катя Иванова Мишева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176954474","type":"company","label":"Инър Уийл Клуб Бургас","slug":null,"uic":"176954474","legalForm":null,"status":null,"seat":null},{"id":"person:РАДКА ПЕТРОВА ДОНЧЕВА","type":"person","label":"Радка Петрова Дончева"},{"id":"person:МАРИЯ ВИДОЛОВА КИРОВА","type":"person","label":"Мария Видолова Кирова"},{"id":"person:ДИМКА ПЛАМЕНОВА ШИВАЧЕВА","type":"person","label":"Димка Пламенова Шивачева"},{"id":"person:МАРИЯ НИКОЛАЕВА ИВАНОВА","type":"person","label":"Мария Николаева Иванова"},{"id":"person:ГАЛИНА ХРИСТОВА НЕНОВА","type":"person","label":"Галина Христова Ненова"},{"id":"person:ПАВЛИНА КОСТАДИНОВА ГЕОРГИЕВА","type":"person","label":"Павлина Костадинова Георгиева"},{"id":"person:ЗОРНИЦА ИВАНОВА ИНОВСКА-ДИМИТРОВА","type":"person","label":"Зорница Иванова Иновска-Димитрова"},{"id":"person:МАРИЯ ДИМИТРОВА СТОЙКОВА","type":"person","label":"Мария Димитрова Стойкова"},{"id":"person:ДАРИНА АЛЕКСИЕВА ДАВИДОВА","type":"person","label":"Дарина Алексиева Давидова"},{"id":"person:МИНКА НИКОЛОВА КЮРКЧИЕВА","type":"person","label":"Минка Николова Кюркчиева"},{"id":"person:НАДЯ ИВАНОВА ДРАГИЕВА","type":"person","label":"Надя Иванова Драгиева"},{"id":"person:ПАВЛИНА ИВАНОВА ГИЛМАНОВСКА","type":"person","label":"Павлина Иванова Гилмановска"},{"id":"person:ДЕСИСЛАВА ДИМИТРОВА ГЕНЕВА","type":"person","label":"Десислава Димитрова Генева"}],"edges":[{"source":"official:katya-ivanova-misheva-3ff69c","target":"company:tr:176954474","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:katya-ivanova-misheva-3ff69c","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:РАДКА ПЕТРОВА ДОНЧЕВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ВИДОЛОВА КИРОВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ПЕТРОВА ДОНЧЕВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМКА ПЛАМЕНОВА ШИВАЧЕВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ НИКОЛАЕВА ИВАНОВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ХРИСТОВА НЕНОВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ХРИСТОВА НЕНОВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА КОСТАДИНОВА ГЕОРГИЕВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗОРНИЦА ИВАНОВА ИНОВСКА-ДИМИТРОВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМКА ПЛАМЕНОВА ШИВАЧЕВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА СТОЙКОВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИНА АЛЕКСИЕВА ДАВИДОВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМКА ПЛАМЕНОВА ШИВАЧЕВА","target":"company:tr:176954474","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА СТОЙКОВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИНКА НИКОЛОВА КЮРКЧИЕВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ИВАНОВА ДРАГИЕВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА СТОЙКОВА","target":"company:tr:176954474","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ИВАНОВА ДРАГИЕВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА ИВАНОВА ГИЛМАНОВСКА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ДИМИТРОВА ГЕНЕВА","target":"company:tr:176954474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:katya-ivanova-misheva-3ff69c",
+  "nodes": [
+    {
+      "id": "official:katya-ivanova-misheva-3ff69c",
+      "type": "official",
+      "slug": "katya-ivanova-misheva-3ff69c",
+      "label": "Катя Иванова Мишева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176954474",
+      "type": "company",
+      "label": "Инър Уийл Клуб Бургас",
+      "slug": null,
+      "uic": "176954474",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДКА ПЕТРОВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Радка Петрова Дончева"
+    },
+    {
+      "id": "person:МАРИЯ ВИДОЛОВА КИРОВА",
+      "type": "person",
+      "label": "Мария Видолова Кирова"
+    },
+    {
+      "id": "person:ДИМКА ПЛАМЕНОВА ШИВАЧЕВА",
+      "type": "person",
+      "label": "Димка Пламенова Шивачева"
+    },
+    {
+      "id": "person:МАРИЯ НИКОЛАЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Мария Николаева Иванова"
+    },
+    {
+      "id": "person:ГАЛИНА ХРИСТОВА НЕНОВА",
+      "type": "person",
+      "label": "Галина Христова Ненова"
+    },
+    {
+      "id": "person:ПАВЛИНА КОСТАДИНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Павлина Костадинова Георгиева"
+    },
+    {
+      "id": "person:ЗОРНИЦА ИВАНОВА ИНОВСКА-ДИМИТРОВА",
+      "type": "person",
+      "label": "Зорница Иванова Иновска-Димитрова"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА СТОЙКОВА",
+      "type": "person",
+      "label": "Мария Димитрова Стойкова"
+    },
+    {
+      "id": "person:ДАРИНА АЛЕКСИЕВА ДАВИДОВА",
+      "type": "person",
+      "label": "Дарина Алексиева Давидова"
+    },
+    {
+      "id": "person:МИНКА НИКОЛОВА КЮРКЧИЕВА",
+      "type": "person",
+      "label": "Минка Николова Кюркчиева"
+    },
+    {
+      "id": "person:НАДЯ ИВАНОВА ДРАГИЕВА",
+      "type": "person",
+      "label": "Надя Иванова Драгиева"
+    },
+    {
+      "id": "person:ПАВЛИНА ИВАНОВА ГИЛМАНОВСКА",
+      "type": "person",
+      "label": "Павлина Иванова Гилмановска"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ДИМИТРОВА ГЕНЕВА",
+      "type": "person",
+      "label": "Десислава Димитрова Генева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katya-ivanova-misheva-3ff69c",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katya-ivanova-misheva-3ff69c",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДКА ПЕТРОВА ДОНЧЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВИДОЛОВА КИРОВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ПЕТРОВА ДОНЧЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМКА ПЛАМЕНОВА ШИВАЧЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НИКОЛАЕВА ИВАНОВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ХРИСТОВА НЕНОВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ХРИСТОВА НЕНОВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА КОСТАДИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРНИЦА ИВАНОВА ИНОВСКА-ДИМИТРОВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМКА ПЛАМЕНОВА ШИВАЧЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА СТОЙКОВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА АЛЕКСИЕВА ДАВИДОВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМКА ПЛАМЕНОВА ШИВАЧЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА СТОЙКОВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКА НИКОЛОВА КЮРКЧИЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ИВАНОВА ДРАГИЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА СТОЙКОВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ИВАНОВА ДРАГИЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ИВАНОВА ГИЛМАНОВСКА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ДИМИТРОВА ГЕНЕВА",
+      "target": "company:tr:176954474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

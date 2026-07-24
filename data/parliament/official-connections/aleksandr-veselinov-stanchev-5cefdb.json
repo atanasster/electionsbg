@@ -1,1 +1,129 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aleksandr-veselinov-stanchev-5cefdb","nodes":[{"id":"official:aleksandr-veselinov-stanchev-5cefdb","type":"official","slug":"aleksandr-veselinov-stanchev-5cefdb","label":"Александър Веселинов Станчев","tier":"municipal","role":"deputy_mayor","municipality":"Стралджа"},{"id":"company:tr:177043360","type":"company","label":"МЕСТНА ИНИЦИАТИВНА ГРУПА  СТРАЛДЖА-СЛИВЕН 2023","slug":null,"uic":"177043360","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛАЙ ВЪЛЧЕВ НИКОЛОВ","type":"person","label":"Николай Вълчев Николов"},{"id":"person:АТАНАС КИРОВ КИРОВ","type":"person","label":"Атанас Киров Киров"},{"id":"person:ЕДРЬО ВЪЛЕВ ШИДЕРСКИ","type":"person","label":"Едрьо Вълев Шидерски"},{"id":"person:АЛЬОША ЙОРДАНОВ ЛУЖЕЦКИ","type":"person","label":"Альоша Йорданов Лужецки"},{"id":"person:МАРИЯ СТОЯНОВА ТАНЕВА","type":"person","label":"Мария Стоянова Танева"},{"id":"person:ЙОРДАН СТОЯНОВ УЗУНОВ","type":"person","label":"Йордан Стоянов Узунов"}],"edges":[{"source":"official:aleksandr-veselinov-stanchev-5cefdb","target":"company:tr:177043360","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandr-veselinov-stanchev-5cefdb","target":"company:tr:177043360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ ВЪЛЧЕВ НИКОЛОВ","target":"company:tr:177043360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС КИРОВ КИРОВ","target":"company:tr:177043360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕДРЬО ВЪЛЕВ ШИДЕРСКИ","target":"company:tr:177043360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЬОША ЙОРДАНОВ ЛУЖЕЦКИ","target":"company:tr:177043360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ СТОЯНОВА ТАНЕВА","target":"company:tr:177043360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН СТОЯНОВ УЗУНОВ","target":"company:tr:177043360","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН СТОЯНОВ УЗУНОВ","target":"company:tr:177043360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aleksandr-veselinov-stanchev-5cefdb",
+  "nodes": [
+    {
+      "id": "official:aleksandr-veselinov-stanchev-5cefdb",
+      "type": "official",
+      "slug": "aleksandr-veselinov-stanchev-5cefdb",
+      "label": "Александър Веселинов Станчев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Стралджа"
+    },
+    {
+      "id": "company:tr:177043360",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА  СТРАЛДЖА-СЛИВЕН 2023",
+      "slug": null,
+      "uic": "177043360",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ВЪЛЧЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Вълчев Николов"
+    },
+    {
+      "id": "person:АТАНАС КИРОВ КИРОВ",
+      "type": "person",
+      "label": "Атанас Киров Киров"
+    },
+    {
+      "id": "person:ЕДРЬО ВЪЛЕВ ШИДЕРСКИ",
+      "type": "person",
+      "label": "Едрьо Вълев Шидерски"
+    },
+    {
+      "id": "person:АЛЬОША ЙОРДАНОВ ЛУЖЕЦКИ",
+      "type": "person",
+      "label": "Альоша Йорданов Лужецки"
+    },
+    {
+      "id": "person:МАРИЯ СТОЯНОВА ТАНЕВА",
+      "type": "person",
+      "label": "Мария Стоянова Танева"
+    },
+    {
+      "id": "person:ЙОРДАН СТОЯНОВ УЗУНОВ",
+      "type": "person",
+      "label": "Йордан Стоянов Узунов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-veselinov-stanchev-5cefdb",
+      "target": "company:tr:177043360",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-veselinov-stanchev-5cefdb",
+      "target": "company:tr:177043360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВЪЛЧЕВ НИКОЛОВ",
+      "target": "company:tr:177043360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КИРОВ КИРОВ",
+      "target": "company:tr:177043360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕДРЬО ВЪЛЕВ ШИДЕРСКИ",
+      "target": "company:tr:177043360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЬОША ЙОРДАНОВ ЛУЖЕЦКИ",
+      "target": "company:tr:177043360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТОЯНОВА ТАНЕВА",
+      "target": "company:tr:177043360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН СТОЯНОВ УЗУНОВ",
+      "target": "company:tr:177043360",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН СТОЯНОВ УЗУНОВ",
+      "target": "company:tr:177043360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

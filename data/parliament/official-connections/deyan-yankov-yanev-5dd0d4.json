@@ -1,1 +1,73 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:deyan-yankov-yanev-5dd0d4","nodes":[{"id":"official:deyan-yankov-yanev-5dd0d4","type":"official","slug":"deyan-yankov-yanev-5dd0d4","label":"Деян Янков Янев","tier":"municipal","role":"councillor","municipality":"Хасково"},{"id":"company:tr:205526248","type":"company","label":"\"Център за иновативни образователни практики\" ЕООД","slug":null,"uic":"205526248","legalForm":null,"status":null,"seat":null},{"id":"official:deyan-yankov-yanev-1f747a","type":"official","slug":"deyan-yankov-yanev-1f747a","label":"Деян Янков Янев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:НАТАЛИЯ ВАЛЕНТИНОВНА КУЗМИНОВА-ЯНЕВА","type":"person","label":"Наталия Валентиновна Кузминова-Янева"}],"edges":[{"source":"official:deyan-yankov-yanev-5dd0d4","target":"company:tr:205526248","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:deyan-yankov-yanev-1f747a","target":"company:tr:205526248","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ ВАЛЕНТИНОВНА КУЗМИНОВА-ЯНЕВА","target":"company:tr:205526248","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ ВАЛЕНТИНОВНА КУЗМИНОВА-ЯНЕВА","target":"company:tr:205526248","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:deyan-yankov-yanev-5dd0d4",
+  "nodes": [
+    {
+      "id": "official:deyan-yankov-yanev-5dd0d4",
+      "type": "official",
+      "slug": "deyan-yankov-yanev-5dd0d4",
+      "label": "Деян Янков Янев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:205526248",
+      "type": "company",
+      "label": "\"Център за иновативни образователни практики\" ЕООД",
+      "slug": null,
+      "uic": "205526248",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:deyan-yankov-yanev-1f747a",
+      "type": "official",
+      "slug": "deyan-yankov-yanev-1f747a",
+      "label": "Деян Янков Янев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:НАТАЛИЯ ВАЛЕНТИНОВНА КУЗМИНОВА-ЯНЕВА",
+      "type": "person",
+      "label": "Наталия Валентиновна Кузминова-Янева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:deyan-yankov-yanev-5dd0d4",
+      "target": "company:tr:205526248",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:deyan-yankov-yanev-1f747a",
+      "target": "company:tr:205526248",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ВАЛЕНТИНОВНА КУЗМИНОВА-ЯНЕВА",
+      "target": "company:tr:205526248",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ВАЛЕНТИНОВНА КУЗМИНОВА-ЯНЕВА",
+      "target": "company:tr:205526248",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

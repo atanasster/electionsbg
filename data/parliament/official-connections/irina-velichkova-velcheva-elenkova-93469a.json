@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:irina-velichkova-velcheva-elenkova-93469a","nodes":[{"id":"official:irina-velichkova-velcheva-elenkova-93469a","type":"official","slug":"irina-velichkova-velcheva-elenkova-93469a","label":"Ирина Величкова Велчева-Еленкова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000314015","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СЪБУЖДАНЕ - 1899  С. ВАСИЛОВЦИ&quot;","slug":null,"uic":"000314015","legalForm":null,"status":null,"seat":null},{"id":"person:РАДМИЛ ПАВЛОВ РАДКОВ","type":"person","label":"Радмил Павлов Радков"},{"id":"person:ИВОН ЛЮДМИЛОВА ИВАНОВА","type":"person","label":"Ивон Людмилова Иванова"},{"id":"person:ИВАН ТРАЙКОВ АВРАМОВ","type":"person","label":"Иван Трайков Аврамов"},{"id":"person:ВЕРА БОЯНОВА ПЕТРОВА","type":"person","label":"Вера Боянова Петрова"},{"id":"person:ВИРГИНИЯ АНГЕЛОВА НИСТОРОВА","type":"person","label":"Виргиния Ангелова Нисторова"},{"id":"person:МАРИЕЛА НИКОЛАЕВА МИХАЙЛОВА","type":"person","label":"Мариела Николаева Михайлова"},{"id":"person:ПАВЛИНА РОЗАЛИНОВА ЦВЕТАНОВА","type":"person","label":"Павлина Розалинова Цветанова"}],"edges":[{"source":"official:irina-velichkova-velcheva-elenkova-93469a","target":"company:tr:000314015","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:irina-velichkova-velcheva-elenkova-93469a","target":"company:tr:000314015","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:РАДМИЛ ПАВЛОВ РАДКОВ","target":"company:tr:000314015","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВОН ЛЮДМИЛОВА ИВАНОВА","target":"company:tr:000314015","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТРАЙКОВ АВРАМОВ","target":"company:tr:000314015","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРА БОЯНОВА ПЕТРОВА","target":"company:tr:000314015","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАДМИЛ ПАВЛОВ РАДКОВ","target":"company:tr:000314015","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВИРГИНИЯ АНГЕЛОВА НИСТОРОВА","target":"company:tr:000314015","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЕЛА НИКОЛАЕВА МИХАЙЛОВА","target":"company:tr:000314015","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА РОЗАЛИНОВА ЦВЕТАНОВА","target":"company:tr:000314015","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:irina-velichkova-velcheva-elenkova-93469a",
+  "nodes": [
+    {
+      "id": "official:irina-velichkova-velcheva-elenkova-93469a",
+      "type": "official",
+      "slug": "irina-velichkova-velcheva-elenkova-93469a",
+      "label": "Ирина Величкова Велчева-Еленкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000314015",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪБУЖДАНЕ - 1899  С. ВАСИЛОВЦИ&quot;",
+      "slug": null,
+      "uic": "000314015",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДМИЛ ПАВЛОВ РАДКОВ",
+      "type": "person",
+      "label": "Радмил Павлов Радков"
+    },
+    {
+      "id": "person:ИВОН ЛЮДМИЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ивон Людмилова Иванова"
+    },
+    {
+      "id": "person:ИВАН ТРАЙКОВ АВРАМОВ",
+      "type": "person",
+      "label": "Иван Трайков Аврамов"
+    },
+    {
+      "id": "person:ВЕРА БОЯНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Вера Боянова Петрова"
+    },
+    {
+      "id": "person:ВИРГИНИЯ АНГЕЛОВА НИСТОРОВА",
+      "type": "person",
+      "label": "Виргиния Ангелова Нисторова"
+    },
+    {
+      "id": "person:МАРИЕЛА НИКОЛАЕВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Мариела Николаева Михайлова"
+    },
+    {
+      "id": "person:ПАВЛИНА РОЗАЛИНОВА ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Павлина Розалинова Цветанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irina-velichkova-velcheva-elenkova-93469a",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:irina-velichkova-velcheva-elenkova-93469a",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДМИЛ ПАВЛОВ РАДКОВ",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВОН ЛЮДМИЛОВА ИВАНОВА",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТРАЙКОВ АВРАМОВ",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРА БОЯНОВА ПЕТРОВА",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДМИЛ ПАВЛОВ РАДКОВ",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИРГИНИЯ АНГЕЛОВА НИСТОРОВА",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕЛА НИКОЛАЕВА МИХАЙЛОВА",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА РОЗАЛИНОВА ЦВЕТАНОВА",
+      "target": "company:tr:000314015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

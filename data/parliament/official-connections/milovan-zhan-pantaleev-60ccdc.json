@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milovan-zhan-pantaleev-60ccdc","nodes":[{"id":"official:milovan-zhan-pantaleev-60ccdc","type":"official","slug":"milovan-zhan-pantaleev-60ccdc","label":"Милован Жан Панталеев","tier":"municipal","role":"councillor","municipality":"Берковица"},{"id":"company:tr:207431838","type":"company","label":"ОБИЧАМ БЕРКОВИЦА","slug":null,"uic":"207431838","legalForm":null,"status":null,"seat":null},{"id":"person:ЗОЯ ИВАНОВА ИВАНОВА","type":"person","label":"Зоя Иванова Иванова"},{"id":"person:ИВАЙЛО КИРИЛОВ СТЕФАНОВ","type":"person","label":"Ивайло Кирилов Стефанов"},{"id":"person:ВИРДЖИНИЯ ОГНЯНОВА ГЕОРГИЕВА","type":"person","label":"Вирджиния Огнянова Георгиева"},{"id":"person:ЕМИЛ БОЖИДАРОВ КРЪСТЕВ","type":"person","label":"Емил Божидаров Кръстев"}],"edges":[{"source":"official:milovan-zhan-pantaleev-60ccdc","target":"company:tr:207431838","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:milovan-zhan-pantaleev-60ccdc","target":"company:tr:207431838","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЗОЯ ИВАНОВА ИВАНОВА","target":"company:tr:207431838","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО КИРИЛОВ СТЕФАНОВ","target":"company:tr:207431838","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИРДЖИНИЯ ОГНЯНОВА ГЕОРГИЕВА","target":"company:tr:207431838","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ БОЖИДАРОВ КРЪСТЕВ","target":"company:tr:207431838","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milovan-zhan-pantaleev-60ccdc",
+  "nodes": [
+    {
+      "id": "official:milovan-zhan-pantaleev-60ccdc",
+      "type": "official",
+      "slug": "milovan-zhan-pantaleev-60ccdc",
+      "label": "Милован Жан Панталеев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Берковица"
+    },
+    {
+      "id": "company:tr:207431838",
+      "type": "company",
+      "label": "ОБИЧАМ БЕРКОВИЦА",
+      "slug": null,
+      "uic": "207431838",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗОЯ ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Зоя Иванова Иванова"
+    },
+    {
+      "id": "person:ИВАЙЛО КИРИЛОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Ивайло Кирилов Стефанов"
+    },
+    {
+      "id": "person:ВИРДЖИНИЯ ОГНЯНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Вирджиния Огнянова Георгиева"
+    },
+    {
+      "id": "person:ЕМИЛ БОЖИДАРОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Емил Божидаров Кръстев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milovan-zhan-pantaleev-60ccdc",
+      "target": "company:tr:207431838",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milovan-zhan-pantaleev-60ccdc",
+      "target": "company:tr:207431838",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗОЯ ИВАНОВА ИВАНОВА",
+      "target": "company:tr:207431838",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО КИРИЛОВ СТЕФАНОВ",
+      "target": "company:tr:207431838",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИРДЖИНИЯ ОГНЯНОВА ГЕОРГИЕВА",
+      "target": "company:tr:207431838",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ БОЖИДАРОВ КРЪСТЕВ",
+      "target": "company:tr:207431838",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

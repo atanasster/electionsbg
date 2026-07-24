@@ -1,1 +1,155 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:aishe-beihan-seidali-1e0f03","nodes":[{"id":"official:aishe-beihan-seidali-1e0f03","type":"official","slug":"aishe-beihan-seidali-1e0f03","label":"Айше Бейхан Сейдали","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000924577","type":"company","label":"Народно читалище &quot;Зора - 1930&quot;","slug":null,"uic":"000924577","legalForm":null,"status":null,"seat":null},{"id":"person:НЕДЖАТИН БАСРИ ХАМИД","type":"person","label":"Неджатин Басри Хамид"},{"id":"person:АФИЗЕ СЮЛЕЙМАНОВА МЕХМЕДОВА","type":"person","label":"Афизе Сюлейманова Мехмедова"},{"id":"person:БЮЛЯНТ НЕДЖМИДИН СЕИДАХМЕД","type":"person","label":"Бюлянт Неджмидин Сеидахмед"},{"id":"person:ФАТМЕ ИСМАИЛОВА ИБРЯМОВА","type":"person","label":"Фатме Исмаилова Ибрямова"},{"id":"person:ФАТМЕ МЕХМЕД АХМЕД","type":"person","label":"Фатме Мехмед Ахмед"},{"id":"person:ХАФИЗЕ МЕХМЕД АХМЕД","type":"person","label":"Хафизе Мехмед Ахмед"},{"id":"person:СЕЛИМЕ НАЗМИ МЕХМЕД","type":"person","label":"Селиме Назми Мехмед"},{"id":"person:БЕЙХАН ХАЛИЛ ХАЛИЛ","type":"person","label":"Бейхан Халил Халил"}],"edges":[{"source":"official:aishe-beihan-seidali-1e0f03","target":"company:tr:000924577","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:aishe-beihan-seidali-1e0f03","target":"company:tr:000924577","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:НЕДЖАТИН БАСРИ ХАМИД","target":"company:tr:000924577","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЖАТИН БАСРИ ХАМИД","target":"company:tr:000924577","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АФИЗЕ СЮЛЕЙМАНОВА МЕХМЕДОВА","target":"company:tr:000924577","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:БЮЛЯНТ НЕДЖМИДИН СЕИДАХМЕД","target":"company:tr:000924577","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФАТМЕ ИСМАИЛОВА ИБРЯМОВА","target":"company:tr:000924577","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФАТМЕ МЕХМЕД АХМЕД","target":"company:tr:000924577","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХАФИЗЕ МЕХМЕД АХМЕД","target":"company:tr:000924577","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СЕЛИМЕ НАЗМИ МЕХМЕД","target":"company:tr:000924577","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:БЕЙХАН ХАЛИЛ ХАЛИЛ","target":"company:tr:000924577","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:aishe-beihan-seidali-1e0f03",
+  "nodes": [
+    {
+      "id": "official:aishe-beihan-seidali-1e0f03",
+      "type": "official",
+      "slug": "aishe-beihan-seidali-1e0f03",
+      "label": "Айше Бейхан Сейдали",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000924577",
+      "type": "company",
+      "label": "Народно читалище &quot;Зора - 1930&quot;",
+      "slug": null,
+      "uic": "000924577",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕДЖАТИН БАСРИ ХАМИД",
+      "type": "person",
+      "label": "Неджатин Басри Хамид"
+    },
+    {
+      "id": "person:АФИЗЕ СЮЛЕЙМАНОВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Афизе Сюлейманова Мехмедова"
+    },
+    {
+      "id": "person:БЮЛЯНТ НЕДЖМИДИН СЕИДАХМЕД",
+      "type": "person",
+      "label": "Бюлянт Неджмидин Сеидахмед"
+    },
+    {
+      "id": "person:ФАТМЕ ИСМАИЛОВА ИБРЯМОВА",
+      "type": "person",
+      "label": "Фатме Исмаилова Ибрямова"
+    },
+    {
+      "id": "person:ФАТМЕ МЕХМЕД АХМЕД",
+      "type": "person",
+      "label": "Фатме Мехмед Ахмед"
+    },
+    {
+      "id": "person:ХАФИЗЕ МЕХМЕД АХМЕД",
+      "type": "person",
+      "label": "Хафизе Мехмед Ахмед"
+    },
+    {
+      "id": "person:СЕЛИМЕ НАЗМИ МЕХМЕД",
+      "type": "person",
+      "label": "Селиме Назми Мехмед"
+    },
+    {
+      "id": "person:БЕЙХАН ХАЛИЛ ХАЛИЛ",
+      "type": "person",
+      "label": "Бейхан Халил Халил"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aishe-beihan-seidali-1e0f03",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aishe-beihan-seidali-1e0f03",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕДЖАТИН БАСРИ ХАМИД",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЖАТИН БАСРИ ХАМИД",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АФИЗЕ СЮЛЕЙМАНОВА МЕХМЕДОВА",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЮЛЯНТ НЕДЖМИДИН СЕИДАХМЕД",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ ИСМАИЛОВА ИБРЯМОВА",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ МЕХМЕД АХМЕД",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАФИЗЕ МЕХМЕД АХМЕД",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЛИМЕ НАЗМИ МЕХМЕД",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЙХАН ХАЛИЛ ХАЛИЛ",
+      "target": "company:tr:000924577",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

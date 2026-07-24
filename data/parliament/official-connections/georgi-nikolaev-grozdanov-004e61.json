@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-nikolaev-grozdanov-004e61","nodes":[{"id":"official:georgi-nikolaev-grozdanov-004e61","type":"official","slug":"georgi-nikolaev-grozdanov-004e61","label":"Георги Николаев Грозданов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:201518713","type":"company","label":"Йоани 23 ЕООД","slug":null,"uic":"201518713","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОАНИ ГЕОРГИЕВА ГРОЗДАНОВА","type":"person","label":"Йоани Георгиева Грозданова"}],"edges":[{"source":"official:georgi-nikolaev-grozdanov-004e61","target":"company:tr:201518713","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАНИ ГЕОРГИЕВА ГРОЗДАНОВА","target":"company:tr:201518713","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАНИ ГЕОРГИЕВА ГРОЗДАНОВА","target":"company:tr:201518713","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-nikolaev-grozdanov-004e61",
+  "nodes": [
+    {
+      "id": "official:georgi-nikolaev-grozdanov-004e61",
+      "type": "official",
+      "slug": "georgi-nikolaev-grozdanov-004e61",
+      "label": "Георги Николаев Грозданов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201518713",
+      "type": "company",
+      "label": "Йоани 23 ЕООД",
+      "slug": null,
+      "uic": "201518713",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОАНИ ГЕОРГИЕВА ГРОЗДАНОВА",
+      "type": "person",
+      "label": "Йоани Георгиева Грозданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-nikolaev-grozdanov-004e61",
+      "target": "company:tr:201518713",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНИ ГЕОРГИЕВА ГРОЗДАНОВА",
+      "target": "company:tr:201518713",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНИ ГЕОРГИЕВА ГРОЗДАНОВА",
+      "target": "company:tr:201518713",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

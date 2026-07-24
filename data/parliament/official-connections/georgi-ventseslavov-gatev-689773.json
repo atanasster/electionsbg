@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:georgi-ventseslavov-gatev-689773","nodes":[{"id":"official:georgi-ventseslavov-gatev-689773","type":"official","slug":"georgi-ventseslavov-gatev-689773","label":"Георги Венцеславов Гатев","tier":"municipal","role":"mayor","municipality":"Район \"Тракия\" - Пловдив"},{"id":"company:tr:203437155","type":"company","label":"ГАТИКО 15","slug":null,"uic":"203437155","legalForm":null,"status":null,"seat":null},{"id":"person:АНИ ГЕНКОВА ГАТЕВА","type":"person","label":"Ани Генкова Гатева"}],"edges":[{"source":"official:georgi-ventseslavov-gatev-689773","target":"company:tr:203437155","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-ventseslavov-gatev-689773","target":"company:tr:203437155","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:АНИ ГЕНКОВА ГАТЕВА","target":"company:tr:203437155","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНИ ГЕНКОВА ГАТЕВА","target":"company:tr:203437155","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:georgi-ventseslavov-gatev-689773",
+  "nodes": [
+    {
+      "id": "official:georgi-ventseslavov-gatev-689773",
+      "type": "official",
+      "slug": "georgi-ventseslavov-gatev-689773",
+      "label": "Георги Венцеславов Гатев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район \"Тракия\" - Пловдив"
+    },
+    {
+      "id": "company:tr:203437155",
+      "type": "company",
+      "label": "ГАТИКО 15",
+      "slug": null,
+      "uic": "203437155",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНИ ГЕНКОВА ГАТЕВА",
+      "type": "person",
+      "label": "Ани Генкова Гатева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ventseslavov-gatev-689773",
+      "target": "company:tr:203437155",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-ventseslavov-gatev-689773",
+      "target": "company:tr:203437155",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНИ ГЕНКОВА ГАТЕВА",
+      "target": "company:tr:203437155",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИ ГЕНКОВА ГАТЕВА",
+      "target": "company:tr:203437155",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

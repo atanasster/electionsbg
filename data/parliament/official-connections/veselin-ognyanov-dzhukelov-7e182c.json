@@ -1,1 +1,92 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:veselin-ognyanov-dzhukelov-7e182c","nodes":[{"id":"official:veselin-ognyanov-dzhukelov-7e182c","type":"official","slug":"veselin-ognyanov-dzhukelov-7e182c","label":"Веселин Огнянов Джукелов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:826043803","type":"company","label":"ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ","slug":null,"uic":"826043803","legalForm":null,"status":null,"seat":null},{"id":"person:ОБЩИНА ИСПЕРИХ","type":"person","label":"Община Исперих"},{"id":"person:ОБЩИНА ЗАВЕТ","type":"person","label":"Община Завет"},{"id":"person:ОБЩИНА САМУИЛ","type":"person","label":"Община Самуил"},{"id":"company:tr:206086428","type":"company","label":"Български ВиК холдинг","slug":null,"uic":"206086428","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"}],"edges":[{"source":"official:veselin-ognyanov-dzhukelov-7e182c","target":"company:tr:826043803","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ОБЩИНА ИСПЕРИХ","target":"company:tr:826043803","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ЗАВЕТ","target":"company:tr:826043803","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА САМУИЛ","target":"company:tr:826043803","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:tr:206086428","target":"company:tr:826043803","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:veselin-ognyanov-dzhukelov-7e182c",
+  "nodes": [
+    {
+      "id": "official:veselin-ognyanov-dzhukelov-7e182c",
+      "type": "official",
+      "slug": "veselin-ognyanov-dzhukelov-7e182c",
+      "label": "Веселин Огнянов Джукелов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:826043803",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "826043803",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА ИСПЕРИХ",
+      "type": "person",
+      "label": "Община Исперих"
+    },
+    {
+      "id": "person:ОБЩИНА ЗАВЕТ",
+      "type": "person",
+      "label": "Община Завет"
+    },
+    {
+      "id": "person:ОБЩИНА САМУИЛ",
+      "type": "person",
+      "label": "Община Самуил"
+    },
+    {
+      "id": "company:tr:206086428",
+      "type": "company",
+      "label": "Български ВиК холдинг",
+      "slug": null,
+      "uic": "206086428",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-ognyanov-dzhukelov-7e182c",
+      "target": "company:tr:826043803",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА ИСПЕРИХ",
+      "target": "company:tr:826043803",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ЗАВЕТ",
+      "target": "company:tr:826043803",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА САМУИЛ",
+      "target": "company:tr:826043803",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:826043803",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

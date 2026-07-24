@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikolina-atanasova-dimitrova-54ed24","nodes":[{"id":"official:nikolina-atanasova-dimitrova-54ed24","type":"official","slug":"nikolina-atanasova-dimitrova-54ed24","label":"Николина Атанасова Димитрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:208186936","type":"company","label":"НИКИ НИКОЛ КОНСУЛТ","slug":null,"uic":"208186936","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:nikolina-atanasova-dimitrova-54ed24","target":"company:tr:208186936","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolina-atanasova-dimitrova-54ed24","target":"company:tr:208186936","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikolina-atanasova-dimitrova-54ed24",
+  "nodes": [
+    {
+      "id": "official:nikolina-atanasova-dimitrova-54ed24",
+      "type": "official",
+      "slug": "nikolina-atanasova-dimitrova-54ed24",
+      "label": "Николина Атанасова Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208186936",
+      "type": "company",
+      "label": "НИКИ НИКОЛ КОНСУЛТ",
+      "slug": null,
+      "uic": "208186936",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolina-atanasova-dimitrova-54ed24",
+      "target": "company:tr:208186936",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolina-atanasova-dimitrova-54ed24",
+      "target": "company:tr:208186936",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

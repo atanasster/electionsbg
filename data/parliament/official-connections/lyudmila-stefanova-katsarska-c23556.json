@@ -1,1 +1,78 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:lyudmila-stefanova-katsarska-c23556","nodes":[{"id":"official:lyudmila-stefanova-katsarska-c23556","type":"official","slug":"lyudmila-stefanova-katsarska-c23556","label":"Людмила Стефанова Кацарска","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:113036246","type":"company","label":"ДЕЗИНФЕКЦИЯ","slug":null,"uic":"113036246","legalForm":null,"status":null,"seat":null},{"id":"official:milena-lozanova-milanova-dobrinova-0148a0","type":"official","slug":"milena-lozanova-milanova-dobrinova-0148a0","label":"Милена Лозанова Миланова-Добринова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ФИЛИП НАЧКОВ БОЖКОВ","type":"person","label":"Филип Начков Божков"},{"id":"person:ИННА ПЕТРОВА СТОИЛОВА","type":"person","label":"Инна Петрова Стоилова"}],"edges":[{"source":"official:lyudmila-stefanova-katsarska-c23556","target":"company:tr:113036246","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:milena-lozanova-milanova-dobrinova-0148a0","target":"company:tr:113036246","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ФИЛИП НАЧКОВ БОЖКОВ","target":"company:tr:113036246","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИННА ПЕТРОВА СТОИЛОВА","target":"company:tr:113036246","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:lyudmila-stefanova-katsarska-c23556",
+  "nodes": [
+    {
+      "id": "official:lyudmila-stefanova-katsarska-c23556",
+      "type": "official",
+      "slug": "lyudmila-stefanova-katsarska-c23556",
+      "label": "Людмила Стефанова Кацарска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:113036246",
+      "type": "company",
+      "label": "ДЕЗИНФЕКЦИЯ",
+      "slug": null,
+      "uic": "113036246",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:milena-lozanova-milanova-dobrinova-0148a0",
+      "type": "official",
+      "slug": "milena-lozanova-milanova-dobrinova-0148a0",
+      "label": "Милена Лозанова Миланова-Добринова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ФИЛИП НАЧКОВ БОЖКОВ",
+      "type": "person",
+      "label": "Филип Начков Божков"
+    },
+    {
+      "id": "person:ИННА ПЕТРОВА СТОИЛОВА",
+      "type": "person",
+      "label": "Инна Петрова Стоилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyudmila-stefanova-katsarska-c23556",
+      "target": "company:tr:113036246",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-lozanova-milanova-dobrinova-0148a0",
+      "target": "company:tr:113036246",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФИЛИП НАЧКОВ БОЖКОВ",
+      "target": "company:tr:113036246",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИННА ПЕТРОВА СТОИЛОВА",
+      "target": "company:tr:113036246",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

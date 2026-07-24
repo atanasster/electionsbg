@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:krasimir-petrov-kostadinov-f05655","nodes":[{"id":"official:krasimir-petrov-kostadinov-f05655","type":"official","slug":"krasimir-petrov-kostadinov-f05655","label":"Красимир Петров Костадинов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206529578","type":"company","label":"САДКО БОЧУКОВ","slug":null,"uic":"206529578","legalForm":null,"status":null,"seat":null},{"id":"person:САДКО ВАСИЛЕВ БОЧУКОВ","type":"person","label":"Садко Василев Бочуков"}],"edges":[{"source":"official:krasimir-petrov-kostadinov-f05655","target":"company:tr:206529578","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:САДКО ВАСИЛЕВ БОЧУКОВ","target":"company:tr:206529578","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:САДКО ВАСИЛЕВ БОЧУКОВ","target":"company:tr:206529578","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:krasimir-petrov-kostadinov-f05655",
+  "nodes": [
+    {
+      "id": "official:krasimir-petrov-kostadinov-f05655",
+      "type": "official",
+      "slug": "krasimir-petrov-kostadinov-f05655",
+      "label": "Красимир Петров Костадинов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206529578",
+      "type": "company",
+      "label": "САДКО БОЧУКОВ",
+      "slug": null,
+      "uic": "206529578",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:САДКО ВАСИЛЕВ БОЧУКОВ",
+      "type": "person",
+      "label": "Садко Василев Бочуков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-petrov-kostadinov-f05655",
+      "target": "company:tr:206529578",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:САДКО ВАСИЛЕВ БОЧУКОВ",
+      "target": "company:tr:206529578",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САДКО ВАСИЛЕВ БОЧУКОВ",
+      "target": "company:tr:206529578",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

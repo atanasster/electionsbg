@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:iordan-yuliev-tushev-b6f746","nodes":[{"id":"official:iordan-yuliev-tushev-b6f746","type":"official","slug":"iordan-yuliev-tushev-b6f746","label":"Йордан Юлиев Тушев","tier":"municipal","role":"councillor","municipality":"Сандански"},{"id":"company:tr:208854570","type":"company","label":"ФУТБОЛЕН КЛУБ МАЛЕШ МИКРЕВО 1932","slug":null,"uic":"208854570","legalForm":null,"status":null,"seat":null},{"id":"person:СИМЕОН ГЕОРГИЕВ ИВАНОВСКИ","type":"person","label":"Симеон Георгиев Ивановски"},{"id":"person:КОСТАДИН ГЕОРГИЕВ АПОСТОЛОВ","type":"person","label":"Костадин Георгиев Апостолов"},{"id":"person:АЛЕКСАНДЪР ДИМИТРОВ АЛЕКСАНДРОВ","type":"person","label":"Александър Димитров Александров"},{"id":"person:МАРИО АСЕНОВ ХАДЖИЕВ","type":"person","label":"Марио Асенов Хаджиев"}],"edges":[{"source":"official:iordan-yuliev-tushev-b6f746","target":"company:tr:208854570","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:iordan-yuliev-tushev-b6f746","target":"company:tr:208854570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СИМЕОН ГЕОРГИЕВ ИВАНОВСКИ","target":"company:tr:208854570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ГЕОРГИЕВ АПОСТОЛОВ","target":"company:tr:208854570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ДИМИТРОВ АЛЕКСАНДРОВ","target":"company:tr:208854570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИО АСЕНОВ ХАДЖИЕВ","target":"company:tr:208854570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:iordan-yuliev-tushev-b6f746",
+  "nodes": [
+    {
+      "id": "official:iordan-yuliev-tushev-b6f746",
+      "type": "official",
+      "slug": "iordan-yuliev-tushev-b6f746",
+      "label": "Йордан Юлиев Тушев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:208854570",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ МАЛЕШ МИКРЕВО 1932",
+      "slug": null,
+      "uic": "208854570",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИМЕОН ГЕОРГИЕВ ИВАНОВСКИ",
+      "type": "person",
+      "label": "Симеон Георгиев Ивановски"
+    },
+    {
+      "id": "person:КОСТАДИН ГЕОРГИЕВ АПОСТОЛОВ",
+      "type": "person",
+      "label": "Костадин Георгиев Апостолов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ДИМИТРОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Димитров Александров"
+    },
+    {
+      "id": "person:МАРИО АСЕНОВ ХАДЖИЕВ",
+      "type": "person",
+      "label": "Марио Асенов Хаджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-yuliev-tushev-b6f746",
+      "target": "company:tr:208854570",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-yuliev-tushev-b6f746",
+      "target": "company:tr:208854570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОН ГЕОРГИЕВ ИВАНОВСКИ",
+      "target": "company:tr:208854570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ГЕОРГИЕВ АПОСТОЛОВ",
+      "target": "company:tr:208854570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДИМИТРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:208854570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО АСЕНОВ ХАДЖИЕВ",
+      "target": "company:tr:208854570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,65 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:miroslav-valeriev-kyupov-c10ff1","nodes":[{"id":"official:miroslav-valeriev-kyupov-c10ff1","type":"official","slug":"miroslav-valeriev-kyupov-c10ff1","label":"Мирослав Валериев Кюпов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207153157","type":"company","label":"БЛАГОЕВГРАД ЕКО ТРАНСПОРТ","slug":null,"uic":"207153157","legalForm":null,"status":null,"seat":null},{"id":"official:aleksandr-kostadinov-koyumdzhiev-e71d57","type":"official","slug":"aleksandr-kostadinov-koyumdzhiev-e71d57","label":"Александър Костадинов Коюмджиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ОБЩИНА БЛАГОЕВГРАД","type":"person","label":"Община Благоевград"}],"edges":[{"source":"official:miroslav-valeriev-kyupov-c10ff1","target":"company:tr:207153157","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandr-kostadinov-koyumdzhiev-e71d57","target":"company:tr:207153157","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ОБЩИНА БЛАГОЕВГРАД","target":"company:tr:207153157","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:miroslav-valeriev-kyupov-c10ff1",
+  "nodes": [
+    {
+      "id": "official:miroslav-valeriev-kyupov-c10ff1",
+      "type": "official",
+      "slug": "miroslav-valeriev-kyupov-c10ff1",
+      "label": "Мирослав Валериев Кюпов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207153157",
+      "type": "company",
+      "label": "БЛАГОЕВГРАД ЕКО ТРАНСПОРТ",
+      "slug": null,
+      "uic": "207153157",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:aleksandr-kostadinov-koyumdzhiev-e71d57",
+      "type": "official",
+      "slug": "aleksandr-kostadinov-koyumdzhiev-e71d57",
+      "label": "Александър Костадинов Коюмджиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ОБЩИНА БЛАГОЕВГРАД",
+      "type": "person",
+      "label": "Община Благоевград"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-valeriev-kyupov-c10ff1",
+      "target": "company:tr:207153157",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-kostadinov-koyumdzhiev-e71d57",
+      "target": "company:tr:207153157",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА БЛАГОЕВГРАД",
+      "target": "company:tr:207153157",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,241 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsetska-ilieva-vlova-8816a8","nodes":[{"id":"official:tsetska-ilieva-vlova-8816a8","type":"official","slug":"tsetska-ilieva-vlova-8816a8","label":"Цецка Илиева Вълова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:106565185","type":"company","label":"СЕЛСКА ПРОБУДА - 1925","slug":null,"uic":"106565185","legalForm":null,"status":null,"seat":null},{"id":"person:РУМЕН ЦВЕТАНОВ ХРИСТОВ","type":"person","label":"Румен Цветанов Христов"},{"id":"person:КРАСИМИРА ЙОРДАНОВА МИТОВА","type":"person","label":"Красимира Йорданова Митова"},{"id":"person:ИВКА ЦВЕТАНОВА ТОДОРОВА","type":"person","label":"Ивка Цветанова Тодорова"},{"id":"person:ВИОЛЕТА НАРЦИСОВА ТОШЕВА","type":"person","label":"Виолета Нарцисова Тошева"},{"id":"person:ТИХОМИР ЙОРДАНОВ ВАСИЛЕВ","type":"person","label":"Тихомир Йорданов Василев"},{"id":"person:МАРИАНА ИВАНОВА ИВАНОВА","type":"person","label":"Мариана Иванова Иванова"},{"id":"person:ВЕНЧО ЯНЧОВ ПЕТКОВ","type":"person","label":"Венчо Янчов Петков"},{"id":"person:ЦВЕТАН ИВАНОВ ВЪЛОВ","type":"person","label":"Цветан Иванов Вълов"},{"id":"person:ЙОРДАНКА ПЕТРОВА ДИМИТРОВА","type":"person","label":"Йорданка Петрова Димитрова"},{"id":"person:ВАСИЛ НИКОЛОВ ДИМИТРОВ","type":"person","label":"Васил Николов Димитров"},{"id":"person:ЦВЕТИНА ВАЛЕНТИНОВА БОРИСОВА","type":"person","label":"Цветина Валентинова Борисова"},{"id":"person:АЛЬОША МЛАДЕНОВ МИЛАДИНОВ","type":"person","label":"Альоша Младенов Миладинов"},{"id":"person:ВАЛЕНТИН ПЛАМЕНОВ ПЕТРОВ","type":"person","label":"Валентин Пламенов Петров"},{"id":"person:МИНА ПЕТРОВА КИРКОВА","type":"person","label":"Мина Петрова Киркова"}],"edges":[{"source":"official:tsetska-ilieva-vlova-8816a8","target":"company:tr:106565185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:tsetska-ilieva-vlova-8816a8","target":"company:tr:106565185","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:РУМЕН ЦВЕТАНОВ ХРИСТОВ","target":"company:tr:106565185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ЙОРДАНОВА МИТОВА","target":"company:tr:106565185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВКА ЦВЕТАНОВА ТОДОРОВА","target":"company:tr:106565185","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА НАРЦИСОВА ТОШЕВА","target":"company:tr:106565185","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ЙОРДАНОВА МИТОВА","target":"company:tr:106565185","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР ЙОРДАНОВ ВАСИЛЕВ","target":"company:tr:106565185","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ИВАНОВА ИВАНОВА","target":"company:tr:106565185","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЧО ЯНЧОВ ПЕТКОВ","target":"company:tr:106565185","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ИВАНОВ ВЪЛОВ","target":"company:tr:106565185","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ПЕТРОВА ДИМИТРОВА","target":"company:tr:106565185","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ НИКОЛОВ ДИМИТРОВ","target":"company:tr:106565185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТИНА ВАЛЕНТИНОВА БОРИСОВА","target":"company:tr:106565185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛЬОША МЛАДЕНОВ МИЛАДИНОВ","target":"company:tr:106565185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТИНА ВАЛЕНТИНОВА БОРИСОВА","target":"company:tr:106565185","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ПЛАМЕНОВ ПЕТРОВ","target":"company:tr:106565185","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИНА ПЕТРОВА КИРКОВА","target":"company:tr:106565185","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsetska-ilieva-vlova-8816a8",
+  "nodes": [
+    {
+      "id": "official:tsetska-ilieva-vlova-8816a8",
+      "type": "official",
+      "slug": "tsetska-ilieva-vlova-8816a8",
+      "label": "Цецка Илиева Вълова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106565185",
+      "type": "company",
+      "label": "СЕЛСКА ПРОБУДА - 1925",
+      "slug": null,
+      "uic": "106565185",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУМЕН ЦВЕТАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Румен Цветанов Христов"
+    },
+    {
+      "id": "person:КРАСИМИРА ЙОРДАНОВА МИТОВА",
+      "type": "person",
+      "label": "Красимира Йорданова Митова"
+    },
+    {
+      "id": "person:ИВКА ЦВЕТАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Ивка Цветанова Тодорова"
+    },
+    {
+      "id": "person:ВИОЛЕТА НАРЦИСОВА ТОШЕВА",
+      "type": "person",
+      "label": "Виолета Нарцисова Тошева"
+    },
+    {
+      "id": "person:ТИХОМИР ЙОРДАНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Тихомир Йорданов Василев"
+    },
+    {
+      "id": "person:МАРИАНА ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Мариана Иванова Иванова"
+    },
+    {
+      "id": "person:ВЕНЧО ЯНЧОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Венчо Янчов Петков"
+    },
+    {
+      "id": "person:ЦВЕТАН ИВАНОВ ВЪЛОВ",
+      "type": "person",
+      "label": "Цветан Иванов Вълов"
+    },
+    {
+      "id": "person:ЙОРДАНКА ПЕТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Йорданка Петрова Димитрова"
+    },
+    {
+      "id": "person:ВАСИЛ НИКОЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Васил Николов Димитров"
+    },
+    {
+      "id": "person:ЦВЕТИНА ВАЛЕНТИНОВА БОРИСОВА",
+      "type": "person",
+      "label": "Цветина Валентинова Борисова"
+    },
+    {
+      "id": "person:АЛЬОША МЛАДЕНОВ МИЛАДИНОВ",
+      "type": "person",
+      "label": "Альоша Младенов Миладинов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ПЛАМЕНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Валентин Пламенов Петров"
+    },
+    {
+      "id": "person:МИНА ПЕТРОВА КИРКОВА",
+      "type": "person",
+      "label": "Мина Петрова Киркова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsetska-ilieva-vlova-8816a8",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsetska-ilieva-vlova-8816a8",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЕН ЦВЕТАНОВ ХРИСТОВ",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ЙОРДАНОВА МИТОВА",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВКА ЦВЕТАНОВА ТОДОРОВА",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА НАРЦИСОВА ТОШЕВА",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ЙОРДАНОВА МИТОВА",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ЙОРДАНОВ ВАСИЛЕВ",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ИВАНОВА ИВАНОВА",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЧО ЯНЧОВ ПЕТКОВ",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ИВАНОВ ВЪЛОВ",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ НИКОЛОВ ДИМИТРОВ",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИНА ВАЛЕНТИНОВА БОРИСОВА",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЬОША МЛАДЕНОВ МИЛАДИНОВ",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИНА ВАЛЕНТИНОВА БОРИСОВА",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЛАМЕНОВ ПЕТРОВ",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНА ПЕТРОВА КИРКОВА",
+      "target": "company:tr:106565185",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

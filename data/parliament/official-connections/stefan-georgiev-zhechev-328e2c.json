@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:stefan-georgiev-zhechev-328e2c","nodes":[{"id":"official:stefan-georgiev-zhechev-328e2c","type":"official","slug":"stefan-georgiev-zhechev-328e2c","label":"Стефан Георгиев Жечев","tier":"municipal","role":"councillor","municipality":"Шабла"},{"id":"company:tr:124614328","type":"company","label":"СДРУЖЕНИЕ НА ПИСАТЕЛИТЕ","slug":null,"uic":"124614328","legalForm":null,"status":null,"seat":null},{"id":"person:ДРАГОМИЛ ГЕОРГИЕВ АТАНАСОВ","type":"person","label":"Драгомил Георгиев Атанасов"},{"id":"person:КРАСИМИР ИВАНОВ БАЧКОВ","type":"person","label":"Красимир Иванов Бачков"},{"id":"person:УЛЯНА ИВАНОВА АНДРЕЕНКО","type":"person","label":"Уляна Иванова Андреенко"},{"id":"person:ЕМИЛ БОРИСОВ ДИМИТРОВ","type":"person","label":"Емил Борисов Димитров"}],"edges":[{"source":"official:stefan-georgiev-zhechev-328e2c","target":"company:tr:124614328","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДРАГОМИЛ ГЕОРГИЕВ АТАНАСОВ","target":"company:tr:124614328","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГОМИЛ ГЕОРГИЕВ АТАНАСОВ","target":"company:tr:124614328","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ИВАНОВ БАЧКОВ","target":"company:tr:124614328","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:УЛЯНА ИВАНОВА АНДРЕЕНКО","target":"company:tr:124614328","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ БОРИСОВ ДИМИТРОВ","target":"company:tr:124614328","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:stefan-georgiev-zhechev-328e2c",
+  "nodes": [
+    {
+      "id": "official:stefan-georgiev-zhechev-328e2c",
+      "type": "official",
+      "slug": "stefan-georgiev-zhechev-328e2c",
+      "label": "Стефан Георгиев Жечев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шабла"
+    },
+    {
+      "id": "company:tr:124614328",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ПИСАТЕЛИТЕ",
+      "slug": null,
+      "uic": "124614328",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДРАГОМИЛ ГЕОРГИЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Драгомил Георгиев Атанасов"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ БАЧКОВ",
+      "type": "person",
+      "label": "Красимир Иванов Бачков"
+    },
+    {
+      "id": "person:УЛЯНА ИВАНОВА АНДРЕЕНКО",
+      "type": "person",
+      "label": "Уляна Иванова Андреенко"
+    },
+    {
+      "id": "person:ЕМИЛ БОРИСОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Емил Борисов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-georgiev-zhechev-328e2c",
+      "target": "company:tr:124614328",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДРАГОМИЛ ГЕОРГИЕВ АТАНАСОВ",
+      "target": "company:tr:124614328",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИЛ ГЕОРГИЕВ АТАНАСОВ",
+      "target": "company:tr:124614328",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ БАЧКОВ",
+      "target": "company:tr:124614328",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:УЛЯНА ИВАНОВА АНДРЕЕНКО",
+      "target": "company:tr:124614328",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ БОРИСОВ ДИМИТРОВ",
+      "target": "company:tr:124614328",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

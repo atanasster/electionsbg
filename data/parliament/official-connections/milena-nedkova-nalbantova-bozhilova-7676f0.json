@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:milena-nedkova-nalbantova-bozhilova-7676f0","nodes":[{"id":"official:milena-nedkova-nalbantova-bozhilova-7676f0","type":"official","slug":"milena-nedkova-nalbantova-bozhilova-7676f0","label":"Милена Недкова Налбантова-Божилова","tier":"municipal","role":"councillor","municipality":"Хасково"},{"id":"company:tr:200695148","type":"company","label":"Милеро ЕООД","slug":null,"uic":"200695148","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:milena-nedkova-nalbantova-bozhilova-7676f0","target":"company:tr:200695148","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:milena-nedkova-nalbantova-bozhilova-7676f0",
+  "nodes": [
+    {
+      "id": "official:milena-nedkova-nalbantova-bozhilova-7676f0",
+      "type": "official",
+      "slug": "milena-nedkova-nalbantova-bozhilova-7676f0",
+      "label": "Милена Недкова Налбантова-Божилова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:200695148",
+      "type": "company",
+      "label": "Милеро ЕООД",
+      "slug": null,
+      "uic": "200695148",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-nedkova-nalbantova-bozhilova-7676f0",
+      "target": "company:tr:200695148",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

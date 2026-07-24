@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:yuskyar-bekir-mustafa-a7b9c5","nodes":[{"id":"official:yuskyar-bekir-mustafa-a7b9c5","type":"official","slug":"yuskyar-bekir-mustafa-a7b9c5","label":"Юскяр Бекир Мустафа","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000895296","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;КИРИЛ И МЕТОДИЙ - 1960&quot;","slug":null,"uic":"000895296","legalForm":null,"status":null,"seat":null},{"id":"person:РЪДВАН ИСМАИЛ ДЖУМХУРЬОНАЛ","type":"person","label":"Ръдван Исмаил Джумхурьонал"},{"id":"person:ЕРГЮЛ ХАЛИМ БАШ","type":"person","label":"Ергюл Халим Баш"},{"id":"person:ГЮЛТЕН КАДИР НАИМ","type":"person","label":"Гюлтен Кадир Наим"},{"id":"person:СЕВГИН ХАККЪ ЮСУФ","type":"person","label":"Севгин Хаккъ Юсуф"},{"id":"person:ХАЛИЛ МУСТАФА ХАЛИЛ","type":"person","label":"Халил Мустафа Халил"},{"id":"person:НЕДРЕТ БЕКИР ДУРМУШ","type":"person","label":"Недрет Бекир Дурмуш"}],"edges":[{"source":"official:yuskyar-bekir-mustafa-a7b9c5","target":"company:tr:000895296","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:РЪДВАН ИСМАИЛ ДЖУМХУРЬОНАЛ","target":"company:tr:000895296","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕРГЮЛ ХАЛИМ БАШ","target":"company:tr:000895296","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РЪДВАН ИСМАИЛ ДЖУМХУРЬОНАЛ","target":"company:tr:000895296","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЮЛТЕН КАДИР НАИМ","target":"company:tr:000895296","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЕВГИН ХАККЪ ЮСУФ","target":"company:tr:000895296","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ХАЛИЛ МУСТАФА ХАЛИЛ","target":"company:tr:000895296","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НЕДРЕТ БЕКИР ДУРМУШ","target":"company:tr:000895296","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:yuskyar-bekir-mustafa-a7b9c5",
+  "nodes": [
+    {
+      "id": "official:yuskyar-bekir-mustafa-a7b9c5",
+      "type": "official",
+      "slug": "yuskyar-bekir-mustafa-a7b9c5",
+      "label": "Юскяр Бекир Мустафа",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000895296",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;КИРИЛ И МЕТОДИЙ - 1960&quot;",
+      "slug": null,
+      "uic": "000895296",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РЪДВАН ИСМАИЛ ДЖУМХУРЬОНАЛ",
+      "type": "person",
+      "label": "Ръдван Исмаил Джумхурьонал"
+    },
+    {
+      "id": "person:ЕРГЮЛ ХАЛИМ БАШ",
+      "type": "person",
+      "label": "Ергюл Халим Баш"
+    },
+    {
+      "id": "person:ГЮЛТЕН КАДИР НАИМ",
+      "type": "person",
+      "label": "Гюлтен Кадир Наим"
+    },
+    {
+      "id": "person:СЕВГИН ХАККЪ ЮСУФ",
+      "type": "person",
+      "label": "Севгин Хаккъ Юсуф"
+    },
+    {
+      "id": "person:ХАЛИЛ МУСТАФА ХАЛИЛ",
+      "type": "person",
+      "label": "Халил Мустафа Халил"
+    },
+    {
+      "id": "person:НЕДРЕТ БЕКИР ДУРМУШ",
+      "type": "person",
+      "label": "Недрет Бекир Дурмуш"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuskyar-bekir-mustafa-a7b9c5",
+      "target": "company:tr:000895296",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РЪДВАН ИСМАИЛ ДЖУМХУРЬОНАЛ",
+      "target": "company:tr:000895296",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРГЮЛ ХАЛИМ БАШ",
+      "target": "company:tr:000895296",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЪДВАН ИСМАИЛ ДЖУМХУРЬОНАЛ",
+      "target": "company:tr:000895296",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛТЕН КАДИР НАИМ",
+      "target": "company:tr:000895296",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВГИН ХАККЪ ЮСУФ",
+      "target": "company:tr:000895296",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЛИЛ МУСТАФА ХАЛИЛ",
+      "target": "company:tr:000895296",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДРЕТ БЕКИР ДУРМУШ",
+      "target": "company:tr:000895296",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

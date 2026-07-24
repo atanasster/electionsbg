@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tsenka-ivanova-simeonova-4d486b","nodes":[{"id":"official:tsenka-ivanova-simeonova-4d486b","type":"official","slug":"tsenka-ivanova-simeonova-4d486b","label":"Ценка Иванова Симеонова","tier":"municipal","role":"chief_architect","municipality":"Априлци"},{"id":"company:tr:206750719","type":"company","label":"БИММЕР","slug":null,"uic":"206750719","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАЙЛО КРАСИМИРОВ ПЕНКОВ","type":"person","label":"Ивайло Красимиров Пенков"}],"edges":[{"source":"official:tsenka-ivanova-simeonova-4d486b","target":"company:tr:206750719","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАЙЛО КРАСИМИРОВ ПЕНКОВ","target":"company:tr:206750719","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tsenka-ivanova-simeonova-4d486b",
+  "nodes": [
+    {
+      "id": "official:tsenka-ivanova-simeonova-4d486b",
+      "type": "official",
+      "slug": "tsenka-ivanova-simeonova-4d486b",
+      "label": "Ценка Иванова Симеонова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Априлци"
+    },
+    {
+      "id": "company:tr:206750719",
+      "type": "company",
+      "label": "БИММЕР",
+      "slug": null,
+      "uic": "206750719",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО КРАСИМИРОВ ПЕНКОВ",
+      "type": "person",
+      "label": "Ивайло Красимиров Пенков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsenka-ivanova-simeonova-4d486b",
+      "target": "company:tr:206750719",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО КРАСИМИРОВ ПЕНКОВ",
+      "target": "company:tr:206750719",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

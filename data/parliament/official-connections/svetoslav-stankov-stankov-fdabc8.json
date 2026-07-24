@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:svetoslav-stankov-stankov-fdabc8","nodes":[{"id":"official:svetoslav-stankov-stankov-fdabc8","type":"official","slug":"svetoslav-stankov-stankov-fdabc8","label":"Светослав Станков Станков","tier":"executive","role":"diplomat","municipality":null},{"id":"company:tr:126649511","type":"company","label":"\"НАМ\" ЕООД","slug":null,"uic":"126649511","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:svetoslav-stankov-stankov-fdabc8","target":"company:tr:126649511","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:svetoslav-stankov-stankov-fdabc8",
+  "nodes": [
+    {
+      "id": "official:svetoslav-stankov-stankov-fdabc8",
+      "type": "official",
+      "slug": "svetoslav-stankov-stankov-fdabc8",
+      "label": "Светослав Станков Станков",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126649511",
+      "type": "company",
+      "label": "\"НАМ\" ЕООД",
+      "slug": null,
+      "uic": "126649511",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-stankov-stankov-fdabc8",
+      "target": "company:tr:126649511",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

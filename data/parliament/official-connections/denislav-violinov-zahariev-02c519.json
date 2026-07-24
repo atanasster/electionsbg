@@ -1,1 +1,148 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:denislav-violinov-zahariev-02c519","nodes":[{"id":"official:denislav-violinov-zahariev-02c519","type":"official","slug":"denislav-violinov-zahariev-02c519","label":"Денислав Виолинов Захариев","tier":"municipal","role":"council_chair","municipality":"Перник"},{"id":"company:tr:823085028","type":"company","label":"Клуб по борба - Миньор -  Перник","slug":null,"uic":"823085028","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:5163","type":"mp","mpId":5163,"label":"Мартин Мариов Жлябинков","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"person:ИВО СЕРАФИМОВ АНГЕЛОВ","type":"person","label":"Иво Серафимов Ангелов"},{"id":"person:ВЕСЕЛИН АЛЕКСАНДРОВ ЦВЕТКОВ","type":"person","label":"Веселин Александров Цветков"},{"id":"person:ЯВОР ДИМИТРОВ ЯНАКИЕВ","type":"person","label":"Явор Димитров Янакиев"},{"id":"person:СЕРГИЙ ГЕОРГИЕВ СЕРГИЕВ","type":"person","label":"Сергий Георгиев Сергиев"},{"id":"person:СВЕТЛОЗАР ВАСИЛЕВ МИЛКОВ","type":"person","label":"Светлозар Василев Милков"},{"id":"person:ЛЮБОМИР ЕМИЛОВ ДИМИТРОВ","type":"person","label":"Любомир Емилов Димитров"}],"edges":[{"source":"official:denislav-violinov-zahariev-02c519","target":"company:tr:823085028","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5163","target":"company:tr:823085028","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВО СЕРАФИМОВ АНГЕЛОВ","target":"company:tr:823085028","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН АЛЕКСАНДРОВ ЦВЕТКОВ","target":"company:tr:823085028","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР ДИМИТРОВ ЯНАКИЕВ","target":"company:tr:823085028","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕРГИЙ ГЕОРГИЕВ СЕРГИЕВ","target":"company:tr:823085028","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВО СЕРАФИМОВ АНГЕЛОВ","target":"company:tr:823085028","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛОЗАР ВАСИЛЕВ МИЛКОВ","target":"company:tr:823085028","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ЕМИЛОВ ДИМИТРОВ","target":"company:tr:823085028","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕРГИЙ ГЕОРГИЕВ СЕРГИЕВ","target":"company:tr:823085028","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:denislav-violinov-zahariev-02c519",
+  "nodes": [
+    {
+      "id": "official:denislav-violinov-zahariev-02c519",
+      "type": "official",
+      "slug": "denislav-violinov-zahariev-02c519",
+      "label": "Денислав Виолинов Захариев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Перник"
+    },
+    {
+      "id": "company:tr:823085028",
+      "type": "company",
+      "label": "Клуб по борба - Миньор -  Перник",
+      "slug": null,
+      "uic": "823085028",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:5163",
+      "type": "mp",
+      "mpId": 5163,
+      "label": "Мартин Мариов Жлябинков",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:ИВО СЕРАФИМОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Иво Серафимов Ангелов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН АЛЕКСАНДРОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Веселин Александров Цветков"
+    },
+    {
+      "id": "person:ЯВОР ДИМИТРОВ ЯНАКИЕВ",
+      "type": "person",
+      "label": "Явор Димитров Янакиев"
+    },
+    {
+      "id": "person:СЕРГИЙ ГЕОРГИЕВ СЕРГИЕВ",
+      "type": "person",
+      "label": "Сергий Георгиев Сергиев"
+    },
+    {
+      "id": "person:СВЕТЛОЗАР ВАСИЛЕВ МИЛКОВ",
+      "type": "person",
+      "label": "Светлозар Василев Милков"
+    },
+    {
+      "id": "person:ЛЮБОМИР ЕМИЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Любомир Емилов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:denislav-violinov-zahariev-02c519",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5163",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО СЕРАФИМОВ АНГЕЛОВ",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН АЛЕКСАНДРОВ ЦВЕТКОВ",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ДИМИТРОВ ЯНАКИЕВ",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГИЙ ГЕОРГИЕВ СЕРГИЕВ",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО СЕРАФИМОВ АНГЕЛОВ",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛОЗАР ВАСИЛЕВ МИЛКОВ",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ЕМИЛОВ ДИМИТРОВ",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГИЙ ГЕОРГИЕВ СЕРГИЕВ",
+      "target": "company:tr:823085028",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,53 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kiril-angelov-atanasov-3fa700","nodes":[{"id":"official:kiril-angelov-atanasov-3fa700","type":"official","slug":"kiril-angelov-atanasov-3fa700","label":"Кирил Ангелов Атанасов","tier":"municipal","role":"councillor","municipality":"Хайредин"},{"id":"company:tr:203434947","type":"company","label":"МАНАСТИРИЩЕ 2015 ЕООД","slug":null,"uic":"203434947","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203761120","type":"company","label":"КА АТАНАСОВ ЕООД","slug":null,"uic":"203761120","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:kiril-angelov-atanasov-3fa700","target":"company:tr:203434947","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:kiril-angelov-atanasov-3fa700","target":"company:tr:203761120","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kiril-angelov-atanasov-3fa700",
+  "nodes": [
+    {
+      "id": "official:kiril-angelov-atanasov-3fa700",
+      "type": "official",
+      "slug": "kiril-angelov-atanasov-3fa700",
+      "label": "Кирил Ангелов Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хайредин"
+    },
+    {
+      "id": "company:tr:203434947",
+      "type": "company",
+      "label": "МАНАСТИРИЩЕ 2015 ЕООД",
+      "slug": null,
+      "uic": "203434947",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203761120",
+      "type": "company",
+      "label": "КА АТАНАСОВ ЕООД",
+      "slug": null,
+      "uic": "203761120",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-angelov-atanasov-3fa700",
+      "target": "company:tr:203434947",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kiril-angelov-atanasov-3fa700",
+      "target": "company:tr:203761120",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

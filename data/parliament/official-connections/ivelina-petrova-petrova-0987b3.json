@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivelina-petrova-petrova-0987b3","nodes":[{"id":"official:ivelina-petrova-petrova-0987b3","type":"official","slug":"ivelina-petrova-petrova-0987b3","label":"Ивелина Петрова Петрова","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:204059560","type":"company","label":"Есен Спорт","slug":null,"uic":"204059560","legalForm":null,"status":null,"seat":null},{"id":"person:ДОБРОМИР НИКОЛОВ БОБЕВ","type":"person","label":"Добромир Николов Бобев"}],"edges":[{"source":"official:ivelina-petrova-petrova-0987b3","target":"company:tr:204059560","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДОБРОМИР НИКОЛОВ БОБЕВ","target":"company:tr:204059560","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivelina-petrova-petrova-0987b3",
+  "nodes": [
+    {
+      "id": "official:ivelina-petrova-petrova-0987b3",
+      "type": "official",
+      "slug": "ivelina-petrova-petrova-0987b3",
+      "label": "Ивелина Петрова Петрова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204059560",
+      "type": "company",
+      "label": "Есен Спорт",
+      "slug": null,
+      "uic": "204059560",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРОМИР НИКОЛОВ БОБЕВ",
+      "type": "person",
+      "label": "Добромир Николов Бобев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivelina-petrova-petrova-0987b3",
+      "target": "company:tr:204059560",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРОМИР НИКОЛОВ БОБЕВ",
+      "target": "company:tr:204059560",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

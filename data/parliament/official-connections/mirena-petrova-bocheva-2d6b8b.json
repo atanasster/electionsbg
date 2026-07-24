@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mirena-petrova-bocheva-2d6b8b","nodes":[{"id":"official:mirena-petrova-bocheva-2d6b8b","type":"official","slug":"mirena-petrova-bocheva-2d6b8b","label":"Мирена Петрова Бочева","tier":"municipal","role":"councillor","municipality":"Бяла Слатина"},{"id":"company:tr:177108769","type":"company","label":"МАЙЧИН ЦЕНТЪР АЛТЕРНАТИВА","slug":null,"uic":"177108769","legalForm":null,"status":null,"seat":null},{"id":"person:ИРЕНА РУСЛАНОВА ДИМИТРОВА","type":"person","label":"Ирена Русланова Димитрова"},{"id":"person:ДАРИНА ВАСИЛЕВА КИВУЦОВА","type":"person","label":"Дарина Василева Кивуцова"},{"id":"person:АДЕЛИНА АСПАРУХОВА РАДЕВА","type":"person","label":"Аделина Аспарухова Радева"},{"id":"person:ИРЕНА ЯНКОВА УЗУНОВА","type":"person","label":"Ирена Янкова Узунова"}],"edges":[{"source":"official:mirena-petrova-bocheva-2d6b8b","target":"company:tr:177108769","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:mirena-petrova-bocheva-2d6b8b","target":"company:tr:177108769","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИРЕНА РУСЛАНОВА ДИМИТРОВА","target":"company:tr:177108769","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИНА ВАСИЛЕВА КИВУЦОВА","target":"company:tr:177108769","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АДЕЛИНА АСПАРУХОВА РАДЕВА","target":"company:tr:177108769","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА ЯНКОВА УЗУНОВА","target":"company:tr:177108769","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mirena-petrova-bocheva-2d6b8b",
+  "nodes": [
+    {
+      "id": "official:mirena-petrova-bocheva-2d6b8b",
+      "type": "official",
+      "slug": "mirena-petrova-bocheva-2d6b8b",
+      "label": "Мирена Петрова Бочева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла Слатина"
+    },
+    {
+      "id": "company:tr:177108769",
+      "type": "company",
+      "label": "МАЙЧИН ЦЕНТЪР АЛТЕРНАТИВА",
+      "slug": null,
+      "uic": "177108769",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРЕНА РУСЛАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Ирена Русланова Димитрова"
+    },
+    {
+      "id": "person:ДАРИНА ВАСИЛЕВА КИВУЦОВА",
+      "type": "person",
+      "label": "Дарина Василева Кивуцова"
+    },
+    {
+      "id": "person:АДЕЛИНА АСПАРУХОВА РАДЕВА",
+      "type": "person",
+      "label": "Аделина Аспарухова Радева"
+    },
+    {
+      "id": "person:ИРЕНА ЯНКОВА УЗУНОВА",
+      "type": "person",
+      "label": "Ирена Янкова Узунова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mirena-petrova-bocheva-2d6b8b",
+      "target": "company:tr:177108769",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mirena-petrova-bocheva-2d6b8b",
+      "target": "company:tr:177108769",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРЕНА РУСЛАНОВА ДИМИТРОВА",
+      "target": "company:tr:177108769",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА ВАСИЛЕВА КИВУЦОВА",
+      "target": "company:tr:177108769",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕЛИНА АСПАРУХОВА РАДЕВА",
+      "target": "company:tr:177108769",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ЯНКОВА УЗУНОВА",
+      "target": "company:tr:177108769",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

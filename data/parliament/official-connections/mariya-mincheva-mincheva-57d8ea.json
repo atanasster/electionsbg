@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariya-mincheva-mincheva-57d8ea","nodes":[{"id":"official:mariya-mincheva-mincheva-57d8ea","type":"official","slug":"mariya-mincheva-mincheva-57d8ea","label":"Мария Минчева Минчева","tier":"executive","role":"social_fund","municipality":null},{"id":"company:tr:208458350","type":"company","label":"Мария 1998","slug":null,"uic":"208458350","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:mariya-mincheva-mincheva-57d8ea","target":"company:tr:208458350","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mariya-mincheva-mincheva-57d8ea","target":"company:tr:208458350","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariya-mincheva-mincheva-57d8ea",
+  "nodes": [
+    {
+      "id": "official:mariya-mincheva-mincheva-57d8ea",
+      "type": "official",
+      "slug": "mariya-mincheva-mincheva-57d8ea",
+      "label": "Мария Минчева Минчева",
+      "tier": "executive",
+      "role": "social_fund",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208458350",
+      "type": "company",
+      "label": "Мария 1998",
+      "slug": null,
+      "uic": "208458350",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-mincheva-mincheva-57d8ea",
+      "target": "company:tr:208458350",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-mincheva-mincheva-57d8ea",
+      "target": "company:tr:208458350",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

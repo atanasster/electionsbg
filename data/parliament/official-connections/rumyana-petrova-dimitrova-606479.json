@@ -1,1 +1,90 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rumyana-petrova-dimitrova-606479","nodes":[{"id":"official:rumyana-petrova-dimitrova-606479","type":"official","slug":"rumyana-petrova-dimitrova-606479","label":"Румяна Петрова Димитрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207271675","type":"company","label":"БОХЕМИ 3","slug":null,"uic":"207271675","legalForm":null,"status":null,"seat":null},{"id":"person:ИВО ГЕОРГИЕВ ИВАНОВ","type":"person","label":"Иво Георгиев Иванов"},{"id":"person:ГИНКА СТОЙЧЕВА МАРУКОВА","type":"person","label":"Гинка Стойчева Марукова"},{"id":"person:ДАМЯНКА ВАНЧЕВА ИВАНОВА","type":"person","label":"Дамянка Ванчева Иванова"}],"edges":[{"source":"official:rumyana-petrova-dimitrova-606479","target":"company:tr:207271675","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВО ГЕОРГИЕВ ИВАНОВ","target":"company:tr:207271675","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ГЕОРГИЕВ ИВАНОВ","target":"company:tr:207271675","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА СТОЙЧЕВА МАРУКОВА","target":"company:tr:207271675","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА СТОЙЧЕВА МАРУКОВА","target":"company:tr:207271675","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДАМЯНКА ВАНЧЕВА ИВАНОВА","target":"company:tr:207271675","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rumyana-petrova-dimitrova-606479",
+  "nodes": [
+    {
+      "id": "official:rumyana-petrova-dimitrova-606479",
+      "type": "official",
+      "slug": "rumyana-petrova-dimitrova-606479",
+      "label": "Румяна Петрова Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207271675",
+      "type": "company",
+      "label": "БОХЕМИ 3",
+      "slug": null,
+      "uic": "207271675",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВО ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иво Георгиев Иванов"
+    },
+    {
+      "id": "person:ГИНКА СТОЙЧЕВА МАРУКОВА",
+      "type": "person",
+      "label": "Гинка Стойчева Марукова"
+    },
+    {
+      "id": "person:ДАМЯНКА ВАНЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Дамянка Ванчева Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumyana-petrova-dimitrova-606479",
+      "target": "company:tr:207271675",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:207271675",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:207271675",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА СТОЙЧЕВА МАРУКОВА",
+      "target": "company:tr:207271675",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА СТОЙЧЕВА МАРУКОВА",
+      "target": "company:tr:207271675",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАМЯНКА ВАНЧЕВА ИВАНОВА",
+      "target": "company:tr:207271675",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,160 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:adem-shukri-adem-755232","nodes":[{"id":"official:adem-shukri-adem-755232","type":"official","slug":"adem-shukri-adem-755232","label":"Адем Шукри Адем","tier":"municipal","role":"council_chair","municipality":"Тутракан"},{"id":"company:tr:000560052","type":"company","label":"ИСКРА-1928","slug":null,"uic":"000560052","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАНКА ПЕТРОВА СТАНЧЕВА","type":"person","label":"Иванка Петрова Станчева"},{"id":"person:СЕВДЖАН ЗИЯ БЕЙТИ","type":"person","label":"Севджан Зия Бейти"},{"id":"person:ЕМИНЕ ИБРЯМ ФЕДАИЛ","type":"person","label":"Емине Ибрям Федаил"},{"id":"person:ДИМИТРИНКА ТОДОРОВА ПЕТРОВА","type":"person","label":"Димитринка Тодорова Петрова"},{"id":"person:МАРИАНА АТАНАСОВА ДИМИТРОВА","type":"person","label":"Мариана Атанасова Димитрова"},{"id":"person:ЙОРДАНКА ГАНЕВА ГЕЦОВА","type":"person","label":"Йорданка Ганева Гецова"},{"id":"person:СТОЯНКА НИКОЛОВА СИМЕОНОВА","type":"person","label":"Стоянка Николова Симеонова"},{"id":"person:САФИЕ ХАЙРИЕВА АЛИШЕВА","type":"person","label":"Сафие Хайриева Алишева"},{"id":"person:ВИОЛЕТА ТОДОРОВА ПЕТРОВА","type":"person","label":"Виолета Тодорова Петрова"}],"edges":[{"source":"official:adem-shukri-adem-755232","target":"company:tr:000560052","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:adem-shukri-adem-755232","target":"company:tr:000560052","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАНКА ПЕТРОВА СТАНЧЕВА","target":"company:tr:000560052","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СЕВДЖАН ЗИЯ БЕЙТИ","target":"company:tr:000560052","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИНЕ ИБРЯМ ФЕДАИЛ","target":"company:tr:000560052","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНКА ТОДОРОВА ПЕТРОВА","target":"company:tr:000560052","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА АТАНАСОВА ДИМИТРОВА","target":"company:tr:000560052","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ГАНЕВА ГЕЦОВА","target":"company:tr:000560052","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯНКА НИКОЛОВА СИМЕОНОВА","target":"company:tr:000560052","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:САФИЕ ХАЙРИЕВА АЛИШЕВА","target":"company:tr:000560052","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ТОДОРОВА ПЕТРОВА","target":"company:tr:000560052","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:adem-shukri-adem-755232",
+  "nodes": [
+    {
+      "id": "official:adem-shukri-adem-755232",
+      "type": "official",
+      "slug": "adem-shukri-adem-755232",
+      "label": "Адем Шукри Адем",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Тутракан"
+    },
+    {
+      "id": "company:tr:000560052",
+      "type": "company",
+      "label": "ИСКРА-1928",
+      "slug": null,
+      "uic": "000560052",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА ПЕТРОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Иванка Петрова Станчева"
+    },
+    {
+      "id": "person:СЕВДЖАН ЗИЯ БЕЙТИ",
+      "type": "person",
+      "label": "Севджан Зия Бейти"
+    },
+    {
+      "id": "person:ЕМИНЕ ИБРЯМ ФЕДАИЛ",
+      "type": "person",
+      "label": "Емине Ибрям Федаил"
+    },
+    {
+      "id": "person:ДИМИТРИНКА ТОДОРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Димитринка Тодорова Петрова"
+    },
+    {
+      "id": "person:МАРИАНА АТАНАСОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Мариана Атанасова Димитрова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ГАНЕВА ГЕЦОВА",
+      "type": "person",
+      "label": "Йорданка Ганева Гецова"
+    },
+    {
+      "id": "person:СТОЯНКА НИКОЛОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Стоянка Николова Симеонова"
+    },
+    {
+      "id": "person:САФИЕ ХАЙРИЕВА АЛИШЕВА",
+      "type": "person",
+      "label": "Сафие Хайриева Алишева"
+    },
+    {
+      "id": "person:ВИОЛЕТА ТОДОРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Виолета Тодорова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:adem-shukri-adem-755232",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:adem-shukri-adem-755232",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА ПЕТРОВА СТАНЧЕВА",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДЖАН ЗИЯ БЕЙТИ",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ ИБРЯМ ФЕДАИЛ",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНКА ТОДОРОВА ПЕТРОВА",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА АТАНАСОВА ДИМИТРОВА",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ГАНЕВА ГЕЦОВА",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА НИКОЛОВА СИМЕОНОВА",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САФИЕ ХАЙРИЕВА АЛИШЕВА",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ТОДОРОВА ПЕТРОВА",
+      "target": "company:tr:000560052",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

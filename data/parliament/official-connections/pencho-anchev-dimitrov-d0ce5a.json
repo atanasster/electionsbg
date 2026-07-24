@@ -1,1 +1,128 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:pencho-anchev-dimitrov-d0ce5a","nodes":[{"id":"official:pencho-anchev-dimitrov-d0ce5a","type":"official","slug":"pencho-anchev-dimitrov-d0ce5a","label":"Пенчо Анчев Димитров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130175896","type":"company","label":"НАЦИОНАЛЕН ЦЕНТЪР ЗА ТЕРИТОРИАЛНО РАЗВИТИЕ","slug":null,"uic":"130175896","legalForm":null,"status":null,"seat":null},{"id":"official:margarita-lyubomirova-tomova-57cce5","type":"official","slug":"margarita-lyubomirova-tomova-57cce5","label":"Маргарита Любомирова Томова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"person:ИРИНА ГЕОРГИЕВА МУТАФЧИЙСКА","type":"person","label":"Ирина Георгиева Мутафчийска"},{"id":"person:ИВАН БОБЕВ БОБЕВ","type":"person","label":"Иван Бобев Бобев"},{"id":"person:РОСИЦА НИКОЛОВА ДИМИТРОВА","type":"person","label":"Росица Николова Димитрова"},{"id":"person:МИРОСЛАВ СОТИРОВ КОЛАРОВ","type":"person","label":"Мирослав Сотиров Коларов"}],"edges":[{"source":"official:pencho-anchev-dimitrov-d0ce5a","target":"company:tr:130175896","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:margarita-lyubomirova-tomova-57cce5","target":"company:tr:130175896","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ИРИНА ГЕОРГИЕВА МУТАФЧИЙСКА","target":"company:tr:130175896","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ГЕОРГИЕВА МУТАФЧИЙСКА","target":"company:tr:130175896","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН БОБЕВ БОБЕВ","target":"company:tr:130175896","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН БОБЕВ БОБЕВ","target":"company:tr:130175896","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА НИКОЛОВА ДИМИТРОВА","target":"company:tr:130175896","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА НИКОЛОВА ДИМИТРОВА","target":"company:tr:130175896","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ СОТИРОВ КОЛАРОВ","target":"company:tr:130175896","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:pencho-anchev-dimitrov-d0ce5a",
+  "nodes": [
+    {
+      "id": "official:pencho-anchev-dimitrov-d0ce5a",
+      "type": "official",
+      "slug": "pencho-anchev-dimitrov-d0ce5a",
+      "label": "Пенчо Анчев Димитров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130175896",
+      "type": "company",
+      "label": "НАЦИОНАЛЕН ЦЕНТЪР ЗА ТЕРИТОРИАЛНО РАЗВИТИЕ",
+      "slug": null,
+      "uic": "130175896",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:margarita-lyubomirova-tomova-57cce5",
+      "type": "official",
+      "slug": "margarita-lyubomirova-tomova-57cce5",
+      "label": "Маргарита Любомирова Томова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ИРИНА ГЕОРГИЕВА МУТАФЧИЙСКА",
+      "type": "person",
+      "label": "Ирина Георгиева Мутафчийска"
+    },
+    {
+      "id": "person:ИВАН БОБЕВ БОБЕВ",
+      "type": "person",
+      "label": "Иван Бобев Бобев"
+    },
+    {
+      "id": "person:РОСИЦА НИКОЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Росица Николова Димитрова"
+    },
+    {
+      "id": "person:МИРОСЛАВ СОТИРОВ КОЛАРОВ",
+      "type": "person",
+      "label": "Мирослав Сотиров Коларов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pencho-anchev-dimitrov-d0ce5a",
+      "target": "company:tr:130175896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:margarita-lyubomirova-tomova-57cce5",
+      "target": "company:tr:130175896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРИНА ГЕОРГИЕВА МУТАФЧИЙСКА",
+      "target": "company:tr:130175896",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ГЕОРГИЕВА МУТАФЧИЙСКА",
+      "target": "company:tr:130175896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОБЕВ БОБЕВ",
+      "target": "company:tr:130175896",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОБЕВ БОБЕВ",
+      "target": "company:tr:130175896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА НИКОЛОВА ДИМИТРОВА",
+      "target": "company:tr:130175896",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА НИКОЛОВА ДИМИТРОВА",
+      "target": "company:tr:130175896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ СОТИРОВ КОЛАРОВ",
+      "target": "company:tr:130175896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-penev-stoichev-dc6a0e","nodes":[{"id":"official:dimitr-penev-stoichev-dc6a0e","type":"official","slug":"dimitr-penev-stoichev-dc6a0e","label":"Димитър Пенев Стойчев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:123515149","type":"company","label":"МЕДИЦИНСКИ ЦЕНТЪР I - СТАРА ЗАГОРА","slug":null,"uic":"123515149","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:dimitr-penev-stoichev-dc6a0e","target":"company:tr:123515149","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-penev-stoichev-dc6a0e",
+  "nodes": [
+    {
+      "id": "official:dimitr-penev-stoichev-dc6a0e",
+      "type": "official",
+      "slug": "dimitr-penev-stoichev-dc6a0e",
+      "label": "Димитър Пенев Стойчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123515149",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР I - СТАРА ЗАГОРА",
+      "slug": null,
+      "uic": "123515149",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-penev-stoichev-dc6a0e",
+      "target": "company:tr:123515149",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

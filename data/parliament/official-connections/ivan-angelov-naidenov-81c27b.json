@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-angelov-naidenov-81c27b","nodes":[{"id":"official:ivan-angelov-naidenov-81c27b","type":"official","slug":"ivan-angelov-naidenov-81c27b","label":"Иван Ангелов Найденов","tier":"executive","role":"diplomat","municipality":null},{"id":"company:tr:175147734","type":"company","label":"Рила Пропърти ООД","slug":null,"uic":"175147734","legalForm":null,"status":null,"seat":null},{"id":"person:ЕКАТЕРИНА ЛАМБРОВА НАЙДЕНОВА","type":"person","label":"Екатерина Ламброва Найденова"},{"id":"person:МАРИЯ АНГЕЛОВА НАЙДЕНОВА","type":"person","label":"Мария Ангелова Найденова"}],"edges":[{"source":"official:ivan-angelov-naidenov-81c27b","target":"company:tr:175147734","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivan-angelov-naidenov-81c27b","target":"company:tr:175147734","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЕКАТЕРИНА ЛАМБРОВА НАЙДЕНОВА","target":"company:tr:175147734","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ АНГЕЛОВА НАЙДЕНОВА","target":"company:tr:175147734","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕКАТЕРИНА ЛАМБРОВА НАЙДЕНОВА","target":"company:tr:175147734","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-angelov-naidenov-81c27b",
+  "nodes": [
+    {
+      "id": "official:ivan-angelov-naidenov-81c27b",
+      "type": "official",
+      "slug": "ivan-angelov-naidenov-81c27b",
+      "label": "Иван Ангелов Найденов",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175147734",
+      "type": "company",
+      "label": "Рила Пропърти ООД",
+      "slug": null,
+      "uic": "175147734",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ЛАМБРОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Екатерина Ламброва Найденова"
+    },
+    {
+      "id": "person:МАРИЯ АНГЕЛОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Мария Ангелова Найденова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-angelov-naidenov-81c27b",
+      "target": "company:tr:175147734",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-angelov-naidenov-81c27b",
+      "target": "company:tr:175147734",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ЛАМБРОВА НАЙДЕНОВА",
+      "target": "company:tr:175147734",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АНГЕЛОВА НАЙДЕНОВА",
+      "target": "company:tr:175147734",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ЛАМБРОВА НАЙДЕНОВА",
+      "target": "company:tr:175147734",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,85 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zeineb-ismetova-bekirova-24f883","nodes":[{"id":"official:zeineb-ismetova-bekirova-24f883","type":"official","slug":"zeineb-ismetova-bekirova-24f883","label":"Зейнеб Исметова Бекирова","tier":"municipal","role":"councillor","municipality":"Суворово"},{"id":"company:tr:103798921","type":"company","label":"БОКСЕР","slug":null,"uic":"103798921","legalForm":null,"status":null,"seat":null},{"id":"person:ЕРДИНЧ РАФЕТОВ БЕКИРОВ","type":"person","label":"Ердинч Рафетов Бекиров"},{"id":"person:РАФЕТ ЕРДИНЧЕВ БЕКИРОВ","type":"person","label":"Рафет Ердинчев Бекиров"}],"edges":[{"source":"official:zeineb-ismetova-bekirova-24f883","target":"company:tr:103798921","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:zeineb-ismetova-bekirova-24f883","target":"company:tr:103798921","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЕРДИНЧ РАФЕТОВ БЕКИРОВ","target":"company:tr:103798921","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РАФЕТ ЕРДИНЧЕВ БЕКИРОВ","target":"company:tr:103798921","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕРДИНЧ РАФЕТОВ БЕКИРОВ","target":"company:tr:103798921","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РАФЕТ ЕРДИНЧЕВ БЕКИРОВ","target":"company:tr:103798921","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zeineb-ismetova-bekirova-24f883",
+  "nodes": [
+    {
+      "id": "official:zeineb-ismetova-bekirova-24f883",
+      "type": "official",
+      "slug": "zeineb-ismetova-bekirova-24f883",
+      "label": "Зейнеб Исметова Бекирова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Суворово"
+    },
+    {
+      "id": "company:tr:103798921",
+      "type": "company",
+      "label": "БОКСЕР",
+      "slug": null,
+      "uic": "103798921",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕРДИНЧ РАФЕТОВ БЕКИРОВ",
+      "type": "person",
+      "label": "Ердинч Рафетов Бекиров"
+    },
+    {
+      "id": "person:РАФЕТ ЕРДИНЧЕВ БЕКИРОВ",
+      "type": "person",
+      "label": "Рафет Ердинчев Бекиров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zeineb-ismetova-bekirova-24f883",
+      "target": "company:tr:103798921",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zeineb-ismetova-bekirova-24f883",
+      "target": "company:tr:103798921",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕРДИНЧ РАФЕТОВ БЕКИРОВ",
+      "target": "company:tr:103798921",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАФЕТ ЕРДИНЧЕВ БЕКИРОВ",
+      "target": "company:tr:103798921",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРДИНЧ РАФЕТОВ БЕКИРОВ",
+      "target": "company:tr:103798921",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАФЕТ ЕРДИНЧЕВ БЕКИРОВ",
+      "target": "company:tr:103798921",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

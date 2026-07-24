@@ -1,1 +1,52 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivailo-ivanov-chervilov-32431b","nodes":[{"id":"official:ivailo-ivanov-chervilov-32431b","type":"official","slug":"ivailo-ivanov-chervilov-32431b","label":"Ивайло Иванов Червилов","tier":"municipal","role":"councillor","municipality":"Благоевград"},{"id":"company:tr:200181086","type":"company","label":"ПАРКИНГИ  И ГАРАЖИ - БЛАГОЕВГРАД","slug":null,"uic":"200181086","legalForm":null,"status":null,"seat":null},{"id":"official:boiko-slavchev-pandurski-1bc0f3","type":"official","slug":"boiko-slavchev-pandurski-1bc0f3","label":"Бойко Славчев Пандурски","tier":"executive","role":"state_enterprise","municipality":null}],"edges":[{"source":"official:ivailo-ivanov-chervilov-32431b","target":"company:tr:200181086","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:boiko-slavchev-pandurski-1bc0f3","target":"company:tr:200181086","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivailo-ivanov-chervilov-32431b",
+  "nodes": [
+    {
+      "id": "official:ivailo-ivanov-chervilov-32431b",
+      "type": "official",
+      "slug": "ivailo-ivanov-chervilov-32431b",
+      "label": "Ивайло Иванов Червилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:200181086",
+      "type": "company",
+      "label": "ПАРКИНГИ  И ГАРАЖИ - БЛАГОЕВГРАД",
+      "slug": null,
+      "uic": "200181086",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:boiko-slavchev-pandurski-1bc0f3",
+      "type": "official",
+      "slug": "boiko-slavchev-pandurski-1bc0f3",
+      "label": "Бойко Славчев Пандурски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-ivanov-chervilov-32431b",
+      "target": "company:tr:200181086",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boiko-slavchev-pandurski-1bc0f3",
+      "target": "company:tr:200181086",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

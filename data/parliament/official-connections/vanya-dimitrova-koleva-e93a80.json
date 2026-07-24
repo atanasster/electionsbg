@@ -1,1 +1,53 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vanya-dimitrova-koleva-e93a80","nodes":[{"id":"official:vanya-dimitrova-koleva-e93a80","type":"official","slug":"vanya-dimitrova-koleva-e93a80","label":"Ваня Димитрова Колева","tier":"executive","role":"deputy_minister","municipality":null},{"id":"company:tr:175230557","type":"company","label":"НИКОЛ-БАЙК ЦЕНТЪР ООД","slug":null,"uic":"175230557","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204454988","type":"company","label":"Глобал Спорт 2017 ЕООД","slug":null,"uic":"204454988","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vanya-dimitrova-koleva-e93a80","target":"company:tr:175230557","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vanya-dimitrova-koleva-e93a80","target":"company:tr:204454988","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vanya-dimitrova-koleva-e93a80",
+  "nodes": [
+    {
+      "id": "official:vanya-dimitrova-koleva-e93a80",
+      "type": "official",
+      "slug": "vanya-dimitrova-koleva-e93a80",
+      "label": "Ваня Димитрова Колева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175230557",
+      "type": "company",
+      "label": "НИКОЛ-БАЙК ЦЕНТЪР ООД",
+      "slug": null,
+      "uic": "175230557",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204454988",
+      "type": "company",
+      "label": "Глобал Спорт 2017 ЕООД",
+      "slug": null,
+      "uic": "204454988",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-dimitrova-koleva-e93a80",
+      "target": "company:tr:175230557",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-dimitrova-koleva-e93a80",
+      "target": "company:tr:204454988",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

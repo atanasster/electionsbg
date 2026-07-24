@@ -1,1 +1,87 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:ivan-kosev-nedkov-424eed","nodes":[{"id":"official:ivan-kosev-nedkov-424eed","type":"official","slug":"ivan-kosev-nedkov-424eed","label":"ИВАН КОСЕВ НЕДКОВ","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:107575905","type":"company","label":"Балкан Хънтър ЕООД","slug":null,"uic":"107575905","legalForm":null,"status":null,"seat":null},{"id":"person:ВАЛЕНТИН ВАСИЛЕВ ЗЛАТЕВ","type":"person","label":"Валентин Василев Златев"},{"id":"person:АСЕТ ХОЛДЕР","type":"person","label":"Асет Холдер"},{"id":"person:ДЖОРДАН КИРИЛОВ КЛЕНОВСКИ","type":"person","label":"Джордан Кирилов Кленовски"},{"id":"person:КИРИЛ ДИМИТРОВ КЛЕНОВСКИ","type":"person","label":"Кирил Димитров Кленовски"}],"edges":[{"source":"official:ivan-kosev-nedkov-424eed","target":"company:tr:107575905","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ВАСИЛЕВ ЗЛАТЕВ","target":"company:tr:107575905","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:АСЕТ ХОЛДЕР","target":"company:tr:107575905","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДЖОРДАН КИРИЛОВ КЛЕНОВСКИ","target":"company:tr:107575905","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ДИМИТРОВ КЛЕНОВСКИ","target":"company:tr:107575905","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:ivan-kosev-nedkov-424eed",
+  "nodes": [
+    {
+      "id": "official:ivan-kosev-nedkov-424eed",
+      "type": "official",
+      "slug": "ivan-kosev-nedkov-424eed",
+      "label": "ИВАН КОСЕВ НЕДКОВ",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107575905",
+      "type": "company",
+      "label": "Балкан Хънтър ЕООД",
+      "slug": null,
+      "uic": "107575905",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВАСИЛЕВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Валентин Василев Златев"
+    },
+    {
+      "id": "person:АСЕТ ХОЛДЕР",
+      "type": "person",
+      "label": "Асет Холдер"
+    },
+    {
+      "id": "person:ДЖОРДАН КИРИЛОВ КЛЕНОВСКИ",
+      "type": "person",
+      "label": "Джордан Кирилов Кленовски"
+    },
+    {
+      "id": "person:КИРИЛ ДИМИТРОВ КЛЕНОВСКИ",
+      "type": "person",
+      "label": "Кирил Димитров Кленовски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-kosev-nedkov-424eed",
+      "target": "company:tr:107575905",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВАСИЛЕВ ЗЛАТЕВ",
+      "target": "company:tr:107575905",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕТ ХОЛДЕР",
+      "target": "company:tr:107575905",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖОРДАН КИРИЛОВ КЛЕНОВСКИ",
+      "target": "company:tr:107575905",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ДИМИТРОВ КЛЕНОВСКИ",
+      "target": "company:tr:107575905",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

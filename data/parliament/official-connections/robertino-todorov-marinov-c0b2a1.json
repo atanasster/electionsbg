@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:robertino-todorov-marinov-c0b2a1","nodes":[{"id":"official:robertino-todorov-marinov-c0b2a1","type":"official","slug":"robertino-todorov-marinov-c0b2a1","label":"Робертино Тодоров Маринов","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:204170436","type":"company","label":"Мрежови технологии БГ ООД","slug":null,"uic":"204170436","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:robertino-todorov-marinov-c0b2a1","target":"company:tr:204170436","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:robertino-todorov-marinov-c0b2a1",
+  "nodes": [
+    {
+      "id": "official:robertino-todorov-marinov-c0b2a1",
+      "type": "official",
+      "slug": "robertino-todorov-marinov-c0b2a1",
+      "label": "Робертино Тодоров Маринов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204170436",
+      "type": "company",
+      "label": "Мрежови технологии БГ ООД",
+      "slug": null,
+      "uic": "204170436",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:robertino-todorov-marinov-c0b2a1",
+      "target": "company:tr:204170436",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

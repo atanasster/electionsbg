@@ -1,1 +1,111 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:dimitr-ivanov-kyumyurdzhiev-d8a122","nodes":[{"id":"official:dimitr-ivanov-kyumyurdzhiev-d8a122","type":"official","slug":"dimitr-ivanov-kyumyurdzhiev-d8a122","label":"Димитър Иванов Кюмюрджиев","tier":"executive","role":"regulator","municipality":null},{"id":"company:tr:176223245","type":"company","label":"КОБАТИ БЪЛГАРИЯ","slug":null,"uic":"176223245","legalForm":null,"status":null,"seat":null},{"id":"person:БОЙКО БОРИСОВ КАДИНОВ","type":"person","label":"Бойко Борисов Кадинов"},{"id":"person:РОСЕН ПАВЛОВ ВЪЛКОВ","type":"person","label":"Росен Павлов Вълков"},{"id":"person:МАРИЯ ДИМИТРОВА ЯНЕВА-КАДИНОВА","type":"person","label":"Мария Димитрова Янева-Кадинова"},{"id":"person:ЕНЧО ЙОРДАНОВ КУЗМАНОВ","type":"person","label":"Енчо Йорданов Кузманов"}],"edges":[{"source":"official:dimitr-ivanov-kyumyurdzhiev-d8a122","target":"company:tr:176223245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:БОЙКО БОРИСОВ КАДИНОВ","target":"company:tr:176223245","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКО БОРИСОВ КАДИНОВ","target":"company:tr:176223245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ПАВЛОВ ВЪЛКОВ","target":"company:tr:176223245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА ЯНЕВА-КАДИНОВА","target":"company:tr:176223245","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА ЯНЕВА-КАДИНОВА","target":"company:tr:176223245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕНЧО ЙОРДАНОВ КУЗМАНОВ","target":"company:tr:176223245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА ЯНЕВА-КАДИНОВА","target":"company:tr:176223245","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:dimitr-ivanov-kyumyurdzhiev-d8a122",
+  "nodes": [
+    {
+      "id": "official:dimitr-ivanov-kyumyurdzhiev-d8a122",
+      "type": "official",
+      "slug": "dimitr-ivanov-kyumyurdzhiev-d8a122",
+      "label": "Димитър Иванов Кюмюрджиев",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176223245",
+      "type": "company",
+      "label": "КОБАТИ БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "176223245",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОЙКО БОРИСОВ КАДИНОВ",
+      "type": "person",
+      "label": "Бойко Борисов Кадинов"
+    },
+    {
+      "id": "person:РОСЕН ПАВЛОВ ВЪЛКОВ",
+      "type": "person",
+      "label": "Росен Павлов Вълков"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА ЯНЕВА-КАДИНОВА",
+      "type": "person",
+      "label": "Мария Димитрова Янева-Кадинова"
+    },
+    {
+      "id": "person:ЕНЧО ЙОРДАНОВ КУЗМАНОВ",
+      "type": "person",
+      "label": "Енчо Йорданов Кузманов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-ivanov-kyumyurdzhiev-d8a122",
+      "target": "company:tr:176223245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЙКО БОРИСОВ КАДИНОВ",
+      "target": "company:tr:176223245",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО БОРИСОВ КАДИНОВ",
+      "target": "company:tr:176223245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПАВЛОВ ВЪЛКОВ",
+      "target": "company:tr:176223245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ЯНЕВА-КАДИНОВА",
+      "target": "company:tr:176223245",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ЯНЕВА-КАДИНОВА",
+      "target": "company:tr:176223245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНЧО ЙОРДАНОВ КУЗМАНОВ",
+      "target": "company:tr:176223245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ЯНЕВА-КАДИНОВА",
+      "target": "company:tr:176223245",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

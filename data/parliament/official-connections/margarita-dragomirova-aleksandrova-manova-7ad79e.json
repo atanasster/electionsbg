@@ -1,1 +1,121 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:margarita-dragomirova-aleksandrova-manova-7ad79e","nodes":[{"id":"official:margarita-dragomirova-aleksandrova-manova-7ad79e","type":"official","slug":"margarita-dragomirova-aleksandrova-manova-7ad79e","label":"Маргарита Драгомирова Александрова-Манова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130107315","type":"company","label":"ПАЗАРИ ВЪЗРАЖДАНЕ","slug":null,"uic":"130107315","legalForm":null,"status":null,"seat":null},{"id":"person:МАРГАРИТА ДРАГОМИРАВА АЛЕКСАНДРОВА-МАНОВА","type":"person","label":"Маргарита Драгомирава Александрова-Манова"},{"id":"person:МАРГАРИТА ДРАГОМИРОВА АЛЕКСАНДРОВА - МАНОВА","type":"person","label":"Маргарита Драгомирова Александрова - Манова"},{"id":"person:ВЕСЕЛИН ГЕОРГИЕВ ТЕОФИЛОВ","type":"person","label":"Веселин Георгиев Теофилов"},{"id":"person:ДЕСИСЛАВА ЧАВДАРОВА ИВАНОВА","type":"person","label":"Десислава Чавдарова Иванова"},{"id":"person:ЛОЗАНА ИЛИЕВА ВАСИЛЕВА","type":"person","label":"Лозана Илиева Василева"},{"id":"person:ЖАНА СЕРГЕЕВА ЯНЕВА","type":"person","label":"Жана Сергеева Янева"}],"edges":[{"source":"official:margarita-dragomirova-aleksandrova-manova-7ad79e","target":"company:tr:130107315","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:margarita-dragomirova-aleksandrova-manova-7ad79e","target":"company:tr:130107315","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"person:МАРГАРИТА ДРАГОМИРАВА АЛЕКСАНДРОВА-МАНОВА","target":"company:tr:130107315","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА ДРАГОМИРОВА АЛЕКСАНДРОВА - МАНОВА","target":"company:tr:130107315","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ГЕОРГИЕВ ТЕОФИЛОВ","target":"company:tr:130107315","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ЧАВДАРОВА ИВАНОВА","target":"company:tr:130107315","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛОЗАНА ИЛИЕВА ВАСИЛЕВА","target":"company:tr:130107315","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖАНА СЕРГЕЕВА ЯНЕВА","target":"company:tr:130107315","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:margarita-dragomirova-aleksandrova-manova-7ad79e",
+  "nodes": [
+    {
+      "id": "official:margarita-dragomirova-aleksandrova-manova-7ad79e",
+      "type": "official",
+      "slug": "margarita-dragomirova-aleksandrova-manova-7ad79e",
+      "label": "Маргарита Драгомирова Александрова-Манова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130107315",
+      "type": "company",
+      "label": "ПАЗАРИ ВЪЗРАЖДАНЕ",
+      "slug": null,
+      "uic": "130107315",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРГАРИТА ДРАГОМИРАВА АЛЕКСАНДРОВА-МАНОВА",
+      "type": "person",
+      "label": "Маргарита Драгомирава Александрова-Манова"
+    },
+    {
+      "id": "person:МАРГАРИТА ДРАГОМИРОВА АЛЕКСАНДРОВА - МАНОВА",
+      "type": "person",
+      "label": "Маргарита Драгомирова Александрова - Манова"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ГЕОРГИЕВ ТЕОФИЛОВ",
+      "type": "person",
+      "label": "Веселин Георгиев Теофилов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЧАВДАРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Десислава Чавдарова Иванова"
+    },
+    {
+      "id": "person:ЛОЗАНА ИЛИЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Лозана Илиева Василева"
+    },
+    {
+      "id": "person:ЖАНА СЕРГЕЕВА ЯНЕВА",
+      "type": "person",
+      "label": "Жана Сергеева Янева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:margarita-dragomirova-aleksandrova-manova-7ad79e",
+      "target": "company:tr:130107315",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:margarita-dragomirova-aleksandrova-manova-7ad79e",
+      "target": "company:tr:130107315",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА ДРАГОМИРАВА АЛЕКСАНДРОВА-МАНОВА",
+      "target": "company:tr:130107315",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ДРАГОМИРОВА АЛЕКСАНДРОВА - МАНОВА",
+      "target": "company:tr:130107315",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ГЕОРГИЕВ ТЕОФИЛОВ",
+      "target": "company:tr:130107315",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЧАВДАРОВА ИВАНОВА",
+      "target": "company:tr:130107315",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОЗАНА ИЛИЕВА ВАСИЛЕВА",
+      "target": "company:tr:130107315",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНА СЕРГЕЕВА ЯНЕВА",
+      "target": "company:tr:130107315",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

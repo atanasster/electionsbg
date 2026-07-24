@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:boris-iordanov-iordanov-0d55bc","nodes":[{"id":"official:boris-iordanov-iordanov-0d55bc","type":"official","slug":"boris-iordanov-iordanov-0d55bc","label":"Борис Йорданов Йорданов","tier":"municipal","role":"councillor","municipality":"Иваново"},{"id":"company:tr:206540628","type":"company","label":"Рик Карс Транс","slug":null,"uic":"206540628","legalForm":null,"status":null,"seat":null},{"id":"person:ДОБРИ ТОДОРОВ ИВАНОВ","type":"person","label":"Добри Тодоров Иванов"}],"edges":[{"source":"official:boris-iordanov-iordanov-0d55bc","target":"company:tr:206540628","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ДОБРИ ТОДОРОВ ИВАНОВ","target":"company:tr:206540628","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИ ТОДОРОВ ИВАНОВ","target":"company:tr:206540628","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:boris-iordanov-iordanov-0d55bc",
+  "nodes": [
+    {
+      "id": "official:boris-iordanov-iordanov-0d55bc",
+      "type": "official",
+      "slug": "boris-iordanov-iordanov-0d55bc",
+      "label": "Борис Йорданов Йорданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Иваново"
+    },
+    {
+      "id": "company:tr:206540628",
+      "type": "company",
+      "label": "Рик Карс Транс",
+      "slug": null,
+      "uic": "206540628",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРИ ТОДОРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Добри Тодоров Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boris-iordanov-iordanov-0d55bc",
+      "target": "company:tr:206540628",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРИ ТОДОРОВ ИВАНОВ",
+      "target": "company:tr:206540628",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ТОДОРОВ ИВАНОВ",
+      "target": "company:tr:206540628",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

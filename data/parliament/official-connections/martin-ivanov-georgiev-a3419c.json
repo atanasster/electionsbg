@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:martin-ivanov-georgiev-a3419c","nodes":[{"id":"official:martin-ivanov-georgiev-a3419c","type":"official","slug":"martin-ivanov-georgiev-a3419c","label":"Мартин Иванов Георгиев","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207881575","type":"company","label":"МГ Пропърти ЕООД","slug":null,"uic":"207881575","legalForm":null,"status":null,"seat":null},{"id":"person:МАРТИН ИВАНОВ ГЕОРГИЕВ","type":"person","label":"Мартин Иванов Георгиев"},{"id":"person:РАДОСВЕТА ЗАФИРОВА ПОПОВА","type":"person","label":"Радосвета Зафирова Попова"}],"edges":[{"source":"official:martin-ivanov-georgiev-a3419c","target":"company:tr:207881575","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ИВАНОВ ГЕОРГИЕВ","target":"company:tr:207881575","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСВЕТА ЗАФИРОВА ПОПОВА","target":"company:tr:207881575","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ИВАНОВ ГЕОРГИЕВ","target":"company:tr:207881575","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:martin-ivanov-georgiev-a3419c",
+  "nodes": [
+    {
+      "id": "official:martin-ivanov-georgiev-a3419c",
+      "type": "official",
+      "slug": "martin-ivanov-georgiev-a3419c",
+      "label": "Мартин Иванов Георгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207881575",
+      "type": "company",
+      "label": "МГ Пропърти ЕООД",
+      "slug": null,
+      "uic": "207881575",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИН ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Мартин Иванов Георгиев"
+    },
+    {
+      "id": "person:РАДОСВЕТА ЗАФИРОВА ПОПОВА",
+      "type": "person",
+      "label": "Радосвета Зафирова Попова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-ivanov-georgiev-a3419c",
+      "target": "company:tr:207881575",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:207881575",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСВЕТА ЗАФИРОВА ПОПОВА",
+      "target": "company:tr:207881575",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:207881575",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

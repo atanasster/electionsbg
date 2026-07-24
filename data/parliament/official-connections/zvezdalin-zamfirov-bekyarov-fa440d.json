@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:zvezdalin-zamfirov-bekyarov-fa440d","nodes":[{"id":"official:zvezdalin-zamfirov-bekyarov-fa440d","type":"official","slug":"zvezdalin-zamfirov-bekyarov-fa440d","label":"Звездалин Замфиров Бекяров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:120616068","type":"company","label":"Парк Консулт ЕООД","slug":null,"uic":"120616068","legalForm":null,"status":null,"seat":null},{"id":"person:СЕВДАЛИНА РАДОВАНОВА БЕКЯРОВА","type":"person","label":"Севдалина Радованова Бекярова"}],"edges":[{"source":"official:zvezdalin-zamfirov-bekyarov-fa440d","target":"company:tr:120616068","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:СЕВДАЛИНА РАДОВАНОВА БЕКЯРОВА","target":"company:tr:120616068","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:zvezdalin-zamfirov-bekyarov-fa440d",
+  "nodes": [
+    {
+      "id": "official:zvezdalin-zamfirov-bekyarov-fa440d",
+      "type": "official",
+      "slug": "zvezdalin-zamfirov-bekyarov-fa440d",
+      "label": "Звездалин Замфиров Бекяров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:120616068",
+      "type": "company",
+      "label": "Парк Консулт ЕООД",
+      "slug": null,
+      "uic": "120616068",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЕВДАЛИНА РАДОВАНОВА БЕКЯРОВА",
+      "type": "person",
+      "label": "Севдалина Радованова Бекярова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zvezdalin-zamfirov-bekyarov-fa440d",
+      "target": "company:tr:120616068",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИНА РАДОВАНОВА БЕКЯРОВА",
+      "target": "company:tr:120616068",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

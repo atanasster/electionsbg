@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:asen-georgiev-medzhidiev-425e48","nodes":[{"id":"official:asen-georgiev-medzhidiev-425e48","type":"official","slug":"asen-georgiev-medzhidiev-425e48","label":"Асен Георгиев Меджидиев","tier":"executive","role":"cabinet","municipality":null},{"id":"company:tr:131128807","type":"company","label":"Амбулатория за групова практика за специализирана медицинска помощ МЕДИДАС","slug":null,"uic":"131128807","legalForm":null,"status":null,"seat":null},{"id":"person:ДАНИЕЛА ГЕОРГИЕВА МЕДЖИДИЕВА","type":"person","label":"Даниела Георгиева Меджидиева"}],"edges":[{"source":"official:asen-georgiev-medzhidiev-425e48","target":"company:tr:131128807","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:asen-georgiev-medzhidiev-425e48","target":"company:tr:131128807","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДАНИЕЛА ГЕОРГИЕВА МЕДЖИДИЕВА","target":"company:tr:131128807","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ГЕОРГИЕВА МЕДЖИДИЕВА","target":"company:tr:131128807","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:asen-georgiev-medzhidiev-425e48",
+  "nodes": [
+    {
+      "id": "official:asen-georgiev-medzhidiev-425e48",
+      "type": "official",
+      "slug": "asen-georgiev-medzhidiev-425e48",
+      "label": "Асен Георгиев Меджидиев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131128807",
+      "type": "company",
+      "label": "Амбулатория за групова практика за специализирана медицинска помощ МЕДИДАС",
+      "slug": null,
+      "uic": "131128807",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАНИЕЛА ГЕОРГИЕВА МЕДЖИДИЕВА",
+      "type": "person",
+      "label": "Даниела Георгиева Меджидиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-georgiev-medzhidiev-425e48",
+      "target": "company:tr:131128807",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:asen-georgiev-medzhidiev-425e48",
+      "target": "company:tr:131128807",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА ГЕОРГИЕВА МЕДЖИДИЕВА",
+      "target": "company:tr:131128807",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ГЕОРГИЕВА МЕДЖИДИЕВА",
+      "target": "company:tr:131128807",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

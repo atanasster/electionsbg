@@ -1,1 +1,150 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:naiden-nedkov-shivarov-3d9a5e","nodes":[{"id":"official:naiden-nedkov-shivarov-3d9a5e","type":"official","slug":"naiden-nedkov-shivarov-3d9a5e","label":"Найден Недков Шиваров","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:831238042","type":"company","label":"Българско дружество по роботика","slug":null,"uic":"831238042","legalForm":null,"status":null,"seat":null},{"id":"person:ВАСИЛ СТОЯНОВ СГУРЕВ","type":"person","label":"Васил Стоянов Сгурев"},{"id":"person:ВЕНЦИСЛАВ ИВАНОВ СЛАВКОВ","type":"person","label":"Венцислав Иванов Славков"},{"id":"person:ЛЮБКА АТАНАСОВА ДУКОВСКА","type":"person","label":"Любка Атанасова Дуковска"},{"id":"person:ВАСИЛ СТОЯНОВ СГУРЕВ - ПРЕДСЕДАТЕЛ","type":"person","label":"Васил Стоянов Сгурев - Председател"},{"id":"person:АВГУСТ ЙОРДАНОВ ИВАНОВ","type":"person","label":"Август Йорданов Иванов"},{"id":"person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ","type":"person","label":"Георги Димитров Тодоров"},{"id":"person:ДИМИТЪР ИВАНОВ ЧАКЪРОВ","type":"person","label":"Димитър Иванов Чакъров"}],"edges":[{"source":"official:naiden-nedkov-shivarov-3d9a5e","target":"company:tr:831238042","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:naiden-nedkov-shivarov-3d9a5e","target":"company:tr:831238042","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВАСИЛ СТОЯНОВ СГУРЕВ","target":"company:tr:831238042","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ИВАНОВ СЛАВКОВ","target":"company:tr:831238042","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБКА АТАНАСОВА ДУКОВСКА","target":"company:tr:831238042","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ СТОЯНОВ СГУРЕВ - ПРЕДСЕДАТЕЛ","target":"company:tr:831238042","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АВГУСТ ЙОРДАНОВ ИВАНОВ","target":"company:tr:831238042","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ","target":"company:tr:831238042","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ИВАНОВ СЛАВКОВ","target":"company:tr:831238042","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБКА АТАНАСОВА ДУКОВСКА","target":"company:tr:831238042","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ИВАНОВ ЧАКЪРОВ","target":"company:tr:831238042","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:naiden-nedkov-shivarov-3d9a5e",
+  "nodes": [
+    {
+      "id": "official:naiden-nedkov-shivarov-3d9a5e",
+      "type": "official",
+      "slug": "naiden-nedkov-shivarov-3d9a5e",
+      "label": "Найден Недков Шиваров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831238042",
+      "type": "company",
+      "label": "Българско дружество по роботика",
+      "slug": null,
+      "uic": "831238042",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСИЛ СТОЯНОВ СГУРЕВ",
+      "type": "person",
+      "label": "Васил Стоянов Сгурев"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ИВАНОВ СЛАВКОВ",
+      "type": "person",
+      "label": "Венцислав Иванов Славков"
+    },
+    {
+      "id": "person:ЛЮБКА АТАНАСОВА ДУКОВСКА",
+      "type": "person",
+      "label": "Любка Атанасова Дуковска"
+    },
+    {
+      "id": "person:ВАСИЛ СТОЯНОВ СГУРЕВ - ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Васил Стоянов Сгурев - Председател"
+    },
+    {
+      "id": "person:АВГУСТ ЙОРДАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Август Йорданов Иванов"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Георги Димитров Тодоров"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ ЧАКЪРОВ",
+      "type": "person",
+      "label": "Димитър Иванов Чакъров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:naiden-nedkov-shivarov-3d9a5e",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:naiden-nedkov-shivarov-3d9a5e",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ СТОЯНОВ СГУРЕВ",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ИВАНОВ СЛАВКОВ",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА АТАНАСОВА ДУКОВСКА",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СТОЯНОВ СГУРЕВ - ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АВГУСТ ЙОРДАНОВ ИВАНОВ",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ИВАНОВ СЛАВКОВ",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА АТАНАСОВА ДУКОВСКА",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ ЧАКЪРОВ",
+      "target": "company:tr:831238042",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

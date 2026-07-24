@@ -1,1 +1,280 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mihail-kostadinov-uzunov-5dca7d","nodes":[{"id":"official:mihail-kostadinov-uzunov-5dca7d","type":"official","slug":"mihail-kostadinov-uzunov-5dca7d","label":"Михаил Костадинов Узунов","tier":"municipal","role":"councillor","municipality":"Ракитово"},{"id":"company:tr:112073509","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СВ. СВ. КИРИЛ И МЕТОДИЙ-1919 Г.&quot;","slug":null,"uic":"112073509","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ ПЕТРОВА УЗУНОВА","type":"person","label":"Мария Петрова Узунова"},{"id":"person:АСПАРУХ ИВАНОВ ПОПОВ","type":"person","label":"Аспарух Иванов Попов"},{"id":"person:ЕЛЕНА ХРИСТОВА ДУЗОВА","type":"person","label":"Елена Христова Дузова"},{"id":"person:НЕВЕНА КИРИЛОВА ГЕОРГИЕВА","type":"person","label":"Невена Кирилова Георгиева"},{"id":"person:ГЕОРГИ МИХАЙЛОВ ГУШЕВ","type":"person","label":"Георги Михайлов Гушев"},{"id":"person:АНДРЕЙ ЙОРДАНОВ ПЕЕВ","type":"person","label":"Андрей Йорданов Пеев"},{"id":"person:ЙОРДАНКА МАНОЛОВА КОВАЧЕВА","type":"person","label":"Йорданка Манолова Ковачева"},{"id":"person:МИГЛЕНА АЛЬОШОВА ГЕРАСИМОВА","type":"person","label":"Миглена Альошова Герасимова"},{"id":"person:АЛБЕНА НИКОЛАЕВА ТАСЕВА","type":"person","label":"Албена Николаева Тасева"},{"id":"person:НИКОЛА ИВАНОВ НИКОЛОВ","type":"person","label":"Никола Иванов Николов"},{"id":"person:ЗАХАРИНА МИЛКОВА МАЦАНОВА","type":"person","label":"Захарина Милкова Мацанова"},{"id":"person:РАНГЕЛ ИЦОВ МАСТРАВЧИЕВ","type":"person","label":"Рангел Ицов Мастравчиев"},{"id":"person:МАГДАЛЕНА ЛАЗАРОВА СИМИДАРЕВА","type":"person","label":"Магдалена Лазарова Симидарева"},{"id":"person:ЕЛИСАВЕТА КИРИЛОВА УЗУНОВА","type":"person","label":"Елисавета Кирилова Узунова"},{"id":"person:ВЕНЦИСЛАВ НИКОЛОВ ДУЗОВ","type":"person","label":"Венцислав Николов Дузов"},{"id":"person:МАРИЯ АВРАМОВА БАЛАБАНОВА-СТАТЕВА","type":"person","label":"Мария Аврамова Балабанова-Статева"},{"id":"person:АНТОН ДИМИТРОВ СТОЕВ","type":"person","label":"Антон Димитров Стоев"}],"edges":[{"source":"official:mihail-kostadinov-uzunov-5dca7d","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"official:mihail-kostadinov-uzunov-5dca7d","target":"company:tr:112073509","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯ ПЕТРОВА УЗУНОВА","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АСПАРУХ ИВАНОВ ПОПОВ","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ХРИСТОВА ДУЗОВА","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕНА КИРИЛОВА ГЕОРГИЕВА","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ МИХАЙЛОВ ГУШЕВ","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕЙ ЙОРДАНОВ ПЕЕВ","target":"company:tr:112073509","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА МАНОЛОВА КОВАЧЕВА","target":"company:tr:112073509","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА АЛЬОШОВА ГЕРАСИМОВА","target":"company:tr:112073509","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА НИКОЛАЕВА ТАСЕВА","target":"company:tr:112073509","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕНА КИРИЛОВА ГЕОРГИЕВА","target":"company:tr:112073509","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ИВАНОВ НИКОЛОВ","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕЙ ЙОРДАНОВ ПЕЕВ","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗАХАРИНА МИЛКОВА МАЦАНОВА","target":"company:tr:112073509","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАНГЕЛ ИЦОВ МАСТРАВЧИЕВ","target":"company:tr:112073509","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА ЛАЗАРОВА СИМИДАРЕВА","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИСАВЕТА КИРИЛОВА УЗУНОВА","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ НИКОЛОВ ДУЗОВ","target":"company:tr:112073509","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ АВРАМОВА БАЛАБАНОВА-СТАТЕВА","target":"company:tr:112073509","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ДИМИТРОВ СТОЕВ","target":"company:tr:112073509","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mihail-kostadinov-uzunov-5dca7d",
+  "nodes": [
+    {
+      "id": "official:mihail-kostadinov-uzunov-5dca7d",
+      "type": "official",
+      "slug": "mihail-kostadinov-uzunov-5dca7d",
+      "label": "Михаил Костадинов Узунов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ракитово"
+    },
+    {
+      "id": "company:tr:112073509",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВ. СВ. КИРИЛ И МЕТОДИЙ-1919 Г.&quot;",
+      "slug": null,
+      "uic": "112073509",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ПЕТРОВА УЗУНОВА",
+      "type": "person",
+      "label": "Мария Петрова Узунова"
+    },
+    {
+      "id": "person:АСПАРУХ ИВАНОВ ПОПОВ",
+      "type": "person",
+      "label": "Аспарух Иванов Попов"
+    },
+    {
+      "id": "person:ЕЛЕНА ХРИСТОВА ДУЗОВА",
+      "type": "person",
+      "label": "Елена Христова Дузова"
+    },
+    {
+      "id": "person:НЕВЕНА КИРИЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Невена Кирилова Георгиева"
+    },
+    {
+      "id": "person:ГЕОРГИ МИХАЙЛОВ ГУШЕВ",
+      "type": "person",
+      "label": "Георги Михайлов Гушев"
+    },
+    {
+      "id": "person:АНДРЕЙ ЙОРДАНОВ ПЕЕВ",
+      "type": "person",
+      "label": "Андрей Йорданов Пеев"
+    },
+    {
+      "id": "person:ЙОРДАНКА МАНОЛОВА КОВАЧЕВА",
+      "type": "person",
+      "label": "Йорданка Манолова Ковачева"
+    },
+    {
+      "id": "person:МИГЛЕНА АЛЬОШОВА ГЕРАСИМОВА",
+      "type": "person",
+      "label": "Миглена Альошова Герасимова"
+    },
+    {
+      "id": "person:АЛБЕНА НИКОЛАЕВА ТАСЕВА",
+      "type": "person",
+      "label": "Албена Николаева Тасева"
+    },
+    {
+      "id": "person:НИКОЛА ИВАНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Иванов Николов"
+    },
+    {
+      "id": "person:ЗАХАРИНА МИЛКОВА МАЦАНОВА",
+      "type": "person",
+      "label": "Захарина Милкова Мацанова"
+    },
+    {
+      "id": "person:РАНГЕЛ ИЦОВ МАСТРАВЧИЕВ",
+      "type": "person",
+      "label": "Рангел Ицов Мастравчиев"
+    },
+    {
+      "id": "person:МАГДАЛЕНА ЛАЗАРОВА СИМИДАРЕВА",
+      "type": "person",
+      "label": "Магдалена Лазарова Симидарева"
+    },
+    {
+      "id": "person:ЕЛИСАВЕТА КИРИЛОВА УЗУНОВА",
+      "type": "person",
+      "label": "Елисавета Кирилова Узунова"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ НИКОЛОВ ДУЗОВ",
+      "type": "person",
+      "label": "Венцислав Николов Дузов"
+    },
+    {
+      "id": "person:МАРИЯ АВРАМОВА БАЛАБАНОВА-СТАТЕВА",
+      "type": "person",
+      "label": "Мария Аврамова Балабанова-Статева"
+    },
+    {
+      "id": "person:АНТОН ДИМИТРОВ СТОЕВ",
+      "type": "person",
+      "label": "Антон Димитров Стоев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-kostadinov-uzunov-5dca7d",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-kostadinov-uzunov-5dca7d",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ПЕТРОВА УЗУНОВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСПАРУХ ИВАНОВ ПОПОВ",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ХРИСТОВА ДУЗОВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА КИРИЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МИХАЙЛОВ ГУШЕВ",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ ЙОРДАНОВ ПЕЕВ",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА МАНОЛОВА КОВАЧЕВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА АЛЬОШОВА ГЕРАСИМОВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА НИКОЛАЕВА ТАСЕВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА КИРИЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ИВАНОВ НИКОЛОВ",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ ЙОРДАНОВ ПЕЕВ",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАХАРИНА МИЛКОВА МАЦАНОВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАНГЕЛ ИЦОВ МАСТРАВЧИЕВ",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ЛАЗАРОВА СИМИДАРЕВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИСАВЕТА КИРИЛОВА УЗУНОВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ НИКОЛОВ ДУЗОВ",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АВРАМОВА БАЛАБАНОВА-СТАТЕВА",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ДИМИТРОВ СТОЕВ",
+      "target": "company:tr:112073509",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

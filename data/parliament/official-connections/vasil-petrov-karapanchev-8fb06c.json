@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:vasil-petrov-karapanchev-8fb06c","nodes":[{"id":"official:vasil-petrov-karapanchev-8fb06c","type":"official","slug":"vasil-petrov-karapanchev-8fb06c","label":"Васил Петров Карапанчев","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:203201895","type":"company","label":"Телевизия Добруджа","slug":null,"uic":"203201895","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vasil-petrov-karapanchev-8fb06c","target":"company:tr:203201895","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:vasil-petrov-karapanchev-8fb06c",
+  "nodes": [
+    {
+      "id": "official:vasil-petrov-karapanchev-8fb06c",
+      "type": "official",
+      "slug": "vasil-petrov-karapanchev-8fb06c",
+      "label": "Васил Петров Карапанчев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203201895",
+      "type": "company",
+      "label": "Телевизия Добруджа",
+      "slug": null,
+      "uic": "203201895",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-petrov-karapanchev-8fb06c",
+      "target": "company:tr:203201895",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

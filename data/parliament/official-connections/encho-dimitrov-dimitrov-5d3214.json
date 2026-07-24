@@ -1,1 +1,43 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:encho-dimitrov-dimitrov-5d3214","nodes":[{"id":"official:encho-dimitrov-dimitrov-5d3214","type":"official","slug":"encho-dimitrov-dimitrov-5d3214","label":"Енчо Димитров Димитров","tier":"executive","role":"diplomat","municipality":null},{"id":"company:tr:206794181","type":"company","label":"ДИ ЕН ДИ АКАУНТ","slug":null,"uic":"206794181","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:encho-dimitrov-dimitrov-5d3214","target":"company:tr:206794181","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:encho-dimitrov-dimitrov-5d3214","target":"company:tr:206794181","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:encho-dimitrov-dimitrov-5d3214",
+  "nodes": [
+    {
+      "id": "official:encho-dimitrov-dimitrov-5d3214",
+      "type": "official",
+      "slug": "encho-dimitrov-dimitrov-5d3214",
+      "label": "Енчо Димитров Димитров",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206794181",
+      "type": "company",
+      "label": "ДИ ЕН ДИ АКАУНТ",
+      "slug": null,
+      "uic": "206794181",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:encho-dimitrov-dimitrov-5d3214",
+      "target": "company:tr:206794181",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:encho-dimitrov-dimitrov-5d3214",
+      "target": "company:tr:206794181",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

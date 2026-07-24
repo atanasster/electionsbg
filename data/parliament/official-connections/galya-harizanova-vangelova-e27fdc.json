@@ -1,1 +1,186 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:galya-harizanova-vangelova-e27fdc","nodes":[{"id":"official:galya-harizanova-vangelova-e27fdc","type":"official","slug":"galya-harizanova-vangelova-e27fdc","label":"Галя Харизанова Вангелова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000014498","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ОТЕЦ ПАИСИЙ - 1919&quot;","slug":null,"uic":"000014498","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМИТЪР ИВАНОВ ЦЕКОВ","type":"person","label":"Димитър Иванов Цеков"},{"id":"person:ГИНКА ГЕОРГИЕВА ДЗИМБОВА","type":"person","label":"Гинка Георгиева Дзимбова"},{"id":"person:ТОШКО ДИМИТРОВ ХРИСТОВ","type":"person","label":"Тошко Димитров Христов"},{"id":"person:ГЕРГАНА ИЛИЕВА КОСТАДИНОВА","type":"person","label":"Гергана Илиева Костадинова"},{"id":"person:НЕВЕНА ВАЛЕНТИНОВА СТАНКОВА","type":"person","label":"Невена Валентинова Станкова"},{"id":"person:МАРИЯ ИВАНОВА ПЪХНЕВА","type":"person","label":"Мария Иванова Пъхнева"},{"id":"person:ВЛАДИСЛАВА ПЕТРОВА ЗАХОВА","type":"person","label":"Владислава Петрова Захова"},{"id":"person:КРУМ ДИМИТРОВ МАРКОВ","type":"person","label":"Крум Димитров Марков"},{"id":"person:КИРИЛ ГЕОРГИЕВ МАРКОВ","type":"person","label":"Кирил Георгиев Марков"},{"id":"person:ВЕЛИЧКА ДРАГОВА ЗЛАТИНОВА","type":"person","label":"Величка Драгова Златинова"},{"id":"person:ЯНА ИВАНОВА СТОЯНОВА","type":"person","label":"Яна Иванова Стоянова"}],"edges":[{"source":"official:galya-harizanova-vangelova-e27fdc","target":"company:tr:000014498","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:galya-harizanova-vangelova-e27fdc","target":"company:tr:000014498","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТЪР ИВАНОВ ЦЕКОВ","target":"company:tr:000014498","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА ГЕОРГИЕВА ДЗИМБОВА","target":"company:tr:000014498","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТОШКО ДИМИТРОВ ХРИСТОВ","target":"company:tr:000014498","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ИЛИЕВА КОСТАДИНОВА","target":"company:tr:000014498","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕНА ВАЛЕНТИНОВА СТАНКОВА","target":"company:tr:000014498","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИВАНОВА ПЪХНЕВА","target":"company:tr:000014498","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВА ПЕТРОВА ЗАХОВА","target":"company:tr:000014498","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРУМ ДИМИТРОВ МАРКОВ","target":"company:tr:000014498","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ГЕОРГИЕВ МАРКОВ","target":"company:tr:000014498","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЧКА ДРАГОВА ЗЛАТИНОВА","target":"company:tr:000014498","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ИВАНОВА СТОЯНОВА","target":"company:tr:000014498","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:galya-harizanova-vangelova-e27fdc",
+  "nodes": [
+    {
+      "id": "official:galya-harizanova-vangelova-e27fdc",
+      "type": "official",
+      "slug": "galya-harizanova-vangelova-e27fdc",
+      "label": "Галя Харизанова Вангелова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000014498",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ОТЕЦ ПАИСИЙ - 1919&quot;",
+      "slug": null,
+      "uic": "000014498",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ ЦЕКОВ",
+      "type": "person",
+      "label": "Димитър Иванов Цеков"
+    },
+    {
+      "id": "person:ГИНКА ГЕОРГИЕВА ДЗИМБОВА",
+      "type": "person",
+      "label": "Гинка Георгиева Дзимбова"
+    },
+    {
+      "id": "person:ТОШКО ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Тошко Димитров Христов"
+    },
+    {
+      "id": "person:ГЕРГАНА ИЛИЕВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Гергана Илиева Костадинова"
+    },
+    {
+      "id": "person:НЕВЕНА ВАЛЕНТИНОВА СТАНКОВА",
+      "type": "person",
+      "label": "Невена Валентинова Станкова"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА ПЪХНЕВА",
+      "type": "person",
+      "label": "Мария Иванова Пъхнева"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВА ПЕТРОВА ЗАХОВА",
+      "type": "person",
+      "label": "Владислава Петрова Захова"
+    },
+    {
+      "id": "person:КРУМ ДИМИТРОВ МАРКОВ",
+      "type": "person",
+      "label": "Крум Димитров Марков"
+    },
+    {
+      "id": "person:КИРИЛ ГЕОРГИЕВ МАРКОВ",
+      "type": "person",
+      "label": "Кирил Георгиев Марков"
+    },
+    {
+      "id": "person:ВЕЛИЧКА ДРАГОВА ЗЛАТИНОВА",
+      "type": "person",
+      "label": "Величка Драгова Златинова"
+    },
+    {
+      "id": "person:ЯНА ИВАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Яна Иванова Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galya-harizanova-vangelova-e27fdc",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galya-harizanova-vangelova-e27fdc",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ ЦЕКОВ",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА ГЕОРГИЕВА ДЗИМБОВА",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОШКО ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ИЛИЕВА КОСТАДИНОВА",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА ВАЛЕНТИНОВА СТАНКОВА",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА ПЪХНЕВА",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВА ПЕТРОВА ЗАХОВА",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРУМ ДИМИТРОВ МАРКОВ",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ГЕОРГИЕВ МАРКОВ",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА ДРАГОВА ЗЛАТИНОВА",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ИВАНОВА СТОЯНОВА",
+      "target": "company:tr:000014498",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:mariyana-vasileva-dimitrova-2af683","nodes":[{"id":"official:mariyana-vasileva-dimitrova-2af683","type":"official","slug":"mariyana-vasileva-dimitrova-2af683","label":"Марияна Василева Димитрова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:176656271","type":"company","label":"СПОРТЕН КЛУБ ОРЛОВО ГНЕЗДО 1957","slug":null,"uic":"176656271","legalForm":null,"status":null,"seat":null},{"id":"person:МИЛКО ПЕНЧЕВ СТАНЕВ","type":"person","label":"Милко Пенчев Станев"},{"id":"person:ПЕТЪР ГЕОРГИЕВ СТОЙКОВ","type":"person","label":"Петър Георгиев Стойков"},{"id":"person:ПЕТРАНКА ЙОРГОВА РИЗОВА","type":"person","label":"Петранка Йоргова Ризова"},{"id":"person:ХРИСТО ДЕЧКОВ АНГЕЛОВ","type":"person","label":"Христо Дечков Ангелов"}],"edges":[{"source":"official:mariyana-vasileva-dimitrova-2af683","target":"company:tr:176656271","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛКО ПЕНЧЕВ СТАНЕВ","target":"company:tr:176656271","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКО ПЕНЧЕВ СТАНЕВ","target":"company:tr:176656271","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГЕОРГИЕВ СТОЙКОВ","target":"company:tr:176656271","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРАНКА ЙОРГОВА РИЗОВА","target":"company:tr:176656271","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ДЕЧКОВ АНГЕЛОВ","target":"company:tr:176656271","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:mariyana-vasileva-dimitrova-2af683",
+  "nodes": [
+    {
+      "id": "official:mariyana-vasileva-dimitrova-2af683",
+      "type": "official",
+      "slug": "mariyana-vasileva-dimitrova-2af683",
+      "label": "Марияна Василева Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176656271",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ОРЛОВО ГНЕЗДО 1957",
+      "slug": null,
+      "uic": "176656271",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛКО ПЕНЧЕВ СТАНЕВ",
+      "type": "person",
+      "label": "Милко Пенчев Станев"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ СТОЙКОВ",
+      "type": "person",
+      "label": "Петър Георгиев Стойков"
+    },
+    {
+      "id": "person:ПЕТРАНКА ЙОРГОВА РИЗОВА",
+      "type": "person",
+      "label": "Петранка Йоргова Ризова"
+    },
+    {
+      "id": "person:ХРИСТО ДЕЧКОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Христо Дечков Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-vasileva-dimitrova-2af683",
+      "target": "company:tr:176656271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛКО ПЕНЧЕВ СТАНЕВ",
+      "target": "company:tr:176656271",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО ПЕНЧЕВ СТАНЕВ",
+      "target": "company:tr:176656271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ СТОЙКОВ",
+      "target": "company:tr:176656271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНКА ЙОРГОВА РИЗОВА",
+      "target": "company:tr:176656271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ДЕЧКОВ АНГЕЛОВ",
+      "target": "company:tr:176656271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

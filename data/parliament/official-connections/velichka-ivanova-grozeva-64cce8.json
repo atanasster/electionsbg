@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:velichka-ivanova-grozeva-64cce8","nodes":[{"id":"official:velichka-ivanova-grozeva-64cce8","type":"official","slug":"velichka-ivanova-grozeva-64cce8","label":"Величка Иванова Грозева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:207928929","type":"company","label":"СЪНИ РЕНТАЛС","slug":null,"uic":"207928929","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТО ТАНЕВ ГРОЗЕВ","type":"person","label":"Христо Танев Грозев"},{"id":"person:ИВАН ТАНЕВ ГРОЗЕВ","type":"person","label":"Иван Танев Грозев"}],"edges":[{"source":"official:velichka-ivanova-grozeva-64cce8","target":"company:tr:207928929","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО ТАНЕВ ГРОЗЕВ","target":"company:tr:207928929","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ТАНЕВ ГРОЗЕВ","target":"company:tr:207928929","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТАНЕВ ГРОЗЕВ","target":"company:tr:207928929","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:velichka-ivanova-grozeva-64cce8",
+  "nodes": [
+    {
+      "id": "official:velichka-ivanova-grozeva-64cce8",
+      "type": "official",
+      "slug": "velichka-ivanova-grozeva-64cce8",
+      "label": "Величка Иванова Грозева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207928929",
+      "type": "company",
+      "label": "СЪНИ РЕНТАЛС",
+      "slug": null,
+      "uic": "207928929",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ТАНЕВ ГРОЗЕВ",
+      "type": "person",
+      "label": "Христо Танев Грозев"
+    },
+    {
+      "id": "person:ИВАН ТАНЕВ ГРОЗЕВ",
+      "type": "person",
+      "label": "Иван Танев Грозев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velichka-ivanova-grozeva-64cce8",
+      "target": "company:tr:207928929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ТАНЕВ ГРОЗЕВ",
+      "target": "company:tr:207928929",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ТАНЕВ ГРОЗЕВ",
+      "target": "company:tr:207928929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТАНЕВ ГРОЗЕВ",
+      "target": "company:tr:207928929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

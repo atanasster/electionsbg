@@ -1,1 +1,207 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:desislava-lyubomirova-popkoleva-8c4c97","nodes":[{"id":"official:desislava-lyubomirova-popkoleva-8c4c97","type":"official","slug":"desislava-lyubomirova-popkoleva-8c4c97","label":"Десислава Любомирова Попколева","tier":"executive","role":"procurement_officer","municipality":null},{"id":"company:tr:121415520","type":"company","label":"СЪЮЗ НА СЪДИИТЕ В БЪЛГАРИЯ","slug":null,"uic":"121415520","legalForm":null,"status":null,"seat":null},{"id":"person:ТАТЯНА БОРИСОВА ЖИЛОВА","type":"person","label":"Татяна Борисова Жилова"},{"id":"person:АТАНАС ДИМОВ АТАНАСОВ","type":"person","label":"Атанас Димов Атанасов"},{"id":"person:КРАСИМИР НЕДЯЛКОВ МАЗГАЛОВ","type":"person","label":"Красимир Недялков Мазгалов"},{"id":"person:ВЛАДИСЛАВА АЛЕКСАНДРОВА ЦАРИГРАДСКА","type":"person","label":"Владислава Александрова Цариградска"},{"id":"person:СТОЮ ХРИСТОВ ЗГУРОВ","type":"person","label":"Стою Христов Згуров"},{"id":"person:ЦВЕТОМИРА ГЕОРГИЕВА ВЕЛЧЕВА","type":"person","label":"Цветомира Георгиева Велчева"},{"id":"person:АНДРЕЙ КРАСИМИРОВ ГЕОРГИЕВ","type":"person","label":"Андрей Красимиров Георгиев"},{"id":"person:АТАНАС СТОИЛОВ АТАНАСОВ","type":"person","label":"Атанас Стоилов Атанасов"},{"id":"person:ВАНЯ ЖЕЛЯЗКОВА ТЕНЕВА","type":"person","label":"Ваня Желязкова Тенева"},{"id":"person:ВЕРОНИКА АНТОНОВА БОЗОВА","type":"person","label":"Вероника Антонова Бозова"},{"id":"person:КРАСИМИР ДИМИТРОВ ЛЕСЕНСКИ","type":"person","label":"Красимир Димитров Лесенски"},{"id":"person:МАРИЯ СТОЯНОВА ТАНЕВА","type":"person","label":"Мария Стоянова Танева"}],"edges":[{"source":"official:desislava-lyubomirova-popkoleva-8c4c97","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТАТЯНА БОРИСОВА ЖИЛОВА","target":"company:tr:121415520","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ДИМОВ АТАНАСОВ","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР НЕДЯЛКОВ МАЗГАЛОВ","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА БОРИСОВА ЖИЛОВА","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВА АЛЕКСАНДРОВА ЦАРИГРАДСКА","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЮ ХРИСТОВ ЗГУРОВ","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОМИРА ГЕОРГИЕВА ВЕЛЧЕВА","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕЙ КРАСИМИРОВ ГЕОРГИЕВ","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС СТОИЛОВ АТАНАСОВ","target":"company:tr:121415520","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС СТОИЛОВ АТАНАСОВ","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ЖЕЛЯЗКОВА ТЕНЕВА","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРОНИКА АНТОНОВА БОЗОВА","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ ЛЕСЕНСКИ","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ СТОЯНОВА ТАНЕВА","target":"company:tr:121415520","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:desislava-lyubomirova-popkoleva-8c4c97",
+  "nodes": [
+    {
+      "id": "official:desislava-lyubomirova-popkoleva-8c4c97",
+      "type": "official",
+      "slug": "desislava-lyubomirova-popkoleva-8c4c97",
+      "label": "Десислава Любомирова Попколева",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121415520",
+      "type": "company",
+      "label": "СЪЮЗ НА СЪДИИТЕ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "121415520",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАТЯНА БОРИСОВА ЖИЛОВА",
+      "type": "person",
+      "label": "Татяна Борисова Жилова"
+    },
+    {
+      "id": "person:АТАНАС ДИМОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Димов Атанасов"
+    },
+    {
+      "id": "person:КРАСИМИР НЕДЯЛКОВ МАЗГАЛОВ",
+      "type": "person",
+      "label": "Красимир Недялков Мазгалов"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВА АЛЕКСАНДРОВА ЦАРИГРАДСКА",
+      "type": "person",
+      "label": "Владислава Александрова Цариградска"
+    },
+    {
+      "id": "person:СТОЮ ХРИСТОВ ЗГУРОВ",
+      "type": "person",
+      "label": "Стою Христов Згуров"
+    },
+    {
+      "id": "person:ЦВЕТОМИРА ГЕОРГИЕВА ВЕЛЧЕВА",
+      "type": "person",
+      "label": "Цветомира Георгиева Велчева"
+    },
+    {
+      "id": "person:АНДРЕЙ КРАСИМИРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Андрей Красимиров Георгиев"
+    },
+    {
+      "id": "person:АТАНАС СТОИЛОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Стоилов Атанасов"
+    },
+    {
+      "id": "person:ВАНЯ ЖЕЛЯЗКОВА ТЕНЕВА",
+      "type": "person",
+      "label": "Ваня Желязкова Тенева"
+    },
+    {
+      "id": "person:ВЕРОНИКА АНТОНОВА БОЗОВА",
+      "type": "person",
+      "label": "Вероника Антонова Бозова"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ ЛЕСЕНСКИ",
+      "type": "person",
+      "label": "Красимир Димитров Лесенски"
+    },
+    {
+      "id": "person:МАРИЯ СТОЯНОВА ТАНЕВА",
+      "type": "person",
+      "label": "Мария Стоянова Танева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:desislava-lyubomirova-popkoleva-8c4c97",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАТЯНА БОРИСОВА ЖИЛОВА",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДИМОВ АТАНАСОВ",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР НЕДЯЛКОВ МАЗГАЛОВ",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА БОРИСОВА ЖИЛОВА",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВА АЛЕКСАНДРОВА ЦАРИГРАДСКА",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЮ ХРИСТОВ ЗГУРОВ",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИРА ГЕОРГИЕВА ВЕЛЧЕВА",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ КРАСИМИРОВ ГЕОРГИЕВ",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС СТОИЛОВ АТАНАСОВ",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС СТОИЛОВ АТАНАСОВ",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ЖЕЛЯЗКОВА ТЕНЕВА",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРОНИКА АНТОНОВА БОЗОВА",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ЛЕСЕНСКИ",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТОЯНОВА ТАНЕВА",
+      "target": "company:tr:121415520",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

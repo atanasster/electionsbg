@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:nikola-georgieva-likomanov-7fdcbe","nodes":[{"id":"official:nikola-georgieva-likomanov-7fdcbe","type":"official","slug":"nikola-georgieva-likomanov-7fdcbe","label":"Никола Георгиева Ликоманов","tier":"municipal","role":"chief_architect","municipality":"Приморско"},{"id":"company:tr:147129978","type":"company","label":"\"СТУДИО 45\" ЕООД","slug":null,"uic":"147129978","legalForm":null,"status":null,"seat":null},{"id":"company:tr:200177839","type":"company","label":"Бургаска строителна агенция ЕООД","slug":null,"uic":"200177839","legalForm":null,"status":null,"seat":null},{"id":"person:ЕЛЕНА ГЕОРГИЕВА ЛИКОМАНОВА","type":"person","label":"Елена Георгиева Ликоманова"}],"edges":[{"source":"official:nikola-georgieva-likomanov-7fdcbe","target":"company:tr:147129978","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikola-georgieva-likomanov-7fdcbe","target":"company:tr:200177839","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ГЕОРГИЕВА ЛИКОМАНОВА","target":"company:tr:147129978","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ГЕОРГИЕВА ЛИКОМАНОВА","target":"company:tr:200177839","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:nikola-georgieva-likomanov-7fdcbe",
+  "nodes": [
+    {
+      "id": "official:nikola-georgieva-likomanov-7fdcbe",
+      "type": "official",
+      "slug": "nikola-georgieva-likomanov-7fdcbe",
+      "label": "Никола Георгиева Ликоманов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Приморско"
+    },
+    {
+      "id": "company:tr:147129978",
+      "type": "company",
+      "label": "\"СТУДИО 45\" ЕООД",
+      "slug": null,
+      "uic": "147129978",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200177839",
+      "type": "company",
+      "label": "Бургаска строителна агенция ЕООД",
+      "slug": null,
+      "uic": "200177839",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ГЕОРГИЕВА ЛИКОМАНОВА",
+      "type": "person",
+      "label": "Елена Георгиева Ликоманова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-georgieva-likomanov-7fdcbe",
+      "target": "company:tr:147129978",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikola-georgieva-likomanov-7fdcbe",
+      "target": "company:tr:200177839",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ГЕОРГИЕВА ЛИКОМАНОВА",
+      "target": "company:tr:147129978",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ГЕОРГИЕВА ЛИКОМАНОВА",
+      "target": "company:tr:200177839",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

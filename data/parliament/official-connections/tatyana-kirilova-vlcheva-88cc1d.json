@@ -1,1 +1,159 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:tatyana-kirilova-vlcheva-88cc1d","nodes":[{"id":"official:tatyana-kirilova-vlcheva-88cc1d","type":"official","slug":"tatyana-kirilova-vlcheva-88cc1d","label":"Татяна Кирилова Вълчева","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:000152871","type":"company","label":"&quot;НАРОДЕН БУДИТЕЛ - 1927г.&quot;","slug":null,"uic":"000152871","legalForm":null,"status":null,"seat":null},{"id":"official:tasi-nikolov-tasev-e17818","type":"official","slug":"tasi-nikolov-tasev-e17818","label":"Таси Николов Тасев","tier":"municipal","role":"councillor","municipality":"Димово"},{"id":"person:ЕВТИМА КРАСИМИРОВА ГЕОРГИЕВА","type":"person","label":"Евтима Красимирова Георгиева"},{"id":"person:ЛОРА МАРЧОВА СТОИЧКОВА","type":"person","label":"Лора Марчова Стоичкова"},{"id":"person:ТИХОМИР КИРИЛОВ НИКОЛОВ","type":"person","label":"Тихомир Кирилов Николов"},{"id":"person:ГАЛИНА РУСИНОВА ИВАНОВА","type":"person","label":"Галина Русинова Иванова"},{"id":"person:ВАНЯ ЦВЕТАНОВА ВЕЛКОВА","type":"person","label":"Ваня Цветанова Велкова"},{"id":"person:СВЕТЛА АНГЕЛОВА КАМЕНОВА","type":"person","label":"Светла Ангелова Каменова"},{"id":"person:КАЛИНА ИВАНОВА КИРОВА","type":"person","label":"Калина Иванова Кирова"}],"edges":[{"source":"official:tatyana-kirilova-vlcheva-88cc1d","target":"company:tr:000152871","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"official:tasi-nikolov-tasev-e17818","target":"company:tr:000152871","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЕВТИМА КРАСИМИРОВА ГЕОРГИЕВА","target":"company:tr:000152871","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛОРА МАРЧОВА СТОИЧКОВА","target":"company:tr:000152871","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕВТИМА КРАСИМИРОВА ГЕОРГИЕВА","target":"company:tr:000152871","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР КИРИЛОВ НИКОЛОВ","target":"company:tr:000152871","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА РУСИНОВА ИВАНОВА","target":"company:tr:000152871","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ЦВЕТАНОВА ВЕЛКОВА","target":"company:tr:000152871","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА АНГЕЛОВА КАМЕНОВА","target":"company:tr:000152871","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА ИВАНОВА КИРОВА","target":"company:tr:000152871","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА ИВАНОВА КИРОВА","target":"company:tr:000152871","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:tatyana-kirilova-vlcheva-88cc1d",
+  "nodes": [
+    {
+      "id": "official:tatyana-kirilova-vlcheva-88cc1d",
+      "type": "official",
+      "slug": "tatyana-kirilova-vlcheva-88cc1d",
+      "label": "Татяна Кирилова Вълчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000152871",
+      "type": "company",
+      "label": "&quot;НАРОДЕН БУДИТЕЛ - 1927г.&quot;",
+      "slug": null,
+      "uic": "000152871",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:tasi-nikolov-tasev-e17818",
+      "type": "official",
+      "slug": "tasi-nikolov-tasev-e17818",
+      "label": "Таси Николов Тасев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димово"
+    },
+    {
+      "id": "person:ЕВТИМА КРАСИМИРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Евтима Красимирова Георгиева"
+    },
+    {
+      "id": "person:ЛОРА МАРЧОВА СТОИЧКОВА",
+      "type": "person",
+      "label": "Лора Марчова Стоичкова"
+    },
+    {
+      "id": "person:ТИХОМИР КИРИЛОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Тихомир Кирилов Николов"
+    },
+    {
+      "id": "person:ГАЛИНА РУСИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Галина Русинова Иванова"
+    },
+    {
+      "id": "person:ВАНЯ ЦВЕТАНОВА ВЕЛКОВА",
+      "type": "person",
+      "label": "Ваня Цветанова Велкова"
+    },
+    {
+      "id": "person:СВЕТЛА АНГЕЛОВА КАМЕНОВА",
+      "type": "person",
+      "label": "Светла Ангелова Каменова"
+    },
+    {
+      "id": "person:КАЛИНА ИВАНОВА КИРОВА",
+      "type": "person",
+      "label": "Калина Иванова Кирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tatyana-kirilova-vlcheva-88cc1d",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tasi-nikolov-tasev-e17818",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВТИМА КРАСИМИРОВА ГЕОРГИЕВА",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОРА МАРЧОВА СТОИЧКОВА",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВТИМА КРАСИМИРОВА ГЕОРГИЕВА",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР КИРИЛОВ НИКОЛОВ",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА РУСИНОВА ИВАНОВА",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ЦВЕТАНОВА ВЕЛКОВА",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА АНГЕЛОВА КАМЕНОВА",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ИВАНОВА КИРОВА",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ИВАНОВА КИРОВА",
+      "target": "company:tr:000152871",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

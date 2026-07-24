@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rosen-kirilov-todorov-041a82","nodes":[{"id":"official:rosen-kirilov-todorov-041a82","type":"official","slug":"rosen-kirilov-todorov-041a82","label":"Росен Кирилов Тодоров","tier":"municipal","role":"councillor","municipality":"Своге"},{"id":"company:tr:130155146","type":"company","label":"МИКРОНЕКС","slug":null,"uic":"130155146","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТРА ГЕОРГИЕВА ПЕТРОВА","type":"person","label":"Петра Георгиева Петрова"}],"edges":[{"source":"official:rosen-kirilov-todorov-041a82","target":"company:tr:130155146","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТРА ГЕОРГИЕВА ПЕТРОВА","target":"company:tr:130155146","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rosen-kirilov-todorov-041a82",
+  "nodes": [
+    {
+      "id": "official:rosen-kirilov-todorov-041a82",
+      "type": "official",
+      "slug": "rosen-kirilov-todorov-041a82",
+      "label": "Росен Кирилов Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Своге"
+    },
+    {
+      "id": "company:tr:130155146",
+      "type": "company",
+      "label": "МИКРОНЕКС",
+      "slug": null,
+      "uic": "130155146",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТРА ГЕОРГИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Петра Георгиева Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-kirilov-todorov-041a82",
+      "target": "company:tr:130155146",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТРА ГЕОРГИЕВА ПЕТРОВА",
+      "target": "company:tr:130155146",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

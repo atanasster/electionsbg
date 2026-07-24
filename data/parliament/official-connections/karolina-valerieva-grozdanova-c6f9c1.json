@@ -1,1 +1,103 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:karolina-valerieva-grozdanova-c6f9c1","nodes":[{"id":"official:karolina-valerieva-grozdanova-c6f9c1","type":"official","slug":"karolina-valerieva-grozdanova-c6f9c1","label":"Каролина Валериева Грозданова","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:206604598","type":"company","label":"Иновации в спорта - КМСпорт","slug":null,"uic":"206604598","legalForm":null,"status":null,"seat":null},{"id":"person:ЕЛЕНА ПЕТРОВНА ЯКИМЧУК","type":"person","label":"Елена Петровна Якимчук"},{"id":"person:МИЛЕНА КЪНЧЕВА СИАФАРИКА","type":"person","label":"Милена Кънчева Сиафарика"},{"id":"person:ВЯРА ВЕСЕЛИНОВА ИВАНОВА","type":"person","label":"Вяра Веселинова Иванова"},{"id":"person:АНАТОЛИ ВЕНЦИСЛАВОВ МИЛАНОВ","type":"person","label":"Анатоли Венциславов Миланов"}],"edges":[{"source":"official:karolina-valerieva-grozdanova-c6f9c1","target":"company:tr:206604598","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:karolina-valerieva-grozdanova-c6f9c1","target":"company:tr:206604598","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЕЛЕНА ПЕТРОВНА ЯКИМЧУК","target":"company:tr:206604598","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА КЪНЧЕВА СИАФАРИКА","target":"company:tr:206604598","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ПЕТРОВНА ЯКИМЧУК","target":"company:tr:206604598","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЯРА ВЕСЕЛИНОВА ИВАНОВА","target":"company:tr:206604598","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНАТОЛИ ВЕНЦИСЛАВОВ МИЛАНОВ","target":"company:tr:206604598","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:karolina-valerieva-grozdanova-c6f9c1",
+  "nodes": [
+    {
+      "id": "official:karolina-valerieva-grozdanova-c6f9c1",
+      "type": "official",
+      "slug": "karolina-valerieva-grozdanova-c6f9c1",
+      "label": "Каролина Валериева Грозданова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206604598",
+      "type": "company",
+      "label": "Иновации в спорта - КМСпорт",
+      "slug": null,
+      "uic": "206604598",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ПЕТРОВНА ЯКИМЧУК",
+      "type": "person",
+      "label": "Елена Петровна Якимчук"
+    },
+    {
+      "id": "person:МИЛЕНА КЪНЧЕВА СИАФАРИКА",
+      "type": "person",
+      "label": "Милена Кънчева Сиафарика"
+    },
+    {
+      "id": "person:ВЯРА ВЕСЕЛИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Вяра Веселинова Иванова"
+    },
+    {
+      "id": "person:АНАТОЛИ ВЕНЦИСЛАВОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Анатоли Венциславов Миланов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:karolina-valerieva-grozdanova-c6f9c1",
+      "target": "company:tr:206604598",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:karolina-valerieva-grozdanova-c6f9c1",
+      "target": "company:tr:206604598",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА ПЕТРОВНА ЯКИМЧУК",
+      "target": "company:tr:206604598",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА КЪНЧЕВА СИАФАРИКА",
+      "target": "company:tr:206604598",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ПЕТРОВНА ЯКИМЧУК",
+      "target": "company:tr:206604598",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРА ВЕСЕЛИНОВА ИВАНОВА",
+      "target": "company:tr:206604598",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАТОЛИ ВЕНЦИСЛАВОВ МИЛАНОВ",
+      "target": "company:tr:206604598",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

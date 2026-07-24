@@ -1,1 +1,116 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:rumen-iliev-guninski-c0c9ac","nodes":[{"id":"official:rumen-iliev-guninski-c0c9ac","type":"official","slug":"rumen-iliev-guninski-c0c9ac","label":"Румен Илиев Гунински","tier":"municipal","role":"mayor","municipality":"Правец"},{"id":"company:tr:130833757","type":"company","label":"УНИВЕРСИТЕТСКИ НЕДВИЖИМИ ИМОТИ - ПРАВЕЦ","slug":null,"uic":"130833757","legalForm":null,"status":null,"seat":null},{"id":"person:БОРИСЛАВ ВЕНЦИСЛАВОВ РАЛЧЕВ","type":"person","label":"Борислав Венциславов Ралчев"},{"id":"person:ВАСИЛ ЗЛАТЕВ ПЕТКОВ","type":"person","label":"Васил Златев Петков"},{"id":"person:СНЕЖАНА ЙОВЧОВА ГЕОРГИЕВА","type":"person","label":"Снежана Йовчова Георгиева"},{"id":"person:ВАЛЕНТИН ВАСИЛЕВ ЗЛАТЕВ","type":"person","label":"Валентин Василев Златев"},{"id":"person:МАРИЯ ДИМИТРОВА МЕЛЕВА","type":"person","label":"Мария Димитрова Мелева"}],"edges":[{"source":"official:rumen-iliev-guninski-c0c9ac","target":"company:tr:130833757","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"person:БОРИСЛАВ ВЕНЦИСЛАВОВ РАЛЧЕВ","target":"company:tr:130833757","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ЗЛАТЕВ ПЕТКОВ","target":"company:tr:130833757","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА ЙОВЧОВА ГЕОРГИЕВА","target":"company:tr:130833757","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ ВЕНЦИСЛАВОВ РАЛЧЕВ","target":"company:tr:130833757","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ЗЛАТЕВ ПЕТКОВ","target":"company:tr:130833757","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ВАСИЛЕВ ЗЛАТЕВ","target":"company:tr:130833757","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ДИМИТРОВА МЕЛЕВА","target":"company:tr:130833757","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:rumen-iliev-guninski-c0c9ac",
+  "nodes": [
+    {
+      "id": "official:rumen-iliev-guninski-c0c9ac",
+      "type": "official",
+      "slug": "rumen-iliev-guninski-c0c9ac",
+      "label": "Румен Илиев Гунински",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Правец"
+    },
+    {
+      "id": "company:tr:130833757",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКИ НЕДВИЖИМИ ИМОТИ - ПРАВЕЦ",
+      "slug": null,
+      "uic": "130833757",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИСЛАВ ВЕНЦИСЛАВОВ РАЛЧЕВ",
+      "type": "person",
+      "label": "Борислав Венциславов Ралчев"
+    },
+    {
+      "id": "person:ВАСИЛ ЗЛАТЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Васил Златев Петков"
+    },
+    {
+      "id": "person:СНЕЖАНА ЙОВЧОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Снежана Йовчова Георгиева"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВАСИЛЕВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Валентин Василев Златев"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА МЕЛЕВА",
+      "type": "person",
+      "label": "Мария Димитрова Мелева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-iliev-guninski-c0c9ac",
+      "target": "company:tr:130833757",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИСЛАВ ВЕНЦИСЛАВОВ РАЛЧЕВ",
+      "target": "company:tr:130833757",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЗЛАТЕВ ПЕТКОВ",
+      "target": "company:tr:130833757",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ЙОВЧОВА ГЕОРГИЕВА",
+      "target": "company:tr:130833757",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ВЕНЦИСЛАВОВ РАЛЧЕВ",
+      "target": "company:tr:130833757",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЗЛАТЕВ ПЕТКОВ",
+      "target": "company:tr:130833757",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВАСИЛЕВ ЗЛАТЕВ",
+      "target": "company:tr:130833757",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА МЕЛЕВА",
+      "target": "company:tr:130833757",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

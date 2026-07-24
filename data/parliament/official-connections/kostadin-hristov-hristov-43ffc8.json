@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-24T17:32:16.386Z","officialNodeId":"official:kostadin-hristov-hristov-43ffc8","nodes":[{"id":"official:kostadin-hristov-hristov-43ffc8","type":"official","slug":"kostadin-hristov-hristov-43ffc8","label":"Костадин Христов Христов","tier":"executive","role":"state_enterprise","municipality":null},{"id":"company:tr:130837570","type":"company","label":"Писани Булмар ЕООД","slug":null,"uic":"130837570","legalForm":null,"status":null,"seat":null},{"id":"person:КОСТАДИН ХРИСТОВ ХРИСТОВ","type":"person","label":"Костадин Христов Христов"}],"edges":[{"source":"official:kostadin-hristov-hristov-43ffc8","target":"company:tr:130837570","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ХРИСТОВ ХРИСТОВ","target":"company:tr:130837570","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ХРИСТОВ ХРИСТОВ","target":"company:tr:130837570","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "officialNodeId": "official:kostadin-hristov-hristov-43ffc8",
+  "nodes": [
+    {
+      "id": "official:kostadin-hristov-hristov-43ffc8",
+      "type": "official",
+      "slug": "kostadin-hristov-hristov-43ffc8",
+      "label": "Костадин Христов Христов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130837570",
+      "type": "company",
+      "label": "Писани Булмар ЕООД",
+      "slug": null,
+      "uic": "130837570",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТАДИН ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Костадин Христов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kostadin-hristov-hristov-43ffc8",
+      "target": "company:tr:130837570",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:130837570",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:130837570",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}
