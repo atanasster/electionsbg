@@ -65,8 +65,15 @@ CREATE TABLE IF NOT EXISTS declaration (
   position_title   text,
   category         text,               -- register category label (categorise.ts bucket)
   declaration_type text,               -- Annualy | Entry | Vacate | Other
+  -- The effective snapshot year — the resolved `declarationYear` the app sorts
+  -- filings by (parse_declaration.resolveDeclarationYear: an annual's fiscal+1,
+  -- clamped to the folder). This is the wealth series' x-axis and the "latest
+  -- filing" key; it is NOT the same as register_year for a genuinely late filing.
+  declaration_year int NOT NULL,
   fiscal_year      int,                -- the year the filing COVERS (may be null)
   register_year    int NOT NULL,       -- the register folder it was published in
+  -- (declaration_year is retrofitted below via ALTER for any DB that materialized
+  --  this table before the column existed; CREATE keeps it NOT NULL for fresh DBs.)
   filed_at         date,
   entry_number     text,
   control_hash     text,
@@ -78,6 +85,12 @@ CREATE TABLE IF NOT EXISTS declaration (
 CREATE INDEX IF NOT EXISTS idx_declaration_person ON declaration (person_id);
 CREATE INDEX IF NOT EXISTS idx_declaration_subject ON declaration (tier, subject_ref);
 CREATE INDEX IF NOT EXISTS idx_declaration_year ON declaration (register_year);
+
+-- Retrofit declaration_year onto a table created before the column existed (the
+-- CREATE above is a no-op then). Added nullable because ADD COLUMN NOT NULL fails
+-- against a table that still holds rows; the loader always fills it, so a fresh DB
+-- keeps the CREATE's NOT NULL and a retrofitted one is populated on the next load.
+ALTER TABLE declaration ADD COLUMN IF NOT EXISTS declaration_year int;
 
 -- ---------------------------------------------------------------------------
 -- Asset rows — real estate, vehicles, cash, bank, receivables, debts, investments,
@@ -95,7 +108,9 @@ CREATE TABLE IF NOT EXISTS declaration_asset (
   detail         text,
   location       text,
   municipality   text,
-  ekatte         text,                -- settlement code when the location resolves (else null)
+  ekatte         text,                -- RESERVED: settlement code for the T3.7 AVM join;
+                                      --   not populated yet (needs the settlement
+                                      --   resolver over location/municipality text)
   area_sqm       numeric,
   built_area_sqm numeric,
   acquired_year  int,
@@ -137,12 +152,16 @@ CREATE TABLE IF NOT EXISTS declaration_income (
 -- both). This is the row that makes "which officials own a stake in a company that
 -- won a contract" a single join.
 -- ---------------------------------------------------------------------------
+-- company_slug is the live company link today (the MP enrichment chain resolves it;
+-- officials/municipal stakes carry it once that chain is extended). uic is RESERVED
+-- for a later EIK resolution (name_fold match against tr_companies) — the
+-- stake↔contract join (T3.8) needs it, but the derived tree does not carry it yet.
 CREATE TABLE IF NOT EXISTS declaration_stake (
   declaration_id    bigint NOT NULL REFERENCES declaration (declaration_id) ON DELETE CASCADE,
   seq               int NOT NULL,
   table_num         text NOT NULL CHECK (table_num IN ('10', '11')),  -- held | transferred
   company_name      text,
-  uic               text,              -- EIK when resolved, for the company join
+  uic               text,              -- RESERVED: EIK, resolved in a later step
   holder_name       text,              -- who holds it (table 10)
   transferee_name   text,              -- who it was transferred TO (table 11) — the
                                        --   substance of a disposal row; feeds T3.4/T3.8
@@ -152,6 +171,7 @@ CREATE TABLE IF NOT EXISTS declaration_stake (
   company_slug      text,
   PRIMARY KEY (declaration_id, seq)
 );
+-- Forward declaration for the T3.8 company join — empty until uic is resolved.
 CREATE INDEX IF NOT EXISTS idx_declaration_stake_uic
   ON declaration_stake (uic) WHERE uic IS NOT NULL;
 
