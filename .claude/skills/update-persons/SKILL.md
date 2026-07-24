@@ -182,10 +182,30 @@ staging-swap isn't warranted, but don't run it during a traffic spike.
 
 ## After running
 
-Record the ingest marker for the orchestrator:
+`db:resolve:persons` stamps `state/ingest/update-persons.json` itself, with the person /
+role / alias counts and whether it hit local or cloud — there is no marker step to
+remember. (It used to be a hand-rolled `node -e` that wrote the marker under a shorter
+name; the orchestrator looks up `state/ingest/<skill>.json`, so that marker was never
+found and this skill was queued on every single run.)
+
+It also appends a `/data/updates` row — the person tables are Postgres-only and write
+nothing under `data/`, so the orchestrator's `git diff --stat data/` gate would otherwise
+never see this layer. Both are skipped when the derivation resolves zero persons (a fresh
+clone or a wrong `DATABASE_URL`): a marker claiming success there would make the
+orchestrator skip the layer silently. `db:resolve:persons:cloud` passes `--no-stamp` — the
+marker answers "when was the LOCAL layer last rebuilt", so a cloud-only publish must not
+advance it. Pass it yourself for a scratch run (`npm run db:resolve:persons -- --no-stamp`,
+note the `--`).
+
+Under `/process-watch-report` the orchestrator stamps the same file again in its step 5, so
+the committed summary there is the orchestrator's rather than this script's — same
+timestamp semantics either way.
+
+To re-stamp by hand — e.g. after a run that only did the person-elections load — use the
+shared CLI every other skill uses:
 
 ```bash
-node -e 'const fs=require("fs");fs.writeFileSync("state/ingest/persons.json",JSON.stringify({lastSuccessfulIngest:new Date().toISOString(),skill:"update-persons",summary:"<one line>"},null,2))'
+npx tsx scripts/stamp-ingest.ts update-persons --summary "<one line>"
 ```
 
 Then commit the changed curated register(s) — `data/person/sanctions.json` /

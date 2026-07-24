@@ -34,8 +34,13 @@ export interface IngestState {
   summary?: string;
 }
 
-export const readIngestState = (skill: string): IngestState | null => {
-  const file = path.join(INGEST_STATE_DIR, `${skill}.json`);
+// `dir` exists so tests can round-trip against a tmpdir instead of writing into
+// the real state/ingest/. Everything in production takes the default.
+export const readIngestState = (
+  skill: string,
+  dir: string = INGEST_STATE_DIR,
+): IngestState | null => {
+  const file = path.join(dir, `${skill}.json`);
   if (!fs.existsSync(file)) return null;
   try {
     return JSON.parse(fs.readFileSync(file, "utf8")) as IngestState;
@@ -55,27 +60,30 @@ const stableStringify = (obj: IngestState): string => {
 export const writeIngestState = (
   skill: string,
   patch: { summary?: string; at?: string },
+  dir: string = INGEST_STATE_DIR,
 ): IngestState => {
-  fs.mkdirSync(INGEST_STATE_DIR, { recursive: true });
+  fs.mkdirSync(dir, { recursive: true });
   const state: IngestState = {
     skill,
     lastSuccessfulIngest: patch.at ?? new Date().toISOString(),
   };
   if (patch.summary) state.summary = patch.summary;
-  const file = path.join(INGEST_STATE_DIR, `${skill}.json`);
+  const file = path.join(dir, `${skill}.json`);
   fs.writeFileSync(file, stableStringify(state));
   return state;
 };
 
 // Read all ingest markers as a map: skillName -> IngestState. Returns an
 // empty map if state/ingest/ doesn't exist.
-export const readAllIngestStates = (): Record<string, IngestState> => {
-  if (!fs.existsSync(INGEST_STATE_DIR)) return {};
+export const readAllIngestStates = (
+  dir: string = INGEST_STATE_DIR,
+): Record<string, IngestState> => {
+  if (!fs.existsSync(dir)) return {};
   const out: Record<string, IngestState> = {};
-  for (const f of fs.readdirSync(INGEST_STATE_DIR)) {
+  for (const f of fs.readdirSync(dir)) {
     const m = f.match(/^(.+)\.json$/);
     if (!m) continue;
-    const state = readIngestState(m[1]);
+    const state = readIngestState(m[1], dir);
     if (state) out[state.skill] = state;
   }
   return out;

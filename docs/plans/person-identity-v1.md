@@ -177,7 +177,7 @@ BG rows), flipping only on a BG designation change; (2) **skill** — `.claude/s
 pure idempotent re-derivation (`db:resolve:persons`) that documents the hand-curated sanctions register
 + its mpId-only defamation rule; (3) **orchestrator** — `process-watch-report` maps `ofac_sanctions →
 update-persons` and adds a person-layer re-derivation row so ANY upstream people-source change
-re-resolves the profiles (seeds `state/ingest/persons.json`); (4) **/data/sources** — the OFAC source
+re-resolves the profiles (seeds `state/ingest/update-persons.json`); (4) **/data/sources** — the OFAC source
 registered under Integrity (browser-verified); (5) **README** — a unified-person-profile feature bullet
 + a `data/person/` layout row; (6) **AI** — the `personProfile` router branch + retriever gained
 sanctions cues (санкц/sanction/magnitsky/ofac), no-hijack test extended. 62 person/ai tests green. The

@@ -53,6 +53,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Hermetic — no browser, emulator or database — so it runs before the
+      # expensive build and fails fast.
+      - name: Unit tests
+        run: npm run test:unit
+
       # The webServer config in playwright.config.ts boots `firebase
       # emulators:start --only hosting`, which serves dist/. So the dist
       # tree must exist before tests run.

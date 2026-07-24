@@ -23,6 +23,13 @@
 //
 //   npx tsx scripts/person/resolve_persons.ts
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/person/resolve_persons.ts
+//
+// A successful run stamps state/ingest/update-persons.json and appends a
+// data-changes row. `--no-stamp` suppresses both — the cloud publish passes it,
+// and a scratch run should too. Via npm it needs the `--` separator:
+//
+//   npx tsx scripts/person/resolve_persons.ts --no-stamp
+//   npm run db:resolve:persons -- --no-stamp
 
 import fs, { globSync } from "node:fs";
 import path from "node:path";
@@ -34,6 +41,8 @@ import {
 } from "../../src/lib/officialSources";
 import { copyRows } from "../db/lib/copy";
 import { parseName } from "./nameParts";
+import { writeIngestState } from "../lib/ingest-state";
+import { appendDataChange } from "../lib/data-changes";
 import { clusterBlock, type Mention } from "./cluster";
 
 const REPO_ROOT = path.resolve(
@@ -647,6 +656,18 @@ const SCHEMA_FILES = [
   "084_person_connections.sql",
 ];
 
+// The skill /process-watch-report queues for the person layer. The marker file
+// MUST be named for it — the orchestrator looks up state/ingest/<skill>.json,
+// so a marker filed under any other name is a marker it never finds.
+const INGEST_SKILL = "update-persons";
+
+// Skip the marker and the changelog row. `db:resolve:persons:cloud` passes it:
+// that run re-derives the layer on Cloud SQL, and the marker answers "when was
+// the LOCAL layer last rebuilt" — letting a cloud-only publish advance it would
+// make the orchestrator consider a stale local layer current. Also the escape
+// hatch for a scratch run.
+const skipStamp = process.argv.includes("--no-stamp");
+
 async function main(): Promise<void> {
   console.log(
     "resolving persons (magistrate + officials + MPs + candidates + donors + local + tr-bridge)…",
@@ -1014,11 +1035,47 @@ async function main(): Promise<void> {
     );
   });
 
-  console.log(
-    `  ${personRows.length} persons, ${roleRows.length} roles (+${bridgeBRoles} tr bridge-B), ` +
-      `${aliasesInserted} aliases (${aliasRows.length - aliasesInserted} dup folds collapsed); ` +
-      `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s)`,
-  );
+  const summary =
+    `${personRows.length} persons, ${roleRows.length} roles (+${bridgeBRoles} tr bridge-B), ` +
+    `${aliasesInserted} aliases (${aliasRows.length - aliasesInserted} dup folds collapsed); ` +
+    `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s)`;
+  console.log(`  ${summary}`);
+
+  // Stamp the marker /process-watch-report compares against, from the run
+  // itself rather than from a step an operator has to remember. The person
+  // layer is a pure re-derivation downstream of every people source, so
+  // whenever one of those changes the orchestrator queues `update-persons` —
+  // and with no marker under that name it queued it forever, on every run.
+  //
+  // Guarded on a non-empty result: the rebuild TRUNCATEs first, so a run
+  // against upstreams that were never loaded (fresh clone, wrong DATABASE_URL)
+  // resolves zero rows. Stamping that would tell the orchestrator the layer is
+  // current and make it skip the layer SILENTLY — the mirror of the bug this
+  // marker exists to fix, and the harder one to notice.
+  //
+  // The marker records THIS re-derivation. The skill also runs
+  // `db:load:person-elections:pg` afterwards; that loader is a separate step
+  // and the summary says so rather than implying it ran.
+  if (skipStamp) {
+    // nothing to record — cloud publish or scratch run
+  } else if (personRows.length === 0) {
+    console.warn(
+      "  0 persons resolved — marker NOT stamped; the upstream tables look empty",
+    );
+  } else {
+    writeIngestState(INGEST_SKILL, {
+      summary: `db:resolve:persons: ${summary}. person-elections load runs separately.`,
+    });
+    // The person_* tables are Postgres-only and write nothing under data/, so
+    // the orchestrator's `git diff --stat data/` gate never sees this layer.
+    // Self-report, the way every other PG-migrated dataset does.
+    appendDataChange({
+      skill: INGEST_SKILL,
+      summary: `Профилите на публичните лица преизчислени — ${personRows.length.toLocaleString("bg-BG")} лица, ${roleRows.length.toLocaleString("bg-BG")} длъжности`,
+      source: "Регистър на лицата (обединена самоличност)",
+      dedupeSameDay: true,
+    });
+  }
   await end();
 }
 
