@@ -272,6 +272,7 @@ with an FY2023 wealth block; `/officials/assets` has ≤50 (not 571) zero-net ro
 | 1.5 | Backfill executive years 2015–2021 that are cached but not fully merged; add a per-year coverage report. |
 | 1.6 | Parse tables 2, 3.5, 13, 14 into a new `events` array (excluded from totals, surfaced as a timeline). |
 | 1.7 | Stamp `state/ingest/update-persons.json`; add the person layer to the watcher→skill map check. |
+| 1.8 | Decide the `/person` prerender + sitemap policy (G6). **Decided — see G6: prerender + `<loc>` for persons above a content floor; the thin tail stays SPA/DB-only + `noindex`, no static file. Build in Tier 2, gated on a staging deploy at the new file count.** |
 
 ### Tier 2 — Declarations into Postgres (the consolidation you asked for)
 
@@ -454,11 +455,71 @@ page. Only 3 MPs today, but the D5 history rebuild will multiply multi-filing MP
 route with no static HTML and no `<loc>`. Per `feedback_static_seo`, ~49k profile pages are
 invisible to search — the single largest un-indexed surface on the site.
 
-This needs a **policy decision before Tier 2**, not after: 49k prerendered pages would blow
-the Firebase file ceiling (`project_firebase_deploy_ceiling`). Options: prerender only
-persons with ≥1 core public role (~11k), or serve SSR meta from the `db` Cloud Function that
-already backs the route. Also `project_sitemap_validity_audit` — every `<loc>` must resolve
-to a real `dist/<path>/index.html`.
+**DECIDED (2026-07-24): index every public person who clears a content floor; give the thin
+tail a working page but no static file. Build pending — this is the policy, executed in
+Tier 2 (the `/person` prerender + sitemap step), not code that ships in this commit.**
+
+Measured against the current tree rather than the 49k estimate this defect was written from:
+
+| | count |
+|---|---|
+| persons in the layer | 59,900 |
+| `is_public_figure` | 58,617 |
+| of those, holding an elected or appointed office | 33,772 |
+| of those, having filed a declaration | 23,898 |
+| of those, one role row and nothing else | 36,152 |
+| of those, a single candidacy and nothing else | 20,687 |
+| files in `dist/` today | 201,452 |
+
+**The file ceiling is a binding constraint, and this is where the "prerender all 58,617"
+answer breaks.** Two files per person (BG + EN) is ~117k new files, landing `dist/` at
+~318k. `project_firebase_deploy_ceiling` records that deploys **die at 320–340k uploaded
+files** — 453k was where it was first hit, not a safe bound; the known-good size is ~84k.
+So ~318k is not headroom, it is inside the failure band. Prerendering the whole public
+cohort as static files is not viable on the current deploy.
+
+**What is prerendered vs. what is only served.** Split the cohort by a **content floor**,
+not by a job-title cohort:
+
+- **Above the floor** — has a declaration, an elected/appointed office, a company role, or
+  an election *result* (not merely a candidacy). ~24k–34k persons depending on where the
+  office line falls. These get a prerendered BG+EN static file **and** a sitemap `<loc>`.
+  That adds ~48k–68k files → `dist/` ~250k–270k: still inside the warned band, so shipping
+  it is **gated on a trial/staging deploy at the new file count** before it goes to prod —
+  not asserted safe here.
+- **Below the floor** — a page whose whole body is "stood for election in 2021." Thin
+  content, and shipping 20k of them invites Google to discount the whole directory. These
+  stay **SPA-only, DB-served** (the `db` Cloud Function via `person_by_slug` already renders
+  the route at runtime — `082_person_api.sql`, `src/routes.tsx`). The SPA sets
+  `<meta name="robots" content="noindex,follow">` from its own runtime head for these, so
+  they are reachable and crawlable for their links but do not ask to be indexed. **No static
+  file, no `<loc>`.** The moment a source gives such a person a second fact they clear the
+  floor and the next build promotes them to a prerendered, indexed page on its own.
+
+This still gives **every public person a working page** — the intent behind "all public
+persons" — while spending file budget only on the pages worth indexing. It also sidesteps a
+capability the prerender pipeline does not have: because the noindexed tail is never
+prerendered, `renderSeoBlock` never needs to emit a per-page `robots` meta (it does not
+today, and `index.html` hardcodes `index, follow` outside the replaceable SEO block — a
+collision to avoid, not to build into).
+
+**The manifest the two builders share.** The `is_public_figure` flag and the floor predicate
+live only in Postgres, and neither the sitemap nor the prerender builder reads PG (both read
+JSON off disk). So the person ingest emits one enumeration manifest —
+`data/person/prerender_slugs.json`, `{slug, indexable}` per person — exactly as the
+PG-backed products enumerator already does via `data/prices/product_slugs.json`. A build-time
+manifest is the accepted shape for PG→prerender (`feedback_no_json_from_pg` forbids *serving*
+JSON generated from PG, not an enumeration list). `enumerateProducts`-style sitemap code and
+a new `buildPersonRoutes` both read it, so the prerendered set, the `<loc>` set and the
+`indexable` flag are computed once and cannot drift. A `<loc>` with no
+`dist/<path>/index.html` is a soft-404 (`project_sitemap_validity_audit`) and a `<loc>`
+carrying `noindex` is a contradiction crawlers punish — the manifest's single `indexable`
+boolean is what keeps all three aligned.
+
+G7 (municipal officials missing from the sitemap entirely) is absorbed by this: the person
+layer covers all 6,235 distinct municipal persons (6,278 declaration filings; 43 slugs
+dedupe on merge), and every one that clears the floor — which a filed declaration does by
+itself — gets a `<loc>`.
 
 ### G7 — Municipal officials have no profile pages in the sitemap
 

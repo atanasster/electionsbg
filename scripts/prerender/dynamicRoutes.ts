@@ -3160,7 +3160,14 @@ export const buildOfficialRoutes = (projectRoot: string): PrerenderRoute[] => {
   // static files against a deploy that has already hit Firebase's file ceiling
   // once. Public-office tiers first, then by declared wealth within tier (see
   // officialsForStaticPages); the operational bulk stays SPA-rendered and
-  // DB-served. The full per-person SEO strategy is T1.8 in the audit plan.
+  // DB-served.
+  //
+  // This cap is about /officials/:id specifically. The per-person surface is
+  // settled separately (G6 in docs/plans/persons-declarations-audit-v1.md):
+  // every public person gets a working /person/:slug page, and the ones that
+  // clear a content floor — anyone with a filed declaration does — get a
+  // prerendered, indexed page there. So an official capped out here is still
+  // reachable as an indexable page under /person rather than /officials.
   const out: PrerenderRoute[] = [];
   for (const o of officialsForStaticPages(
     rankings.topOfficials,
