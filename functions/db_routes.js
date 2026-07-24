@@ -2202,6 +2202,16 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
   },
+  // OUR coverage of the register (audit T3.5): how much of what list.xml publishes we
+  // actually hold, per year. A gap is our ingest's problem, never a statement about a
+  // declarant — the register's `Sent` flag turned out NOT to mean filed/not-filed (a
+  // Sent=False row fetches a complete declaration), so no compliance metric is served.
+  "register-coverage": async (dbRows) => {
+    const rows = await dbRows("SELECT register_coverage_by_year() AS r", []).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? [] };
+  },
   // The person's public-contract take bucketed by cabinet tenure (the "money vs power"
   // timeline) → lazily loaded by the money section, kept off person_by_slug's hot path
   // (person-candidate-merge-v1). EIK-exact.

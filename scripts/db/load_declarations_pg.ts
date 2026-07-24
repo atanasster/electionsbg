@@ -36,7 +36,10 @@ import { fileURLToPath } from "node:url";
 import { exec, allRows, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
-import { registerFolderYear } from "../lib/cacbg_register";
+import {
+  registerFolderYear,
+  REGISTER_BASE as REGISTER_BASE_URL,
+} from "../lib/cacbg_register";
 import type { MpDeclaration } from "../../src/data/dataTypes";
 
 const ROOT = path.resolve(
@@ -68,6 +71,13 @@ const EVENTS_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/093_declaration_events.sql",
 );
+// Filed-vs-required (T3.5) — the obligation roster, independent of person resolution, so
+// it loads in phase 1 alongside the filings.
+const OBLIGATIONS_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/094_declaration_obligations.sql",
+);
+const OBLIGATIONS_FILE = path.join(ROOT, "data/officials/obligations.json");
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -249,6 +259,62 @@ const EVENT_COLS = [
   "legal_basis",
 ];
 
+const OBLIGATION_COLS = [
+  "folder",
+  "register_year",
+  "declarant_name",
+  "institution",
+  "position_title",
+  "category_raw",
+  "sent_flag",
+  "xml_file",
+];
+
+/** The obligation roster (T3.5) — who OWED a declaration, filed or not. Written by
+ *  scripts/officials/obligations.ts from the register's list.xml; absent on a checkout
+ *  that has not run it, in which case the table is simply left empty. */
+const loadObligations = async (): Promise<number> => {
+  await exec(fs.readFileSync(OBLIGATIONS_SCHEMA, "utf-8"));
+  if (!fs.existsSync(OBLIGATIONS_FILE)) {
+    console.warn(
+      "[declarations] no data/officials/obligations.json — filed-vs-required is empty; run scripts/officials/obligations.ts",
+    );
+    return 0;
+  }
+  const rows = JSON.parse(fs.readFileSync(OBLIGATIONS_FILE, "utf-8")) as {
+    folder: string;
+    declarantName: string;
+    institution: string | null;
+    positionTitle: string | null;
+    categoryRaw: string | null;
+    sentFlag: boolean;
+    xmlFile: string | null;
+  }[];
+  await withTx(async (c) => {
+    await c.query("TRUNCATE declaration_obligation RESTART IDENTITY");
+    await copyRows(
+      c,
+      "declaration_obligation",
+      OBLIGATION_COLS,
+      rows.map((r) => [
+        r.folder,
+        // "2021_nc" → 2021, via the shared guarded parser rather than a bare regex whose
+        // miss would silently bucket a whole folder under year 0.
+        registerFolderYear(`${REGISTER_BASE_URL}/${r.folder}/x.xml`, {
+          allowSuffixed: true,
+        }),
+        r.declarantName,
+        r.institution,
+        r.positionTitle,
+        r.categoryRaw,
+        r.sentFlag,
+        r.xmlFile,
+      ]),
+    );
+  });
+  return rows.length;
+};
+
 const load = async () => {
   await exec(fs.readFileSync(SCHEMA, "utf-8"));
   await exec(fs.readFileSync(INGEST_TRACKING, "utf-8"));
@@ -410,11 +476,14 @@ const load = async () => {
     });
   });
 
+  const obligations = await loadObligations();
+
   console.log(
     `declarations: ${declRows.length} filings ` +
       `(${dupUrls} duplicate URLs skipped), ${assetRows.length} assets, ` +
       `${incomeRows.length} income, ${stakeRows.length} stakes, ` +
-      `${eventRows.length} events — person_id NULL, run --resolve after db:resolve:persons`,
+      `${eventRows.length} events, ${obligations} register listings — person_id NULL, ` +
+      `run --resolve after db:resolve:persons`,
   );
 };
 
