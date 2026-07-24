@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-23T06:42:22.338Z",
-  "total": 48,
+  "generatedAt": "2026-07-24T12:57:27.234Z",
+  "total": 57,
   "entries": [
     {
       "mpId": 3271,
@@ -743,6 +743,80 @@
       "relations": [
         {
           "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 26976756.13,
+      "totalOther": {},
+      "contractCount": 18,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 13,
+          "totalEur": 19217694.08,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 4,
+          "totalEur": 7759062.05,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 0,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "815123415",
+          "name": "Водоснабдяване и канализация - Видин ЕООД",
+          "contractCount": 6,
+          "totalEur": 16885884.77,
+          "totalOther": {}
+        },
+        {
+          "eik": "204219357",
+          "name": "Водоснабдяване и канализация добрич АД",
+          "contractCount": 4,
+          "totalEur": 7759062.05,
+          "totalOther": {}
+        },
+        {
+          "eik": "110549443",
+          "name": "в и К АД",
+          "contractCount": 2,
+          "totalEur": 1229352.15,
+          "totalOther": {}
+        },
+        {
+          "eik": "115010670",
+          "name": "Водоснабдяване и канализация ЕООД",
+          "contractCount": 5,
+          "totalEur": 595127.79,
+          "totalOther": {}
+        },
+        {
+          "eik": "830166530",
+          "name": "Водоснабдяване и канализация ЕООД",
+          "contractCount": 1,
+          "totalEur": 507329.37,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 4809,
+      "mpName": "Манол Трифонов Генов",
+      "contractorEik": "206086428",
+      "contractorName": "Български ВиК холдинг ЕАД",
+      "relations": [
+        {
+          "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
         }
@@ -1783,7 +1857,7 @@
           "kind": "stake",
           "shareSize": "1",
           "valueEur": 25.56,
-          "fiscalYear": 2020,
+          "fiscalYear": 2021,
           "declarationYear": 2021
         }
       ],
@@ -2102,6 +2176,54 @@
       ]
     },
     {
+      "mpId": 4807,
+      "mpName": "Младен Николов Шишков",
+      "contractorEik": "825283119",
+      "contractorName": "МАСИВ - 4 ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "1/2",
+          "valueEur": 1278.23,
+          "fiscalYear": 2023,
+          "declarationYear": 2023
+        }
+      ],
+      "totalEur": 734087.32,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 132935.89,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 187644.12,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 413507.31,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000471543",
+          "name": "ОБЩИНА РАКОВСКИ",
+          "contractCount": 3,
+          "totalEur": 734087.32,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 1488,
       "mpName": "Хасан Илияз Хаджихасан",
       "contractorEik": "207351676",
@@ -2189,6 +2311,61 @@
           "name": "Министерство на образованието и науката",
           "contractCount": 2,
           "totalEur": 427373.54,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 2977,
+      "mpName": "Елена Владимирова Ангелинина",
+      "contractorEik": "101681232",
+      "contractorName": "Етем инвест ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "25",
+          "valueEur": 1278.23,
+          "fiscalYear": 2021,
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 337724.62,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2015",
+          "contractCount": 3,
+          "totalEur": 104308.09,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 134375.18,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 99041.35,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000670627",
+          "name": "Национална спортна академия \"Васил Левски\"",
+          "contractCount": 2,
+          "totalEur": 233416.53,
+          "totalOther": {}
+        },
+        {
+          "eik": "101549540",
+          "name": "Дирекция \"Национален парк Пирин\" - Банско",
+          "contractCount": 3,
+          "totalEur": 104308.09,
           "totalOther": {}
         }
       ]
@@ -2372,6 +2549,78 @@
       ]
     },
     {
+      "mpId": 5092,
+      "mpName": "БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "contractorEik": "817045463",
+      "contractorName": "Мазалат ЕООД - Севлиево",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "100%",
+          "valueEur": 385237.98,
+          "fiscalYear": 2023,
+          "declarationYear": 2023
+        }
+      ],
+      "totalEur": 262037.09,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2013",
+          "contractCount": 3,
+          "totalEur": 262037.09,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000215889",
+          "name": "Община Севлиево",
+          "contractCount": 3,
+          "totalEur": 262037.09,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 5125,
+      "mpName": "Младен Найденов Маринов",
+      "contractorEik": "202957624",
+      "contractorName": "Биоминерал ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "33%",
+          "valueEur": 1712.83,
+          "fiscalYear": 2023,
+          "declarationYear": 2023
+        }
+      ],
+      "totalEur": 229811.9,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 229811.9,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "110549443",
+          "name": "в и К АД",
+          "contractCount": 1,
+          "totalEur": 229811.9,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 3185,
       "mpName": "ГРИГОР АНГЕЛОВ ГОРЧЕВ",
       "contractorEik": "205555253",
@@ -2408,6 +2657,74 @@
       ]
     },
     {
+      "mpId": 2956,
+      "mpName": "МИТКО КОСТАДИНОВ ПОЛИХРОНОВ",
+      "contractorEik": "204770025",
+      "contractorName": "Полихронов мотърс ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "5",
+          "valueEur": 2556.46,
+          "fiscalYear": 2020,
+          "declarationYear": 2020
+        }
+      ],
+      "totalEur": 184226.38,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 20153.42,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 34081.69,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 39152.18,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 90839.09,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000903825",
+          "name": "Община Свиленград",
+          "contractCount": 3,
+          "totalEur": 129991.27,
+          "totalOther": {}
+        },
+        {
+          "eik": "000903946",
+          "name": "Община Хасково",
+          "contractCount": 1,
+          "totalEur": 34081.69,
+          "totalOther": {}
+        },
+        {
+          "eik": "000852633",
+          "name": "ОБЩИНА ГЕНЕРАЛ ТОШЕВО",
+          "contractCount": 1,
+          "totalEur": 20153.42,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 2946,
       "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
       "contractorEik": "040454345",
@@ -2439,6 +2756,72 @@
           "name": "Регионален Археологически музей - пловдив",
           "contractCount": 1,
           "totalEur": 129827.23,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 3162,
+      "mpName": "Иван Николов Миховски",
+      "contractorEik": "110544745",
+      "contractorName": "Миховски авто ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "50%",
+          "valueEur": 1278.23,
+          "fiscalYear": 2021,
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 107862.66,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 2,
+          "totalEur": 21985.55,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 13958.27,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 9983.49,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 21474.26,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 31444.45,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 2,
+          "totalEur": 9016.64,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "201617476",
+          "name": "Териториално поделение държавно горско стопанство борима",
+          "contractCount": 10,
+          "totalEur": 107862.66,
           "totalOther": {}
         }
       ]
@@ -2515,7 +2898,7 @@
           "kind": "stake",
           "shareSize": "1/1",
           "valueEur": 2556.46,
-          "fiscalYear": 2020,
+          "fiscalYear": 2021,
           "declarationYear": 2021
         }
       ],
@@ -2837,6 +3220,42 @@
       ]
     },
     {
+      "mpId": 5244,
+      "mpName": "ИВАЙЛО НИКОЛАЕВ МИРЧЕВ",
+      "contractorEik": "203010795",
+      "contractorName": "Ди Ес Ай ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "16.66%",
+          "valueEur": 25564.59,
+          "fiscalYear": 2021,
+          "declarationYear": 2022
+        }
+      ],
+      "totalEur": 46578.69,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 46578.69,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000649348",
+          "name": "Национална Електрическа компания ЕАД",
+          "contractCount": 1,
+          "totalEur": 46578.69,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 1622,
       "mpName": "Милка Дончева Христова",
       "contractorEik": "104688050",
@@ -3054,6 +3473,42 @@
       ]
     },
     {
+      "mpId": 2956,
+      "mpName": "МИТКО КОСТАДИНОВ ПОЛИХРОНОВ",
+      "contractorEik": "126657303",
+      "contractorName": "Поли М  ООД - гр. Хасково",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "25",
+          "valueEur": 1278.23,
+          "fiscalYear": 2020,
+          "declarationYear": 2020
+        }
+      ],
+      "totalEur": 5378.79,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 5378.79,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "130339616",
+          "name": "Национална служба за съвети в земеделието /НССЗ/",
+          "contractCount": 1,
+          "totalEur": 5378.79,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 4171,
       "mpName": "Константин Живков Бачийски",
       "contractorEik": "102683542",
@@ -3061,10 +3516,10 @@
       "relations": [
         {
           "kind": "stake",
-          "shareSize": "100",
+          "shareSize": "100%",
           "valueEur": 2556.46,
           "fiscalYear": 2023,
-          "declarationYear": 2023
+          "declarationYear": 2024
         }
       ],
       "totalEur": 4683.43,
@@ -3177,7 +3632,7 @@
           "kind": "stake",
           "shareSize": "25%",
           "valueEur": 639.11,
-          "fiscalYear": 2023,
+          "fiscalYear": 2024,
           "declarationYear": 2024
         }
       ],

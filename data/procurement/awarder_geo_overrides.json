@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-07-23T06:40:10.046Z",
+  "generatedAt": "2026-07-24T12:54:17.093Z",
   "count": 2144,
   "sources": {
     "ri": 1286,
     "tr": 107,
     "school": 0,
-    "ocds": 299,
+    "ocds": 300,
     "mon": 42,
     "monOblast": 62,
     "name": 272,
-    "nameOblast": 76,
+    "nameOblast": 75,
     "unresolved": 610
   },
   "awarders": {
@@ -6570,7 +6570,7 @@
     },
     "000451341": {
       "ekatte": "56784",
-      "source": "name+oblast",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "000451416": {
