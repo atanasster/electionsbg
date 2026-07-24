@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-17T13:37:14.313Z",
+  "lastSuccessfulIngest": "2026-07-24T13:24:11.735Z",
   "skill": "update-budget",
-  "summary": "capital_programs: vidin-only flip = vidin.bg homepage-fingerprint churn (21-byte drift + err flapping), nothing ingestable — 2024 absent upstream, 2025 deliberately excluded (subsidy-only PLAN), 2022/2023 already on disk; no re-ingest"
+  "summary": "capital_programs: vidin 2022/2023/2025 flip is chrome on the shared vidin.bg landing page (all 3 years fingerprint the same homepage URL; RAR links are session-bound). Existing vidin 2022+2023 intact (176 projects 2023); 2025 intentionally not emitted. No ingestable change"
 }

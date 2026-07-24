@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-24T02:06:33.432Z",
+  "generatedAt": "2026-07-24T13:29:40.016Z",
   "nodes": [
     {
       "id": "src:water",
@@ -106,7 +106,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-21T06:08:54.268Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -117,7 +117,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-07-21T06:08:54.268Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "parliament_mps",
@@ -201,7 +201,7 @@
       "url": "https://register.cacbg.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-18T06:08:52.941Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-connections",
         "update-officials",
@@ -213,7 +213,7 @@
           "label": "Сметна палата party financing",
           "url": "https://www.bulnao.government.bg/bg/kontrol-partii/",
           "cadence": "weekly",
-          "freshness": "2026-07-18T06:08:52.941Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "financing_reports",
@@ -234,21 +234,21 @@
           "label": "Сметна палата declarations — MPs",
           "url": "https://register.cacbg.bg/",
           "cadence": "weekly",
-          "freshness": "2026-05-11T01:54:54.905Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "cacbg_officials",
           "label": "Сметна палата declarations — executive (officials)",
           "url": "https://register.cacbg.bg/",
           "cadence": "weekly",
-          "freshness": "2026-05-15T16:39:00.124Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "cacbg_local",
           "label": "Сметна палата declarations — municipal (mayors & councillors)",
           "url": "https://register.cacbg.bg/",
           "cadence": "weekly",
-          "freshness": "2026-05-22T06:25:14.640Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         }
       ],
       "x": 28,
@@ -403,7 +403,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-23T06:08:55.136Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -425,7 +425,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-07-23T06:08:55.136Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "egov_budget_execution",
@@ -503,7 +503,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-23T06:08:55.136Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-procurement"
       ],
@@ -513,7 +513,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-23T06:08:55.136Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         }
       ],
       "x": 28,
@@ -581,7 +581,7 @@
       "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-18T06:08:52.941Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [],
       "sources": [
         {
@@ -589,7 +589,7 @@
           "label": "КЗК procurement-appeals register (жалби по ЗОП)",
           "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
           "cadence": "weekly",
-          "freshness": "2026-07-18T06:08:52.941Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         }
       ],
       "x": 28,
@@ -619,7 +619,7 @@
       "url": "https://2020.eufunds.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-20T06:08:49.083Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-funds"
       ],
@@ -629,7 +629,7 @@
           "label": "ИСУН EU funds (beneficiaries)",
           "url": "https://2020.eufunds.bg/bg/0/0/Beneficiary/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-07-18T06:08:52.941Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "isun_eu_funds_projects",
@@ -741,7 +741,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-20T19:41:56.646Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -818,7 +818,7 @@
           "label": "НОИ — статистически годишник „Пенсии“ (ZIP)",
           "url": "https://nssi.bg/publikacii/statistika/pensii-statistika/",
           "cadence": "weekly",
-          "freshness": "2026-07-11T06:08:58.769Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "kfn_pensions",
@@ -930,7 +930,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-21T06:08:54.268Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -942,14 +942,14 @@
           "label": "Общински капиталови програми (per-municipality capital lists)",
           "url": "https://www.sofia.bg/",
           "cadence": "weekly",
-          "freshness": "2026-07-17T08:32:28.215Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "council_minutes",
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-07-21T06:08:54.268Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "municipal_naredba",
@@ -1420,7 +1420,7 @@
       "url": "https://www.bnb.bg/Statistics/StExternalSector/index.htm",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-06-23T07:40:11.378Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-macro"
       ],
@@ -1437,7 +1437,7 @@
           "label": "BNB monthly FDI flows",
           "url": "https://www.bnb.bg/Statistics/StExternalSector/StDirectInvestments/StDIBulgaria/index.htm",
           "cadence": "monthly",
-          "freshness": "2026-06-23T07:40:11.378Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         }
       ],
       "x": 28,
@@ -1466,7 +1466,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-23T06:08:55.136Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-prices"
       ],
@@ -1476,7 +1476,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-23T06:08:55.136Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         }
       ],
       "x": 28,
@@ -1902,7 +1902,7 @@
       "url": "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-18T06:08:52.941Z",
+      "freshness": "2026-07-24T12:01:33.160Z",
       "skills": [
         "update-culture"
       ],
@@ -1919,7 +1919,7 @@
           "label": "НФК news feed (grant results, ncf.bg)",
           "url": "https://ncf.bg/bg/novini",
           "cadence": "weekly",
-          "freshness": "2026-07-18T06:08:52.941Z"
+          "freshness": "2026-07-24T12:01:33.160Z"
         },
         {
           "id": "nfc_commissions",

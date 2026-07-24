@@ -1,12 +1,60 @@
 {
-  "updatedAt": "2026-07-24T04:31:13.003Z",
+  "updatedAt": "2026-07-24T13:28:36.642Z",
   "entries": [
     {
-      "timestamp": "2026-07-24T04:31:13.003Z",
+      "timestamp": "2026-07-24T13:28:36.642Z",
       "date": "2026-07-24",
       "skill": "update-persons",
-      "summary": "Профилите на публичните лица преизчислени — 59 900 лица, 115 893 длъжности",
+      "summary": "Профилите на публичните лица преизчислени — 59 901 лица, 115 893 длъжности",
       "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-07-24T13:28:02.635Z",
+      "date": "2026-07-24",
+      "skill": "update-council-minutes",
+      "summary": "76 нови общински решения: Русе 62, Пловдив 14",
+      "source": "Общински съвети — протоколи и решения"
+    },
+    {
+      "timestamp": "2026-07-24T13:21:02.607Z",
+      "date": "2026-07-24",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-23 (+1 daily archive; 1,403,424 store rows, 240 settlements, 208 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-24T13:14:17.750Z",
+      "date": "2026-07-24",
+      "skill": "update-funds",
+      "summary": "ИСУН: 53,096 beneficiaries (+317), 81,908 contracts, €44.02bn contracted / €17.55bn paid",
+      "source": "ИСУН 2020 EU funds (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-07-24T13:10:04.586Z",
+      "date": "2026-07-24",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП day 2026-07-23 ingested; +2 НКЖИ consortium contracts (€603,874); 232,260 tender procedures refreshed",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-07-24T12:53:00.086Z",
+      "date": "2026-07-24",
+      "skill": "tr-daily-refresh",
+      "summary": "1,019,272 companies (273 new) + 751,328 officers refreshed from the Commerce Registry",
+      "source": "data.egov.bg Търговски регистър (ТРРЮЛНЦ)"
+    },
+    {
+      "timestamp": "2026-07-24T12:38:37.692Z",
+      "date": "2026-07-24",
+      "skill": "update-rollcall",
+      "summary": "2 new sessions: 2026-07-22 (91 items, 21840 rows) + 2026-07-23 (6 items, 1440 rows)",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
     },
     {
       "timestamp": "2026-07-23T10:18:58.398Z",
