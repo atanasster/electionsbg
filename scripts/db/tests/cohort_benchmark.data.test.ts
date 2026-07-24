@@ -73,21 +73,65 @@ test.skipIf(skip)(
     `);
     assert.ok(served.length > 0, "nothing served — fixture is empty");
 
-    // The raw distribution, unaggregated.
+    // The distribution rebuilt from SOURCE tables — person_wealth_year + person_role — not
+    // from person_cohort_wealth, which is the artifact under test. Reading the matview here
+    // would leave its rounding, its assets>0 rule, its tier gate and its cohort assignment
+    // completely unchecked, which is the trap the two preceding steps fell into.
+    //
+    // ONE query returning every field: correlating two result sets by array index assumes an
+    // ordering neither query promises, which silently mismatched rows on the first attempt.
     const all = await allRows<{
-      cohort: string;
+      person_id: string;
+      cohort: string | null;
       period_year: number;
+      tier: string;
       net_eur: string;
-    }>("SELECT cohort, period_year, net_eur FROM person_cohort_wealth");
-    const bucket = new Map<string, number[]>();
+    }>(`
+      SELECT w.person_id::text,
+             w.period_year,
+             w.tier,
+             round(w.net_eur)::text AS net_eur,
+             (SELECT CASE
+                WHEN bool_or(r.source='official_exec' AND r.role='cabinet') THEN 'cabinet'
+                WHEN bool_or(r.source='official_exec' AND r.role='deputy_minister') THEN 'deputy_minister'
+                WHEN bool_or(r.source='mp') THEN 'mp'
+                WHEN bool_or(r.source='official_exec' AND r.role='regional_governor') THEN 'regional_governor'
+                WHEN bool_or(r.source='official_exec' AND r.role='agency_head') THEN 'agency_head'
+                WHEN bool_or(r.source='official_muni' AND r.role='mayor') THEN 'mayor'
+                WHEN bool_or(r.source='official_muni' AND r.role='councillor') THEN 'councillor'
+              END FROM person_role r WHERE r.person_id = w.person_id) AS cohort
+        FROM person_wealth_year w
+       WHERE w.assets_eur > 0
+    `);
+
+    // Apply the tier gate independently (rule 0b): a filing counts toward a cohort only when
+    // its own tier matches that cohort's office class.
+    const TIER: Record<string, string> = {
+      mp: "mp",
+      mayor: "muni",
+      councillor: "muni",
+    };
+    const bucket = new Map<string, { id: string; net: number }[]>();
     for (const r of all) {
+      if (!r.cohort) continue;
+      if (r.tier !== (TIER[r.cohort] ?? "exec")) continue;
       const k = `${r.cohort}\t${r.period_year}`;
       if (!bucket.has(k)) bucket.set(k, []);
-      bucket.get(k)!.push(Number(r.net_eur));
+      bucket.get(k)!.push({ id: r.person_id, net: Number(r.net_eur) });
     }
 
+    // slug -> person_id, so self can be excluded by IDENTITY rather than by value.
+    const ids = await allRows<{ slug: string; person_id: string }>(
+      "SELECT slug, person_id::text FROM person WHERE slug = ANY($1)",
+      [served.map((x) => x.slug)],
+    );
+    const idOf = new Map(ids.map((i) => [i.slug, i.person_id]));
+
     for (const s of served) {
-      const peers = bucket.get(`${s.cohort}\t${s.year}`) ?? [];
+      const slice = bucket.get(`${s.cohort}\t${s.year}`) ?? [];
+      const me = idOf.get(s.slug);
+      const peers = slice.filter((p) => p.id !== me).map((p) => p.net);
+      const net = Number(s.net);
       const where = `${s.slug} (${s.cohort} ${s.year})`;
       assert.equal(
         Number(s.peers),
@@ -95,17 +139,27 @@ test.skipIf(skip)(
         `peer count wrong for ${where}`,
       );
 
-      // Percentile: share of peers strictly below, over peers-minus-self.
-      const net = Number(s.net);
       if (peers.length >= 20) {
         const below = peers.filter((v) => v < net).length;
-        const expected = Math.round((100 * below) / (peers.length - 1));
-        assert.equal(Number(s.pct), expected, `percentile wrong for ${where}`);
+        const expected = Math.round((100 * below) / peers.length);
+        // Compare as STRINGS: Number(null) is 0, so a withheld percentile would silently
+        // satisfy an expected 0 and let a broken floor through.
+        assert.equal(s.pct, String(expected), `percentile wrong for ${where}`);
+        assert.notEqual(
+          s.median,
+          null,
+          `median withheld above the floor for ${where}`,
+        );
       } else {
         assert.equal(
           s.pct,
           null,
           `percentile published below the floor for ${where}`,
+        );
+        assert.equal(
+          s.median,
+          null,
+          `median published below the floor for ${where} — one peer's exact figure`,
         );
       }
     }
@@ -164,8 +218,6 @@ test.skipIf(skip)(
     ];
     const wrong = rows.filter((r) => {
       const roles = new Set(r.roles ?? []);
-      // magistrate uses a source-only rule, so skip rows whose winner would be it.
-      if ([...roles].some((x) => x.startsWith("magistrate:"))) return false;
       const expected = PREC.find(([k]) => roles.has(k))?.[1];
       return expected != null && expected !== r.assigned;
     });
@@ -197,7 +249,8 @@ test.skipIf(skip)(
        WHERE b IS NOT NULL AND b <> 'null'::jsonb
     )
     SELECT count(*)::text AS bad FROM served s
-     WHERE s.peers <> (SELECT count(*) FROM person_cohort_wealth cw
+     -- minus one: the person themselves is not their own peer.
+     WHERE s.peers <> (SELECT count(*) - 1 FROM person_cohort_wealth cw
                         WHERE cw.cohort = s.cohort AND cw.period_year = s.yr)
   `);
     assert.equal(

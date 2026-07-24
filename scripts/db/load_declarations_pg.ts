@@ -553,8 +553,16 @@ const resolve = async () => {
   await exec(fs.readFileSync(STAKE_PROC_SCHEMA, "utf-8"));
   await exec("REFRESH MATERIALIZED VIEW person_wealth_year");
   // 097 reads person_wealth_year, so it is built from the REFRESHED matview, not the stale
-  // pre-reload one — apply it after the refresh above, never before.
+  // pre-reload one — apply it after the refresh above, never before. Its CREATE ... AS
+  // populates person_cohort_wealth, so no separate REFRESH is needed on THIS path; a run
+  // that rebuilds person_role without reloading declarations does need one (see 097).
   await exec(fs.readFileSync(COHORT_SCHEMA, "utf-8"));
+  const [{ n: cohortRows }] = await allRows<{ n: string }>(
+    "SELECT count(*) n FROM person_cohort_wealth",
+  );
+  console.log(
+    `declarations --resolve: person_cohort_wealth built to ${cohortRows} cohort person-year rows`,
+  );
   const [{ n: wealthRows }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM person_wealth_year",
   );

@@ -18,6 +18,21 @@
 --   2. A MINIMUM COHORT. Below 20 peers with wealth data in that year the percentile is
 --      returned as NULL — with 6 peers, "83rd percentile" is one person, and the number
 --      would be published against a name.
+--   0. THE ANCHOR YEAR MUST BE A REAL FILING YEAR. The person's latest year is taken only
+--      from years with DECLARED ASSETS. Without that rule the anchor lands on whatever the
+--      register most recently emitted, which mid-ingest is a thin slice of Entry/Vacate
+--      filings carrying no asset tables: 2025 holds 1,310 person-years against 2024's
+--      12,688, and 141 people were being served netEur 0 — one councillor rendered as
+--      "€0, more than 17% of councillors" while his 2024 annual declared €3,017,688 (100th
+--      of 3,567). A €0-asset filing is not a wealth observation and must not anchor a rank.
+--
+--   0b. THE COHORT MUST MATCH THE FILING. person_role carries no dates (all 130,341 rows
+--      have NULL start/end), so a person's cohort is career-wide while the filing is not —
+--      315 people were ranked against MPs on a declaration filed at a school, an embassy or
+--      a municipal council. The tier of the filing itself is the one per-year office signal
+--      we do hold, so each cohort is confined to the tier it belongs to. It does not
+--      recover the exact office, but it stops a municipal filing being ranked among MPs.
+--
 --   3. ONE COHORT PER PERSON, by explicit precedence. Someone who was both a minister and a
 --      councillor is benchmarked against ministers; a person compared against whichever of
 --      their offices flatters them is not being measured, and picking arbitrarily (a bare
@@ -42,6 +57,10 @@ DROP MATERIALIZED VIEW IF EXISTS person_cohort_wealth CASCADE;
 
 -- The cohort a person is benchmarked in, by explicit precedence (lowest number wins).
 -- Anything not listed has no cohort and gets no percentile.
+--
+-- Magistrates are deliberately absent: they file under tier 'exec' with no distinct tier of
+-- their own, so they cannot be confined per rule 0b, and at 71 person-years corpus-wide they
+-- would never clear the 20-peer floor anyway.
 DROP FUNCTION IF EXISTS person_cohort_key(bigint);
 CREATE OR REPLACE FUNCTION person_cohort_key(p_person_id bigint)
 RETURNS text LANGUAGE sql STABLE AS $$
@@ -52,7 +71,6 @@ RETURNS text LANGUAGE sql STABLE AS $$
              WHEN r.source = 'mp' THEN 'mp'
              WHEN r.source = 'official_exec' AND r.role = 'regional_governor' THEN 'regional_governor'
              WHEN r.source = 'official_exec' AND r.role = 'agency_head' THEN 'agency_head'
-             WHEN r.source = 'magistrate' THEN 'magistrate'
              WHEN r.source = 'official_muni' AND r.role = 'mayor' THEN 'mayor'
              WHEN r.source = 'official_muni' AND r.role = 'councillor' THEN 'councillor'
            END AS k,
@@ -62,9 +80,8 @@ RETURNS text LANGUAGE sql STABLE AS $$
              WHEN r.source = 'mp' THEN 3
              WHEN r.source = 'official_exec' AND r.role = 'regional_governor' THEN 4
              WHEN r.source = 'official_exec' AND r.role = 'agency_head' THEN 5
-             WHEN r.source = 'magistrate' THEN 6
-             WHEN r.source = 'official_muni' AND r.role = 'mayor' THEN 7
-             WHEN r.source = 'official_muni' AND r.role = 'councillor' THEN 8
+             WHEN r.source = 'official_muni' AND r.role = 'mayor' THEN 6
+             WHEN r.source = 'official_muni' AND r.role = 'councillor' THEN 7
            END AS prec
       FROM person_role r
      WHERE r.person_id = p_person_id
@@ -74,6 +91,13 @@ RETURNS text LANGUAGE sql STABLE AS $$
    LIMIT 1;
 $$;
 
+-- LIFECYCLE. This matview reads person_wealth_year AND person_role, so it is stale after
+-- either is rebuilt. It is CREATEd (and therefore populated) by the declarations loader
+-- immediately after `REFRESH MATERIALIZED VIEW person_wealth_year`, which covers the
+-- declarations path. A person-resolution run that rewrites person_role without touching
+-- declarations must REFRESH it — the unique index on (person_id, period_year) makes
+-- CONCURRENTLY legal, so /person pages stay served during the rebuild.
+--
 -- Every person-year that has BOTH a cohort and declared wealth. Materialised because the
 -- percentile needs the whole distribution, and recomputing person_cohort_key per peer per
 -- request would re-scan person_role for the entire cohort on every profile view.
@@ -89,7 +113,16 @@ SELECT w.person_id,
        -- the sub-euro tail is exactly where an off-by-one rank comes from.
        round(w.net_eur) AS net_eur
   FROM person_wealth_year w
- WHERE person_cohort_key(w.person_id) IS NOT NULL;
+ WHERE person_cohort_key(w.person_id) IS NOT NULL
+   -- Rule 0: only years with declared assets are wealth observations.
+   AND w.assets_eur > 0
+   -- Rule 0b: the filing's tier must match the cohort's office class.
+   AND w.tier = CASE person_cohort_key(w.person_id)
+                  WHEN 'mp' THEN 'mp'
+                  WHEN 'mayor' THEN 'muni'
+                  WHEN 'councillor' THEN 'muni'
+                  ELSE 'exec'
+                END;
 
 CREATE UNIQUE INDEX person_cohort_wealth_pkey
   ON person_cohort_wealth (person_id, period_year);
@@ -104,6 +137,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
      WHERE slug = p_slug AND status = 'active' AND is_public_figure
      LIMIT 1
   ),
+  -- The latest year the person has an asset-bearing filing in their cohort's tier. The
+  -- matview already enforces both, so DESC here cannot land on an artefact year.
   mine AS (
     SELECT cw.person_id, cw.cohort, cw.period_year, cw.net_eur
       FROM person_cohort_wealth cw
@@ -111,10 +146,14 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
      ORDER BY cw.period_year DESC
      LIMIT 1
   ),
+  -- Peers EXCLUDE the person themselves. Leaving self in the numerator's population while
+  -- subtracting one from the denominator is what published "declared more than 100%" on 44
+  -- profiles; with self out of the set, 100% means exactly "more than every peer".
   peers AS (
     SELECT p.net_eur
       FROM person_cohort_wealth p
       JOIN mine ON mine.cohort = p.cohort AND mine.period_year = p.period_year
+     WHERE p.person_id <> mine.person_id
   )
   SELECT COALESCE((
     SELECT jsonb_build_object(
@@ -122,13 +161,16 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'year', m.period_year,
       'netEur', round(m.net_eur),
       'peers', (SELECT count(*) FROM peers),
-      'medianEur', (SELECT round(percentile_cont(0.5) WITHIN GROUP (ORDER BY net_eur))
-                      FROM peers),
+      -- The floor guards the MEDIAN too, not just the percentile: at two peers the median
+      -- is one peer's exact declared figure, recoverable against a named person.
+      'medianEur', CASE WHEN (SELECT count(*) FROM peers) >= 20 THEN
+        (SELECT round(percentile_cont(0.5) WITHIN GROUP (ORDER BY net_eur)) FROM peers)
+      END,
       -- Share of peers declaring strictly LESS. NULL below 20 peers: on a handful of people
       -- a percentile is one person's filing, published against a name.
       'percentile', CASE WHEN (SELECT count(*) FROM peers) >= 20 THEN
         round(100.0 * (SELECT count(*) FROM peers WHERE net_eur < m.net_eur)
-                    / NULLIF((SELECT count(*) FROM peers) - 1, 0))
+                    / (SELECT count(*) FROM peers))
       END
     )
     FROM mine m
