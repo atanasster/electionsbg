@@ -43,6 +43,9 @@
 //     last-modified.
 //   - burgas.bg redirects http→https / non-www→www; `redirect: "follow"`
 //     handles this transparently.
+//   - vidin.bg is NOT watched: its capital list lives in a session-bound
+//     RAR, so the catalogue can only point at the home page, which moves on
+//     every news post. See UNWATCHABLE below — Vidin is a manual re-check.
 
 import { createHash } from "crypto";
 import type { WatchSource, Fingerprint, WatchState } from "../types";
@@ -319,6 +322,30 @@ export const CAPITAL_PROGRAM_URLS: Record<
   },
 };
 
+// (year, município) entries whose catalogued URL is a bare landing page
+// rather than the capital-programme artifact itself, so HEADing it says
+// nothing about the programme.
+//
+// Vidin is the only case today: its capital list ships as a .doc inside a
+// year-end RAR whose URL is session-bound, so the catalogue points at
+// https://vidin.bg/ — the municipality HOME PAGE. Its content-length moves
+// on every news post, and because all three Vidin years share that one URL,
+// a single unrelated edit flipped 2022 + 2023 + 2025 together and reported
+// "3 capital programme(s) re-uploaded" (observed 2026-07-24, a false
+// positive: the 2022/2023 data was intact and 2025 is intentionally not
+// emitted). A signal that fires on unrelated activity carries no
+// information, so these keys are excluded from the fingerprint entirely.
+//
+// The URLs stay in CAPITAL_PROGRAM_URLS above: they document the operator's
+// entry point and keep parity with the parsers' SOURCE_URLS. Vidin is
+// therefore MANUAL — re-check it when a fiscal year's programme is due
+// (March-May) rather than on a watcher flip.
+const UNWATCHABLE: ReadonlySet<string> = new Set([
+  "2022/vidin",
+  "2023/vidin",
+  "2025/vidin",
+]);
+
 const probe = async (url: string): Promise<string> => {
   try {
     const res = await fetch(url, {
@@ -350,12 +377,19 @@ export const capitalPrograms: WatchSource = {
       .map((y) => parseInt(y, 10))
       .sort((a, b) => a - b);
     const signatures: Record<string, string> = {};
+    const skipped: string[] = [];
     for (const year of years) {
       const byMuni = CAPITAL_PROGRAM_URLS[year];
       for (const m of Object.keys(byMuni) as Municipality[]) {
         const url = byMuni[m];
         if (!url) continue;
-        signatures[key(year, m)] = await probe(url);
+        const k = key(year, m);
+        // Landing-page entries carry no programme signal — see UNWATCHABLE.
+        if (UNWATCHABLE.has(k)) {
+          skipped.push(k);
+          continue;
+        }
+        signatures[k] = await probe(url);
       }
     }
     const sortedKeys = Object.keys(signatures).sort();
@@ -365,10 +399,14 @@ export const capitalPrograms: WatchSource = {
       .slice(0, 16);
     const latest = years[years.length - 1];
     const muniCount = Object.keys(CAPITAL_PROGRAM_URLS[latest] ?? {}).length;
+    const skippedNote =
+      skipped.length > 0
+        ? ` · ${skipped.length} manual (${skipped.sort().join(", ")})`
+        : "";
     return {
       value,
-      detail: `${sortedKeys.length} programme(s) tracked across ${years.length} year(s) · latest ${latest} (${muniCount} муни) · hash ${value}`,
-      meta: { signatures, latestYear: latest },
+      detail: `${sortedKeys.length} programme(s) tracked across ${years.length} year(s) · latest ${latest} (${muniCount} муни)${skippedNote} · hash ${value}`,
+      meta: { signatures, latestYear: latest, skipped: skipped.sort() },
     };
   },
 
@@ -377,7 +415,11 @@ export const capitalPrograms: WatchSource = {
     const prevSigs = (prev.meta?.signatures as Record<string, string>) ?? {};
     const currSigs = (curr.meta?.signatures as Record<string, string>) ?? {};
     const added = Object.keys(currSigs).filter((k) => !(k in prevSigs));
-    const removed = Object.keys(prevSigs).filter((k) => !(k in currSigs));
+    // A key that moved into UNWATCHABLE is still catalogued — it just
+    // stopped being probed. Don't report that as a catalogue removal.
+    const removed = Object.keys(prevSigs).filter(
+      (k) => !(k in currSigs) && !UNWATCHABLE.has(k),
+    );
     const changed: string[] = [];
     for (const [k, sig] of Object.entries(currSigs)) {
       if (prevSigs[k] != null && prevSigs[k] !== sig) changed.push(k);
