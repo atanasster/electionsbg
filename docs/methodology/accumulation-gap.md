@@ -15,9 +15,12 @@ gate — the feature must not ship in a form that contradicts it.
 Only a defined **senior accountability cohort**, decided by the site's editor
 (2026-07-24):
 
-- Members of Parliament;
+- Members of Parliament — **sitting and former**;
 - Ministers and deputy ministers (including the Prime Minister and caretaker cabinets);
-- Municipal **mayors** — not deputy mayors, not councillors, not chief architects;
+- Municipal **mayors**, including **кметове на кметства** (village mayors) where the
+  register carries them — they are directly elected and control real local budgets, so the
+  public-interest case holds. Deputy mayors, councillors and chief architects are **not**
+  in scope;
 - Magistrates.
 
 Everyone else — the ~4,700 municipal councillors and the long tail of lower officials — is
@@ -28,9 +31,24 @@ person outside the cohort. The cohort is enforced in code by
 single source of truth, not a per-feature judgement.
 
 The reason for the cut is proportionality: publishing a declared-vs-audited discrepancy is
-defensible for the holders of the highest public office, where the public-interest weight
-is greatest and the person has the platform to answer; it is not defensible to attach an
-"unexplained enrichment" number to a first-term local councillor.
+defensible for the holders of directly-elected or senior appointed office, where the
+public-interest weight is greatest and the person has the platform to answer; it is not
+defensible to attach an "unexplained enrichment" number to a first-term local councillor
+or an appointed administrator.
+
+Two boundary calls, decided explicitly rather than left to the code:
+
+- **Former MPs are in scope.** A person who has sat in any National Assembly stays in the
+  cohort; the metric is about the office they held when the wealth was declared, not about
+  whether they hold it today. (In the current corpus the `mp` role already spans every
+  parliament, so this is belt-and-braces rather than a widening — but the predicate now
+  says so explicitly instead of depending on that.)
+- **Кметове на кметства are in scope** — a village mayor is an elected executive with a
+  budget, not a member of a deliberative body, so the councillor exclusion does not reach
+  them. This is a forward-looking rule today: the Court-of-Audit register's only mayor
+  category covers общини and райони, so no кметство mayor currently appears in the cohort.
+  Кметски наместници are **appointed**, not elected, and are therefore **out** of scope —
+  the same reasoning that excludes appointed administrators above.
 
 ## How it is computed
 

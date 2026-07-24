@@ -46,6 +46,7 @@ test.skipIf(skip)("municipal councillors are excluded", async () => {
         AND NOT EXISTS (SELECT 1 FROM person_role r
                          WHERE r.person_id = p.person_id
                            AND (r.source = 'mp'
+                             OR (r.source = 'candidate' AND r.ref LIKE '%:mp-%')
                              OR (r.source = 'official_exec' AND r.role IN ('cabinet','deputy_minister'))
                              OR (r.source = 'official_muni' AND r.role = 'mayor')
                              OR r.source = 'magistrate'))
@@ -58,25 +59,41 @@ test.skipIf(skip)("municipal councillors are excluded", async () => {
   );
 });
 
-// A deputy mayor / chief architect is NOT a mayor — only the mayor role qualifies under
-// official_muni.
-test.skipIf(skip)("only mayors qualify under the municipal tier", async () => {
-  const bad = await allRows<{ slug: string }>(
-    `SELECT p.slug FROM person p
+// Nobody is in the cohort without a qualifying role. The predicate is inlined here
+// deliberately — it must list EVERY rung the gate has, so adding a rung to the SQL and
+// not to this list fails loudly rather than letting an unreviewed cohort widening ship.
+// (An earlier version omitted the former-MP rung and so asserted that rung admits nobody,
+// which would have gone red the moment it did its job.)
+test.skipIf(skip)(
+  "nobody is in the cohort without a qualifying role",
+  async () => {
+    const bad = await allRows<{ slug: string }>(
+      `SELECT p.slug FROM person p
       WHERE person_is_accountability_senior(p.person_id)
         AND NOT EXISTS (SELECT 1 FROM person_role r
                          WHERE r.person_id = p.person_id
                            AND (r.source = 'mp'
+                             OR (r.source = 'candidate' AND r.ref LIKE '%:mp-%')
                              OR (r.source = 'official_exec' AND r.role IN ('cabinet','deputy_minister'))
                              OR (r.source = 'official_muni' AND r.role = 'mayor')
                              OR r.source = 'magistrate'))
       LIMIT 5`,
+    );
+    assert.equal(
+      bad.length,
+      0,
+      `non-qualifying person in cohort: ${JSON.stringify(bad)}`,
+    );
+  },
+);
+
+// A CASE with no ELSE returns NULL. Anyone admitted solely by the former-MP rung would
+// land in the cohort with a NULL caption if that branch were ever dropped again.
+test.skipIf(skip)("every cohort member has a caption", async () => {
+  const [{ n }] = await allRows<{ n: string }>(
+    "SELECT count(*) n FROM accountability_senior WHERE qualifying_office IS NULL",
   );
-  assert.equal(
-    bad.length,
-    0,
-    `non-qualifying person in cohort: ${JSON.stringify(bad)}`,
-  );
+  assert.equal(Number(n), 0, "a cohort member has a NULL qualifying_office");
 });
 
 // The cohort must actually contain the senior offices — a gate that excludes everyone is
