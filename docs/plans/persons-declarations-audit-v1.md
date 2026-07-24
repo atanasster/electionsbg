@@ -319,6 +319,10 @@ and `EXPLAIN ANALYZE` the series query on the worst-case person (a 20-year counc
 
 ### Tier 3 — Features
 
+**3.0 Editorial + family-data gate — DONE (T3.0).** Accumulation gap = senior cohort only
+(`091_accountability_gate.sql`); family data = full parity; methodology published
+(`docs/methodology/accumulation-gap.md`). Blocks 3.2 and 3.7.
+
 **3.1 Wealth trajectory chart** (your request). Assets / liabilities / net by fiscal year
 from `person_wealth_series`, with mandate and cabinet bands behind it, and a marker on every
 `Entry` / `Vacate` filing so "what he was worth entering vs leaving office" reads off the
@@ -546,7 +550,20 @@ only through `/settlement/:obshtina` shards.
 53 categories. Needs a verbatim→stable-key mapping table with a passthrough fallback
 (the pattern `magistrateRoleKey` already uses), not 50 hand-written keys per locale.
 
-### G9 — Tier 3.2 needs the same editorial gate as sanctions/ДС ★
+### G9 — Tier 3.2 needs the same editorial gate as sanctions/ДС ★  — RESOLVED (T3.0)
+
+**DECIDED (2026-07-24): build the accumulation gap, senior cohort only, full safeguards.**
+Computed ONLY for members of parliament, ministers + deputy ministers (incl. PM /
+caretaker), municipal MAYORS (not deputy mayors / councillors / architects), and
+magistrates — 5,809 people; the ~4,700 councillors and the lower-official tail are
+excluded. Enforced in code by `person_is_accountability_senior()` / the
+`accountability_senior` view (`scripts/db/schema/pg/091_accountability_gate.sql`, wired
+into the declarations load), so the cohort is one source of truth. Full methodology,
+caveats (declared-not-audited; the unvalued-real-estate denominator; legitimate untracked
+sources), descriptive-not-accusatory language and a right-of-reply path:
+`docs/methodology/accumulation-gap.md`. 3.2 and 3.7 must honour this gate.
+
+Original defect:
 
 `update-persons` carries a non-negotiable defamation rule for the sanctions and ДС facets.
 An **accumulation-gap / unexplained-enrichment** metric on named individuals is the same
@@ -557,7 +574,15 @@ language, and a correction/right-of-reply path. Note also that unvalued real est
 common in the corpus (`realEstateUnvalued` is already tracked) — a gap computed over
 partly-unvalued assets is not defensible without stating the denominator.
 
-### G10 — Family data policy
+### G10 — Family data policy — RESOLVED (T3.0)
+
+**DECIDED (2026-07-24): full parity with the declarant.** Declared spouse/family data is
+queryable and searchable like the declarant's own, because it is part of the same public
+register filing — always attributed (whose asset it is, via `is_spouse` / holder name),
+never presented as the declarant's personal holding. No separate gating beyond the
+existing public-figure surface. Documented in `docs/methodology/accumulation-gap.md`.
+
+Original note:
 
 Declarations carry spouse names (`holderName: "Галин и Антония Цокови"`, `isSpouse: true`)
 and minor children. We already render a spouse income column. Consolidating into a queryable

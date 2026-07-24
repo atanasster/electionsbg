@@ -51,6 +51,12 @@ const WEALTH_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/090_person_wealth.sql",
 );
+// The accountability gate (T3.0) — the senior cohort the accumulation-gap metric
+// may be computed for. A person_role join, so it also belongs after the resolve.
+const GATE_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/091_accountability_gate.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -442,6 +448,7 @@ const resolve = async () => {
   // be created and refreshed. Applying 090 here (not in phase 1) keeps the CREATE
   // after the data it aggregates, and REFRESH populates it from the resolved rows.
   await exec(fs.readFileSync(WEALTH_SCHEMA, "utf-8"));
+  await exec(fs.readFileSync(GATE_SCHEMA, "utf-8"));
   await exec("REFRESH MATERIALIZED VIEW person_wealth_year");
   const [{ n: wealthRows }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM person_wealth_year",
