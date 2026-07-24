@@ -44,6 +44,12 @@ const ROOT = path.resolve(
   "..",
 );
 const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/089_declarations.sql");
+// The wealth matview + serving fns (T2.3). Applied in phase 2 so its CREATE runs
+// after person_id is filled, then REFRESHed — G13 step 4.
+const WEALTH_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/090_person_wealth.sql",
+);
 
 type Tier = "mp" | "exec" | "muni" | "magistrate";
 
@@ -408,9 +414,20 @@ const resolve = async () => {
   const [{ n: unresolved }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM declaration WHERE person_id IS NULL",
   );
+
+  // G13 step 4: person_id is now filled, so the wealth matview + serving fns can
+  // be created and refreshed. Applying 090 here (not in phase 1) keeps the CREATE
+  // after the data it aggregates, and REFRESH populates it from the resolved rows.
+  await exec(fs.readFileSync(WEALTH_SCHEMA, "utf-8"));
+  await exec("REFRESH MATERIALIZED VIEW person_wealth_year");
+  const [{ n: wealthRows }] = await allRows<{ n: string }>(
+    "SELECT count(*) n FROM person_wealth_year",
+  );
+
   console.log(
     `declarations --resolve: filled ${filled} person_id(s); ` +
-      `${unresolved}/${total} still NULL (subjects the resolver did not place)`,
+      `${unresolved}/${total} still NULL (subjects the resolver did not place); ` +
+      `person_wealth_year refreshed to ${wealthRows} person-year rows`,
   );
 };
 

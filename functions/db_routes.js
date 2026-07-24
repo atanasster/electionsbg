@@ -2129,6 +2129,43 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
   },
+  // Declared-wealth trajectory: one point per year (assets/debts/net/income +
+  // category breakdown) plus entry/vacate markers → the wealth chart (audit T3.1).
+  // Off person_by_slug's hot path, lazily loaded. Public-safe (person_wealth_series
+  // enforces the §6 gate); empty for an unknown / private slug.
+  "person-wealth": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: null };
+    const rows = await dbRows("SELECT person_wealth_series($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    // missingMigrationEmpty degrades to `[{ r: [] }]`; this payload is an object,
+    // so an array means "no migration" → null, not a shape the client can read.
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
+  // Every declaration this person filed, newest first, with per-filing totals →
+  // the unified declaration block (audit T3.3). One payload replaces the three
+  // divergent per-tier JSON trees.
+  "person-declarations": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: [] };
+    const rows = await dbRows("SELECT person_declarations($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
+  // One filing in full (every asset/income/stake/event row) → the declaration
+  // drill-down. Reachable only via the slug-gated lists above, so the opaque id
+  // needs no separate gate.
+  "declaration-detail": async (dbRows, q) => {
+    const id = clampInt(q.id, null, 1, Number.MAX_SAFE_INTEGER);
+    if (id == null) return { body: null };
+    const rows = await dbRows("SELECT declaration_detail($1) AS r", [id]).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   // The person's public-contract take bucketed by cabinet tenure (the "money vs power"
   // timeline) → lazily loaded by the money section, kept off person_by_slug's hot path
   // (person-candidate-merge-v1). EIK-exact.
