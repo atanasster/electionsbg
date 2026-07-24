@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "ventsislav-kuzdov-raikov-e33dad",
+    "declarantName": "Венцислав Куздов Райков",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-04",
+    "entryNumber": "Г1493",
+    "controlHash": "62BB03B2",
+    "sourceUrl": "https://register.cacbg.bg/2025/61304999-AB8A-4927-97C8-5825AD83A345203975.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23906.985780972784,
+        "amountEurSpouse": 30663.196699099615
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "ventsislav-kuzdov-raikov-e33dad",
+    "declarantName": "Венцислав Куздов Райков",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-22",
+    "entryNumber": "Г2631",
+    "controlHash": "BDC5719C",
+    "sourceUrl": "https://register.cacbg.bg/2024/61304999-AB8A-4927-97C8-5825AD83A345183692.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21481.417096577923,
+        "amountEurSpouse": 28174.73911331762
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент и мазе",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "acquiredYear": 2023,
+        "share": "3/8",
+        "currency": "BGN",
+        "amount": 215143,
+        "valueEur": 110000.86919619804,
+        "holderName": "Венцислав Куздов Райков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент и мазе",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "acquiredYear": 2023,
+        "share": "3/8",
+        "currency": "BGN",
+        "amount": 215143,
+        "valueEur": 110000.86919619804,
+        "holderName": "Румяна Цветкова Райкова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит - 1.7%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12777,
+        "valueEur": 6532.776366044083,
+        "holderName": "Румяна Цветкова Райкова",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит - 0.69%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 102517,
+        "valueEur": 52416.10978459273,
+        "holderName": "Румяна Цветкова Райкова",
+        "isSpouse": true,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

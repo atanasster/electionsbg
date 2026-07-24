@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "plamen-dimitrov-stoyanov-16dc34",
+    "declarantName": "Пламен Димитров Стоянов",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г11834",
+    "controlHash": "6DCFD6C4",
+    "sourceUrl": "https://register.cacbg.bg/2024/96F056E1-E3DF-43A3-B51B-46CDDB4BD526193620.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15483.452038265084,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12329.803715046808,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6134.991282473426,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Пирдоп",
+        "municipality": "Пирдоп",
+        "areaSqm": 78,
+        "builtAreaSqm": 78,
+        "acquiredYear": 2017,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Пламен Димитров Стоянов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "acquiredYear": 2015,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Светла Василава Стоянова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Пламен Димитров Стоянов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

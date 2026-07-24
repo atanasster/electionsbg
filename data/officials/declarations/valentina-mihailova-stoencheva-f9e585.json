@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "valentina-mihailova-stoencheva-f9e585",
+    "declarantName": "Валентина Михайлова Стоенчева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-22",
+    "entryNumber": "Г9166",
+    "controlHash": "92B4CB0F",
+    "sourceUrl": "https://register.cacbg.bg/2024/B9B973AF-4F30-40DF-9F39-1AB60381EABB190817.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35674.87971858495,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1045.591897046267,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "acquiredYear": 2019,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 58000,
+        "valueEur": 29654.92910938067,
+        "holderName": "Валентина Михайлова Стоенчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр. Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 23,
+        "builtAreaSqm": 23,
+        "acquiredYear": 2021,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 23470,
+        "valueEur": 12000.020451675247,
+        "holderName": "Валентина Михайлова Стоенчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Toyota CH-R",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64000,
+        "valueEur": 32722.680396557982,
+        "holderName": "Валентина Михайлова Стоенчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32000,
+        "valueEur": 16361.340198278991,
+        "holderName": "Валентина Михайлова Стоенчева",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Договор за лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44000,
+        "valueEur": 22496.842772633612,
+        "holderName": "Валентина Михайлова Стоенчева",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

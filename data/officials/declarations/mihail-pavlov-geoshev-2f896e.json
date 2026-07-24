@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "mihail-pavlov-geoshev-2f896e",
+    "declarantName": "Михаил Павлов Геошев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-23",
+    "entryNumber": "Г2960",
+    "controlHash": "4FAD70D3",
+    "sourceUrl": "https://register.cacbg.bg/2025/21A6FA1B-85BA-4AE2-8ADC-05D534A74AFF205674.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21167.483881523447,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7526.727783089533
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес GLC220D",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 115500,
+        "valueEur": 59054.212278163235,
+        "holderName": "Михаил Павлов Геошев",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Михаил Павлов Геошев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 115500,
+        "valueEur": 59054.212278163235,
+        "holderName": "Михаил Павлов Геошев",
+        "isSpouse": false,
+        "legalBasis": "договор с 4,40 лих. %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

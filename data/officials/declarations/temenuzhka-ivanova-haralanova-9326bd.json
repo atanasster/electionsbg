@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "temenuzhka-ivanova-haralanova-9326bd",
+    "declarantName": "ТЕМЕНУЖКА ИВАНОВА ХАРАЛАНОВА",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2024-01-13",
+    "entryNumber": "Г202",
+    "controlHash": "597AABD5",
+    "sourceUrl": "https://register.cacbg.bg/2025/2E3BF1D6-CBFC-43B0-AEA0-57642C65FF9B201939.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21604.127148065018,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 990.3723738770752,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Русе",
+        "municipality": "Русе",
+        "areaSqm": 46,
+        "builtAreaSqm": 53,
+        "acquiredYear": 1996,
+        "share": "3",
+        "currency": "BGN",
+        "amount": 268087,
+        "valueEur": 137070.70655425062,
+        "holderName": "Теменужка Иванова Хараланова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Теменужка Иванова Хараланова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Теменужка Иванова Хараланова",
+        "isSpouse": false,
+        "legalBasis": "Битов",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "galin-penchev-parashkevov-cc9d17",
+    "declarantName": "Галин Пенчев Парашкевов",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-13",
+    "entryNumber": "Г396",
+    "controlHash": "99DA7EEA",
+    "sourceUrl": "https://register.cacbg.bg/2024/C31FA741-4E4B-4135-B1AC-56F4BAAB67E1181194.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23307.751696210817,
+        "amountEurSpouse": 14710.378713896402
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "село Гецово",
+        "municipality": "Разград",
+        "areaSqm": 855,
+        "builtAreaSqm": 160,
+        "acquiredYear": 1992,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4910,
+        "valueEur": 2510.443136673433,
+        "holderName": "Галин Пенчев Парашкевов",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Приус Плюс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Галин Пенчев Парашкевов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28891,
+        "valueEur": 14771.733739639949,
+        "holderName": "Галин Пенчев Парашкевов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10500,
+        "valueEur": 5368.564752560294,
+        "holderName": "Галин Пенчев Парашкевов",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

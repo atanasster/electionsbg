@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "evgeni-konstantinov-dzhurov-4d021f",
+    "declarantName": "Евгени Константинов Джуров",
+    "institution": "Държавна агенция \"Национална сигурност\"",
+    "positionTitle": "Директор на дирекция",
+    "category": "security_service",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г4942",
+    "controlHash": "49E9E524",
+    "sourceUrl": "https://register.cacbg.bg/2025/FD699185-25F7-4F93-A004-03462CB0392A207822.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37840.20083545093,
+        "amountEurSpouse": 974.0110336787963
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1687.263207947521,
+        "amountEurSpouse": 1687.263207947521
+      },
+      {
+        "parent": null,
+        "category": "Годишен необлагаем доход",
+        "amountEurDeclarant": 3977.85083570658,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение от НОИ за отглеждане на дете",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4025.9122725390243
+      },
+      {
+        "parent": null,
+        "category": "Дарение от родители",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2556.4594059810925
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 44,
+        "builtAreaSqm": 44,
+        "acquiredYear": 2024,
+        "share": "1/2 СИО",
+        "currency": "BGN",
+        "amount": 181892,
+        "valueEur": 92999.90285454257,
+        "holderName": "Евгени Константинов Джуров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заем и заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 44,
+        "builtAreaSqm": 44,
+        "acquiredYear": 2024,
+        "share": "1/2 СИО",
+        "currency": "BGN",
+        "amount": 181892,
+        "valueEur": 92999.90285454257,
+        "holderName": "Величка Йосифова Тасева - Джурова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит - 2,5%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 135000,
+        "valueEur": 69024.4039614895,
+        "holderName": "Евгени Константинов Джуров",
+        "isSpouse": false,
+        "legalBasis": "договор - 2,5 %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

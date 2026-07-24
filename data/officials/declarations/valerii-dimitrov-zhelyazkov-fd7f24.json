@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "valerii-dimitrov-zhelyazkov-fd7f24",
+    "declarantName": "Валерий Димитров Желязков",
+    "institution": "МБАЛ - Червен бряг",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-29",
+    "entryNumber": "Г12287",
+    "controlHash": "046F7E01",
+    "sourceUrl": "https://register.cacbg.bg/2024/7BEB3265-63F1-4DF4-9D14-C71E8F86D5F0194104.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 44073.36015911403,
+        "amountEurSpouse": 15338.756435886555
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": 11248.421386316806,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
+        "holderName": "Валерий Димитров Желязков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Таня Евтимова Трайчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг за автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Валерий Димитров Желязков",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7800,
+        "valueEur": 3988.076673330504,
+        "holderName": "Таня Евтимова Трайчева",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

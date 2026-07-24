@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "kamen-vasilev-pchelarov-f0f5bf",
+    "declarantName": "КАМЕН ВАСИЛЕВ ПЧЕЛАРОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-26",
+    "entryNumber": "Г1699",
+    "controlHash": "4C750A3B",
+    "sourceUrl": "https://register.cacbg.bg/2025/0FA1BAB3-7F31-47DD-B7C3-9F461EFD7746204225.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове в ЕООД",
+        "shareSize": "100%",
+        "companyName": "\"ИНТЕРФИН\" ЕООД",
+        "registeredOffice": "гр. София",
+        "valueEur": 51.12918811962185,
+        "holderName": "КАМЕН ВАСИЛЕВ ПЧЕЛАРОВ",
+        "legalBasis": "УЧРЕДЯВАНЕ",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8180.6700991394955,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДОХОДИ ОТ ПЕНСИЯ",
+        "amountEurDeclarant": 2556.4594059810925,
+        "amountEurSpouse": 4345.980990167857
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14329,
+        "valueEur": 7326.3013656606145,
+        "holderName": "АННА ГЕОРГИЕВА ПЧЕЛАРОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15544,
+        "valueEur": 7947.52100131402,
+        "holderName": "АННА ГЕОРГИЕВА ПЧЕЛАРОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "по кредитна карта",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7929,
+        "valueEur": 7928.6032017097605,
+        "holderName": "АННА ГЕОРГИЕВА ПЧЕЛАРОВА",
+        "isSpouse": true,
+        "legalBasis": "17,9",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

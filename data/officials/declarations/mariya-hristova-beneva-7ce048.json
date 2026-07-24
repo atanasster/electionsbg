@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "mariya-hristova-beneva-7ce048",
+    "declarantName": "0",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7479",
+    "controlHash": "76D60D27",
+    "sourceUrl": "https://register.cacbg.bg/2025/3E8B6CEE-867D-4155-BA82-64DD1CC29110210474.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит за текущо потребление",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27331.91,
+        "valueEur": 13974.583680585736,
+        "holderName": "Мария Христова Бенева",
+        "isSpouse": true,
+        "legalBasis": "за текущо потребление",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "mariya-hristova-beneva-7ce048",
+    "declarantName": "Мария Христова Бенева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г10627",
+    "controlHash": "01C69205",
+    "sourceUrl": "https://register.cacbg.bg/2024/3E8B6CEE-867D-4155-BA82-64DD1CC29110192330.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9178.200559353318,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит за текущо потребление",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30233.51,
+        "valueEur": 15458.148203064682,
+        "holderName": "Мария Христова Бенева",
+        "isSpouse": false,
+        "legalBasis": "договор с ДСК",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "lyudmil-stoyanov-spasov-57e1e7",
+    "declarantName": "ЛЮДМИЛ СТОЯНОВ СПАСОВ",
+    "institution": "МБАЛ - Д-р Никола Василиев\" АД, гр.Кюстендил",
+    "positionTitle": "Представител на Държавата",
+    "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2025,
+    "declarationType": "Vacate",
+    "filedAt": "2025-07-09",
+    "entryNumber": "Ф612",
+    "controlHash": "9B6FF3DE",
+    "sourceUrl": "https://register.cacbg.bg/2025/B7D1BD13-4EF4-4701-BB81-617C0EE6B204219366.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "ML 320",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Людмил Стоянов Спасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "lyudmil-stoyanov-spasov-57e1e7",
+    "declarantName": "ЛЮДМИЛ СТОЯНОВ СПАСОВ",
+    "institution": "МБАЛ - Д-р Никола Василиев\" АД, гр.Кюстендил",
+    "positionTitle": "Представител на Държавата",
+    "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11423",
+    "controlHash": "25FBA7A7",
+    "sourceUrl": "https://register.cacbg.bg/2025/B7D1BD13-4EF4-4701-BB81-617C0EE6B204214560.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38775.353686158815,
+        "amountEurSpouse": 30338.015062658822
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 28430.896345796926,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "ML 320",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Людмил Стоянов Спасов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

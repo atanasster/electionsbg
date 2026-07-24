@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "desislava-ivanova-gaidarova-124ce9",
+    "declarantName": "Десислава Иванова Гайдарова",
+    "institution": "Министерство на правосъдието",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-16",
+    "entryNumber": "Г3219",
+    "controlHash": "E7C46F1A",
+    "sourceUrl": "https://register.cacbg.bg/2022/28006685-25B8-4676-BE16-A685814C3F28135377.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27732.982927964087,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3944.1055715476296,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "МПС",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2002,
+        "share": null,
+        "currency": "BGN",
+        "amount": 800,
+        "valueEur": 409.0335049569748,
+        "holderName": "Десислава Иванова Гайдарова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Заем към банка ДСК",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30034,
+        "valueEur": 15356.140359847226,
+        "holderName": "Десислава Иванова Гайдарова",
+        "isSpouse": false,
+        "legalBasis": "Договор за заем",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

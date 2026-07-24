@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "yanita-koleva-andreeva-09f354",
+    "declarantName": "ЯНИТА КОЛЕВА АНДРЕЕВА",
+    "institution": "МБАЛ - Дулово ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-11",
+    "entryNumber": "Г3555",
+    "controlHash": "AD1BB666",
+    "sourceUrl": "https://register.cacbg.bg/2023/AAC4E9ED-4D01-4332-99A1-2065029AC1E4149868.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35515.35665165173,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 11940.710593456486
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1292.034583782844,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ПЕРНИК",
+        "municipality": "Перник",
+        "areaSqm": 85,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64887,
+        "valueEur": 33176.19629517903,
+        "holderName": "ЯНИТА КОЛЕВА АНДРЕЕВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "магазин",
+        "detail": null,
+        "location": "ДУЛОВО",
+        "municipality": "Дулово",
+        "areaSqm": 80,
+        "builtAreaSqm": null,
+        "acquiredYear": 2009,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7283,
+        "valueEur": 3723.7387707520593,
+        "holderName": "ЯНИТА КОЛЕВА АНДРЕЕВА",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ХОНДА ДЖАЗ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "ЯНИТА КОЛЕВА АНДРЕЕВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 95000,
+        "valueEur": 48572.728713640754,
+        "holderName": "ЯНИТА КОЛЕВА АНДРЕЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75000,
+        "valueEur": 38346.89108971639,
+        "holderName": "ЯНИТА КОЛЕВА АНДРЕЕВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

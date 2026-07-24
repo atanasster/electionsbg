@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "peto-vasilev-vlchev-15e4b8",
+    "declarantName": "ПЕТЬО ВАСИЛЕВ ВЪЛЧЕВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-14",
+    "entryNumber": "Г2146",
+    "controlHash": "33735880",
+    "sourceUrl": "https://register.cacbg.bg/2025/D7734276-0E56-4A74-8926-4AFBACE0DB89204746.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2534.473855089655,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "peto-vasilev-vlchev-15e4b8",
+    "declarantName": "ПЕТЬО ВАСИЛЕВ ВЪЛЧЕВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-02-01",
+    "entryNumber": "Г11585",
+    "controlHash": "87798956",
+    "sourceUrl": "https://register.cacbg.bg/2024/D7734276-0E56-4A74-8926-4AFBACE0DB89193350.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40980.044277876914,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3484.454170352229,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ПЛЕВЕН",
+        "municipality": "Плевен",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2001,
+        "share": "1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ПЕТЬО ВАСИЛЕВ ВЪЛЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ВРАЦА",
+        "municipality": "Враца",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "acquiredYear": 1987,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ПЕТЬО ВАСИЛЕВ ВЪЛЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ]
+  }
+]

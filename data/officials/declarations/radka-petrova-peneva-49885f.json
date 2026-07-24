@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "radka-petrova-peneva-49885f",
+    "declarantName": "Радка Петрова пенева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г640",
+    "controlHash": "077EC890",
+    "sourceUrl": "https://register.cacbg.bg/2025/FFA0EDF7-AE77-4044-83BC-E8BB9404A68F202790.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15578.041036286384,
+        "amountEurSpouse": 21537.14791162831
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "radka-petrova-peneva-49885f",
+    "declarantName": "Радка Петрова Пенева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2023-04-12",
+    "entryNumber": "Г5582",
+    "controlHash": "CFF2039F",
+    "sourceUrl": "https://register.cacbg.bg/2024/FFA0EDF7-AE77-4044-83BC-E8BB9404A68F186838.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15044.252312317532,
+        "amountEurSpouse": 19477.664214169945
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Иван Колев Пенев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Радка Петрова Пенева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

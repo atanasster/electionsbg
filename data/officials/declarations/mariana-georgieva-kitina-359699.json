@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "mariana-georgieva-kitina-359699",
+    "declarantName": "Мариана Георгиева Китина",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-25",
+    "entryNumber": "Г14531",
+    "controlHash": "5EC82239",
+    "sourceUrl": "https://register.cacbg.bg/2024/3AF655A4-0E94-40B4-B4CF-4C1815529220197202.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28670.69223807795,
+        "amountEurSpouse": 18413.154517519415
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 257.1798162416979,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20500,
+        "valueEur": 10481.48356452248,
+        "holderName": "Мариана Георгиева Китина",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20050,
+        "valueEur": 20049.799829228512,
+        "holderName": "Мариана Георгиева Китина",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на недвижим имот"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Александър Борисов Китин",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      },
+      {
+        "category": "security",
+        "description": "UBB Platinum Bon",
+        "detail": "ОББ АД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "747",
+        "currency": "BGN",
+        "amount": 10600,
+        "valueEur": 5419.693940679916,
+        "holderName": "Мариана Георгиева Китина",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

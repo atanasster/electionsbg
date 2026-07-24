@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "desislava-toshkova-kisova-f92cf8",
+    "declarantName": "Десислава Тошкова Кисьова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г10048",
+    "controlHash": "6AA0A999",
+    "sourceUrl": "https://register.cacbg.bg/2024/6048ACFC-27B8-48A1-9329-C7AD5E3AD262191725.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17598.66655077384,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "офис",
+        "detail": null,
+        "location": "Слънчев бряг",
+        "municipality": "Бургас",
+        "areaSqm": 22,
+        "builtAreaSqm": 22,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Десислава Тошкова Кисьова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Десислава Тошкова Кисьова",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

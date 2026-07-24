@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "nadya-dimitrova-mironova-096b28",
+    "declarantName": "НАДЯ ДИМИТРОВА МИРОНОВА",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г9972",
+    "controlHash": "17C38E5C",
+    "sourceUrl": "https://register.cacbg.bg/2025/FC5E5410-EC67-45CC-981F-7AEE7FAC9D7A213041.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 47733.69873659776,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 25857.053015855163,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5724.423901872862,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Жк Илиндин, бл.134",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "acquiredYear": 2001,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 52000,
+        "valueEur": 26587.17782220336,
+        "holderName": "НАДЯ ДИМИТРОВА МИРОНОВА",
+        "isSpouse": false,
+        "legalBasis": "замяна",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 95000,
+        "valueEur": 48572.728713640754,
+        "holderName": "НАДЯ ДИМИТРОВА МИРОНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 26000,
+        "valueEur": 26587.17782220336,
+        "holderName": "НАДЯ ДИМИТРОВА МИРОНОВА",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР 3.6 %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

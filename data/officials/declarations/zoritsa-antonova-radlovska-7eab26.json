@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "zoritsa-antonova-radlovska-7eab26",
+    "declarantName": "Зорица Антонова Радловска",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г9283",
+    "controlHash": "5D3473DB",
+    "sourceUrl": "https://register.cacbg.bg/2025/ABA1BC8E-34AD-45B1-90CF-86229E42599E212316.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19584.524217339953,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "acquiredYear": 2004,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19093,
+        "valueEur": 9762.0958876794,
+        "holderName": "Зорица Антонова Радловска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8500,
+        "valueEur": 4345.980990167857,
+        "holderName": "Зорица Антонова Радловска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотека",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64000,
+        "valueEur": 32722.680396557982,
+        "holderName": "Зорица Антонова Радловска",
+        "isSpouse": false,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

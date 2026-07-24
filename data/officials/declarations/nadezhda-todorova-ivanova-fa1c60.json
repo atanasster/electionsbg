@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "nadezhda-todorova-ivanova-fa1c60",
+    "declarantName": "НАДЕЖДА ТОДОРОВА ИВАНОВА",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-23",
+    "entryNumber": "Г12888",
+    "controlHash": "7493EBDE",
+    "sourceUrl": "https://register.cacbg.bg/2024/070808F6-8BB9-4028-83FF-232075465DB2194763.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9933.889959761329,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 668.7697806046538,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 116,
+        "builtAreaSqm": 116,
+        "acquiredYear": 2003,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "Надежда Тодорова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 116,
+        "builtAreaSqm": 116,
+        "acquiredYear": 2003,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "Цветослав Митев Иванов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Тодорово",
+        "municipality": "Плевен",
+        "areaSqm": 520,
+        "builtAreaSqm": 108,
+        "acquiredYear": 2006,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Цветослав Митев Иванов",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "шевролет круз",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Цветослав Митев Иванов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

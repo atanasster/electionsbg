@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "radostina-iordanova-vaseva-5104b5",
+    "declarantName": "Радостина Йорданова Васева",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5145",
+    "controlHash": "671C4D89",
+    "sourceUrl": "https://register.cacbg.bg/2025/21306AE3-2771-4016-A09E-4BC352923CFA208045.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19459.768998328076,
+        "amountEurSpouse": 12626.864298021812
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 224.45713584513993
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4310.701850365318
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "citroen",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 52580,
+        "valueEur": 26883.72711329717,
+        "holderName": "Радостина Йорданова Васева",
+        "isSpouse": false,
+        "legalBasis": "пълномощно",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "финансов лизинг - 4.15%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46665,
+        "valueEur": 23859.435636021535,
+        "holderName": "Радостина Йорданова Васева",
+        "isSpouse": false,
+        "legalBasis": "Договор за финансов лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

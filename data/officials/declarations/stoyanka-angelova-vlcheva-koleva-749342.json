@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "stoyanka-angelova-vlcheva-koleva-749342",
+    "declarantName": "Стоянка Ангелова Вълчева-Колева",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-25",
+    "entryNumber": "Г3843",
+    "controlHash": "40CB2A75",
+    "sourceUrl": "https://register.cacbg.bg/2025/9316D2A3-9607-4CC2-AA8C-ACAE735ED29A206659.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16238.118854910703,
+        "amountEurSpouse": 13793.632370911582
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 88.96478732814202,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Нова Загора",
+        "municipality": "Нова Загора",
+        "areaSqm": 63,
+        "builtAreaSqm": 63,
+        "acquiredYear": 2015,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Стоянка Агелова Вълчева-Колева,Николай Желев Колев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Коньово",
+        "municipality": "Нова Загора",
+        "areaSqm": 840,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1096,
+        "valueEur": 560.3759017910554,
+        "holderName": "Стоянка Ангелова Вълчева-Колева,Веска Ангелова Вълчева",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Коньово",
+        "municipality": "Нова Загора",
+        "areaSqm": 8322,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Стоянка Ангелова Вълчева-Колева,Росица Иванова Колева",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64000,
+        "valueEur": 32722.680396557982,
+        "holderName": "Стоянка Ангелова Вълчева -Колева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 62000,
+        "valueEur": 31700.096634165548,
+        "holderName": "Стоянка Ангелова Вълчева -Колева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

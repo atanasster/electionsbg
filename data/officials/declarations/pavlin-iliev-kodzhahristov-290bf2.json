@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "pavlin-iliev-kodzhahristov-290bf2",
+    "declarantName": "Павлин Илиев Коджахристов",
+    "institution": "ОД МВР Русе",
+    "positionTitle": "Заместник-директор",
+    "category": "security_service",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2020-06-08",
+    "entryNumber": "Г894",
+    "controlHash": "316F0B79",
+    "sourceUrl": "https://register.cacbg.bg/2020/AED9B65D-730C-4B44-BB0D-D800498280C8110764.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24538.431254250114,
+        "amountEurSpouse": 10225.83762392437
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2658.717782220336,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 2174.524370727517,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение МВР",
+        "amountEurDeclarant": 24542.01029741849,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение отпуски МВР",
+        "amountEurDeclarant": 6135.502574354622,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 49800,
+        "valueEur": 25462.33568357168,
+        "holderName": "Павлин Илиев Коджахристов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46000,
+        "valueEur": 23519.42653502605,
+        "holderName": "Павлин Илиев Коджахристов",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48000,
+        "valueEur": 24542.01029741849,
+        "holderName": "Павлин Илиев Коджахристов",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

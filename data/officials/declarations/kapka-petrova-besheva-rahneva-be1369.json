@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "kapka-petrova-besheva-rahneva-be1369",
+    "declarantName": "Капка Петрова Бешева-Рахнева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11094",
+    "controlHash": "EF7D8C24",
+    "sourceUrl": "https://register.cacbg.bg/2025/5636C500-3706-4337-9CED-10D4808863CE214219.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12343.097303957911,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 25574.81989743485,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 84.36316039737605,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Аурис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31900,
+        "valueEur": 16310.21101015937,
+        "holderName": "ОТП Лизинг",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "финансов лизинг"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22604,
+        "valueEur": 11557.241682559323,
+        "holderName": "Капка Петрова Бешева-Рахнева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "договор за финансов лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26714,
+        "valueEur": 13658.651314275781,
+        "holderName": "Капка Петрова Бешева-Рахнева",
+        "isSpouse": false,
+        "legalBasis": "договор за финансов лизинг, 5,90%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "договор за потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42860,
+        "valueEur": 21913.970028069925,
+        "holderName": "Капка Петрова Бешева-Рахнева",
+        "isSpouse": false,
+        "legalBasis": "договор за потребителски кредит, 5,14%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22497,
+        "valueEur": 11502.533451271327,
+        "holderName": "Капка Петрова Бешева-Рахнева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

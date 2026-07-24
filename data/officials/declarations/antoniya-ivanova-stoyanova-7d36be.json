@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "antoniya-ivanova-stoyanova-7d36be",
+    "declarantName": "Антония Иванова Стоянова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-10",
+    "entryNumber": "Г3273",
+    "controlHash": "BAD987B2",
+    "sourceUrl": "https://register.cacbg.bg/2025/0973493F-E5C6-403D-B71C-64806456A08F206026.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18778.216920693518,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Порше",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Пламен Кирилов Стоянов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 66000,
+        "valueEur": 33745.26415895042,
+        "holderName": "Антония Иванова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "кредит 6,2% лихва",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "antoniya-ivanova-stoyanova-7d36be",
+    "declarantName": "Антония Иванова Стоянова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8964",
+    "controlHash": "B53AFED5",
+    "sourceUrl": "https://register.cacbg.bg/2024/0973493F-E5C6-403D-B71C-64806456A08F190610.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15250.814232320805,
+        "amountEurSpouse": 6135.502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Пламен Кирилов Стоянов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

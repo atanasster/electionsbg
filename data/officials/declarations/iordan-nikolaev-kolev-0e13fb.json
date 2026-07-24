@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "iordan-nikolaev-kolev-0e13fb",
+    "declarantName": "ЙОРДАН НИКОЛАЕВ КОЛЕВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г14131",
+    "controlHash": "433C1AD0",
+    "sourceUrl": "https://register.cacbg.bg/2024/D415AD81-27E1-4DB1-8452-D3963336ADB7196557.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17213.663764233086,
+        "amountEurSpouse": 11775.052023948912
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКЛИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22612,
+        "valueEur": 11561.332017608893,
+        "holderName": "ЙОРДАН НИКОЛАЕВ КОЛЕВ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24867,
+        "valueEur": 12714.295209706364,
+        "holderName": "ДЕННИЦА ВАНКОВА КОЛЕВА",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "martin-todorov-yanev-f8a8a9",
+    "declarantName": "Мартин Тодоров Янев",
+    "institution": "Членовете на управителните и контролните органи на НЕК",
+    "positionTitle": "Заместник-изпълнителен директор",
+    "category": "state_enterprise",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-11",
+    "entryNumber": "Г3086",
+    "controlHash": "197C12A3",
+    "sourceUrl": "https://register.cacbg.bg/2022/ED349A17-E885-45B9-B4FD-6BA22505D9CB135240.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 54594.724490369816,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4601.626930765967,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "martin-todorov-yanev-f8a8a9",
+    "declarantName": "Мартин Тодоров Янев",
+    "institution": "Членовете на управителните и контролните органи на НЕК",
+    "positionTitle": "Заместник-изпълнителен директор",
+    "category": "state_enterprise",
+    "declarationYear": 2022,
+    "fiscalYear": 2022,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф205",
+    "controlHash": "80FE1E1B",
+    "sourceUrl": "https://register.cacbg.bg/2023/ED349A17-E885-45B9-B4FD-6BA22505D9CB145529.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 70,
+        "builtAreaSqm": null,
+        "acquiredYear": 2006,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 23000,
+        "valueEur": 11759.713267513025,
+        "holderName": "Мартин Тодоров Янев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88606,
+        "valueEur": 45303.52842527213,
+        "holderName": "Мартин Тодоров Янев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Мартин Тодооров Янев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

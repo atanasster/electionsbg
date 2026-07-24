@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "dimitr-slavov-pavlov-5a3cab",
+    "declarantName": "Димитър Славов Павлов",
+    "institution": "Отбрана и въоръжени сили на Република България",
+    "positionTitle": "Командир на 24-та авиационна база",
+    "category": "military_command",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г8403",
+    "controlHash": "357E96F6",
+    "sourceUrl": "https://register.cacbg.bg/2025/8627830C-6AE1-464B-845C-D15349772093211422.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38346.89108971639,
+        "amountEurSpouse": 15338.756435886555
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6135.502574354622
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за осигурителен стаж и възраст",
+        "amountEurDeclarant": 17179.40720819294,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Чешнегирово, обл. Пловдив",
+        "municipality": "Садово",
+        "areaSqm": 1000,
+        "builtAreaSqm": 1000,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Славов Павлов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Димитър Славов Павлов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Атанаска Трифонова Павлова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата/наем"
+      },
+      {
+        "category": "receivable",
+        "description": "наем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Атанаска Трифонова Павлова",
+        "isSpouse": true,
+        "legalBasis": "наем на парцел",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Димитър Славов Павлов",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

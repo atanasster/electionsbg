@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "ivanka-nikolova-marinova-67fdd7",
+    "declarantName": "Иванка Николова Маринова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-09",
+    "entryNumber": "Г3109",
+    "controlHash": "1CF08E67",
+    "sourceUrl": "https://register.cacbg.bg/2024/CCC433D0-B108-4120-812A-A5F12F9BA755184183.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15058.568484991027,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 15357.674235490815
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "вила",
+        "detail": null,
+        "location": "в.з.Върховръх",
+        "municipality": "Родопи",
+        "areaSqm": 24,
+        "builtAreaSqm": 24,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 23400,
+        "valueEur": 11964.230019991513,
+        "holderName": "Иван Маринов Маринов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11932,
+        "valueEur": 6100.734726433279,
+        "holderName": "Иванка Николова Маринова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42820,
+        "valueEur": 21893.518352822077,
+        "holderName": "Иван Маринов Маринов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

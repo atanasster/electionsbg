@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "dora-gospodinova-yaneva-f74c4b",
+    "declarantName": "Дора Господинова Янева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-10",
+    "entryNumber": "Г2769",
+    "controlHash": "8FC50772",
+    "sourceUrl": "https://register.cacbg.bg/2024/1EC19100-6178-4368-97D4-7F198A2DB21E183837.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23989.815065726572,
+        "amountEurSpouse": 8454.211255579472
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12869.727941590016
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 86,
+        "builtAreaSqm": 108,
+        "acquiredYear": 1994,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11057,
+        "valueEur": 5653.354330386588,
+        "holderName": "Дора Господинова Янева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "Перущица",
+        "municipality": "Перущица",
+        "areaSqm": 75,
+        "builtAreaSqm": 800,
+        "acquiredYear": 1992,
+        "share": "0,5",
+        "currency": "BGN",
+        "amount": 4200,
+        "valueEur": 2147.4259010241176,
+        "holderName": "Дора Господинова Янева",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 162747,
+        "valueEur": 83211.21978904097,
+        "holderName": "Дора Господинова Янева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

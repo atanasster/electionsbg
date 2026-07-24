@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "milkana-todorova-ionova-dimitrova-598071",
+    "declarantName": "МИЛКАНА ТОДОРОВА ЙОНОВА -ДИМИТРОВА",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-17",
+    "entryNumber": "Г2682",
+    "controlHash": "763B1FB8",
+    "sourceUrl": "https://register.cacbg.bg/2025/1EAFDDAF-4A85-46A2-9AD9-9514AE03A75E205372.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 56571.3789030744,
+        "amountEurSpouse": 66621.84341174847
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3740.6114028315346,
+        "amountEurSpouse": 12515.913959802232
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3396.000674905283
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 181.50861782465756,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 125479,
+        "valueEur": 64156.3939606203,
+        "holderName": "Милкана Тодорова Йонова - Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "работна заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1143,
+        "valueEur": 584.4066202072777,
+        "holderName": "Димитър Любенов Димитров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "работна заплата"
+      }
+    ]
+  }
+]

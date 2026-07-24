@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "zorka-stoyanova-petkova-2bd0e2",
+    "declarantName": "Зорка Стоянова Петкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-17",
+    "entryNumber": "Г517",
+    "controlHash": "D83605C6",
+    "sourceUrl": "https://register.cacbg.bg/2025/F974AAD2-7A86-46B5-B8DB-7E10A7144343202576.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25077.844188912124,
+        "amountEurSpouse": 10141.98575540819
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 20.96296712904496
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Иван Жечев Петков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "обезщетение при пенсиониране"
+      }
+    ]
+  },
+  {
+    "slug": "zorka-stoyanova-petkova-2bd0e2",
+    "declarantName": "Зорка Стоянова Петкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-12",
+    "entryNumber": "Г10399",
+    "controlHash": "3C5209C0",
+    "sourceUrl": "https://register.cacbg.bg/2024/F974AAD2-7A86-46B5-B8DB-7E10A7144343192093.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18017.92589335474,
+        "amountEurSpouse": 16567.902118282265
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 20.45167524784874
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Договор за лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8922,
+        "valueEur": 8922.043326874013,
+        "holderName": "Зорка Стоянова Петкова",
+        "isSpouse": false,
+        "legalBasis": "Лизингов договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "ioan-ioanov-kostadinov-ff547a",
+    "declarantName": "Йоан Йоанов Костадинов",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г6520",
+    "controlHash": "5BCF6FC3",
+    "sourceUrl": "https://register.cacbg.bg/2025/260C658E-E3A1-416A-934A-C755B3B09FC7209480.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28188.03270222872,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дневни комъндировъчни пари",
+        "amountEurDeclarant": 178.95215841867648,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Йоан Йоанов Костадинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18450,
+        "valueEur": 18406.507723063867,
+        "holderName": "Йоан Йоанов Костадинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на имот"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Йоан Йоанов Костадинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53000,
+        "valueEur": 27098.46970339958,
+        "holderName": "Йоан Йоанов Костадинов",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит, 3% лихвен процент",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "mehidin-mehmedov-kadirov-1ba105",
+    "declarantName": "Мехидин Мехмедов Кадиров",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": "2019-05-10",
+    "entryNumber": "Г3515",
+    "controlHash": "FDBD55FC",
+    "sourceUrl": "https://register.cacbg.bg/2019/3398B029-5A71-4196-AB51-AC9991648F6797995.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6375.298466635649,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 212.18613069643067,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Туран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Мехиден Мехмедов Кадиров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Мехидин Мехмедов Кадиров",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "mehidin-mehmedov-kadirov-1ba105",
+    "declarantName": "Мехидин Мехмедов Кадиров",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": "2018-05-16",
+    "entryNumber": "Г1971",
+    "controlHash": "0FE3592D",
+    "sourceUrl": "https://register.cacbg.bg/2018/3398B029-5A71-4196-AB51-AC9991648F6792330.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Туран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Мехидин Мехмедов Кадиров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Мехидин Мехмедов Кадиров",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -140,14 +140,47 @@ const isSpouseHolder = (
  * Preference: the declarant's BGN equivalent (converted to euros at the
  * locked peg) → the declared amount when it's in BGN or EUR → null. Foreign
  * currencies (USD/GBP/CHF, …) without a declarant-provided BGN equivalent
- * stay unvalued: we don't apply approximate cross-rates. See src/lib/currency.ts. */
-const pickEurValue = (
+ * stay unvalued: we don't apply approximate cross-rates. See src/lib/currency.ts.
+ *
+ * `pureMoney` (bank / cash) means cell A is a currency amount, not a count of
+ * units — so cell A and cell C describe the SAME sum and must agree up to the
+ * FX rate. When the лв-equivalent implies a value wildly larger than the
+ * declared amount, cell C is a separator typo (a declarant typed a balance with
+ * no decimal, turning €16k into €1.6bn — that one row topped the whole
+ * leaderboard). Distrust it and value the row from the amount instead. NOT
+ * applied to investment/security, where cell A can legitimately be a share count
+ * far smaller than the market value in cell C. */
+// 2.5, not 20. Cell A and cell C are the same sum in two currencies, so the
+// honest ratio is the FX rate (1.96 for EUR, 1.0 for BGN) — anything past ~2.5
+// is already unexplainable. A looser 20x let a clean 72-row cluster sitting at
+// exactly ~10x through, seven of them over EUR 500k and one at EUR 3.63M
+// ranking 14th nationally. The nearest genuine survivor is 19.56x.
+const MONEY_EQUIV_TYPO_FACTOR = 2.5;
+
+export const pickEurValue = (
   amount: number | null,
   currency: string | null,
   bgnEquiv: number | null,
+  pureMoney = false,
 ): number | null => {
-  if (bgnEquiv != null && bgnEquiv !== 0) return toEur(bgnEquiv, "BGN");
-  return toEur(amount, currency);
+  const fromEquiv =
+    bgnEquiv != null && bgnEquiv !== 0 ? toEur(bgnEquiv, "BGN") : null;
+  const fromAmount = toEur(amount, currency);
+  if (fromEquiv == null) return fromAmount;
+  if (
+    pureMoney &&
+    fromAmount != null &&
+    fromAmount !== 0 &&
+    Math.abs(fromEquiv) / Math.abs(fromAmount) > MONEY_EQUIV_TYPO_FACTOR
+  ) {
+    // Say so. Every sibling correction in this parser logs; a silent override
+    // is one nobody can audit against the source filing.
+    console.warn(
+      `[parse] lev-equivalent ${bgnEquiv} contradicts declared ${amount} ${currency ?? "?"} — valuing from the amount`,
+    );
+    return fromAmount;
+  }
+  return fromEquiv;
 };
 
 /** Hand-curated fixes for the rare separator typos the generic detector
@@ -455,7 +488,15 @@ const parseMoneyRow = (
     share: null,
     currency,
     amount,
-    valueEur: pickEurValue(amount, currency, bgnEquiv),
+    // bank/cash: cell A is money, so it and the лв-equivalent must agree — a
+    // large gap is a typo. cash/receivable/investment/security: cell A may be a
+    // count, so trust the лв-equivalent as-is.
+    valueEur: pickEurValue(
+      amount,
+      currency,
+      bgnEquiv,
+      category === "bank" || category === "cash",
+    ),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
     legalBasis: cells.legalBasis ? cellByNum(row, cells.legalBasis) : null,
@@ -797,17 +838,21 @@ export const resolveDeclarationYear = ({
   }
 
   // A filing cannot declare a year later than the folder that published it —
-  // except for the +1 an ANNUAL legitimately carries, since an annual filed in
-  // folder N covers fiscal N-1. Granting that +1 to a one-off filing would leave
-  // a typo'd `Year` still resolving to a future year, i.e. the very defect this
-  // function exists to close, merely narrowed.
+  // the folder year IS when it was published, for every filing type. An annual
+  // filed in folder N covers fiscal N-1, so `fy+1` lands on N (the folder), not
+  // N+1. The register does carry annuals whose `Year` equals the folder year
+  // (fiscal 2018 in the 2018 folder, filed that May); `fy+1` makes those 2019,
+  // one year past the folder. An earlier version excepted annuals from the bound
+  // to "allow the +1" — but that +1 is relative to the fiscal year, not the
+  // folder, so the exception let exactly those 136 rows read a year into the
+  // future. The bound is the folder year, no exception.
   //
-  // The bound is two-sided: `registerFolderYear` already refuses anything below
-  // 2005, but a typo'd `Year` of 1900 would otherwise pass straight through and
-  // strand the row at the bottom of the declarant's history. Clamp and say so,
-  // rather than silently trusting or silently rewriting.
+  // Two-sided: `registerFolderYear` already refuses anything below 2005, but a
+  // typo'd `Year` of 1900 would otherwise strand the row at the bottom of the
+  // declarant's history. Clamp and say so, rather than silently trusting or
+  // silently rewriting.
   if (folderYear != null) {
-    const maxYear = folderYear + (declType === "Annualy" ? 1 : 0);
+    const maxYear = folderYear;
     if (derived > maxYear) {
       console.warn(
         `[parse] declarationYear ${derived} exceeds register folder ${folderYear} — clamping to ${maxYear} (${sourceUrl})`,

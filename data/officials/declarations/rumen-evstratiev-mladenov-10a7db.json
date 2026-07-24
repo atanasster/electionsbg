@@ -4,6 +4,7 @@
     "declarantName": "Румен Евстратиев Младенов",
     "institution": "ДА „Държавен резерв и военновременни запаси”  ",
     "positionTitle": "Заместник-председател",
+    "category": "agency_head",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",
@@ -73,6 +74,73 @@
         "holderName": "Румен Евстратиев Младенов",
         "isSpouse": false,
         "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "rumen-evstratiev-mladenov-10a7db",
+    "declarantName": "Румен Евстратиев Младенов",
+    "institution": "ДА „Държавен резерв и военновременни запаси”  ",
+    "positionTitle": "Главен секретар",
+    "category": "secretary_general",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г13886",
+    "controlHash": "3AD7C0C6",
+    "sourceUrl": "https://register.cacbg.bg/2024/60E027BE-6424-4D80-B8C9-EC870171E8D5196060.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28538.26764084813,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 953.0480665497513,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит - лихвен пр. 4,9 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19522,
+        "valueEur": 9981.440104712578,
+        "holderName": "Румен Евстратиев Младенов",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта - лихв. пр. - 18,5 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Румен Евстратиев Младенов",
+        "isSpouse": false,
+        "legalBasis": "договор за карта",
         "fundsOrigin": null
       }
     ]

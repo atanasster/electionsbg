@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "valya-stoyanova-taneva-46797b",
+    "declarantName": "Валя Стоянова Танева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-10",
+    "entryNumber": "Г10295",
+    "controlHash": "61E133DA",
+    "sourceUrl": "https://register.cacbg.bg/2024/EB14819D-40CC-4285-902B-E92DBBC51FBA191987.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27098.46970339958,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4954.418328791357,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 98400,
+        "valueEur": 50311.1211097079,
+        "holderName": "Валя Стоянова Танева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18700,
+        "valueEur": 9561.158178369285,
+        "holderName": "Валя Стоянова Танева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 85000,
+        "valueEur": 43459.80990167857,
+        "holderName": "Валя Стоянова Танева",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "slug": "desislav-petrov-taskov-a11484",
+    "declarantName": "Десислав Петров Тасков",
+    "institution": "МБАЛ - Каварна ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": "2019-05-15",
+    "entryNumber": "Г3450",
+    "controlHash": "01A9B0CB",
+    "sourceUrl": "https://register.cacbg.bg/2019/EC3E0C87-2A3F-4A61-B157-206EF2D9CA2A97913.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12271.005148709244,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 39522.86241646769,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11116,
+        "valueEur": 5683.520551377164,
+        "holderName": "Десислав Петров Тасков",
+        "isSpouse": false,
+        "legalBasis": "Ипотечен жилищен кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

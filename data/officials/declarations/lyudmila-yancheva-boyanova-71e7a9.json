@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "lyudmila-yancheva-boyanova-71e7a9",
+    "declarantName": "Людмила Янчева Боянова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-23",
+    "entryNumber": "Г2895",
+    "controlHash": "25ECAED2",
+    "sourceUrl": "https://register.cacbg.bg/2025/E13A38CA-2A98-41BB-B0A4-1F888DF6357D205608.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32095.83655021142,
+        "amountEurSpouse": 14327.932386761631
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 92.03253861531933,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Хюндай 03",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Боян Цанков Боянов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Людмила Янчева Боянова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

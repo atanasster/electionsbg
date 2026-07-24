@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "dora-hristova-kimenova-d0a489",
+    "declarantName": "Дора Христова Кименова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г6570",
+    "controlHash": "BAF9CBAE",
+    "sourceUrl": "https://register.cacbg.bg/2025/4663BCC4-E834-445B-BDFF-688DAF68765A209531.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15338.756435886555,
+        "amountEurSpouse": 9203.253861531934
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "dora-hristova-kimenova-d0a489",
+    "declarantName": "Дора Христова Кименова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-25",
+    "entryNumber": "Г2771",
+    "controlHash": "E7CE3DBD",
+    "sourceUrl": "https://register.cacbg.bg/2024/4663BCC4-E834-445B-BDFF-688DAF68765A183839.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12782.297029905461,
+        "amountEurSpouse": 7669.378217943277
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 59,
+        "builtAreaSqm": null,
+        "acquiredYear": 1993,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8900,
+        "valueEur": 4550.497742646345,
+        "holderName": "Петър Анастасов Кименова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 119,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Дора Христова Кименова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      }
+    ]
+  }
+]

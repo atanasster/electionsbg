@@ -1,0 +1,142 @@
+[
+  {
+    "slug": "ivan-kosev-nedkov-424eed",
+    "declarantName": "ИВАН КОСЕВ НЕДКОВ",
+    "institution": "Североцентрално държавно предприятие - ДП Габрово",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-15",
+    "entryNumber": "Г4450",
+    "controlHash": "62BFDE96",
+    "sourceUrl": "https://register.cacbg.bg/2023/12FCCC47-4E24-45DE-AE79-05EEF1F82F57150827.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100%",
+        "companyName": "Балкан Хънтър ЕООД",
+        "registeredOffice": "София",
+        "valueEur": 89411.14514042632,
+        "holderName": null,
+        "transfereeName": "Иван Косев Недков",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13648.936768533053,
+        "amountEurSpouse": 129319.01034343475
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3988.076673330504
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1509.333633291237
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Габрово",
+        "municipality": "Габрово",
+        "areaSqm": 300,
+        "builtAreaSqm": 160,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2022,
+        "valueEur": 1033.8321837787537,
+        "holderName": "Иван Косев Недков",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Чавеи",
+        "municipality": "Габрово",
+        "areaSqm": 1000,
+        "builtAreaSqm": 70,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2022,
+        "valueEur": 1033.8321837787537,
+        "holderName": "Иван Косев Недков",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Стоките",
+        "municipality": "Севлиево",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Иван Косев Недков",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "receivable",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 184599,
+        "valueEur": 94333.35208070232,
+        "holderName": "Мариана Томова Недкова",
+        "isSpouse": true,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 410000,
+        "valueEur": 209629.6712904496,
+        "holderName": "Мариана Томова Недкова",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

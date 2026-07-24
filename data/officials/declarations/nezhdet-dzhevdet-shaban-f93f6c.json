@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "nezhdet-dzhevdet-shaban-f93f6c",
+    "declarantName": "НЕЖДЕТ ДЖЕВДЕТ ШАБАН",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-10",
+    "entryNumber": "Г3508",
+    "controlHash": "E7AC3F00",
+    "sourceUrl": "https://register.cacbg.bg/2024/B6FEB7F0-B6C8-44A3-B3FC-85E9D972B39B184587.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13233.256469120526,
+        "amountEurSpouse": 7071.166716943701
+      },
+      {
+        "parent": null,
+        "category": "Проект",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 59.82115009995756
+      },
+      {
+        "parent": null,
+        "category": "Наеми",
+        "amountEurDeclarant": 7753.230086459457,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банкова карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Неждет Джевдет Шабан",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

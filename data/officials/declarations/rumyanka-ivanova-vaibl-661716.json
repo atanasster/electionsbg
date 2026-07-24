@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "rumyanka-ivanova-vaibl-661716",
+    "declarantName": "Румянка Иванова Вайбл",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-02-18",
+    "entryNumber": "Г15508",
+    "controlHash": "30EAA89F",
+    "sourceUrl": "https://register.cacbg.bg/2025/921083E6-D0C7-4B38-9E9D-E32F578F60DC219760.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3286.5842123292923,
+        "amountEurSpouse": 5153.310870576686
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 13359.034271894796,
+        "amountEurSpouse": 8794.220356574959
+      },
+      {
+        "parent": null,
+        "category": "обезщетения при пенсиониране",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10737.129505120589
+      },
+      {
+        "parent": null,
+        "category": "обезщетения при временна неработоспособност",
+        "amountEurDeclarant": 10058.13388689201,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 152400,
+        "valueEur": 77920.8826943037,
+        "holderName": "Теодор Албин Вайбл",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "покурко-продажба, пенсии, заплати, обезщетения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 78500,
+        "valueEur": 40136.41267390315,
+        "holderName": "Румянка Иванова Вайбл",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "покурко-продажба, пенсии, заплати, обезщетения"
+      }
+    ]
+  }
+]

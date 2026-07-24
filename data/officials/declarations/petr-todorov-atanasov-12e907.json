@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "petr-todorov-atanasov-12e907",
+    "declarantName": "ПЕТЪР ТОДОРОВ АТАНАСОВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Контрольор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г14536",
+    "controlHash": "88434A3A",
+    "sourceUrl": "https://register.cacbg.bg/2025/AD5912FF-AE4A-4E8B-B780-5C23D3F5A6BE217858.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1697.4890455714453,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 116379.74670600206,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 31700.096634165548,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 93000,
+        "valueEur": 47550.144951248316,
+        "holderName": "ПЕТЪР ТОДОРОВ АТАНАСОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "ПЕТЪР ТОДОРОВ АТАНАСОВ",
+        "isSpouse": false,
+        "legalBasis": "4.44",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

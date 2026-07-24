@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "gergana-zlatanova-velkova-85fccf",
+    "declarantName": "Гергана Златанова Велкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г9469",
+    "controlHash": "81CE3D67",
+    "sourceUrl": "https://register.cacbg.bg/2025/325FB4AC-0A6A-464C-9E0B-5B748ADAB49A212510.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17870.673831570228,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 127.82297029905462,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Гергана Златанова Велкова",
+        "isSpouse": false,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "gergana-zlatanova-velkova-85fccf",
+    "declarantName": "Гергана Златанова Велкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-27",
+    "entryNumber": "Г397",
+    "controlHash": "A62A8C27",
+    "sourceUrl": "https://register.cacbg.bg/2024/325FB4AC-0A6A-464C-9E0B-5B748ADAB49A181195.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17858.40282642152,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр.Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Гергана Златанова Велкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр.Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Радослав Георгиев Филипов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Гергана Златанова Велкова",
+        "isSpouse": false,
+        "legalBasis": "покупка магазин",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

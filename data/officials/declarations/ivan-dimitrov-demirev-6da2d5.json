@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "ivan-dimitrov-demirev-6da2d5",
+    "declarantName": "ИВАН ДИМИТРОВ ДЕМИРЕВ",
+    "institution": "Българските граждани заемащи длъжности в НАТО",
+    "positionTitle": "Представител",
+    "category": "international",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-14",
+    "entryNumber": "Г7310",
+    "controlHash": "C1DF603E",
+    "sourceUrl": "https://register.cacbg.bg/2023/361406BA-331E-4788-A1C6-F1F8522363F9153928.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18917.799604260083,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "НДКЧ/НФУК",
+        "amountEurDeclarant": 23632.93333265161,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Неапол",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 0,
+        "builtAreaSqm": 85,
+        "acquiredYear": 2022,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 4345,
+        "valueEur": 2221.563223797569,
+        "holderName": "Иван Димитров Демирев",
+        "isSpouse": false,
+        "legalBasis": "наем",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 500,
+        "valueEur": 505.1563786218639,
+        "holderName": "Иван Димитров Демирев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Иван Димитров Демирев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 18000,
+        "valueEur": 17999.519385631676,
+        "holderName": "Иван Димитров Демирев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "tomi-georgiev-popmarkov-a5ba5e",
+    "declarantName": "ТОМИ ГЕОРГИЕВ ПОПМАРКОВ",
+    "institution": "Четвърта МБАЛ - София ЕАД",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г10012",
+    "controlHash": "7AAF07B1",
+    "sourceUrl": "https://register.cacbg.bg/2025/D15CCBCB-A5EC-4913-919B-361BCF71717E213082.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29441.72039492185,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 61474.66804374613,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 32842.8339886391,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София, ул.Александър Стамболийски 249А",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 74,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2024,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 385299,
+        "valueEur": 197000.25053302178,
+        "holderName": "ТОМИ ГЕОРГИЕВ ПОПМАРКОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр.София, ул.Александър Стамболийски 249А",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 12,
+        "builtAreaSqm": 17,
+        "acquiredYear": 2024,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 11735,
+        "valueEur": 6000.010225837624,
+        "holderName": "ТОМИ ГЕОРГИЕВ ПОПМАРКОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 129986,
+        "valueEur": 66460.78646917165,
+        "holderName": "ТОМИ ГЕОРГИЕВ ПОПМАРКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 19640,
+        "valueEur": 19640.25503239034,
+        "holderName": "ТОМИ ГЕОРГИЕВ ПОПМАРКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "СОТИР БЛАГОЕВ ТОЧЕВ",
+        "isSpouse": true,
+        "legalBasis": "ЗАЕМ",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

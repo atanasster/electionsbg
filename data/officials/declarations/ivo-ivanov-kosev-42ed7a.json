@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "ivo-ivanov-kosev-42ed7a",
+    "declarantName": "Иво Иванов Кьосев",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-26",
+    "entryNumber": "Г11608",
+    "controlHash": "340A1892",
+    "sourceUrl": "https://register.cacbg.bg/2024/BA9AF8C0-28BC-4464-97E8-E4ACB434DF00193374.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25933.746798034594,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 32514.584600911123,
+        "amountEurSpouse": 35222.89769560749
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1227.1005148709244,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Иво Иванов Кьосев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 220000,
+        "valueEur": 112484.21386316807,
+        "holderName": "Иво Иванов Кьосев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32000,
+        "valueEur": 16361.340198278991,
+        "holderName": "Лиляна Василева Нейчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "bozhidar-ivanov-stankov-542fa6",
+    "declarantName": "Божидар Иванов Станков",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-24",
+    "entryNumber": "Г294",
+    "controlHash": "A4668002",
+    "sourceUrl": "https://register.cacbg.bg/2024/3BD3A3DE-01BB-4F7C-9D1D-0E83C3321E64181065.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20505.87218725554,
+        "amountEurSpouse": 23451.93600670815
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1763.9569901269538
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Провадия",
+        "municipality": "Провадия",
+        "areaSqm": 38,
+        "builtAreaSqm": null,
+        "acquiredYear": 1992,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 32365,
+        "valueEur": 16547.96173491561,
+        "holderName": "Божидар Иванов Станков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Провадия",
+        "municipality": "Провадия",
+        "areaSqm": 41,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8699,
+        "valueEur": 4447.728074525905,
+        "holderName": "Божидар Иванов Станков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45617,
+        "valueEur": 23323.6017445279,
+        "holderName": "Божидар Иванов Станков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

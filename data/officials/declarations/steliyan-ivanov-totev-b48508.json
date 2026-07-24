@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "steliyan-ivanov-totev-b48508",
+    "declarantName": "Стелиян Иванов Тотев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г10538",
+    "controlHash": "A12EFC93",
+    "sourceUrl": "https://register.cacbg.bg/2025/9DF91A14-1251-4D17-B185-8290B0381081213633.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35587.960098781594,
+        "amountEurSpouse": 22603.702775803624
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "steliyan-ivanov-totev-b48508",
+    "declarantName": "Стелиян Иванов Тотев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-13",
+    "entryNumber": "Г7692",
+    "controlHash": "100103C8",
+    "sourceUrl": "https://register.cacbg.bg/2024/9DF91A14-1251-4D17-B185-8290B0381081189295.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26323.351211506113,
+        "amountEurSpouse": 27453.81756083095
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 19018.52410485574
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11200,
+        "valueEur": 5726.469069397647,
+        "holderName": "Стелиян Иванов Тотев",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

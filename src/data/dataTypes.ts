@@ -545,6 +545,10 @@ export type OfficialDeclaration = {
    *  e.g. "Министър", "Заместник-министър", "Служебен министър", "Главен
    *  секретар". A "Служебен" prefix marks a caretaker-government post. */
   positionTitle: string | null;
+  /** Executive bucket, copied onto the shard so /officials/:slug can label the
+   *  office without loading the whole-corpus rankings file. Absent on municipal
+   *  shards (their role is a MunicipalOfficialRole, a different vocabulary). */
+  category?: OfficialCategoryKind;
   declarationYear: number;
   fiscalYear: number | null;
   declarationType: string;
@@ -620,7 +624,6 @@ export type OfficialAssetsRankings = {
   years: number[];
   total: number;
   topOfficials: OfficialAssetsRankingEntry[];
-  byCategory: Record<OfficialCategoryKind, OfficialAssetsRankingEntry[]>;
 };
 
 /* --- Municipal officials --------------------------------------------------

@@ -1,0 +1,51 @@
+[
+  {
+    "slug": "bistra-stoilova-stoikova-6b8a9a",
+    "declarantName": "Бистра Стоилова Стойкова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г10767",
+    "controlHash": "44DD865F",
+    "sourceUrl": "https://register.cacbg.bg/2025/501AF358-5D43-41EF-A385-A8741AF77531213873.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27210.95391726275,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 11350.67976255605
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит - лихвен %3,1",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50101,
+        "valueEur": 25616.234539811743,
+        "holderName": "Бистра Стоилова Стойкова",
+        "isSpouse": false,
+        "legalBasis": "покупка на жилище - 3,1%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "ionko-iordanov-gergov-0ffd0b",
+    "declarantName": "ЙОНКО ЙОРДАНОВ ГЕРГОВ",
+    "institution": "ПП \"Партия на зелените\"",
+    "positionTitle": "Съпредседател",
+    "category": "party_leader",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-05",
+    "entryNumber": "Г2931",
+    "controlHash": "E3C72127",
+    "sourceUrl": "https://register.cacbg.bg/2023/D81BAA4E-2A35-4DF1-9916-4621318C004A149151.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12940.79751307629,
+        "amountEurSpouse": 1009.2901734813353
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2228.7213101343164
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Етаж от къща и гараж",
+        "detail": null,
+        "location": "Дупница",
+        "municipality": "Дупница",
+        "areaSqm": 243,
+        "builtAreaSqm": 132,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Йонко Йорадонов Гергов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заем + заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "Етаж от къща и гараж",
+        "detail": null,
+        "location": "Дупница",
+        "municipality": "Дупница",
+        "areaSqm": 243,
+        "builtAreaSqm": 132,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Евгения Пламенова Гергова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заем + заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мазда 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Йонко Йорданов Гергов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мазда 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Евгения Пламенова Гергова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Паричен заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9999.846612435642,
+        "holderName": "ЙОНКО ЙОРДАНОВ ГЕРГОВ",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

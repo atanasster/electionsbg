@@ -8,7 +8,16 @@ import {
 } from "../db/lib/seo_settlements";
 import { INSTITUTION_PACKS } from "../prerender/institutions";
 import { isCrawlableSchool } from "@/data/schools/schoolBel";
-import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
+import {
+  ElectionInfo,
+  OfficialCategoryKind,
+  PartyInfo,
+  SectionIndex,
+} from "@/data/dataTypes";
+import {
+  OFFICIALS_STATIC_PAGE_LIMIT,
+  officialsForStaticPages,
+} from "@/lib/officialCategoryLabels";
 
 type SettlementBundleEntry = { ekatte?: string; oblast?: string };
 type PollAgency = { id: string };
@@ -405,22 +414,31 @@ const enumerateLocalMunicipalities = (rootUrl: string, routes: string[]) => {
 // One per file under data/officials/declarations/{slug}.json; the slug is the
 // SPA route parameter. The rankings file's mtime is the canonical "lastmod"
 // for the whole set since the per-official files are regenerated together.
+// A <loc> with no prerendered HTML is a soft-404, so this must select EXACTLY
+// the set scripts/prerender/dynamicRoutes.ts builds — same helper, same limit,
+// not a parallel rule that can drift. There are 14,490 declaration files but
+// only the priority slice gets a static page.
 const enumerateOfficials = (
   route: RouteDef,
   rootUrl: string,
   routes: string[],
 ) => {
-  const dir = `${projectPath}/data/officials/declarations`;
-  if (!fs.existsSync(dir)) return;
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
   const rankingsFile = `${projectPath}/data/officials/assets-rankings.json`;
-  const lastmod = fs.existsSync(rankingsFile)
-    ? safeFileMod(rankingsFile)
-    : today;
-  for (const f of files) {
-    const slug = f.replace(/\.json$/, "");
-    pushUrl(`${rootUrl}/${routes[0]}${slug}`, lastmod);
-    pushUrl(`/en${rootUrl}/${routes[0]}${slug}`, lastmod);
+  if (!fs.existsSync(rankingsFile)) return;
+  const rankings = JSON.parse(fs.readFileSync(rankingsFile, "utf-8")) as {
+    topOfficials: {
+      slug: string;
+      category: OfficialCategoryKind;
+      netWorthEur: number;
+    }[];
+  };
+  const lastmod = safeFileMod(rankingsFile);
+  for (const o of officialsForStaticPages(
+    rankings.topOfficials,
+    OFFICIALS_STATIC_PAGE_LIMIT,
+  )) {
+    pushUrl(`${rootUrl}/${routes[0]}${o.slug}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${o.slug}`, lastmod);
     void route;
   }
 };

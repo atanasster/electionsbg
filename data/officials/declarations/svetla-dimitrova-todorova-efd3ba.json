@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "svetla-dimitrova-todorova-efd3ba",
+    "declarantName": "Светла Димитрова Тодорова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-19",
+    "entryNumber": "Г6731",
+    "controlHash": "F60C211E",
+    "sourceUrl": "https://register.cacbg.bg/2024/C0DD8031-C6BB-4A07-8C83-FBF24F8D6647188148.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26710.910457452846,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4428.810274921644,
+        "amountEurSpouse": 138.048807922979
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 24316,
+        "valueEur": 12432.57338316725,
+        "holderName": "Огнян Михайлов Тодоров",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 98300,
+        "valueEur": 50259.99192158828,
+        "holderName": "Светла Димитрова Тодорова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и друга стапанска дейност"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Огнян Михайлов Тодоров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "друга стопанска дейност"
+      }
+    ]
+  }
+]

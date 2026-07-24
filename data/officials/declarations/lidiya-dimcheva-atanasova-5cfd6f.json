@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "lidiya-dimcheva-atanasova-5cfd6f",
+    "declarantName": "Лидия Димчева Атанасова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11341",
+    "controlHash": "78741B5D",
+    "sourceUrl": "https://register.cacbg.bg/2025/B399F244-9AEA-4960-A214-5DFC76A466FA214476.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7406.574191008421,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4658.380329578747,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 80,
+        "builtAreaSqm": 100,
+        "acquiredYear": 1992,
+        "share": "3/4",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Лидия Димчева Атанасова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "договор за гледане"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 20,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2021,
+        "share": "1/4",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Лидия Димчева Атанасова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "пикап",
+        "detail": "Тойота Хайлукс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2012,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Марио Малинов Атанасов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Марио Малинов Атанасов",
+        "isSpouse": true,
+        "legalBasis": "5,1",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Марио Малинов Атанасов",
+        "isSpouse": true,
+        "legalBasis": "2,8",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

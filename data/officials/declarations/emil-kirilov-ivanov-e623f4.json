@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "emil-kirilov-ivanov-e623f4",
+    "declarantName": "Емил Кирилов Иванов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г13135",
+    "controlHash": "CE368E66",
+    "sourceUrl": "https://register.cacbg.bg/2025/172CA9C8-D018-4186-AF80-69A6EA9EB80C216328.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16076.550620452697,
+        "amountEurSpouse": 5969.332712965851
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2933,
+        "valueEur": 1499.6190875485088,
+        "holderName": "Илияна Серафимова Калоянова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Емил Кирилов Иванов",
+        "isSpouse": false,
+        "legalBasis": "кредит, лихва 4.65%",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "emil-kirilov-ivanov-e623f4",
+    "declarantName": "Емил Кирилов Иванов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-09",
+    "entryNumber": "Г9415",
+    "controlHash": "839B0AD1",
+    "sourceUrl": "https://register.cacbg.bg/2024/172CA9C8-D018-4186-AF80-69A6EA9EB80C191070.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6414.667941487757,
+        "amountEurSpouse": 4486.586257496817
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 59.30985821876134,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": []
+  }
+]

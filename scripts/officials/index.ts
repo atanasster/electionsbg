@@ -1,8 +1,9 @@
-// Non-MP officials declaration pipeline. Mirrors scripts/declarations for
-// the executive branch: scrapes register.cacbg.bg for cabinet members,
-// deputy ministers, state-agency heads, and regional governors, parses the
-// declaration XML with the existing parser, and writes per-official files
-// under data/officials/ keyed on a slug (no parliament.bg id to anchor on).
+// Non-MP officials declaration pipeline. Scrapes register.cacbg.bg for every
+// category the register publishes EXCEPT the three owned by other ingests —
+// municipal (mayors/councillors → ./municipal.ts), MPs (→ scripts/declarations),
+// and the judiciary (→ the ИВСС magistrate register). See ./categorise.ts for
+// the full bucket map. Parses each declaration XML with the shared parser and
+// writes per-official files under data/officials/ keyed on a slug.
 //
 // CLI:
 //   tsx scripts/officials/index.ts                # newest published year, full set
@@ -10,9 +11,6 @@
 //   tsx scripts/officials/index.ts --limit 20     # cap declarations processed
 //   tsx scripts/officials/index.ts --dry-run      # no writes
 //   tsx scripts/officials/index.ts --name "Дончев" # debug: substring filter
-//
-// Mayors and judiciary are intentionally NOT included — they balloon the
-// dataset (6.4k/year for mayors alone) and need their own UI scope.
 
 import fs from "fs";
 import path from "path";
@@ -43,7 +41,6 @@ import {
 } from "../../src/lib/declarations";
 import { mergeDeclarations, mergeIndexEntries, mergeYears } from "./merge";
 import { categorise, categoriseRaw, isCaretakerTitle } from "./categorise";
-import { OFFICIAL_CATEGORY_ORDER } from "../../src/lib/officialCategoryLabels";
 import {
   ROOT,
   REGISTER_BASE,
@@ -54,6 +51,24 @@ import {
   fetchDeclaration,
   writeJson,
 } from "./shared";
+
+// Register person-GUIDs that must not share a slug with a same-named peer —
+// see ./_slug_collisions.json for why the default slug is not always unique.
+const SLUG_COLLISION_GUIDS: Set<string> = new Set(
+  (
+    JSON.parse(
+      fs.readFileSync(
+        path.join(ROOT, "scripts/officials/_slug_collisions.json"),
+        "utf-8",
+      ),
+    ) as { guids: string[] }
+  ).guids.map((g) => g.toUpperCase()),
+);
+
+// The register's own per-person id, recovered from the declaration filename
+// (a GUID followed by a per-filing sequence number).
+const personGuid = (xmlFile: string): string =>
+  xmlFile.slice(0, 36).toUpperCase();
 
 const OUT_DIR = path.join(ROOT, "data", "officials");
 const DECL_DIR = path.join(OUT_DIR, "declarations");
@@ -231,12 +246,15 @@ const cmd = command({
     let processed = 0;
     let missing = 0;
     const parseFailures: string[] = [];
+    // slug → the register GUID that claimed it, for collision detection.
+    const slugOwner = new Map<string, string>();
+    const slugCollisions = new Set<string>();
 
     for (const entry of entries) {
       if (processed >= cap) break;
       const norm = normalize(entry.declarantName);
       if (filter && !norm.includes(filter)) continue;
-      const xml = await fetchDeclaration(
+      const { xml, fromCache } = await fetchDeclaration(
         entry.year,
         entry.xmlFile,
         entry.sourceUrl,
@@ -250,7 +268,20 @@ const cmd = command({
         console.warn(`  [missing] ${entry.declarantName} — ${entry.sourceUrl}`);
         continue;
       }
-      const slug = slugify(entry.declarantName, entry.institution);
+      const guid = personGuid(entry.xmlFile);
+      const slug = SLUG_COLLISION_GUIDS.has(guid)
+        ? slugify(entry.declarantName, `${entry.institution}|${guid}`)
+        : slugify(entry.declarantName, entry.institution);
+      // Two DIFFERENT register people landing on one slug would merge into a
+      // single profile publishing neither person's holdings correctly. Listed
+      // GUIDs are already separated above; anything else is new and must be
+      // seen rather than silently merged.
+      const claimed = slugOwner.get(slug);
+      if (claimed && claimed !== guid) {
+        slugCollisions.add(`${slug}: ${claimed} vs ${guid}`);
+      } else if (!claimed) {
+        slugOwner.set(slug, guid);
+      }
       try {
         // Existing parser keys on mpId — pass 0 as a sentinel and strip it.
         const parsed = parseDeclarationXml({
@@ -264,6 +295,10 @@ const cmd = command({
           declarantName: parsed.declarantName,
           institution: parsed.institution,
           positionTitle: entry.positionTitle,
+          // The bucket travels ON the declaration so /officials/:slug can label
+          // the office from the shard it already fetches, instead of scanning
+          // the 8 MB whole-corpus rankings file for one row.
+          category: entry.category,
           declarationYear: parsed.declarationYear,
           fiscalYear: parsed.fiscalYear,
           declarationType: parsed.declarationType,
@@ -310,7 +345,8 @@ const cmd = command({
         parseFailures.push(`${entry.sourceUrl}: ${msg}`);
       }
       processed++;
-      await sleep(150);
+      // Only rate-limit real requests; a cache hit made none.
+      if (!fromCache) await sleep(150);
     }
 
     console.log(
@@ -331,6 +367,16 @@ const cmd = command({
           `${missing}/${entries.length} declarations missing upstream for ${targetYear} — above the ${(tolerance * 100).toFixed(0)}% tolerance; refusing to write a partial cohort. Pass --max-missing to accept a known-incomplete year.`,
         );
       }
+    }
+
+    if (slugCollisions.size > 0) {
+      console.warn(
+        `  [warn] ${slugCollisions.size} slug collision(s) — two different register people share a slug and their filings will MERGE.`,
+      );
+      console.warn(
+        `         Add the second GUID of each pair to scripts/officials/_slug_collisions.json and re-run:`,
+      );
+      for (const c of slugCollisions) console.warn(`           ${c}`);
     }
 
     // Fail loud if parse failures look systemic rather than isolated — same
@@ -356,6 +402,35 @@ const cmd = command({
     if (dryRun) {
       console.log("  --dry-run: not writing");
       return;
+    }
+
+    // Cross-year collisions: two people can share a slug while filing in
+    // DIFFERENT years, so the per-run map above never sees them together — they
+    // meet only here, when this year's rows merge into a shard an earlier run
+    // wrote. Compare against what is already on disk.
+    for (const [slug, decls] of declsBySlug.entries()) {
+      const existing = readJsonOr<OfficialDeclaration[]>(
+        path.join(DECL_DIR, `${slug}.json`),
+        [],
+      );
+      if (existing.length === 0) continue;
+      const incomingGuids = new Set(
+        decls.map((d) => personGuid(d.sourceUrl.split("/").pop() ?? "")),
+      );
+      for (const e of existing) {
+        const g = personGuid(e.sourceUrl.split("/").pop() ?? "");
+        if (g && !incomingGuids.has(g)) {
+          slugCollisions.add(
+            `${slug}: ${g} vs ${[...incomingGuids][0]} (cross-year)`,
+          );
+          break;
+        }
+      }
+    }
+    if (slugCollisions.size > 0) {
+      console.warn(
+        `  [warn] ${slugCollisions.size} slug collision(s) total after the cross-year check`,
+      );
     }
 
     // 1. Per-official files. This run is authoritative for targetYear and
@@ -467,21 +542,16 @@ const cmd = command({
     rankingEntries.sort(
       (a, b) => b.netWorthEur - a.netWorthEur || a.slug.localeCompare(b.slug),
     );
-    // Seeded from the shared bucket list rather than a literal, so adding a
-    // category to the union cannot leave this record missing a key.
-    const byCategory = Object.fromEntries(
-      OFFICIAL_CATEGORY_ORDER.map((k) => [
-        k,
-        [] as OfficialAssetsRankingEntry[],
-      ]),
-    ) as Record<OfficialCategoryKind, OfficialAssetsRankingEntry[]>;
-    for (const e of rankingEntries) byCategory[e.category].push(e);
+    // No per-category index in the file: it was a full second copy of every
+    // row (~1.1 MB, half the file), and the only consumer — the /officials/assets
+    // filter — derives its subset from topOfficials by category in one pass.
+    // Duplicating it would have grown the file to ~12 MB once the register-wide
+    // ingest lands, and it is fetched whole on every /officials/:slug load.
     const rankings: OfficialAssetsRankings = {
       generatedAt: new Date().toISOString(),
       years,
       total: rankingEntries.length,
       topOfficials: rankingEntries,
-      byCategory,
     };
     writeJson(path.join(OUT_DIR, "assets-rankings.json"), rankings);
 

@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "tatyana-radionova-nankova-840181",
+    "declarantName": "Татяна Радионова Нанкова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5704",
+    "controlHash": "569BF026",
+    "sourceUrl": "https://register.cacbg.bg/2024/3CEB66B0-4CCE-4839-B316-AFB04509C49A186960.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17464.70807790043,
+        "amountEurSpouse": 3626.0820214435817
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 897.3172514993635,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гори",
+        "detail": null,
+        "location": "с.Врабевво",
+        "municipality": "Троян",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Татяна Радионова Нанкова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Татяна Радионова Нанкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

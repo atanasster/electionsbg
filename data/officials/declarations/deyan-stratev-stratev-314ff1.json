@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "deyan-stratev-stratev-314ff1",
+    "declarantName": "ДЕЯН СТРАТЕВ СТРАТЕВ",
+    "institution": "НДНИВМИ - БАБХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-03",
+    "entryNumber": "Г1496",
+    "controlHash": "1F7BD766",
+    "sourceUrl": "https://register.cacbg.bg/2025/F6C35685-B7A2-4C6E-9EB9-F9C4DB946958203980.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19585.03550922115,
+        "amountEurSpouse": 11504.067326914916
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 91634.24223986747,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара загора",
+        "areaSqm": 118,
+        "builtAreaSqm": 91,
+        "acquiredYear": 2019,
+        "share": null,
+        "currency": "BGN",
+        "amount": 98000,
+        "valueEur": 50106.604357229415,
+        "holderName": "Деян Стратев Стратев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "ВМW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Деян Стратев Стратев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Деян Стратев Стратев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

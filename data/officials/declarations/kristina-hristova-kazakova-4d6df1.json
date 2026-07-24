@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "kristina-hristova-kazakova-4d6df1",
+    "declarantName": "Кристина Христова Казакова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г4339",
+    "controlHash": "8AB7951A",
+    "sourceUrl": "https://register.cacbg.bg/2025/E6DFE446-9E3E-4EF7-B794-67E9C97DF299207186.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24703.067239995296,
+        "amountEurSpouse": 34238.14953242357
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 84,
+        "builtAreaSqm": 75,
+        "acquiredYear": 2017,
+        "share": "50",
+        "currency": "BGN",
+        "amount": 160000,
+        "valueEur": 81806.70099139496,
+        "holderName": "Николай Асенов Казаков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Козлодуй",
+        "municipality": "Козлодуй",
+        "areaSqm": 23,
+        "builtAreaSqm": 19,
+        "acquiredYear": 2008,
+        "share": "50",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Николай Асенов Казаков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Лексус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 54000,
+        "valueEur": 27609.7615845958,
+        "holderName": "Кристина Христова Казакова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "Николай Асенов Казаков",
+        "isSpouse": true,
+        "legalBasis": "3,1",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

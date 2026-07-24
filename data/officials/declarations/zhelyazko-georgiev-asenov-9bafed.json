@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "zhelyazko-georgiev-asenov-9bafed",
+    "declarantName": "Желязко Георгиев Асенов",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г14534",
+    "controlHash": "14B59DCC",
+    "sourceUrl": "https://register.cacbg.bg/2025/A5693D7A-DD76-4B51-BCE3-66210435CFBF217856.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12960.737896442943,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Безодица",
+        "municipality": "Балчик",
+        "areaSqm": 600,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2024,
+        "share": "1-2",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Желязко Георгиев Асенов",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "воклсваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Желязко Геогиев Асенов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

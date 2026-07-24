@@ -276,3 +276,68 @@ type _OrderCoversUnion =
     : ["OFFICIAL_CATEGORY_ORDER is missing a category", never];
 const _orderCoversUnion: _OrderCoversUnion = true;
 void _orderCoversUnion;
+
+/** Categories whose officials are always worth a static page.
+ *
+ *  Prerender priority is about public interest, NOT declared wealth. Ranking the
+ *  cap by net worth put 608 state-enterprise managers ahead of the cabinet and
+ *  dropped 55% of ministers, 33% of the president's office and 91% of regional
+ *  governors out of both the prerendered set and the sitemap — the opposite of
+ *  what the pages are for.
+ *
+ *  These are the offices a reader searches by name: the political executive, the
+ *  independent bodies, the security and revenue leadership, the diplomatic and
+ *  academic heads. The remainder — state enterprises, hospitals, procurement
+ *  officers, EU-funds controllers, regional directorates — is the operational
+ *  bulk (10,699 of 14,490); those still get a page for the wealthiest, and all
+ *  of them remain fully browsable in the SPA and the DB-backed search. */
+export const OFFICIAL_PRERENDER_PRIORITY: ReadonlySet<OfficialCategoryKind> =
+  new Set<OfficialCategoryKind>([
+    "cabinet",
+    "deputy_minister",
+    "regional_governor",
+    "political_cabinet",
+    "president",
+    "mep",
+    "party_leader",
+    "regulator",
+    "central_bank",
+    "audit_court",
+    "secretary_general",
+    "inspectorate",
+    "agency_head",
+    "revenue_agency",
+    "security_service",
+    "military_command",
+    "social_fund",
+    "diplomat",
+    "academic",
+    "media_head",
+    "civil_society",
+    "international",
+  ]);
+
+/** Officials to emit a static page for, highest priority first.
+ *
+ *  Priority tier first, then declared net worth inside each tier. Shared by the
+ *  prerenderer and the sitemap so a <loc> can never point at a page that was
+ *  not built. */
+export const officialsForStaticPages = <
+  T extends { category: OfficialCategoryKind; netWorthEur?: number | null },
+>(
+  officials: readonly T[],
+  limit: number,
+): T[] =>
+  [...officials]
+    .sort(
+      (a, b) =>
+        Number(OFFICIAL_PRERENDER_PRIORITY.has(b.category)) -
+          Number(OFFICIAL_PRERENDER_PRIORITY.has(a.category)) ||
+        (b.netWorthEur ?? 0) - (a.netWorthEur ?? 0),
+    )
+    .slice(0, limit);
+
+/** How many officials get a static page. Every priority-tier official (3,791)
+ *  fits, with room for the wealthiest of the operational bulk. At two pages
+ *  each (BG + EN) that is ~10,000 files — against ~29,000 uncapped. */
+export const OFFICIALS_STATIC_PAGE_LIMIT = 5000;

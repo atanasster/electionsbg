@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "ivan-todorov-tomov-7b2576",
+    "declarantName": "Иван Тодоров Томов",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г7369",
+    "controlHash": "FB3044C1",
+    "sourceUrl": "https://register.cacbg.bg/2025/690E1471-EFDB-4255-9407-73C4622DD262210357.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21474.259010241178,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Иван Тодоров Томов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Десислава Кънчева Томова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 92000,
+        "valueEur": 47038.8530700521,
+        "holderName": "Иван Тодоров Томов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

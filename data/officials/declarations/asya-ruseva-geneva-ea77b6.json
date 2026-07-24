@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "asya-ruseva-geneva-ea77b6",
+    "declarantName": "Ася Русева Генева",
+    "institution": "РЗИ",
+    "positionTitle": "Директор на РЗИ",
+    "category": "regional_director",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-10",
+    "entryNumber": "Г391",
+    "controlHash": "E14E1DA1",
+    "sourceUrl": "https://register.cacbg.bg/2025/B3BEC34B-A9BF-421E-9C70-F1577F45FE70202361.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 56462.9850242608,
+        "amountEurSpouse": 42081.36698997357
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 698.4247097140344
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Лексус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24000,
+        "valueEur": 12271.005148709244,
+        "holderName": "Евгений Димитров Генев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24951,
+        "valueEur": 12757.243727726847,
+        "holderName": "Евгений Димитров Генев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110432,
+        "valueEur": 56462.9850242608,
+        "holderName": "Ася Русева Генева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 118814,
+        "valueEur": 60748.63357244751,
+        "holderName": "Ася Русева Генева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия и фонд"
+      }
+    ]
+  }
+]

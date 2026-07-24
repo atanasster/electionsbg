@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "tanya-milorova-ivanova-24518e",
+    "declarantName": "Таня Милорова Иванова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г10962",
+    "controlHash": "1B91A2FC",
+    "sourceUrl": "https://register.cacbg.bg/2025/C57AAB92-A279-49B5-AF61-D2F6D9063396214079.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35886.55455740018,
+        "amountEurSpouse": 6646.79445555084
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай Кона",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50833,
+        "valueEur": 25990.500196847373,
+        "holderName": "ОББ ИНТЕРЛИЙЗ",
+        "isSpouse": true,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16555,
+        "valueEur": 8464.437093203396,
+        "holderName": "Таня Милорова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и продажба на МПС"
+      },
+      {
+        "category": "debt",
+        "description": "договор лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50833,
+        "valueEur": 26001.74861823369,
+        "holderName": "Таня Милорова Иванова",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

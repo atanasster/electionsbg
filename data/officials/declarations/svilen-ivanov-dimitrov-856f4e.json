@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "svilen-ivanov-dimitrov-856f4e",
+    "declarantName": "СВИЛЕН ИВАНОВ ДИМИТРОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7992",
+    "controlHash": "D0913845",
+    "sourceUrl": "https://register.cacbg.bg/2025/7788D4D7-D88A-4F81-80EB-2DA01A77B3F7210998.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31337.07939851623,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 44,
+        "builtAreaSqm": 44,
+        "acquiredYear": 1996,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 328518,
+        "valueEur": 167968.58622681932,
+        "holderName": "Свилен Иванов Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45528,
+        "valueEur": 23278.096767101437,
+        "holderName": "Свилен Иванов Димитров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

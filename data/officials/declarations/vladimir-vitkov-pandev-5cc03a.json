@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "vladimir-vitkov-pandev-5cc03a",
+    "declarantName": "Владимир Витков Пандев",
+    "institution": "СБАЛПФЗ - Благоевград ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-02",
+    "entryNumber": "Г1542",
+    "controlHash": "9F394270",
+    "sourceUrl": "https://register.cacbg.bg/2025/71452058-8BD5-4CB5-9A62-166442724CB0204043.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 47550.144951248316,
+        "amountEurSpouse": 22496.842772633612
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24000,
+        "valueEur": 12271.005148709244,
+        "holderName": "Владимир Витков Пандев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Владимир Витков Пандев",
+        "isSpouse": false,
+        "legalBasis": "5.159%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

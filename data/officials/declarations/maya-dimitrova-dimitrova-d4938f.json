@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "maya-dimitrova-dimitrova-d4938f",
+    "declarantName": "Мая Димитрова Димитрова",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-07",
+    "entryNumber": "Г333",
+    "controlHash": "9DA8B9B3",
+    "sourceUrl": "https://register.cacbg.bg/2025/F51029E7-BB30-4668-AAF8-8AF1609E1648202221.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19860.110541304715,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 303.7073774305538,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Грънчарово",
+        "municipality": "Дулово",
+        "areaSqm": 2000,
+        "builtAreaSqm": 40,
+        "acquiredYear": 2024,
+        "share": "7/48",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Мая Димитрова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
+        "holderName": "Мая Димитрова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,73 @@
+[
+  {
+    "slug": "ioana-dimitrova-dimitrova-2f4a1a",
+    "declarantName": "(unknown)",
+    "institution": "МБАЛ - Д-р Никола Василиев\" АД, гр.Кюстендил",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-07-30",
+    "entryNumber": "В1306",
+    "controlHash": "11BF57E1",
+    "sourceUrl": "https://register.cacbg.bg/2025/F6D9B19E-4445-4B2C-ADCD-412A309DA545219246.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": []
+  },
+  {
+    "slug": "ioana-dimitrova-dimitrova-2f4a1a",
+    "declarantName": "Йоана Димитрова Димитрова",
+    "institution": "МБАЛ - Д-р Никола Василиев\" АД, гр.Кюстендил",
+    "positionTitle": "Член на СД",
+    "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2025,
+    "declarationType": "Entry",
+    "filedAt": "2025-07-30",
+    "entryNumber": "В1305",
+    "controlHash": "DCFD1AF2",
+    "sourceUrl": "https://register.cacbg.bg/2025/F6D9B19E-4445-4B2C-ADCD-412A309DA545219245.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "лексус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Йоана Димитрова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Йоана Димитрова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

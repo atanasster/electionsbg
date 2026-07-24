@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "iordanka-velichkova-hristova-addb63",
+    "declarantName": "Йорданка Величкова Христова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-15",
+    "entryNumber": "Г2794",
+    "controlHash": "F9790CD4",
+    "sourceUrl": "https://register.cacbg.bg/2025/C6349C47-598D-4DDC-AE60-5FD954148CD7205497.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17715.241099686576,
+        "amountEurSpouse": 10100.0598211501
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "iordanka-velichkova-hristova-addb63",
+    "declarantName": "Йорданка Величкова Христова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3177",
+    "controlHash": "7F2C39AD",
+    "sourceUrl": "https://register.cacbg.bg/2024/C6349C47-598D-4DDC-AE60-5FD954148CD7184251.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16097.002295700546,
+        "amountEurSpouse": 11248.421386316806
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Караново",
+        "municipality": "Айтос",
+        "areaSqm": 1318,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5500,
+        "valueEur": 2812.1053465792015,
+        "holderName": "Йорданка Величкова Христова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Йорданка Величкова Христова",
+        "isSpouse": false,
+        "legalBasis": "Банков кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "ekaterina-angelova-stefanova-89c6fb",
+    "declarantName": "Екатерина Ангелова Стефанова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11578",
+    "controlHash": "EDA20A14",
+    "sourceUrl": "https://register.cacbg.bg/2025/C0474068-6BE2-4DFD-BDDA-46E68CADD032214723.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13850.385769724362,
+        "amountEurSpouse": 14501.771626368345
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14917.963217662067,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26110,
+        "valueEur": 13349.831018033265,
+        "holderName": "Екатерина Ангелова Стефанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31420,
+        "valueEur": 16064.790907185185,
+        "holderName": "Стилиян Светославов Стефанов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "парично",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15600,
+        "valueEur": 7976.153346661008,
+        "holderName": "Стилиян Светославов Стефанов",
+        "isSpouse": true,
+        "legalBasis": "ипотечен кредит, 3.7%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

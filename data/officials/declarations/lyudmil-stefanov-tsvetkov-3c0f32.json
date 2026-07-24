@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "lyudmil-stefanov-tsvetkov-3c0f32",
+    "declarantName": "ЛЮДМИЛ СТЕФАНОВ ЦВЕТКОВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г3871",
+    "controlHash": "D19EB786",
+    "sourceUrl": "https://register.cacbg.bg/2025/DBB40B9C-D405-43A9-9647-1A24501EEE88206690.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2740.013191330535,
+        "amountEurSpouse": 24024.582913647915
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9990.132066692913
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": 12969.429858423278,
+        "amountEurSpouse": 10845.523383934187
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ЗЕМЕДЕЛСКА ЗЕМЯ",
+        "detail": null,
+        "location": "С. КАЛОЯН",
+        "municipality": "ВЪЛЧИ ДОЛ",
+        "areaSqm": 0,
+        "builtAreaSqm": 900,
+        "acquiredYear": 2024,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 4800,
+        "valueEur": 2454.2010297418487,
+        "holderName": "МАЯ ГРИГОРОВА ЦВЕТКОВА",
+        "isSpouse": true,
+        "legalBasis": "ПОКУПКА ЧРЕЗ ТЪРГ",
+        "fundsOrigin": "ЗАПЛАТА, ПЕНСИЯ"
+      },
+      {
+        "category": "real_estate",
+        "description": "ЗЕМЕДЕЛСКА ЗЕМЯ",
+        "detail": null,
+        "location": "С. КАЛОЯН",
+        "municipality": "ВЪЛЧИ ДОЛ",
+        "areaSqm": 0,
+        "builtAreaSqm": 900,
+        "acquiredYear": 2024,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 4800,
+        "valueEur": 2454.2010297418487,
+        "holderName": "ЛЮДМИЛ СТЕФАНОВ ЦВЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА ЧРЕЗ ТЪРГ",
+        "fundsOrigin": "ЗАПЛАТА, ПЕНСИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29523,
+        "valueEur": 15094.870208555958,
+        "holderName": "ЛЮДМИЛ СТЕФАНОВ ЦВЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА И ПЕНСИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110069,
+        "valueEur": 56277.38607138657,
+        "holderName": "ЛЮДМИЛ СТЕФАНОВ ЦВЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА И ПЕНСИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 232021,
+        "valueEur": 118630.45356702781,
+        "holderName": "МАЯ ГРИГОРОВА ЦВЕТКОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА И ПЕНСИЯ"
+      }
+    ]
+  }
+]

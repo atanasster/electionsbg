@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "mariya-kostova-ivanova-c8b96c",
+    "declarantName": "Мария Костова Иванова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-03",
+    "entryNumber": "Г8173",
+    "controlHash": "D8F7A63A",
+    "sourceUrl": "https://register.cacbg.bg/2025/18403DEE-3EAF-4FB8-8F98-ED70369F2C97211188.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18731.68935950466,
+        "amountEurSpouse": 16661.46853254117
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6.135502574354621
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1380.48807922979,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Фиеста",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Мария Костова Иванова",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Мария Костова Иванова",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

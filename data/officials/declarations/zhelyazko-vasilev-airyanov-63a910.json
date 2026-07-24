@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "zhelyazko-vasilev-airyanov-63a910",
+    "declarantName": "Желязко Василев Айрянов",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-26",
+    "entryNumber": "Г10846",
+    "controlHash": "5CB3A8C2",
+    "sourceUrl": "https://register.cacbg.bg/2024/05A350AC-8B9D-4029-A58B-6C15CD14DDFA192561.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12503.642954653524,
+        "amountEurSpouse": 21782.0567227213
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3530.981731541085,
+        "amountEurSpouse": 316.48967446045924
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Приморско",
+        "municipality": "Приморско",
+        "areaSqm": 94,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2021,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 70500,
+        "valueEur": 36046.077624333404,
+        "holderName": "Желязко Василев Айрянов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Средец",
+        "municipality": "Средец",
+        "areaSqm": 250,
+        "builtAreaSqm": 65,
+        "acquiredYear": 2022,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Желязко Василев Айрянов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Росеново",
+        "municipality": "Средец",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "acquiredYear": 2008,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 292,
+        "valueEur": 149.2972293092958,
+        "holderName": "Желязко Василев Айрянов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39000,
+        "valueEur": 19940.38336665252,
+        "holderName": "Желязко Василев Айрянов",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

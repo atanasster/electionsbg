@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "plamen-simeonov-peshev-7ab51a",
+    "declarantName": "Пламен Симеонов Пешев",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Изпълнителен директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-22",
+    "entryNumber": "Г6091",
+    "controlHash": "14F579D7",
+    "sourceUrl": "https://register.cacbg.bg/2024/B9D58E9E-B831-4C11-9B62-3250912B9A84187376.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 77387.09397033484,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 10122.045372041537,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 18990.40305138995,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 151356,
+        "valueEur": 77387.09397033484,
+        "holderName": "Пламен Симеонов Пешев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37142,
+        "valueEur": 18990.40305138995,
+        "holderName": "Пламен Симеонов Пешев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19797,
+        "valueEur": 10122.045372041537,
+        "holderName": "ПламенСимеонов Пешев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "други източници по чл.35 от ЗДДФЛ"
+      }
+    ]
+  }
+]

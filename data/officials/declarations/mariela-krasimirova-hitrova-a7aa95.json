@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "mariela-krasimirova-hitrova-a7aa95",
+    "declarantName": "Мариела Красимирова Хитрова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14771",
+    "controlHash": "790418C8",
+    "sourceUrl": "https://register.cacbg.bg/2025/43DEC65B-003E-4027-AD85-B1BAB26CDBC9218229.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15000.281210534658,
+        "amountEurSpouse": 111703.98245246263
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 23907.49707285398
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 13151.961060010328
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2024,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Мариела Красимирова Хитрова",
+        "isSpouse": false,
+        "legalBasis": "договор за гледане",
+        "fundsOrigin": "договор за гледане"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Мариела Красимирова Хитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7420,
+        "valueEur": 3793.7857584759413,
+        "holderName": "Мариела Красимирова Хитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

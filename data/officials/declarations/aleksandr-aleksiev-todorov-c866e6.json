@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "aleksandr-aleksiev-todorov-c866e6",
+    "declarantName": "Александър Алексиев Тодоров",
+    "institution": "Българските граждани заемащи длъжности в НАТО",
+    "positionTitle": "Представител",
+    "category": "international",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-04-27",
+    "entryNumber": "Г7450",
+    "controlHash": "6BA3DBAA",
+    "sourceUrl": "https://register.cacbg.bg/2022/E0E23F39-808C-4A61-AA69-1A12958E11DE139793.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10737.129505120589,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Командировъчни пари за длъжност в щаб на НАТО",
+        "amountEurDeclarant": 20451.67524784874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Мотоциклет",
+        "detail": "Ямаха",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 18900,
+        "valueEur": 9663.41655460853,
+        "holderName": "Александър Алексиев Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 26000,
+        "valueEur": 26587.17782220336,
+        "holderName": "Александър Алексиев Тодоров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
+        "holderName": "Александър Алексиев Тодоров",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

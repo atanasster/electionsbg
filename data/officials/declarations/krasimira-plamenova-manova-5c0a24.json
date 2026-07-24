@@ -1,0 +1,135 @@
+[
+  {
+    "slug": "krasimira-plamenova-manova-5c0a24",
+    "declarantName": "Красимира Пламенова Манова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г10811",
+    "controlHash": "E6C206C6",
+    "sourceUrl": "https://register.cacbg.bg/2025/7656825D-DE69-4B2E-A81D-FDE2CF36EF64213917.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19076.81137931211,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 8724.684660732273,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лека кола",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Красимира Пламенова Манова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Красимира Пламенова Манова",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "krasimira-plamenova-manova-5c0a24",
+    "declarantName": "(unknown)",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г10819",
+    "controlHash": "2F11C29D",
+    "sourceUrl": "https://register.cacbg.bg/2025/7656825D-DE69-4B2E-A81D-FDE2CF36EF64213926.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "security",
+        "description": "Потребителски кредит",
+        "detail": "Красимира Пламенова Манова",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "55000",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ПИБ",
+        "isSpouse": true,
+        "legalBasis": "Ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

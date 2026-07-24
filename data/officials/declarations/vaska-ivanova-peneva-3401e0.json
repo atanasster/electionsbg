@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "vaska-ivanova-peneva-3401e0",
+    "declarantName": "Васка Иванова Пенева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
+    "entryNumber": "Г7029",
+    "controlHash": "C0336397",
+    "sourceUrl": "https://register.cacbg.bg/2025/E5F921A7-5E38-40F2-BE0F-FAD4B21C8321210016.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26168.941063384857,
+        "amountEurSpouse": 5724.423901872862
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Бачево",
+        "municipality": "Разлог",
+        "areaSqm": 320,
+        "builtAreaSqm": 200,
+        "acquiredYear": 2005,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Васка Иванова Пенева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Васка Иванова Пенева",
+        "isSpouse": false,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

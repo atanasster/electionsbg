@@ -1,0 +1,147 @@
+[
+  {
+    "slug": "ivan-ivanov-ivanov-517f08",
+    "declarantName": "ИВАН ИВАНОВ ИВАНОВ",
+    "institution": "Български червен кръст",
+    "positionTitle": "Член на НС",
+    "category": "civil_society",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-10",
+    "entryNumber": "Г5326",
+    "controlHash": "E99EF944",
+    "sourceUrl": "https://register.cacbg.bg/2023/16CA52B6-2FA6-4CFE-BC82-AFF9880E1590151773.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4791.82751057096,
+        "amountEurSpouse": 33409.34539300451
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 313.9332150544781,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "РЕНТА",
+        "amountEurDeclarant": 7760.388172796204,
+        "amountEurSpouse": 3469.1154139163423
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11109,
+        "valueEur": 5679.941508208791,
+        "holderName": "ИВАН ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30829,
+        "valueEur": 15762.61740539822,
+        "holderName": "ПАВЛИНКА ДИМИТРОВА ИВАНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 5329,
+        "valueEur": null,
+        "holderName": "ПАВЛИНКА ДИМИТРОВА ИВАНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "Жилищен/ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 259600,
+        "valueEur": 132731.37235853833,
+        "holderName": "ПАВЛИНКА ДИМИТРОВА ИВАНОВА",
+        "isSpouse": true,
+        "legalBasis": "Договор ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "ivan-ivanov-ivanov-517f08",
+    "declarantName": "(unknown)",
+    "institution": "Български червен кръст",
+    "positionTitle": "Член на НС",
+    "category": "civil_society",
+    "declarationYear": 2023,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "Г8681",
+    "controlHash": "EF8C75F6",
+    "sourceUrl": "https://register.cacbg.bg/2023/16CA52B6-2FA6-4CFE-BC82-AFF9880E1590155669.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ЧЕРВЕН ДЪБ ООД",
+        "detail": null,
+        "location": "500",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

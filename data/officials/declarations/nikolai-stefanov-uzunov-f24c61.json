@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "nikolai-stefanov-uzunov-f24c61",
+    "declarantName": "Николай Стефанов Узунов",
+    "institution": "СБАЛОЗ – София област ЕООД",
+    "positionTitle": "Контрольор",
+    "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-08",
+    "entryNumber": "Г1578",
+    "controlHash": "745FE68F",
+    "sourceUrl": "https://register.cacbg.bg/2025/1D6ED6A9-4D5F-4881-84CB-204122182B0C204086.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24167.744640382854,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ОБЕЩЕТЕНИЯ И ПОМОЩИ ПО ЧАСТ ПЪРВА ОТ КСО ВКЛ. ИЗПЛАТЕНИ НА ОСНОВАНИЕ ЧЛ.40 АЛ.5 ОТ КСО ОСВОБОДЕНИ ОТ ОБЛАГАНЕ ЧЛ. 24 АЛ.2 Т.14 ОТ ЗДДФЛ",
+        "amountEurDeclarant": 405.9657536697975,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Стойност на дневните командировъчни пари, освободени от облагане на основание чл. 24, ал. 2, т. 5, б. „б“ от ЗДДФЛ",
+        "amountEurDeclarant": 877.8881600139072,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "софия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 68,
+        "builtAreaSqm": 70,
+        "acquiredYear": 2020,
+        "share": "5/6",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Николай Стефанов Узунов",
+        "isSpouse": false,
+        "legalBasis": "замяна",
+        "fundsOrigin": "от родителите"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "софия",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 90,
+        "builtAreaSqm": 110,
+        "acquiredYear": 2016,
+        "share": "5/6",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Николай Стефанов Узунов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "от родителите"
+      },
+      {
+        "category": "vehicle",
+        "description": "джип",
+        "detail": "тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "цялата",
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "николай стефанов узунов",
+        "isSpouse": false,
+        "legalBasis": "лизинг -отп-Лизиг ЕАД",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Николай Стефанов Узунов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Николай Стефанов Узунов",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

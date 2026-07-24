@@ -1,0 +1,117 @@
+[
+  {
+    "slug": "tsvetelina-asenova-marinova-659b26",
+    "declarantName": "Цветелина Асенова Маринова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г13730",
+    "controlHash": "86F1F385",
+    "sourceUrl": "https://register.cacbg.bg/2025/C4F546DF-0DDB-4C40-B3EF-5F5960A35D09216980.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19614.179146449333,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9003.33873598421
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "tsvetelina-asenova-marinova-659b26",
+    "declarantName": "Цветелина Асенова Маринова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5884",
+    "controlHash": "9FE4FA1E",
+    "sourceUrl": "https://register.cacbg.bg/2024/C4F546DF-0DDB-4C40-B3EF-5F5960A35D09187143.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18178.471544050353,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7807.427025866256
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Ахелой",
+        "municipality": "Поморие",
+        "areaSqm": 108,
+        "builtAreaSqm": 108,
+        "acquiredYear": 2023,
+        "share": "90",
+        "currency": "BGN",
+        "amount": 113438,
+        "valueEur": 57999.92841913663,
+        "holderName": "Цветелина Асенова Маринова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Ахелой",
+        "municipality": "Поморие",
+        "areaSqm": 108,
+        "builtAreaSqm": 108,
+        "acquiredYear": 2023,
+        "share": "90",
+        "currency": "BGN",
+        "amount": 113438,
+        "valueEur": 57999.92841913663,
+        "holderName": "Мирослав Христов Маринов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 52200,
+        "valueEur": 52199.83331884673,
+        "holderName": "Цветелина Асенова Малинова",
+        "isSpouse": true,
+        "legalBasis": "договор за ипотека",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

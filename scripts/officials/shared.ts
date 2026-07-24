@@ -146,21 +146,27 @@ const cachePath = (year: number, xmlFile: string): string =>
   path.join(RAW_DIR, String(year), xmlFile);
 
 // Fetch one declaration XML, caching it under raw_data/officials/<year>/.
-// Returns null when the register lists a declaration whose file is missing
+// `xml` is null when the register lists a declaration whose file is missing
 // (404) — the caller decides whether that is tolerable. Nothing is cached in
 // that case, so a later re-run retries the file in case upstream restores it.
+//
+// `fromCache` lets the caller skip the politeness sleep on a cache hit: it only
+// exists to be kind to register.cacbg.bg between real requests, and a re-derive
+// from a warm cache makes none. Sleeping on every one of ~9,000 cached reads
+// added ~22 minutes per year to an otherwise CPU-bound pass.
 export const fetchDeclaration = async (
   year: number,
   xmlFile: string,
   sourceUrl: string,
-): Promise<string | null> => {
+): Promise<{ xml: string | null; fromCache: boolean }> => {
   const out = cachePath(year, xmlFile);
-  if (fs.existsSync(out)) return fs.readFileSync(out, "utf-8");
+  if (fs.existsSync(out))
+    return { xml: fs.readFileSync(out, "utf-8"), fromCache: true };
   const xml = await fetchTextOptional(sourceUrl);
-  if (xml == null) return null;
+  if (xml == null) return { xml: null, fromCache: false };
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, xml, "utf-8");
-  return xml;
+  return { xml, fromCache: false };
 };
 
 export const writeJson = (file: string, obj: unknown): void => {

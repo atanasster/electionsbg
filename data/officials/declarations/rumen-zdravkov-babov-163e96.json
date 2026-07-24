@@ -1,0 +1,73 @@
+[
+  {
+    "slug": "rumen-zdravkov-babov-163e96",
+    "declarantName": "(unknown)",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Заместник-директор на териториална дирекция",
+    "category": "revenue_agency",
+    "declarationYear": 2024,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2024-08-02",
+    "entryNumber": "В1494",
+    "controlHash": "6E586BB8",
+    "sourceUrl": "https://register.cacbg.bg/2024/7556278B-002A-4863-B9FA-E68B4766D7EA193987.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": []
+  },
+  {
+    "slug": "rumen-zdravkov-babov-163e96",
+    "declarantName": "Румен Здравков Бабов",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Заместник-директор на териториална дирекция",
+    "category": "revenue_agency",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Entry",
+    "filedAt": "2024-08-02",
+    "entryNumber": "В1493",
+    "controlHash": "310977C4",
+    "sourceUrl": "https://register.cacbg.bg/2024/7556278B-002A-4863-B9FA-E68B4766D7EA193984.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7500,
+        "valueEur": 7132.521742687248,
+        "holderName": "София Пейчева Бабова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19900,
+        "valueEur": 10174.708435804749,
+        "holderName": "Румен Здравков Бабов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

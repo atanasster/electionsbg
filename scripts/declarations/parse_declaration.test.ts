@@ -10,6 +10,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   parseDeclarationXml,
+  pickEurValue,
   resolveDeclarationYear,
 } from "./parse_declaration";
 
@@ -129,7 +130,11 @@ describe("resolveDeclarationYear", () => {
     expect(warn).toHaveBeenCalledOnce();
   });
 
-  it("accepts an annual whose fiscal year equals the folder year (+1 is legitimate)", () => {
+  // An annual whose fiscal year equals its folder year (the register does carry
+  // these — fiscal 2025 in the 2025 folder, filed that May). `fy+1` would date
+  // it 2026, a year past the folder it was published in, so it clamps back to
+  // the folder. 136 rows across the corpus had this shape.
+  it("clamps an annual whose fiscal year equals the folder year to the folder", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     expect(
       resolveDeclarationYear({
@@ -138,7 +143,22 @@ describe("resolveDeclarationYear", () => {
         filedAt: null,
         sourceUrl: url("2025"),
       }).declarationYear,
-    ).toBe(2026);
+    ).toBe(2025);
+    expect(warn).toHaveBeenCalledOnce();
+  });
+
+  // The normal annual: filed in folder N for fiscal N-1, so fy+1 lands exactly
+  // on the folder year and is NOT clamped.
+  it("dates a normal annual to the folder year without clamping", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    expect(
+      resolveDeclarationYear({
+        declType: "Annualy",
+        fiscalYear: 2024,
+        filedAt: "2025-05-14",
+        sourceUrl: url("2025"),
+      }).declarationYear,
+    ).toBe(2025);
     expect(warn).not.toHaveBeenCalled();
   });
 
@@ -330,5 +350,31 @@ describe("parseDeclarationXml — declaration year end to end", () => {
     vi.setSystemTime(new Date(PIPELINE_RUN_YEAR));
     const d = parse(declarationXml({ type: "Other" }), "2022");
     expect(d.declarationYear).toBe(2022);
+  });
+});
+
+describe("pickEurValue — money-field separator typos", () => {
+  // A bank/cash row: cell A (amount) and cell C (lev-equivalent) describe the
+  // same sum, so they must agree up to the peg. A wildly larger equivalent is a
+  // dropped-decimal typo — value the row from the amount instead. Real case:
+  // 16,415 EUR declared, lev-equivalent typed as ~3.2bn, ranking #1 at €1.6bn.
+  it("distrusts a lev-equivalent that dwarfs a declared bank amount", () => {
+    expect(pickEurValue(16415, "EUR", 3.2e9, true)).toBeCloseTo(16415, 0);
+  });
+
+  it("keeps a lev-equivalent that agrees with the amount", () => {
+    // 11,600 BGN ≈ €5,931; equivalent field ~11,600 BGN → same.
+    expect(pickEurValue(11600, "BGN", 11600, true)).toBeCloseTo(5931, 0);
+  });
+
+  // investment/security are NOT pure-money: cell A can be a share count far
+  // below the market value in cell C, so the guard must not touch them.
+  it("does not second-guess a share count against its market value", () => {
+    // 3 shares, market value 4,266 BGN → keep the equivalent.
+    expect(pickEurValue(3, "BGN", 4266, false)).toBeCloseTo(2181, 0);
+  });
+
+  it("falls back to the amount when there is no equivalent", () => {
+    expect(pickEurValue(500, "EUR", null, true)).toBeCloseTo(500, 0);
   });
 });

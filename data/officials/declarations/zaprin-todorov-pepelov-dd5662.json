@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "zaprin-todorov-pepelov-dd5662",
+    "declarantName": "Заприн Тодоров Пепелов",
+    "institution": "МБАЛ - Велинград ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-22",
+    "entryNumber": "Г10743",
+    "controlHash": "D70FE612",
+    "sourceUrl": "https://register.cacbg.bg/2024/7CE5EDF1-01CA-4E44-9354-254ED5A96BFB192452.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22922.748909670063,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5529.110403255907,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 85747.7388116554,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив, ЖК \"Тракия\" , бул\"Освобождение\"75",
+        "municipality": "Пловдив",
+        "areaSqm": 88,
+        "builtAreaSqm": 88,
+        "acquiredYear": 2005,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Заприн Тодоров Пепелов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "Пловдив, ЖК \"Тракия\" , бул\"Освобождение\"75",
+        "municipality": "Пловдив",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "acquiredYear": 2005,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Заприн Тодоров Пепелов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Заприн Тодоров Пепелов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Заприн Тодоров Пепелов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

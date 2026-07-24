@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "stoiko-stoyanov-stoyanov-c19c55",
+    "declarantName": "Стойко Стоянов Стоянов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-22",
+    "entryNumber": "Г8062",
+    "controlHash": "4F113A26",
+    "sourceUrl": "https://register.cacbg.bg/2024/D684BC9E-0BF0-4C20-93BF-F4B7BE89484C189678.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22964.163552046957,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 11522.47383463798,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Писменово",
+        "municipality": "Приморско",
+        "areaSqm": 976,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2023,
+        "share": "17/18",
+        "currency": "BGN",
+        "amount": 56500,
+        "valueEur": 28887.991287586345,
+        "holderName": "Стойко Стоянов Стоянов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Стойко Стоянов Стоянов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "aleksandr-georgiev-apostolov-f21bd4",
+    "declarantName": "Александър Георгиев Апостолов",
+    "institution": "ГДИН",
+    "positionTitle": "Началник на затвор",
+    "category": "regional_director",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2020-04-15",
+    "entryNumber": "Г1938",
+    "controlHash": "B46FC87C",
+    "sourceUrl": "https://register.cacbg.bg/2020/d3a2f4ec-e16c-4d4f-8755-29eb94c18760.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16258.570530158551,
+        "amountEurSpouse": 9119.91328489695
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": 6871.762883277176,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДМС ФЗД",
+        "amountEurDeclarant": 971.4545742728151,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 97000,
+        "valueEur": 49595.31247603319,
+        "holderName": "Александър Георгиев Апостолов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Александър Георгиев Апостолов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4950,
+        "valueEur": 2530.8948119212814,
+        "holderName": "Марияна Георгиева Шукерова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 625,
+        "valueEur": 639.1148514952731,
+        "holderName": "Марияна Георгиева Шукерова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ]
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "fatme-mustafova-gancheva-3e3334",
+    "declarantName": "Фатме Мустафова Ганчева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-07",
+    "entryNumber": "Г1978",
+    "controlHash": "4814526E",
+    "sourceUrl": "https://register.cacbg.bg/2025/23B913DE-5FA1-4FE1-996B-7573CE1104F0204559.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17193.212088985238,
+        "amountEurSpouse": 13881.063282596137
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "fatme-mustafova-gancheva-3e3334",
+    "declarantName": "Фатме Мустафова Ганчева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-18",
+    "entryNumber": "Г5779",
+    "controlHash": "FF08A058",
+    "sourceUrl": "https://register.cacbg.bg/2024/23B913DE-5FA1-4FE1-996B-7573CE1104F0187036.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15226.272222023386,
+        "amountEurSpouse": 14091.204245767782
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Лясковец",
+        "municipality": "Лясковец",
+        "areaSqm": 600,
+        "builtAreaSqm": 240,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 145000,
+        "valueEur": 74137.32277345168,
+        "holderName": "Галин Пенев Ганчев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 140000,
+        "valueEur": 71580.86336747059,
+        "holderName": "Галин Пенев Ганчев",
+        "isSpouse": true,
+        "legalBasis": "ипотечен заем",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

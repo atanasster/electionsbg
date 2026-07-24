@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "ivan-georgiev-ivanov-6b136a",
+    "declarantName": "Иван Георгиев Иванов",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-14",
+    "entryNumber": "Г3529",
+    "controlHash": "F6267A36",
+    "sourceUrl": "https://register.cacbg.bg/2025/C9FBDABF-D4F2-4522-84DD-4F8EE1D36B61206320.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11174.284063543355,
+        "amountEurSpouse": 8227.708952209548
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит - лихвен процент 3,95",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54482,
+        "valueEur": 27856.204271332375,
+        "holderName": "Иван Георгиев Иванов",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит - лихвен процент 4,29",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7016,
+        "valueEur": 3587.223838472669,
+        "holderName": "Клавдия Димитрова Иванова",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

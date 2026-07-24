@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "sonya-boyanova-vasileva-b0390c",
+    "declarantName": "Соня Боянова Василева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г13856",
+    "controlHash": "639FD2AC",
+    "sourceUrl": "https://register.cacbg.bg/2024/5F7CA8D1-CBC9-410E-A496-9EB27159DFA7196022.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27432.34330182071,
+        "amountEurSpouse": 3067.751287177311
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2760.97615845958,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "тойота АЙГО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 25577,
+        "valueEur": 13077.312445355681,
+        "holderName": "Соня Боянова Василева",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "тойота АВЕНСИС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1250,
+        "valueEur": 639.1148514952731,
+        "holderName": "Васил Митов Василев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 200667,
+        "valueEur": 102599.40792400157,
+        "holderName": "Соня Боянова Василева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "покупка на автомобил лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13077,
+        "valueEur": 13077.312445355681,
+        "holderName": "Соня Боянова Василева",
+        "isSpouse": false,
+        "legalBasis": "покупка на лизинг-0,6%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

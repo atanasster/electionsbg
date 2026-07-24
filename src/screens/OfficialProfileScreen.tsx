@@ -22,10 +22,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
-import {
-  useOfficial,
-  useOfficialDeclarations,
-} from "@/data/officials/useOfficial";
+import { useOfficialDeclarations } from "@/data/officials/useOfficial";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { ErrorSection } from "./components/ErrorSection";
 import { OfficialConnectionsSection } from "./components/OfficialConnectionsSection";
@@ -66,7 +63,6 @@ export const OfficialProfileScreen: FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams] = useSearchParams();
   const { t, i18n } = useTranslation();
-  const { official, isLoading: officialLoading } = useOfficial(slug);
   const { declarations, isLoading: declsLoading } =
     useOfficialDeclarations(slug);
   const { nameForBg } = useCandidateName();
@@ -192,7 +188,7 @@ export const OfficialProfileScreen: FC = () => {
     });
   }, [stakesFiling]);
 
-  if (officialLoading || declsLoading) {
+  if (declsLoading) {
     return (
       <section className="my-4" aria-hidden>
         <div className="min-h-[400px]" />
@@ -200,7 +196,7 @@ export const OfficialProfileScreen: FC = () => {
     );
   }
 
-  if (!official && !newest) {
+  if (!newest) {
     return (
       <ErrorSection
         title={t("official_not_found_title") || "Official not found"}
@@ -212,18 +208,18 @@ export const OfficialProfileScreen: FC = () => {
     );
   }
 
-  // Display fields fall back to the latest declaration — municipal officials
-  // have no executive rankings entry, so `official` is null for them.
-  const displayName = official?.name ?? newest?.declarantName ?? "";
-  const institution = official?.institution ?? newest?.institution ?? "";
-  const positionTitle =
-    official?.positionTitle ?? newest?.positionTitle ?? null;
-  const latestYear =
-    official?.latestDeclarationYear ?? newest?.declarationYear ?? null;
+  // Everything comes off the declaration the page already fetched — name,
+  // institution, title, year, and the bucket now carried on the shard. The
+  // whole-corpus rankings file (~8 MB) is no longer pulled just to label one
+  // page: the leaderboard at /officials/assets still uses it, this page does not.
+  const displayName = newest.declarantName ?? "";
+  const institution = newest.institution ?? "";
+  const positionTitle = newest.positionTitle ?? null;
+  const latestYear = newest.declarationYear ?? null;
   const delta = summary?.delta ?? null;
 
-  const categoryMeta = official
-    ? OFFICIAL_CATEGORY_META[official.category]
+  const categoryMeta = newest.category
+    ? OFFICIAL_CATEGORY_META[newest.category]
     : null;
   const Icon = categoryMeta?.icon ?? Landmark;
   const categoryLabel = categoryMeta
@@ -262,7 +258,7 @@ export const OfficialProfileScreen: FC = () => {
 
       <section className="rounded-xl border bg-card p-4 shadow-sm space-y-3">
         <div className="flex flex-wrap items-center gap-2">
-          {official ? (
+          {categoryMeta ? (
             <span
               className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${
                 categoryMeta?.chipClass ?? ""
@@ -279,7 +275,7 @@ export const OfficialProfileScreen: FC = () => {
           ) : null}
           <span className="text-sm text-muted-foreground">{institution}</span>
         </div>
-        {official && positionTitle ? (
+        {categoryMeta && positionTitle ? (
           <p className="text-sm">
             <span className="text-muted-foreground">
               {t("official_position") || "Position"}:

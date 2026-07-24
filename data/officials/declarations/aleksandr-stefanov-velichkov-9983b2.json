@@ -1,0 +1,147 @@
+[
+  {
+    "slug": "aleksandr-stefanov-velichkov-9983b2",
+    "declarantName": "АЛЕКСАНДЪР СТЕФАНОВ ВЕЛИЧКОВ",
+    "institution": "МБАЛ - Д-р Никола Василиев\" АД, гр.Кюстендил",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Vacate",
+    "filedAt": "2024-06-17",
+    "entryNumber": "Ф734",
+    "controlHash": "903CA98B",
+    "sourceUrl": "https://register.cacbg.bg/2024/E26A8F87-F1C2-4819-B7B3-2E146E676BAA195995.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Кюстендил",
+        "municipality": "Кюстендил",
+        "areaSqm": 130,
+        "builtAreaSqm": 130,
+        "acquiredYear": 1987,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 19757,
+        "valueEur": 10101.593696793689,
+        "holderName": "Александър Стефанов Величков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Кюстендил",
+        "municipality": "Кюстендил",
+        "areaSqm": 130,
+        "builtAreaSqm": 130,
+        "acquiredYear": 1987,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 19757,
+        "valueEur": 10101.593696793689,
+        "holderName": "Антоанета Асенова Величкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "употребяван лек автомобил",
+        "detail": "Волксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 800,
+        "valueEur": 409.0335049569748,
+        "holderName": "Александър Стефанов Величков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38148,
+        "valueEur": 19504.76268387334,
+        "holderName": "АЛЕКСАНДЪР СТЕФАНОВ ВЕЛИЧКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "aleksandr-stefanov-velichkov-9983b2",
+    "declarantName": "АЛЕКСАНДЪР СТЕФАНОВ ВЕЛИЧКОВ",
+    "institution": "МБАЛ - Д-р Никола Василиев\" АД, гр.Кюстендил",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-08",
+    "entryNumber": "Г9844",
+    "controlHash": "0BB69FBE",
+    "sourceUrl": "https://register.cacbg.bg/2024/E26A8F87-F1C2-4819-B7B3-2E146E676BAA191506.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 52821.05295450013,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6743.939912978122,
+        "amountEurSpouse": 5532.178154543084
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10503.980407295112
+      }
+    ],
+    "assets": [
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29635,
+        "valueEur": 15152.134899249935,
+        "holderName": "АЛЕКСАНДЪР СТЕФАНОВ ВЕЛИЧКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      }
+    ]
+  }
+]

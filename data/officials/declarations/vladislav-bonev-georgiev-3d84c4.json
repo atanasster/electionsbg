@@ -1,0 +1,51 @@
+[
+  {
+    "slug": "vladislav-bonev-georgiev-3d84c4",
+    "declarantName": "Владислав Бонев Георгиев",
+    "institution": "Североизточно държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-13",
+    "entryNumber": "Г7016",
+    "controlHash": "24ED6CC1",
+    "sourceUrl": "https://register.cacbg.bg/2024/F3934B34-719A-4751-ADCB-FAC6A0E53129188498.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22259.092047877373,
+        "amountEurSpouse": 16166.537991543233
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 238.77330851863402,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит за текущо потребление",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 46999,
+        "valueEur": 24030.207124341072,
+        "holderName": "Владислав Бонев Георгиев",
+        "isSpouse": false,
+        "legalBasis": "Договор за банков кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

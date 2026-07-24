@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "nadezhda-lchezarova-dimitrova-9104f4",
+    "declarantName": "Надежда Лъчезарова Димитрова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г15300",
+    "controlHash": "F9EE2B0A",
+    "sourceUrl": "https://register.cacbg.bg/2025/A68AE945-A31B-40AC-831C-116ADB44F7DD219148.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16600.113506797625,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 128.33426218025085,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Надежда Лъчезарова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37865,
+        "valueEur": 19360.067081494813,
+        "holderName": "Надежда Лъчезарова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "кредит, 4,29%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "ivan-slavov-ivanov-989342",
+    "declarantName": "Иван Славов Иванов",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-02",
+    "entryNumber": "Г6248",
+    "controlHash": "07D53C5C",
+    "sourceUrl": "https://register.cacbg.bg/2025/B085AC35-B091-4AAE-BAA9-38D60DB5B9A5209203.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24980.698731484845,
+        "amountEurSpouse": 16329.12880976363
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 155000,
+        "valueEur": 79250.24158541387,
+        "holderName": "Иван Славов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата,участие в мисии,заем,средства от родители"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Цветелина Томова Иванова",
+        "isSpouse": true,
+        "legalBasis": "4,6%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

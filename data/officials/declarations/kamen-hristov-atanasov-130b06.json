@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "kamen-hristov-atanasov-130b06",
+    "declarantName": "Камен Христов Атанасов",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13319",
+    "controlHash": "18EDA27A",
+    "sourceUrl": "https://register.cacbg.bg/2025/460EA47C-16D8-4B81-92EB-C80B1FCD7600216522.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19940.38336665252,
+        "amountEurSpouse": 11360.905600179974
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "пловдив",
+        "areaSqm": 96,
+        "builtAreaSqm": 96,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 180000,
+        "valueEur": 92032.53861531932,
+        "holderName": "Каме Христов Атанасов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19000,
+        "valueEur": 9714.54574272815,
+        "holderName": "Камен Христов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 180000,
+        "valueEur": 92032.53861531932,
+        "holderName": "Камен Христов Атанасов",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

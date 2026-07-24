@@ -1,0 +1,135 @@
+[
+  {
+    "slug": "galina-marcheva-mihova-529705",
+    "declarantName": "Галина Марчева Михова",
+    "institution": "Селскостопанска академия",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-09",
+    "entryNumber": "Г6189",
+    "controlHash": "B6758DE7",
+    "sourceUrl": "https://register.cacbg.bg/2023/C88B9CA6-6F88-4B51-ACEE-7541015DECB1152770.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 15227.806097666975,
+        "amountEurSpouse": 74942.60748633572
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 16.87263207947521,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1840.6507723063867
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 511.29188119621847,
+        "amountEurSpouse": 1789.5215841867648
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "КИА Соренто",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Галина Марчева Михова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 429000,
+        "valueEur": 219344.21703317773,
+        "holderName": "Галина Марчева Михова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, наем, рента"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 720000,
+        "valueEur": 368130.1544612773,
+        "holderName": "Иван Радев Михов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, наем, рента"
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Иван Радев Михов",
+        "isSpouse": true,
+        "legalBasis": "Кредитна карта",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24000,
+        "valueEur": 12271.005148709244,
+        "holderName": "Иван Радев Михов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

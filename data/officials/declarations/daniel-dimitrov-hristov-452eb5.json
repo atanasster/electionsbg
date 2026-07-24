@@ -1,0 +1,121 @@
+[
+  {
+    "slug": "daniel-dimitrov-hristov-452eb5",
+    "declarantName": "ДАНИЕЛ ДИМИТРОВ ХРИСТОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г9762",
+    "controlHash": "86A66BBF",
+    "sourceUrl": "https://register.cacbg.bg/2025/FC0A6025-4AFB-4AD4-99CF-C06360E1A66D212815.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10375.134853233665,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 511.29188119621847
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "daniel-dimitrov-hristov-452eb5",
+    "declarantName": "(unknown)",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2024-02-08",
+    "entryNumber": "В622",
+    "controlHash": "D0A2415D",
+    "sourceUrl": "https://register.cacbg.bg/2024/FC0A6025-4AFB-4AD4-99CF-C06360E1A66D179135.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": []
+  },
+  {
+    "slug": "daniel-dimitrov-hristov-452eb5",
+    "declarantName": "Даниел Димитров Христов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Entry",
+    "filedAt": "2024-02-08",
+    "entryNumber": "В621",
+    "controlHash": "D33921B2",
+    "sourceUrl": "https://register.cacbg.bg/2024/FC0A6025-4AFB-4AD4-99CF-C06360E1A66D179134.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Богорово",
+        "municipality": "Силистра",
+        "areaSqm": 2400,
+        "builtAreaSqm": 57,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Моника Мариянова Митева-Христова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "тежкотоварен автомобил",
+        "detail": "Пежо Боксер",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Моника Мариянова Митева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Моника Мариянова Митева-Христова",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

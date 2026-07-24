@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "raina-bozhkova-ganeva-92e03a",
+    "declarantName": "Райна Божкова Ганева",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-04",
+    "entryNumber": "Г1546",
+    "controlHash": "57CC5438",
+    "sourceUrl": "https://register.cacbg.bg/2025/2A62442D-8016-47E7-9FD7-059314567D21204047.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48411.16047918275,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1890.757376663616,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 78,
+        "builtAreaSqm": 78,
+        "acquiredYear": 2006,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Райна Божкова Ганева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Турия",
+        "municipality": "Павел баня",
+        "areaSqm": 240,
+        "builtAreaSqm": 240,
+        "acquiredYear": 2009,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5600,
+        "valueEur": 2863.2345346988236,
+        "holderName": "Райна Божкова Ганева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Проф. Ширково",
+        "municipality": "Силистра",
+        "areaSqm": 10,
+        "builtAreaSqm": 10,
+        "acquiredYear": 2000,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Райна Божкова Ганева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Райна Божкова Ганева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "Райна Божкова Ганева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

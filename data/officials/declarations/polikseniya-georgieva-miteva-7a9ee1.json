@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "polikseniya-georgieva-miteva-7a9ee1",
+    "declarantName": "Поликсения Георгиева Митева",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Контрольор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-08",
+    "entryNumber": "Г1873",
+    "controlHash": "7516347B",
+    "sourceUrl": "https://register.cacbg.bg/2025/821F0C19-307D-46B8-8AF4-1693D590672E204437.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22955.982881947817,
+        "amountEurSpouse": 5817.479024250574
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3148.5354044063133,
+        "amountEurSpouse": 5213.64331255784
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7022,
+        "valueEur": 7022.082696348864,
+        "holderName": "Поликсения Георгиева Митева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16719,
+        "valueEur": 8548.288961719576,
+        "holderName": "Поликсения Георгиева Митева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Жилищен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 181469,
+        "valueEur": 92783.62638879658,
+        "holderName": "Поликсения Георгиева Митева",
+        "isSpouse": false,
+        "legalBasis": "покупка апартамент",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг - покупка на МПС",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7680,
+        "valueEur": 3926.721647586958,
+        "holderName": "Георги Николов Митев",
+        "isSpouse": true,
+        "legalBasis": "покупка МПС",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

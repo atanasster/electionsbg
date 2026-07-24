@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "rukie-ahmedova-durleva-8c0f1a",
+    "declarantName": "РУКИЕ АХМЕДОВА ДУРЛЕВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-10",
+    "entryNumber": "Г7727",
+    "controlHash": "33C75EF4",
+    "sourceUrl": "https://register.cacbg.bg/2024/8D8DBB3D-6D71-4FD7-A83B-71F78045FA23189334.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16770.373703235968,
+        "amountEurSpouse": 6135.502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ГР.ШУМЕН",
+        "municipality": "Шумен",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 140000,
+        "valueEur": 71580.86336747059,
+        "holderName": "РУКИЕ АХМЕДОВА ДУРЛЕВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "РУКИЕ АХМЕДОВА ДУРЛЕВА",
+        "isSpouse": false,
+        "legalBasis": "ИПОТЕЧЕН",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

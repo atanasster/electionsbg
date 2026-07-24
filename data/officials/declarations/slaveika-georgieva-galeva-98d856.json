@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "slaveika-georgieva-galeva-98d856",
+    "declarantName": "Славейка Георгиева Галева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2590",
+    "controlHash": "E39E3BC7",
+    "sourceUrl": "https://register.cacbg.bg/2025/A230919B-F530-4A60-A3F8-4CC57D142327205263.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30147.814482853828,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4448.2393664071005
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4210,
+        "valueEur": 2152.5388198360797,
+        "holderName": "Славейка Георгиева Галева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Славейка Георгиева Галева",
+        "isSpouse": false,
+        "legalBasis": "4.5",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "slaveika-georgieva-galeva-98d856",
+    "declarantName": "Славейка Георгиева Галева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-07",
+    "entryNumber": "Г14528",
+    "controlHash": "FDAC7111",
+    "sourceUrl": "https://register.cacbg.bg/2024/A230919B-F530-4A60-A3F8-4CC57D142327197199.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Самоков",
+        "municipality": "Самоков",
+        "areaSqm": 163,
+        "builtAreaSqm": 239,
+        "acquiredYear": 2007,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 36714,
+        "valueEur": 18771.570126237966,
+        "holderName": "Славейка Георгиева Галева",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Сеат Ибиза",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2900,
+        "valueEur": 1482.7464554690337,
+        "holderName": "Славейка Георгиева Галева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

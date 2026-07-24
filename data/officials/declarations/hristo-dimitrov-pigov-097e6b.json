@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "hristo-dimitrov-pigov-097e6b",
+    "declarantName": "Христо Димитров Пигов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-22",
+    "entryNumber": "Г4004",
+    "controlHash": "338AFA8E",
+    "sourceUrl": "https://register.cacbg.bg/2025/21D666A4-EEEB-466E-899E-F3ADE22394E0206829.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10021.320871445881,
+        "amountEurSpouse": 10481.48356452248
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Христо Димитров Пигов",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3800,
+        "valueEur": 1942.9091485456302,
+        "holderName": "Силвия Пламенова Пигова",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

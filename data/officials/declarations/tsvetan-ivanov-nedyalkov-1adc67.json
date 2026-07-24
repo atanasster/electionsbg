@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "tsvetan-ivanov-nedyalkov-1adc67",
+    "declarantName": "ЦВЕТАН ИВАНОВ НЕДЯЛКОВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13190",
+    "controlHash": "8B7E15B0",
+    "sourceUrl": "https://register.cacbg.bg/2024/15ED0F72-73E5-4DE5-8FB5-7A6063ECC92B195090.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29312.363548979207,
+        "amountEurSpouse": 10872.621853637585
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 761.8249029823655,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "VOLVO V70",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "ЦВЕТАН ИВАНОВ НЕДЯЛКОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 61000,
+        "valueEur": 61000.18917799604,
+        "holderName": "ЦВЕТАН ИВАНОВ НЕДЯЛКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТИ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "ЦВЕТАН ИВАНОВ НЕДЯЛКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТИ"
+      }
+    ]
+  }
+]

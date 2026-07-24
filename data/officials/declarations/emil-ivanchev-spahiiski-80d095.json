@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "emil-ivanchev-spahiiski-80d095",
+    "declarantName": "Емил Иванчев Спахийски",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4583",
+    "controlHash": "994364D5",
+    "sourceUrl": "https://register.cacbg.bg/2024/BFE95817-4DA2-4583-B6EC-F19FA4F766D8185772.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23053.639631256294,
+        "amountEurSpouse": 25243.502758419698
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1616.1936364612466,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Командъровъчни средства от участие в гражданска масия на ЕС в Грузия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 33745.26415895042
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Нисан Патфайндър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Емил Иванчев Спахийски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Пасат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 33500,
+        "valueEur": 17128.278020073318,
+        "holderName": "Емил Иванчев Спахийски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шевролет Авео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2012,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 11500,
+        "valueEur": 5879.856633756513,
+        "holderName": "Емил Иванчев Спахийски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Емил Иванчев Спахийски",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "violeta-silvi-chernodrinska-cb81e0",
+    "declarantName": "ВИОЛЕТА СИЛВИ ЧЕРНОДРИНСКА",
+    "institution": "СОБАЛ \"Визус\" ООД, гр. София",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2890",
+    "controlHash": "ADD8001A",
+    "sourceUrl": "https://register.cacbg.bg/2023/48FBD776-9038-4CCA-B9AC-0F7533247539149108.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 70980.60669894623,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 7229.66720011453,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Виолета Силви Чернодринска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
+        "holderName": "Виолета Силви Чернодринска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

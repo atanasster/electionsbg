@@ -1,0 +1,166 @@
+[
+  {
+    "slug": "dimitr-petrov-nakov-68dc2e",
+    "declarantName": "Димитър Петров Наков",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1642",
+    "controlHash": "22D002F6",
+    "sourceUrl": "https://register.cacbg.bg/2019/A9BAFB94-76CC-4B17-8A7D-41B5782F29BF96002.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 192207.40043868843,
+        "amountEurSpouse": 7186.718682094047
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3092.2932974747296
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5112.918811962185
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10212,
+        "valueEur": 5221.312690775783,
+        "holderName": "Диана Стефанова Накова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дивиденти"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14400,
+        "valueEur": 7362.603089225547,
+        "holderName": "Димитър Петров Наков",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Димитър Петров Наков",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "dimitr-petrov-nakov-68dc2e",
+    "declarantName": "Димитър Петров Наков",
+    "institution": "Финсово управление на средства от ЕС",
+    "positionTitle": "Ръководител проект",
+    "category": "eu_funds_controller",
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": "2018-05-14",
+    "entryNumber": "Г1582",
+    "controlHash": "50526954",
+    "sourceUrl": "https://register.cacbg.bg/2018/A9BAFB94-76CC-4B17-8A7D-41B5782F29BF91858.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14238.967599433488,
+        "amountEurSpouse": 7102.866813577867
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4176.232085610713,
+        "amountEurSpouse": 2985.4332943047198
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 30726.596892367947
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
+        "holderName": "Димитър Петров Наков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "таблица №3.5 и заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Диана Стефанова Накова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "таблица №3.5 и дивиденти"
+      }
+    ]
+  }
+]

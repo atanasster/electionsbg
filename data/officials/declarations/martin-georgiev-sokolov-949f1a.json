@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "martin-georgiev-sokolov-949f1a",
+    "declarantName": "Мартин Георгиев Соколов",
+    "institution": "Българските граждани заемащи длъжности в НАТО",
+    "positionTitle": "Представител",
+    "category": "international",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г415",
+    "controlHash": "6807AF10",
+    "sourceUrl": "https://register.cacbg.bg/2020/582C96D4-ED62-4038-9471-7A4CB2126F76110221.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10276.966812043991,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17100,
+        "valueEur": 8743.091168455336,
+        "holderName": "Мартин Георгиев Соколов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг за лек автомобил Пежо",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17100,
+        "valueEur": 8743.091168455336,
+        "holderName": "Мартин Георгиев Соколов",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

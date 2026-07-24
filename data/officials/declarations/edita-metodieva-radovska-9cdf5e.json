@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "edita-metodieva-radovska-9cdf5e",
+    "declarantName": "Едита Методиева Радовска",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г9708",
+    "controlHash": "AC61FCF1",
+    "sourceUrl": "https://register.cacbg.bg/2025/4DFD1378-02AE-4C2C-B38F-4C2E6DBC1476212757.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12522.049462376586,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 29486.714080467118,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Петрич",
+        "municipality": "Петрич",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "acquiredYear": 2002,
+        "share": "67",
+        "currency": "BGN",
+        "amount": 5990,
+        "valueEur": 3062.638368365349,
+        "holderName": "Едита Методиева Радовска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Петрич",
+        "municipality": "Петрич",
+        "areaSqm": 84,
+        "builtAreaSqm": 84,
+        "acquiredYear": 1901,
+        "share": "84",
+        "currency": "BGN",
+        "amount": 8643,
+        "valueEur": 4419.095729178916,
+        "holderName": "Едита Методиева Радовска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ-530",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Едита Методиева Радовска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "опел-зафира",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Едита Методиева Радовска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37536,
+        "valueEur": 19191.852052581256,
+        "holderName": "Едита Методиева Радовска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

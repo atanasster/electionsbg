@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "miglena-tsekova-ivanova-9459ae",
+    "declarantName": "Миглена Цекова Иванова",
+    "institution": "КОНПИ",
+    "positionTitle": "Началник на отдел в ТД",
+    "category": "regulator",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-19",
+    "entryNumber": "Г6776",
+    "controlHash": "564B6497",
+    "sourceUrl": "https://register.cacbg.bg/2024/B7E09B98-E0EA-448A-A1A3-8C7608BF9A60188198.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17585.37296186274,
+        "amountEurSpouse": 14398.49066636671
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Миглена Цекова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3810,
+        "valueEur": 3809.635806793024,
+        "holderName": "Миглена Цекова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64225,
+        "valueEur": 32837.72106982713,
+        "holderName": "Миглена Цекова Иванова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

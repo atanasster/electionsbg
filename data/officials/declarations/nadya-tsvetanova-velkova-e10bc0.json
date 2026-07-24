@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "nadya-tsvetanova-velkova-e10bc0",
+    "declarantName": "Надя Цветанова Велкова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г12107",
+    "controlHash": "AAFBECA8",
+    "sourceUrl": "https://register.cacbg.bg/2025/4F48A9C5-7742-4F7D-8256-4E6297889F1B215264.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15952.306693322016,
+        "amountEurSpouse": 48513.418855421995
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 84,
+        "builtAreaSqm": 95,
+        "acquiredYear": 2021,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 92400,
+        "valueEur": 47243.369822530585,
+        "holderName": "Надя Цветанова Велкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 84,
+        "builtAreaSqm": 95,
+        "acquiredYear": 2021,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 92400,
+        "valueEur": 47243.369822530585,
+        "holderName": "Станислав Грозданов Велков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36400,
+        "valueEur": 18611.024475542352,
+        "holderName": "Надя Цветанова Велкова",
+        "isSpouse": false,
+        "legalBasis": "Кредит, 4.7 %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

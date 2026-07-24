@@ -61,10 +61,12 @@ export const OfficialsAssetsScreen: FC = () => {
     [t],
   );
 
+  // Filtered client-side from topOfficials rather than a precomputed per-category
+  // index — the file no longer ships one (it was a full duplicate of every row).
   const source: OfficialAssetsRankingEntry[] = useMemo(() => {
     if (!rankings) return [];
     if (filter === "all") return rankings.topOfficials;
-    return rankings.byCategory[filter] ?? [];
+    return rankings.topOfficials.filter((o) => o.category === filter);
   }, [rankings, filter]);
 
   const columns: DataTableColumns<OfficialAssetsRankingEntry, unknown> =

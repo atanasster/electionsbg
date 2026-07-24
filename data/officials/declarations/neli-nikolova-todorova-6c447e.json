@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "neli-nikolova-todorova-6c447e",
+    "declarantName": "Нели Николова Тодорова",
+    "institution": "МБАЛ - Велики Преслав ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г12222",
+    "controlHash": "BCB5C52C",
+    "sourceUrl": "https://register.cacbg.bg/2025/166CB3CC-A0DA-4AF1-9EA7-E41C0EBF8167215382.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24195.354401967452,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 58033.67368329559,
+        "amountEurSpouse": 14414.852006564988
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 54314.0252475931
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 91,
+        "builtAreaSqm": 91,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 400000,
+        "valueEur": 204516.75247848738,
+        "holderName": "Нели Николова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "собствени средства, дарение"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 28,
+        "builtAreaSqm": 28,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 88200,
+        "valueEur": 45095.94392150647,
+        "holderName": "Нели Николова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "собствени средства, дарение"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 525197,
+        "valueEur": 268528.96212861035,
+        "holderName": "Нели Николова Тодорова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, експертна дейност, пенсии, клинични изпитвания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 252166,
+        "valueEur": 128930.42851372564,
+        "holderName": "Стефан Юриев Стефанов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "договор с НЗОК, граждански договори, експертна дейност"
+      }
+    ]
+  }
+]

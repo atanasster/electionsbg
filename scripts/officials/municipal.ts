@@ -182,7 +182,7 @@ const cmd = command({
       const norm = normalize(entry.declarantName);
       if (filter && !norm.includes(filter)) continue;
 
-      const xml = await fetchDeclaration(
+      const { xml, fromCache } = await fetchDeclaration(
         entry.year,
         entry.xmlFile,
         entry.sourceUrl,
@@ -255,7 +255,9 @@ const cmd = command({
       if (processed % 250 === 0) {
         console.log(`  … processed ${processed}/${entries.length}`);
       }
-      await sleep(150);
+      // Only rate-limit real requests; a cache hit made none. Takes a warm-cache
+      // re-derive of the ~6,500-row municipal tier from ~16 min to seconds.
+      if (!fromCache) await sleep(150);
     }
 
     console.log(

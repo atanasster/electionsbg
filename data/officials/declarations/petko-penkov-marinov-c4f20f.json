@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "petko-penkov-marinov-c4f20f",
+    "declarantName": "Петко Пенков Маринов",
+    "institution": "СБР \"Света Елена 1\" ООД, Варна",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г3955",
+    "controlHash": "5E799067",
+    "sourceUrl": "https://register.cacbg.bg/2025/EB26377A-A921-4EE4-8B68-738B574F017E206779.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружествени дялове",
+        "shareSize": "10",
+        "companyName": "\"Кибела 28\"  ЕООД",
+        "registeredOffice": "Варна",
+        "valueEur": 511.29188119621847,
+        "holderName": "Петко Пенков Маринов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 230848.79565197384
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 266050.2190885711,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1239.3715200196336,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6012.792522867529
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
+        "holderName": "Петко Пенков Маринов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37000,
+        "valueEur": 18917.799604260083,
+        "holderName": "Нели Тодорова Маринова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108032,
+        "valueEur": 55235.88450938988,
+        "holderName": "Петко Пенков Маринов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 276519,
+        "valueEur": 141381.91969649715,
+        "holderName": "Нели Тодоронва Маринова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

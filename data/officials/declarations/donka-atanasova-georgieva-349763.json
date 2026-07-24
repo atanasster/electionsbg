@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "donka-atanasova-georgieva-349763",
+    "declarantName": "Донка Атанасова Георгиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-24",
+    "entryNumber": "Г5333",
+    "controlHash": "126BF323",
+    "sourceUrl": "https://register.cacbg.bg/2024/ACB1D1D9-3CB1-43DB-8F81-774330FA4DB0186571.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20641.875827653734,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген Туран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Донка Атанасова Георгиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген Туран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Костадин Иванов Георгиев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

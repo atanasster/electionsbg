@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "georgi-ivanov-petrov-fefed4",
+    "declarantName": "Георги Иванов Петров",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г11287",
+    "controlHash": "22000381",
+    "sourceUrl": "https://register.cacbg.bg/2025/6A1E82B3-87A1-4FE4-BAAF-C3AC50FD1E67214422.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16552.052069965182,
+        "amountEurSpouse": 14009.397544776386
+      },
+      {
+        "parent": null,
+        "category": "доходи от продажба на автомобил",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4090.3350495697478
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "фолксваген тигуан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Силвия Руменова Георгиева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48000,
+        "valueEur": 24542.01029741849,
+        "holderName": "Георги Иванов Петров",
+        "isSpouse": false,
+        "legalBasis": "договор з акредит, лихва 5,5%",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "georgi-ivanov-petrov-fefed4",
+    "declarantName": "Георги Иванов Петров",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г8109",
+    "controlHash": "A74CEBD4",
+    "sourceUrl": "https://register.cacbg.bg/2024/6A1E82B3-87A1-4FE4-BAAF-C3AC50FD1E67189725.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21181.80005419694,
+        "amountEurSpouse": 2724.163143013452
+      }
+    ],
+    "assets": []
+  }
+]

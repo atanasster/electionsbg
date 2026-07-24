@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "veselin-petrov-vasilev-a6b0d3",
+    "declarantName": "ВЕСЕЛИН ПЕТРОВ ВАСИЛЕВ",
+    "institution": "ОД МВР Сливен",
+    "positionTitle": "Заместник-директор",
+    "category": "security_service",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2019-10-24",
+    "entryNumber": "Г338",
+    "controlHash": "D33DFEEE",
+    "sourceUrl": "https://register.cacbg.bg/2020/019CABB0-C55E-4297-8FE2-24E11AB813D6110127.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12637.090135645736,
+        "amountEurSpouse": 10582.71935699933
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Сливен",
+        "municipality": "Сливен",
+        "areaSqm": 85,
+        "builtAreaSqm": 85,
+        "acquiredYear": 2018,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 55000,
+        "valueEur": 28121.053465792018,
+        "holderName": "ВЕСЕЛИН ПЕТРОВ ВАСИЛЕВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "продажба на имот"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "ВЕСЕЛИН ПЕТРОВ ВАСИЛЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22500,
+        "valueEur": 11504.067326914916,
+        "holderName": "ВЕСЕЛИН ПЕТРОВ ВАСИЛЕВ",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "КРАСИМИРА СЛАВЕЙКОВА ЕЛЕНКОВА",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

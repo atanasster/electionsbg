@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "nedzhibe-ali-durlova-0b97e0",
+    "declarantName": "Неджибе Али Дурльова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7954",
+    "controlHash": "7D8BBDC0",
+    "sourceUrl": "https://register.cacbg.bg/2025/945D667C-95B5-4A10-894D-2C6FD394787B210959.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19699.053598727907,
+        "amountEurSpouse": 19342.171865652945
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Неджибе Али Дурльова",
+        "isSpouse": false,
+        "legalBasis": "Договор ДК-491-022474-31-29, 6,55%",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "nedzhibe-ali-durlova-0b97e0",
+    "declarantName": "Неджибе Али Дурльова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-10",
+    "entryNumber": "Г10557",
+    "controlHash": "5946FD6B",
+    "sourceUrl": "https://register.cacbg.bg/2024/945D667C-95B5-4A10-894D-2C6FD394787B192258.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1955.6914455755357,
+        "amountEurSpouse": 1953.1349861695546
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "бус",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Мехмед Билялов Дурльов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "бус",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Неджибе Али Дурльова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

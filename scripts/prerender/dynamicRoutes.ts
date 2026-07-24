@@ -1,6 +1,11 @@
 import fs from "fs";
 import path from "path";
-import { OFFICIAL_CATEGORY_LABELS } from "../../src/lib/officialCategoryLabels";
+import type { OfficialCategoryKind } from "../../src/data/dataTypes";
+import {
+  OFFICIAL_CATEGORY_LABELS,
+  officialsForStaticPages,
+} from "../../src/lib/officialCategoryLabels";
+import { OFFICIALS_STATIC_PAGE_LIMIT } from "../../src/lib/officialCategoryLabels";
 import {
   CandidatesInfo,
   ElectionInfo,
@@ -3137,7 +3142,7 @@ export const buildOfficialRoutes = (projectRoot: string): PrerenderRoute[] => {
   type RankingEntry = {
     slug: string;
     name: string;
-    category: string;
+    category: OfficialCategoryKind;
     institution: string;
     positionTitle: string | null;
     latestDeclarationYear: number;
@@ -3150,8 +3155,17 @@ export const buildOfficialRoutes = (projectRoot: string): PrerenderRoute[] => {
   } catch {
     return [];
   }
+  // Cap the prerendered set. The register-wide ingest takes topOfficials from
+  // ~1,500 to 14,490, and each official emits a BG and an EN page — ~29,000 new
+  // static files against a deploy that has already hit Firebase's file ceiling
+  // once. Public-office tiers first, then by declared wealth within tier (see
+  // officialsForStaticPages); the operational bulk stays SPA-rendered and
+  // DB-served. The full per-person SEO strategy is T1.8 in the audit plan.
   const out: PrerenderRoute[] = [];
-  for (const o of rankings.topOfficials) {
+  for (const o of officialsForStaticPages(
+    rankings.topOfficials,
+    OFFICIALS_STATIC_PAGE_LIMIT,
+  )) {
     const slug = o.slug;
     const path_ = `officials/${slug}`;
     const url = `${SITE_URL}/${path_}`;

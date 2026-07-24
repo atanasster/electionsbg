@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "zhulver-redzheb-redzheb-64df6a",
+    "declarantName": "Жулвер Реджеб Реджеб",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г9856",
+    "controlHash": "D0094423",
+    "sourceUrl": "https://register.cacbg.bg/2025/FB606D8A-ED08-474C-8D18-F2C599E8A54A212914.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8047.734210028479,
+        "amountEurSpouse": 5717.265815536115
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 17393.12721453296
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5365.497001273116
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17279,
+        "valueEur": 8834.61241518946,
+        "holderName": "Жулвер Реджеб Реджеб",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 87942,
+        "valueEur": 44964.03061615785,
+        "holderName": "Бюлент Реджеб Реджеб",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "субсидии  - земеделски производител"
+      }
+    ]
+  }
+]

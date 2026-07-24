@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "dobromir-iliyanov-adamov-4b1c87",
+    "declarantName": "Добромир  Илиянов  Адамов",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-19",
+    "entryNumber": "Г11563",
+    "controlHash": "A6B7C1CF",
+    "sourceUrl": "https://register.cacbg.bg/2024/D21A86E0-D452-47E8-9A71-372D4665D80E193326.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23685.59639641482,
+        "amountEurSpouse": 10904.321950271751
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1533.3643517074593,
+        "amountEurSpouse": 613.5502574354622
+      },
+      {
+        "parent": null,
+        "category": "пенсии",
+        "amountEurDeclarant": 11852.768389890736,
+        "amountEurSpouse": 4476.871711754089
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23182,
+        "valueEur": 11852.768389890736,
+        "holderName": "Добромир  Илиянов  Адамов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата  ипенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30083,
+        "valueEur": 15381.19366202584,
+        "holderName": "Диана  Смилкова  Адамова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и  пенсия"
+      }
+    ]
+  }
+]

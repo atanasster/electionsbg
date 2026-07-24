@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "todor-radev-dimitrov-1c82a2",
+    "declarantName": "Тодор Радев Димитров",
+    "institution": "Търговски дружества",
+    "positionTitle": "Представител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г11089",
+    "controlHash": "03E8C98B",
+    "sourceUrl": "https://register.cacbg.bg/2024/BC00AD61-C215-4BAA-9068-C1747F672CE0192815.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10518.296579968606,
+        "amountEurSpouse": 23875.796976219815
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1145.8051057607256
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16952,
+        "valueEur": 8667.419970038296,
+        "holderName": "Тодор Радев Димитров",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13245,
+        "valueEur": 6772.0609664439135,
+        "holderName": "Иванка Любомирова Димитрова",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6200,
+        "valueEur": 3170.0096634165548,
+        "holderName": "Тодор Радев Димитров",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

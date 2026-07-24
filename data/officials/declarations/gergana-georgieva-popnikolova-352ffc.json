@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "gergana-georgieva-popnikolova-352ffc",
+    "declarantName": "ГЕРГАНА ГЕОРГИЕВА ПОПНИКОЛОВА",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г13336",
+    "controlHash": "FE86F220",
+    "sourceUrl": "https://register.cacbg.bg/2025/6931581B-AA72-492F-AD3F-6D28A9A93598216541.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13277.227570903402,
+        "amountEurSpouse": 9488.554731239423
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "gergana-georgieva-popnikolova-352ffc",
+    "declarantName": "Гергана Георгиева Попниколова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-09",
+    "entryNumber": "Г10395",
+    "controlHash": "EF6AF4FC",
+    "sourceUrl": "https://register.cacbg.bg/2024/6931581B-AA72-492F-AD3F-6D28A9A93598192089.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Баня",
+        "municipality": "Разлог",
+        "areaSqm": 394,
+        "builtAreaSqm": 50,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
+        "holderName": "Гергана Георгиева Попниколова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел Зафира",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Красимир Христов Попниколов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "aneta-tsvetkova-hristova-a3c4f6",
+    "declarantName": "Анета Цветкова Христова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г10640",
+    "controlHash": "9820CBE2",
+    "sourceUrl": "https://register.cacbg.bg/2025/6A8B60CE-307D-45B1-9EFE-F4745D5ECE0F213738.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26959.909603595406,
+        "amountEurSpouse": 14484.89899428887
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 608.4373386235,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60788,
+        "valueEur": 31080.41087415573,
+        "holderName": "Анета Цветкова Христова",
+        "isSpouse": false,
+        "legalBasis": "6",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59795,
+        "valueEur": 30572.698036127884,
+        "holderName": "Христо Стефанов Христов",
+        "isSpouse": true,
+        "legalBasis": "6",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "galya-iordanova-todorova-6bb048",
+    "declarantName": "Галя Йорданова Тодорова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-10",
+    "entryNumber": "Г368",
+    "controlHash": "A57659DD",
+    "sourceUrl": "https://register.cacbg.bg/2024/931E8236-BEE7-4900-95CC-00BB3475B750181161.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22475.87980550457,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5703.972226625014
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "с. Басарбово",
+        "municipality": "Русе",
+        "areaSqm": 90,
+        "builtAreaSqm": 90,
+        "acquiredYear": 1983,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Галя Йорданова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "договор за гледане",
+        "fundsOrigin": "договор за гледане"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Басарбово",
+        "municipality": "Русе",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "acquiredYear": 1997,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Галя Йорданова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23136,
+        "valueEur": 11829.24896335571,
+        "holderName": "Галя Йорданова Тодорова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

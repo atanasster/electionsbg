@@ -1,43 +1,21 @@
-// Per-official lookup hooks. Two flavours:
-//
-//   useOfficial(slug)
-//     → the index entry (name, role, institution) for one official, derived
-//       from the already-cached officials assets-rankings file. Cheap;
-//       no network call beyond the rankings fetch which most pages already
-//       trigger.
+// Per-official declaration hooks.
 //
 //   useOfficialDeclarations(slug)
 //     → the full declarations timeline for one official, lazy-fetched as a
-//       per-slug JSON file. Useful for the profile page that lists every
-//       year's filing, plus their nested asset / income / ownership tables.
+//       per-slug JSON file. The profile page renders everything off this — name,
+//       institution, title, the category now carried on the shard, and the
+//       nested asset / income / ownership tables.
+//
+// There used to be a `useOfficial(slug)` here that scanned the whole-corpus
+// rankings file (~8 MB after the register-wide ingest) to pull one row for a
+// category label. The label now travels on the declaration shard, so the
+// profile page fetches nothing extra; the rankings file is only for the
+// /officials/assets leaderboard, which genuinely needs every row.
 
-import { useMemo } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
-import type {
-  OfficialAssetsRankingEntry,
-  OfficialDeclaration,
-} from "@/data/dataTypes";
+import type { OfficialDeclaration } from "@/data/dataTypes";
 import { dataUrl } from "@/data/dataUrl";
-import { useOfficialsRankings } from "./useOfficialsRankings";
 import { byRecency } from "@/lib/declarations";
-
-/** Returns the rankings entry for a single official slug. The rankings file
- *  is the easiest source for the SPA — it already carries name, role,
- *  institution, and latest declared net worth in one place. Returns null
- *  until the file loads or when the slug is unknown. */
-export const useOfficial = (
-  slug?: string | null,
-): {
-  official: OfficialAssetsRankingEntry | null;
-  isLoading: boolean;
-} => {
-  const { rankings, isLoading } = useOfficialsRankings();
-  const official = useMemo(() => {
-    if (!slug || !rankings) return null;
-    return rankings.topOfficials.find((o) => o.slug === slug) ?? null;
-  }, [slug, rankings]);
-  return { official, isLoading };
-};
 
 // Executive and municipal officials live in separate per-slug declaration
 // trees. Slugs are name+institution hashed so they do not collide across

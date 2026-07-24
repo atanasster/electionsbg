@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "tatyana-dimitrova-paziiska-a4f6fc",
+    "declarantName": "Татяна Димитрова Пазийска",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Контрольор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-21",
+    "entryNumber": "Г2839",
+    "controlHash": "81FE7D37",
+    "sourceUrl": "https://register.cacbg.bg/2025/9CCCE8BC-3200-46B5-A7AE-5613A8FA66CC205547.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12335.939217621164,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2569.2417030109978,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 83,
+        "builtAreaSqm": 83,
+        "acquiredYear": 1976,
+        "share": "2/3",
+        "currency": "BGN",
+        "amount": 17000,
+        "valueEur": 8691.961980335715,
+        "holderName": "Татяна Димитрова Пазийска",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Свиленград",
+        "municipality": "Свиленград",
+        "areaSqm": 600,
+        "builtAreaSqm": 60,
+        "acquiredYear": 2001,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Татяна Димитрова Пазийска",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ]
+  }
+]

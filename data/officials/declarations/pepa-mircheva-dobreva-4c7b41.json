@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "pepa-mircheva-dobreva-4c7b41",
+    "declarantName": "Пепа Мирчева Добрева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7221",
+    "controlHash": "38AA04B6",
+    "sourceUrl": "https://register.cacbg.bg/2025/013CB5B8-239F-4912-8BA6-B2FE226289FF210209.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31630.049646441665,
+        "amountEurSpouse": 6350.245164457034
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "опел корса",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Момчил Маринов Добрев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 128000,
+        "valueEur": 65445.360793115964,
+        "holderName": "Пепа Мирчева Добрева",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Момчил МариновДобрев",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

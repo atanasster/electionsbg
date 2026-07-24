@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "ioanna-petkova-dimitrova-3741c8",
+    "declarantName": "Йоанна Петкова Димитрова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г14308",
+    "controlHash": "E5EE2B11",
+    "sourceUrl": "https://register.cacbg.bg/2025/F2D2D247-F51D-49A5-9DD1-104714898EC4217594.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26996.211327160338,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11510.20282948927,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 86,
+        "builtAreaSqm": 86,
+        "acquiredYear": 2012,
+        "share": "86",
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Йоанна Петкова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Влас",
+        "municipality": "Бургас",
+        "areaSqm": 76,
+        "builtAreaSqm": 76,
+        "acquiredYear": 2020,
+        "share": "76",
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Йоанна Петкова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "КИА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "Йоанна Петкова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фиат 500",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Йоанна Петкова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      }
+    ]
+  }
+]

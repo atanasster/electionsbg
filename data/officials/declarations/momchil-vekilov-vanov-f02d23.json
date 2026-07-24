@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "momchil-vekilov-vanov-f02d23",
+    "declarantName": "Момчил Векилов Ванов",
+    "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
+    "positionTitle": "Член на Съвета на директорите",
+    "category": "state_enterprise",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2167",
+    "controlHash": "B880AF6B",
+    "sourceUrl": "https://register.cacbg.bg/2022/B98C13EA-60B2-4CAF-8787-F887196A0AAE134258.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32071.805831795198,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 48835.02144869442,
+        "amountEurSpouse": 25871.369188528657
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 130000,
+        "valueEur": 66467.94455550841,
+        "holderName": "Момчил Векилов Ванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 85000,
+        "valueEur": 43459.80990167857,
+        "holderName": "Ваня Вълкова Вълкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 19500,
+        "valueEur": 18000.03067751287,
+        "holderName": "Ваня Вълкова Вълкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Момчил Векилов Ванов",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "security",
+        "description": "Криптовалута",
+        "detail": "XRP",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "300000",
+        "currency": "BGN",
+        "amount": 92000,
+        "valueEur": 47038.8530700521,
+        "holderName": "Момчил Векилов Ванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

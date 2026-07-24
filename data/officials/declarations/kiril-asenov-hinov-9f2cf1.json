@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "kiril-asenov-hinov-9f2cf1",
+    "declarantName": "КИРИЛ АСЕНОВ ХИНОВ",
+    "institution": "МБАЛ - Поморие ЕООД",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-14",
+    "entryNumber": "Г5777",
+    "controlHash": "5FD9DA13",
+    "sourceUrl": "https://register.cacbg.bg/2023/7855FE65-C483-44C1-974C-554E033027C1152300.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29179.938951749384,
+        "amountEurSpouse": 17955.036991967605
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 32418.97301912743,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ДОГОВОР ЗА ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72400,
+        "valueEur": 37017.53219860622,
+        "holderName": "КИРИЛ АСЕНОВ ХИНОВ",
+        "isSpouse": false,
+        "legalBasis": "ЛИЗИНГ BMW X3",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11929,
+        "valueEur": 6099.200850789691,
+        "holderName": "КИРИЛ АСЕНОВ ХИНОВ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

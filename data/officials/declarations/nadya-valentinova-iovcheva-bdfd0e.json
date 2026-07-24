@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "nadya-valentinova-iovcheva-bdfd0e",
+    "declarantName": "Надя Валентинова Йовчева",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-09",
+    "entryNumber": "Г6231",
+    "controlHash": "896F8906",
+    "sourceUrl": "https://register.cacbg.bg/2024/2126E70F-5002-4FD5-96A2-501DABFEFF0C187545.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1788.4990004243723,
+        "amountEurSpouse": 1124.8421386316807
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Х.Димитър,бл.27",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "acquiredYear": 2020,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 137000,
+        "valueEur": 70046.98772388193,
+        "holderName": "Надя Валентинова Йовчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Х.Димитър,бл.27",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "acquiredYear": 2020,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 137000,
+        "valueEur": 70046.98772388193,
+        "holderName": "Димитър Иванов Йовчев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек  автомобил",
+        "detail": "BMW",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "Надя Валентинова Йовчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]
