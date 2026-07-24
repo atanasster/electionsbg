@@ -40,6 +40,7 @@ import {
   consumptionMenu,
 } from "./reportMenus";
 import { Search } from "../search/Search";
+import { FollowingHeaderLink } from "./FollowingHeaderLink";
 import { ElectionsSelect } from "./ElectionsSelect";
 import { Logo } from "./Logo";
 import { CabinetAnchorPill } from "./CabinetAnchorPill";
@@ -400,6 +401,7 @@ export const Header = () => {
       <div className="flex shrink-0 justify-end gap-1 sm:gap-2 items-center px-2 sm:px-3">
         <AreaSniperButton />
         <Search />
+        <FollowingHeaderLink />
         {electionsMenu.map((topMenu, idx) => (
           <RenderTopMenu
             key={`elec-${topMenu.title}-${idx}`}

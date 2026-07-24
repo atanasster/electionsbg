@@ -22,7 +22,6 @@ import { PersonDeclarationEvents } from "./PersonDeclarationEvents";
 import { PersonStakeProcurement } from "./PersonStakeProcurement";
 import { PersonCohortBenchmark } from "./PersonCohortBenchmark";
 import { PersonFollowButton } from "./PersonFollowButton";
-import { WatchlistFilings } from "./WatchlistFilings";
 import { PersonCompanies } from "./PersonCompanies";
 import {
   PersonConnections,
@@ -165,7 +164,10 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   // /local/:cycle/:obshtinaCode (SOF resolves the synthetic Sofia city bundle).
   // Only `local`-source rows carry that ref — an officials-roster row with a
   // place has no local-election page, so it stays plain text.
-  const localOfficeHref = (r: { source: string; ref: string }): string | null => {
+  const localOfficeHref = (r: {
+    source: string;
+    ref: string;
+  }): string | null => {
     if (r.source !== "local") return null;
     const [cycle, obshtinaCode] = r.ref.split(":");
     if (!cycle || !obshtinaCode) return null;
@@ -362,9 +364,9 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
           docs/methodology/accumulation-gap.md. */}
       <PersonAccumulationGap slug={p.slug} />
 
-      {/* New declarations from everyone this reader follows (T3.10). Browser-local list;
-          self-hides when nobody is followed or nothing new arrived. */}
-      <WatchlistFilings />
+      {/* The new-filing watchlist feed moved to its own /following route (audit gap C1) —
+          it showed OTHER people's filings and duplicated this subject's own. The follow
+          button stays, in PersonHeader's action row. */}
 
       {/* Declared wealth against peers in the SAME office and year (T3.9). Not the
           accumulation gap: both sides are self-declared and no origin is implied. The

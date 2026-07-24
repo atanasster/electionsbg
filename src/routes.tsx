@@ -88,6 +88,11 @@ const PersonScreen = lazy(() =>
     default: m.PersonProfileScreen,
   })),
 );
+const FollowingScreen = lazy(() =>
+  import("@/screens/person/FollowingScreen").then((m) => ({
+    default: m.FollowingScreen,
+  })),
+);
 
 // DB-backed company page (/db/company/:eik) — works for any TR company, incl. the
 // ~1M with no procurement JSON shard. Same /api/db serving path.
@@ -3733,6 +3738,18 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <SqlBrowserScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          {/* The watchlist feed (audit gap C1). Browser-local + noindex; never
+              prerendered and absent from the sitemap. */}
+          <Route
+            path="following"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <FollowingScreen />
                 </Suspense>
               </LayoutScreen>
             }
